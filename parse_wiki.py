@@ -875,6 +875,56 @@ def main():
 
     print(f"  Mapped {redirect_count} redirects to people")
 
+    # --- Step 4c: Fix Bayanne IDs ---
+    # Cross-referenced against live Bayanne site on 2026-03-26.
+    # DB2 has wrong IDs for 30 people (DB1 was correct); DB2 was correct for 4.
+    print("\n=== Fixing Bayanne IDs ===")
+    bayanne_corrections = {
+        'Adam_Jamieson': 'I102720',
+        'Alexander_Manson': 'I168141',
+        'Andrew_Clark': 'I71829',
+        'Arthur_White': 'I134528',
+        'Charles_Robertson': 'I11326',
+        'Charles_Stout': 'I25918',
+        'Christopher_Sandison': 'I11970',
+        'George_Tait': 'I10054',
+        'James_Goodlad': 'I45507',
+        'James_Goudie': 'I68965',
+        'James_Irvine_(i)': 'I154415',
+        'James_Jamieson_(i)': 'I173602',
+        'James_Pottinger_(iii)': 'I28933',      # DB2 correct
+        'John_Anderson': 'I87228',
+        'John_Irvine_(iii)': 'I92038',
+        'John_Leisk': 'I10067',
+        'John_Meiklejohn': 'I268290',
+        'John_Robertson_(iii)': 'I120463',       # DB2 correct
+        'John_Sinclair': 'I119064',
+        'John_Stewart': 'I23844',
+        'Laurence_Sandison': 'I93633',
+        'Laurence_Smith': 'I225276',
+        'Robert_Deans': 'I45555',
+        'Robert_Ganson_(i)': 'I84530',
+        'Robert_Johnson_(i)': 'I34247',
+        'Robert_Ollason': 'I27257',
+        'Robert_Stout_(i)': 'I86036',
+        'Sinclair_Johnson': 'I44151',
+        'Thomas_Gifford': 'I10610',              # DB2 correct (actually same value)
+        'William_Adie': 'I9136',
+        'William_Bruce_(ii)': 'I34310',
+        'William_Greig': 'I26112',
+        'William_Smith_(ii)': 'I11002',
+        'William_Tait': 'I55663',                # DB2 correct
+    }
+    fix_count = 0
+    for wiki_title, correct_id in bayanne_corrections.items():
+        sqlite_cursor.execute(
+            "UPDATE people SET bayanne_id = ? WHERE wiki_page_title = ? AND bayanne_id != ?",
+            (correct_id, wiki_title, correct_id)
+        )
+        if sqlite_cursor.rowcount > 0:
+            fix_count += 1
+    print(f"  Fixed {fix_count} Bayanne IDs")
+
     # --- Step 5: Import elections and candidacies ---
     print("\n=== Importing elections ===")
     election_count = 0
