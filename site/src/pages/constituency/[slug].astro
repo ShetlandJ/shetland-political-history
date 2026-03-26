@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllConstituencies, getConstituencyBySlug, getElectionsForConstituency, getCandidaciesForElection, getAllElections } from '../../lib/db';
+
+export function getStaticPaths() {
+  const constituencies = getAllConstituencies();
+  return constituencies.map(c => ({ params: { slug: c.slug } }));
+}
+
+const { slug } = Astro.params;
+const constituency = getConstituencyBySlug(slug!);
+if (!constituency) return Astro.redirect('/');
+
+const elections = getElectionsForConstituency(constituency.id);
+
+// Build election page ID lookup
+const allElections = getAllElections();
+const pageIdMap = new Map<string, number>();
+for (const e of allElections) {
+  if (!pageIdMap.has(e.wiki_page_title)) {
+    pageIdMap.set(e.wiki_page_title, e.id);
+  }
+}
+
+function formatYear(d: string | null): string {
+  if (!d) return '?';
+  return d.substring(0, 4);
+}
+---
+<Base title={constituency.name}>
+  <div class="breadcrumb">
+    <a href="/">Home</a> &rsaquo;
+    <a href="/constituencies">Constituencies</a> &rsaquo;
+    {constituency.name}
+  </div>
+
+  <h1>{constituency.name}</h1>
+  <p class="meta">{constituency.council_name} &middot; {elections.length} elections</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Type</th>
+        <th>Winner</th>
+        <th>Votes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {elections.map(e => {
+        const candidacies = getCandidaciesForElection(e.id);
+        const winner = candidacies.find(c => c.elected);
+        const electionPageId = pageIdMap.get(e.wiki_page_title);
+        return (
+          <tr>
+            <td>
+              {electionPageId
+                ? <a href={`/election/${electionPageId}`}>{formatYear(e.election_date)}</a>
+                : formatYear(e.election_date)}
+            </td>
+            <td><span class={`badge badge-${e.election_type}`}>{e.election_type}</span></td>
+            <td>
+              {winner
+                ? (winner.person_slug
+                    ? <a href={`/person/${winner.person_slug}`}>{winner.candidate_name}</a>
+                    : winner.candidate_name)
+                : (e.notes || 'No data')}
+            </td>
+            <td>{winner?.votes?.toLocaleString() || winner?.votes_text || ''}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</Base>

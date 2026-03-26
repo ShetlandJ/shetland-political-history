@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllCouncils, getElectionCount, getPersonCount, getCandidacyCount } from '../lib/db';
+
+const councils = getAllCouncils();
+const electionCount = getElectionCount();
+const personCount = getPersonCount();
+const candidacyCount = getCandidacyCount();
+---
+<Base title="Home">
+  <h1>Shetland Political History</h1>
+  <p class="meta">
+    {electionCount} elections &middot; {personCount} people &middot; {candidacyCount.toLocaleString()} candidacies
+  </p>
+
+  <p>A structured database of Shetland's political history from 1707 to 2012, covering local councils, county councils, and Westminster elections.</p>
+
+  <div class="grid-cards">
+    {councils.map(council => (
+      <a href={`/council/${council.slug}`} class="card">
+        <h3>{council.name}</h3>
+        <p class="count">{council.level}</p>
+      </a>
+    ))}
+    <a href="/people" class="card">
+      <h3>People</h3>
+      <p class="count">{personCount} councillors and politicians</p>
+    </a>
+    <a href="/constituencies" class="card">
+      <h3>Constituencies</h3>
+      <p class="count">Electoral wards and divisions</p>
+    </a>
+  </div>
+</Base>

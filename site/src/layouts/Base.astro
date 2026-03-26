@@ -1,0 +1,243 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Shetland political history database - elections, councillors, and constituencies from 1707 to present.' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content={description}>
+  <title>{title} | Shetland Political History</title>
+  <style is:global>
+    :root {
+      --bg: #fafaf8;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: #ddd;
+      --accent: #2c5aa0;
+      --accent-light: #e8f0fe;
+      --success: #2d6a2d;
+      --danger: #8b2020;
+      --table-header: #8da7d6;
+      --max-width: 960px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      border-bottom: 2px solid var(--border);
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+    }
+
+    header nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    header .site-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    header .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+
+    header .nav-search {
+      padding: 0.35rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      width: 180px;
+      background: white;
+    }
+
+    header .nav-search:focus {
+      outline: none;
+      border-color: var(--accent);
+      width: 260px;
+      transition: width 0.2s;
+    }
+
+    main {
+      padding-bottom: 3rem;
+    }
+
+    h1 { font-size: 1.8rem; margin-bottom: 1rem; }
+    h2 { font-size: 1.4rem; margin: 1.5rem 0 0.75rem; }
+    h3 { font-size: 1.1rem; margin: 1rem 0 0.5rem; }
+
+    p { margin-bottom: 0.75rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: var(--table-header);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 0.4rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:hover td {
+      background: var(--accent-light);
+    }
+
+    .elected { color: var(--success); font-weight: 600; }
+    .not-elected { color: var(--muted); }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .badge-general { background: #d4edda; color: #155724; }
+    .badge-by-election { background: #fff3cd; color: #856404; }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb a { color: var(--muted); }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .election-list {
+      list-style: none;
+    }
+
+    .election-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .election-list .date {
+      color: var(--muted);
+      font-size: 0.85rem;
+      min-width: 6rem;
+      display: inline-block;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+    }
+
+    .card h3 { margin-top: 0; }
+    .card .count { color: var(--muted); font-size: 0.85rem; }
+
+    .bio-text {
+      max-width: 680px;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="site-title">Shetland Political History</a>
+        <div class="nav-links">
+          <a href="/council/lerwick-town-council">Lerwick TC</a>
+          <a href="/council/zetland-county-council">Zetland CC</a>
+          <a href="/council/shetland-islands-council">SIC</a>
+          <a href="/council/parliament-uk">Westminster</a>
+          <a href="/people">People</a>
+          <a href="/constituencies">Constituencies</a>
+          <form action="/search" method="get" style="margin:0;">
+            <input type="text" name="q" class="nav-search" placeholder="Search..." aria-label="Search" />
+          </form>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <slot />
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      Shetland Political History. Data sourced from shetlandhistory.com wiki.
+    </div>
+  </footer>
+</body>
+</html>

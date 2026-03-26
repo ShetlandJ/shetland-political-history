@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllPeople, getAllElections, getAllConstituencies, getAllCouncils } from '../lib/db';
+
+// Build search index at build time
+const people = getAllPeople().map(p => ({
+  type: 'person',
+  name: p.name,
+  slug: p.slug,
+  meta: [p.born_date?.substring(0, 4), p.died_date?.substring(0, 4), p.birth_place].filter(Boolean).join(' · '),
+  url: `/person/${p.slug}`,
+}));
+
+const elections = getAllElections();
+const seenPages = new Set<string>();
+const electionItems: any[] = [];
+for (const e of elections) {
+  if (seenPages.has(e.wiki_page_title)) continue;
+  seenPages.add(e.wiki_page_title);
+  const council = getAllCouncils().find(c => c.id === e.council_id);
+  electionItems.push({
+    type: 'election',
+    name: e.wiki_page_title.replace(/_/g, ' '),
+    slug: '',
+    meta: [council?.name, e.election_type, e.election_date?.substring(0, 4)].filter(Boolean).join(' · '),
+    url: `/election/${e.id}`,
+  });
+}
+
+const constituencies = getAllConstituencies().map(c => ({
+  type: 'constituency',
+  name: c.name,
+  slug: c.slug,
+  meta: c.council_name,
+  url: `/constituency/${c.slug}`,
+}));
+
+const searchIndex = [...people, ...electionItems, ...constituencies];
+---
+<Base title="Search">
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Search</div>
+  <h1>Search</h1>
+
+  <input
+    type="text"
+    id="search-input"
+    class="search-input"
+    placeholder="Search people, elections, constituencies..."
+    autofocus
+  />
+
+  <div id="result-count" class="meta" style="display:none;"></div>
+
+  <div id="results"></div>
+
+  <script define:vars={{ searchIndex }}>
+    const input = document.getElementById('search-input');
+    const resultsDiv = document.getElementById('results');
+    const countDiv = document.getElementById('result-count');
+
+    const typeLabels = {
+      person: 'Person',
+      election: 'Election',
+      constituency: 'Constituency',
+    };
+
+    const typeBadgeClass = {
+      person: 'badge-person',
+      election: 'badge-election',
+      constituency: 'badge-constituency',
+    };
+
+    function search(query) {
+      if (!query || query.length < 2) {
+        resultsDiv.innerHTML = '';
+        countDiv.style.display = 'none';
+        return;
+      }
+
+      const terms = query.toLowerCase().split(/\s+/);
+      const scored = [];
+
+      for (const item of searchIndex) {
+        const haystack = (item.name + ' ' + item.meta).toLowerCase();
+        let matched = true;
+        let score = 0;
+
+        for (const term of terms) {
+          if (!haystack.includes(term)) {
+            matched = false;
+            break;
+          }
+          // Boost exact name matches
+          if (item.name.toLowerCase().includes(term)) score += 2;
+          // Boost start-of-word matches
+          if (item.name.toLowerCase().startsWith(term)) score += 3;
+        }
+
+        if (matched) {
+          scored.push({ ...item, score });
+        }
+      }
+
+      scored.sort((a, b) => b.score - a.score);
+      const top = scored.slice(0, 50);
+
+      countDiv.textContent = `${scored.length} result${scored.length !== 1 ? 's' : ''}`;
+      countDiv.style.display = 'block';
+
+      if (top.length === 0) {
+        resultsDiv.innerHTML = '<p class="meta">No results found.</p>';
+        return;
+      }
+
+      resultsDiv.innerHTML = '<ul class="election-list">' + top.map(item => `
+        <li>
+          <span class="badge ${typeBadgeClass[item.type]}">${typeLabels[item.type]}</span>
+          <a href="${item.url}">${item.name}</a>
+          ${item.meta ? `<span class="meta" style="margin-left: 0.5rem;">${item.meta}</span>` : ''}
+        </li>
+      `).join('') + '</ul>';
+    }
+
+    input.addEventListener('input', (e) => search(e.target.value));
+
+    // Support ?q= query param
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (q) {
+      input.value = q;
+      search(q);
+    }
+  </script>
+
+  <style>
+    .badge-person { background: #d4edda; color: #155724; }
+    .badge-election { background: #cce5ff; color: #004085; }
+    .badge-constituency { background: #fff3cd; color: #856404; }
+    .badge { margin-right: 0.5rem; }
+  </style>
+</Base>

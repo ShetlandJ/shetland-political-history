@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllConstituencies } from '../lib/db';
+
+const constituencies = getAllConstituencies();
+
+// Group by council
+const byCouncil: Record<string, typeof constituencies> = {};
+for (const c of constituencies) {
+  if (!byCouncil[c.council_name]) byCouncil[c.council_name] = [];
+  byCouncil[c.council_name].push(c);
+}
+---
+<Base title="Constituencies">
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Constituencies</div>
+  <h1>Constituencies</h1>
+  <p class="meta">{constituencies.length} electoral wards and divisions</p>
+
+  {Object.entries(byCouncil).map(([councilName, items]) => (
+    <div>
+      <h2>{councilName}</h2>
+      <div class="grid-cards">
+        {items.map(c => (
+          <a href={`/constituency/${c.slug}`} class="card">
+            <h3>{c.name}</h3>
+          </a>
+        ))}
+      </div>
+    </div>
+  ))}
+</Base>

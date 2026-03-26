@@ -1,0 +1,197 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson } from '../../lib/db';
+
+export function getStaticPaths() {
+  const people = getAllPeople();
+  return people.map(p => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const person = getPersonBySlug(slug!);
+if (!person) return Astro.redirect('/');
+
+const candidacies = getCandidaciesForPerson(person.id);
+const tenures = getTenuresForPerson(person.id);
+
+// Build election page ID lookup: wiki_page_title -> first election id
+const allElections = getAllElections();
+const pageIdMap = new Map<string, number>();
+for (const e of allElections) {
+  if (!pageIdMap.has(e.wiki_page_title)) {
+    pageIdMap.set(e.wiki_page_title, e.id);
+  }
+}
+
+function formatDate(d: string | null): string {
+  if (!d) return '';
+  if (/^\d{4}$/.test(d)) return d; // year only
+  const parts = d.split('-');
+  if (parts.length === 3) {
+    const date = new Date(d);
+    return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+  return d;
+}
+
+function formatYear(d: string | null): string {
+  if (!d) return '?';
+  return d.substring(0, 4);
+}
+
+function lifespan(person: any): string {
+  const parts: string[] = [];
+  if (person.born_date) parts.push(`b. ${formatDate(person.born_date)}`);
+  if (person.died_date) parts.push(`d. ${formatDate(person.died_date)}`);
+  if (person.birth_place) parts.push(person.birth_place);
+  return parts.join(' | ');
+}
+---
+<Base title={person.name}>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/people">People</a> &rsaquo; {person.name}</div>
+
+  <h1>{person.name}</h1>
+
+  {lifespan(person) && <p class="meta">{lifespan(person)}</p>}
+
+  {person.intro && (
+    <div class="bio-text">
+      {person.intro.split('\n\n').map(para => (
+        <p>{para}</p>
+      ))}
+    </div>
+  )}
+
+  {person.biography && (
+    <>
+      <h2>Biography</h2>
+      <div class="bio-text">
+        {person.biography.split('\n\n').map(para => (
+          <p>{para}</p>
+        ))}
+      </div>
+    </>
+  )}
+
+  <h2>Political Career</h2>
+  {candidacies.length > 0 ? (
+    <table>
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Election</th>
+          <th>Council</th>
+          <th>Votes</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        {candidacies.map(c => {
+          const electionPageId = pageIdMap.get(c.wiki_page_title);
+          return (
+            <tr>
+              <td>{formatYear(c.election_date)}</td>
+              <td>
+                {electionPageId
+                  ? <a href={`/election/${electionPageId}`}>
+                      {c.wiki_page_title.replace(/_/g, ' ')}
+                      {c.constituency_name && <> ({c.constituency_name})</>}
+                    </a>
+                  : <>{c.wiki_page_title.replace(/_/g, ' ')}</>}
+              </td>
+              <td><a href={`/council/${c.council_slug}`}>{c.council_name}</a></td>
+              <td>{c.votes?.toLocaleString() || c.votes_text || ''}</td>
+              <td>
+                {c.elected
+                  ? <span class="elected">Elected{c.role ? ` (${c.role})` : ''}</span>
+                  : <span class="not-elected">Not elected</span>}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  ) : (
+    <p class="meta">No election records found for this person.</p>
+  )}
+
+  {tenures.length > 0 && (
+    <>
+      <h2>Offices Held</h2>
+      {tenures.map(t => (
+        <div class="succession-box">
+          <div class="succession-header">{t.council_name}</div>
+          <div class="succession-row">
+            <div class="succession-cell">
+              {t.predecessor_name
+                ? <>Preceded by<br />{t.predecessor_slug
+                    ? <a href={`/person/${t.predecessor_slug}`}><strong>{t.predecessor_name}</strong></a>
+                    : <strong>{t.predecessor_name}</strong>}</>
+                : <em>Constituency created</em>}
+            </div>
+            <div class="succession-cell succession-main">
+              <strong>Member for<br />
+              <a href={`/constituency/${t.constituency_slug}`}>{t.constituency_name}</a></strong><br />
+              {t.start_year}&ndash;{t.end_year}
+            </div>
+            <div class="succession-cell">
+              {t.successor_name
+                ? <>Succeeded by<br />{t.successor_slug
+                    ? <a href={`/person/${t.successor_slug}`}><strong>{t.successor_name}</strong></a>
+                    : <strong>{t.successor_name}</strong>}</>
+                : <em>Incumbent / seat abolished</em>}
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
+  )}
+
+  {person.bayanne_id && (
+    <>
+      <h2>External Links</h2>
+      <ul>
+        <li><a href={`http://www.bayanne.info/Shetland/getperson.php?personID=${person.bayanne_id}&tree=ID1`} target="_blank" rel="noopener">Bayanne genealogy page</a></li>
+      </ul>
+    </>
+  )}
+</Base>
+
+<style>
+  .succession-box {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 1rem 0;
+    max-width: 680px;
+  }
+
+  .succession-header {
+    background: #d4edda;
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .succession-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .succession-cell {
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .succession-cell:last-child {
+    border-right: none;
+  }
+
+  .succession-main {
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+</style>

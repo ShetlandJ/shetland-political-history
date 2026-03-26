@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllElections, getElectionById, getElectionsByPage, getCandidaciesForElection } from '../../lib/db';
+
+export function getStaticPaths() {
+  const elections = getAllElections();
+  // Only generate pages for the first election of each wiki_page_title group
+  const seen = new Set<string>();
+  const paths: { params: { id: string } }[] = [];
+  for (const e of elections) {
+    if (!seen.has(e.wiki_page_title)) {
+      seen.add(e.wiki_page_title);
+      paths.push({ params: { id: String(e.id) } });
+    }
+  }
+  return paths;
+}
+
+const { id } = Astro.params;
+const election = getElectionById(Number(id));
+if (!election) return Astro.redirect('/');
+
+// Get all elections on this page (for multi-constituency elections)
+const pageElections = getElectionsByPage(election.wiki_page_title);
+
+function formatDate(d: string | null): string {
+  if (!d) return 'Date unknown';
+  const date = new Date(d);
+  return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function electionTitle(wpt: string): string {
+  return wpt.replace(/_/g, ' ');
+}
+---
+<Base title={electionTitle(election.wiki_page_title)}>
+  <div class="breadcrumb">
+    <a href="/">Home</a> &rsaquo;
+    <a href={`/council/${election.council_slug}`}>{election.council_name}</a> &rsaquo;
+    Election
+  </div>
+
+  <h1>{electionTitle(election.wiki_page_title)}</h1>
+  <p class="meta">
+    {formatDate(election.election_date)}
+    &middot;
+    <span class={`badge badge-${election.election_type}`}>{election.election_type}</span>
+  </p>
+
+  {pageElections.map(e => {
+    const candidacies = getCandidaciesForElection(e.id);
+    return (
+      <div>
+        {e.constituency_name && <h2>{e.constituency_name}</h2>}
+
+        {(e.electorate || e.turnout) && (
+          <p class="meta">
+            {e.electorate && <>Electorate: {e.electorate.toLocaleString()}</>}
+            {e.electorate && e.turnout && <> &middot; </>}
+            {e.turnout && <>Turnout: {e.turnout.toLocaleString()}{e.turnout_pct && <> ({e.turnout_pct}%)</>}</>}
+          </p>
+        )}
+
+        {e.notes && <p class="meta">{e.notes}</p>}
+
+        {candidacies.length > 0 && (
+          <table>
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                {candidacies.some(c => c.party) && <th>Party</th>}
+                <th>Votes</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {candidacies.map(c => (
+                <tr>
+                  <td>
+                    {c.person_slug
+                      ? <a href={`/person/${c.person_slug}`}>{c.candidate_name}</a>
+                      : c.candidate_name}
+                  </td>
+                  {candidacies.some(c => c.party) && <td>{c.party || ''}</td>}
+                  <td>{c.votes?.toLocaleString() || c.votes_text || ''}</td>
+                  <td>
+                    {c.elected
+                      ? <span class="elected">Elected{c.role ? ` (${c.role})` : ''}</span>
+                      : <span class="not-elected">Not elected</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    );
+  })}
+</Base>

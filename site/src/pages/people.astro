@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllPeople } from '../lib/db';
+
+const people = getAllPeople();
+
+// Group by first letter
+const byLetter: Record<string, typeof people> = {};
+for (const p of people) {
+  const letter = p.name.charAt(0).toUpperCase();
+  if (!byLetter[letter]) byLetter[letter] = [];
+  byLetter[letter].push(p);
+}
+---
+<Base title="People">
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; People</div>
+  <h1>People</h1>
+  <p class="meta">{people.length} councillors and politicians</p>
+
+  <div style="margin-bottom: 1rem;">
+    {Object.keys(byLetter).sort().map(letter => (
+      <a href={`#${letter}`} style="margin-right: 0.5rem; font-weight: 600;">{letter}</a>
+    ))}
+  </div>
+
+  {Object.entries(byLetter).sort(([a], [b]) => a.localeCompare(b)).map(([letter, persons]) => (
+    <div>
+      <h2 id={letter}>{letter}</h2>
+      <ul class="election-list">
+        {persons.map(p => (
+          <li>
+            <a href={`/person/${p.slug}`}>{p.name}</a>
+            {p.born_date && <span class="meta" style="margin-left: 0.5rem;">({p.born_date.substring(0, 4)}{p.died_date ? `\u2013${p.died_date.substring(0, 4)}` : ''})</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</Base>

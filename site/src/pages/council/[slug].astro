@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllCouncils, getCouncilBySlug, getDistinctElectionPages } from '../../lib/db';
+
+export function getStaticPaths() {
+  const councils = getAllCouncils();
+  return councils.map(c => ({ params: { slug: c.slug } }));
+}
+
+const { slug } = Astro.params;
+const council = getCouncilBySlug(slug!);
+if (!council) return Astro.redirect('/');
+
+const elections = getDistinctElectionPages(council.id);
+
+// Group by decade
+const byDecade: Record<string, typeof elections> = {};
+for (const e of elections) {
+  const year = e.election_date?.substring(0, 4) || '????';
+  const decade = year.substring(0, 3) + '0s';
+  if (!byDecade[decade]) byDecade[decade] = [];
+  byDecade[decade].push(e);
+}
+
+function formatDate(d: string | null): string {
+  if (!d) return '';
+  const date = new Date(d);
+  return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' });
+}
+
+function electionTitle(wpt: string): string {
+  return wpt.replace(/_/g, ' ');
+}
+---
+<Base title={council.name}>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; {council.name}</div>
+  <h1>{council.name}</h1>
+  <p class="meta">{elections.length} elections</p>
+
+  {Object.entries(byDecade).map(([decade, items]) => (
+    <div>
+      <h2>{decade}</h2>
+      <ul class="election-list">
+        {items.map(e => (
+          <li>
+            <span class="date">{formatDate(e.election_date)}</span>
+            <a href={`/election/${e.min_id}`}>{electionTitle(e.wiki_page_title)}</a>
+            <span class={`badge badge-${e.election_type}`}>{e.election_type}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</Base>
