@@ -76,7 +76,7 @@ export function getElectionsForCouncil(councilId: number): (Election & { constit
     SELECT e.*, con.name as constituency_name
     FROM elections e
     LEFT JOIN constituencies con ON e.constituency_id = con.id
-    WHERE e.council_id = ?
+    WHERE e.council_id = ? AND e.hidden = 0
     ORDER BY e.election_date, con.name
   `).all(councilId) as any[];
 }
@@ -92,7 +92,7 @@ export function getElectionById(id: number): (Election & { council_name: string;
 }
 
 export function getAllElections(): Election[] {
-  return db.prepare('SELECT * FROM elections ORDER BY election_date').all() as Election[];
+  return db.prepare('SELECT * FROM elections WHERE hidden = 0 ORDER BY election_date').all() as Election[];
 }
 
 // Group elections by wiki_page_title (for multi-constituency elections shown on one page)
@@ -101,7 +101,7 @@ export function getElectionsByPage(wikiPageTitle: string): (Election & { constit
     SELECT e.*, con.name as constituency_name
     FROM elections e
     LEFT JOIN constituencies con ON e.constituency_id = con.id
-    WHERE e.wiki_page_title = ?
+    WHERE e.wiki_page_title = ? AND e.hidden = 0
     ORDER BY con.name
   `).all(wikiPageTitle) as any[];
 }
@@ -143,7 +143,7 @@ export function getCandidaciesForPerson(personId: number): (Candidacy & {
     JOIN elections e ON c.election_id = e.id
     JOIN councils co ON e.council_id = co.id
     LEFT JOIN constituencies con ON e.constituency_id = con.id
-    WHERE c.person_id = ?
+    WHERE c.person_id = ? AND e.hidden = 0
     ORDER BY e.election_date
   `).all(personId) as any[];
 }
@@ -171,7 +171,7 @@ export function getElectionsForConstituency(constituencyId: number): Election[] 
   return db.prepare(`
     SELECT e.*
     FROM elections e
-    WHERE e.constituency_id = ?
+    WHERE e.constituency_id = ? AND e.hidden = 0
     ORDER BY e.election_date
   `).all(constituencyId) as Election[];
 }
@@ -181,14 +181,44 @@ export function getDistinctElectionPages(councilId: number): { wiki_page_title: 
   return db.prepare(`
     SELECT wiki_page_title, MIN(election_date) as election_date, election_type, MIN(id) as min_id
     FROM elections
-    WHERE council_id = ?
+    WHERE council_id = ? AND hidden = 0
     GROUP BY wiki_page_title
     ORDER BY MIN(election_date)
   `).all(councilId) as any[];
 }
 
+export function getElectionNavigation(councilId: number, currentPageTitle: string, electionType: string): { prev: { wiki_page_title: string; election_date: string; min_id: number } | null; next: { wiki_page_title: string; election_date: string; min_id: number } | null } {
+  const pages = db.prepare(`
+    SELECT wiki_page_title, MIN(election_date) as election_date, election_type, MIN(id) as min_id
+    FROM elections
+    WHERE council_id = ? AND hidden = 0 AND election_type = ?
+    GROUP BY wiki_page_title
+    ORDER BY MIN(election_date)
+  `).all(councilId, electionType) as any[];
+
+  const idx = pages.findIndex((p: any) => p.wiki_page_title === currentPageTitle);
+  return {
+    prev: idx > 0 ? pages[idx - 1] : null,
+    next: idx < pages.length - 1 ? pages[idx + 1] : null,
+  };
+}
+
+export function getCouncilStats(): { name: string; slug: string; level: string; election_count: number; earliest: string | null; latest: string | null; person_count: number }[] {
+  return db.prepare(`
+    SELECT co.name, co.slug, co.level,
+           COUNT(DISTINCT e.wiki_page_title) as election_count,
+           MIN(e.election_date) as earliest,
+           MAX(e.election_date) as latest,
+           (SELECT COUNT(DISTINCT c.person_id) FROM candidacies c JOIN elections e2 ON c.election_id = e2.id WHERE e2.council_id = co.id AND e2.hidden = 0 AND c.person_id IS NOT NULL) as person_count
+    FROM councils co
+    LEFT JOIN elections e ON e.council_id = co.id AND e.hidden = 0
+    GROUP BY co.id
+    ORDER BY co.id
+  `).all() as any[];
+}
+
 export function getElectionCount(): number {
-  return (db.prepare('SELECT COUNT(DISTINCT wiki_page_title) as c FROM elections').get() as any).c;
+  return (db.prepare('SELECT COUNT(DISTINCT wiki_page_title) as c FROM elections WHERE hidden = 0').get() as any).c;
 }
 
 export function getPersonCount(): number {
@@ -196,7 +226,7 @@ export function getPersonCount(): number {
 }
 
 export function getCandidacyCount(): number {
-  return (db.prepare('SELECT COUNT(*) as c FROM candidacies').get() as any).c;
+  return (db.prepare('SELECT COUNT(*) as c FROM candidacies WHERE election_id IN (SELECT id FROM elections WHERE hidden = 0)').get() as any).c;
 }
 
 export interface Tenure {
@@ -225,7 +255,7 @@ export function getTenuresForPerson(personId: number): Tenure[] {
     JOIN elections e ON c.election_id = e.id
     JOIN councils co ON e.council_id = co.id
     LEFT JOIN constituencies con ON e.constituency_id = con.id
-    WHERE c.person_id = ? AND c.elected = 1 AND e.constituency_id IS NOT NULL
+    WHERE c.person_id = ? AND c.elected = 1 AND e.constituency_id IS NOT NULL AND e.hidden = 0
     GROUP BY e.constituency_id
   `).all(personId) as any[];
 
@@ -241,7 +271,7 @@ export function getTenuresForPerson(personId: number): Tenure[] {
       FROM candidacies c
       JOIN elections e ON c.election_id = e.id
       LEFT JOIN people p ON c.person_id = p.id
-      WHERE e.constituency_id = ? AND c.elected = 1
+      WHERE e.constituency_id = ? AND c.elected = 1 AND e.hidden = 0
       ORDER BY e.election_date
     `).all(con.constituency_id) as any[];
 

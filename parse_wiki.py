@@ -522,8 +522,9 @@ def parse_person_page(text, title):
     birth_place = None
     image_ref = None
 
-    # Strip wiki links from years like [[1775]] -> 1775 for date parsing
-    text_clean = re.sub(r'\[\[(\d{4})\]\]', r'\1', text)
+    # Strip wiki links for date/place parsing: [[Page|Display]] -> Display, [[Page]] -> Page
+    text_clean = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', text)
+    text_clean = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', text_clean)
 
     # Extract birth/death from text like "(b. 10 November 1775, Lerwick, d. 17 February 1841, Lerwick)"
     bd_match = re.search(r'\(b\.\s*(\d{1,2}\s+\w+\s+\d{4})(?:,\s*([^,)]+))?', text_clean)
@@ -534,7 +535,11 @@ def parse_person_page(text, title):
         except ValueError:
             pass
         if bd_match.group(2):
-            birth_place = bd_match.group(2).strip()
+            bp = bd_match.group(2).strip()
+            # Strip wiki link markup: [[Place|Display]] -> Display, [[Place]] -> Place
+            bp = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', bp)
+            bp = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', bp)
+            birth_place = bp
 
     dd_match = re.search(r'd\.\s*(\d{1,2}\s+\w+\s+\d{4})', text_clean)
     if dd_match:
@@ -587,7 +592,31 @@ def parse_person_page(text, title):
 
     # Split into intro (before any ==section==) and biography (==Biography== section)
     clean = text
-    clean = re.sub(r'\[\[(?:Image|File):.*?\]\]', '', clean, flags=re.DOTALL)
+    # Remove image/file tags - these can contain nested [[links]] so we can't use non-greedy .*?
+    # Instead, match from [[Image: or [[File: to the final ]] that closes the tag
+    def strip_image_tags(t):
+        while True:
+            m = re.search(r'\[\[(?:Image|File):', t)
+            if not m:
+                break
+            # Find the matching ]] by counting bracket depth
+            start = m.start()
+            depth = 0
+            i = start
+            while i < len(t) - 1:
+                if t[i:i+2] == '[[':
+                    depth += 1
+                    i += 2
+                elif t[i:i+2] == ']]':
+                    depth -= 1
+                    i += 2
+                    if depth == 0:
+                        break
+                else:
+                    i += 1
+            t = t[:start] + t[i:]
+        return t
+    clean = strip_image_tags(clean)
     clean = re.sub(r'\{\{[^}]+\}\}', '', clean)
     clean = re.sub(r'\[\[Category:[^\]]+\]\]', '', clean)
 
@@ -606,6 +635,9 @@ def parse_person_page(text, title):
     def clean_wiki_markup(t):
         t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
         t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
+        # Strip external links: [http://... display text] -> display text, [http://...] -> ''
+        t = re.sub(r'\[https?://[^\s\]]+\s+([^\]]+)\]', r'\1', t)
+        t = re.sub(r'\[https?://[^\]]+\]', '', t)
         t = re.sub(r"'{2,3}", '', t)
         t = re.sub(r'<[^>]+>', '', t)
         t = re.sub(r'\{[^}]*\}', '', t)
@@ -1059,7 +1091,76 @@ def main():
         if len(skipped) > 20:
             print(f"    ... and {len(skipped) - 20} more")
 
-    # --- Step 6: Stats ---
+    # --- Step 6: Validate person-candidacy links ---
+    print("\n=== Validating person-candidacy links ===")
+
+    # Unlink candidacies where the person died before or was born after the election
+    sqlite_cursor.execute("""
+        SELECT c.id, p.name, p.born_date, p.died_date, e.election_date, c.candidate_name, e.wiki_page_title
+        FROM candidacies c
+        JOIN elections e ON c.election_id = e.id
+        JOIN people p ON c.person_id = p.id
+        WHERE p.died_date IS NOT NULL
+          AND e.election_date IS NOT NULL
+          AND CAST(SUBSTR(e.election_date, 1, 4) AS INTEGER) > CAST(SUBSTR(p.died_date, 1, 4) AS INTEGER)
+    """)
+    dead_at_election = sqlite_cursor.fetchall()
+    for row in dead_at_election:
+        cid, pname, born, died, edate, cname, wiki_page = row
+        print(f"  UNLINK (dead): {pname} (d.{died}) linked to {edate} election '{wiki_page}' as '{cname}'")
+        sqlite_cursor.execute("UPDATE candidacies SET person_id = NULL WHERE id = ?", (cid,))
+
+    sqlite_cursor.execute("""
+        SELECT c.id, p.name, p.born_date, p.died_date, e.election_date, c.candidate_name, e.wiki_page_title
+        FROM candidacies c
+        JOIN elections e ON c.election_id = e.id
+        JOIN people p ON c.person_id = p.id
+        WHERE p.born_date IS NOT NULL
+          AND e.election_date IS NOT NULL
+          AND CAST(SUBSTR(e.election_date, 1, 4) AS INTEGER) < CAST(SUBSTR(p.born_date, 1, 4) AS INTEGER)
+    """)
+    born_after_election = sqlite_cursor.fetchall()
+    for row in born_after_election:
+        cid, pname, born, died, edate, cname, wiki_page = row
+        print(f"  UNLINK (not born): {pname} (b.{born}) linked to {edate} election '{wiki_page}' as '{cname}'")
+        sqlite_cursor.execute("UPDATE candidacies SET person_id = NULL WHERE id = ?", (cid,))
+
+    # Also unlink candidacies where the person was under 18 at the election
+    sqlite_cursor.execute("""
+        SELECT c.id, p.name, p.born_date, e.election_date, c.candidate_name, e.wiki_page_title,
+               CAST(SUBSTR(e.election_date, 1, 4) AS INTEGER) - CAST(SUBSTR(p.born_date, 1, 4) AS INTEGER) as age
+        FROM candidacies c
+        JOIN elections e ON c.election_id = e.id
+        JOIN people p ON c.person_id = p.id
+        WHERE p.born_date IS NOT NULL
+          AND e.election_date IS NOT NULL
+          AND CAST(SUBSTR(e.election_date, 1, 4) AS INTEGER) - CAST(SUBSTR(p.born_date, 1, 4) AS INTEGER) < 18
+    """)
+    too_young = sqlite_cursor.fetchall()
+    for row in too_young:
+        cid, pname, born, edate, cname, wiki_page, age = row
+        print(f"  UNLINK (age {age}): {pname} (b.{born}) linked to {edate} election '{wiki_page}' as '{cname}'")
+        sqlite_cursor.execute("UPDATE candidacies SET person_id = NULL WHERE id = ?", (cid,))
+
+    total_unlinked = len(dead_at_election) + len(born_after_election) + len(too_young)
+    print(f"  Unlinked {total_unlinked} impossible candidacy links")
+
+    # --- Step 6b: Hide erroneous elections ---
+    print("\n=== Hiding erroneous elections ===")
+    hidden_elections = [
+        'Lerwick_Town_Council_By-Election_May_1844',  # Not actually a by-election
+    ]
+    hidden_count = 0
+    for wiki_title in hidden_elections:
+        # Try with both spaces and underscores
+        for variant in [wiki_title, wiki_title.replace('_', ' ')]:
+            sqlite_cursor.execute(
+                "UPDATE elections SET hidden = 1 WHERE wiki_page_title = ?", (variant,)
+            )
+            hidden_count += sqlite_cursor.rowcount
+    print(f"  Marked {hidden_count} elections as hidden")
+
+    # --- Step 7: Stats ---
     print("\n=== Final stats ===")
     for table in ['councils', 'constituencies', 'people', 'elections', 'candidacies']:
         sqlite_cursor.execute(f"SELECT COUNT(*) FROM {table}")

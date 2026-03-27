@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getAllElections, getElectionById, getElectionsByPage, getCandidaciesForElection } from '../../lib/db';
+import { getAllElections, getElectionById, getElectionsByPage, getCandidaciesForElection, getElectionNavigation } from '../../lib/db';
 
 export function getStaticPaths() {
   const elections = getAllElections();
@@ -22,6 +22,14 @@ if (!election) return Astro.redirect('/');
 
 // Get all elections on this page (for multi-constituency elections)
 const pageElections = getElectionsByPage(election.wiki_page_title);
+
+// Get prev/next election for navigation
+const nav = getElectionNavigation(election.council_id, election.wiki_page_title, election.election_type);
+
+function electionYear(date: string | null): string {
+  if (!date) return '?';
+  return date.substring(0, 4);
+}
 
 function formatDate(d: string | null): string {
   if (!d) return 'Date unknown';
@@ -96,4 +104,68 @@ function electionTitle(wpt: string): string {
       </div>
     );
   })}
+
+  <div class="election-nav">
+    <div class="election-nav-header">Next election</div>
+    <div class="election-nav-row">
+      <div class="election-nav-cell">
+        {nav.prev ? (
+          <a href={`/election/${nav.prev.min_id}`}>&lt; {electionYear(nav.prev.election_date)}</a>
+        ) : (
+          <span class="muted">&mdash;</span>
+        )}
+      </div>
+      <div class="election-nav-cell election-nav-current">
+        <strong>{electionYear(election.election_date)}</strong>
+      </div>
+      <div class="election-nav-cell">
+        {nav.next ? (
+          <a href={`/election/${nav.next.min_id}`}>{electionYear(nav.next.election_date)} &gt;</a>
+        ) : (
+          <span class="muted">&mdash;</span>
+        )}
+      </div>
+    </div>
+  </div>
 </Base>
+
+<style>
+  .election-nav {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 2rem 0;
+    max-width: 360px;
+  }
+
+  .election-nav-header {
+    background: var(--table-header);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .election-nav-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .election-nav-cell {
+    padding: 0.6rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .election-nav-cell:last-child {
+    border-right: none;
+  }
+
+  .election-nav-current {
+    font-size: 1.1rem;
+  }
+
+  .muted {
+    color: var(--muted);
+  }
+</style>

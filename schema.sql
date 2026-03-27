@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS elections (
     turnout INTEGER,
     turnout_pct REAL,
     notes TEXT,
-    wiki_page_title TEXT NOT NULL
+    wiki_page_title TEXT NOT NULL,
+    hidden INTEGER NOT NULL DEFAULT 0  -- boolean: hide from site without deleting
 );
 
 CREATE TABLE IF NOT EXISTS candidacies (

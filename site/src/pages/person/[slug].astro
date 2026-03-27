@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson } from '../../lib/db';
+import fs from 'fs';
+import path from 'path';
 
 export function getStaticPaths() {
   const people = getAllPeople();
@@ -46,6 +48,17 @@ function lifespan(person: any): string {
   if (person.birth_place) parts.push(person.birth_place);
   return parts.join(' | ');
 }
+
+// Check for person photo
+const imageExts = ['.jpg', '.jpeg', '.png', '.gif'];
+let personImage: string | null = null;
+for (const ext of imageExts) {
+  const imgPath = path.join(process.cwd(), 'public', 'images', 'people', slug + ext);
+  if (fs.existsSync(imgPath)) {
+    personImage = `/images/people/${slug}${ext}`;
+    break;
+  }
+}
 ---
 <Base title={person.name}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/people">People</a> &rsaquo; {person.name}</div>
@@ -54,13 +67,22 @@ function lifespan(person: any): string {
 
   {lifespan(person) && <p class="meta">{lifespan(person)}</p>}
 
-  {person.intro && (
-    <div class="bio-text">
-      {person.intro.split('\n\n').map(para => (
-        <p>{para}</p>
-      ))}
+  <div class={personImage ? 'person-header' : ''}>
+    {personImage && (
+      <div class="person-photo">
+        <img src={personImage} alt={person.name} />
+      </div>
+    )}
+    <div>
+      {person.intro && (
+        <div class="bio-text">
+          {person.intro.split('\n\n').map(para => (
+            <p>{para}</p>
+          ))}
+        </div>
+      )}
     </div>
-  )}
+  </div>
 
   {person.biography && (
     <>
@@ -158,6 +180,33 @@ function lifespan(person: any): string {
 </Base>
 
 <style>
+  .person-header {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .person-photo {
+    flex-shrink: 0;
+  }
+
+  .person-photo img {
+    width: 160px;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .person-header {
+      flex-direction: column;
+    }
+    .person-photo img {
+      width: 120px;
+    }
+  }
+
   .succession-box {
     border: 1px solid var(--border);
     border-radius: 4px;

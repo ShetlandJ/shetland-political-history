@@ -1,34 +1,194 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getAllCouncils, getElectionCount, getPersonCount, getCandidacyCount } from '../lib/db';
+import { getAllCouncils, getCouncilStats, getElectionCount, getPersonCount, getCandidacyCount } from '../lib/db';
 
-const councils = getAllCouncils();
+const stats = getCouncilStats();
 const electionCount = getElectionCount();
 const personCount = getPersonCount();
 const candidacyCount = getCandidacyCount();
+
+function yearRange(earliest: string | null, latest: string | null): string {
+  const from = earliest?.substring(0, 4) || '?';
+  const to = latest?.substring(0, 4) || '?';
+  return `${from}\u2013${to}`;
+}
+
+const councilDescriptions: Record<string, string> = {
+  'lerwick-town-council': 'The local council for Shetland\'s capital, established 1818 as a Burgh of Barony. Replaced by the SIC in 1975.',
+  'zetland-county-council': 'Created by the 1889 Local Government Act, representing all of Shetland\'s wards. Replaced by the SIC in 1975.',
+  'shetland-islands-council': 'The current local authority for Shetland, established 1975 under the Local Government (Scotland) Act 1973.',
+  'parliament-great-britain': 'The combined parliament of England and Scotland from the 1707 Acts of Union until 1801. Shetland was represented jointly with Orkney.',
+  'parliament-uk': 'The parliament at Westminster from 1801 to the present day. Shetland has been part of the Orkney and Shetland constituency throughout.',
+};
 ---
 <Base title="Home">
-  <h1>Shetland Political History</h1>
-  <p class="meta">
-    {electionCount} elections &middot; {personCount} people &middot; {candidacyCount.toLocaleString()} candidacies
-  </p>
+  <div class="hero">
+    <h1>Shetland Political History</h1>
+    <p class="hero-subtitle">A research project documenting over 300 years of political representation in the Shetland Islands</p>
+  </div>
 
-  <p>A structured database of Shetland's political history from 1707 to 2012, covering local councils, county councils, and Westminster elections.</p>
+  <div class="intro">
+    <p>This project has been an ongoing body of work since 2009, building a comprehensive record of Shetland's political history from the first Parliament of Great Britain elections in 1707 through to the present day. It covers every recorded election, candidate and representative across six governing bodies.</p>
+    <p>What began as curiosity about a few local elections has grown into a database of <strong>{electionCount} elections</strong>, <strong>{personCount} people</strong> and <strong>{candidacyCount.toLocaleString()} individual candidacies</strong> &mdash; pieced together from council minute books, newspaper archives, official records and contributions from the public.</p>
+    <p>This is more than a list of names and dates. Behind every entry is a story: the landowners who controlled early elections, the reformers who fought to widen the franchise, the first women to stand for office, and the communities that shaped modern Shetland. <a href="/history">Read the full history</a>.</p>
+  </div>
 
-  <div class="grid-cards">
-    {councils.map(council => (
-      <a href={`/council/${council.slug}`} class="card">
-        <h3>{council.name}</h3>
-        <p class="count">{council.level}</p>
+  <h2>Browse by council</h2>
+
+  <div class="council-cards">
+    {stats.map(c => (
+      <a href={`/council/${c.slug}`} class="council-card">
+        <h3>{c.name}</h3>
+        <p class="council-desc">{councilDescriptions[c.slug]}</p>
+        <div class="council-stats">
+          <span>{c.election_count} elections</span>
+          <span>{c.person_count} people</span>
+          <span>{yearRange(c.earliest, c.latest)}</span>
+        </div>
       </a>
     ))}
-    <a href="/people" class="card">
-      <h3>People</h3>
-      <p class="count">{personCount} councillors and politicians</p>
+  </div>
+
+  <div class="quick-links">
+    <a href="/people" class="quick-link">
+      <strong>People</strong>
+      <span>{personCount} councillors, MPs and politicians</span>
     </a>
-    <a href="/constituencies" class="card">
-      <h3>Constituencies</h3>
-      <p class="count">Electoral wards and divisions</p>
+    <a href="/constituencies" class="quick-link">
+      <strong>Constituencies</strong>
+      <span>Electoral wards, divisions and seats</span>
+    </a>
+    <a href="/search" class="quick-link">
+      <strong>Search</strong>
+      <span>Find elections, people or places</span>
     </a>
   </div>
+
+  <div class="credits">
+    <h2>About this project</h2>
+    <p>Researched and compiled by James Stewart since 2009, with help from the <a href="https://www.shetlandmuseumandarchives.org.uk/" target="_blank" rel="noopener">Shetland Museum and Archives</a>, <a href="http://www.bayanne.info/Shetland/" target="_blank" rel="noopener">Bayanne</a>, Shetland Library and many other contributors. The primary interest of this work is the 18th, 19th and 20th centuries, so some contemporary elections may be incomplete.</p>
+    <p>All contributions are welcomed &mdash; if you have information, corrections or photographs, please get in touch at james at jastewart.co.uk.</p>
+  </div>
 </Base>
+
+<style>
+  .hero {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .intro {
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .intro p {
+    margin-bottom: 1rem;
+  }
+
+  .council-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 2.5rem;
+  }
+
+  .council-card {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .council-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-decoration: none;
+  }
+
+  .council-card h3 {
+    margin: 0 0 0.5rem;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  .council-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .council-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 0.6rem;
+  }
+
+  .quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .quick-link {
+    display: block;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+
+  .quick-link:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+
+  .quick-link strong {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+
+  .quick-link span {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .credits {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    max-width: 720px;
+  }
+
+  .credits h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .credits p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+</style>
