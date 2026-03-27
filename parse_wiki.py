@@ -307,7 +307,7 @@ def parse_election_page(text, title):
 
         # Pattern 1: "Following the resignation/death of [title] [[Person]]"
         rp_match = re.search(
-            r'[Ff]ollowing the (?:resignation|death|removal|departure) of (?:councillor |Councillor |Provost |Captain )?'
+            r'[Ff]ollowing the (?:resignation|death|removal|departure) of (?:councillor |Councillor |Provost |Captain |Mr\.? |Mrs\.? |Dr\.? |Rev(?:erend)?\.? )?'
             r'(?:both )?\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]',
             text_for_match
         )
@@ -366,14 +366,25 @@ def parse_election_page(text, title):
                 replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
 
         # Pattern 7: "Following the death of councillor Robert..." (no wiki link)
+        # First strip titles to avoid "Rev." period cutting off the name
         if not replaced_person:
+            text_no_titles = re.sub(r'\b(?:Rev\.?|Mr\.?|Mrs\.?|Dr\.?|Captain|Councillor|Provost|Reverend)\s+', '', text_for_match)
             rp_match = re.search(
                 r'[Ff]ollowing the (?:resignation|death|removal) of (?:councillor |Councillor |Provost |Captain |Mr\.? |Rev\.? )?'
-                r'([A-Z][a-zA-Z. ]+?)(?:,|\.|\\n| was)',
-                text_for_match
+                r'([A-Z][a-zA-Z. ]+?)(?:,|\.|\\n| was| owing)',
+                text_no_titles
             )
             if rp_match:
                 replaced_person = rp_match.group(1).strip()
+            # Also try on original text if that failed
+            if not replaced_person:
+                rp_match = re.search(
+                    r'[Ff]ollowing the (?:resignation|death|removal) of (?:councillor |Councillor |Provost |Captain |Mr\.? |Rev\.? )?'
+                    r'([A-Z][a-zA-Z. ]+?)(?:,|\.|\\n| was| owing)',
+                    text_for_match
+                )
+                if rp_match:
+                    replaced_person = rp_match.group(1).strip()
 
         # Pattern 8: "because Person had resigned" (no wiki link)
         if not replaced_person:

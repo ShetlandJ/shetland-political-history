@@ -7,7 +7,7 @@ const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: tru
 
 // By-election replacement status
 const byElectionStatus = db.prepare(`
-  SELECT e.wiki_page_title, e.election_date, e.election_type,
+  SELECT e.id, e.wiki_page_title, e.election_date, e.election_type,
          e.replaced_person, e.replaced_person_id,
          rp.name as replaced_person_name, rp.slug as replaced_person_slug,
          co.name as council_name, co.slug as council_slug
@@ -191,14 +191,17 @@ const totalUnlinked = unlinkedCandidacies.reduce((sum: number, u: any) => sum + 
       <>
         <h3>Unknown — who did they replace?</h3>
         <table>
-          <thead><tr><th>By-Election</th><th>Date</th><th>Council</th><th>Source</th></tr></thead>
+          <thead><tr><th>By-Election</th><th>Date</th><th>Council</th><th>Links</th></tr></thead>
           <tbody>
             {missing.map((e: any) => (
               <tr>
                 <td>{e.wiki_page_title.replace(/_/g, ' ')}</td>
                 <td>{e.election_date}</td>
                 <td>{e.council_name}</td>
-                <td><a href={`https://shetlandhistory.com/${e.wiki_page_title.replace(/ /g, '_')}`} target="_blank" rel="noopener">wiki</a></td>
+                <td>
+                  <a href={`/election/${e.id}`}>page</a> &middot;
+                  <a href={`https://shetlandhistory.com/${e.wiki_page_title.replace(/ /g, '_')}`} target="_blank" rel="noopener">wiki</a>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -210,14 +213,17 @@ const totalUnlinked = unlinkedCandidacies.reduce((sum: number, u: any) => sum + 
       <>
         <h3>Parsed but not linked to person record</h3>
         <table>
-          <thead><tr><th>By-Election</th><th>Replaced (text)</th><th>Council</th><th>Source</th></tr></thead>
+          <thead><tr><th>By-Election</th><th>Replaced (text)</th><th>Council</th><th>Links</th></tr></thead>
           <tbody>
             {unlinked.map((e: any) => (
               <tr>
                 <td>{e.wiki_page_title.replace(/_/g, ' ')}</td>
                 <td>{e.replaced_person}</td>
                 <td>{e.council_name}</td>
-                <td><a href={`https://shetlandhistory.com/${e.wiki_page_title.replace(/ /g, '_')}`} target="_blank" rel="noopener">wiki</a></td>
+                <td>
+                  <a href={`/election/${e.id}`}>page</a> &middot;
+                  <a href={`https://shetlandhistory.com/${e.wiki_page_title.replace(/ /g, '_')}`} target="_blank" rel="noopener">wiki</a>
+                </td>
               </tr>
             ))}
           </tbody>
