@@ -43,7 +43,6 @@ function electionTitle(wpt: string): string {
       <ul class="election-list">
         {items.map(e => (
           <li>
-            <span class="date">{formatDate(e.election_date)}</span>
             <a href={`/election/${e.min_id}`}>{electionTitle(e.wiki_page_title)}</a>
             <span class={`badge badge-${e.election_type}`}>{e.election_type}</span>
           </li>

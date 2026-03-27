@@ -1341,33 +1341,120 @@ def main():
     print(f"  Fixed {fix_count} Bayanne IDs")
 
     # --- Step 4d: Manual person data corrections ---
+    # Bayanne cross-reference verified 2026-03-27 for all 457 people with Bayanne IDs.
     print("\n=== Applying manual person data corrections ===")
-    person_date_corrections = [
-        # (wiki_page_title, born_date, died_date, birth_place)
-        ('David_Harbison', '1933-08-26', '2017-10-25', 'Greenock'),
+    person_corrections = [
+        # (name, {field: value, ...})
+        ('David Harbison', {'born_date': '1933-08-26', 'died_date': '2017-10-25', 'birth_place': 'Greenock'}),
+        # Wrong Bayanne IDs (pointing to wrong person)
+        ('Balfour Spence', {'bayanne_id': None}),
+        ('Gilbert Duncan', {'bayanne_id': None}),
+        ('William Hay', {'bayanne_id': None}),
+        ('Andrew Garriock', {'bayanne_id': None}),
+        ('James Morrison', {'bayanne_id': None}),
+        ('Magnus Flaws (ii)', {'bayanne_id': None}),
+        ('John Irvine (i)', {'bayanne_id': None}),
+        # Date corrections from Bayanne cross-reference
+        ('Adam Jamieson', {'born_date': '1861-10-04'}),
+        ('Adam Thomson', {'born_date': '1911-10-09'}),
+        ('Archibald Garriock', {'died_date': '1899-02-28'}),
+        ('Arthur Anderson', {'born_date': '1792-02-19'}),
+        ('Basil Neven-Spence', {'born_date': '1888-05-12'}),
+        ('Catherine Anderson', {'born_date': '1917-02-17'}),
+        ('Charles Duncan', {'died_date': '1884-11-10'}),
+        ('Charles Merrylees', {'born_date': '1843-10-23'}),
+        ('Charles Stout', {'born_date': '1845-11-26'}),
+        ('Charlotte Nicol', {'born_date': '1864', 'birth_place': None, 'died_date': '1954-11-25'}),
+        ('David Gray (i)', {'born_date': '1842', 'died_date': '1901-05-29'}),
+        ('David Murray', {'died_date': '1961-03-21'}),
+        ('Edwyn Tait', {'born_date': '1884-12-14'}),
+        ('George Laurence', {'died_date': '1885-09-02'}),
+        ('George Smith (i)', {'born_date': '1822-12-01'}),
+        ('George Tait', {'born_date': '1829', 'died_date': '1889-07-08'}),
+        ('James Anderson (iv)', {'born_date': '1910-01-26'}),
+        ('James Brownlie', {'died_date': '1968-11-21'}),
+        ('James Hunter (iii)', {'born_date': '1872-02-06'}),
+        ('James Shearer', {'died_date': '1949-03-28'}),
+        ('James Smith (i)', {'born_date': '1877-07-07'}),
+        ('John Nicolson', {'born_date': '1937-09-26'}),
+        ('John Robertson (iii)', {'born_date': '1841-05-25'}),
+        ('John Stewart', {'died_date': '1956-12-12'}),
+        ('Joseph Peterson (i)', {'died_date': '1953-04-24'}),
+        ('Robert Hicks', {'born_date': '1809'}),
+        ('Robert Sinclair', {'born_date': '1814', 'died_date': '1891-07-16'}),
+        ('Robert Strachan', {'born_date': '1925-09-12'}),
+        ('Samuel Fordyce', {'born_date': '1852'}),
+        ('Theodore Andrew', {'died_date': '1960-09-05'}),
+        ('Thomas Irvine (ii)', {'died_date': '1946-06-06'}),
+        ('Thomas Sinclair', {'born_date': '1899-07-12'}),
+        ('William Adie', {'born_date': '1839-04-02'}),
+        ('William Carson', {'born_date': '1890-12-14'}),
+        ('William Hamilton', {'born_date': '1905-12-01'}),
+        ('William Henry', {'born_date': '1878-05-25'}),
+        ('William Jamieson', {'died_date': '1937-01-21'}),
     ]
+
+    # Fill missing data from Bayanne (only set if currently NULL)
+    person_fills = [
+        ('Alexander Manson', {'born_date': '1883-07-18', 'died_date': '1938-07-22', 'birth_place': 'Clumly, Dunrossness', 'death_place': 'Lerwick'}),
+        ('Amanda Youngman', {'born_date': '1914-01-31', 'birth_place': 'Greenock'}),
+        ('Andrew Dick', {'born_date': '1637'}),
+        ('Arthur Hay', {'died_date': '1896-12-25', 'death_place': 'Lerwick'}),
+        ('Arthur Nicolson (i)', {'died_date': '1917-05-27', 'death_place': 'Fetlar'}),
+        ('Cecil Eunson (i)', {'born_date': '1928-12-30', 'died_date': '2007-12-25', 'birth_place': 'Lerwick', 'death_place': 'Aberdeen'}),
+        ('Edward Knight', {'died_date': '2022-10-15', 'death_place': 'Lerwick'}),
+        ('Edwin Hyde', {'born_date': '1873'}),
+        ('Erling Clausen', {'died_date': '1984-06-28'}),
+        ('Florence Grains', {'died_date': '2025-03-05', 'death_place': 'Walls'}),
+        ('George Jamieson', {'born_date': '1870-12-01'}),
+        ('George Johnston', {'born_date': '1869-03-21', 'died_date': '1909-06-08'}),
+        ('Gordon Walterson', {'died_date': '2019-08-27'}),
+        ('Hugh Robertson', {'died_date': '1932-01-15'}),
+        ('James Henry', {'died_date': '2018-07-31'}),
+        ('James Irvine (ii)', {'died_date': '2021-09-04'}),
+        ('James Pottinger (i)', {'born_date': '1790'}),
+        ('James Scott', {'died_date': '1859-12-20'}),
+        ('John Inkster (iii)', {'died_date': '2021-12-12'}),
+        ('John Nicolson', {'died_date': '2019-10-09'}),
+        ('John Rae', {'born_date': '1904-12-22', 'died_date': '1985-11-14'}),
+        ('John Smith (ii)', {'died_date': '1978'}),
+        ('Laurence Smith', {'died_date': '1964-05-27'}),
+        ('Leslie Angus', {'died_date': '2019-10-01'}),
+        ('Loretta Hutchison', {'died_date': '2024-02-17'}),
+        ('Mary Colligan', {'died_date': '2025-07-13'}),
+        ('Norman Cameron', {'died_date': '1967-04-09'}),
+        ('Peter Goodlad', {'born_date': '1857-12-02', 'died_date': '1936-11-13'}),
+        ('Robert Haldane', {'born_date': '1848-07-20'}),
+        ('Robert Johnson (ii)', {'born_date': '1929-03-09', 'died_date': '2014-08-12'}),
+        ('Robert Scott', {'born_date': '1840-11-10', 'died_date': '1906-10-14'}),
+        ('Thomas Nicolson', {'born_date': '1793-11-16'}),
+        ('William Anderson (ii)', {'born_date': '1919-12-22'}),
+        ('William Duncan (ii)', {'died_date': '1945-06-21'}),
+        ('William Levie', {'died_date': '1901-01-27'}),
+        ('William Peterson', {'born_date': '1923-11-22', 'died_date': '1994-07-17'}),
+        ('William Playfair', {'born_date': '1926'}),
+        ('William Robertson', {'born_date': '1828-11-10'}),
+        ('William Sievwright (i)', {'died_date': '1870-06-26'}),
+        ('William Tait', {'died_date': '2021-03-19'}),
+    ]
+
     pfix_count = 0
-    for wiki_title, born, died, place in person_date_corrections:
-        updates = []
-        params = []
-        if born:
-            updates.append("born_date = ?")
-            params.append(born)
-        if died:
-            updates.append("died_date = ?")
-            params.append(died)
-        if place:
-            updates.append("birth_place = ?")
-            params.append(place)
-        if updates:
-            params.append(wiki_title)
-            sqlite_cursor.execute(
-                f"UPDATE people SET {', '.join(updates)} WHERE wiki_page_title = ?", params
-            )
-            if sqlite_cursor.rowcount > 0:
-                pfix_count += 1
-                print(f"  Updated: {wiki_title}")
-    print(f"  Fixed {pfix_count} person records")
+    for name, updates in person_corrections:
+        set_clauses = [f"{k} = ?" for k in updates]
+        params = list(updates.values()) + [name]
+        sqlite_cursor.execute(f"UPDATE people SET {', '.join(set_clauses)} WHERE name = ?", params)
+        if sqlite_cursor.rowcount > 0:
+            pfix_count += 1
+    print(f"  Applied {pfix_count} corrections")
+
+    pfill_count = 0
+    for name, fills in person_fills:
+        set_clauses = [f"{k} = COALESCE({k}, ?)" for k in fills]
+        params = list(fills.values()) + [name]
+        sqlite_cursor.execute(f"UPDATE people SET {', '.join(set_clauses)} WHERE name = ?", params)
+        if sqlite_cursor.rowcount > 0:
+            pfill_count += 1
+    print(f"  Filled missing data for {pfill_count} people")
 
     def clean_candidate_name(name):
         """Strip external wiki links from candidate names, e.g. '[https://...url Display Name]' -> 'Display Name'"""
