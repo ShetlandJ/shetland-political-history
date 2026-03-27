@@ -138,11 +138,16 @@ function electionTitle(wpt: string): string {
     const candidacies = getCandidaciesForElection(e.id);
     return (
       <div>
-        {e.constituency_name && <h2>{e.constituency_name}</h2>}
+        {e.constituency_name && <h2>
+          {e.constituency_slug
+            ? <a href={`/constituency/${e.constituency_slug}`}>{(e as any).constituency_display_name || e.constituency_name}</a>
+            : ((e as any).constituency_display_name || e.constituency_name)}
+          {(e as any).constituency_display_name && <span class="meta" style="font-size: 0.75rem; margin-left: 0.5rem; font-family: var(--font-body);">now {e.constituency_name}</span>}
+        </h2>}
 
         {(e.electorate || e.turnout) && (
           <p class="meta">
-            {e.electorate && <>Electorate: {e.electorate.toLocaleString()}</>}
+            {e.electorate && <>Electorate: {e.electorate.toLocaleString()}{(e as any).electorate_detail && <> ({(e as any).electorate_detail})</>}</>}
             {e.electorate && e.turnout && <> &middot; </>}
             {e.turnout && <>Turnout: {e.turnout.toLocaleString()}{e.turnout_pct && <> ({e.turnout_pct}%)</>}</>}
           </p>

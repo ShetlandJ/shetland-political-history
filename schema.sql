@@ -38,12 +38,16 @@ CREATE TABLE IF NOT EXISTS elections (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     council_id INTEGER NOT NULL REFERENCES councils(id),
     constituency_id INTEGER REFERENCES constituencies(id),
+    constituency_display_name TEXT,  -- historical name if different from current constituency name
     election_date TEXT,       -- ISO date or partial
     election_type TEXT NOT NULL,  -- 'general', 'by-election'
     electorate INTEGER,
+    electorate_detail TEXT,   -- e.g. '107 men, 19 women'
     turnout INTEGER,
     turnout_pct REAL,
     notes TEXT,
+    replaced_person TEXT,        -- for by-elections: who resigned/died to trigger it
+    replaced_person_id INTEGER REFERENCES people(id),
     wiki_page_title TEXT NOT NULL,
     hidden INTEGER NOT NULL DEFAULT 0  -- boolean: hide from site without deleting
 );
@@ -80,6 +84,16 @@ CREATE TABLE IF NOT EXISTS referendum_results (
     votes INTEGER,
     percentage REAL,
     won INTEGER NOT NULL DEFAULT 0  -- boolean
+);
+
+CREATE TABLE IF NOT EXISTS leadership_roles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    council_id INTEGER NOT NULL REFERENCES councils(id),
+    person_id INTEGER REFERENCES people(id),
+    person_name TEXT NOT NULL,      -- as listed in template
+    role TEXT NOT NULL,              -- 'Provost', 'Senior Bailie', 'Convener'
+    start_year TEXT,
+    end_year TEXT
 );
 
 -- Indexes for common queries

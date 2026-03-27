@@ -37,7 +37,7 @@ function formatYear(d: string | null): string {
   <h1>{constituency.name}</h1>
   <p class="meta">{constituency.council_name} &middot; {elections.length} elections</p>
 
-  <table>
+  <table class="constituency-table">
     <thead>
       <tr>
         <th>Year</th>
@@ -73,3 +73,15 @@ function formatYear(d: string | null): string {
     </tbody>
   </table>
 </Base>
+
+<style>
+  .constituency-table {
+    table-layout: fixed;
+  }
+  .constituency-table th:nth-child(1),
+  .constituency-table td:nth-child(1) { width: 4.5rem; }
+  .constituency-table th:nth-child(2),
+  .constituency-table td:nth-child(2) { width: 6rem; }
+  .constituency-table th:nth-child(4),
+  .constituency-table td:nth-child(4) { width: 8rem; white-space: nowrap; }
+</style>

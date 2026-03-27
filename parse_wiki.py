@@ -126,14 +126,17 @@ def parse_election_date_from_text(text, title):
 
 
 def parse_electorate_turnout(text):
-    """Extract electorate and turnout from election page text."""
+    """Extract electorate, electorate detail, and turnout from election page text."""
     electorate = None
+    electorate_detail = None
     turnout = None
     turnout_pct = None
 
-    m = re.search(r'Electorate:\s*([\d,]+)', text)
+    m = re.search(r'Electorate:\s*([\d,]+)(?:\s*\(([^)]+)\))?', text)
     if m:
         electorate = int(m.group(1).replace(',', ''))
+        if m.group(2):
+            electorate_detail = m.group(2).strip()
 
     m = re.search(r'Turnout:\s*([\d,]+)\s*\((\d+\.?\d*)%\)', text)
     if m:
@@ -143,7 +146,7 @@ def parse_electorate_turnout(text):
         m2 = re.search(r'Turnout:\s*([\d,]+)', text)
         turnout = int(m2.group(1).replace(',', ''))
 
-    return electorate, turnout, turnout_pct
+    return electorate, electorate_detail, turnout, turnout_pct
 
 
 def parse_candidates_from_table(table_text, has_party_column=False):
@@ -285,6 +288,21 @@ def parse_election_page(text, title):
     election_date = parse_election_date_from_text(text, title)
     is_by_election = 'by-election' in title.lower() or 'by_election' in title.lower() or 'By-Election' in title
 
+    # Extract who was replaced (for by-elections)
+    # Patterns: "Following the resignation of [[Person]]", "Following the death of [[Person]]"
+    replaced_person = None
+    replaced_wiki_link = None
+    if is_by_election:
+        rp_match = re.search(r'[Ff]ollowing the (?:resignation|death|removal|departure) of \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]', text)
+        if rp_match:
+            replaced_wiki_link = rp_match.group(1).strip()
+            replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+        else:
+            # Try without wiki link: "Following the resignation of Person Name,"
+            rp_match2 = re.search(r'[Ff]ollowing the (?:resignation|death|removal|departure) of ([A-Z][^,.\n]+)', text)
+            if rp_match2:
+                replaced_person = rp_match2.group(1).strip()
+
     # Check for sub-sections (constituency-level results within a general election)
     # County Council general elections have === Constituency === sub-sections
     sections = re.split(r'===\s*\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]\s*===', text)
@@ -303,7 +321,7 @@ def parse_election_page(text, title):
             section_text = sections[i+2] if i+2 < len(sections) else ''
 
             # Parse electorate/turnout for this constituency
-            electorate, turnout, turnout_pct = parse_electorate_turnout(section_text)
+            electorate, electorate_detail, turnout, turnout_pct = parse_electorate_turnout(section_text)
 
             # Find wikitable in this section
             table_match = re.search(r'(\{\|\s*class="wikitable".*?\|\})', section_text, re.DOTALL)
@@ -326,6 +344,7 @@ def parse_election_page(text, title):
                 'constituency_link': constituency_link,
                 'constituency_name': constituency_display or constituency_link,
                 'electorate': electorate,
+                'electorate_detail': electorate_detail,
                 'turnout': turnout,
                 'turnout_pct': turnout_pct,
                 'candidates': candidates,
@@ -334,7 +353,7 @@ def parse_election_page(text, title):
             i += 3
     else:
         # Single-constituency election (LTC, by-elections, UK elections)
-        electorate, turnout, turnout_pct = parse_electorate_turnout(text)
+        electorate, electorate_detail, turnout, turnout_pct = parse_electorate_turnout(text)
 
         # Find all wikitables
         table_matches = list(re.finditer(r'(\{\|\s*class="wikitable".*?\|\})', text, re.DOTALL))
@@ -347,6 +366,7 @@ def parse_election_page(text, title):
             'constituency_link': None,
             'constituency_name': None,
             'electorate': electorate,
+                'electorate_detail': electorate_detail,
             'turnout': turnout,
             'turnout_pct': turnout_pct,
             'candidates': candidates,
@@ -356,6 +376,8 @@ def parse_election_page(text, title):
     return {
         'date': election_date,
         'type': 'by-election' if is_by_election else 'general',
+        'replaced_person': replaced_person,
+        'replaced_wiki_link': replaced_wiki_link,
         'results': results,
     }
 
@@ -372,7 +394,7 @@ def parse_uk_election_page(text, title):
     election_date = parse_election_date_from_text(text, title)
     is_by_election = 'by-election' in title.lower() or 'by_election' in title.lower()
 
-    electorate, turnout, turnout_pct = parse_electorate_turnout(text)
+    electorate, electorate_detail, turnout, turnout_pct = parse_electorate_turnout(text)
 
     candidates = []
 
@@ -506,6 +528,7 @@ def parse_uk_election_page(text, title):
         'date': election_date,
         'type': 'by-election' if is_by_election else 'general',
         'electorate': electorate,
+                'electorate_detail': electorate_detail,
         'turnout': turnout,
         'turnout_pct': turnout_pct,
         'candidates': candidates,
@@ -1156,11 +1179,11 @@ def main():
                 constituency_name = 'Orkney and Shetland'
 
                 sqlite_cursor.execute("""
-                    INSERT INTO elections (council_id, election_date, election_type, electorate, turnout, turnout_pct, wiki_page_title)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO elections (council_id, election_date, election_type, electorate, electorate_detail, turnout, turnout_pct, wiki_page_title)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     council_id, parsed['date'], parsed['type'],
-                    parsed.get('electorate'), parsed.get('turnout'), parsed.get('turnout_pct'),
+                    parsed.get('electorate'), parsed.get('electorate_detail'), parsed.get('turnout'), parsed.get('turnout_pct'),
                     page_title
                 ))
                 election_id = sqlite_cursor.lastrowid
@@ -1213,14 +1236,32 @@ def main():
                                 constituency_id = cid_val
                                 break
 
+                    # Store historical display name if different from constituency's current name
+                    display_name = result.get('constituency_name')
+                    constituency_display = None
+                    if constituency_id and display_name:
+                        # Look up the current constituency name
+                        sqlite_cursor.execute("SELECT name FROM constituencies WHERE id = ?", (constituency_id,))
+                        current_name = sqlite_cursor.fetchone()
+                        if current_name and current_name[0] != display_name:
+                            constituency_display = display_name
+
+                    # Resolve replaced person for by-elections
+                    replaced_name = parsed.get('replaced_person')
+                    replaced_pid = None
+                    if replaced_name and parsed.get('replaced_wiki_link'):
+                        replaced_pid = person_ids.get(parsed['replaced_wiki_link'].replace(' ', '_'))
+                    if replaced_name and not replaced_pid:
+                        replaced_pid = person_name_map.get(replaced_name)
+
                     sqlite_cursor.execute("""
-                        INSERT INTO elections (council_id, constituency_id, election_date, election_type,
-                            electorate, turnout, turnout_pct, notes, wiki_page_title)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        INSERT INTO elections (council_id, constituency_id, constituency_display_name, election_date, election_type,
+                            electorate, electorate_detail, turnout, turnout_pct, notes, replaced_person, replaced_person_id, wiki_page_title)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, (
-                        council_id, constituency_id, parsed['date'], parsed['type'],
-                        result.get('electorate'), result.get('turnout'), result.get('turnout_pct'),
-                        result.get('notes'), page_title
+                        council_id, constituency_id, constituency_display, parsed['date'], parsed['type'],
+                        result.get('electorate'), result.get('electorate_detail'), result.get('turnout'), result.get('turnout_pct'),
+                        result.get('notes'), replaced_name, replaced_pid, page_title
                     ))
                     election_id = sqlite_cursor.lastrowid
 
@@ -1351,6 +1392,62 @@ def main():
             )
             hidden_count += sqlite_cursor.rowcount
     print(f"  Marked {hidden_count} elections as hidden")
+
+    # --- Step 6b2: Fix by-election replacement data ---
+    # Manually verified replacements where the parser couldn't extract the name correctly.
+    # Confirmed with James Stewart 2026-03-27.
+    print("\n=== Fixing by-election replacements ===")
+    replacement_fixes = [
+        # (by-election wiki_page_title, replaced_person_name, replaced_person_wiki_page_title)
+        ('Lerwick Town Council By-Election November 1880', 'James Mouat Goudie', 'James_M._Goudie'),
+        ('Lerwick Town Council By-Election November 1884', 'Arthur Hay', 'Arthur_Hay'),
+        # Nov 1886: 2 co-opted — unfilled seats, source unknown. Needs further research.
+        ('Lerwick Town Council By-Election June 1921', 'James Pottinger (iii)', 'James_Pottinger_(iii)'),
+        ('Lerwick Town Council By-Election May 1924', 'James Goodlad', 'James_Goodlad'),
+        ('Lerwick Town Council By-Election August 1936', 'George Duffin', 'George_Duffin'),
+        ('Lerwick Town Council By-Election November 1936', 'Laurence Cogle', 'Laurence_Cogle'),  # Needs confirmation
+        ('Lerwick Town Council By-Election February 1938', 'Erling Clausen', 'Erling_Clausen'),
+        ('Lerwick Town Council By-Election January 1941', 'Adam Halcrow (i)', 'Adam_Halcrow_(i)'),
+        ('Lerwick Town Council By-Election July 1941', 'James A. Smith', 'James_A._Smith'),
+        # Oct 1941: TWO replacements - Thomas Irvine (ii) and Joseph Linklater
+        ('Lerwick Town Council By-Election October 1941', 'Thomas Irvine (ii)', 'Thomas_Irvine_(ii)'),
+        ('Lerwick Town Council By-Election September 1950', 'James Jamieson (ii)', 'James_Jamieson_(ii)'),
+        ('Lerwick Town Council By-Election June 1958', 'James Tait', 'James_Tait'),
+        ('Lerwick Town Council By-Election September 1959', 'Magnus Sandison', 'Magnus_Sandison'),
+        ('Lerwick Town Council By-Election May 1961', 'Kenneth Thomson', 'Kenneth_Thomson'),
+        ('Lerwick Town Council By-Election May 1967', 'Andrew Nicolson', 'Andrew_Nicolson'),
+        ('Lerwick Town Council By-Election August 1967', 'Robert Anderson (i)', 'Robert_Anderson_(i)'),
+    ]
+    # Oct 1941 also replaced Joseph Linklater — handle as second update
+    replacement_fixes_extra = [
+        ('Lerwick Town Council By-Election October 1941', 'Joseph Linklater', 'Joseph_Linklater'),
+    ]
+
+    repl_count = 0
+    for wiki_title, repl_name, repl_wiki in replacement_fixes:
+        pid = person_ids.get(repl_wiki)
+        if not pid:
+            pid = person_name_map.get(repl_name)
+        for variant in [wiki_title, wiki_title.replace(' ', '_')]:
+            sqlite_cursor.execute("""
+                UPDATE elections SET replaced_person = ?, replaced_person_id = ?
+                WHERE wiki_page_title = ? AND (replaced_person IS NULL OR replaced_person_id IS NULL)
+            """, (repl_name, pid, variant))
+            if sqlite_cursor.rowcount > 0:
+                repl_count += 1
+                break
+
+    # For Oct 1941 with two replacements, we store the second one in notes
+    # (the first is already in replaced_person)
+    for wiki_title, repl_name, repl_wiki in replacement_fixes_extra:
+        pid = person_ids.get(repl_wiki)
+        for variant in [wiki_title, wiki_title.replace(' ', '_')]:
+            sqlite_cursor.execute("""
+                UPDATE elections SET notes = COALESCE(notes, '') || ' Also replaced: ' || ?
+                WHERE wiki_page_title = ? AND replaced_person IS NOT NULL
+            """, (repl_name, variant))
+
+    print(f"  Fixed {repl_count} by-election replacements")
 
     # --- Step 6c: Middle-name / abbreviation matching ---
     print("\n=== Resolving middle-name matches ===")
@@ -1660,6 +1757,82 @@ def main():
                     """, (ref_id, None, option, votes, pct, won))
 
         print(f"  Imported: {title}")
+
+    # --- Step 9: Import leadership roles (Provosts, Conveners) ---
+    print("\n=== Importing leadership roles ===")
+
+    def parse_leadership_list(template_text, council_name, role):
+        """Parse a leadership list from a template like 'Name (YYYY-YYYY) • Name (YYYY-YYYY)'"""
+        council_id_local = council_ids[council_name]
+        entries = re.findall(r'\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]\s*\((\d{4})-(\d{4})\)', template_text)
+        count = 0
+        for wiki_link, display_name, start, end in entries:
+            name = display_name.strip() if display_name else wiki_link.strip()
+            wiki_title = wiki_link.strip().replace(' ', '_')
+            # Try to find person_id
+            pid = person_ids.get(wiki_title)
+            if not pid:
+                pid = person_name_map.get(name)
+            sqlite_cursor.execute("""
+                INSERT INTO leadership_roles (council_id, person_id, person_name, role, start_year, end_year)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (council_id_local, pid, name, role, start, end))
+            count += 1
+        return count
+
+    # LTC Provosts (called "Senior Bailie" until 1877, then "Provost")
+    ltc_provosts_text = get_template_text(mysql_cursor, 'LTCProvosts')
+    if ltc_provosts_text:
+        count = parse_leadership_list(ltc_provosts_text, 'Lerwick Town Council', 'Provost')
+        print(f"  LTC Provosts: {count}")
+
+    # ZCC Conveners
+    zcc_conveners_text = get_template_text(mysql_cursor, 'ZCCConveners')
+    if zcc_conveners_text:
+        count = parse_leadership_list(zcc_conveners_text, 'Zetland County Council', 'Convener')
+        print(f"  ZCC Conveners: {count}")
+
+    # SIC Conveners — not in a single template, extract from person pages
+    # Look for {{Conveners|...|Convener of the Shetland Islands Council...|...}} or
+    # {{SICConveners}} usage on person pages
+    print("  Extracting SIC Conveners from person pages...")
+    sic_convener_count = 0
+    sic_council_id = council_ids['Shetland Islands Council']
+    mysql_cursor.execute("""
+        SELECT p.page_title, CAST(old_text AS CHAR CHARACTER SET utf8mb4)
+        FROM mwfn_text t
+        JOIN mwfn_revision r ON r.rev_text_id = t.old_id
+        JOIN mwfn_page p ON p.page_latest = r.rev_id
+        WHERE p.page_namespace = 0
+    """)
+    for row in mysql_cursor.fetchall():
+        page_title = row[0]
+        if isinstance(page_title, (bytes, bytearray)):
+            page_title = page_title.decode('utf-8', errors='replace')
+        text = row[1]
+        if isinstance(text, (bytes, bytearray)):
+            text = text.decode('utf-8', errors='replace')
+
+        # Look for Convener templates referencing SIC
+        for tmatch in re.finditer(r'\{\{(?:Conveners|SICConveners)[^}]*\}\}', text, re.DOTALL):
+            template = tmatch.group()
+            if 'Shetland Islands Council' in template or 'SICConveners' in template:
+                # Extract the tenure: "Convener of the\nShetland Islands Council\nYYYY-YYYY"
+                tenure_match = re.search(r'Convener.*?(\d{4})-(\d{4})', template, re.DOTALL)
+                if tenure_match:
+                    start = tenure_match.group(1)
+                    end = tenure_match.group(2)
+                    name = page_title.replace('_', ' ')
+                    # Remove disambiguation
+                    display = re.sub(r'\s*\([^)]*\)\s*$', '', name)
+                    pid = person_ids.get(page_title.replace(' ', '_'))
+                    sqlite_cursor.execute("""
+                        INSERT INTO leadership_roles (council_id, person_id, person_name, role, start_year, end_year)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    """, (sic_council_id, pid, display, 'Convener', start, end))
+                    sic_convener_count += 1
+
+    print(f"  SIC Conveners: {sic_convener_count}")
 
     sqlite_conn.commit()
     sqlite_conn.close()

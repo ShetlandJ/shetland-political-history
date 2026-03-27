@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import { getLeadershipRoles, getAllCouncils } from '../lib/db';
+import fs from 'fs';
+import path from 'path';
+
+const councils = getAllCouncils();
+const allRoles = getLeadershipRoles();
+
+// Group by council
+const byCouncil: Record<string, typeof allRoles> = {};
+for (const r of allRoles) {
+  if (!byCouncil[r.council_name]) byCouncil[r.council_name] = [];
+  byCouncil[r.council_name].push(r);
+}
+
+const councilOrder = [
+  'Lerwick Town Council',
+  'Zetland County Council',
+  'Shetland Islands Council',
+];
+
+const imageExts = ['.jpg', '.jpeg', '.png', '.gif'];
+
+function findPersonPhoto(slug: string): string | null {
+  // Prefer headshot
+  for (const ext of imageExts) {
+    const hs = path.join(process.cwd(), 'public', 'images', 'people', slug + '-headshot' + ext);
+    if (fs.existsSync(hs)) return `/images/people/${slug}-headshot${ext}`;
+  }
+  // Fall back to main
+  for (const ext of imageExts) {
+    const main = path.join(process.cwd(), 'public', 'images', 'people', slug + ext);
+    if (fs.existsSync(main)) return `/images/people/${slug}${ext}`;
+  }
+  return null;
+}
+---
+<Base title="Provosts and Conveners">
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Provosts and Conveners</div>
+  <h1>Provosts and Conveners</h1>
+  <p class="meta">The leaders of Shetland's local councils from 1818 to the present day.</p>
+
+  {councilOrder.map(councilName => {
+    const roles = byCouncil[councilName];
+    if (!roles) return null;
+    const roleTitle = roles[0].role;
+    const council = councils.find(c => c.name === councilName);
+    return (
+      <section>
+        <h2>
+          {roleTitle}s of the {council
+            ? <a href={`/council/${council.slug}`}>{councilName}</a>
+            : councilName}
+        </h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th></th>
+              <th>{roleTitle}</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Years</th>
+            </tr>
+          </thead>
+          <tbody>
+            {roles.map((r, i) => {
+              const photo = r.person_slug ? findPersonPhoto(r.person_slug) : null;
+              return (
+                <tr>
+                  <td>{i + 1}</td>
+                  <td class="photo-cell">
+                    {photo && r.person_slug
+                      ? <a href={`/person/${r.person_slug}`}><img src={photo} alt={r.person_name} class="leader-thumb" /></a>
+                      : <div class="leader-thumb-placeholder" />}
+                  </td>
+                  <td>
+                    {r.person_slug
+                      ? <a href={`/person/${r.person_slug}`}>{r.person_name}</a>
+                      : r.person_name}
+                  </td>
+                  <td>{r.start_year}</td>
+                  <td>{r.end_year}</td>
+                  <td>{r.start_year && r.end_year ? Number(r.end_year) - Number(r.start_year) : ''}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </section>
+    );
+  })}
+</Base>
+
+<style>
+  .photo-cell {
+    width: 100px;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .leader-thumb {
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  .leader-thumb-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-light);
+  }
+</style>

@@ -1,0 +1,439 @@
+---
+import Base from '../layouts/Base.astro';
+import Database from 'better-sqlite3';
+import path from 'path';
+
+const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
+
+const ltcCouncil = db.prepare("SELECT id FROM councils WHERE slug = 'lerwick-town-council'").get() as any;
+const ltcId = ltcCouncil.id;
+
+// Get all LTC elections in date order, including replaced person info
+const elections = db.prepare(`
+  SELECT e.id, e.wiki_page_title, e.election_date, e.election_type,
+         e.replaced_person, e.replaced_person_id,
+         rp.name as replaced_person_name, rp.slug as replaced_person_slug
+  FROM elections e
+  LEFT JOIN people rp ON e.replaced_person_id = rp.id
+  WHERE e.council_id = ? AND e.hidden = 0
+  GROUP BY e.wiki_page_title
+  ORDER BY e.election_date
+`).all(ltcId) as any[];
+
+// Get elected candidates per election
+const electedByElection = new Map<string, any[]>();
+for (const e of elections) {
+  const cands = db.prepare(`
+    SELECT c.candidate_name, c.person_id, c.role, c.votes_text,
+           p.slug as person_slug, p.name as person_name
+    FROM candidacies c
+    JOIN elections e2 ON c.election_id = e2.id
+    LEFT JOIN people p ON c.person_id = p.id
+    WHERE e2.wiki_page_title = ? AND c.elected = 1 AND e2.hidden = 0
+    ORDER BY c.position
+  `).all(e.wiki_page_title) as any[];
+  electedByElection.set(e.wiki_page_title, cands);
+}
+
+// Get provosts
+const provosts = db.prepare(`
+  SELECT person_name, person_id, start_year, end_year
+  FROM leadership_roles
+  WHERE council_id = ? AND role = 'Provost'
+  ORDER BY start_year
+`).all(ltcId) as any[];
+
+interface Member {
+  name: string;
+  slug: string | null;
+  fromByElection: boolean;
+  diedDate: string | null;
+}
+
+// Build a death-date lookup for all people
+const deathDates = new Map<string, string>();
+const allPeople = db.prepare("SELECT name, died_date FROM people WHERE died_date IS NOT NULL").all() as any[];
+for (const p of allPeople) {
+  deathDates.set(p.name, p.died_date);
+}
+
+// Helper: remove a person by name, handling disambiguations
+// "William Sievwright" should match "William Sievwright (ii)"
+function removePerson(list: Member[], name: string): Member[] {
+  // Try exact match first
+  const exact = list.filter(m => m.name !== name);
+  if (exact.length < list.length) return exact;
+  // Try matching without disambiguation suffix
+  const cleanName = name.replace(/\s*\([^)]*\)\s*$/, '');
+  return list.filter(m => {
+    const mClean = m.name.replace(/\s*\([^)]*\)\s*$/, '');
+    return mClean !== cleanName;
+  });
+}
+
+interface Snapshot {
+  wikiTitle: string;
+  date: string;
+  type: string;
+  electionId: number;
+  members: Member[];
+  newMembers: Set<string>;
+  provost: string | null;
+  provostSlug: string | null;
+}
+
+const snapshots: Snapshot[] = [];
+
+// Track cohorts with 3-year terms
+// Each general election creates a cohort that expires 3 general elections later
+// By-election winners expire at the NEXT general election
+let cohorts: { wikiTitle: string; members: Member[]; expiresAfterGenerals: number }[] = [];
+let byElectionMembers: Member[] = [];
+let generalCount = 0;
+
+for (const election of elections) {
+  const elected = electedByElection.get(election.wiki_page_title) || [];
+  const electionYear = election.election_date?.substring(0, 4) || '';
+  const numElected = elected.length;
+  const newMembers = new Set<string>();
+
+  // Before processing this election: remove anyone who died before this date
+  const electionDate = election.election_date || '';
+  for (const cohort of cohorts) {
+    cohort.members = cohort.members.filter(m => {
+      if (!m.diedDate) return true;
+      return m.diedDate >= electionDate;
+    });
+  }
+  byElectionMembers = byElectionMembers.filter(m => {
+    if (!m.diedDate) return true;
+    return m.diedDate >= electionDate;
+  });
+
+  if (election.election_type === 'by-election') {
+    // By-election: replace specific person, new member expires at next general
+    const replacedName = election.replaced_person_name || election.replaced_person;
+    if (replacedName) {
+      for (const cohort of cohorts) {
+        cohort.members = removePerson(cohort.members, replacedName);
+      }
+      byElectionMembers = removePerson(byElectionMembers, replacedName);
+    }
+    for (const c of elected) {
+      const name = c.person_name || c.candidate_name;
+      byElectionMembers.push({
+        name,
+        slug: c.person_slug,
+        fromByElection: true,
+        diedDate: deathDates.get(name) || null,
+      });
+      newMembers.add(name);
+    }
+  } else {
+    // General election
+    generalCount++;
+
+    if (election.wiki_page_title === 'Lerwick Town Council Election November 1876') {
+      // Special case: 1876 reform election seeded ALL THREE cohorts
+      // Bottom 4 by votes → 1-year term (expire at general+1 = 1877)
+      // Next 4 → 2-year term (expire at general+2 = 1878)
+      // Top 4 → 3-year term (expire at general+3 = 1879)
+      cohorts = [];
+      byElectionMembers = [];
+      // Elected are already sorted by position (vote ranking)
+      const members = elected.map((c: any) => ({
+        name: c.person_name || c.candidate_name,
+        slug: c.person_slug,
+        fromByElection: false,
+        diedDate: deathDates.get(c.person_name || c.candidate_name) || null,
+      }));
+      // Top 4 (positions 1-4): 3-year term
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: members.slice(0, 4),
+        expiresAfterGenerals: generalCount + 3,
+      });
+      // Next 4 (positions 5-8): 2-year term
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: members.slice(4, 8),
+        expiresAfterGenerals: generalCount + 2,
+      });
+      // Bottom 4 (positions 9-12): 1-year term
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: members.slice(8, 12),
+        expiresAfterGenerals: generalCount + 1,
+      });
+    } else if (numElected >= 10) {
+      // Full council replacement (pre-1876 triennial elections)
+      cohorts = [];
+      byElectionMembers = [];
+      const newCohort: Member[] = elected.map((c: any) => ({
+        name: c.person_name || c.candidate_name,
+        slug: c.person_slug,
+        fromByElection: false,
+        diedDate: deathDates.get(c.person_name || c.candidate_name) || null,
+      }));
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: newCohort,
+        expiresAfterGenerals: generalCount + 3,
+      });
+      for (const m of newCohort) newMembers.add(m.name);
+    } else {
+      // Annual rotation:
+      // 1. Expire cohorts that have served 3 general elections
+      cohorts = cohorts.filter(c => c.expiresAfterGenerals > generalCount);
+      // 2. All by-election fills expire (their seats are now being contested)
+      byElectionMembers = [];
+      // 3. Add new cohort
+      const newCohort: Member[] = elected.map((c: any) => ({
+        name: c.person_name || c.candidate_name,
+        slug: c.person_slug,
+        fromByElection: false,
+        diedDate: deathDates.get(c.person_name || c.candidate_name) || null,
+      }));
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: newCohort,
+        expiresAfterGenerals: generalCount + 3,
+      });
+      for (const m of newCohort) newMembers.add(m.name);
+    }
+  }
+
+  // Build current council: all active cohorts + by-election fills
+  const allMembers = [
+    ...cohorts.flatMap(c => c.members),
+    ...byElectionMembers,
+  ];
+
+  // Deduplicate by name (keep most recent if re-elected)
+  const seen = new Map<string, Member>();
+  for (const m of allMembers) {
+    seen.set(m.name, m);
+  }
+  const members = Array.from(seen.values());
+
+  // Sort: provost first (if in council), then alphabetical
+  members.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Find provost
+  let provost: string | null = null;
+  let provostSlug: string | null = null;
+  for (const p of provosts) {
+    if (electionYear >= p.start_year && electionYear < p.end_year) {
+      provost = p.person_name;
+      if (p.person_id) {
+        const person = db.prepare('SELECT slug FROM people WHERE id = ?').get(p.person_id) as any;
+        if (person) provostSlug = person.slug;
+      }
+      break;
+    }
+  }
+
+  snapshots.push({
+    wikiTitle: election.wiki_page_title,
+    date: election.election_date || '',
+    type: election.election_type,
+    electionId: election.id,
+    members,
+    newMembers,
+    provost,
+    provostSlug,
+  });
+}
+
+function shortDate(d: string): string {
+  if (!d) return '?';
+  const date = new Date(d);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+function electionLabel(s: Snapshot): string {
+  if (s.type === 'by-election') return shortDate(s.date) + ' (by)';
+  return shortDate(s.date);
+}
+
+const maxSize = Math.max(...snapshots.map(s => s.members.length));
+---
+<Base title="Lerwick Town Council Composition">
+  <div class="breadcrumb">
+    <a href="/">Home</a> &rsaquo;
+    <a href="/council/lerwick-town-council">Lerwick Town Council</a> &rsaquo;
+    Council Composition
+  </div>
+
+  <h1>Lerwick Town Council Composition</h1>
+  <p class="meta">
+    The full membership of the council after each election, 1818–1975.
+    Scroll horizontally to navigate. Members are sorted alphabetically.
+    <span class="new-legend">Highlighted</span> = newly elected at that election.
+  </p>
+
+  <div class="timeline-wrapper">
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th class="row-label sticky-corner"></th>
+          {snapshots.map(s => (
+            <th class={`election-header ${s.type === 'by-election' ? 'by-election-header' : ''}`}>
+              <a href={`/election/${s.electionId}`}>{electionLabel(s)}</a>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="provost-row">
+          <td class="row-label"><strong>Provost</strong></td>
+          {snapshots.map(s => (
+            <td class="provost-cell">
+              {s.provost
+                ? (s.provostSlug
+                    ? <a href={`/person/${s.provostSlug}`}>{s.provost}</a>
+                    : s.provost)
+                : ''}
+            </td>
+          ))}
+        </tr>
+        <tr class="count-row">
+          <td class="row-label">Size</td>
+          {snapshots.map(s => (
+            <td class="count-cell">{s.members.length}</td>
+          ))}
+        </tr>
+        {Array.from({ length: maxSize }, (_, row) => (
+          <tr>
+            <td class="row-label">{row + 1}</td>
+            {snapshots.map(s => {
+              const member = s.members[row];
+              if (!member) return <td class="empty-cell"></td>;
+              const isNew = s.newMembers.has(member.name);
+              return (
+                <td class={`member-cell ${isNew ? 'new-member' : ''} ${member.fromByElection ? 'by-elected' : ''}`}>
+                  {member.slug
+                    ? <a href={`/person/${member.slug}`}>{member.name}</a>
+                    : member.name}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>
+
+<style>
+  .new-legend {
+    background: var(--success-light);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .timeline-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    max-height: 80vh;
+  }
+
+  .timeline-table {
+    border-collapse: collapse;
+    font-size: 0.76rem;
+    white-space: nowrap;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .timeline-table th,
+  .timeline-table td {
+    padding: 0.25rem 0.45rem;
+    border: 1px solid var(--border-light);
+    vertical-align: middle;
+  }
+
+  .row-label {
+    position: sticky;
+    left: 0;
+    background: var(--bg-surface);
+    z-index: 2;
+    font-weight: 600;
+    min-width: 3.5rem;
+    border-right: 2px solid var(--border) !important;
+    text-align: center;
+  }
+
+  .sticky-corner {
+    z-index: 4;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+
+  .election-header {
+    background: var(--table-header-bg);
+    color: var(--table-header-text);
+    text-align: center;
+    font-size: 0.7rem;
+    min-width: 5.5rem;
+    font-weight: 500;
+  }
+
+  .election-header a { color: var(--table-header-text); }
+
+  .by-election-header {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+  }
+
+  .by-election-header a { color: var(--warning-text); }
+
+  .provost-row td {
+    background: var(--accent-light);
+    font-weight: 600;
+    font-size: 0.73rem;
+  }
+
+  .provost-row .row-label {
+    background: var(--accent-light);
+  }
+
+  .count-row td {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .member-cell {
+    font-size: 0.73rem;
+  }
+
+  .new-member {
+    background: var(--success-light);
+    font-weight: 600;
+  }
+
+  .by-elected {
+    font-style: italic;
+  }
+
+  .empty-cell {
+    background: var(--bg-surface-alt);
+  }
+</style>

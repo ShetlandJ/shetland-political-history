@@ -98,13 +98,13 @@ export function getAllElections(): Election[] {
 }
 
 // Group elections by wiki_page_title (for multi-constituency elections shown on one page)
-export function getElectionsByPage(wikiPageTitle: string): (Election & { constituency_name?: string })[] {
+export function getElectionsByPage(wikiPageTitle: string): (Election & { constituency_name?: string; constituency_slug?: string; constituency_display_name?: string })[] {
   return db.prepare(`
-    SELECT e.*, con.name as constituency_name
+    SELECT e.*, con.name as constituency_name, con.slug as constituency_slug, e.constituency_display_name
     FROM elections e
     LEFT JOIN constituencies con ON e.constituency_id = con.id
     WHERE e.wiki_page_title = ? AND e.hidden = 0
-    ORDER BY con.name
+    ORDER BY COALESCE(e.constituency_display_name, con.name)
   `).all(wikiPageTitle) as any[];
 }
 
@@ -267,6 +267,40 @@ export function getCandidacyCount(): number {
 }
 
 // Referenda
+// Leadership roles
+export interface LeadershipRole {
+  id: number;
+  council_id: number;
+  person_id: number | null;
+  person_name: string;
+  role: string;
+  start_year: string | null;
+  end_year: string | null;
+}
+
+export function getLeadershipRoles(councilId?: number): (LeadershipRole & { council_name: string; council_slug: string; person_slug?: string })[] {
+  const where = councilId ? 'WHERE lr.council_id = ?' : '';
+  const params = councilId ? [councilId] : [];
+  return db.prepare(`
+    SELECT lr.*, co.name as council_name, co.slug as council_slug, p.slug as person_slug
+    FROM leadership_roles lr
+    JOIN councils co ON lr.council_id = co.id
+    LEFT JOIN people p ON lr.person_id = p.id
+    ${where}
+    ORDER BY co.id, lr.start_year
+  `).all(...params) as any[];
+}
+
+export function getLeadershipRolesForPerson(personId: number): (LeadershipRole & { council_name: string; council_slug: string })[] {
+  return db.prepare(`
+    SELECT lr.*, co.name as council_name, co.slug as council_slug
+    FROM leadership_roles lr
+    JOIN councils co ON lr.council_id = co.id
+    WHERE lr.person_id = ?
+    ORDER BY lr.start_year
+  `).all(personId) as any[];
+}
+
 export interface Referendum {
   id: number;
   title: string;

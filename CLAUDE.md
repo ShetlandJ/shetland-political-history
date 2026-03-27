@@ -55,8 +55,8 @@ Three MediaWiki MySQL dumps exist locally. We use **shetland_history2** (prefix 
 - **councils** — Lerwick Town Council, Zetland County Council, SIC, Parliament of GB, Parliament of UK
 - **constituencies** — 64+ electoral wards/divisions (includes new 2017/2022 SIC wards)
 - **people** — 535 councillors/politicians with intro, biography, birth/death dates+places, image_ref, headshot_ref, Bayanne ID
-- **elections** — ~1,300 rows (one per constituency result; multi-constituency elections create multiple rows sharing a wiki_page_title). Has `hidden` column for erroneous records.
-- **candidacies** — ~2,500 individual candidacy records with votes, party, elected status
+- **elections** — ~1,300 rows (one per constituency result; multi-constituency elections create multiple rows sharing a wiki_page_title). Has `hidden` column for erroneous records. `constituency_display_name` stores historical names that differ from current (e.g. "Walls North" → now "Sandness"). `electorate_detail` stores breakdown like "107 men, 19 women". `replaced_person`/`replaced_person_id` for by-elections.
+- **candidacies** — ~2,500 individual candidacy records with votes, party, elected status. Some candidate_names contain `[url display]` external links (Bayanne) — rendered via ExternalLink component, not stripped.
 - **referenda** — 6 referenda (1975 EEC, 1979 devolution, 1997 devolution x2 questions, 2011 AV, 2014 indyref, 2016 EU)
 - **referendum_results** — Vote counts per option per question
 
@@ -66,6 +66,8 @@ Person linkage: ~86% of candidacies are linked to person records via:
 3. Middle-name / abbreviation matching (e.g. "Thomas M. Y. Manson" → "Thomas Manson (ii)")
 4. Name propagation (if same candidate_name is linked in 4 elections but not the 5th, propagate)
 5. Dead-person unlinking (18 impossible links removed where person died before election)
+6. Manual candidacy corrections (e.g. Robert Anderson 1956 → Robert Anderson (i))
+7. Manual person data corrections (e.g. David Harbison birth/death dates from DB1)
 
 ## Parser Pipeline (parse_wiki.py)
 
@@ -78,9 +80,10 @@ Steps in order:
 4b. Build redirect map (294 MediaWiki redirects)
 4c. Fix 34 verified Bayanne ID corrections (cross-referenced against live Bayanne site 2026-03-26)
 5. Import elections and candidacies
-6. Validate person-candidacy links (unlink dead/unborn)
-6a. Manual candidacy corrections
-6b. Hide erroneous elections
+6. Validate person-candidacy links (unlink dead/unborn/underage)
+6a. Manual candidacy corrections (wiki_page_title + candidate_name → correct person)
+6a2. Manual person data corrections (birth/death dates from other sources)
+6b. Hide erroneous elections (e.g. fake 1844 by-election)
 6c. Middle-name / abbreviation matching
 6d. Propagate person_id by exact candidate name
 7. Import referenda (6 referendum pages with result tables)
@@ -97,7 +100,11 @@ The parser uses **MediaWiki navigation templates** as the canonical list of elec
 - Headshots: extracted from succession templates — `[[Person Link]]..[[File:Headshot.png]]` within `{{ }}` blocks. Requires protecting wiki link pipes from cell splitting.
 - Bayanne IDs: extracted from `personID=I\d+` in external links
 - Referenda: parsed from pages in `[[Category:Referenda]]`, supports multi-question (1997 had 2 questions)
-- Notes with by-election references: linkified with fuzzy matching
+- Notes with by-election references: linkified with fuzzy matching on place name + year
+- Constituency display names: `===[[Sandness (Constituency)|Walls North]]===` → stored in `constituency_display_name`, shown as heading with "now Sandness" note
+- Electorate detail: `Electorate: 126 (107 men, 19 women)` → `electorate_detail` column
+- Disambiguation notices stripped from intros: "For other people with the same name, see X." and `__NOTOC__`
+- External links in candidate names preserved as `[url display]` for rendering via ExternalLink component
 
 ### Image handling
 - **Main photos** (`image_ref`): extracted from page body only, ignoring `{{ }}` templates. Stored as `{slug}.{ext}` in `public/images/people/`.
@@ -122,8 +129,9 @@ SIC elections from 2017+ and by-elections from 2019+ are NOT in the wiki databas
 - **Dark mode** via `prefers-color-scheme`
 - **Sticky header** with mobile hamburger menu
 - **Succession boxes** on person pages showing predecessor/successor with headshot thumbnails. Same-council tenures stack without repeating the header.
-- **Election navigation** (prev/next within same council + type)
-- **Client-side search** (full index baked into the page at build time)
+- **Election navigation** — prev/next within same type; by-election pages also show links to surrounding general elections; labels show "(by)" for by-elections
+- **Constituency historical names** — election headings show the name used at the time (e.g. "Walls North") with "now Sandness" note, linking to the current constituency page
+- **Client-side search** — full-text: includes person bios, candidate names on election pages, and full names from intros. Shows snippets for body-text matches.
 - **Referenda** section with multi-question support
 - **Anomalies page** for data quality review
 - **Notes linkification** — "see X By-Election Y" in election notes becomes clickable (with fuzzy matching)

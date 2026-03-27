@@ -39,7 +39,6 @@ const grouped = referenda.map(ref => {
                 <th>Option</th>
                 <th>Votes</th>
                 <th>%</th>
-                <th>Result</th>
               </tr>
             </thead>
             <tbody>
@@ -48,7 +47,6 @@ const grouped = referenda.map(ref => {
                   <td>{o.option_name}</td>
                   <td>{o.votes?.toLocaleString()}</td>
                   <td>{o.percentage}%</td>
-                  <td>{o.won ? <span class="elected">Won</span> : <span class="not-elected">Lost</span>}</td>
                 </tr>
               ))}
             </tbody>
