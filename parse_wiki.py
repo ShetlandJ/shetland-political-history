@@ -1647,6 +1647,60 @@ def main():
             hidden_count += sqlite_cursor.rowcount
     print(f"  Marked {hidden_count} elections as hidden")
 
+    # --- Step 6b3: Fix redirect elections with missing data ---
+    print("\n=== Fixing redirect elections ===")
+    # These elections were imported from redirect pages and have no candidacies.
+    # Fix by re-reading the actual target page and importing candidates.
+    redirect_fixes = [
+        # (stored_wiki_title, actual_wiki_title, correct_constituency_name)
+        ('Northmavine South County Council By-Election February 1951',
+         'Northmavine_North_County_Council_By-Election_February_1951', 'Northmavine North'),
+    ]
+    for stored_title, actual_title, correct_constit in redirect_fixes:
+        # Get the actual page content
+        actual_text = get_wiki_page(mysql_cursor, actual_title)
+        if not actual_text:
+            print(f"  Skipped (no content): {actual_title}")
+            continue
+
+        # Find the election record
+        sqlite_cursor.execute("SELECT id, constituency_id FROM elections WHERE wiki_page_title = ? OR wiki_page_title = ?",
+                            (stored_title, stored_title.replace(' ', '_')))
+        erow = sqlite_cursor.fetchone()
+        if not erow:
+            print(f"  Skipped (no election): {stored_title}")
+            continue
+        eid = erow[0]
+
+        # Fix constituency if wrong
+        if correct_constit:
+            sqlite_cursor.execute("SELECT id FROM constituencies WHERE name = ?", (correct_constit,))
+            crow = sqlite_cursor.fetchone()
+            if crow:
+                sqlite_cursor.execute("UPDATE elections SET constituency_id = ? WHERE id = ?", (crow[0], eid))
+
+        # Parse candidates from the actual page
+        parsed = parse_election_page(actual_text, actual_title)
+        if parsed and parsed['results']:
+            for result in parsed['results']:
+                for pos, cand in enumerate(result.get('candidates', []), 1):
+                    pid = None
+                    if cand.get('wiki_link'):
+                        pid = person_ids.get(cand['wiki_link'].replace(' ', '_'))
+                    if not pid:
+                        pid = person_name_map.get(cand['name'])
+                    sqlite_cursor.execute("""
+                        INSERT INTO candidacies (election_id, person_id, candidate_name, party, votes, votes_text, elected, position, role)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (eid, pid, cand['name'], cand.get('party'), cand.get('votes'),
+                          cand.get('votes_text'), 1 if cand['elected'] else 0, pos, cand.get('role')))
+            print(f"  Fixed: {stored_title} -> {actual_title}")
+
+    # Hide the 1902 redirect (actual page imported separately via different title)
+    sqlite_cursor.execute("UPDATE elections SET hidden = 1 WHERE wiki_page_title IN ('1902 Orkney and Shetland by-election', '1902_Orkney_and_Shetland_by-election')")
+    if sqlite_cursor.rowcount:
+        print(f"  Hidden: 1902 Orkney and Shetland by-election (redirect)")
+
     # --- Step 6b2: Fix by-election replacement data ---
     # Manually verified replacements where the parser couldn't extract the name correctly.
     # Confirmed with James Stewart 2026-03-27.
@@ -1711,6 +1765,7 @@ def main():
         ('Dunrossness North County Council By-Election December 1946', 'John Goudie', None),  # John J. Goudie — no person page
         ('Bressay County Council By-Election June 1966', 'John Smith', 'John_Smith_(ii)'),
         ('Shetland Central By-Election December 2011', 'Iris Hawkins', None),  # no person page
+        ('Northmavine South County Council By-Election February 1951', 'David Walker', None),  # redirect from South to North; Rev. David A. Walker resigned
     ]
     # Oct 1941 also replaced Joseph Linklater — handle as second update
     replacement_fixes_extra = [
