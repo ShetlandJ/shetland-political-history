@@ -18,7 +18,10 @@ const byElectionStatus = db.prepare(`
   ORDER BY e.election_date
 `).all() as any[];
 
-const missing = byElectionStatus.filter((e: any) => !e.replaced_person);
+const missing = byElectionStatus.filter((e: any) => !e.replaced_person || e.replaced_person === '[unfilled seat]');
+const notAReplacement = new Set(['[unfilled seat]', '[voided election re-run]']);
+const genuinelyUnknown = missing.filter((e: any) => !notAReplacement.has(e.replaced_person));
+const unfilledSeats = missing.filter((e: any) => notAReplacement.has(e.replaced_person));
 const unlinked = byElectionStatus.filter((e: any) => e.replaced_person && !e.replaced_person_id);
 const linked = byElectionStatus.filter((e: any) => e.replaced_person_id);
 
@@ -238,7 +241,7 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
       {voteAnomalies.length > 0 && <li><a href="#vote-anomalies">Vote anomalies ({voteAnomalies.length})</a></li>}
       <li><a href="#similar-names">Disambiguated names ({similarNames.length})</a></li>
       <li><a href="#composition">LTC composition ({anomalies.length} anomalies)</a></li>
-      <li><a href="#by-elections">By-election replacements ({missing.length} unknown)</a></li>
+      <li><a href="#by-elections">By-election replacements ({genuinelyUnknown.length} unknown)</a></li>
       <li><a href="#unlinked-cands">Unlinked candidacies ({totalUnlinked})</a></li>
       {potentialMatches.length > 0 && <li><a href="#potential-matches">Potential matches ({potentialMatches.length})</a></li>}
       <li><a href="#no-candidacies">People with no elections ({noCandidacies.length})</a></li>
@@ -276,15 +279,15 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
 
   <details>
     <summary><h2 id="by-elections">By-Election Replacements</h2></summary>
-    <p class="meta">{linked.length} linked, {unlinked.length} parsed but unlinked, {missing.length} with no replacement data.</p>
+    <p class="meta">{linked.length} linked, {unlinked.length} parsed but unlinked, {genuinelyUnknown.length} unknown, {unfilledSeats.length} unfilled seats (no nomination at previous election).</p>
 
-    {missing.length > 0 && (
+    {genuinelyUnknown.length > 0 && (
       <>
         <h3>Unknown — who did they replace?</h3>
         <table>
           <thead><tr><th>By-Election</th><th>Date</th><th>Council</th><th>Links</th></tr></thead>
           <tbody>
-            {missing.map((e: any) => (
+            {genuinelyUnknown.map((e: any) => (
               <tr>
                 <td>{e.wiki_page_title.replace(/_/g, ' ')}</td>
                 <td>{e.election_date}</td>
@@ -613,6 +616,10 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
 
   details > :not(summary) {
     padding: 0 1rem 1rem;
+  }
+
+  details ul, details ol {
+    padding-left: 2.5rem;
   }
 
   details table {

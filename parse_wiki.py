@@ -526,6 +526,11 @@ def parse_election_page(text, title):
             if rp_match:
                 replaced_person = rp_match.group(1).strip()
 
+        # Pattern 22: "no nomination at the previous election" — unfilled seat, not a replacement
+        if not replaced_person:
+            if re.search(r'no nomination|received no nomination', text_for_match, re.IGNORECASE):
+                replaced_person = '[unfilled seat]'
+
     # Check for sub-sections (constituency-level results within a general election)
     # County Council general elections have === Constituency === sub-sections
     sections = re.split(r'===\s*\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]\s*===', text)
@@ -1693,6 +1698,19 @@ def main():
         ('Dunrossness North County Council By-Election October 1971', 'Iain Campbell', 'Iain_Campbell'),
         ('Northmavine South County Council By-Election June 1972', 'Hugh Sutherland', 'Hugh_Sutherland'),
         ('Dunrossness By-Election July 1977', 'James Leask', 'James_Leask'),
+        # ZCC by-elections — resolved from wiki text analysis 2026-03-27
+        ('Aithsting County Council By-Election April 1890', '[voided election re-run]', None),
+        ('Sandsting County Council By-Election April 1890', '[voided election re-run]', None),
+        ('Burra County Council By-Election February 1893', '[unfilled seat]', None),
+        ('Aithsting County Council By-Election January 1896', '[unfilled seat]', None),
+        ('Burra County Council By-Election August 1909', 'Charles Lennie', 'Charles_Lennie'),
+        ('Whiteness And Weisdale County Council By-Election June 1914', 'Peter Anderson', 'Peter_Anderson'),
+        ('Burra County Council By-Election April 1920', 'William Sinclair', 'William_Sinclair'),
+        ('Bressay County Council By-Election December 1934', 'James A. Smith', 'James_A._Smith'),
+        ('Dunrossness North County Council By-Election December 1934', 'John Robertson (iv)', 'John_Robertson_(iv)'),
+        ('Dunrossness North County Council By-Election December 1946', 'John Goudie', None),  # John J. Goudie — no person page
+        ('Bressay County Council By-Election June 1966', 'John Smith', 'John_Smith_(ii)'),
+        ('Shetland Central By-Election December 2011', 'Iris Hawkins', None),  # no person page
     ]
     # Oct 1941 also replaced Joseph Linklater — handle as second update
     replacement_fixes_extra = [
