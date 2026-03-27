@@ -289,19 +289,231 @@ def parse_election_page(text, title):
     is_by_election = 'by-election' in title.lower() or 'by_election' in title.lower() or 'By-Election' in title
 
     # Extract who was replaced (for by-elections)
-    # Patterns: "Following the resignation of [[Person]]", "Following the death of [[Person]]"
+    # Many patterns in the wiki text:
+    #   "Following the resignation of [[Person]]"
+    #   "Following the death of councillor [[Person]]"
+    #   "because [[Person]] had resigned"
+    #   "because [[Person]] resigned"
+    #   "after Reverend [[Person]] resigned"
+    #   "Previous councillor Mr [[Person]] announced..."
+    #   "Councillor [[Person]] lost his seat due to..."
+    #   "[[Person]]'s resignation"
+    #   "seat received no nomination at the previous election" (no specific person)
     replaced_person = None
     replaced_wiki_link = None
     if is_by_election:
-        rp_match = re.search(r'[Ff]ollowing the (?:resignation|death|removal|departure) of \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]', text)
+        # Strip wiki link markup for cleaner matching, but keep originals for link extraction
+        text_for_match = text
+
+        # Pattern 1: "Following the resignation/death of [title] [[Person]]"
+        rp_match = re.search(
+            r'[Ff]ollowing the (?:resignation|death|removal|departure) of (?:councillor |Councillor |Provost |Captain )?'
+            r'(?:both )?\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]',
+            text_for_match
+        )
         if rp_match:
             replaced_wiki_link = rp_match.group(1).strip()
             replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
-        else:
-            # Try without wiki link: "Following the resignation of Person Name,"
-            rp_match2 = re.search(r'[Ff]ollowing the (?:resignation|death|removal|departure) of ([A-Z][^,.\n]+)', text)
-            if rp_match2:
-                replaced_person = rp_match2.group(1).strip()
+
+        # Pattern 2: "because [[Person]] had resigned / resigned"
+        if not replaced_person:
+            rp_match = re.search(
+                r'because \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\] (?:had )?resigned',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 3: "after [title] [[Person]] resigned"
+        if not replaced_person:
+            rp_match = re.search(
+                r'after (?:Reverend |Rev\.? |Mr\.? |Councillor )?\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\] resigned',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 4: "Previous councillor Mr [[Person]] announced"
+        if not replaced_person:
+            rp_match = re.search(
+                r'[Pp]revious councillor (?:Mr\.? )?\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 5: "Councillor [[Person]] lost his seat"
+        if not replaced_person:
+            rp_match = re.search(
+                r'[Cc]ouncillor \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\] lost',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 6: "[[Person]]'s resignation" or "[[Person]] had resigned"
+        if not replaced_person:
+            rp_match = re.search(
+                r"\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]'s (?:resignation|death)",
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 7: "Following the death of councillor Robert..." (no wiki link)
+        if not replaced_person:
+            rp_match = re.search(
+                r'[Ff]ollowing the (?:resignation|death|removal) of (?:councillor |Councillor |Provost |Captain |Mr\.? |Rev\.? )?'
+                r'([A-Z][a-zA-Z. ]+?)(?:,|\.|\\n| was)',
+                text_for_match
+            )
+            if rp_match:
+                replaced_person = rp_match.group(1).strip()
+
+        # Pattern 8: "because Person had resigned" (no wiki link)
+        if not replaced_person:
+            rp_match = re.search(
+                r'because ([A-Z][a-zA-Z. ]+?) (?:had )?resigned',
+                text_for_match
+            )
+            if rp_match:
+                replaced_person = rp_match.group(1).strip()
+
+        # Pattern 9: "after Person resigned" (no wiki link)
+        if not replaced_person:
+            rp_match = re.search(
+                r'after (?:Reverend |Rev\.? |Mr\.? )?([A-Z][a-zA-Z. ]+?) resigned',
+                text_for_match
+            )
+            if rp_match:
+                replaced_person = rp_match.group(1).strip()
+
+        # Pattern 10: "Since [[Person]] was elected to the Town/County Council"
+        if not replaced_person:
+            rp_match = re.search(
+                r'[Ss]ince \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\] was elected to',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 11: "As [[Person]] was elected to" / "as [[Person]] was elected to"
+        if not replaced_person:
+            rp_match = re.search(
+                r'[Aa]s \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\] was elected to',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 12: "election of [[Person]] to the Town Council"
+        if not replaced_person:
+            rp_match = re.search(
+                r'election of \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\] to the',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 13: "after Name retired" / "Name retired"
+        if not replaced_person:
+            rp_match = re.search(
+                r'after (?:\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]|([A-Z][a-zA-Z. ]+?)) retired',
+                text_for_match
+            )
+            if rp_match:
+                if rp_match.group(1):
+                    replaced_wiki_link = rp_match.group(1).strip()
+                    replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+                elif rp_match.group(3):
+                    replaced_person = rp_match.group(3).strip()
+
+        # Pattern 14: "Person felt that he should retire" / "Person resigned and"
+        if not replaced_person:
+            rp_match = re.search(
+                r'\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\] (?:felt|resigned|chose)',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 15: "caused by the death of [[Person]]" / "result of the death of"
+        if not replaced_person:
+            rp_match = re.search(
+                r'(?:caused by|result of) the (?:death|resignation) of \[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 16: "caused by the death of Name" (no wiki link)
+        if not replaced_person:
+            rp_match = re.search(
+                r'(?:caused by|result of) the (?:death|resignation) of ([A-Z][a-zA-Z. ]+?)(?:\.|,|\\n)',
+                text_for_match
+            )
+            if rp_match:
+                replaced_person = rp_match.group(1).strip()
+
+        # Pattern 17: "vacancy was caused by the death of Name"
+        if not replaced_person:
+            rp_match = re.search(
+                r'vacancy was caused by the death of ([A-Z][a-zA-Z. ]+)',
+                text_for_match
+            )
+            if rp_match:
+                replaced_person = rp_match.group(1).strip()
+
+        # Pattern 18: "whose resignation" with nearby [[Person]]
+        if not replaced_person:
+            rp_match = re.search(
+                r'\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\],?\s*whose (?:resignation|death)',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 19: "Person resigned" plain (Robert H. W. Bruce resigned)
+        if not replaced_person:
+            rp_match = re.search(
+                r'([A-Z][a-zA-Z. ]+?(?:[A-Z][a-zA-Z]+)) resigned',
+                text_for_match
+            )
+            if rp_match:
+                name = rp_match.group(1).strip()
+                # Filter out false positives
+                if name not in ('The', 'A', 'This', 'He', 'She') and len(name.split()) >= 2:
+                    replaced_person = name
+
+        # Pattern 20: "resignation of sitting member [[Person]]"
+        if not replaced_person:
+            rp_match = re.search(
+                r'resignation of (?:sitting member |councillor )?\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]',
+                text_for_match
+            )
+            if rp_match:
+                replaced_wiki_link = rp_match.group(1).strip()
+                replaced_person = rp_match.group(2).strip() if rp_match.group(2) else replaced_wiki_link
+
+        # Pattern 21: "Sandy Cluness resigned following"
+        if not replaced_person:
+            rp_match = re.search(
+                r'([A-Z][a-zA-Z]+ [A-Z][a-zA-Z]+) resigned following',
+                text_for_match
+            )
+            if rp_match:
+                replaced_person = rp_match.group(1).strip()
 
     # Check for sub-sections (constituency-level results within a general election)
     # County Council general elections have === Constituency === sub-sections

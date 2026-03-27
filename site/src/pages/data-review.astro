@@ -1,0 +1,275 @@
+---
+import Base from '../layouts/Base.astro';
+import Database from 'better-sqlite3';
+import path from 'path';
+
+const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
+
+// By-election replacement status
+const byElectionStatus = db.prepare(`
+  SELECT e.wiki_page_title, e.election_date, e.election_type,
+         e.replaced_person, e.replaced_person_id,
+         rp.name as replaced_person_name, rp.slug as replaced_person_slug,
+         co.name as council_name, co.slug as council_slug
+  FROM elections e
+  JOIN councils co ON e.council_id = co.id
+  LEFT JOIN people rp ON e.replaced_person_id = rp.id
+  WHERE e.election_type = 'by-election' AND e.hidden = 0
+  ORDER BY e.election_date
+`).all() as any[];
+
+const missing = byElectionStatus.filter((e: any) => !e.replaced_person);
+const unlinked = byElectionStatus.filter((e: any) => e.replaced_person && !e.replaced_person_id);
+const linked = byElectionStatus.filter((e: any) => e.replaced_person_id);
+
+// Council composition anomalies — compute inline
+const ltcId = (db.prepare("SELECT id FROM councils WHERE slug = 'lerwick-town-council'").get() as any).id;
+
+const ltcElections = db.prepare(`
+  SELECT e.wiki_page_title, e.election_date, e.election_type, e.replaced_person,
+         rp.name as replaced_person_name, e.notes
+  FROM elections e
+  LEFT JOIN people rp ON e.replaced_person_id = rp.id
+  WHERE e.council_id = ? AND e.hidden = 0
+  GROUP BY e.wiki_page_title ORDER BY e.election_date
+`).all(ltcId) as any[];
+
+const deaths = new Map<string, string>();
+for (const r of db.prepare("SELECT name, died_date FROM people WHERE died_date IS NOT NULL").all() as any[]) {
+  deaths.set(r.name, r.died_date);
+}
+
+function getElected(wt: string) {
+  return db.prepare(`
+    SELECT c.candidate_name, p.name as person_name
+    FROM candidacies c JOIN elections e ON c.election_id = e.id
+    LEFT JOIN people p ON c.person_id = p.id
+    WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0 ORDER BY c.position
+  `).all(wt) as any[];
+}
+
+function removePerson(lst: string[], name: string): string[] {
+  const clean = name.replace(/\s*\([^)]*\)\s*$/, '');
+  return lst.filter(m => m !== name && m.replace(/\s*\([^)]*\)\s*$/, '') !== clean);
+}
+
+let cohorts: { members: string[]; exp: number }[] = [];
+let byMembers: string[] = [];
+let generalCount = 0;
+
+interface Anomaly {
+  date: string;
+  type: string;
+  size: number;
+  wikiTitle: string;
+  direction: string;
+}
+
+const anomalies: Anomaly[] = [];
+
+for (const e of ltcElections) {
+  const elected = getElected(e.wiki_page_title);
+  const num = elected.length;
+  const edate: string = e.election_date || '';
+  const year = edate.substring(0, 4);
+
+  for (const c of cohorts) {
+    c.members = c.members.filter(m => (deaths.get(m) || '9999') >= edate);
+  }
+  byMembers = byMembers.filter(m => (deaths.get(m) || '9999') >= edate);
+
+  if (e.election_type === 'by-election') {
+    const replaced = e.replaced_person_name || e.replaced_person;
+    if (replaced) {
+      for (const c of cohorts) c.members = removePerson(c.members, replaced);
+      byMembers = removePerson(byMembers, replaced);
+    }
+    const notes: string = e.notes || '';
+    const also = notes.match(/Also replaced:\s*(.+)/);
+    if (also) {
+      for (const c of cohorts) c.members = removePerson(c.members, also[1].trim());
+      byMembers = removePerson(byMembers, also[1].trim());
+    }
+    for (const c of elected) byMembers.push(c.person_name || c.candidate_name);
+  } else {
+    generalCount++;
+    if (e.wiki_page_title === 'Lerwick Town Council Election November 1876') {
+      cohorts = []; byMembers = [];
+      const members = elected.map((c: any) => c.person_name || c.candidate_name);
+      cohorts.push({ members: members.slice(0, 4), exp: generalCount + 3 });
+      cohorts.push({ members: members.slice(4, 8), exp: generalCount + 2 });
+      cohorts.push({ members: members.slice(8, 12), exp: generalCount + 1 });
+    } else if (num >= 10) {
+      cohorts = []; byMembers = [];
+      cohorts.push({ members: elected.map((c: any) => c.person_name || c.candidate_name), exp: generalCount + 3 });
+    } else {
+      cohorts = cohorts.filter(c => c.exp > generalCount);
+      byMembers = [];
+      cohorts.push({ members: elected.map((c: any) => c.person_name || c.candidate_name), exp: generalCount + 3 });
+    }
+  }
+
+  const allNames = new Set<string>();
+  for (const c of cohorts) for (const m of c.members) allNames.add(m);
+  for (const m of byMembers) allNames.add(m);
+  const size = allNames.size;
+
+  if (year && parseInt(year) > 1877 && size !== 12) {
+    anomalies.push({
+      date: edate,
+      type: e.election_type,
+      size,
+      wikiTitle: e.wiki_page_title,
+      direction: size > 12 ? 'over' : 'under',
+    });
+  }
+}
+
+// People with no candidacies
+const noCandidacies = db.prepare(`
+  SELECT p.name, p.slug, p.born_date, p.died_date
+  FROM people p LEFT JOIN candidacies c ON c.person_id = p.id
+  WHERE c.id IS NULL ORDER BY p.name
+`).all() as any[];
+
+// Unlinked candidacies
+const unlinkedCandidacies = db.prepare(`
+  SELECT c.candidate_name, COUNT(*) as n,
+         GROUP_CONCAT(DISTINCT SUBSTR(e.election_date, 1, 4)) as years
+  FROM candidacies c JOIN elections e ON c.election_id = e.id
+  WHERE c.person_id IS NULL AND e.hidden = 0
+  GROUP BY c.candidate_name ORDER BY COUNT(*) DESC
+`).all() as any[];
+
+const totalUnlinked = unlinkedCandidacies.reduce((sum: number, u: any) => sum + u.n, 0);
+---
+<Base title="Data Review">
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Data Review</div>
+  <h1>Data Review</h1>
+  <p class="meta">Data quality checks and items needing research. This page is a working tool, not a public-facing feature.</p>
+
+  <nav class="review-nav">
+    <strong>Sections:</strong>
+    <a href="#composition">Council composition ({anomalies.length} anomalies)</a> &middot;
+    <a href="#by-elections">By-election replacements ({missing.length} missing, {unlinked.length} unlinked)</a> &middot;
+    <a href="#unlinked-cands">Unlinked candidacies ({totalUnlinked})</a> &middot;
+    <a href="#no-candidacies">People with no elections ({noCandidacies.length})</a>
+  </nav>
+
+  <section>
+    <h2 id="composition">LTC Composition Anomalies</h2>
+    <p class="meta">Expected council size: 12 (post-1877). Showing elections where the computed size differs. "Over" means unresolved departures; "under" means unfilled seats.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Size</th>
+          <th>Issue</th>
+          <th>Election</th>
+        </tr>
+      </thead>
+      <tbody>
+        {anomalies.map(a => (
+          <tr>
+            <td>{a.date}</td>
+            <td><span class={`badge badge-${a.type}`}>{a.type}</span></td>
+            <td class={a.direction === 'over' ? 'danger' : 'warning'}><strong>{a.size}</strong></td>
+            <td>{a.direction === 'over' ? `+${a.size - 12} extra` : `${12 - a.size} missing`}</td>
+            <td>{a.wikiTitle.replace(/_/g, ' ')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 id="by-elections">By-Election Replacements</h2>
+    <p class="meta">{linked.length} linked, {unlinked.length} parsed but unlinked, {missing.length} with no replacement data.</p>
+
+    {missing.length > 0 && (
+      <>
+        <h3>Unknown — who did they replace?</h3>
+        <table>
+          <thead><tr><th>By-Election</th><th>Date</th><th>Council</th><th>Source</th></tr></thead>
+          <tbody>
+            {missing.map((e: any) => (
+              <tr>
+                <td>{e.wiki_page_title.replace(/_/g, ' ')}</td>
+                <td>{e.election_date}</td>
+                <td>{e.council_name}</td>
+                <td><a href={`https://shetlandhistory.com/${e.wiki_page_title.replace(/ /g, '_')}`} target="_blank" rel="noopener">wiki</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    )}
+
+    {unlinked.length > 0 && (
+      <>
+        <h3>Parsed but not linked to person record</h3>
+        <table>
+          <thead><tr><th>By-Election</th><th>Replaced (text)</th><th>Council</th><th>Source</th></tr></thead>
+          <tbody>
+            {unlinked.map((e: any) => (
+              <tr>
+                <td>{e.wiki_page_title.replace(/_/g, ' ')}</td>
+                <td>{e.replaced_person}</td>
+                <td>{e.council_name}</td>
+                <td><a href={`https://shetlandhistory.com/${e.wiki_page_title.replace(/ /g, '_')}`} target="_blank" rel="noopener">wiki</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    )}
+  </section>
+
+  <section>
+    <h2 id="unlinked-cands">Unlinked Candidacies</h2>
+    <p class="meta">{totalUnlinked} candidacies across {unlinkedCandidacies.length} names with no linked person record.</p>
+    <table>
+      <thead><tr><th>Name</th><th>Appearances</th><th>Years</th></tr></thead>
+      <tbody>
+        {unlinkedCandidacies.map((u: any) => (
+          <tr>
+            <td>{u.candidate_name}</td>
+            <td>{u.n}</td>
+            <td style="font-size: 0.8rem;">{u.years}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 id="no-candidacies">People With No Elections</h2>
+    <p class="meta">{noCandidacies.length} people not linked to any election (pre-1707 politicians, MPs without election data in wiki).</p>
+    <table>
+      <thead><tr><th>Person</th><th>Born</th><th>Died</th></tr></thead>
+      <tbody>
+        {noCandidacies.map((p: any) => (
+          <tr>
+            <td><a href={`/person/${p.slug}`}>{p.name}</a></td>
+            <td>{p.born_date || ''}</td>
+            <td>{p.died_date || ''}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+</Base>
+
+<style>
+  .review-nav {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .danger { color: var(--danger); }
+  .warning { color: var(--warning-text); }
+</style>
