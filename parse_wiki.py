@@ -1601,6 +1601,32 @@ def main():
             print(f"  Fixed: '{cand_name}' in '{election_page}' -> person {correct_person_page}")
     print(f"  Applied {fix_count} corrections")
 
+    # --- Step 6a3: Fix elected/not-elected swaps ---
+    print("\n=== Fixing elected status swaps ===")
+    elected_swaps = [
+        # (election_wiki_page, should_be_elected_name, should_be_not_elected_name)
+        # Delting South 1919: Joseph Peterson won (78 votes), not John T. J. Sinclair (30)
+        ('County_Council_Election_December_1919', 'Joseph Peterson', 'John T. J. Sinclair'),
+    ]
+    swap_count = 0
+    for election_page, winner, loser in elected_swaps:
+        for variant in [election_page, election_page.replace('_', ' ')]:
+            sqlite_cursor.execute("""
+                UPDATE candidacies SET elected = 1
+                WHERE candidate_name = ? AND elected = 0
+                AND election_id IN (SELECT id FROM elections WHERE wiki_page_title = ?)
+            """, (winner, variant))
+            if sqlite_cursor.rowcount > 0:
+                sqlite_cursor.execute("""
+                    UPDATE candidacies SET elected = 0
+                    WHERE candidate_name = ? AND elected = 1
+                    AND election_id IN (SELECT id FROM elections WHERE wiki_page_title = ?)
+                """, (loser, variant))
+                swap_count += 1
+                print(f"  Swapped: {winner} elected, {loser} not elected in {election_page}")
+                break
+    print(f"  Fixed {swap_count} swaps")
+
     # --- Step 6b: Hide erroneous elections ---
     print("\n=== Hiding erroneous elections ===")
     hidden_elections = [

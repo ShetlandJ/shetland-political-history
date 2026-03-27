@@ -171,14 +171,18 @@ const longCareers = db.prepare(`
 `).all() as any[];
 
 const voteAnomalies = db.prepare(`
-  SELECT e.wiki_page_title, e.election_date, con.name as constituency_name,
-         w.candidate_name as winner_name, w.votes as winner_votes,
-         l.candidate_name as loser_name, l.votes as loser_votes
-  FROM candidacies w JOIN elections e ON w.election_id = e.id
-  LEFT JOIN constituencies con ON e.constituency_id = con.id
+  SELECT (SELECT MIN(e2.id) FROM elections e2 WHERE e2.wiki_page_title = e.wiki_page_title AND e2.hidden = 0) as election_id,
+         e.wiki_page_title, e.election_date, con.name as constituency_name,
+         w.candidate_name as winner_name, w.votes as winner_votes, wp.slug as winner_slug,
+         l.candidate_name as loser_name, l.votes as loser_votes, lp.slug as loser_slug
+  FROM candidacies w
+  JOIN elections e ON w.election_id = e.id
   JOIN candidacies l ON l.election_id = w.election_id AND l.id != w.id
+  LEFT JOIN constituencies con ON e.constituency_id = con.id
+  LEFT JOIN people wp ON w.person_id = wp.id
+  LEFT JOIN people lp ON l.person_id = lp.id
   WHERE w.elected = 1 AND l.elected = 0 AND w.votes IS NOT NULL AND l.votes IS NOT NULL
-    AND w.votes < l.votes AND w.votes > 0
+    AND w.votes < l.votes AND w.votes > 0 AND e.hidden = 0
   ORDER BY e.election_date
 `).all() as any[];
 
@@ -243,8 +247,8 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
     </ul>
   </nav>
 
-  <section>
-    <h2 id="composition">LTC Composition Anomalies</h2>
+  <details>
+    <summary><h2 id="composition">LTC Composition Anomalies</h2></summary>
     <p class="meta">Expected council size: 12 (post-1877). Showing elections where the computed size differs. "Over" means unresolved departures; "under" means unfilled seats.</p>
     <table>
       <thead>
@@ -268,10 +272,10 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
         ))}
       </tbody>
     </table>
-  </section>
+  </details>
 
-  <section>
-    <h2 id="by-elections">By-Election Replacements</h2>
+  <details>
+    <summary><h2 id="by-elections">By-Election Replacements</h2></summary>
     <p class="meta">{linked.length} linked, {unlinked.length} parsed but unlinked, {missing.length} with no replacement data.</p>
 
     {missing.length > 0 && (
@@ -317,10 +321,10 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
         </table>
       </>
     )}
-  </section>
+  </details>
 
-  <section>
-    <h2 id="unlinked-cands">Unlinked Candidacies</h2>
+  <details>
+    <summary><h2 id="unlinked-cands">Unlinked Candidacies</h2></summary>
     <p class="meta">{totalUnlinked} candidacies across {unlinkedCandidacies.length} names with no linked person record.</p>
 
     {(() => {
@@ -378,10 +382,10 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
         ))}
       </tbody>
     </table>
-  </section>
+  </details>
 
-  <section>
-    <h2 id="no-candidacies">People With No Elections</h2>
+  <details>
+    <summary><h2 id="no-candidacies">People With No Elections</h2></summary>
     <p class="meta">{noCandidacies.length} people not linked to any election (pre-1707 politicians, MPs without election data in wiki).</p>
     <table>
       <thead><tr><th>Person</th><th>Born</th><th>Died</th></tr></thead>
@@ -395,11 +399,11 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
         ))}
       </tbody>
     </table>
-  </section>
+  </details>
 
   {diedBeforeBorn.length > 0 && (
-    <section>
-      <h2 id="died-before-born">Death date before birth date</h2>
+    <details>
+      <summary><h2 id="died-before-born">Death date before birth date</h2></summary>
       <table>
         <thead><tr><th>Person</th><th>Born</th><th>Died</th></tr></thead>
         <tbody>
@@ -412,12 +416,12 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
           ))}
         </tbody>
       </table>
-    </section>
+    </details>
   )}
 
   {longLived.length > 0 && (
-    <section>
-      <h2 id="long-lived">Unusually long lifespans (95+ years)</h2>
+    <details>
+      <summary><h2 id="long-lived">Unusually long lifespans (95+ years)</h2></summary>
       <table>
         <thead><tr><th>Person</th><th>Born</th><th>Died</th><th>Age</th></tr></thead>
         <tbody>
@@ -431,12 +435,12 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
           ))}
         </tbody>
       </table>
-    </section>
+    </details>
   )}
 
   {longCareers.length > 0 && (
-    <section>
-      <h2 id="long-careers">Very long political careers (40+ years)</h2>
+    <details>
+      <summary><h2 id="long-careers">Very long political careers (40+ years)</h2></summary>
       <p class="meta">May indicate incorrect person linkage (different people with the same name).</p>
       <table>
         <thead><tr><th>Person</th><th>First</th><th>Last</th><th>Span</th><th>Candidacies</th></tr></thead>
@@ -452,31 +456,40 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
           ))}
         </tbody>
       </table>
-    </section>
+    </details>
   )}
 
   {voteAnomalies.length > 0 && (
-    <section>
-      <h2 id="vote-anomalies">Vote count anomalies</h2>
-      <p class="meta">Elected candidate received fewer votes than a non-elected. May indicate STV counting or data errors.</p>
+    <details>
+      <summary><h2 id="vote-anomalies">Vote count anomalies</h2></summary>
+      <p class="meta">Elected candidate received fewer votes than a non-elected. Most are expected in multi-seat elections (e.g. 11 seats, candidate #11 got fewer votes than #12 who lost). Single-seat cases are typically council decisions by petition rather than public votes. Specific notes:</p>
+      <ul class="meta" style="margin-bottom: 1rem;">
+        <li><strong>1871 LTC</strong>: Peter Garriock (50 votes) rejected office; Laurence Stove was approved by councillors in his place. All others were validly elected.</li>
+        <li><strong>1874 LTC</strong>: Transitional election under new Burgh Police Act — 22 elected. Lower-ranked winners had fewer votes than some losers. Normal for large multi-seat.</li>
+        <li><strong>Burra 1898</strong>: Decided by council petition, not public vote. Henderson appointed despite Lennie having more petitioners.</li>
+        <li><strong>Whiteness 1914</strong>: Council appointed Henderson (22 local petition, 10 council votes) over Sinclair (67 petition, 7 council votes).</li>
+        <li><strong>1919 ZCC</strong>: Multi-constituency general election — different wards, different results. Not comparable across wards.</li>
+        <li><strong>SIC 2007/2012</strong>: STV multi-seat wards. Winners determined by preference transfers, not first-preference totals.</li>
+      </ul>
       <table>
-        <thead><tr><th>Election</th><th>Constituency</th><th>Winner (votes)</th><th>Non-winner (votes)</th></tr></thead>
+        <thead><tr><th>Election</th><th>Constituency</th><th>Winner (votes)</th><th>Non-winner (votes)</th><th></th></tr></thead>
         <tbody>
           {voteAnomalies.map((v: any) => (
             <tr>
-              <td>{v.wiki_page_title.replaceAll('_', ' ')}</td>
+              <td><a href={`/election/${v.election_id}`}>{v.wiki_page_title.replaceAll('_', ' ')}</a></td>
               <td>{v.constituency_name || ''}</td>
-              <td>{v.winner_name} ({v.winner_votes})</td>
-              <td>{v.loser_name} ({v.loser_votes})</td>
+              <td>{v.winner_slug ? <a href={`/person/${v.winner_slug}`}>{v.winner_name}</a> : v.winner_name} ({v.winner_votes})</td>
+              <td>{v.loser_slug ? <a href={`/person/${v.loser_slug}`}>{v.loser_name}</a> : v.loser_name} ({v.loser_votes})</td>
+              <td><a href={`https://shetlandhistory.com/${v.wiki_page_title.replace(/ /g, '_')}`} target="_blank" rel="noopener">wiki</a></td>
             </tr>
           ))}
         </tbody>
       </table>
-    </section>
+    </details>
   )}
 
-  <section>
-    <h2 id="similar-names">Disambiguated name pairs</h2>
+  <details>
+    <summary><h2 id="similar-names">Disambiguated name pairs</h2></summary>
     <p class="meta">Most likely source of mislinked candidacies.</p>
     <table>
       <thead><tr><th>Person 1</th><th>Dates</th><th>Person 2</th><th>Dates</th></tr></thead>
@@ -491,15 +504,15 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
         ))}
       </tbody>
     </table>
-  </section>
+  </details>
 
-  {potentialMatches.length > 0 && (
-    <section>
-      <h2 id="potential-matches">Potential matches for unlinked candidacies</h2>
+  {potentialMatches.filter((m: any) => !m.candidate_name.startsWith('[http')).length > 0 && (
+    <details>
+      <summary><h2 id="potential-matches">Potential matches for unlinked candidacies</h2></summary>
       <table>
         <thead><tr><th>Candidate</th><th>Years</th><th>N</th><th>Possible match</th><th>Dates</th></tr></thead>
         <tbody>
-          {potentialMatches.map((m: any) => (
+          {potentialMatches.filter((m: any) => !m.candidate_name.startsWith('[http')).map((m: any) => (
             <tr>
               <td>{m.candidate_name}</td>
               <td style="font-size: 0.8rem;">{m.years}</td>
@@ -510,12 +523,12 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
           ))}
         </tbody>
       </table>
-    </section>
+    </details>
   )}
 
   {noBio.length > 0 && (
-    <section>
-      <h2 id="no-bio">People with no biography text</h2>
+    <details>
+      <summary><h2 id="no-bio">People with no biography text</h2></summary>
       <table>
         <thead><tr><th>Person</th><th>Born</th><th>Died</th><th>Candidacies</th></tr></thead>
         <tbody>
@@ -529,12 +542,12 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
           ))}
         </tbody>
       </table>
-    </section>
+    </details>
   )}
 
   {noDateElections.length > 0 && (
-    <section>
-      <h2 id="no-date">Elections with no date</h2>
+    <details>
+      <summary><h2 id="no-date">Elections with no date</h2></summary>
       <table>
         <thead><tr><th>Election</th><th>Type</th><th>Council</th></tr></thead>
         <tbody>
@@ -547,7 +560,7 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
           ))}
         </tbody>
       </table>
-    </section>
+    </details>
   )}
 </Base>
 
@@ -562,4 +575,47 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
 
   .danger { color: var(--danger); }
   .warning { color: var(--warning-text); }
+
+  details {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-surface);
+  }
+
+  details summary {
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    list-style: none;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary h2 {
+    display: inline;
+    margin: 0;
+    border: none;
+    padding: 0;
+    font-size: 1.1rem;
+  }
+
+  details summary::before {
+    content: '\25b6';
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+    transition: transform 0.15s;
+  }
+
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  details > :not(summary) {
+    padding: 0 1rem 1rem;
+  }
+
+  details table {
+    margin-top: 0;
+  }
 </style>
