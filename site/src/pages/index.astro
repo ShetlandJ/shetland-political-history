@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getAllCouncils, getCouncilStats, getElectionCount, getPersonCount, getCandidacyCount } from '../lib/db';
+import { getCouncilStats, getElectionCount, getPersonCount, getCandidacyCount } from '../lib/db';
 
 const stats = getCouncilStats();
 const electionCount = getElectionCount();
@@ -22,16 +22,29 @@ const councilDescriptions: Record<string, string> = {
 };
 ---
 <Base title="Home">
-  <div class="hero">
+  <section class="hero">
     <h1>Shetland Political History</h1>
     <p class="hero-subtitle">A research project documenting over 300 years of political representation in the Shetland Islands</p>
-  </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">{electionCount}</span>
+        <span class="stat-label">Elections</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">{personCount}</span>
+        <span class="stat-label">People</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">{candidacyCount.toLocaleString()}</span>
+        <span class="stat-label">Candidacies</span>
+      </div>
+    </div>
+  </section>
 
-  <div class="intro">
+  <section class="intro">
     <p>This project has been an ongoing body of work since 2009, building a comprehensive record of Shetland's political history from the first Parliament of Great Britain elections in 1707 through to the present day. It covers every recorded election, candidate and representative across six governing bodies.</p>
-    <p>What began as curiosity about a few local elections has grown into a database of <strong>{electionCount} elections</strong>, <strong>{personCount} people</strong> and <strong>{candidacyCount.toLocaleString()} individual candidacies</strong> &mdash; pieced together from council minute books, newspaper archives, official records and contributions from the public.</p>
-    <p>This is more than a list of names and dates. Behind every entry is a story: the landowners who controlled early elections, the reformers who fought to widen the franchise, the first women to stand for office, and the communities that shaped modern Shetland. <a href="/history">Read the full history</a>.</p>
-  </div>
+    <p>What began as curiosity about a few local elections has grown into a detailed archive &mdash; pieced together from council minute books, newspaper archives, official records and contributions from the public. Behind every entry is a story: the landowners who controlled early elections, the reformers who fought to widen the franchise, the first women to stand for office, and the communities that shaped modern Shetland. <a href="/history">Read the full history&nbsp;&rsaquo;</a></p>
+  </section>
 
   <h2>Browse by council</h2>
 
@@ -40,9 +53,11 @@ const councilDescriptions: Record<string, string> = {
       <a href={`/council/${c.slug}`} class="council-card">
         <h3>{c.name}</h3>
         <p class="council-desc">{councilDescriptions[c.slug]}</p>
-        <div class="council-stats">
+        <div class="council-meta">
           <span>{c.election_count} elections</span>
+          <span class="divider">&middot;</span>
           <span>{c.person_count} people</span>
+          <span class="divider">&middot;</span>
           <span>{yearRange(c.earliest, c.latest)}</span>
         </div>
       </a>
@@ -64,83 +79,120 @@ const councilDescriptions: Record<string, string> = {
     </a>
   </div>
 
-  <div class="credits">
+  <section class="credits">
     <h2>About this project</h2>
     <p>Researched and compiled by James Stewart since 2009, with help from the <a href="https://www.shetlandmuseumandarchives.org.uk/" target="_blank" rel="noopener">Shetland Museum and Archives</a>, <a href="http://www.bayanne.info/Shetland/" target="_blank" rel="noopener">Bayanne</a>, Shetland Library and many other contributors. The primary interest of this work is the 18th, 19th and 20th centuries, so some contemporary elections may be incomplete.</p>
     <p>All contributions are welcomed &mdash; if you have information, corrections or photographs, please get in touch at james at jastewart.co.uk.</p>
-  </div>
+  </section>
 </Base>
 
 <style>
   .hero {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid var(--border);
   }
 
   .hero h1 {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
   }
 
   .hero-subtitle {
     font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+    max-width: 540px;
+    line-height: 1.5;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
     color: var(--muted);
-    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
   }
 
   .intro {
-    max-width: 720px;
+    max-width: 680px;
     margin-bottom: 2.5rem;
-    line-height: 1.7;
+    line-height: 1.75;
+    font-size: 0.95rem;
   }
 
-  .intro p {
-    margin-bottom: 1rem;
-  }
+  .intro p { margin-bottom: 1rem; }
 
   .council-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 1rem;
     margin: 1rem 0 2.5rem;
   }
 
   .council-card {
     display: block;
+    background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: var(--radius);
     padding: 1.25rem;
     color: var(--text);
-    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s, box-shadow 0.2s, transform 0.15s;
   }
 
   .council-card:hover {
     border-color: var(--accent);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
     text-decoration: none;
   }
 
   .council-card h3 {
     margin: 0 0 0.5rem;
     color: var(--accent);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   .council-desc {
     font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.85rem;
     line-height: 1.5;
   }
 
-  .council-stats {
-    display: flex;
-    gap: 1rem;
+  .council-meta {
     font-size: 0.8rem;
     color: var(--muted);
-    border-top: 1px solid var(--border);
-    padding-top: 0.6rem;
+    border-top: 1px solid var(--border-light);
+    padding-top: 0.65rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .council-meta .divider {
+    margin: 0 0.3rem;
+    color: var(--border);
   }
 
   .quick-links {
@@ -152,15 +204,19 @@ const councilDescriptions: Record<string, string> = {
 
   .quick-link {
     display: block;
-    padding: 1rem;
+    padding: 1rem 1.15rem;
+    background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: var(--radius);
     color: var(--text);
-    transition: border-color 0.15s;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s, box-shadow 0.2s, transform 0.15s;
   }
 
   .quick-link:hover {
     border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
     text-decoration: none;
   }
 
@@ -168,6 +224,8 @@ const councilDescriptions: Record<string, string> = {
     display: block;
     color: var(--accent);
     margin-bottom: 0.25rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
   }
 
   .quick-link span {
@@ -176,19 +234,26 @@ const councilDescriptions: Record<string, string> = {
   }
 
   .credits {
-    border-top: 1px solid var(--border);
-    padding-top: 1.5rem;
-    max-width: 720px;
+    border-top: none;
+    padding-top: 0;
+    max-width: 680px;
   }
 
   .credits h2 {
     font-size: 1.2rem;
-    margin-bottom: 0.75rem;
   }
 
   .credits p {
     font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.6;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.75rem; }
+    .hero-stats { gap: 1.5rem; }
+    .stat-number { font-size: 1.4rem; }
+    .council-cards { grid-template-columns: 1fr; }
+    .quick-links { grid-template-columns: 1fr; }
   }
 </style>

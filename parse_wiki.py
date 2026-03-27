@@ -520,6 +520,7 @@ def parse_person_page(text, title):
     born_date = None
     died_date = None
     birth_place = None
+    death_place = None
     image_ref = None
 
     # Strip wiki links for date/place parsing: [[Page|Display]] -> Display, [[Page]] -> Page
@@ -527,27 +528,97 @@ def parse_person_page(text, title):
     text_clean = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', text_clean)
 
     # Extract birth/death from text like "(b. 10 November 1775, Lerwick, d. 17 February 1841, Lerwick)"
-    bd_match = re.search(r'\(b\.\s*(\d{1,2}\s+\w+\s+\d{4})(?:,\s*([^,)]+))?', text_clean)
-    if bd_match:
+    # Full pattern with both places
+    full_match = re.search(
+        r'\(b\.\s*(\d{1,2}\s+\w+\s+\d{4})(?:,\s*([^,)]+))?,\s*d\.\s*(\d{1,2}\s+\w+\s+\d{4})(?:,\s*([^)]+))?\)',
+        text_clean
+    )
+    if full_match:
         try:
-            dt = datetime.strptime(bd_match.group(1), "%d %B %Y")
+            dt = datetime.strptime(full_match.group(1), "%d %B %Y")
             born_date = dt.strftime("%Y-%m-%d")
         except ValueError:
             pass
-        if bd_match.group(2):
-            bp = bd_match.group(2).strip()
-            # Strip wiki link markup: [[Place|Display]] -> Display, [[Place]] -> Place
-            bp = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', bp)
-            bp = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', bp)
-            birth_place = bp
-
-    dd_match = re.search(r'd\.\s*(\d{1,2}\s+\w+\s+\d{4})', text_clean)
-    if dd_match:
+        if full_match.group(2):
+            birth_place = full_match.group(2).strip()
         try:
-            dt = datetime.strptime(dd_match.group(1), "%d %B %Y")
+            dt = datetime.strptime(full_match.group(3), "%d %B %Y")
             died_date = dt.strftime("%Y-%m-%d")
         except ValueError:
             pass
+        if full_match.group(4):
+            death_place = full_match.group(4).strip()
+    else:
+        # Try birth only
+        bd_match = re.search(r'\(b\.\s*(\d{1,2}\s+\w+\s+\d{4})(?:,\s*([^,)]+))?', text_clean)
+        if bd_match:
+            try:
+                dt = datetime.strptime(bd_match.group(1), "%d %B %Y")
+                born_date = dt.strftime("%Y-%m-%d")
+            except ValueError:
+                pass
+            if bd_match.group(2):
+                birth_place = bd_match.group(2).strip()
+
+        # Try death only
+        dd_match = re.search(r'd\.\s*(\d{1,2}\s+\w+\s+\d{4})(?:,\s*([^)]+))?\)', text_clean)
+        if dd_match:
+            try:
+                dt = datetime.strptime(dd_match.group(1), "%d %B %Y")
+                died_date = dt.strftime("%Y-%m-%d")
+            except ValueError:
+                pass
+            if dd_match.group(2):
+                death_place = dd_match.group(2).strip()
+        elif not died_date:
+            dd_match2 = re.search(r'd\.\s*(\d{1,2}\s+\w+\s+\d{4})', text_clean)
+            if dd_match2:
+                try:
+                    dt = datetime.strptime(dd_match2.group(1), "%d %B %Y")
+                    died_date = dt.strftime("%Y-%m-%d")
+                except ValueError:
+                    pass
+
+    # Handle year-only birth with full or year-only death, plus places:
+    # "(b. 1776 Anness, Cunningsburgh, d. 20 April 1847, Lerwick)"
+    # "(b. 1850, North Roe, d. 12 January 1927, Lerwick)"
+    # "(b. 1850, d. 1927)"
+    if not born_date or not birth_place or not death_place:
+        # Match the full parenthetical for year-only births
+        paren_match = re.search(r'\(b\.\s*(\d{4})\b(.*?)d\.\s*(.*?)\)', text_clean)
+        if paren_match:
+            byear = paren_match.group(1)
+            between = paren_match.group(2).strip().rstrip(',').strip()
+            after_d = paren_match.group(3).strip()
+
+            if not born_date:
+                born_date = byear
+
+            # Between birth year and "d." is the birth place
+            if not birth_place and between:
+                # Clean up: might have leading/trailing commas
+                bp = between.strip().strip(',').strip()
+                if bp and not re.match(r'^\d', bp):
+                    birth_place = bp
+
+            # After "d." is: [date, ]place
+            if after_d:
+                # Try to extract date
+                d_date_match = re.match(r'(\d{1,2}\s+\w+\s+)?(\d{4})[,\s]*(.*)', after_d)
+                if d_date_match:
+                    if not died_date:
+                        if d_date_match.group(1):
+                            try:
+                                dt = datetime.strptime(d_date_match.group(1).strip() + ' ' + d_date_match.group(2), "%d %B %Y")
+                                died_date = dt.strftime("%Y-%m-%d")
+                            except ValueError:
+                                died_date = d_date_match.group(2)
+                        else:
+                            died_date = d_date_match.group(2)
+                    if not death_place and d_date_match.group(3):
+                        dp = d_date_match.group(3).strip().rstrip(',').strip()
+                        if dp:
+                            death_place = dp
 
     # Year-only fallbacks: "b. 1850" or "d. 1927"
     if not born_date:
@@ -579,8 +650,10 @@ def parse_person_page(text, title):
             except ValueError:
                 pass
 
-    # Extract image
-    img_match = re.search(r'\[\[(?:Image|File):([^\]|]+)', text)
+    # Extract image — only from the main page content, NOT from {{ }} templates
+    # First, strip all templates to find images that are in the page body
+    text_no_templates = re.sub(r'\{\{[^}]+\}\}', '', text)
+    img_match = re.search(r'\[\[(?:Image|File):([^\]|]+)', text_no_templates)
     if img_match:
         image_ref = img_match.group(1).strip()
 
@@ -648,8 +721,12 @@ def parse_person_page(text, title):
     intro_text = clean_wiki_markup(intro_raw) or None
     bio_text = clean_wiki_markup(bio_raw) if bio_raw else None
 
-    # Strip the "(b. ..., d. ...)" parenthetical from intro since we show it structured
+    # Strip disambiguation notices and magic words from intro
     if intro_text:
+        intro_text = re.sub(r'__\w+__\s*', '', intro_text)
+        intro_text = re.sub(r"For other people (?:named )?with the same name,?\s*(?:please\s+)?see\s+[^.]+\.\s*", '', intro_text)
+        intro_text = re.sub(r"Not to be confused with [^.]+\.\s*", '', intro_text)
+        # Strip the "(b. ..., d. ...)" parenthetical from intro since we show it structured
         intro_text = re.sub(r'\s*\(b\.\s*[^)]+\)\s*', ' ', intro_text)
         intro_text = re.sub(r'\s{2,}', ' ', intro_text).strip()
 
@@ -668,6 +745,7 @@ def parse_person_page(text, title):
         'born_date': born_date,
         'died_date': died_date,
         'birth_place': birth_place,
+        'death_place': death_place,
         'intro': intro_text,
         'biography': bio_text,
         'image_ref': image_ref,
@@ -856,11 +934,11 @@ def main():
             slug = f"{base_slug}-{counter}"
 
         sqlite_cursor.execute("""
-            INSERT INTO people (name, slug, born_date, died_date, birth_place, intro, biography, image_ref, bayanne_id, wiki_page_title, categories)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO people (name, slug, born_date, died_date, birth_place, death_place, intro, biography, image_ref, headshot_ref, bayanne_id, wiki_page_title, categories)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?)
         """, (
             name, slug, parsed['born_date'], parsed['died_date'],
-            parsed['birth_place'], parsed['intro'], parsed['biography'], parsed['image_ref'],
+            parsed['birth_place'], parsed['death_place'], parsed['intro'], parsed['biography'], parsed['image_ref'],
             parsed['bayanne_id'], page_title, json.dumps(parsed['categories'])
         ))
         pid = sqlite_cursor.lastrowid
@@ -872,6 +950,58 @@ def main():
             person_name_map[clean] = pid
 
     print(f"  Imported {len(person_ids)} people")
+
+    # --- Step 4a2: Extract headshots from succession templates ---
+    # Headshots appear on OTHER people's pages in {{template}} blocks,
+    # e.g. {{CountyCouncillors|Preceded by<br>'''[[Person]]'''<br>[[Image:headshot.png|60px]]|...}}
+    print("\n=== Extracting headshots from templates ===")
+    mysql_cursor.execute("""
+        SELECT p.page_title, CAST(old_text AS CHAR CHARACTER SET utf8mb4)
+        FROM mwfn_text t
+        JOIN mwfn_revision r ON r.rev_text_id = t.old_id
+        JOIN mwfn_page p ON p.page_latest = r.rev_id
+        WHERE p.page_namespace = 0
+    """)
+    headshot_map = {}  # person_page_title -> headshot_filename
+    for row in mysql_cursor.fetchall():
+        text = row[1]
+        if isinstance(text, (bytes, bytearray)):
+            text = text.decode('utf-8', errors='replace')
+        # Find all templates
+        for tmatch in re.finditer(r'\{\{[^}]+\}\}', text, re.DOTALL):
+            template = tmatch.group()
+            # Protect wiki links from being split by | — replace [[ ]] content temporarily
+            protected = re.sub(r'\[\[([^\]]+)\]\]', lambda m: '[[' + m.group(1).replace('|', '\x00') + ']]', template)
+            cells = protected.split('|')
+            # Restore pipe chars
+            cells = [c.replace('\x00', '|') for c in cells]
+            for cell in cells:
+                plinks = re.findall(r'\[\[([^\]|]+?)(?:\|[^\]]+?)?\]\]', cell)
+                images = re.findall(r'\[\[(?:Image|File):([^\]|]+)', cell)
+                if not images:
+                    continue
+                for plink in plinks:
+                    plink_norm = plink.strip().replace(' ', '_')
+                    if any(plink_norm.startswith(p) for p in ('Image:', 'File:', 'Category:')):
+                        continue
+                    if '(Constituency)' in plink_norm:
+                        continue
+                    for img in images:
+                        img_clean = img.strip()
+                        if 'headshot' in img_clean.lower():
+                            if plink_norm not in headshot_map:
+                                headshot_map[plink_norm] = img_clean
+
+    headshot_count = 0
+    for wiki_title, headshot_file in headshot_map.items():
+        sqlite_cursor.execute(
+            "UPDATE people SET headshot_ref = ? WHERE wiki_page_title = ?",
+            (headshot_file, wiki_title)
+        )
+        if sqlite_cursor.rowcount > 0:
+            headshot_count += 1
+
+    print(f"  Mapped {headshot_count} headshots to people")
 
     # --- Step 4b: Build redirect map ---
     print("\n=== Building redirect map ===")
@@ -956,6 +1086,11 @@ def main():
         if sqlite_cursor.rowcount > 0:
             fix_count += 1
     print(f"  Fixed {fix_count} Bayanne IDs")
+
+    def clean_candidate_name(name):
+        """Strip external wiki links from candidate names, e.g. '[https://...url Display Name]' -> 'Display Name'"""
+        cleaned = re.sub(r'\[https?://[^\s\]]+\s+([^\]]+)\]', r'\1', name)
+        return cleaned.strip()
 
     # --- Step 5: Import elections and candidacies ---
     print("\n=== Importing elections ===")
@@ -1145,6 +1280,32 @@ def main():
     total_unlinked = len(dead_at_election) + len(born_after_election) + len(too_young)
     print(f"  Unlinked {total_unlinked} impossible candidacy links")
 
+    # --- Step 6a2: Manual candidacy corrections ---
+    # Fix cases where name-matching linked to the wrong disambiguated person
+    print("\n=== Applying manual candidacy corrections ===")
+    candidacy_corrections = [
+        # (election_wiki_page, candidate_name, correct_person_wiki_page)
+        ('Lerwick_Town_Council_Election_May_1956', 'Robert Anderson', 'Robert_Anderson_(i)'),
+        ('Lerwick Town Council Election May 1956', 'Robert Anderson', 'Robert_Anderson_(i)'),
+    ]
+    fix_count = 0
+    for election_page, cand_name, correct_person_page in candidacy_corrections:
+        sqlite_cursor.execute("SELECT id FROM people WHERE wiki_page_title = ?", (correct_person_page,))
+        person_row = sqlite_cursor.fetchone()
+        if not person_row:
+            continue
+        correct_pid = person_row[0]
+        sqlite_cursor.execute("""
+            UPDATE candidacies SET person_id = ?
+            WHERE candidate_name = ? AND election_id IN (
+                SELECT id FROM elections WHERE wiki_page_title = ?
+            ) AND person_id != ?
+        """, (correct_pid, cand_name, election_page, correct_pid))
+        if sqlite_cursor.rowcount > 0:
+            fix_count += sqlite_cursor.rowcount
+            print(f"  Fixed: '{cand_name}' in '{election_page}' -> person {correct_person_page}")
+    print(f"  Applied {fix_count} corrections")
+
     # --- Step 6b: Hide erroneous elections ---
     print("\n=== Hiding erroneous elections ===")
     hidden_elections = [
@@ -1159,6 +1320,121 @@ def main():
             )
             hidden_count += sqlite_cursor.rowcount
     print(f"  Marked {hidden_count} elections as hidden")
+
+    # --- Step 6c: Middle-name / abbreviation matching ---
+    print("\n=== Resolving middle-name matches ===")
+    sqlite_cursor.execute("SELECT id, name, slug, intro, born_date, died_date FROM people")
+    all_people_for_mn = sqlite_cursor.fetchall()
+
+    mn_surname_map = {}
+    for pid, pname, pslug, pintro, pborn, pdied in all_people_for_mn:
+        clean = re.sub(r'\s*\([^)]*\)\s*$', '', pname)
+        parts = clean.split()
+        if len(parts) >= 2:
+            surname = parts[-1].lower()
+            if surname not in mn_surname_map:
+                mn_surname_map[surname] = []
+            mn_surname_map[surname].append({
+                'id': pid, 'name': pname, 'clean': clean,
+                'first': parts[0].lower(), 'last': parts[-1].lower(),
+                'intro': (pintro or '').lower(), 'born': pborn, 'died': pdied
+            })
+
+    sqlite_cursor.execute("""
+        SELECT c.id, c.candidate_name, e.election_date
+        FROM candidacies c JOIN elections e ON c.election_id = e.id
+        WHERE c.person_id IS NULL
+    """)
+    mn_unlinked = sqlite_cursor.fetchall()
+    mn_count = 0
+
+    for cid, cname, edate in mn_unlinked:
+        parts = cname.strip().split()
+        if len(parts) < 2:
+            continue
+        csurname = parts[-1].lower()
+        cfirst = parts[0].lower()
+        if csurname not in mn_surname_map:
+            continue
+
+        eyear = int(edate[:4]) if edate and len(edate) >= 4 else 0
+        candidates = []
+        for p in mn_surname_map[csurname]:
+            if cfirst != p['first']:
+                if not (len(cfirst) <= 2 and p['first'].startswith(cfirst.rstrip('.'))):
+                    continue
+            if eyear:
+                by = int(p['born'][:4]) if p['born'] and len(p['born']) >= 4 else 0
+                dy = int(p['died'][:4]) if p['died'] and len(p['died']) >= 4 else 9999
+                if by and eyear < by - 5: continue
+                if dy < 9999 and eyear > dy + 1: continue
+                if by and eyear - by < 18: continue
+            if cname.lower() == p['clean'].lower():
+                continue
+            matched = False
+            if cname.lower() in p['intro']:
+                matched = True
+            if not matched and len(parts) > 2 and cfirst == p['first'] and csurname == p['last']:
+                matched = True
+            if not matched and len(cfirst) <= 2 and csurname == p['last'] and p['first'].startswith(cfirst.rstrip('.')):
+                matched = True
+            if matched:
+                candidates.append(p)
+
+        if len(candidates) == 1:
+            sqlite_cursor.execute("UPDATE candidacies SET person_id = ? WHERE id = ?",
+                                 (candidates[0]['id'], cid))
+            mn_count += 1
+
+    print(f"  Linked {mn_count} candidacies via middle-name matching")
+
+    # --- Step 6d: Propagate person_id by exact candidate name ---
+    # If "William Arthur Bruce" is linked in 4 elections but not a 5th,
+    # propagate the person_id to the unlinked one (with alive check).
+    print("\n=== Propagating person links by name ===")
+    sqlite_cursor.execute("""
+        SELECT c.id, c.candidate_name, e.election_date
+        FROM candidacies c
+        JOIN elections e ON c.election_id = e.id
+        WHERE c.person_id IS NULL
+    """)
+    still_unlinked = sqlite_cursor.fetchall()
+
+    # Build lookup: candidate_name -> person_id (from linked candidacies)
+    sqlite_cursor.execute("""
+        SELECT DISTINCT c.candidate_name, c.person_id, p.born_date, p.died_date
+        FROM candidacies c
+        JOIN people p ON c.person_id = p.id
+        WHERE c.person_id IS NOT NULL
+    """)
+    name_to_person = {}
+    for cname, pid, pborn, pdied in sqlite_cursor.fetchall():
+        if cname not in name_to_person:
+            name_to_person[cname] = []
+        name_to_person[cname].append({'id': pid, 'born': pborn, 'died': pdied})
+
+    prop_count = 0
+    for cid, cname, edate in still_unlinked:
+        if cname not in name_to_person:
+            continue
+        matches = name_to_person[cname]
+        eyear = int(edate[:4]) if edate and len(edate) >= 4 else 0
+
+        alive = []
+        for m in matches:
+            by = int(m['born'][:4]) if m['born'] and len(m['born']) >= 4 else 0
+            dy = int(m['died'][:4]) if m['died'] and len(m['died']) >= 4 else 9999
+            if by and eyear < by - 5: continue
+            if dy < 9999 and eyear > dy + 1: continue
+            if by and eyear - by < 18: continue
+            alive.append(m)
+
+        if len(alive) == 1:
+            sqlite_cursor.execute("UPDATE candidacies SET person_id = ? WHERE id = ?",
+                                 (alive[0]['id'], cid))
+            prop_count += 1
+
+    print(f"  Propagated {prop_count} person links by exact name match")
 
     # --- Step 7: Stats ---
     print("\n=== Final stats ===")
@@ -1199,6 +1475,160 @@ def main():
     """)
     for row in sqlite_cursor.fetchall():
         print(f"  {row[0]} (b.{row[1]}, d.{row[2]}) - {row[3]} | {row[4]} | {'ELECTED' if row[5] else ''}")
+
+    # --- Step 7: Import referenda ---
+    print("\n=== Importing referenda ===")
+    referendum_pages = [
+        '1975_European_Economic_Community_Membership_Referendum',
+        '1979_Scottish_Devolution_Referendum',
+        '1997_Scottish_Devolution_Referendum',
+        '2011_Alternative_Vote_Referendum',
+        '2014_Scottish_Independence_Referendum',
+        '2016_European_Union_Membership_Referendum',
+    ]
+
+    for page_title in referendum_pages:
+        text = get_wiki_page(mysql_cursor, page_title)
+        if not text:
+            print(f"  Skipped: {page_title}")
+            continue
+
+        title = page_title.replace('_', ' ')
+        slug = slugify(title)
+
+        # Extract date from title
+        year_match = re.search(r'^(\d{4})', title)
+        ref_date = f"{year_match.group(1)}-01-01" if year_match else None
+
+        # Extract question
+        question = None
+        q_match = re.search(r'asked\s*["\u201c]([^"\u201d]+)["\u201d]', text)
+        if q_match:
+            question = q_match.group(1).strip()
+        # Also try "vote on was" pattern
+        if not question:
+            q_match = re.search(r'vote on was\s*["\u201c]([^"\u201d]+)["\u201d]', text)
+            if q_match:
+                question = q_match.group(1).strip()
+
+        # Extract description (text before ==Shetland Result==)
+        desc_text = text
+        desc_text = re.sub(r'\[\[(?:Image|File):.*?\]\]', '', desc_text, flags=re.DOTALL)
+        desc_text = re.sub(r'\{\{[^}]+\}\}', '', desc_text)
+        desc_text = re.sub(r'\[\[Category:[^\]]+\]\]', '', desc_text)
+        desc_parts = re.split(r'==\s*Shetland Result\s*==', desc_text)
+        desc_raw = desc_parts[0] if desc_parts else ''
+        # Also handle TOC
+        desc_raw = re.sub(r'\{\|[^}]*__TOC__[^}]*\|\}', '', desc_raw)
+
+        def clean_markup(t):
+            t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
+            t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
+            t = re.sub(r"'{2,3}", '', t)
+            t = re.sub(r'<[^>]+>', '', t)
+            t = re.sub(r'&quot;', '"', t)
+            t = re.sub(r'\\n', '\n', t)
+            t = re.sub(r'\n{3,}', '\n\n', t)
+            return t.strip()
+
+        description = clean_markup(desc_raw) or None
+
+        # Extract turnout
+        turnout_pct = None
+        tp_match = re.search(r'Turnout:\s*(?:[\d,]+\s*\()?([\d.]+)%', text)
+        if tp_match:
+            turnout_pct = float(tp_match.group(1))
+
+        sqlite_cursor.execute("""
+            INSERT OR IGNORE INTO referenda (title, slug, date, question, description, turnout_pct, wiki_page_title)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (title, slug, ref_date, question, description, turnout_pct, page_title))
+        ref_id = sqlite_cursor.lastrowid
+        if not ref_id:
+            print(f"  Skipped (exists): {title}")
+            continue
+
+        # Parse result tables - may have multiple questions (1997)
+        # Split by === sub-sections for multi-question referenda
+        result_section = text
+        shetland_split = re.split(r'==\s*Shetland Result\s*==', result_section, maxsplit=1)
+        if len(shetland_split) > 1:
+            result_section = shetland_split[1]
+
+        # Check for sub-questions (=== sections ===)
+        sub_questions = re.split(r'===\s*([^=]+?)\s*===', result_section)
+
+        if len(sub_questions) > 1:
+            # Multi-question: pairs of (question_label, content)
+            i = 1
+            while i < len(sub_questions):
+                q_label = clean_markup(sub_questions[i].strip()) if i < len(sub_questions) else None
+                content = sub_questions[i+1] if i+1 < len(sub_questions) else ''
+
+                # Parse the wikitable in this section
+                table_match = re.search(r'\{\|\s*class="wikitable"(.*?)\|\}', content, re.DOTALL)
+                if table_match:
+                    rows = re.split(r'\|-', table_match.group(1))
+                    for row in rows:
+                        if "'''Option'''" in row or not row.strip() or row.strip() == '|}':
+                            continue
+                        cells = re.split(r'\|\|', row)
+                        if len(cells) < 2:
+                            continue
+                        option = re.sub(r'^\s*\|', '', cells[0]).strip()
+                        option = re.sub(r"'''", '', option).strip()
+                        if not option or 'background' in option:
+                            continue
+                        votes_str = cells[1].strip() if len(cells) > 1 else ''
+                        votes = None
+                        v_match = re.search(r'([\d,]+)', votes_str)
+                        if v_match:
+                            votes = int(v_match.group(1).replace(',', ''))
+                        pct = None
+                        if len(cells) > 2:
+                            p_match = re.search(r'([\d.]+)%', cells[2])
+                            if p_match:
+                                pct = float(p_match.group(1))
+                        won = 1 if 'tick.gif' in row else 0
+
+                        sqlite_cursor.execute("""
+                            INSERT INTO referendum_results (referendum_id, question_label, option_name, votes, percentage, won)
+                            VALUES (?, ?, ?, ?, ?, ?)
+                        """, (ref_id, q_label, option, votes, pct, won))
+                i += 2
+        else:
+            # Single question - parse the one wikitable
+            table_match = re.search(r'\{\|\s*class="wikitable"(.*?)\|\}', result_section, re.DOTALL)
+            if table_match:
+                rows = re.split(r'\|-', table_match.group(1))
+                for row in rows:
+                    if "'''Option'''" in row or not row.strip() or row.strip() == '|}':
+                        continue
+                    cells = re.split(r'\|\|', row)
+                    if len(cells) < 2:
+                        continue
+                    option = re.sub(r'^\s*\|', '', cells[0]).strip()
+                    option = re.sub(r"'''", '', option).strip()
+                    if not option or 'background' in option:
+                        continue
+                    votes_str = cells[1].strip()
+                    votes = None
+                    v_match = re.search(r'([\d,]+)', votes_str)
+                    if v_match:
+                        votes = int(v_match.group(1).replace(',', ''))
+                    pct = None
+                    if len(cells) > 2:
+                        p_match = re.search(r'([\d.]+)%', cells[2])
+                        if p_match:
+                            pct = float(p_match.group(1))
+                    won = 1 if 'tick.gif' in row else 0
+
+                    sqlite_cursor.execute("""
+                        INSERT INTO referendum_results (referendum_id, question_label, option_name, votes, percentage, won)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    """, (ref_id, None, option, votes, pct, won))
+
+        print(f"  Imported: {title}")
 
     sqlite_conn.commit()
     sqlite_conn.close()

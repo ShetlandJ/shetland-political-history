@@ -24,9 +24,11 @@ CREATE TABLE IF NOT EXISTS people (
     born_date TEXT,          -- ISO date or partial e.g. '1775-11-10'
     died_date TEXT,
     birth_place TEXT,
+    death_place TEXT,
     intro TEXT,              -- opening text before any section
     biography TEXT,          -- content from ==Biography== section
-    image_ref TEXT,          -- image filename from wiki
+    image_ref TEXT,          -- main image filename from wiki (body, not templates)
+    headshot_ref TEXT,       -- small headshot filename from succession templates
     bayanne_id TEXT,         -- bayanne.info person ID e.g. 'I18328'
     wiki_page_title TEXT,
     categories TEXT           -- JSON array of original wiki categories
@@ -57,6 +59,27 @@ CREATE TABLE IF NOT EXISTS candidacies (
     elected INTEGER NOT NULL DEFAULT 0,  -- boolean
     position INTEGER,         -- order in results table
     role TEXT                 -- 'Senior Bailie', 'Junior Bailie', 'councillor', etc.
+);
+
+CREATE TABLE IF NOT EXISTS referenda (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
+    date TEXT,
+    question TEXT,
+    description TEXT,         -- context/intro text
+    turnout_pct REAL,
+    wiki_page_title TEXT
+);
+
+CREATE TABLE IF NOT EXISTS referendum_results (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    referendum_id INTEGER NOT NULL REFERENCES referenda(id),
+    question_label TEXT,      -- for multi-question referenda (e.g. 1997 had 2 questions)
+    option_name TEXT NOT NULL, -- 'Yes', 'No', 'Remain', 'Leave', etc.
+    votes INTEGER,
+    percentage REAL,
+    won INTEGER NOT NULL DEFAULT 0  -- boolean
 );
 
 -- Indexes for common queries

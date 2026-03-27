@@ -1,28 +1,46 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getAllPeople, getAllElections, getAllConstituencies, getAllCouncils } from '../lib/db';
+import { getAllPeople, getAllElections, getAllConstituencies, getAllCouncils, getCandidaciesForElection } from '../lib/db';
+import Database from 'better-sqlite3';
+import path from 'path';
+
+const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
 
 // Build search index at build time
-const people = getAllPeople().map(p => ({
-  type: 'person',
-  name: p.name,
-  slug: p.slug,
-  meta: [p.born_date?.substring(0, 4), p.died_date?.substring(0, 4), p.birth_place].filter(Boolean).join(' · '),
-  url: `/person/${p.slug}`,
-}));
+const people = getAllPeople().map(p => {
+  const fullText = [p.intro, p.biography].filter(Boolean).join(' ');
+  return {
+    type: 'person',
+    name: p.name,
+    slug: p.slug,
+    meta: [p.born_date?.substring(0, 4), p.died_date?.substring(0, 4), p.birth_place].filter(Boolean).join(' · '),
+    extra: fullText,
+    url: `/person/${p.slug}`,
+  };
+});
 
+// For elections, include all candidate names as searchable text
 const elections = getAllElections();
+const councils = getAllCouncils();
 const seenPages = new Set<string>();
 const electionItems: any[] = [];
 for (const e of elections) {
   if (seenPages.has(e.wiki_page_title)) continue;
   seenPages.add(e.wiki_page_title);
-  const council = getAllCouncils().find(c => c.id === e.council_id);
+  const council = councils.find(c => c.id === e.council_id);
+  // Get all candidate names for this election's page
+  const candidateNames = db.prepare(`
+    SELECT DISTINCT c.candidate_name
+    FROM candidacies c
+    JOIN elections e ON c.election_id = e.id
+    WHERE e.wiki_page_title = ? AND e.hidden = 0
+  `).all(e.wiki_page_title).map((r: any) => r.candidate_name).join(' ');
   electionItems.push({
     type: 'election',
     name: e.wiki_page_title.replace(/_/g, ' '),
     slug: '',
     meta: [council?.name, e.election_type, e.election_date?.substring(0, 4)].filter(Boolean).join(' · '),
+    extra: candidateNames,
     url: `/election/${e.id}`,
   });
 }
@@ -32,6 +50,7 @@ const constituencies = getAllConstituencies().map(c => ({
   name: c.name,
   slug: c.slug,
   meta: c.council_name,
+  extra: '',
   url: `/constituency/${c.slug}`,
 }));
 
@@ -81,7 +100,7 @@ const searchIndex = [...people, ...electionItems, ...constituencies];
       const scored = [];
 
       for (const item of searchIndex) {
-        const haystack = (item.name + ' ' + item.meta).toLowerCase();
+        const haystack = (item.name + ' ' + item.meta + ' ' + (item.extra || '')).toLowerCase();
         let matched = true;
         let score = 0;
 
@@ -112,13 +131,33 @@ const searchIndex = [...people, ...electionItems, ...constituencies];
         return;
       }
 
-      resultsDiv.innerHTML = '<ul class="election-list">' + top.map(item => `
-        <li>
-          <span class="badge ${typeBadgeClass[item.type]}">${typeLabels[item.type]}</span>
-          <a href="${item.url}">${item.name}</a>
-          ${item.meta ? `<span class="meta" style="margin-left: 0.5rem;">${item.meta}</span>` : ''}
-        </li>
-      `).join('') + '</ul>';
+      resultsDiv.innerHTML = '<ul class="election-list">' + top.map(item => {
+        // If match was in extra text (not name/meta), show a snippet
+        let snippet = '';
+        const nameMeta = (item.name + ' ' + item.meta).toLowerCase();
+        const allTermsInNameMeta = terms.every(t => nameMeta.includes(t));
+        if (!allTermsInNameMeta && item.extra) {
+          const extraLower = item.extra.toLowerCase();
+          // Find first matching term's position and extract surrounding text
+          for (const term of terms) {
+            const idx = extraLower.indexOf(term);
+            if (idx !== -1) {
+              const start = Math.max(0, idx - 40);
+              const end = Math.min(item.extra.length, idx + term.length + 60);
+              snippet = (start > 0 ? '...' : '') + item.extra.substring(start, end).trim() + (end < item.extra.length ? '...' : '');
+              break;
+            }
+          }
+        }
+        return `
+          <li>
+            <span class="badge ${typeBadgeClass[item.type]}">${typeLabels[item.type]}</span>
+            <a href="${item.url}">${item.name}</a>
+            ${item.meta ? `<span class="meta" style="margin-left: 0.5rem;">${item.meta}</span>` : ''}
+            ${snippet ? `<div class="search-snippet">${snippet}</div>` : ''}
+          </li>
+        `;
+      }).join('') + '</ul>';
     }
 
     input.addEventListener('input', (e) => search(e.target.value));
@@ -133,9 +172,15 @@ const searchIndex = [...people, ...electionItems, ...constituencies];
   </script>
 
   <style>
-    .badge-person { background: #d4edda; color: #155724; }
-    .badge-election { background: #cce5ff; color: #004085; }
-    .badge-constituency { background: #fff3cd; color: #856404; }
+    .badge-person { background: var(--success-light); color: var(--success); }
+    .badge-election { background: var(--accent-light); color: var(--accent); }
+    .badge-constituency { background: var(--warning-bg); color: var(--warning-text); }
     .badge { margin-right: 0.5rem; }
+    .search-snippet {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
   </style>
 </Base>

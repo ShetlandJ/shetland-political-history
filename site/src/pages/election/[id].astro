@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
 import { getAllElections, getElectionById, getElectionsByPage, getCandidaciesForElection, getElectionNavigation } from '../../lib/db';
 
 export function getStaticPaths() {
@@ -26,6 +27,42 @@ const pageElections = getElectionsByPage(election.wiki_page_title);
 // Get prev/next election for navigation
 const nav = getElectionNavigation(election.council_id, election.wiki_page_title, election.election_type);
 
+// Build election page ID lookup for linkifying notes
+const allElectionsForLinks = getAllElections();
+const electionPageIdMap = new Map<string, number>();
+for (const el of allElectionsForLinks) {
+  const key = el.wiki_page_title.replace(/_/g, ' ');
+  if (!electionPageIdMap.has(key)) electionPageIdMap.set(key, el.id);
+  // Also store with underscores
+  if (!electionPageIdMap.has(el.wiki_page_title)) electionPageIdMap.set(el.wiki_page_title, el.id);
+}
+
+function linkifyNotes(notes: string): { text: string; url: string | null }[] {
+  // Split notes into parts, turning "see X By-Election Y" references into links
+  const parts: { text: string; url: string | null }[] = [];
+  const regex = /see\s+([A-Z][^.]+?(?:By-Election|by-election)[^.]*)/g;
+  let lastIdx = 0;
+  let match;
+  while ((match = regex.exec(notes)) !== null) {
+    if (match.index > lastIdx) {
+      parts.push({ text: notes.substring(lastIdx, match.index) + 'see ', url: null });
+    } else {
+      parts.push({ text: 'see ', url: null });
+    }
+    const refName = match[1].trim().replace(/\.$/, '');
+    const elId = electionPageIdMap.get(refName) || electionPageIdMap.get(refName.replace(/ /g, '_'));
+    parts.push({ text: refName, url: elId ? `/election/${elId}` : null });
+    lastIdx = match.index + match[0].length;
+  }
+  if (lastIdx < notes.length) {
+    parts.push({ text: notes.substring(lastIdx), url: null });
+  }
+  if (parts.length === 0) {
+    parts.push({ text: notes, url: null });
+  }
+  return parts;
+}
+
 function electionYear(date: string | null): string {
   if (!date) return '?';
   return date.substring(0, 4);
@@ -35,6 +72,15 @@ function formatDate(d: string | null): string {
   if (!d) return 'Date unknown';
   const date = new Date(d);
   return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function parseExternalLink(name: string): { url: string; display: string } | null {
+  const m = name.match(/^\[?(https?:\/\/[^\s\]]+)\s+([^\]]+)\]?$/);
+  if (m) return { url: m[1], display: m[2].trim() };
+  // Handle "Rev. [url name]" style prefix
+  const m2 = name.match(/^(.+?)\s*\[(https?:\/\/[^\s\]]+)\s+([^\]]+)\]$/);
+  if (m2) return { url: m2[2], display: `${m2[1].trim()} ${m2[3].trim()}` };
+  return null;
 }
 
 function electionTitle(wpt: string): string {
@@ -69,7 +115,13 @@ function electionTitle(wpt: string): string {
           </p>
         )}
 
-        {e.notes && <p class="meta">{e.notes}</p>}
+        {e.notes && (
+          <p class="meta">
+            {linkifyNotes(e.notes).map(part =>
+              part.url ? <a href={part.url}>{part.text}</a> : part.text
+            )}
+          </p>
+        )}
 
         {candidacies.length > 0 && (
           <table>
@@ -87,7 +139,12 @@ function electionTitle(wpt: string): string {
                   <td>
                     {c.person_slug
                       ? <a href={`/person/${c.person_slug}`}>{c.candidate_name}</a>
-                      : c.candidate_name}
+                      : (() => {
+                          const ext = parseExternalLink(c.candidate_name);
+                          return ext
+                            ? <ExternalLink href={ext.url} label={ext.display} />
+                            : c.candidate_name;
+                        })()}
                   </td>
                   {candidacies.some(c => c.party) && <td>{c.party || ''}</td>}
                   <td>{c.votes?.toLocaleString() || c.votes_text || ''}</td>
@@ -131,19 +188,25 @@ function electionTitle(wpt: string): string {
 
 <style>
   .election-nav {
+    background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: 4px;
-    margin: 2rem 0;
+    border-radius: var(--radius);
+    margin: 2.5rem 0;
     max-width: 360px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
   }
 
   .election-nav-header {
-    background: var(--table-header);
-    color: white;
+    background: var(--table-header-bg);
+    color: var(--table-header-text);
     text-align: center;
-    padding: 0.5rem;
+    padding: 0.55rem;
     font-weight: 600;
-    border-bottom: 1px solid var(--border);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: var(--font-body);
   }
 
   .election-nav-row {
@@ -152,9 +215,10 @@ function electionTitle(wpt: string): string {
   }
 
   .election-nav-cell {
-    padding: 0.6rem;
+    padding: 0.7rem;
     text-align: center;
-    border-right: 1px solid var(--border);
+    border-right: 1px solid var(--border-light);
+    font-variant-numeric: tabular-nums;
   }
 
   .election-nav-cell:last-child {
@@ -163,6 +227,8 @@ function electionTitle(wpt: string): string {
 
   .election-nav-current {
     font-size: 1.1rem;
+    font-family: var(--font-display);
+    background: var(--accent-light);
   }
 
   .muted {

@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllReferenda, getReferendumResults, type ReferendumResult } from '../lib/db';
+
+const referenda = getAllReferenda();
+
+// Pre-group results by question for each referendum
+const grouped = referenda.map(ref => {
+  const results = getReferendumResults(ref.id);
+  const questions: { label: string | null; opts: ReferendumResult[] }[] = [];
+  const seen = new Map<string | null, number>();
+  for (const r of results) {
+    const key = r.question_label;
+    if (!seen.has(key)) {
+      seen.set(key, questions.length);
+      questions.push({ label: key, opts: [] });
+    }
+    questions[seen.get(key)!].opts.push(r);
+  }
+  return { ref, questions };
+});
+---
+<Base title="Referenda">
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Referenda</div>
+  <h1>Referenda</h1>
+  <p class="meta">Shetland results from {referenda.length} UK and Scottish referenda</p>
+
+  {grouped.map(({ ref, questions }) => (
+    <div class="referendum-card">
+      <h2><a href={`/referendum/${ref.slug}`}>{ref.title}</a></h2>
+      {ref.turnout_pct && <p class="meta">Turnout: {ref.turnout_pct}%</p>}
+
+      {questions.map(q => (
+        <div>
+          {q.label && <h3>{q.label}</h3>}
+          <table>
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Votes</th>
+                <th>%</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {q.opts.map(o => (
+                <tr>
+                  <td>{o.option_name}</td>
+                  <td>{o.votes?.toLocaleString()}</td>
+                  <td>{o.percentage}%</td>
+                  <td>{o.won ? <span class="elected">Won</span> : <span class="not-elected">Lost</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  ))}
+</Base>
+
+<style>
+  .referendum-card {
+    margin-bottom: 2.5rem;
+  }
+</style>

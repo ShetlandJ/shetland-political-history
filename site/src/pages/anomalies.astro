@@ -60,16 +60,6 @@ const diedBeforeBorn = db.prepare(`
   ORDER BY name
 `).all() as any[];
 
-// 6. Elections with no candidacies
-const emptyCandidacies = db.prepare(`
-  SELECT e.id, e.wiki_page_title, e.election_date, e.election_type, co.name as council_name
-  FROM elections e
-  JOIN councils co ON e.council_id = co.id
-  LEFT JOIN candidacies c ON c.election_id = e.id
-  WHERE c.id IS NULL
-  ORDER BY e.election_date
-`).all() as any[];
-
 // 7. Elections with no date
 const noDateElections = db.prepare(`
   SELECT e.id, e.wiki_page_title, e.election_type, co.name as council_name
@@ -106,7 +96,7 @@ const similarNames = db.prepare(`
   ORDER BY a.name
 `).all() as any[];
 
-// 10. People with candidacies spanning an unusually long period
+// 10. People with elected service spanning an unusually long period
 const longCareers = db.prepare(`
   SELECT p.name, p.slug, p.born_date, p.died_date,
          MIN(e.election_date) as first_election, MAX(e.election_date) as last_election,
@@ -115,7 +105,7 @@ const longCareers = db.prepare(`
   FROM people p
   JOIN candidacies c ON c.person_id = p.id
   JOIN elections e ON c.election_id = e.id
-  WHERE e.election_date IS NOT NULL
+  WHERE e.election_date IS NOT NULL AND c.elected = 1
   GROUP BY p.id
   HAVING span > 40
   ORDER BY span DESC
@@ -157,7 +147,7 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections').get() 
   <h1>Data Anomalies</h1>
   <p class="meta">Analysis of potential data quality issues. {totalPeople} people, {totalCandidacies} candidacies ({linkedCandidacies} linked, {totalCandidacies - linkedCandidacies} unlinked), {totalElections} elections.</p>
 
-  <nav style="margin-bottom: 2rem; padding: 1rem; background: white; border: 1px solid var(--border); border-radius: 6px;">
+  <nav style="margin-bottom: 2rem; padding: 1rem; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm);">
     <strong>Jump to:</strong>
     <ul style="list-style: none; columns: 2; margin-top: 0.5rem;">
       {diedBeforeBorn.length > 0 && <li><a href="#died-before-born">Death before birth ({diedBeforeBorn.length})</a></li>}
@@ -169,7 +159,6 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections').get() 
       <li><a href="#potential-matches">Potential matches for unlinked ({potentialMatches.length})</a></li>
       <li><a href="#no-candidacies">People with no candidacies ({noCandidacies.length})</a></li>
       <li><a href="#no-bio">People with no biography ({noBio.length})</a></li>
-      <li><a href="#empty-elections">Elections with no candidates ({emptyCandidacies.length})</a></li>
       <li><a href="#no-date">Elections with no date ({noDateElections.length})</a></li>
     </ul>
   </nav>
@@ -351,25 +340,6 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections').get() 
     </section>
   )}
 
-  {emptyCandidacies.length > 0 && (
-    <section>
-      <h2 id="empty-elections">Elections with no candidates</h2>
-      <p class="meta">{emptyCandidacies.length} elections with no candidacy records.</p>
-      <table>
-        <thead><tr><th>Election</th><th>Date</th><th>Type</th><th>Council</th></tr></thead>
-        <tbody>
-          {emptyCandidacies.map((e: any) => (
-            <tr>
-              <td>{e.wiki_page_title.replaceAll('_', ' ')}</td>
-              <td>{e.election_date || 'none'}</td>
-              <td>{e.election_type}</td>
-              <td>{e.council_name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  )}
 
   {noDateElections.length > 0 && (
     <section>

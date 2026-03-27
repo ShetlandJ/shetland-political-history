@@ -1,0 +1,25 @@
+---
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+<a href={href} target="_blank" rel="noopener" class="ext-link">{label}<svg class="ext-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 1.5H1.5v9h9v-2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 1.5h4.5V6M10.25 1.75L5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></a>
+
+<style>
+  .ext-link {
+    white-space: nowrap;
+  }
+  .ext-icon {
+    width: 0.7em;
+    height: 0.7em;
+    margin-left: 0.2em;
+    vertical-align: baseline;
+    opacity: 0.5;
+  }
+  .ext-link:hover .ext-icon {
+    opacity: 0.8;
+  }
+</style>

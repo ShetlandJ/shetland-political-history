@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
 import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson } from '../../lib/db';
 import fs from 'fs';
 import path from 'path';
@@ -43,21 +44,51 @@ function formatYear(d: string | null): string {
 
 function lifespan(person: any): string {
   const parts: string[] = [];
-  if (person.born_date) parts.push(`b. ${formatDate(person.born_date)}`);
-  if (person.died_date) parts.push(`d. ${formatDate(person.died_date)}`);
-  if (person.birth_place) parts.push(person.birth_place);
+  if (person.born_date) {
+    let born = `b. ${formatDate(person.born_date)}`;
+    if (person.birth_place) born += `, ${person.birth_place}`;
+    parts.push(born);
+  }
+  if (person.died_date) {
+    let died = `d. ${formatDate(person.died_date)}`;
+    if (person.death_place) died += `, ${person.death_place}`;
+    parts.push(died);
+  }
   return parts.join(' | ');
 }
 
 // Check for person photo
 const imageExts = ['.jpg', '.jpeg', '.png', '.gif'];
-let personImage: string | null = null;
-for (const ext of imageExts) {
-  const imgPath = path.join(process.cwd(), 'public', 'images', 'people', slug + ext);
-  if (fs.existsSync(imgPath)) {
-    personImage = `/images/people/${slug}${ext}`;
-    break;
+
+function findPersonImage(personSlug: string): string | null {
+  for (const ext of imageExts) {
+    const imgPath = path.join(process.cwd(), 'public', 'images', 'people', personSlug + ext);
+    if (fs.existsSync(imgPath)) {
+      return `/images/people/${personSlug}${ext}`;
+    }
   }
+  return null;
+}
+
+const personImage = findPersonImage(slug!);
+
+// Resolve predecessor/successor headshot images for tenure boxes
+// Prefer headshot files (slug + "-headshot"), fall back to main photo
+function findPersonHeadshot(personSlug: string): string | null {
+  // First try headshot-specific file
+  for (const ext of imageExts) {
+    const imgPath = path.join(process.cwd(), 'public', 'images', 'people', personSlug + '-headshot' + ext);
+    if (fs.existsSync(imgPath)) {
+      return `/images/people/${personSlug}-headshot${ext}`;
+    }
+  }
+  // Fall back to main image
+  return findPersonImage(personSlug);
+}
+
+for (const t of tenures) {
+  t.predecessor_image = t.predecessor_slug ? findPersonHeadshot(t.predecessor_slug) : null;
+  t.successor_image = t.successor_slug ? findPersonHeadshot(t.successor_slug) : null;
 }
 ---
 <Base title={person.name}>
@@ -140,15 +171,26 @@ for (const ext of imageExts) {
   {tenures.length > 0 && (
     <>
       <h2>Offices Held</h2>
-      {tenures.map(t => (
-        <div class="succession-box">
-          <div class="succession-header">{t.council_name}</div>
+      {tenures.map((t, i) => {
+        const prevCouncil = i > 0 ? tenures[i - 1].council_name : null;
+        const sameCouncil = t.council_name === prevCouncil;
+        return (
+        <div class={`succession-box ${sameCouncil ? 'succession-continued' : ''}`}>
+          {!sameCouncil && <div class="succession-header">{t.council_name}</div>}
           <div class="succession-row">
             <div class="succession-cell">
               {t.predecessor_name
-                ? <>Preceded by<br />{t.predecessor_slug
-                    ? <a href={`/person/${t.predecessor_slug}`}><strong>{t.predecessor_name}</strong></a>
-                    : <strong>{t.predecessor_name}</strong>}</>
+                ? <>
+                    Preceded by<br />
+                    {t.predecessor_image && (
+                      <a href={t.predecessor_slug ? `/person/${t.predecessor_slug}` : '#'}>
+                        <img src={t.predecessor_image} alt={t.predecessor_name} class="succession-thumb" />
+                      </a>
+                    )}
+                    {t.predecessor_slug
+                      ? <a href={`/person/${t.predecessor_slug}`}><strong>{t.predecessor_name}</strong></a>
+                      : <strong>{t.predecessor_name}</strong>}
+                  </>
                 : <em>Constituency created</em>}
             </div>
             <div class="succession-cell succession-main">
@@ -158,14 +200,23 @@ for (const ext of imageExts) {
             </div>
             <div class="succession-cell">
               {t.successor_name
-                ? <>Succeeded by<br />{t.successor_slug
-                    ? <a href={`/person/${t.successor_slug}`}><strong>{t.successor_name}</strong></a>
-                    : <strong>{t.successor_name}</strong>}</>
+                ? <>
+                    Succeeded by<br />
+                    {t.successor_image && (
+                      <a href={t.successor_slug ? `/person/${t.successor_slug}` : '#'}>
+                        <img src={t.successor_image} alt={t.successor_name} class="succession-thumb" />
+                      </a>
+                    )}
+                    {t.successor_slug
+                      ? <a href={`/person/${t.successor_slug}`}><strong>{t.successor_name}</strong></a>
+                      : <strong>{t.successor_name}</strong>}
+                  </>
                 : <em>Incumbent / seat abolished</em>}
             </div>
           </div>
         </div>
-      ))}
+        );
+      })}
     </>
   )}
 
@@ -173,7 +224,7 @@ for (const ext of imageExts) {
     <>
       <h2>External Links</h2>
       <ul>
-        <li><a href={`http://www.bayanne.info/Shetland/getperson.php?personID=${person.bayanne_id}&tree=ID1`} target="_blank" rel="noopener">Bayanne genealogy page</a></li>
+        <li><ExternalLink href={`http://www.bayanne.info/Shetland/getperson.php?personID=${person.bayanne_id}&tree=ID1`} label="Bayanne genealogy page" /></li>
       </ul>
     </>
   )}
@@ -182,9 +233,9 @@ for (const ext of imageExts) {
 <style>
   .person-header {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.75rem;
     align-items: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .person-photo {
@@ -192,10 +243,11 @@ for (const ext of imageExts) {
   }
 
   .person-photo img {
-    width: 160px;
+    width: 170px;
     height: auto;
-    border-radius: 4px;
+    border-radius: var(--radius);
     border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
   }
 
   @media (max-width: 600px) {
@@ -203,24 +255,31 @@ for (const ext of imageExts) {
       flex-direction: column;
     }
     .person-photo img {
-      width: 120px;
+      width: 130px;
     }
   }
 
   .succession-box {
+    background: var(--bg-surface);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: var(--radius);
     margin: 1rem 0;
     max-width: 680px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
   }
 
   .succession-header {
-    background: #d4edda;
+    background: var(--accent-light);
     text-align: center;
-    padding: 0.5rem;
+    padding: 0.55rem;
     font-weight: 600;
+    font-size: 0.88rem;
     color: var(--accent);
     border-bottom: 1px solid var(--border);
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
   }
 
   .succession-row {
@@ -229,10 +288,11 @@ for (const ext of imageExts) {
   }
 
   .succession-cell {
-    padding: 0.75rem;
+    padding: 0.85rem 0.75rem;
     text-align: center;
-    font-size: 0.9rem;
-    border-right: 1px solid var(--border);
+    font-size: 0.88rem;
+    border-right: 1px solid var(--border-light);
+    line-height: 1.5;
   }
 
   .succession-cell:last-child {
@@ -240,7 +300,42 @@ for (const ext of imageExts) {
   }
 
   .succession-main {
-    border-left: 1px solid var(--border);
-    border-right: 1px solid var(--border);
+    background: var(--accent-light);
+  }
+
+  .succession-continued {
+    margin-top: 0;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .succession-box:has(+ .succession-continued) {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .succession-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: block;
+    margin: 0.3rem auto;
+  }
+
+  @media (max-width: 600px) {
+    .succession-row {
+      grid-template-columns: 1fr;
+    }
+    .succession-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .succession-cell:last-child {
+      border-bottom: none;
+    }
   }
 </style>

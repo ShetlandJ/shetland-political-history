@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllReferenda, getReferendumBySlug, getReferendumResults, type ReferendumResult } from '../../lib/db';
+
+export function getStaticPaths() {
+  return getAllReferenda().map(r => ({ params: { slug: r.slug } }));
+}
+
+const { slug } = Astro.params;
+const ref = getReferendumBySlug(slug!);
+if (!ref) return Astro.redirect('/');
+
+const results = getReferendumResults(ref.id);
+const questions: { label: string | null; opts: ReferendumResult[] }[] = [];
+const seen = new Map<string | null, number>();
+for (const r of results) {
+  const key = r.question_label;
+  if (!seen.has(key)) {
+    seen.set(key, questions.length);
+    questions.push({ label: key, opts: [] });
+  }
+  questions[seen.get(key)!].opts.push(r);
+}
+---
+<Base title={ref.title}>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/referenda">Referenda</a> &rsaquo; {ref.title}</div>
+
+  <h1>{ref.title}</h1>
+
+  {ref.question && <p class="meta"><strong>Question:</strong> "{ref.question}"</p>}
+  {ref.turnout_pct && <p class="meta">Turnout: {ref.turnout_pct}%</p>}
+
+  {ref.description && (
+    <div class="bio-text">
+      {ref.description.split('\n\n').map(para => (
+        <p>{para}</p>
+      ))}
+    </div>
+  )}
+
+  <h2>Shetland Result</h2>
+
+  {questions.map(q => (
+    <div>
+      {q.label && <h3>{q.label}</h3>}
+      <table>
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Votes</th>
+            <th>%</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          {q.opts.map(o => (
+            <tr>
+              <td><strong>{o.option_name}</strong></td>
+              <td>{o.votes?.toLocaleString()}</td>
+              <td>{o.percentage}%</td>
+              <td>{o.won ? <span class="elected">Won</span> : <span class="not-elected">Lost</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ))}
+</Base>

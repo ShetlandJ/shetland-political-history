@@ -27,9 +27,11 @@ export interface Person {
   born_date: string | null;
   died_date: string | null;
   birth_place: string | null;
+  death_place: string | null;
   intro: string | null;
   biography: string | null;
   image_ref: string | null;
+  headshot_ref: string | null;
   bayanne_id: string | null;
   wiki_page_title: string | null;
   categories: string | null;
@@ -229,6 +231,40 @@ export function getCandidacyCount(): number {
   return (db.prepare('SELECT COUNT(*) as c FROM candidacies WHERE election_id IN (SELECT id FROM elections WHERE hidden = 0)').get() as any).c;
 }
 
+// Referenda
+export interface Referendum {
+  id: number;
+  title: string;
+  slug: string;
+  date: string | null;
+  question: string | null;
+  description: string | null;
+  turnout_pct: number | null;
+  wiki_page_title: string | null;
+}
+
+export interface ReferendumResult {
+  id: number;
+  referendum_id: number;
+  question_label: string | null;
+  option_name: string;
+  votes: number | null;
+  percentage: number | null;
+  won: number;
+}
+
+export function getAllReferenda(): Referendum[] {
+  return db.prepare('SELECT * FROM referenda ORDER BY date').all() as Referendum[];
+}
+
+export function getReferendumBySlug(slug: string): Referendum | undefined {
+  return db.prepare('SELECT * FROM referenda WHERE slug = ?').get(slug) as Referendum | undefined;
+}
+
+export function getReferendumResults(referendumId: number): ReferendumResult[] {
+  return db.prepare('SELECT * FROM referendum_results WHERE referendum_id = ? ORDER BY question_label, won DESC').all(referendumId) as ReferendumResult[];
+}
+
 export interface Tenure {
   constituency_name: string;
   constituency_slug: string;
@@ -238,8 +274,10 @@ export interface Tenure {
   end_year: string;
   predecessor_name: string | null;
   predecessor_slug: string | null;
+  predecessor_image: string | null;
   successor_name: string | null;
   successor_slug: string | null;
+  successor_image: string | null;
 }
 
 /**
@@ -332,5 +370,6 @@ export function getTenuresForPerson(personId: number): Tenure[] {
     });
   }
 
+  tenures.sort((a, b) => (a.start_year || '').localeCompare(b.start_year || ''));
   return tenures;
 }
