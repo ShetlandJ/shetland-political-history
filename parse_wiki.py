@@ -1632,6 +1632,20 @@ def main():
                 break
     print(f"  Fixed {swap_count} swaps")
 
+    # --- Step 6a4: Fix 1874 LTC unofficial council group ---
+    # Two votes held in two rooms. 1st group (positions 1-18) was unofficial.
+    # Only the 2nd group (positions 19+) were the real councillors.
+    sqlite_cursor.execute("""
+        UPDATE candidacies SET elected = 0
+        WHERE election_id IN (SELECT id FROM elections WHERE wiki_page_title IN (
+            'Lerwick Town Council Election September 1874',
+            'Lerwick_Town_Council_Election_September_1874'
+        ))
+        AND position <= 18 AND elected = 1
+    """)
+    if sqlite_cursor.rowcount > 0:
+        print(f"  Fixed 1874 LTC: marked {sqlite_cursor.rowcount} unofficial 1st group as not-elected")
+
     # --- Step 6b: Hide erroneous elections ---
     print("\n=== Hiding erroneous elections ===")
     hidden_elections = [
