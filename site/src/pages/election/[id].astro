@@ -37,10 +37,43 @@ for (const el of allElectionsForLinks) {
   if (!electionPageIdMap.has(el.wiki_page_title)) electionPageIdMap.set(el.wiki_page_title, el.id);
 }
 
+function findElectionByFuzzyName(refName: string): number | null {
+  // Try exact match first
+  const exact = electionPageIdMap.get(refName) || electionPageIdMap.get(refName.replace(/ /g, '_'));
+  if (exact) return exact;
+
+  // Fuzzy: extract constituency name and year, find matching by-election
+  // Handles: "Fetlar County Council By-Election May 1890" or "1890 Walls County Council by-election"
+  let place: string | null = null;
+  let year: string | null = null;
+  const fmtA = refName.match(/^(\d{4})\s+(.+?)\s+(?:County Council\s+)?[Bb]y-[Ee]lection/);
+  const fmtB = refName.match(/^(.+?)\s+(?:County Council\s+)?[Bb]y-[Ee]lection\s+(?:\w+\s+)?(\d{4})/);
+  if (fmtA) { year = fmtA[1]; place = fmtA[2]; }
+  else if (fmtB) { place = fmtB[1]; year = fmtB[2]; }
+  if (place && year) {
+    for (const [title, id] of electionPageIdMap) {
+      if (title.toLowerCase().includes(place.toLowerCase()) &&
+          title.toLowerCase().includes('by-election') &&
+          title.includes(year)) {
+        return id;
+      }
+    }
+    // Try without year match (different month in title)
+    for (const [title, id] of electionPageIdMap) {
+      if (title.toLowerCase().includes(place.toLowerCase()) &&
+          title.toLowerCase().includes('by-election') &&
+          title.match(/\d{4}/)?.[0] === year) {
+        return id;
+      }
+    }
+  }
+  return null;
+}
+
 function linkifyNotes(notes: string): { text: string; url: string | null }[] {
-  // Split notes into parts, turning "see X By-Election Y" references into links
   const parts: { text: string; url: string | null }[] = [];
-  const regex = /see\s+([A-Z][^.]+?(?:By-Election|by-election)[^.]*)/g;
+  // Match "see <election reference>" — reference can start with uppercase, digit, or lowercase
+  const regex = /see\s+((?:[A-Z0-9]|\d{4}\s+\w)[^.]*?[Bb]y-[Ee]lection[^.]*)/g;
   let lastIdx = 0;
   let match;
   while ((match = regex.exec(notes)) !== null) {
@@ -50,7 +83,7 @@ function linkifyNotes(notes: string): { text: string; url: string | null }[] {
       parts.push({ text: 'see ', url: null });
     }
     const refName = match[1].trim().replace(/\.$/, '');
-    const elId = electionPageIdMap.get(refName) || electionPageIdMap.get(refName.replace(/ /g, '_'));
+    const elId = findElectionByFuzzyName(refName);
     parts.push({ text: refName, url: elId ? `/election/${elId}` : null });
     lastIdx = match.index + match[0].length;
   }
@@ -163,11 +196,13 @@ function electionTitle(wpt: string): string {
   })}
 
   <div class="election-nav">
-    <div class="election-nav-header">Next election</div>
+    <div class="election-nav-header">
+      {election.election_type === 'by-election' ? 'By-elections' : 'Elections'}
+    </div>
     <div class="election-nav-row">
       <div class="election-nav-cell">
         {nav.prev ? (
-          <a href={`/election/${nav.prev.min_id}`}>&lt; {electionYear(nav.prev.election_date)}</a>
+          <a href={`/election/${nav.prev.min_id}`}>&lt; {electionYear(nav.prev.election_date)}{nav.prev.election_type === 'by-election' ? ' (by)' : ''}</a>
         ) : (
           <span class="muted">&mdash;</span>
         )}
@@ -177,12 +212,23 @@ function electionTitle(wpt: string): string {
       </div>
       <div class="election-nav-cell">
         {nav.next ? (
-          <a href={`/election/${nav.next.min_id}`}>{electionYear(nav.next.election_date)} &gt;</a>
+          <a href={`/election/${nav.next.min_id}`}>{electionYear(nav.next.election_date)}{nav.next.election_type === 'by-election' ? ' (by)' : ''} &gt;</a>
         ) : (
           <span class="muted">&mdash;</span>
         )}
       </div>
     </div>
+    {election.election_type === 'by-election' && (nav.prevGeneral || nav.nextGeneral) && (
+      <div class="election-nav-generals">
+        {nav.prevGeneral && (
+          <a href={`/election/${nav.prevGeneral.min_id}`}>&lt; {electionYear(nav.prevGeneral.election_date)} general</a>
+        )}
+        {nav.prevGeneral && nav.nextGeneral && <span class="muted">&middot;</span>}
+        {nav.nextGeneral && (
+          <a href={`/election/${nav.nextGeneral.min_id}`}>{electionYear(nav.nextGeneral.election_date)} general &gt;</a>
+        )}
+      </div>
+    )}
   </div>
 </Base>
 
@@ -233,5 +279,16 @@ function electionTitle(wpt: string): string {
 
   .muted {
     color: var(--muted);
+  }
+
+  .election-nav-generals {
+    border-top: 1px solid var(--border-light);
+    padding: 0.5rem 0.7rem;
+    text-align: center;
+    font-size: 0.82rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    align-items: center;
   }
 </style>

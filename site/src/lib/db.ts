@@ -189,20 +189,55 @@ export function getDistinctElectionPages(councilId: number): { wiki_page_title: 
   `).all(councilId) as any[];
 }
 
-export function getElectionNavigation(councilId: number, currentPageTitle: string, electionType: string): { prev: { wiki_page_title: string; election_date: string; min_id: number } | null; next: { wiki_page_title: string; election_date: string; min_id: number } | null } {
-  const pages = db.prepare(`
+interface ElectionNavEntry {
+  wiki_page_title: string;
+  election_date: string;
+  election_type: string;
+  min_id: number;
+}
+
+interface ElectionNav {
+  prev: ElectionNavEntry | null;
+  next: ElectionNavEntry | null;
+  prevGeneral: ElectionNavEntry | null;
+  nextGeneral: ElectionNavEntry | null;
+}
+
+export function getElectionNavigation(councilId: number, currentPageTitle: string, electionType: string): ElectionNav {
+  // Get all elections for this council, ordered chronologically
+  const allPages = db.prepare(`
     SELECT wiki_page_title, MIN(election_date) as election_date, election_type, MIN(id) as min_id
     FROM elections
-    WHERE council_id = ? AND hidden = 0 AND election_type = ?
+    WHERE council_id = ? AND hidden = 0
     GROUP BY wiki_page_title
     ORDER BY MIN(election_date)
-  `).all(councilId, electionType) as any[];
+  `).all(councilId) as ElectionNavEntry[];
 
-  const idx = pages.findIndex((p: any) => p.wiki_page_title === currentPageTitle);
-  return {
-    prev: idx > 0 ? pages[idx - 1] : null,
-    next: idx < pages.length - 1 ? pages[idx + 1] : null,
-  };
+  const idx = allPages.findIndex(p => p.wiki_page_title === currentPageTitle);
+
+  // Same-type prev/next (by-elections navigate between by-elections, generals between generals)
+  const sameType = allPages.filter(p => p.election_type === electionType);
+  const sameIdx = sameType.findIndex(p => p.wiki_page_title === currentPageTitle);
+
+  const prev = sameIdx > 0 ? sameType[sameIdx - 1] : null;
+  const next = sameIdx < sameType.length - 1 ? sameType[sameIdx + 1] : null;
+
+  // For by-elections: find the surrounding general elections
+  // For generals: find surrounding generals (same as prev/next) — but flag if by-elections exist between
+  let prevGeneral: ElectionNavEntry | null = null;
+  let nextGeneral: ElectionNavEntry | null = null;
+
+  if (electionType === 'by-election') {
+    // Find nearest general before and after this election
+    for (let i = idx - 1; i >= 0; i--) {
+      if (allPages[i].election_type === 'general') { prevGeneral = allPages[i]; break; }
+    }
+    for (let i = idx + 1; i < allPages.length; i++) {
+      if (allPages[i].election_type === 'general') { nextGeneral = allPages[i]; break; }
+    }
+  }
+
+  return { prev, next, prevGeneral, nextGeneral };
 }
 
 export function getCouncilStats(): { name: string; slug: string; level: string; election_count: number; earliest: string | null; latest: string | null; person_count: number }[] {
@@ -313,61 +348,70 @@ export function getTenuresForPerson(personId: number): Tenure[] {
       ORDER BY e.election_date
     `).all(con.constituency_id) as any[];
 
-    // Find this person's first and last appearance
-    let firstIdx = -1;
-    let lastIdx = -1;
+    // Find all consecutive stints (split when someone else held the seat in between)
+    const stints: { firstIdx: number; lastIdx: number }[] = [];
+    let stintFirst = -1;
+    let stintLast = -1;
+
     for (let i = 0; i < winners.length; i++) {
       if (winners[i].person_id === personId) {
-        if (firstIdx === -1) firstIdx = i;
-        lastIdx = i;
+        if (stintFirst === -1) {
+          stintFirst = i;
+        }
+        stintLast = i;
+      } else if (stintFirst !== -1) {
+        // Someone else won — end the current stint
+        stints.push({ firstIdx: stintFirst, lastIdx: stintLast });
+        stintFirst = -1;
+        stintLast = -1;
       }
     }
-
-    if (firstIdx === -1) continue;
-
-    const startYear = winners[firstIdx].election_date?.substring(0, 4) || '?';
-    // End year: the election after their last win, or their last win year if they're the last
-    let endYear: string;
-    if (lastIdx < winners.length - 1) {
-      endYear = winners[lastIdx + 1].election_date?.substring(0, 4) || '?';
-    } else {
-      endYear = winners[lastIdx].election_date?.substring(0, 4) || '?';
+    if (stintFirst !== -1) {
+      stints.push({ firstIdx: stintFirst, lastIdx: stintLast });
     }
 
-    // Predecessor: the different person who won just before this person
-    let predecessor_name: string | null = null;
-    let predecessor_slug: string | null = null;
-    for (let i = firstIdx - 1; i >= 0; i--) {
-      if (winners[i].person_id !== personId) {
-        predecessor_name = winners[i].person_name || winners[i].candidate_name;
-        predecessor_slug = winners[i].person_slug;
-        break;
+    for (const stint of stints) {
+      const startYear = winners[stint.firstIdx].election_date?.substring(0, 4) || '?';
+      let endYear: string;
+      if (stint.lastIdx < winners.length - 1) {
+        endYear = winners[stint.lastIdx + 1].election_date?.substring(0, 4) || '?';
+      } else {
+        endYear = winners[stint.lastIdx].election_date?.substring(0, 4) || '?';
       }
-    }
 
-    // Successor: the different person who won just after this person
-    let successor_name: string | null = null;
-    let successor_slug: string | null = null;
-    for (let i = lastIdx + 1; i < winners.length; i++) {
-      if (winners[i].person_id !== personId) {
-        successor_name = winners[i].person_name || winners[i].candidate_name;
-        successor_slug = winners[i].person_slug;
-        break;
+      let predecessor_name: string | null = null;
+      let predecessor_slug: string | null = null;
+      for (let i = stint.firstIdx - 1; i >= 0; i--) {
+        if (winners[i].person_id !== personId) {
+          predecessor_name = winners[i].person_name || winners[i].candidate_name;
+          predecessor_slug = winners[i].person_slug;
+          break;
+        }
       }
-    }
 
-    tenures.push({
-      constituency_name: con.constituency_name,
-      constituency_slug: con.constituency_slug,
-      council_name: con.council_name,
-      council_slug: con.council_slug,
-      start_year: startYear,
-      end_year: endYear,
-      predecessor_name,
-      predecessor_slug,
-      successor_name,
-      successor_slug,
-    });
+      let successor_name: string | null = null;
+      let successor_slug: string | null = null;
+      for (let i = stint.lastIdx + 1; i < winners.length; i++) {
+        if (winners[i].person_id !== personId) {
+          successor_name = winners[i].person_name || winners[i].candidate_name;
+          successor_slug = winners[i].person_slug;
+          break;
+        }
+      }
+
+      tenures.push({
+        constituency_name: con.constituency_name,
+        constituency_slug: con.constituency_slug,
+        council_name: con.council_name,
+        council_slug: con.council_slug,
+        start_year: startYear,
+        end_year: endYear,
+        predecessor_name,
+        predecessor_slug,
+        successor_name,
+        successor_slug,
+      });
+    }
   }
 
   tenures.sort((a, b) => (a.start_year || '').localeCompare(b.start_year || ''));

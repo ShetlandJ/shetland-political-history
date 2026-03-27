@@ -693,8 +693,10 @@ def parse_person_page(text, title):
     clean = re.sub(r'\{\{[^}]+\}\}', '', clean)
     clean = re.sub(r'\[\[Category:[^\]]+\]\]', '', clean)
 
-    # Split on ==Biography== to separate intro from biography
-    bio_split = re.split(r'==\s*Biography\s*==', clean, maxsplit=1)
+    # Split on biography-type section headings to separate intro from biography
+    # Matches: Biography, Profile, Background, Early life, Life, Personal Life, Abridged Biography, etc.
+    bio_headings = r'==\s*(?:Biography|Profile|Background(?:\s+and\s+\w+)?|Early [Ll]ife(?:\s+and\s+\w+)?|Life|Personal Life|Abridged Biography|Naval [Cc]areer)\s*=='
+    bio_split = re.split(bio_headings, clean, maxsplit=1)
     intro_raw = bio_split[0]
     bio_raw = bio_split[1] if len(bio_split) > 1 else None
 
@@ -1086,6 +1088,35 @@ def main():
         if sqlite_cursor.rowcount > 0:
             fix_count += 1
     print(f"  Fixed {fix_count} Bayanne IDs")
+
+    # --- Step 4d: Manual person data corrections ---
+    print("\n=== Applying manual person data corrections ===")
+    person_date_corrections = [
+        # (wiki_page_title, born_date, died_date, birth_place)
+        ('David_Harbison', '1933-08-26', '2017-10-25', 'Greenock'),
+    ]
+    pfix_count = 0
+    for wiki_title, born, died, place in person_date_corrections:
+        updates = []
+        params = []
+        if born:
+            updates.append("born_date = ?")
+            params.append(born)
+        if died:
+            updates.append("died_date = ?")
+            params.append(died)
+        if place:
+            updates.append("birth_place = ?")
+            params.append(place)
+        if updates:
+            params.append(wiki_title)
+            sqlite_cursor.execute(
+                f"UPDATE people SET {', '.join(updates)} WHERE wiki_page_title = ?", params
+            )
+            if sqlite_cursor.rowcount > 0:
+                pfix_count += 1
+                print(f"  Updated: {wiki_title}")
+    print(f"  Fixed {pfix_count} person records")
 
     def clean_candidate_name(name):
         """Strip external wiki links from candidate names, e.g. '[https://...url Display Name]' -> 'Display Name'"""
