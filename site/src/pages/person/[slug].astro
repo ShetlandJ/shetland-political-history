@@ -97,43 +97,66 @@ for (const t of tenures) {
 
   <h1>{person.name}</h1>
 
-  {lifespan(person) && <p class="meta">{lifespan(person)}</p>}
-
-  {leadershipRoles.length > 0 && (
-    <p class="meta">
-      {leadershipRoles.map((r, i) => (
-        <>{i > 0 && ' · '}<strong>{r.role}</strong> of the <a href={`/council/${r.council_slug}`}>{r.council_name}</a> ({r.start_year}–{r.end_year})</>
-      ))}
-    </p>
-  )}
-
-  <div class={personImage ? 'person-header' : ''}>
-    {personImage && (
-      <div class="person-photo">
-        <img src={personImage} alt={person.name} />
-      </div>
-    )}
-    <div>
-      {person.intro && (
-        <div class="bio-text">
-          {person.intro.split('\n\n').map(para => (
-            <p>{para}</p>
-          ))}
+  <div class="person-body">
+    <div class="infobox">
+      {personImage && (
+        <div class="infobox-photo">
+          <img src={personImage} alt={person.name} />
         </div>
       )}
+      <table class="infobox-table">
+        {person.born_date && (
+          <tr>
+            <th>Born</th>
+            <td>{formatDate(person.born_date)}{person.birth_place ? `, ${person.birth_place}` : ''}</td>
+          </tr>
+        )}
+        {person.died_date && (
+          <tr>
+            <th>Died</th>
+            <td>{formatDate(person.died_date)}{person.death_place ? `, ${person.death_place}` : ''}</td>
+          </tr>
+        )}
+        {leadershipRoles.length > 0 && leadershipRoles.map(r => (
+          <tr>
+            <th>{r.role}</th>
+            <td><a href={`/council/${r.council_slug}`}>{r.council_name}</a><br />{r.start_year}–{r.end_year}</td>
+          </tr>
+        ))}
+        {candidacies.length > 0 && (
+          <tr>
+            <th>Elections</th>
+            <td>{candidacies.length} ({candidacies.filter(c => c.elected).length} won)</td>
+          </tr>
+        )}
+        {person.bayanne_id && (
+          <tr>
+            <th>Bayanne</th>
+            <td><a href={`http://www.bayanne.info/Shetland/getperson.php?personID=${person.bayanne_id}&tree=ID1`} target="_blank" rel="noopener">Genealogy page</a></td>
+          </tr>
+        )}
+      </table>
     </div>
-  </div>
 
-  {person.biography && (
-    <>
-      <h2>Biography</h2>
+    {person.intro && (
       <div class="bio-text">
-        {person.biography.split('\n\n').map(para => (
+        {person.intro.split('\n\n').map(para => (
           <p>{para}</p>
         ))}
       </div>
-    </>
-  )}
+    )}
+
+    {person.biography && (
+      <>
+        <h2>Biography</h2>
+        <div class="bio-text">
+          {person.biography.split('\n\n').map(para => (
+            <p>{para}</p>
+          ))}
+        </div>
+      </>
+    )}
+  </div>
 
   <h2>Political Career</h2>
   {candidacies.length > 0 ? (
@@ -229,42 +252,70 @@ for (const t of tenures) {
     </>
   )}
 
-  {person.bayanne_id && (
-    <>
-      <h2>External Links</h2>
-      <ul>
-        <li><ExternalLink href={`http://www.bayanne.info/Shetland/getperson.php?personID=${person.bayanne_id}&tree=ID1`} label="Bayanne genealogy page" /></li>
-      </ul>
-    </>
-  )}
+
 </Base>
 
 <style>
-  .person-header {
-    display: flex;
-    gap: 1.75rem;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
+  .person-body {
+    overflow: hidden; /* contain the float */
   }
 
-  .person-photo {
-    flex-shrink: 0;
-  }
-
-  .person-photo img {
-    width: 170px;
-    height: auto;
-    border-radius: var(--radius);
+  .infobox {
+    width: 260px;
+    float: right;
+    margin: 0 0 1rem 1.5rem;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
+    border-radius: var(--radius);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .infobox-photo {
+    width: 100%;
+    background: var(--bg-surface-alt);
+  }
+
+  .infobox-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .infobox-table {
+    width: 100%;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: 0.85rem;
+  }
+
+  .infobox-table th {
+    background: var(--bg-surface-alt);
+    font-weight: 600;
+    width: 5.5rem;
+    vertical-align: top;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .infobox-table td {
+    padding: 0.4rem 0.6rem;
+    vertical-align: top;
+  }
+
+  .infobox-table tr:last-child td,
+  .infobox-table tr:last-child th {
+    border-bottom: none;
   }
 
   @media (max-width: 600px) {
-    .person-header {
-      flex-direction: column;
-    }
-    .person-photo img {
-      width: 130px;
+    .infobox {
+      float: none;
+      width: 100%;
+      margin: 0 0 1rem 0;
     }
   }
 
