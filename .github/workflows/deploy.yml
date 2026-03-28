@@ -44,10 +44,24 @@ jobs:
       - name: Fix base path in links
         run: |
           BASE="/shetland-political-history"
+          # Only rewrite page links, not asset paths (Astro already handles _astro/)
           find site/dist -name '*.html' -exec sed -i \
-            -e "s|href=\"/|href=\"${BASE}/|g" \
-            -e "s|action=\"/|action=\"${BASE}/|g" \
-            -e "s|src=\"/images|src=\"${BASE}/images|g" \
+            -e "s|href=\"/council/|href=\"${BASE}/council/|g" \
+            -e "s|href=\"/election/|href=\"${BASE}/election/|g" \
+            -e "s|href=\"/person/|href=\"${BASE}/person/|g" \
+            -e "s|href=\"/constituency/|href=\"${BASE}/constituency/|g" \
+            -e "s|href=\"/referendum/|href=\"${BASE}/referendum/|g" \
+            -e "s|href=\"/people\"|href=\"${BASE}/people\"|g" \
+            -e "s|href=\"/constituencies\"|href=\"${BASE}/constituencies\"|g" \
+            -e "s|href=\"/referenda\"|href=\"${BASE}/referenda\"|g" \
+            -e "s|href=\"/leadership\"|href=\"${BASE}/leadership\"|g" \
+            -e "s|href=\"/search\"|href=\"${BASE}/search\"|g" \
+            -e "s|href=\"/history\"|href=\"${BASE}/history\"|g" \
+            -e "s|href=\"/data-review\"|href=\"${BASE}/data-review\"|g" \
+            -e "s|href=\"/council-composition\"|href=\"${BASE}/council-composition\"|g" \
+            -e "s|href=\"/\"|href=\"${BASE}/\"|g" \
+            -e "s|action=\"/search\"|action=\"${BASE}/search\"|g" \
+            -e "s|src=\"/images/|src=\"${BASE}/images/|g" \
             {} +
 
       - name: Upload artifact
