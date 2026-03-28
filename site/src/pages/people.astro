@@ -1,39 +1,378 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getAllPeople } from '../lib/db';
+import Database from 'better-sqlite3';
+import path from 'path';
+import fs from 'fs';
+
+const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
 
 const people = getAllPeople();
 
+// Build filter data for each person
+const imageExts = ['.jpg', '.jpeg', '.png', '.gif'];
+function hasImage(slug: string): boolean {
+  for (const ext of imageExts) {
+    if (fs.existsSync(path.join(process.cwd(), 'public', 'images', 'people', slug + ext))) return true;
+  }
+  return false;
+}
+
+// Get candidacy counts and council membership
+const candidacyCounts = new Map<number, { total: number; won: number; councils: Set<string> }>();
+const rows = db.prepare(`
+  SELECT c.person_id, c.elected, co.slug as council_slug
+  FROM candidacies c
+  JOIN elections e ON c.election_id = e.id
+  JOIN councils co ON e.council_id = co.id
+  WHERE c.person_id IS NOT NULL AND e.hidden = 0
+`).all() as any[];
+for (const r of rows) {
+  if (!candidacyCounts.has(r.person_id)) {
+    candidacyCounts.set(r.person_id, { total: 0, won: 0, councils: new Set() });
+  }
+  const entry = candidacyCounts.get(r.person_id)!;
+  entry.total++;
+  if (r.elected) {
+    entry.won++;
+    entry.councils.add(r.council_slug);
+  }
+}
+
+// Get leadership roles
+const leaders = new Set<number>();
+const leaderRows = db.prepare('SELECT DISTINCT person_id FROM leadership_roles WHERE person_id IS NOT NULL').all() as any[];
+for (const r of leaderRows) leaders.add(r.person_id);
+
+interface PersonData {
+  id: number;
+  name: string;
+  slug: string;
+  born_date: string | null;
+  died_date: string | null;
+  birth_place: string | null;
+  intro: string | null;
+  biography: string | null;
+  categories: string | null;
+  bayanne_id: string | null;
+  // Computed
+  hasPhoto: boolean;
+  hasBio: boolean;
+  isFemale: boolean;
+  isNative: boolean;
+  isIncomer: boolean;
+  isPictured: boolean;
+  isLeader: boolean;
+  councils: string[];
+  electionsWon: number;
+  electionsTotal: number;
+  missingData: boolean;
+  diedInOffice: boolean;
+  isClergyman: boolean;
+  cats: string[];
+}
+
+const enriched: PersonData[] = people.map(p => {
+  const cats: string[] = p.categories ? JSON.parse(p.categories) : [];
+  const cands = candidacyCounts.get(p.id);
+  const catSet = new Set(cats.map(c => c.toLowerCase().trim()));
+
+  return {
+    ...p,
+    hasPhoto: hasImage(p.slug),
+    hasBio: !!(p.intro || p.biography),
+    isFemale: catSet.has('female'),
+    isNative: catSet.has('natives of shetland'),
+    isIncomer: catSet.has('incomers to shetland'),
+    isPictured: catSet.has('councillors pictured'),
+    isLeader: leaders.has(p.id),
+    councils: cands ? Array.from(cands.councils) : [],
+    electionsWon: cands?.won || 0,
+    electionsTotal: cands?.total || 0,
+    missingData: catSet.has('councillors - missing all') || catSet.has('councillors - missing b/d') || catSet.has('biography missing'),
+    diedInOffice: catSet.has('died in office') || catSet.has('died in office'),
+    isClergyman: catSet.has('councillors - clergymen') || catSet.has('clergymen'),
+    cats,
+  };
+});
+
 // Group by first letter
-const byLetter: Record<string, typeof people> = {};
-for (const p of people) {
+const byLetter: Record<string, PersonData[]> = {};
+for (const p of enriched) {
   const letter = p.name.charAt(0).toUpperCase();
   if (!byLetter[letter]) byLetter[letter] = [];
   byLetter[letter].push(p);
 }
+
+// Build filter options with counts
+const filters = [
+  { id: 'all', label: 'All', count: enriched.length },
+  { id: 'ltc', label: 'Lerwick TC', count: enriched.filter(p => p.councils.includes('lerwick-town-council')).length },
+  { id: 'zcc', label: 'Zetland CC', count: enriched.filter(p => p.councils.includes('zetland-county-council')).length },
+  { id: 'sic', label: 'SIC', count: enriched.filter(p => p.councils.includes('shetland-islands-council')).length },
+  { id: 'westminster', label: 'Westminster', count: enriched.filter(p => p.councils.includes('parliament-uk') || p.councils.includes('parliament-great-britain')).length },
+  { id: 'leaders', label: 'Provosts & Conveners', count: enriched.filter(p => p.isLeader).length },
+  { id: 'female', label: 'Women', count: enriched.filter(p => p.isFemale).length },
+  { id: 'clergy', label: 'Clergymen', count: enriched.filter(p => p.isClergyman).length },
+  { id: 'pictured', label: 'Pictured', count: enriched.filter(p => p.hasPhoto).length },
+  { id: 'not-pictured', label: 'No photo', count: enriched.filter(p => !p.hasPhoto).length },
+  { id: 'has-bio', label: 'Has biography', count: enriched.filter(p => p.hasBio).length },
+  { id: 'no-bio', label: 'No biography', count: enriched.filter(p => !p.hasBio).length },
+  { id: 'natives', label: 'Natives of Shetland', count: enriched.filter(p => p.isNative).length },
+  { id: 'incomers', label: 'Incomers', count: enriched.filter(p => p.isIncomer).length },
+  { id: 'died-in-office', label: 'Died in office', count: enriched.filter(p => p.diedInOffice).length },
+  { id: 'missing', label: 'Missing data', count: enriched.filter(p => p.missingData).length },
+  { id: 'no-elections', label: 'No elections', count: enriched.filter(p => p.electionsTotal === 0).length },
+];
+
+// Serialise for client-side filtering
+const peopleJson = JSON.stringify(enriched.map(p => ({
+  n: p.name,
+  s: p.slug,
+  b: p.born_date?.substring(0, 4) || '',
+  d: p.died_date?.substring(0, 4) || '',
+  ph: p.hasPhoto,
+  bi: p.hasBio,
+  f: p.isFemale,
+  na: p.isNative,
+  inc: p.isIncomer,
+  pic: p.isPictured,
+  l: p.isLeader,
+  c: p.councils,
+  w: p.electionsWon,
+  t: p.electionsTotal,
+  m: p.missingData,
+  dio: p.diedInOffice,
+  cl: p.isClergyman,
+})));
 ---
 <Base title="People">
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; People</div>
   <h1>People</h1>
-  <p class="meta">{people.length} councillors and politicians</p>
+  <p class="meta" id="count-display">{people.length} councillors and politicians</p>
 
-  <div style="margin-bottom: 1rem;">
+  <div class="filters">
+    <div class="filter-label">Filter:</div>
+    <div class="filter-buttons">
+      {filters.map(f => (
+        <button
+          class={`filter-btn ${f.id === 'all' ? 'active' : ''}`}
+          data-filter={f.id}
+        >
+          {f.label} <span class="filter-count">{f.count}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="letter-nav" id="letter-nav">
     {Object.keys(byLetter).sort().map(letter => (
-      <a href={`#${letter}`} style="margin-right: 0.5rem; font-weight: 600;">{letter}</a>
+      <a href={`#letter-${letter}`}>{letter}</a>
     ))}
   </div>
 
-  {Object.entries(byLetter).sort(([a], [b]) => a.localeCompare(b)).map(([letter, persons]) => (
-    <div>
-      <h2 id={letter}>{letter}</h2>
-      <ul class="election-list">
-        {persons.map(p => (
-          <li>
-            <a href={`/person/${p.slug}`}>{p.name}</a>
-            {p.born_date && <span class="meta" style="margin-left: 0.5rem;">({p.born_date.substring(0, 4)}{p.died_date ? `\u2013${p.died_date.substring(0, 4)}` : ''})</span>}
-          </li>
-        ))}
-      </ul>
-    </div>
-  ))}
+  <div id="people-list">
+    {Object.entries(byLetter).sort(([a], [b]) => a.localeCompare(b)).map(([letter, persons]) => (
+      <div class="letter-group" data-letter={letter} id={`letter-${letter}`}>
+        <h2>{letter}</h2>
+        <ul class="people-list">
+          {persons.map(p => (
+            <li
+              data-slug={p.slug}
+              data-councils={p.councils.join(',')}
+              data-photo={p.hasPhoto ? '1' : '0'}
+              data-bio={p.hasBio ? '1' : '0'}
+              data-female={p.isFemale ? '1' : '0'}
+              data-native={p.isNative ? '1' : '0'}
+              data-incomer={p.isIncomer ? '1' : '0'}
+              data-leader={p.isLeader ? '1' : '0'}
+              data-missing={p.missingData ? '1' : '0'}
+              data-dio={p.diedInOffice ? '1' : '0'}
+              data-clergy={p.isClergyman ? '1' : '0'}
+              data-elections={p.electionsTotal}
+            >
+              <a href={`/person/${p.slug}`}>{p.name}</a>
+              <span class="person-meta">
+                {p.born_date && <span>({p.born_date.substring(0, 4)}{p.died_date ? `\u2013${p.died_date.substring(0, 4)}` : ''})</span>}
+                {p.hasPhoto && <span class="tag tag-photo" title="Has photo">&#128247;</span>}
+                {p.isLeader && <span class="tag tag-leader" title="Provost or Convener">&#9733;</span>}
+                {p.isFemale && <span class="tag tag-female" title="Woman">&#9792;</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <div id="no-results" style="display: none;">
+    <p class="meta">No people match this filter.</p>
+  </div>
 </Base>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('#people-list li');
+  const letterGroups = document.querySelectorAll('.letter-group');
+  const countDisplay = document.getElementById('count-display');
+  const noResults = document.getElementById('no-results');
+  const letterNav = document.getElementById('letter-nav');
+
+  function applyFilter(filterId: string) {
+    let shown = 0;
+
+    items.forEach(li => {
+      const el = li as HTMLElement;
+      let visible = true;
+
+      switch (filterId) {
+        case 'all': visible = true; break;
+        case 'ltc': visible = el.dataset.councils?.includes('lerwick-town-council') || false; break;
+        case 'zcc': visible = el.dataset.councils?.includes('zetland-county-council') || false; break;
+        case 'sic': visible = el.dataset.councils?.includes('shetland-islands-council') || false; break;
+        case 'westminster': visible = el.dataset.councils?.includes('parliament-uk') || el.dataset.councils?.includes('parliament-great-britain') || false; break;
+        case 'leaders': visible = el.dataset.leader === '1'; break;
+        case 'female': visible = el.dataset.female === '1'; break;
+        case 'clergy': visible = el.dataset.clergy === '1'; break;
+        case 'pictured': visible = el.dataset.photo === '1'; break;
+        case 'not-pictured': visible = el.dataset.photo === '0'; break;
+        case 'has-bio': visible = el.dataset.bio === '1'; break;
+        case 'no-bio': visible = el.dataset.bio === '0'; break;
+        case 'natives': visible = el.dataset.native === '1'; break;
+        case 'incomers': visible = el.dataset.incomer === '1'; break;
+        case 'died-in-office': visible = el.dataset.dio === '1'; break;
+        case 'missing': visible = el.dataset.missing === '1'; break;
+        case 'no-elections': visible = el.dataset.elections === '0'; break;
+      }
+
+      el.style.display = visible ? '' : 'none';
+      if (visible) shown++;
+    });
+
+    // Hide empty letter groups
+    letterGroups.forEach(group => {
+      const visibleItems = group.querySelectorAll('li:not([style*="display: none"])');
+      (group as HTMLElement).style.display = visibleItems.length > 0 ? '' : 'none';
+    });
+
+    // Update count
+    if (countDisplay) {
+      countDisplay.textContent = `${shown} of ${items.length} people`;
+    }
+
+    // Show/hide no results
+    if (noResults) {
+      noResults.style.display = shown === 0 ? '' : 'none';
+    }
+
+    // Update active button
+    buttons.forEach(btn => {
+      btn.classList.toggle('active', (btn as HTMLElement).dataset.filter === filterId);
+    });
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyFilter((btn as HTMLElement).dataset.filter || 'all');
+    });
+  });
+</script>
+
+<style>
+  .filters {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .filter-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .filter-btn {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .filter-count {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-left: 0.2rem;
+  }
+
+  .filter-btn.active .filter-count {
+    opacity: 0.9;
+  }
+
+  .letter-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .letter-nav a {
+    font-weight: 600;
+    font-size: 0.9rem;
+    width: 1.8rem;
+    text-align: center;
+  }
+
+  .people-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .people-list li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .person-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+  }
+
+  .tag-leader {
+    color: #d4a017;
+  }
+</style>
