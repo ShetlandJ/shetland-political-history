@@ -41,6 +41,15 @@ jobs:
         working-directory: site
         run: npm run build
 
+      - name: Fix base path in links
+        run: |
+          BASE="/shetland-political-history"
+          find site/dist -name '*.html' -exec sed -i \
+            -e "s|href=\"/|href=\"${BASE}/|g" \
+            -e "s|action=\"/|action=\"${BASE}/|g" \
+            -e "s|src=\"/images|src=\"${BASE}/images|g" \
+            {} +
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
