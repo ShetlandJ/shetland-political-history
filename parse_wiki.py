@@ -908,11 +908,18 @@ def parse_person_page(text, title):
     if img_match:
         image_ref = img_match.group(1).strip()
 
-    # Extract Bayanne ID
+    # Extract Bayanne ID — prefer the one in ==External Links== section (the page subject's ID)
+    # rather than the first on the page (which may be from succession templates or body references)
     bayanne_id = None
-    bayanne_match = re.search(r'personID=(I\d+)', text)
-    if bayanne_match:
-        bayanne_id = bayanne_match.group(1)
+    ext_links_match = re.search(r'==\s*External\s+Links?\s*==(.*?)(?===|$)', text, re.DOTALL)
+    if ext_links_match:
+        bayanne_match = re.search(r'personID=(I\d+)', ext_links_match.group(1))
+        if bayanne_match:
+            bayanne_id = bayanne_match.group(1)
+    if not bayanne_id:
+        bayanne_match = re.search(r'personID=(I\d+)', text)
+        if bayanne_match:
+            bayanne_id = bayanne_match.group(1)
 
     # Split into intro (before any ==section==) and biography (==Biography== section)
     clean = text
@@ -946,7 +953,7 @@ def parse_person_page(text, title):
 
     # Split on biography-type section headings to separate intro from biography
     # Matches: Biography, Profile, Background, Early life, Life, Personal Life, Abridged Biography, etc.
-    bio_headings = r'==\s*(?:Biography|Profile|Background(?:\s+and\s+\w+)?|Early [Ll]ife(?:\s+and\s+\w+)?|Life|Personal Life|Abridged Biography|Naval [Cc]areer)\s*=='
+    bio_headings = r'==\s*(?:Biography|Profile|Background(?:\s+and\s+\w+)?|Early [Ll]ife(?:\s+and\s+\w+)?|Life|Personal Life|Abridged Biography|Naval [Cc]areer)\s*=*'
     bio_split = re.split(bio_headings, clean, maxsplit=1)
     intro_raw = bio_split[0]
     bio_raw = bio_split[1] if len(bio_split) > 1 else None
@@ -954,9 +961,10 @@ def parse_person_page(text, title):
     # Cut intro at the first == section header
     intro_raw = re.split(r'==\s*\w', intro_raw)[0]
 
-    # Cut biography at the next == section header
+    # Cut biography at the next top-level == section header (not === sub-sections)
+    # Match == followed by a word char, but NOT preceded by = (to exclude ===)
     if bio_raw:
-        bio_raw = re.split(r'==\s*\w', bio_raw)[0]
+        bio_raw = re.split(r'(?<!=)==\s*\w', bio_raw)[0]
 
     def clean_wiki_markup(t):
         t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
@@ -1346,14 +1354,7 @@ def main():
     person_corrections = [
         # (name, {field: value, ...})
         ('David Harbison', {'born_date': '1933-08-26', 'died_date': '2017-10-25', 'birth_place': 'Greenock'}),
-        # Wrong Bayanne IDs (pointing to wrong person)
-        ('Balfour Spence', {'bayanne_id': None}),
-        ('Gilbert Duncan', {'bayanne_id': None}),
-        ('William Hay', {'bayanne_id': None}),
-        ('Andrew Garriock', {'bayanne_id': None}),
-        ('James Morrison', {'bayanne_id': None}),
-        ('Magnus Flaws (ii)', {'bayanne_id': None}),
-        ('John Irvine (i)', {'bayanne_id': None}),
+        # Bayanne ID extraction now prefers ==External Links== section, fixing these 7 cases
         # Date corrections from Bayanne cross-reference
         ('Adam Jamieson', {'born_date': '1861-10-04'}),
         ('Adam Thomson', {'born_date': '1911-10-09'}),

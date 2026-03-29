@@ -7,6 +7,8 @@ import path from 'path';
 const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
 
 // Build search index at build time
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const people = getAllPeople().map(p => {
   const fullText = [p.intro, p.biography].filter(Boolean).join(' ');
   return {
@@ -15,7 +17,7 @@ const people = getAllPeople().map(p => {
     slug: p.slug,
     meta: [p.born_date?.substring(0, 4), p.died_date?.substring(0, 4), p.birth_place].filter(Boolean).join(' · '),
     extra: fullText,
-    url: `/person/${p.slug}`,
+    url: `${base}/person/${p.slug}`,
   };
 });
 
@@ -41,7 +43,7 @@ for (const e of elections) {
     slug: '',
     meta: [council?.name, e.election_type, e.election_date?.substring(0, 4)].filter(Boolean).join(' · '),
     extra: candidateNames,
-    url: `/election/${e.id}`,
+    url: `${base}/election/${e.id}`,
   });
 }
 
@@ -51,13 +53,13 @@ const constituencies = getAllConstituencies().map(c => ({
   slug: c.slug,
   meta: c.council_name,
   extra: '',
-  url: `/constituency/${c.slug}`,
+  url: `${base}/constituency/${c.slug}`,
 }));
 
 const searchIndex = [...people, ...electionItems, ...constituencies];
 ---
 <Base title="Search">
-  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Search</div>
+  <div class="breadcrumb"><a href={`${import.meta.env.BASE_URL}`}>Home</a> &rsaquo; Search</div>
   <h1>Search</h1>
 
   <input
