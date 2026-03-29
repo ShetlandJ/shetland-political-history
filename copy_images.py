@@ -8,6 +8,7 @@ import sqlite3
 import os
 import shutil
 import hashlib
+import subprocess
 
 SQLITE_PATH = '/Users/james/projects/shetland_history/new-site/shetland.db'
 MW_IMAGES = '/Users/james/projects/shetland_history/images'
@@ -98,6 +99,26 @@ def main():
         print(f"  Missing {len(hs_missing)} headshot images:")
         for slug, ref in hs_missing[:10]:
             print(f"    {slug}: {ref}")
+
+    # Optimize: convert all images to JPEG, cap at 600px wide, quality 82
+    print("\nOptimizing images...")
+    before_total = 0
+    after_total = 0
+    for f in os.listdir(OUTPUT_DIR):
+        fpath = os.path.join(OUTPUT_DIR, f)
+        before_size = os.path.getsize(fpath)
+        before_total += before_size
+        base = os.path.splitext(f)[0]
+        out_path = os.path.join(OUTPUT_DIR, base + '.jpg')
+        subprocess.run([
+            'magick', fpath, '-resize', '600x>', '-quality', '82', '-strip', out_path
+        ], check=True)
+        after_size = os.path.getsize(out_path)
+        after_total += after_size
+        # Remove original if it was a different format
+        if fpath != out_path and os.path.exists(fpath):
+            os.remove(fpath)
+    print(f"  Before: {before_total // 1024}KB, After: {after_total // 1024}KB, Saved: {(before_total - after_total) // 1024}KB ({(before_total - after_total) * 100 // before_total}%)")
 
     # Total
     total = len(os.listdir(OUTPUT_DIR))
