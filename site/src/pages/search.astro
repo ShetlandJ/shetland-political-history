@@ -74,10 +74,22 @@ const searchIndex = [...people, ...electionItems, ...constituencies];
 
   <div id="results"></div>
 
+  <div id="browse-suggestions" class="browse-suggestions">
+    <p>Or browse:</p>
+    <div class="browse-links">
+      <a href="/people" class="browse-link">All {people.length} people</a>
+      <a href="/constituencies" class="browse-link">Constituencies</a>
+      <a href="/referenda" class="browse-link">Referenda</a>
+      <a href="/leadership" class="browse-link">Provosts &amp; Conveners</a>
+      <a href="/history" class="browse-link">History of Shetland politics</a>
+    </div>
+  </div>
+
   <script define:vars={{ searchIndex }}>
     const input = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');
     const countDiv = document.getElementById('result-count');
+    const suggestionsDiv = document.getElementById('browse-suggestions');
 
     const typeLabels = {
       person: 'Person',
@@ -95,8 +107,10 @@ const searchIndex = [...people, ...electionItems, ...constituencies];
       if (!query || query.length < 2) {
         resultsDiv.innerHTML = '';
         countDiv.style.display = 'none';
+        if (suggestionsDiv) suggestionsDiv.style.display = '';
         return;
       }
+      if (suggestionsDiv) suggestionsDiv.style.display = 'none';
 
       const terms = query.toLowerCase().split(/\s+/);
       const scored = [];
@@ -183,6 +197,31 @@ const searchIndex = [...people, ...electionItems, ...constituencies];
       color: var(--muted);
       margin-top: 0.2rem;
       font-style: italic;
+    }
+    .browse-suggestions {
+      margin-top: 2rem;
+    }
+    .browse-suggestions p {
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+    .browse-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .browse-link {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-surface);
+      font-size: 0.9rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .browse-link:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
     }
   </style>
 </Base>

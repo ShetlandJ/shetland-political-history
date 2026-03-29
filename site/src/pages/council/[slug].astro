@@ -31,8 +31,9 @@ function formatDate(d: string | null): string {
 function electionTitle(wpt: string): string {
   return wpt.replace(/_/g, ' ');
 }
+const councilDesc = `${council.name} - ${elections.length} elections. Browse election results and candidates.`;
 ---
-<Base title={council.name}>
+<Base title={council.name} description={councilDesc}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; {council.name}</div>
   <h1>{council.name}</h1>
   <p class="meta">{elections.length} elections</p>

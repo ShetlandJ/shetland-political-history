@@ -119,8 +119,9 @@ function parseExternalLink(name: string): { url: string; display: string } | nul
 function electionTitle(wpt: string): string {
   return wpt.replace(/_/g, ' ');
 }
+const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.council_name} ${election.election_type}. Results and candidates.`;
 ---
-<Base title={electionTitle(election.wiki_page_title)}>
+<Base title={electionTitle(election.wiki_page_title)} description={electionDesc}>
   <div class="breadcrumb">
     <a href="/">Home</a> &rsaquo;
     <a href={`/council/${election.council_slug}`}>{election.council_name}</a> &rsaquo;
@@ -168,10 +169,10 @@ function electionTitle(wpt: string): string {
           <table>
             <thead>
               <tr>
-                <th>Candidate</th>
-                {hasParty && <th>Party</th>}
-                {hasVotes && <th>Votes</th>}
-                <th>Result</th>
+                <th scope="col">Candidate</th>
+                {hasParty && <th scope="col">Party</th>}
+                {hasVotes && <th scope="col">Votes</th>}
+                <th scope="col">Result</th>
               </tr>
             </thead>
             <tbody>

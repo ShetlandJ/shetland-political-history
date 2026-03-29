@@ -56,12 +56,12 @@ function findPersonPhoto(slug: string): string | null {
         <table>
           <thead>
             <tr>
-              <th>#</th>
-              <th></th>
-              <th>{roleTitle}</th>
-              <th>From</th>
-              <th>To</th>
-              <th>Years</th>
+              <th scope="col">#</th>
+              <th scope="col"><span class="sr-only">Photo</span></th>
+              <th scope="col">{roleTitle}</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Years</th>
             </tr>
           </thead>
           <tbody>
@@ -72,8 +72,8 @@ function findPersonPhoto(slug: string): string | null {
                   <td>{i + 1}</td>
                   <td class="photo-cell">
                     {photo && r.person_slug
-                      ? <a href={`/person/${r.person_slug}`}><img src={photo} alt={r.person_name} class="leader-thumb" /></a>
-                      : <div class="leader-thumb-placeholder" />}
+                      ? <a href={`/person/${r.person_slug}`}><img src={photo} alt={r.person_name} class="leader-thumb" width="88" height="88" loading="lazy" /></a>
+                      : <div class="leader-thumb-placeholder" aria-hidden="true" />}
                   </td>
                   <td>
                     {r.person_slug
@@ -114,5 +114,16 @@ function findPersonPhoto(slug: string): string | null {
     border-radius: 50%;
     background: var(--bg-surface-alt);
     border: 1px solid var(--border-light);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 </style>

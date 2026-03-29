@@ -21,8 +21,9 @@ for (const r of results) {
   }
   questions[seen.get(key)!].opts.push(r);
 }
+const refDesc = `${ref.title} - Shetland results.${ref.turnout_pct ? ` Turnout: ${ref.turnout_pct}%.` : ''}`;
 ---
-<Base title={ref.title}>
+<Base title={ref.title} description={refDesc}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/referenda">Referenda</a> &rsaquo; {ref.title}</div>
 
   <h1>{ref.title}</h1>
@@ -46,9 +47,9 @@ for (const r of results) {
       <table>
         <thead>
           <tr>
-            <th>Option</th>
-            <th>Votes</th>
-            <th>%</th>
+            <th scope="col">Option</th>
+            <th scope="col">Votes</th>
+            <th scope="col">%</th>
           </tr>
         </thead>
         <tbody>

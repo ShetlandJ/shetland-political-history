@@ -2,9 +2,13 @@
 interface Props {
   title: string;
   description?: string;
+  ogType?: string;
+  jsonLd?: Record<string, any>;
 }
 
-const { title, description = 'Shetland political history database - elections, councillors, and constituencies from 1707 to present.' } = Astro.props;
+const { title, description = 'Shetland political history database - elections, councillors, and constituencies from 1707 to present.', ogType = 'website', jsonLd } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site || 'https://shetlandhistory.com');
+const fullTitle = `${title} | Shetland Political History`;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -12,9 +16,25 @@ const { title, description = 'Shetland political history database - elections, c
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
-  <title>{title} | Shetland Political History</title>
+  <link rel="canonical" href={canonicalUrl.href}>
+  <!-- Open Graph -->
+  <meta property="og:title" content={fullTitle}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content={ogType}>
+  <meta property="og:url" content={canonicalUrl.href}>
+  <meta property="og:site_name" content="Shetland Political History">
+  <meta property="og:locale" content="en_GB">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content={fullTitle}>
+  <meta name="twitter:description" content={description}>
+  <title>{fullTitle}</title>
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style is:global>
     :root {
@@ -23,7 +43,7 @@ const { title, description = 'Shetland political history database - elections, c
       --bg-surface-alt: #ece7df;
       --text: #2a2520;
       --text-secondary: #5c554d;
-      --muted: #837a6f;
+      --muted: #6b6358;
       --border: #d4cdc3;
       --border-light: #e5dfd7;
       --accent: #1a5c5c;
@@ -52,7 +72,7 @@ const { title, description = 'Shetland political history database - elections, c
         --bg-surface-alt: #2e2b28;
         --text: #e0dbd5;
         --text-secondary: #a9a19a;
-        --muted: #8a8279;
+        --muted: #9a928a;
         --border: #3d3935;
         --border-light: #33302c;
         --accent: #5cb8b2;
@@ -81,6 +101,29 @@ const { title, description = 'Shetland political history database - elections, c
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 200;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0.5rem;
+    }
+
+    /* Focus indicators */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     a {
@@ -308,10 +351,19 @@ const { title, description = 'Shetland political history database - elections, c
       background: var(--accent-light);
     }
 
+    /* ---- Prose width for readability ---- */
+    .prose {
+      max-width: 680px;
+    }
+
     /* ---- Badges & statuses ---- */
     .elected {
       color: var(--success);
       font-weight: 600;
+    }
+
+    .elected::before {
+      content: "\2713 ";
     }
 
     .not-elected {
@@ -386,6 +438,18 @@ const { title, description = 'Shetland political history database - elections, c
       font-variant-numeric: tabular-nums;
     }
 
+    /* ---- Screen reader only ---- */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
     /* ---- Footer ---- */
     footer {
       border-top: 1px solid var(--border);
@@ -456,7 +520,39 @@ const { title, description = 'Shetland political history database - elections, c
     /* ---- Bio text ---- */
     .bio-text {
       line-height: 1.75;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      max-width: 680px;
+    }
+
+    /* ---- Back to top ---- */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      background: var(--accent-hover);
     }
 
     /* ---- Responsive ---- */
@@ -478,12 +574,13 @@ const { title, description = 'Shetland political history database - elections, c
   </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to content</a>
   <header>
     <div class="container">
       <div class="header-inner">
         <a href="/" class="site-title">Shetland Political History</a>
         <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
-        <div class="nav-links">
+        <nav class="nav-links" aria-label="Main navigation">
           <a href="/council/lerwick-town-council">Lerwick TC</a>
           <a href="/council/zetland-county-council">Zetland CC</a>
           <a href="/council/shetland-islands-council">SIC</a>
@@ -492,14 +589,15 @@ const { title, description = 'Shetland political history database - elections, c
           <a href="/constituencies">Constituencies</a>
           <a href="/leadership">Leaders</a>
           <a href="/referenda">Referenda</a>
+          <a href="/history">History</a>
           <form action="/search" method="get" style="margin:0;">
             <input type="text" name="q" class="nav-search" placeholder="Search..." aria-label="Search" />
           </form>
-        </div>
+        </nav>
       </div>
     </div>
   </header>
-  <main>
+  <main id="main">
     <div class="container">
       <slot />
     </div>
@@ -510,6 +608,7 @@ const { title, description = 'Shetland political history database - elections, c
       <p style="margin-top: 0.35rem;"><a href="/history">History</a> &middot; <a href="/data-review">Data quality</a></p>
     </div>
   </footer>
+  <button class="back-to-top" aria-label="Back to top" title="Back to top">&uarr;</button>
   <script>
     const toggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav-links');
@@ -517,6 +616,17 @@ const { title, description = 'Shetland political history database - elections, c
       toggle.addEventListener('click', () => {
         const open = nav.classList.toggle('open');
         toggle.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    // Back to top
+    const btt = document.querySelector('.back-to-top');
+    if (btt) {
+      window.addEventListener('scroll', () => {
+        btt.classList.toggle('visible', window.scrollY > 400);
+      });
+      btt.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
   </script>

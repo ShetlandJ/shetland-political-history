@@ -146,7 +146,7 @@ const peopleJson = JSON.stringify(enriched.map(p => ({
   cl: p.isClergyman,
 })));
 ---
-<Base title="People">
+<Base title="People" description={`Browse all ${people.length} councillors, MPs and politicians in the Shetland political history database.`}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; People</div>
   <h1>People</h1>
   <p class="meta" id="count-display">{people.length} councillors and politicians</p>
@@ -167,7 +167,7 @@ const peopleJson = JSON.stringify(enriched.map(p => ({
 
   <div class="letter-nav" id="letter-nav">
     {Object.keys(byLetter).sort().map(letter => (
-      <a href={`#letter-${letter}`}>{letter}</a>
+      <a href={`#letter-${letter}`} title={`${byLetter[letter].length} people`}>{letter}<span class="letter-count">{byLetter[letter].length}</span></a>
     ))}
   </div>
 
@@ -343,8 +343,18 @@ const peopleJson = JSON.stringify(enriched.map(p => ({
   .letter-nav a {
     font-weight: 600;
     font-size: 0.9rem;
-    width: 1.8rem;
+    min-width: 1.8rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+  }
+
+  .letter-count {
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: var(--muted);
   }
 
   .people-list {

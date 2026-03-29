@@ -20,7 +20,7 @@ const grouped = referenda.map(ref => {
   return { ref, questions };
 });
 ---
-<Base title="Referenda">
+<Base title="Referenda" description={`Shetland results from ${referenda.length} UK and Scottish referenda, from 1975 to 2016.`}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Referenda</div>
   <h1>Referenda</h1>
   <p class="meta">Shetland results from {referenda.length} UK and Scottish referenda</p>
@@ -36,9 +36,9 @@ const grouped = referenda.map(ref => {
           <table>
             <thead>
               <tr>
-                <th>Option</th>
-                <th>Votes</th>
-                <th>%</th>
+                <th scope="col">Option</th>
+                <th scope="col">Votes</th>
+                <th scope="col">%</th>
               </tr>
             </thead>
             <tbody>

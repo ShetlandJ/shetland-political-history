@@ -91,47 +91,72 @@ for (const t of tenures) {
   t.predecessor_image = t.predecessor_slug ? findPersonHeadshot(t.predecessor_slug) : null;
   t.successor_image = t.successor_slug ? findPersonHeadshot(t.successor_slug) : null;
 }
+
+// Build description for SEO
+const descParts: string[] = [];
+if (candidacies.length > 0) {
+  const councils = [...new Set(candidacies.map(c => c.council_name))];
+  descParts.push(councils.join(', '));
+}
+if (person.born_date) descParts.push(`born ${formatDate(person.born_date)}`);
+const personDesc = descParts.length > 0 ? `${person.name} - ${descParts.join('. ')}.` : `${person.name} - Shetland politician.`;
+
+// JSON-LD structured data
+const jsonLd: Record<string, any> = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.name,
+};
+if (person.born_date) jsonLd.birthDate = person.born_date;
+if (person.died_date) jsonLd.deathDate = person.died_date;
+if (person.birth_place) jsonLd.birthPlace = { '@type': 'Place', name: person.birth_place };
+if (person.death_place) jsonLd.deathPlace = { '@type': 'Place', name: person.death_place };
+if (person.intro) jsonLd.description = person.intro.substring(0, 200);
 ---
-<Base title={person.name}>
+<Base title={person.name} description={personDesc} ogType="profile" jsonLd={jsonLd}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/people">People</a> &rsaquo; {person.name}</div>
 
   <h1>{person.name}</h1>
 
   <div class="person-body">
     <div class="infobox">
-      {personImage && (
+      {personImage ? (
         <div class="infobox-photo">
-          <img src={personImage} alt={person.name} />
+          <img src={personImage} alt={person.name} width="260" height="260" loading="lazy" />
+        </div>
+      ) : (
+        <div class="infobox-placeholder">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18" fill="currentColor" opacity="0.2"/><ellipse cx="50" cy="82" rx="30" ry="22" fill="currentColor" opacity="0.15"/></svg>
         </div>
       )}
       <table class="infobox-table">
         {person.born_date && (
           <tr>
-            <th>Born</th>
+            <th scope="row">Born</th>
             <td>{formatDate(person.born_date)}{person.birth_place ? `, ${person.birth_place}` : ''}</td>
           </tr>
         )}
         {person.died_date && (
           <tr>
-            <th>Died</th>
+            <th scope="row">Died</th>
             <td>{formatDate(person.died_date)}{person.death_place ? `, ${person.death_place}` : ''}</td>
           </tr>
         )}
         {leadershipRoles.length > 0 && leadershipRoles.map(r => (
           <tr>
-            <th>{r.role}</th>
+            <th scope="row">{r.role}</th>
             <td><a href={`/council/${r.council_slug}`}>{r.council_name}</a><br />{r.start_year}–{r.end_year}</td>
           </tr>
         ))}
         {candidacies.length > 0 && (
           <tr>
-            <th>Elections</th>
+            <th scope="row">Elections</th>
             <td>{candidacies.length} ({candidacies.filter(c => c.elected).length} won)</td>
           </tr>
         )}
         {person.bayanne_id && (
           <tr>
-            <th>Bayanne</th>
+            <th scope="row">Bayanne</th>
             <td><a href={`http://www.bayanne.info/Shetland/getperson.php?personID=${person.bayanne_id}&tree=ID1`} target="_blank" rel="noopener">Genealogy page</a></td>
           </tr>
         )}
@@ -161,13 +186,14 @@ for (const t of tenures) {
   <h2>Political Career</h2>
   {candidacies.length > 0 ? (
     <table>
+      <caption class="sr-only">Political career of {person.name}</caption>
       <thead>
         <tr>
-          <th>Year</th>
-          <th>Election</th>
-          <th>Council</th>
-          <th>Votes</th>
-          <th>Result</th>
+          <th scope="col">Year</th>
+          <th scope="col">Election</th>
+          <th scope="col">Council</th>
+          <th scope="col">Votes</th>
+          <th scope="col">Result</th>
         </tr>
       </thead>
       <tbody>
@@ -216,7 +242,7 @@ for (const t of tenures) {
                     Preceded by<br />
                     {t.predecessor_image && (
                       <a href={t.predecessor_slug ? `/person/${t.predecessor_slug}` : '#'}>
-                        <img src={t.predecessor_image} alt={t.predecessor_name} class="succession-thumb" />
+                        <img src={t.predecessor_image} alt={t.predecessor_name} class="succession-thumb" width="40" height="40" loading="lazy" />
                       </a>
                     )}
                     {t.predecessor_slug
@@ -236,7 +262,7 @@ for (const t of tenures) {
                     Succeeded by<br />
                     {t.successor_image && (
                       <a href={t.successor_slug ? `/person/${t.successor_slug}` : '#'}>
-                        <img src={t.successor_image} alt={t.successor_name} class="succession-thumb" />
+                        <img src={t.successor_image} alt={t.successor_name} class="succession-thumb" width="40" height="40" loading="lazy" />
                       </a>
                     )}
                     {t.successor_slug
@@ -280,6 +306,32 @@ for (const t of tenures) {
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  .infobox-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--bg-surface-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+  }
+
+  .infobox-placeholder svg {
+    width: 60%;
+    height: 60%;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 
   .infobox-table {

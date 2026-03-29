@@ -11,7 +11,7 @@ for (const c of constituencies) {
   byCouncil[c.council_name].push(c);
 }
 ---
-<Base title="Constituencies">
+<Base title="Constituencies" description={`Browse all ${constituencies.length} electoral wards, divisions and seats across Shetland's councils.`}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Constituencies</div>
   <h1>Constituencies</h1>
   <p class="meta">{constituencies.length} electoral wards and divisions</p>

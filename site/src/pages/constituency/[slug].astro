@@ -26,8 +26,9 @@ function formatYear(d: string | null): string {
   if (!d) return '?';
   return d.substring(0, 4);
 }
+const constituencyDesc = `${constituency.name} - ${constituency.council_name} constituency. ${elections.length} elections from ${elections.length > 0 ? elections[0].election_date?.substring(0, 4) : '?'} to ${elections.length > 0 ? elections[elections.length - 1].election_date?.substring(0, 4) : '?'}.`;
 ---
-<Base title={constituency.name}>
+<Base title={`${constituency.name} - ${constituency.council_name}`} description={constituencyDesc}>
   <div class="breadcrumb">
     <a href="/">Home</a> &rsaquo;
     <a href="/constituencies">Constituencies</a> &rsaquo;
@@ -40,10 +41,10 @@ function formatYear(d: string | null): string {
   <table class="constituency-table">
     <thead>
       <tr>
-        <th>Year</th>
-        <th>Type</th>
-        <th>Winner</th>
-        <th>Votes</th>
+        <th scope="col">Year</th>
+        <th scope="col">Type</th>
+        <th scope="col">Winner</th>
+        <th scope="col">Votes</th>
       </tr>
     </thead>
     <tbody>
