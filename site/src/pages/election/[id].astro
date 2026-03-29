@@ -161,13 +161,16 @@ function electionTitle(wpt: string): string {
           </p>
         )}
 
-        {candidacies.length > 0 && (
+        {candidacies.length > 0 && (() => {
+          const hasVotes = candidacies.some(c => c.votes != null);
+          const hasParty = candidacies.some(c => c.party);
+          return (
           <table>
             <thead>
               <tr>
                 <th>Candidate</th>
-                {candidacies.some(c => c.party) && <th>Party</th>}
-                <th>Votes</th>
+                {hasParty && <th>Party</th>}
+                {hasVotes && <th>Votes</th>}
                 <th>Result</th>
               </tr>
             </thead>
@@ -184,18 +187,19 @@ function electionTitle(wpt: string): string {
                             : c.candidate_name;
                         })()}
                   </td>
-                  {candidacies.some(c => c.party) && <td>{c.party || ''}</td>}
-                  <td>{c.votes?.toLocaleString() || c.votes_text || ''}</td>
+                  {hasParty && <td>{c.party || ''}</td>}
+                  {hasVotes && <td>{c.votes?.toLocaleString() || ''}</td>}
                   <td>
                     {c.elected
-                      ? <span class="elected">Elected{c.role ? ` (${c.role})` : ''}</span>
-                      : <span class="not-elected">Not elected</span>}
+                      ? <span class="elected">{c.votes_text && !c.votes ? c.votes_text : `Elected${c.role ? ` (${c.role})` : ''}`}</span>
+                      : <span class="not-elected">{c.votes_text || 'Not elected'}</span>}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )}
+          );
+        })()}
       </div>
     );
   })}
