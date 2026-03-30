@@ -325,7 +325,7 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
     </div>
     <details class="nav-list-box">
       <summary class="nav-list-header">
-        {ls.role}s of the <a href={`/council/${ls.council_slug}`}>{ls.council_name}</a>
+        {ls.role}s of the {ls.council_name}
       </summary>
       <div class="nav-list-body">
         {ls.allLeaders.map((l, i) => (
@@ -345,7 +345,7 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
     return (
       <details class="nav-list-box">
         <summary class="nav-list-header">
-          <a href={`/constituency/${conSlug}`}>{tenure.constituency_name}</a> Members
+          {tenure.constituency_name} Members
         </summary>
         <div class="nav-list-body">
           {members.map((m, i) => {
