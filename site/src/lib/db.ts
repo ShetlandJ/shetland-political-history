@@ -1,7 +1,12 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 
-const dbPath = path.join(process.cwd(), 'shetland.db');
+import fs from 'fs';
+const candidates = [
+  path.join(process.cwd(), 'shetland.db'),
+  path.join(process.cwd(), 'site', 'shetland.db'),
+];
+const dbPath = candidates.find(p => fs.existsSync(p)) || candidates[0];
 const db = new Database(dbPath, { readonly: true });
 
 /** Decode HTML entities (e.g. &amp; → &, &quot; → ") that persist from MediaWiki source */
