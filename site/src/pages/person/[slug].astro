@@ -125,7 +125,21 @@ if (person.born_date) jsonLd.birthDate = person.born_date;
 if (person.died_date) jsonLd.deathDate = person.died_date;
 if (person.birth_place) jsonLd.birthPlace = { '@type': 'Place', name: person.birth_place };
 if (person.death_place) jsonLd.deathPlace = { '@type': 'Place', name: person.death_place };
-if (person.intro) jsonLd.description = person.intro.substring(0, 200);
+if (person.intro) jsonLd.description = person.intro.replace(/\[person:[^\]]+:([^\]]+)\]/g, '$1').substring(0, 200);
+
+/** Convert [person:slug:Display] markers to HTML links, escaping other HTML */
+function renderLinkedText(text: string): string {
+  // First escape HTML entities in the raw text
+  const escaped = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  // Then convert person link markers to anchor tags
+  return escaped.replace(
+    /\[person:([^\]:]+):([^\]]+)\]/g,
+    '<a href="/person/$1">$2</a>'
+  );
+}
 ---
 <Base title={person.name} description={personDesc} ogType="profile" jsonLd={jsonLd}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/people">People</a> &rsaquo; {person.name}</div>
@@ -180,7 +194,7 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
     {person.intro && (
       <div class="bio-text">
         {person.intro.split('\n\n').map(para => (
-          <p>{para}</p>
+          <p set:html={renderLinkedText(para)} />
         ))}
       </div>
     )}
@@ -190,7 +204,7 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
         <h2>Biography</h2>
         <div class="bio-text">
           {person.biography.split('\n\n').map(para => (
-            <p>{para}</p>
+            <p set:html={renderLinkedText(para)} />
           ))}
         </div>
       </div>

@@ -10,7 +10,7 @@ const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: tru
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const people = getAllPeople().map(p => {
-  const fullText = [p.intro, p.biography].filter(Boolean).join(' ');
+  const fullText = [p.intro, p.biography].filter(Boolean).join(' ').replace(/\[person:[^\]]+:([^\]]+)\]/g, '$1');
   return {
     type: 'person',
     name: p.name,
