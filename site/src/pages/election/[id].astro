@@ -2,6 +2,26 @@
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
 import { getAllElections, getElectionById, getElectionsByPage, getCandidaciesForElection, getElectionNavigation } from '../../lib/db';
+import fs from 'fs';
+import path from 'path';
+
+const imageExts = ['.jpg', '.jpeg', '.png', '.gif'];
+
+function findPersonHeadshot(personSlug: string): string | null {
+  for (const ext of imageExts) {
+    const imgPath = path.join(process.cwd(), 'public', 'images', 'people', personSlug + '-headshot' + ext);
+    if (fs.existsSync(imgPath)) {
+      return `/images/people/${personSlug}-headshot${ext}`;
+    }
+  }
+  for (const ext of imageExts) {
+    const imgPath = path.join(process.cwd(), 'public', 'images', 'people', personSlug + ext);
+    if (fs.existsSync(imgPath)) {
+      return `/images/people/${personSlug}${ext}`;
+    }
+  }
+  return null;
+}
 
 export function getStaticPaths() {
   const elections = getAllElections();
@@ -176,17 +196,22 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
               </tr>
             </thead>
             <tbody>
-              {candidacies.map(c => (
+              {candidacies.map(c => {
+                const headshot = c.person_slug ? findPersonHeadshot(c.person_slug) : null;
+                return (
                 <tr>
                   <td>
-                    {c.person_slug
-                      ? <a href={`/person/${c.person_slug}`}>{c.candidate_name}</a>
-                      : (() => {
-                          const ext = parseExternalLink(c.candidate_name);
-                          return ext
-                            ? <ExternalLink href={ext.url} label={ext.display} />
-                            : c.candidate_name;
-                        })()}
+                    <span class="candidate-cell">
+                      {headshot && <img src={headshot} alt="" class="candidate-thumb" width="28" height="28" loading="lazy" />}
+                      {c.person_slug
+                        ? <a href={`/person/${c.person_slug}`}>{c.candidate_name}</a>
+                        : (() => {
+                            const ext = parseExternalLink(c.candidate_name);
+                            return ext
+                              ? <ExternalLink href={ext.url} label={ext.display} />
+                              : c.candidate_name;
+                          })()}
+                    </span>
                   </td>
                   {hasParty && <td>{c.party || ''}</td>}
                   {hasVotes && <td>{c.votes?.toLocaleString() || ''}</td>}
@@ -196,7 +221,8 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
                       : <span class="not-elected">{c.votes_text || 'Not elected'}</span>}
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
           );
@@ -243,6 +269,19 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
 </Base>
 
 <style>
+  .candidate-cell {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .candidate-thumb {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--border-light);
+  }
+
   .election-nav {
     background: var(--bg-surface);
     border: 1px solid var(--border);

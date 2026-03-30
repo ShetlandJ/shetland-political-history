@@ -451,3 +451,113 @@ export function getTenuresForPerson(personId: number): Tenure[] {
   tenures.sort((a, b) => (a.start_year || '').localeCompare(b.start_year || ''));
   return tenures;
 }
+
+/**
+ * Get leadership succession for a person — prev/next in their leadership role(s),
+ * plus the full list of all leaders for that council.
+ */
+export interface LeadershipSuccession {
+  role: string;
+  council_name: string;
+  council_slug: string;
+  start_year: string;
+  end_year: string;
+  predecessor: { name: string; slug: string | null; start_year: string; end_year: string } | null;
+  successor: { name: string; slug: string | null; start_year: string; end_year: string } | null;
+  allLeaders: { name: string; slug: string | null; start_year: string; end_year: string; isCurrent: boolean }[];
+}
+
+export function getLeadershipSuccessionForPerson(personId: number): LeadershipSuccession[] {
+  // Get this person's leadership roles
+  const personRoles = db.prepare(`
+    SELECT lr.*, co.name as council_name, co.slug as council_slug
+    FROM leadership_roles lr
+    JOIN councils co ON lr.council_id = co.id
+    WHERE lr.person_id = ?
+    ORDER BY lr.start_year
+  `).all(personId) as any[];
+
+  const results: LeadershipSuccession[] = [];
+
+  for (const role of personRoles) {
+    // Get all leaders with same role in same council
+    const allLeaders = db.prepare(`
+      SELECT lr.person_name, lr.person_id, lr.start_year, lr.end_year, p.slug as person_slug
+      FROM leadership_roles lr
+      LEFT JOIN people p ON lr.person_id = p.id
+      WHERE lr.council_id = ? AND lr.role = ?
+      ORDER BY lr.start_year
+    `).all(role.council_id, role.role) as any[];
+
+    const idx = allLeaders.findIndex((l: any) => l.person_id === personId && l.start_year === role.start_year);
+
+    const prev = idx > 0 ? allLeaders[idx - 1] : null;
+    const next = idx < allLeaders.length - 1 ? allLeaders[idx + 1] : null;
+
+    results.push({
+      role: role.role,
+      council_name: role.council_name,
+      council_slug: role.council_slug,
+      start_year: role.start_year,
+      end_year: role.end_year,
+      predecessor: prev ? { name: prev.person_name, slug: prev.person_slug, start_year: prev.start_year, end_year: prev.end_year } : null,
+      successor: next ? { name: next.person_name, slug: next.person_slug, start_year: next.start_year, end_year: next.end_year } : null,
+      allLeaders: allLeaders.map((l: any) => ({
+        name: l.person_name,
+        slug: l.person_slug,
+        start_year: l.start_year,
+        end_year: l.end_year,
+        isCurrent: l.person_id === personId && l.start_year === role.start_year,
+      })),
+    });
+  }
+
+  return results;
+}
+
+/**
+ * Get all elected members for a constituency, in date order.
+ */
+export function getConstituencyMembers(constituencyId: number): { name: string; slug: string | null; start_year: string; end_year: string }[] {
+  const winners = db.prepare(`
+    SELECT c.person_id, p.name as person_name, p.slug as person_slug,
+           e.election_date, e.election_type
+    FROM candidacies c
+    JOIN elections e ON c.election_id = e.id
+    LEFT JOIN people p ON c.person_id = p.id
+    WHERE e.constituency_id = ? AND c.elected = 1 AND e.hidden = 0
+    ORDER BY e.election_date
+  `).all(constituencyId) as any[];
+
+  // Collapse consecutive wins by same person into a single entry
+  const members: { name: string; slug: string | null; start_year: string; end_year: string }[] = [];
+  let current: any = null;
+
+  for (let i = 0; i < winners.length; i++) {
+    const w = winners[i];
+    const year = w.election_date?.substring(0, 4) || '?';
+
+    if (current && current.person_id === w.person_id && w.person_id != null) {
+      // Extend the current entry
+      current.end_year = year;
+    } else {
+      if (current) {
+        members.push({ name: current.name, slug: current.slug, start_year: current.start_year, end_year: current.end_year });
+      }
+      current = { person_id: w.person_id, name: w.person_name || 'Unknown', slug: w.person_slug, start_year: year, end_year: year };
+    }
+  }
+  if (current) {
+    members.push({ name: current.name, slug: current.slug, start_year: current.start_year, end_year: current.end_year });
+  }
+
+  return members;
+}
+
+/**
+ * Get constituency ID by slug.
+ */
+export function getConstituencyIdBySlug(slug: string): number | null {
+  const row = db.prepare('SELECT id FROM constituencies WHERE slug = ?').get(slug) as any;
+  return row?.id ?? null;
+}

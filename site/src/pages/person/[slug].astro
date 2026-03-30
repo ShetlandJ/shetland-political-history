@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
-import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson, getLeadershipRolesForPerson } from '../../lib/db';
+import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson, getLeadershipRolesForPerson, getLeadershipSuccessionForPerson, getConstituencyMembers, getConstituencyIdBySlug } from '../../lib/db';
 import fs from 'fs';
 import path from 'path';
 
@@ -90,6 +90,20 @@ function findPersonHeadshot(personSlug: string): string | null {
 for (const t of tenures) {
   t.predecessor_image = t.predecessor_slug ? findPersonHeadshot(t.predecessor_slug) : null;
   t.successor_image = t.successor_slug ? findPersonHeadshot(t.successor_slug) : null;
+}
+
+// Leadership succession (Provost/Convener prev/next + full list)
+const leadershipSuccession = getLeadershipSuccessionForPerson(person.id);
+
+// Constituency member lists for each tenure
+const constituencyMemberLists = new Map<string, { name: string; slug: string | null; start_year: string; end_year: string }[]>();
+for (const t of tenures) {
+  if (!constituencyMemberLists.has(t.constituency_slug)) {
+    const cId = getConstituencyIdBySlug(t.constituency_slug);
+    if (cId) {
+      constituencyMemberLists.set(t.constituency_slug, getConstituencyMembers(cId));
+    }
+  }
 }
 
 // Build description for SEO
@@ -278,6 +292,76 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
     </>
   )}
 
+  {leadershipSuccession.length > 0 && leadershipSuccession.map(ls => (
+    <div class="succession-box" style="margin-top: 1.5rem;">
+      <div class="succession-header">{ls.role}s</div>
+      <div class="succession-row">
+        <div class="succession-cell">
+          {ls.predecessor
+            ? <>
+                Preceded by<br />
+                {ls.predecessor.slug
+                  ? <a href={`/person/${ls.predecessor.slug}`}><strong>{ls.predecessor.name}</strong></a>
+                  : <strong>{ls.predecessor.name}</strong>}
+              </>
+            : <em>New position</em>}
+        </div>
+        <div class="succession-cell succession-main">
+          <strong>{ls.role}<br />
+          for <a href={`/council/${ls.council_slug}`}>{ls.council_name}</a></strong><br />
+          {ls.start_year}&ndash;{ls.end_year}
+        </div>
+        <div class="succession-cell">
+          {ls.successor
+            ? <>
+                Succeeded by<br />
+                {ls.successor.slug
+                  ? <a href={`/person/${ls.successor.slug}`}><strong>{ls.successor.name}</strong></a>
+                  : <strong>{ls.successor.name}</strong>}
+              </>
+            : <em>Last holder</em>}
+        </div>
+      </div>
+    </div>
+    <details class="nav-list-box">
+      <summary class="nav-list-header">
+        {ls.role}s of the <a href={`/council/${ls.council_slug}`}>{ls.council_name}</a>
+      </summary>
+      <div class="nav-list-body">
+        {ls.allLeaders.map((l, i) => (
+          <>{i > 0 && <span class="nav-list-sep"> &middot; </span>}{l.isCurrent
+            ? <strong>{l.name}</strong>
+            : l.slug
+              ? <a href={`/person/${l.slug}`}>{l.name}</a>
+              : l.name} <span class="nav-list-years">({l.start_year}&ndash;{l.end_year})</span></>
+        ))}
+      </div>
+    </details>
+  ))}
+
+  {tenures.length > 0 && [...constituencyMemberLists.entries()].map(([conSlug, members]) => {
+    const tenure = tenures.find(t => t.constituency_slug === conSlug);
+    if (!tenure || members.length < 2) return null;
+    return (
+      <details class="nav-list-box">
+        <summary class="nav-list-header">
+          <a href={`/constituency/${conSlug}`}>{tenure.constituency_name}</a> Members
+        </summary>
+        <div class="nav-list-body">
+          {members.map((m, i) => {
+            const isCurrent = m.slug === slug;
+            return (
+              <>{i > 0 && <span class="nav-list-sep"> &middot; </span>}{isCurrent
+                ? <strong>{m.name}</strong>
+                : m.slug
+                  ? <a href={`/person/${m.slug}`}>{m.name}</a>
+                  : m.name} <span class="nav-list-years">({m.start_year}&ndash;{m.end_year})</span></>
+            );
+          })}
+        </div>
+      </details>
+    );
+  })}
 
 </Base>
 
@@ -449,5 +533,56 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
     .succession-cell:last-child {
       border-bottom: none;
     }
+  }
+
+  /* Collapsible nav list (leaders list, constituency members) */
+  .nav-list-box {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 0.75rem 0;
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .nav-list-header {
+    background: var(--accent-light);
+    padding: 0.55rem 0.85rem;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--accent);
+    cursor: pointer;
+    text-align: center;
+    list-style: none;
+    font-family: var(--font-body);
+  }
+
+  .nav-list-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-list-header::before {
+    content: "\25B8 ";
+    font-size: 0.75rem;
+    margin-right: 0.3rem;
+  }
+
+  details[open] > .nav-list-header::before {
+    content: "\25BE ";
+  }
+
+  .nav-list-body {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+
+  .nav-list-sep {
+    color: var(--muted);
+  }
+
+  .nav-list-years {
+    color: var(--muted);
+    font-size: 0.78rem;
   }
 </style>
