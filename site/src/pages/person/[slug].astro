@@ -148,13 +148,9 @@ function renderLinkedText(text: string): string {
 
   <div class="person-body">
     <div class="infobox">
-      {personImage ? (
+      {personImage && (
         <div class="infobox-photo">
           <img src={personImage} alt={person.name} width="260" height="260" loading="lazy" />
-        </div>
-      ) : (
-        <div class="infobox-placeholder">
-          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18" fill="currentColor" opacity="0.2"/><ellipse cx="50" cy="82" rx="30" ry="22" fill="currentColor" opacity="0.15"/></svg>
         </div>
       )}
       <table class="infobox-table">
@@ -418,21 +414,6 @@ function renderLinkedText(text: string): string {
     width: 100%;
     height: auto;
     display: block;
-  }
-
-  .infobox-placeholder {
-    width: 100%;
-    aspect-ratio: 1;
-    background: var(--bg-surface-alt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-  }
-
-  .infobox-placeholder svg {
-    width: 60%;
-    height: 60%;
   }
 
   .sr-only {
