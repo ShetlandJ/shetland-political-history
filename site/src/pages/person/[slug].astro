@@ -186,14 +186,14 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
     )}
 
     {person.biography && (
-      <>
+      <div class="biography-section">
         <h2>Biography</h2>
         <div class="bio-text">
           {person.biography.split('\n\n').map(para => (
             <p>{para}</p>
           ))}
         </div>
-      </>
+      </div>
     )}
   </div>
 
@@ -476,6 +476,10 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
 
     .bio-text:first-of-type {
       order: 0;
+    }
+
+    .biography-section {
+      order: 2;
     }
   }
 
