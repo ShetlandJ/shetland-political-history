@@ -977,6 +977,8 @@ def parse_person_page(text, title):
         t = re.sub(r'\{[^}]*\}', '', t)
         t = re.sub(r'\\n', '\n', t)
         t = re.sub(r'\n{3,}', '\n\n', t)
+        # Fix "Name , description" → "Name, description" (stray spaces before commas in wiki source)
+        t = re.sub(r'\s+,', ',', t)
         return t.strip()
 
     intro_text = clean_wiki_markup(intro_raw) or None
