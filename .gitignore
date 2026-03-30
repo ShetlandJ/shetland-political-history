@@ -1,6 +1,5 @@
 node_modules/
 dist/
 .astro/
-site/shetland.db
 site/.astro/
 __pycache__/
