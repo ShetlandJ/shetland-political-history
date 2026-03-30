@@ -330,6 +330,11 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
     color: var(--muted);
   }
 
+  /* Tighten gap between consecutive constituency result tables */
+  :global(table) {
+    margin-bottom: 0.25rem;
+  }
+
   .election-nav-generals {
     border-top: 1px solid var(--border-light);
     padding: 0.5rem 0.7rem;
