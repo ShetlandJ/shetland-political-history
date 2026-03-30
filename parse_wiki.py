@@ -7,7 +7,6 @@ each election page to extract candidates, votes, and results. Also imports
 councillor biographies and constituency pages.
 """
 
-import html
 import re
 import sqlite3
 import mysql.connector
@@ -980,8 +979,6 @@ def parse_person_page(text, title):
         t = re.sub(r'\n{3,}', '\n\n', t)
         # Fix "Name , description" → "Name, description" (stray spaces before commas in wiki source)
         t = re.sub(r'\s+,', ',', t)
-        # Decode HTML entities (e.g. &amp; → &, &quot; → ")
-        t = html.unescape(t)
         return t.strip()
 
     intro_text = clean_wiki_markup(intro_raw) or None
@@ -2110,7 +2107,7 @@ def main():
             t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
             t = re.sub(r"'{2,3}", '', t)
             t = re.sub(r'<[^>]+>', '', t)
-            t = html.unescape(t)
+            t = re.sub(r'&quot;', '"', t)
             t = re.sub(r'\\n', '\n', t)
             t = re.sub(r'\n{3,}', '\n\n', t)
             return t.strip()
