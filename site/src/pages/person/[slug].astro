@@ -333,7 +333,7 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
             ? <strong>{l.name}</strong>
             : l.slug
               ? <a href={`/person/${l.slug}`}>{l.name}</a>
-              : l.name} <span class="nav-list-years">({l.start_year}&ndash;{l.end_year})</span></>
+              : l.name} <span class="nav-list-years"> ({l.start_year}&ndash;{l.end_year})</span></>
         ))}
       </div>
     </details>
@@ -355,7 +355,7 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
                 ? <strong>{m.name}</strong>
                 : m.slug
                   ? <a href={`/person/${m.slug}`}>{m.name}</a>
-                  : m.name} <span class="nav-list-years">({m.start_year}&ndash;{m.end_year})</span></>
+                  : m.name} <span class="nav-list-years"> ({m.start_year}&ndash;{m.end_year})</span></>
             );
           })}
         </div>
