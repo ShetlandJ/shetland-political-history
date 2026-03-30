@@ -4,6 +4,35 @@ import path from 'path';
 const dbPath = path.join(process.cwd(), 'shetland.db');
 const db = new Database(dbPath, { readonly: true });
 
+/** Decode HTML entities (e.g. &amp; → &, &quot; → ") that persist from MediaWiki source */
+function decodeEntities(s: string): string;
+function decodeEntities(s: null): null;
+function decodeEntities(s: string | null): string | null;
+function decodeEntities(s: string | null): string | null {
+  if (!s || !s.includes('&')) return s;
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)));
+}
+
+/** Decode HTML entities in common text fields of a row object */
+function decodeRow<T>(row: T): T {
+  if (!row || typeof row !== 'object') return row;
+  const r = row as any;
+  for (const key of ['intro', 'biography', 'notes', 'name', 'candidate_name', 'person_name', 'constituency_name', 'constituency_display_name', 'description']) {
+    if (typeof r[key] === 'string') r[key] = decodeEntities(r[key]);
+  }
+  return row;
+}
+
+function decodeRows<T>(rows: T[]): T[] {
+  return rows.map(decodeRow);
+}
+
 export interface Council {
   id: number;
   name: string;
@@ -67,67 +96,67 @@ export interface Candidacy {
 
 // Councils
 export function getAllCouncils(): Council[] {
-  return db.prepare('SELECT * FROM councils ORDER BY id').all() as Council[];
+  return decodeRows(db.prepare('SELECT * FROM councils ORDER BY id').all() as Council[]);
 }
 
 export function getCouncilBySlug(slug: string): Council | undefined {
-  return db.prepare('SELECT * FROM councils WHERE slug = ?').get(slug) as Council | undefined;
+  return decodeRow(db.prepare('SELECT * FROM councils WHERE slug = ?').get(slug) as Council | undefined);
 }
 
 // Elections
 export function getElectionsForCouncil(councilId: number): (Election & { constituency_name?: string })[] {
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT e.*, con.name as constituency_name
     FROM elections e
     LEFT JOIN constituencies con ON e.constituency_id = con.id
     WHERE e.council_id = ? AND e.hidden = 0
     ORDER BY e.election_date, con.name
-  `).all(councilId) as any[];
+  `).all(councilId) as any[]);
 }
 
 export function getElectionById(id: number): (Election & { council_name: string; council_slug: string; constituency_name?: string }) | undefined {
-  return db.prepare(`
+  return decodeRow(db.prepare(`
     SELECT e.*, co.name as council_name, co.slug as council_slug, con.name as constituency_name
     FROM elections e
     JOIN councils co ON e.council_id = co.id
     LEFT JOIN constituencies con ON e.constituency_id = con.id
     WHERE e.id = ?
-  `).get(id) as any;
+  `).get(id) as any);
 }
 
 export function getAllElections(): Election[] {
-  return db.prepare('SELECT * FROM elections WHERE hidden = 0 ORDER BY election_date').all() as Election[];
+  return decodeRows(db.prepare('SELECT * FROM elections WHERE hidden = 0 ORDER BY election_date').all() as Election[]);
 }
 
 // Group elections by wiki_page_title (for multi-constituency elections shown on one page)
 export function getElectionsByPage(wikiPageTitle: string): (Election & { constituency_name?: string; constituency_slug?: string; constituency_display_name?: string })[] {
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT e.*, con.name as constituency_name, con.slug as constituency_slug, e.constituency_display_name
     FROM elections e
     LEFT JOIN constituencies con ON e.constituency_id = con.id
     WHERE e.wiki_page_title = ? AND e.hidden = 0
     ORDER BY COALESCE(e.constituency_display_name, con.name)
-  `).all(wikiPageTitle) as any[];
+  `).all(wikiPageTitle) as any[]);
 }
 
 // Candidacies
 export function getCandidaciesForElection(electionId: number): (Candidacy & { person_slug?: string })[] {
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT c.*, p.slug as person_slug
     FROM candidacies c
     LEFT JOIN people p ON c.person_id = p.id
     WHERE c.election_id = ?
     ORDER BY c.position
-  `).all(electionId) as any[];
+  `).all(electionId) as any[]);
 }
 
 // People
 export function getAllPeople(): Person[] {
-  return db.prepare('SELECT * FROM people ORDER BY name').all() as Person[];
+  return decodeRows(db.prepare('SELECT * FROM people ORDER BY name').all() as Person[]);
 }
 
 export function getPersonBySlug(slug: string): Person | undefined {
-  return db.prepare('SELECT * FROM people WHERE slug = ?').get(slug) as Person | undefined;
+  return decodeRow(db.prepare('SELECT * FROM people WHERE slug = ?').get(slug) as Person | undefined);
 }
 
 export function getCandidaciesForPerson(personId: number): (Candidacy & {
@@ -139,7 +168,7 @@ export function getCandidaciesForPerson(personId: number): (Candidacy & {
   constituency_name: string | null;
   election_id: number;
 })[] {
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT c.*, e.election_date, e.election_type, e.wiki_page_title,
            co.name as council_name, co.slug as council_slug,
            con.name as constituency_name
@@ -149,35 +178,36 @@ export function getCandidaciesForPerson(personId: number): (Candidacy & {
     LEFT JOIN constituencies con ON e.constituency_id = con.id
     WHERE c.person_id = ? AND e.hidden = 0
     ORDER BY e.election_date
-  `).all(personId) as any[];
+  `).all(personId) as any[]);
 }
 
 // Constituencies
+
 export function getAllConstituencies(): (Constituency & { council_name: string; council_slug: string })[] {
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT c.*, co.name as council_name, co.slug as council_slug
     FROM constituencies c
     JOIN councils co ON c.council_id = co.id
     ORDER BY co.name, c.name
-  `).all() as any[];
+  `).all() as any[]);
 }
 
 export function getConstituencyBySlug(slug: string): (Constituency & { council_name: string; council_slug: string }) | undefined {
-  return db.prepare(`
+  return decodeRow(db.prepare(`
     SELECT c.*, co.name as council_name, co.slug as council_slug
     FROM constituencies c
     JOIN councils co ON c.council_id = co.id
     WHERE c.slug = ?
-  `).get(slug) as any;
+  `).get(slug) as any);
 }
 
 export function getElectionsForConstituency(constituencyId: number): Election[] {
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT e.*
     FROM elections e
     WHERE e.constituency_id = ? AND e.hidden = 0
     ORDER BY e.election_date
-  `).all(constituencyId) as Election[];
+  `).all(constituencyId) as Election[]);
 }
 
 // Distinct election pages for a council (grouped by wiki_page_title)
@@ -283,24 +313,24 @@ export interface LeadershipRole {
 export function getLeadershipRoles(councilId?: number): (LeadershipRole & { council_name: string; council_slug: string; person_slug?: string })[] {
   const where = councilId ? 'WHERE lr.council_id = ?' : '';
   const params = councilId ? [councilId] : [];
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT lr.*, co.name as council_name, co.slug as council_slug, p.slug as person_slug
     FROM leadership_roles lr
     JOIN councils co ON lr.council_id = co.id
     LEFT JOIN people p ON lr.person_id = p.id
     ${where}
     ORDER BY co.id, lr.start_year
-  `).all(...params) as any[];
+  `).all(...params) as any[]);
 }
 
 export function getLeadershipRolesForPerson(personId: number): (LeadershipRole & { council_name: string; council_slug: string })[] {
-  return db.prepare(`
+  return decodeRows(db.prepare(`
     SELECT lr.*, co.name as council_name, co.slug as council_slug
     FROM leadership_roles lr
     JOIN councils co ON lr.council_id = co.id
     WHERE lr.person_id = ?
     ORDER BY lr.start_year
-  `).all(personId) as any[];
+  `).all(personId) as any[]);
 }
 
 export interface Referendum {
@@ -325,11 +355,11 @@ export interface ReferendumResult {
 }
 
 export function getAllReferenda(): Referendum[] {
-  return db.prepare('SELECT * FROM referenda ORDER BY date').all() as Referendum[];
+  return decodeRows(db.prepare('SELECT * FROM referenda ORDER BY date').all() as Referendum[]);
 }
 
 export function getReferendumBySlug(slug: string): Referendum | undefined {
-  return db.prepare('SELECT * FROM referenda WHERE slug = ?').get(slug) as Referendum | undefined;
+  return decodeRow(db.prepare('SELECT * FROM referenda WHERE slug = ?').get(slug) as Referendum | undefined);
 }
 
 export function getReferendumResults(referendumId: number): ReferendumResult[] {
