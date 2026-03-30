@@ -23,20 +23,24 @@ const councilDescriptions: Record<string, string> = {
 ---
 <Base title="Home">
   <section class="hero">
-    <h1>Shetland Political History</h1>
-    <p class="hero-subtitle">A research project documenting over 300 years of political representation in the Shetland Islands</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-number">{electionCount}</span>
-        <span class="stat-label">Elections</span>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Shetland Political History</h1>
+        <p class="hero-subtitle">A research project documenting over 300 years of political representation in the Shetland Islands</p>
       </div>
-      <div class="stat">
-        <span class="stat-number">{personCount}</span>
-        <span class="stat-label">People</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">{candidacyCount.toLocaleString()}</span>
-        <span class="stat-label">Candidacies</span>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">{electionCount}</span>
+          <span class="stat-label">Elections</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">{personCount}</span>
+          <span class="stat-label">People</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">{candidacyCount.toLocaleString()}</span>
+          <span class="stat-label">Candidacies</span>
+        </div>
       </div>
     </div>
   </section>
@@ -93,6 +97,13 @@ const councilDescriptions: Record<string, string> = {
     border-bottom: 1px solid var(--border);
   }
 
+  .hero-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
   .hero h1 {
     font-size: 2.4rem;
     margin-bottom: 0.5rem;
@@ -102,7 +113,7 @@ const councilDescriptions: Record<string, string> = {
   .hero-subtitle {
     font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 1.75rem;
+    margin-bottom: 0;
     max-width: 540px;
     line-height: 1.5;
   }
@@ -110,6 +121,7 @@ const councilDescriptions: Record<string, string> = {
   .hero-stats {
     display: flex;
     gap: 2.5rem;
+    flex-shrink: 0;
   }
 
   .stat {
@@ -249,6 +261,8 @@ const councilDescriptions: Record<string, string> = {
   }
 
   @media (max-width: 600px) {
+    .hero-inner { flex-direction: column; align-items: flex-start; }
+    .hero-subtitle { margin-bottom: 1rem; }
     .hero h1 { font-size: 1.75rem; }
     .hero-stats { gap: 1.5rem; }
     .stat-number { font-size: 1.4rem; }
