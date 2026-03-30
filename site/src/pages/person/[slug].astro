@@ -292,7 +292,10 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
     </>
   )}
 
-  {leadershipSuccession.length > 0 && leadershipSuccession.map(ls => (
+  {leadershipSuccession.length > 0 && leadershipSuccession.map(ls => {
+    const predImage = ls.predecessor?.slug ? findPersonHeadshot(ls.predecessor.slug) : null;
+    const succImage = ls.successor?.slug ? findPersonHeadshot(ls.successor.slug) : null;
+    return (
     <div class="succession-box" style="margin-top: 1.5rem;">
       <div class="succession-header">{ls.role}s</div>
       <div class="succession-row">
@@ -300,6 +303,11 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
           {ls.predecessor
             ? <>
                 Preceded by<br />
+                {predImage && ls.predecessor.slug && (
+                  <a href={`/person/${ls.predecessor.slug}`}>
+                    <img src={predImage} alt={ls.predecessor.name} class="succession-thumb" width="40" height="40" loading="lazy" />
+                  </a>
+                )}
                 {ls.predecessor.slug
                   ? <a href={`/person/${ls.predecessor.slug}`}><strong>{ls.predecessor.name}</strong></a>
                   : <strong>{ls.predecessor.name}</strong>}
@@ -315,6 +323,11 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
           {ls.successor
             ? <>
                 Succeeded by<br />
+                {succImage && ls.successor.slug && (
+                  <a href={`/person/${ls.successor.slug}`}>
+                    <img src={succImage} alt={ls.successor.name} class="succession-thumb" width="40" height="40" loading="lazy" />
+                  </a>
+                )}
                 {ls.successor.slug
                   ? <a href={`/person/${ls.successor.slug}`}><strong>{ls.successor.name}</strong></a>
                   : <strong>{ls.successor.name}</strong>}
@@ -337,7 +350,8 @@ if (person.intro) jsonLd.description = person.intro.substring(0, 200);
         ))}
       </div>
     </details>
-  ))}
+    );
+  })}
 
   {tenures.length > 0 && [...constituencyMemberLists.entries()].map(([conSlug, members]) => {
     const tenure = tenures.find(t => t.constituency_slug === conSlug);
