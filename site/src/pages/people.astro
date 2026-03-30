@@ -59,8 +59,9 @@ interface PersonData {
   hasPhoto: boolean;
   hasBio: boolean;
   isFemale: boolean;
-  isNative: boolean;
-  isIncomer: boolean;
+  bornInShetland: boolean;
+  bornElsewhere: boolean;
+  diedInShetland: boolean;
   isPictured: boolean;
   isLeader: boolean;
   councils: string[];
@@ -82,8 +83,9 @@ const enriched: PersonData[] = people.map(p => {
     hasPhoto: hasImage(p.slug),
     hasBio: !!p.biography,
     isFemale: catSet.has('female'),
-    isNative: catSet.has('natives of shetland'),
-    isIncomer: catSet.has('incomers to shetland'),
+    bornInShetland: (p as any).born_in_shetland === 1,
+    bornElsewhere: (p as any).born_in_shetland === 0,
+    diedInShetland: (p as any).died_in_shetland === 1,
     isPictured: catSet.has('councillors pictured'),
     isLeader: leaders.has(p.id),
     councils: cands ? Array.from(cands.councils) : [],
@@ -118,8 +120,9 @@ const filters = [
   { id: 'not-pictured', label: 'No photo', count: enriched.filter(p => !p.hasPhoto).length },
   { id: 'has-bio', label: 'Has biography', count: enriched.filter(p => p.hasBio).length },
   { id: 'no-bio', label: 'Stub only', count: enriched.filter(p => !p.hasBio).length },
-  { id: 'natives', label: 'Native Shetlanders', count: enriched.filter(p => p.isNative).length },
-  { id: 'incomers', label: 'Incomers', count: enriched.filter(p => p.isIncomer).length },
+  { id: 'born-shi', label: 'Born in Shetland', count: enriched.filter(p => p.bornInShetland).length },
+  { id: 'born-elsewhere', label: 'Born elsewhere', count: enriched.filter(p => p.bornElsewhere).length },
+  { id: 'died-shi', label: 'Died in Shetland', count: enriched.filter(p => p.diedInShetland).length },
   { id: 'died-in-office', label: 'Died in office', count: enriched.filter(p => p.diedInOffice).length },
   { id: 'missing', label: 'Missing data', count: enriched.filter(p => p.missingData).length },
   { id: 'no-elections', label: 'No elections', count: enriched.filter(p => p.electionsTotal === 0).length },
@@ -134,8 +137,9 @@ const peopleJson = JSON.stringify(enriched.map(p => ({
   ph: p.hasPhoto,
   bi: p.hasBio,
   f: p.isFemale,
-  na: p.isNative,
-  inc: p.isIncomer,
+  bshi: p.bornInShetland,
+  bels: p.bornElsewhere,
+  dshi: p.diedInShetland,
   pic: p.isPictured,
   l: p.isLeader,
   c: p.councils,
@@ -183,8 +187,9 @@ const peopleJson = JSON.stringify(enriched.map(p => ({
               data-photo={p.hasPhoto ? '1' : '0'}
               data-bio={p.hasBio ? '1' : '0'}
               data-female={p.isFemale ? '1' : '0'}
-              data-native={p.isNative ? '1' : '0'}
-              data-incomer={p.isIncomer ? '1' : '0'}
+              data-born-shi={p.bornInShetland ? '1' : '0'}
+              data-born-else={p.bornElsewhere ? '1' : '0'}
+              data-died-shi={p.diedInShetland ? '1' : '0'}
               data-leader={p.isLeader ? '1' : '0'}
               data-missing={p.missingData ? '1' : '0'}
               data-dio={p.diedInOffice ? '1' : '0'}
@@ -238,8 +243,9 @@ const peopleJson = JSON.stringify(enriched.map(p => ({
         case 'not-pictured': visible = el.dataset.photo === '0'; break;
         case 'has-bio': visible = el.dataset.bio === '1'; break;
         case 'no-bio': visible = el.dataset.bio === '0'; break;
-        case 'natives': visible = el.dataset.native === '1'; break;
-        case 'incomers': visible = el.dataset.incomer === '1'; break;
+        case 'born-shi': visible = el.dataset.bornShi === '1'; break;
+        case 'born-elsewhere': visible = el.dataset.bornElse === '1'; break;
+        case 'died-shi': visible = el.dataset.diedShi === '1'; break;
         case 'died-in-office': visible = el.dataset.dio === '1'; break;
         case 'missing': visible = el.dataset.missing === '1'; break;
         case 'no-elections': visible = el.dataset.elections === '0'; break;

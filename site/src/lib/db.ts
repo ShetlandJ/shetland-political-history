@@ -35,6 +35,8 @@ export interface Person {
   bayanne_id: string | null;
   wiki_page_title: string | null;
   categories: string | null;
+  born_in_shetland: number | null;
+  died_in_shetland: number | null;
 }
 
 export interface Election {
