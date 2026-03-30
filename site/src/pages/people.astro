@@ -113,6 +113,7 @@ const filters = [
   { id: 'zcc', label: 'Zetland CC', count: enriched.filter(p => p.councils.includes('zetland-county-council')).length },
   { id: 'sic', label: 'SIC', count: enriched.filter(p => p.councils.includes('shetland-islands-council')).length },
   { id: 'westminster', label: 'Westminster', count: enriched.filter(p => p.councils.includes('parliament-uk') || p.councils.includes('parliament-great-britain')).length },
+  { id: 'holyrood', label: 'Holyrood', count: enriched.filter(p => p.councils.includes('scottish-parliament')).length },
   { id: 'leaders', label: 'Provosts & Conveners', count: enriched.filter(p => p.isLeader).length },
   { id: 'female', label: 'Women', count: enriched.filter(p => p.isFemale).length },
   { id: 'clergy', label: 'Clergymen', count: enriched.filter(p => p.isClergyman).length },
@@ -236,6 +237,7 @@ const peopleJson = JSON.stringify(enriched.map(p => ({
         case 'zcc': visible = el.dataset.councils?.includes('zetland-county-council') || false; break;
         case 'sic': visible = el.dataset.councils?.includes('shetland-islands-council') || false; break;
         case 'westminster': visible = el.dataset.councils?.includes('parliament-uk') || el.dataset.councils?.includes('parliament-great-britain') || false; break;
+        case 'holyrood': visible = el.dataset.councils?.includes('scottish-parliament') || false; break;
         case 'leaders': visible = el.dataset.leader === '1'; break;
         case 'female': visible = el.dataset.female === '1'; break;
         case 'clergy': visible = el.dataset.clergy === '1'; break;
