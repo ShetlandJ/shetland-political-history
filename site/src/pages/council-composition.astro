@@ -57,6 +57,14 @@ for (const p of allPeople) {
   deathDates.set(p.name, p.died_date);
 }
 
+// Mid-term departures not recorded as by-elections in the wiki data.
+// These are resignations/retirements confirmed from newspaper sources and person profiles.
+const manualDepartures: { name: string; date: string }[] = [
+  { name: 'Thomas Cameron', date: '1883-09-01' },       // Retired from council, confirmed in profile
+  { name: 'William Duncan (i)', date: '1886-07-12' },   // Resigned, confirmed in profile
+  { name: 'William MacDougall', date: '1912-04-01' },   // Resigned, confirmed in profile
+];
+
 // Helper: remove a person by name, handling disambiguations
 // "William Sievwright" should match "William Sievwright (ii)"
 function removePerson(list: Member[], name: string): Member[] {
@@ -97,15 +105,18 @@ for (const election of elections) {
   const numElected = elected.length;
   const newMembers = new Set<string>();
 
-  // Before processing this election: remove anyone who died before this date
+  // Before processing this election: remove anyone who died or departed before this date
   const electionDate = election.election_date || '';
+  const departed = new Set(manualDepartures.filter(d => d.date < electionDate).map(d => d.name));
   for (const cohort of cohorts) {
     cohort.members = cohort.members.filter(m => {
+      if (departed.has(m.name)) return false;
       if (!m.diedDate) return true;
       return m.diedDate >= electionDate;
     });
   }
   byElectionMembers = byElectionMembers.filter(m => {
+    if (departed.has(m.name)) return false;
     if (!m.diedDate) return true;
     return m.diedDate >= electionDate;
   });

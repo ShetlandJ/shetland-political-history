@@ -237,11 +237,11 @@ function renderLinkedText(text: string): string {
                   : <>{c.wiki_page_title.replace(/_/g, ' ')}</>}
               </td>
               <td><a href={`/council/${c.council_slug}`}>{c.council_name}</a></td>
-              <td>{c.votes?.toLocaleString() || c.votes_text || ''}</td>
+              <td>{c.votes ? c.votes.toLocaleString() : ''}</td>
               <td>
                 {c.elected
-                  ? <span class="elected">Elected{c.role ? ` (${c.role})` : ''}</span>
-                  : <span class="not-elected">Not elected</span>}
+                  ? <span class="elected">{c.votes_text && !c.votes ? c.votes_text : `Elected${c.role ? ` (${c.role})` : ''}`}</span>
+                  : <span class="not-elected">{c.votes_text || 'Not elected'}</span>}
               </td>
             </tr>
           );

@@ -42,6 +42,13 @@ for (const r of db.prepare("SELECT name, died_date FROM people WHERE died_date I
   deaths.set(r.name, r.died_date);
 }
 
+// Mid-term departures not recorded as by-elections in the wiki data.
+const manualDepartures: { name: string; date: string }[] = [
+  { name: 'Thomas Cameron', date: '1883-09-01' },
+  { name: 'William Duncan (i)', date: '1886-07-12' },
+  { name: 'William MacDougall', date: '1912-04-01' },
+];
+
 function getElected(wt: string) {
   return db.prepare(`
     SELECT c.candidate_name, p.name as person_name
