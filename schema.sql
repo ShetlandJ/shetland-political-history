@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS people (
     headshot_ref TEXT,       -- small headshot filename from succession templates
     bayanne_id TEXT,         -- bayanne.info person ID e.g. 'I18328'
     wiki_page_title TEXT,
-    categories TEXT           -- JSON array of original wiki categories
+    categories TEXT,          -- JSON array of original wiki categories
+    born_in_shetland INTEGER, -- 1 = yes, 0 = no, NULL = unknown
+    died_in_shetland INTEGER  -- 1 = yes, 0 = no, NULL = unknown
 );
 
 CREATE TABLE IF NOT EXISTS elections (
