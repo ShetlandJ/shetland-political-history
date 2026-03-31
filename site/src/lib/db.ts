@@ -598,3 +598,46 @@ export function getConstituencyIdBySlug(slug: string): number | null {
   const row = db.prepare('SELECT id FROM constituencies WHERE slug = ?').get(slug) as any;
   return row?.id ?? null;
 }
+
+/**
+ * Get people related to a given person via [person:slug:display] links in bios.
+ * Bidirectional: includes people this person mentions AND people who mention this person.
+ */
+export function getRelatedPeople(personSlug: string): { slug: string; name: string }[] {
+  // People whose intro or biography mention this person
+  const mentionedBy = db.prepare(`
+    SELECT slug, name FROM people
+    WHERE (intro LIKE '%[person:' || ? || ':%'
+        OR biography LIKE '%[person:' || ? || ':%')
+      AND slug != ?
+  `).all(personSlug, personSlug, personSlug) as { slug: string; name: string }[];
+
+  // Get this person's text to extract outgoing link slugs, then look up full names
+  const person = db.prepare(`SELECT intro, biography FROM people WHERE slug = ?`).get(personSlug) as { intro: string | null; biography: string | null } | undefined;
+  const outgoingSlugs = new Set<string>();
+  if (person) {
+    const text = (person.intro || '') + ' ' + (person.biography || '');
+    const re = /\[person:([^\]:]+):[^\]]+\]/g;
+    let match;
+    while ((match = re.exec(text)) !== null) {
+      outgoingSlugs.add(match[1]);
+    }
+  }
+  const outgoing: { slug: string; name: string }[] = [];
+  for (const s of outgoingSlugs) {
+    const p = db.prepare('SELECT slug, name FROM people WHERE slug = ?').get(s) as { slug: string; name: string } | undefined;
+    if (p) outgoing.push(p);
+  }
+
+  // Deduplicate by slug
+  const seen = new Set<string>();
+  const result: { slug: string; name: string }[] = [];
+  for (const p of [...mentionedBy, ...outgoing]) {
+    if (!seen.has(p.slug)) {
+      seen.add(p.slug);
+      result.push(p);
+    }
+  }
+  result.sort((a, b) => a.name.localeCompare(b.name));
+  return result;
+}

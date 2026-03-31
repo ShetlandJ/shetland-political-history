@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
-import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson, getLeadershipRolesForPerson, getLeadershipSuccessionForPerson, getConstituencyMembers, getConstituencyIdBySlug } from '../../lib/db';
+import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson, getLeadershipRolesForPerson, getLeadershipSuccessionForPerson, getConstituencyMembers, getConstituencyIdBySlug, getRelatedPeople } from '../../lib/db';
 import fs from 'fs';
 import path from 'path';
 
@@ -105,6 +105,8 @@ for (const t of tenures) {
     }
   }
 }
+
+const relatedPeople = getRelatedPeople(slug!);
 
 // Build description for SEO
 const descParts: string[] = [];
@@ -387,6 +389,17 @@ function renderLinkedText(text: string): string {
     );
   })}
 
+  {relatedPeople.length > 0 && (
+    <div class="related-people">
+      <h2>Related People</h2>
+      <ul class="related-list">
+        {relatedPeople.map(rp => (
+          <li><a href={`/person/${rp.slug}`}>{rp.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  )}
+
 </Base>
 
 <style>
@@ -607,5 +620,23 @@ function renderLinkedText(text: string): string {
   .nav-list-years {
     color: var(--muted);
     font-size: 0.78rem;
+  }
+
+  .related-list {
+    columns: 2;
+    column-gap: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-list li {
+    padding: 0.2rem 0;
+    break-inside: avoid;
+  }
+
+  @media (max-width: 600px) {
+    .related-list {
+      columns: 1;
+    }
   }
 </style>
