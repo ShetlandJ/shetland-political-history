@@ -1416,6 +1416,7 @@ def main():
         ('Hugh Robertson', {'died_date': '1932-01-15'}),
         ('James Henry', {'died_date': '2018-07-31'}),
         ('James Irvine (ii)', {'died_date': '2021-09-04'}),
+        ('James Ogilvy', {'death_place': 'New Orleans'}),
         ('James Pottinger (i)', {'born_date': '1790'}),
         ('James Scott', {'died_date': '1859-12-20'}),
         ('John Inkster (iii)', {'died_date': '2021-12-12'}),

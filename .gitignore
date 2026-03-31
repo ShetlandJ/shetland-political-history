@@ -3,3 +3,4 @@ dist/
 .astro/
 site/.astro/
 __pycache__/
+tools/.headshot-review-state.json
