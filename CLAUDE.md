@@ -166,6 +166,19 @@ npx astro preview
 
 Not yet deployed. Plan is Cloudflare Pages — just push the `site/dist/` output.
 
+## LTC Composition Model
+
+The council composition page (`council-composition.astro`) and data-review anomalies track the computed membership of Lerwick Town Council over time. Post-1876 the council has 12 members in 3 cohorts of 4, rotating annually.
+
+Key rules discovered from newspaper research:
+- **By-election rule**: Members elected at by-elections must re-stand at the next general election, creating an extra vacancy.
+- **Declining office**: A nominated candidate could decline to accept office (e.g. Arthur Laurenson 1879, James Goudie 1880). The vacancy carries forward to the next general.
+- **Vacancy propagation**: If a general election has extra vacancies (from by-election re-standings or carried vacancies), members elected to fill those may get short terms aligned to the original cohort's expiry cycle, not fresh 3-year terms (e.g. Tulloch 1881 filling a 1879-cohort vacancy, re-standing 1882).
+- **Mid-term departures**: Resignations/retirements not recorded as by-elections in the wiki must be handled via `manualDepartures` arrays in both `council-composition.astro` and `data-review.astro`. Currently tracked: Thomas Cameron (Sept 1883), William Duncan (i) (July 1886), William MacDougall (April 1912).
+- **WWI/WWII periods**: Multiple disruptions to normal rotation — elections suspended, multiple departures. These periods have expected anomalies.
+
+Many composition anomalies remain and need newspaper research to resolve. The data-review page lists them all.
+
 ## Known Issues / TODO
 - [ ] Deploy to Cloudflare Pages
 - [ ] 354 candidacies remain unlinked — mostly SIC candidates without person pages (deliberate) and party names being parsed as candidates in Westminster elections

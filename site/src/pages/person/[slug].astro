@@ -392,11 +392,11 @@ function renderLinkedText(text: string): string {
   {relatedPeople.length > 0 && (
     <div class="related-people">
       <h2>Related People</h2>
-      <ul class="related-list">
-        {relatedPeople.map(rp => (
-          <li><a href={`/person/${rp.slug}`}>{rp.name}</a></li>
+      <p class="related-list">
+        {relatedPeople.map((rp, i) => (
+          <>{i > 0 && <span class="related-sep"> · </span>}<a href={`/person/${rp.slug}`}>{rp.name}</a></>
         ))}
-      </ul>
+      </p>
     </div>
   )}
 
@@ -496,7 +496,7 @@ function renderLinkedText(text: string): string {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     margin: 1rem 0;
-    max-width: 680px;
+    max-width: 100%;
     box-shadow: var(--shadow-sm);
     overflow: hidden;
   }
@@ -623,20 +623,10 @@ function renderLinkedText(text: string): string {
   }
 
   .related-list {
-    columns: 2;
-    column-gap: 2rem;
-    list-style: none;
-    padding: 0;
+    line-height: 1.8;
   }
 
-  .related-list li {
-    padding: 0.2rem 0;
-    break-inside: avoid;
-  }
-
-  @media (max-width: 600px) {
-    .related-list {
-      columns: 1;
-    }
+  .related-sep {
+    color: var(--muted);
   }
 </style>
