@@ -29,7 +29,7 @@ const linked = byElectionStatus.filter((e: any) => e.replaced_person_id);
 const ltcId = (db.prepare("SELECT id FROM councils WHERE slug = 'lerwick-town-council'").get() as any).id;
 
 const ltcElections = db.prepare(`
-  SELECT e.wiki_page_title, e.election_date, e.election_type, e.replaced_person,
+  SELECT MIN(e.id) as id, e.wiki_page_title, e.election_date, e.election_type, e.replaced_person,
          rp.name as replaced_person_name, e.notes
   FROM elections e
   LEFT JOIN people rp ON e.replaced_person_id = rp.id
@@ -66,6 +66,7 @@ interface Anomaly {
   size: number;
   wikiTitle: string;
   direction: string;
+  electionId: number;
 }
 
 const anomalies: Anomaly[] = [];
@@ -124,6 +125,7 @@ for (const e of ltcElections) {
       size,
       wikiTitle: e.wiki_page_title,
       direction: size > 12 ? 'over' : 'under',
+      electionId: e.id,
     });
   }
 }
@@ -270,7 +272,7 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
             <td><span class={`badge badge-${a.type}`}>{a.type}</span></td>
             <td class={a.direction === 'over' ? 'danger' : 'warning'}><strong>{a.size}</strong></td>
             <td>{a.direction === 'over' ? `+${a.size - 12} extra` : `${12 - a.size} missing`}</td>
-            <td>{a.wikiTitle.replace(/_/g, ' ')}</td>
+            <td><a href={`/election/${a.electionId}`}>{a.wikiTitle.replace(/_/g, ' ')}</a></td>
           </tr>
         ))}
       </tbody>
