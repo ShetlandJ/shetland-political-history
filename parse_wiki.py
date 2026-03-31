@@ -1461,6 +1461,105 @@ def main():
             pfill_count += 1
     print(f"  Filled missing data for {pfill_count} people")
 
+    # --- Step 4e: Resolve person links in intros and biographies ---
+    # Wiki links like [[Charles Ogilvy (i)|Charles]] were stripped to plain "Charles"
+    # by clean_wiki_markup. We re-read the wiki source and replace those plain-text
+    # occurrences with [person:slug:Display] markers, matching by position.
+    print("\n=== Resolving person links in text ===")
+    # Build wiki_page_title -> slug map (includes redirects via person_ids)
+    title_to_slug = {}
+    for wiki_title, pid in person_ids.items():
+        row = sqlite_cursor.execute("SELECT slug FROM people WHERE id = ?", (pid,)).fetchone()
+        if row:
+            title_to_slug[wiki_title.replace(' ', '_')] = row[0]
+
+    def resolve_person_links_in_wiki(wiki_text):
+        """Replace [[PersonPage|Display]] wiki links with [person:slug:Display] markers
+        in one pass, leaving non-person links as plain display text."""
+        def replace_link(m):
+            target = m.group(1).strip()
+            display = m.group(2).strip() if m.group(2) else target.replace('_', ' ')
+            target_norm = target.replace(' ', '_')
+            slug = title_to_slug.get(target_norm)
+            if slug:
+                return f'[person:{slug}:{display}]'
+            return display
+        return re.sub(r'\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]', replace_link, wiki_text)
+
+    link_count = 0
+    for page_title in person_pages:
+        text = get_wiki_page(mysql_cursor, page_title)
+        if not text:
+            continue
+
+        pid = person_ids.get(page_title.replace(' ', '_'))
+        if not pid:
+            continue
+
+        # Re-parse intro/bio sections from wiki source, but this time resolve person links
+        # before stripping other markup
+        intro_raw = text
+        bio_raw = None
+        bio_match = re.search(r'==\s*Biography\s*==', text, re.IGNORECASE)
+        if bio_match:
+            intro_raw = text[:bio_match.start()]
+            bio_raw = text[bio_match.end():]
+        intro_raw = re.split(r'==\s*\w', intro_raw)[0]
+        if bio_raw:
+            bio_raw = re.split(r'(?<!=)==\s*\w', bio_raw)[0]
+
+        # Resolve person links first, then clean remaining wiki markup
+        intro_resolved = resolve_person_links_in_wiki(intro_raw)
+        bio_resolved = resolve_person_links_in_wiki(bio_raw) if bio_raw else None
+
+        # Check if any person links were found
+        has_person_links = '[person:' in intro_resolved or (bio_resolved and '[person:' in bio_resolved)
+        if not has_person_links:
+            continue
+
+        # Clean remaining wiki markup (but preserve [person:...] markers)
+        def clean_wiki_preserving_persons(t):
+            # Temporarily protect person markers
+            markers = []
+            def save_marker(m):
+                markers.append(m.group(0))
+                return f'\x00PERSON{len(markers) - 1}\x00'
+            t = re.sub(r'\[person:[^\]]+\]', save_marker, t)
+
+            # Standard wiki markup cleanup
+            t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
+            t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
+            t = re.sub(r'\[https?://[^\s\]]+\s+([^\]]+)\]', r'\1', t)
+            t = re.sub(r'\[https?://[^\]]+\]', '', t)
+            t = re.sub(r"'{2,3}", '', t)
+            t = re.sub(r'<[^>]+>', '', t)
+            t = re.sub(r'\{[^}]*\}', '', t)
+            t = re.sub(r'\\n', '\n', t)
+            t = re.sub(r'\n{3,}', '\n\n', t)
+            t = re.sub(r'\s+,', ',', t)
+
+            # Restore person markers
+            for i, marker in enumerate(markers):
+                t = t.replace(f'\x00PERSON{i}\x00', marker)
+            return t.strip()
+
+        intro_text = clean_wiki_preserving_persons(intro_resolved) or None
+        bio_text = clean_wiki_preserving_persons(bio_resolved) if bio_resolved else None
+
+        # Apply same intro cleanup as step 4
+        if intro_text:
+            intro_text = re.sub(r'__\w+__\s*', '', intro_text)
+            intro_text = re.sub(r"For other people (?:named )?with the same name,?\s*(?:please\s+)?see\s+[^.]+\.\s*", '', intro_text)
+            intro_text = re.sub(r"Not to be confused with [^.]+\.\s*", '', intro_text)
+            intro_text = re.sub(r'\s*\(b\.\s*[^)]+\)\s*', ' ', intro_text)
+            intro_text = re.sub(r'\s{2,}', ' ', intro_text).strip()
+
+        sqlite_cursor.execute("UPDATE people SET intro = ?, biography = ? WHERE id = ?",
+                              (intro_text, bio_text, pid))
+        link_count += 1
+
+    print(f"  Resolved person links in {link_count} people")
+
     def clean_candidate_name(name):
         """Strip external wiki links from candidate names, e.g. '[https://...url Display Name]' -> 'Display Name'"""
         cleaned = re.sub(r'\[https?://[^\s\]]+\s+([^\]]+)\]', r'\1', name)
