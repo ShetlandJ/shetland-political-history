@@ -984,6 +984,11 @@ def parse_person_page(text, title):
     intro_text = clean_wiki_markup(intro_raw) or None
     bio_text = clean_wiki_markup(bio_raw) if bio_raw else None
 
+    # Strip orphaned wiki image parameters (e.g. "right|250px|thumb|Caption text")
+    # left over from image tags where parameters leaked into the intro text
+    if intro_text:
+        intro_text = re.sub(r'^(?:(?:right|left|center|thumb|thumbnail|frame|frameless|\d+px)\|)+', '', intro_text)
+
     # Strip disambiguation notices and magic words from intro
     if intro_text:
         intro_text = re.sub(r'__\w+__\s*', '', intro_text)

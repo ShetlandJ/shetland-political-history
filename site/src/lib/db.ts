@@ -441,11 +441,27 @@ export function getTenuresForPerson(personId: number): Tenure[] {
       stints.push({ firstIdx: stintFirst, lastIdx: stintLast });
     }
 
+    // Also get all elections for this constituency (including ones with no winners)
+    // to detect when a seat became vacant before the next winner
+    const allElections = db.prepare(`
+      SELECT e.election_date
+      FROM elections e
+      WHERE e.constituency_id = ? AND e.hidden = 0
+      ORDER BY e.election_date
+    `).all(con.constituency_id) as any[];
+
     for (const stint of stints) {
       const startYear = winners[stint.firstIdx].election_date?.substring(0, 4) || '?';
       let endYear: string;
       if (stint.lastIdx < winners.length - 1) {
-        endYear = winners[stint.lastIdx + 1].election_date?.substring(0, 4) || '?';
+        // Check if there's an earlier election (possibly with no winner) between
+        // the person's last win and the next winner — that's when the seat actually became vacant
+        const lastWinDate = winners[stint.lastIdx].election_date;
+        const nextWinDate = winners[stint.lastIdx + 1].election_date;
+        const intermediate = allElections.find((e: any) =>
+          e.election_date > lastWinDate && e.election_date < nextWinDate
+        );
+        endYear = (intermediate?.election_date || nextWinDate)?.substring(0, 4) || '?';
       } else {
         endYear = winners[stint.lastIdx].election_date?.substring(0, 4) || '?';
       }
