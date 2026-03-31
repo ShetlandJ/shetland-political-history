@@ -1380,6 +1380,7 @@ def main():
         ('James Shearer', {'died_date': '1949-03-28'}),
         ('James Smith (i)', {'born_date': '1877-07-07'}),
         ('John Nicolson', {'born_date': '1937-09-26'}),
+        ('John Ogilvy', {'death_place': 'London'}),
         ('John Robertson (iii)', {'born_date': '1841-05-25'}),
         ('John Stewart', {'died_date': '1956-12-12'}),
         ('Joseph Peterson (i)', {'died_date': '1953-04-24'}),
