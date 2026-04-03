@@ -168,16 +168,53 @@ Not yet deployed. Plan is Cloudflare Pages — just push the `site/dist/` output
 
 ## LTC Composition Model
 
-The council composition page (`council-composition.astro`) and data-review anomalies track the computed membership of Lerwick Town Council over time. Post-1876 the council has 12 members in 3 cohorts of 4, rotating annually.
+### Goal
+Answer the question "who were the councillors on date X?" via the council composition page (`council-composition.astro`). The current approach uses a cohort-based model to simulate composition from election results, but this is being replaced with a `council_terms` table of confirmed service periods.
 
-Key rules discovered from newspaper research:
-- **By-election rule**: Members elected at by-elections must re-stand at the next general election, creating an extra vacancy.
-- **Declining office**: A nominated candidate could decline to accept office (e.g. Arthur Laurenson 1879, James Goudie 1880). The vacancy carries forward to the next general.
-- **Vacancy propagation**: If a general election has extra vacancies (from by-election re-standings or carried vacancies), members elected to fill those may get short terms aligned to the original cohort's expiry cycle, not fresh 3-year terms (e.g. Tulloch 1881 filling a 1879-cohort vacancy, re-standing 1882).
-- **Mid-term departures**: Resignations/retirements not recorded as by-elections in the wiki must be handled via `manualDepartures` arrays in both `council-composition.astro` and `data-review.astro`. Currently tracked: Thomas Cameron (Sept 1883), William Duncan (i) (July 1886), William MacDougall (April 1912).
-- **WWI/WWII periods**: Multiple disruptions to normal rotation — elections suspended, multiple departures. These periods have expected anomalies.
+### Council structure
+- **Pre-1876**: Triennial elections, full council replacement (all 11-12 members elected at once)
+- **1874**: Exceptional dual election — disputed procedures, two votes in two rooms. Second group prevailed. 11 councillors.
+- **1876 reform**: New system — 12 members, 3 cohorts of 4, one cohort rotates annually
+- **Post-1876**: 4 vacancies per year at general election, unless extra vacancies from by-election re-standings or mid-term departures
 
-Many composition anomalies remain and need newspaper research to resolve. The data-review page lists them all.
+### Key rules discovered from newspaper research
+- **By-election rule**: Co-opted/by-elected members must re-stand at the next general election, creating an extra vacancy. They then get a fresh 3-year term starting from that general.
+- **Declining office**: A nominated candidate could decline to accept office (Arthur Laurenson 1879, James Goudie 1880, Arthur Hay 1884). The vacancy carries forward to the next general.
+- **Short-term fills**: When a general has extra vacancies, the person filling the vacancy gets a term aligned to the original cohort cycle, NOT a fresh 3-year term (e.g. Tulloch 1881 filling the 1879-cohort Laurenson vacancy, re-standing 1882).
+- **Co-option at council meetings**: Many "by-elections" were actually council co-options at meetings, not public polls (e.g. Duncan 1884, Robertson & Anderson 1886).
+
+### Confirmed mid-term departures (not in wiki election data)
+| Person | Date | Reason | Source |
+|---|---|---|---|
+| Thomas Cameron | Sept 1883 | Retired | Profile intro |
+| William Duncan (i) | 12 Jul 1886 | Resigned | Profile intro |
+| John Harrison (i) | Oct 1886 | Disqualified | Newspaper 23 Oct 1886 |
+| James Hunter (ii) | early 1887 | Unknown (replaced by Porteous Mar 1887 by-election) | Needs research |
+| Laurence Stove | 12 Apr 1889 | Died | Death date |
+| William MacDougall | Apr 1912 | Resigned | Profile intro |
+
+### Confirmed DB corrections
+| Election | Fix | Source |
+|---|---|---|
+| Nov 1884 general (id=33) | Date: 1884-11-04 | Newspaper 8 Nov 1884 |
+| Nov 1884 by-election (id=34) | Date: 1884-11-22 (council co-option) | Newspaper 22 Nov 1884 |
+| Nov 1884 general | Arthur Hay elected=0 (declined office) | His letter, 8 Nov 1884 |
+| Nov 1886 by-election (id=36) | replaced_person: William Duncan, also: John Harrison | Newspaper 23 Oct 1886 |
+| 1876-1885 LTC | 4 "William Duncan" candidacies relinked from Duncan (ii) to Duncan (i) | Duncan (i) profile + Duncan (ii) was Scalloway merchant |
+
+### Research methodology for composition anomalies
+1. Query the composition model for years showing != 12 members
+2. Check who's in each cohort and whether anyone has >4 or <4
+3. Read person profiles for resignation/retirement mentions
+4. Search newspapers (britishnewspaperarchive.co.uk) for: council meeting reports near election dates, "Municipal Election" notices listing vacancies, nomination notices, and councillor swearing-in reports
+5. Cross-reference: retiring councillors listed in papers vs expiring cohort members; number of vacancies stated vs number elected
+6. Key search terms: "Town Council" + year, "Municipal Election" + year, "Commissioners of Police" (LTC's other title)
+
+### Current state and next steps
+- **Pre-1876**: Model is correct (triennial full-replacement elections)
+- **1876-1890**: Partially researched. Multiple anomalies resolved. 1890 still shows 13 — likely Stove's death (Apr 1889) created the 5th vacancy at Nov 1889 election.
+- **1890-1975**: Unresearched. Many anomalies from mid-term departures, WWI/WWII disruptions.
+- **Plan**: Replace cohort model with `council_terms` table (person, start_date, end_date, reasons). The table exists in schema but is not yet populated. Composition page will query it instead of simulating from elections.
 
 ## Known Issues / TODO
 - [ ] Deploy to Cloudflare Pages

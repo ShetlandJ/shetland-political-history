@@ -62,6 +62,7 @@ for (const p of allPeople) {
 const manualDepartures: { name: string; date: string }[] = [
   { name: 'Thomas Cameron', date: '1883-09-01' },       // Retired from council, confirmed in profile
   { name: 'William Duncan (i)', date: '1886-07-12' },   // Resigned, confirmed in profile
+  { name: 'John Harrison (i)', date: '1886-10-01' },    // Disqualified, confirmed from newspaper 23 Oct 1886
   { name: 'William MacDougall', date: '1912-04-01' },   // Resigned, confirmed in profile
 ];
 
@@ -198,8 +199,8 @@ for (const election of elections) {
       cohorts = cohorts.filter(c => c.expiresAfterGenerals > generalCount);
       // 2. All by-election fills expire (their seats are now being contested)
       byElectionMembers = [];
-      // 3. Add new cohort
-      const newCohort: Member[] = elected.map((c: any) => ({
+      // 3. Add new cohort with all elected members initially
+      const allElected: Member[] = elected.map((c: any) => ({
         name: c.person_name || c.candidate_name,
         slug: c.person_slug,
         fromByElection: false,
@@ -207,10 +208,26 @@ for (const election of elections) {
       }));
       cohorts.push({
         wikiTitle: election.wiki_page_title,
-        members: newCohort,
+        members: allElected,
         expiresAfterGenerals: generalCount + 3,
       });
-      for (const m of newCohort) newMembers.add(m.name);
+      // 4. Redistribute: move overflow members from any cohort with >4 into
+      //    earlier cohorts with <4 (earliest-expiring first, to fill gaps).
+      //    This ensures vacancies from mid-term departures are absorbed within
+      //    one cycle rather than propagating indefinitely.
+      let moved = true;
+      while (moved) {
+        moved = false;
+        const overflowCohort = cohorts.find(c => c.members.length > 4);
+        if (overflowCohort) {
+          const gapCohort = cohorts.find(c => c.members.length < 4);
+          if (gapCohort) {
+            gapCohort.members.push(overflowCohort.members.pop()!);
+            moved = true;
+          }
+        }
+      }
+      for (const m of allElected) newMembers.add(m.name);
     }
   }
 

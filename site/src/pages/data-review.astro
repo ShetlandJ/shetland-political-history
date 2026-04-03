@@ -46,6 +46,7 @@ for (const r of db.prepare("SELECT name, died_date FROM people WHERE died_date I
 const manualDepartures: { name: string; date: string }[] = [
   { name: 'Thomas Cameron', date: '1883-09-01' },
   { name: 'William Duncan (i)', date: '1886-07-12' },
+  { name: 'John Harrison (i)', date: '1886-10-01' },
   { name: 'William MacDougall', date: '1912-04-01' },
 ];
 
@@ -118,6 +119,18 @@ for (const e of ltcElections) {
       cohorts = cohorts.filter(c => c.exp > generalCount);
       byMembers = [];
       cohorts.push({ members: elected.map((c: any) => c.person_name || c.candidate_name), exp: generalCount + 3 });
+      let moved = true;
+      while (moved) {
+        moved = false;
+        const overflowCohort = cohorts.find(c => c.members.length > 4);
+        if (overflowCohort) {
+          const gapCohort = cohorts.find(c => c.members.length < 4);
+          if (gapCohort) {
+            gapCohort.members.push(overflowCohort.members.pop()!);
+            moved = true;
+          }
+        }
+      }
     }
   }
 
