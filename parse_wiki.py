@@ -950,6 +950,10 @@ def parse_person_page(text, title):
     clean = strip_image_tags(clean)
     clean = re.sub(r'\{\{[^}]+\}\}', '', clean)
     clean = re.sub(r'\[\[Category:[^\]]+\]\]', '', clean)
+    # Strip orphaned image caption lines (leftover from image tags not prefixed with [[File:)
+    # These start with image parameters like "thumb|", "right|", "left|", "center|", or dimension specs
+    clean = re.sub(r'^(?:thumb|right|left|center)\|.*$', '', clean, flags=re.MULTILINE)
+    clean = re.sub(r'^\d+px\|.*$', '', clean, flags=re.MULTILINE)
 
     # Split on biography-type section headings to separate intro from biography
     # Matches: Biography, Profile, Background, Early life, Life, Personal Life, Abridged Biography, etc.
