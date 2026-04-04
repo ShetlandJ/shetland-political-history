@@ -580,26 +580,77 @@ def parse_election_page(text, title):
             })
             i += 3
     else:
-        # Single-constituency election (LTC, by-elections, UK elections)
-        electorate, electorate_detail, turnout, turnout_pct = parse_electorate_turnout(text)
+        # Check for plain-text sub-sections (e.g. 1874 LTC with two competing council groups)
+        plain_sections = re.split(r'===\s*([^=\[\]]+?)\s*===', text)
 
-        # Find all wikitables
-        table_matches = list(re.finditer(r'(\{\|\s*class="wikitable".*?\|\})', text, re.DOTALL))
-        candidates = []
-        for table_match in table_matches:
-            has_party_table = detect_party_column(table_match.group(1))
-            candidates.extend(parse_candidates_from_table(table_match.group(1), has_party_table))
+        if len(plain_sections) > 1:
+            # plain_sections: [pre-content, heading1, content1, heading2, content2, ...]
+            # Extract descriptive intro text before ==Results== for notes
+            intro_text = plain_sections[0]
+            intro_notes = None
+            # Look for paragraph text before ==Results== (after templates/TOC)
+            intro_match = re.search(r'\n\n((?:The |Two |In ).+?)(?:\n==|\n\n\{)', intro_text, re.DOTALL)
+            if not intro_match:
+                intro_match = re.search(r"\n(The '''.*?)\n==", intro_text, re.DOTALL)
+            if intro_match:
+                note_text = intro_match.group(1).strip()
+                # Clean wiki markup from notes
+                note_text = re.sub(r"\[\[(\d{4})\]\]", r"\1", note_text)
+                note_text = re.sub(r"\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]", lambda m: m.group(2) or m.group(1), note_text)
+                note_text = re.sub(r"'''(.+?)'''", r"\1", note_text)
+                if note_text:
+                    intro_notes = note_text
 
-        results.append({
-            'constituency_link': None,
-            'constituency_name': None,
-            'electorate': electorate,
+            i = 1
+            while i < len(plain_sections):
+                heading = plain_sections[i].strip()
+                section_text = plain_sections[i+1] if i+1 < len(plain_sections) else ''
+
+                electorate, electorate_detail, turnout, turnout_pct = parse_electorate_turnout(section_text)
+
+                table_match = re.search(r'(\{\|\s*class="wikitable".*?\|\})', section_text, re.DOTALL)
+                candidates = []
+                if table_match:
+                    has_party_section = detect_party_column(section_text)
+                    candidates = parse_candidates_from_table(table_match.group(1), has_party_section)
+
+                # Build note from heading + intro context
+                section_note = heading
+                if intro_notes:
+                    section_note = f"{heading}. {intro_notes}"
+
+                results.append({
+                    'constituency_link': None,
+                    'constituency_name': None,
+                    'electorate': electorate,
+                    'electorate_detail': electorate_detail,
+                    'turnout': turnout,
+                    'turnout_pct': turnout_pct,
+                    'candidates': candidates,
+                    'notes': section_note,
+                })
+                i += 2
+        else:
+            # Single-constituency election (LTC, by-elections, UK elections)
+            electorate, electorate_detail, turnout, turnout_pct = parse_electorate_turnout(text)
+
+            # Find all wikitables
+            table_matches = list(re.finditer(r'(\{\|\s*class="wikitable".*?\|\})', text, re.DOTALL))
+            candidates = []
+            for table_match in table_matches:
+                has_party_table = detect_party_column(table_match.group(1))
+                candidates.extend(parse_candidates_from_table(table_match.group(1), has_party_table))
+
+            results.append({
+                'constituency_link': None,
+                'constituency_name': None,
+                'electorate': electorate,
                 'electorate_detail': electorate_detail,
-            'turnout': turnout,
-            'turnout_pct': turnout_pct,
-            'candidates': candidates,
-            'notes': None,
-        })
+                'turnout': turnout,
+                'turnout_pct': turnout_pct,
+                'candidates': candidates,
+                'notes': None,
+            })
 
     return {
         'date': election_date,
@@ -761,6 +812,27 @@ def parse_uk_election_page(text, title):
         'turnout_pct': turnout_pct,
         'candidates': candidates,
     }
+
+
+def strip_election_result_sentences(text):
+    """Remove sentences describing election results — now shown in structured data."""
+    if not text:
+        return text
+    # "He/She/Name (also) unsuccessfully contested the X election(s)." (with or without trailing period)
+    text = re.sub(r'\w+ (?:also )?unsuccessfully contested [^.]+\.?\s*', '', text)
+    # "He/She (also) stood for X but was not elected."
+    text = re.sub(r'(?:He|She) (?:also )?stood for [^.]+but was not elected\.\s*', '', text)
+    # "He tried again in YYYY for X but failed again."
+    text = re.sub(r'(?:He|She) tried again [^.]+but failed again\.\s*', '', text)
+    # ", where he/she lost his/her bid for re-election" (clause within a sentence)
+    text = re.sub(r',\s*where (?:he|she) lost (?:his|her) bid for re-election', '', text)
+    # ", but had also stood for X where he/she was elected" (redundant clause)
+    text = re.sub(r',\s*but had also stood for [^.]+where (?:he|she) was elected', '', text)
+    # "In YYYY, he also stood for the X seat but was not elected."
+    text = re.sub(r'In \d{4}, (?:he|she) also stood for [^.]+but was not elected\.\s*', '', text)
+    # Clean up double spaces and trailing whitespace
+    text = re.sub(r'\s{2,}', ' ', text).strip()
+    return text or None
 
 
 def parse_person_page(text, title):
@@ -1001,6 +1073,10 @@ def parse_person_page(text, title):
         # Strip the "(b. ..., d. ...)" parenthetical from intro since we show it structured
         intro_text = re.sub(r'\s*\(b\.\s*[^)]+\)\s*', ' ', intro_text)
         intro_text = re.sub(r'\s{2,}', ' ', intro_text).strip()
+
+    # Strip redundant election result sentences (shown in structured data)
+    intro_text = strip_election_result_sentences(intro_text)
+    bio_text = strip_election_result_sentences(bio_text)
 
     # Extract categories
     categories = re.findall(r'\[\[Category:\s*([^\]]+?)\s*\]\]', text)
@@ -1563,6 +1639,10 @@ def main():
             intro_text = re.sub(r'\s*\(b\.\s*[^)]+\)\s*', ' ', intro_text)
             intro_text = re.sub(r'\s{2,}', ' ', intro_text).strip()
 
+        # Strip redundant election result sentences (shown in structured data)
+        intro_text = strip_election_result_sentences(intro_text)
+        bio_text = strip_election_result_sentences(bio_text)
+
         sqlite_cursor.execute("UPDATE people SET intro = ?, biography = ? WHERE id = ?",
                               (intro_text, bio_text, pid))
         link_count += 1
@@ -1831,20 +1911,6 @@ def main():
                 print(f"  Swapped: {winner} elected, {loser} not elected in {election_page}")
                 break
     print(f"  Fixed {swap_count} swaps")
-
-    # --- Step 6a4: Fix 1874 LTC unofficial council group ---
-    # Two votes held in two rooms. 1st group (positions 1-18) was unofficial.
-    # Only the 2nd group (positions 19+) were the real councillors.
-    sqlite_cursor.execute("""
-        UPDATE candidacies SET elected = 0
-        WHERE election_id IN (SELECT id FROM elections WHERE wiki_page_title IN (
-            'Lerwick Town Council Election September 1874',
-            'Lerwick_Town_Council_Election_September_1874'
-        ))
-        AND position <= 18 AND elected = 1
-    """)
-    if sqlite_cursor.rowcount > 0:
-        print(f"  Fixed 1874 LTC: marked {sqlite_cursor.rowcount} unofficial 1st group as not-elected")
 
     # --- Step 6b: Hide erroneous elections ---
     print("\n=== Hiding erroneous elections ===")
