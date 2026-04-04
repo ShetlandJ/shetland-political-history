@@ -835,6 +835,32 @@ def strip_election_result_sentences(text):
     return text or None
 
 
+def strip_file_image_tags(text):
+    """Strip [[File:...]] and [[Image:...]] tags, handling nested [[links]] in captions."""
+    result = []
+    i = 0
+    while i < len(text):
+        upper = text[i:].upper()
+        if upper.startswith('[[FILE:') or upper.startswith('[[IMAGE:'):
+            # Find matching ]] accounting for nested [[ ]]
+            depth = 1
+            j = i + 2
+            while j < len(text) and depth > 0:
+                if text[j:j+2] == '[[':
+                    depth += 1
+                    j += 2
+                elif text[j:j+2] == ']]':
+                    depth -= 1
+                    j += 2
+                else:
+                    j += 1
+            i = j
+        else:
+            result.append(text[i])
+            i += 1
+    return ''.join(result)
+
+
 def parse_person_page(text, title):
     """Parse a councillor/politician biography page."""
     if not text:
@@ -1043,6 +1069,7 @@ def parse_person_page(text, title):
         bio_raw = re.split(r'(?<!=)==\s*\w', bio_raw)[0]
 
     def clean_wiki_markup(t):
+        t = strip_file_image_tags(t)
         t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
         t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
         # Strip external links: [http://... display text] -> display text, [http://...] -> ''
@@ -1593,6 +1620,11 @@ def main():
         if bio_raw:
             bio_raw = re.split(r'(?<!=)==\s*\w', bio_raw)[0]
 
+        # Strip file/image tags before resolving links (they contain nested [[links]] in captions)
+        intro_raw = strip_file_image_tags(intro_raw)
+        if bio_raw:
+            bio_raw = strip_file_image_tags(bio_raw)
+
         # Resolve person links first, then clean remaining wiki markup
         intro_resolved = resolve_person_links_in_wiki(intro_raw)
         bio_resolved = resolve_person_links_in_wiki(bio_raw) if bio_raw else None
@@ -1989,7 +2021,9 @@ def main():
         # (by-election wiki_page_title, replaced_person_name, replaced_person_wiki_page_title)
         ('Lerwick Town Council By-Election November 1880', 'James Mouat Goudie', 'James_M._Goudie'),
         ('Lerwick Town Council By-Election November 1884', 'Arthur Hay', 'Arthur_Hay'),
-        # Nov 1886: 2 co-opted — unfilled seats, source unknown. Needs further research.
+        # Nov 1886: 2 co-opted to replace Duncan (resigned Jul 1886) and Harrison (disqualified Oct 1886).
+        # Confirmed from newspaper 23 Oct 1886. Only one replaced_person per record; Harrison handled via notes.
+        ('Lerwick Town Council By-Election November 1886', 'William Duncan (i)', 'William_Duncan_(i)'),
         ('Lerwick Town Council By-Election June 1921', 'James Pottinger (iii)', 'James_Pottinger_(iii)'),
         ('Lerwick Town Council By-Election May 1924', 'James Goodlad', 'James_Goodlad'),
         ('Lerwick Town Council By-Election August 1936', 'George Duffin', 'George_Duffin'),
@@ -2049,6 +2083,7 @@ def main():
     ]
     # Oct 1941 also replaced Joseph Linklater — handle as second update
     replacement_fixes_extra = [
+        ('Lerwick Town Council By-Election November 1886', 'John Harrison (i)', 'John_Harrison_(i)'),
         ('Lerwick Town Council By-Election October 1941', 'Joseph Linklater', 'Joseph_Linklater'),
     ]
 
