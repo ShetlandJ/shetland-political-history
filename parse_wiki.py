@@ -1055,7 +1055,7 @@ def parse_person_page(text, title):
 
     # Split on biography-type section headings to separate intro from biography
     # Matches: Biography, Profile, Background, Early life, Life, Personal Life, Abridged Biography, etc.
-    bio_headings = r'==\s*(?:Biography|Profile|Background(?:\s+and\s+\w+)?|Early [Ll]ife(?:\s+and\s+\w+)?|Life|Personal Life|Abridged Biography|Naval [Cc]areer)\s*=*'
+    bio_headings = r'==\s*(?:Biography|Profile|Background(?:\s+and\s+\w+)?|Early [Ll]ife(?:\s+and\s+\w+)?|Life|Personal Life|Abridged Biography|Naval [Cc]areer|Town Council Obituary Notes)\s*=*'
     bio_split = re.split(bio_headings, clean, maxsplit=1)
     intro_raw = bio_split[0]
     bio_raw = bio_split[1] if len(bio_split) > 1 else None
@@ -1468,6 +1468,7 @@ def main():
     person_corrections = [
         # (name, {field: value, ...})
         ('David Harbison', {'born_date': '1933-08-26', 'died_date': '2017-10-25', 'birth_place': 'Greenock'}),
+        ('Laurence Cogle', {'name': 'Laurence Andrew Cogle', 'intro': 'Laurence Andrew Cogle was a shipping clerk and Lerwick Town Councillor between 1925 and 1936.'}),
         # Bayanne ID extraction now prefers ==External Links== section, fixing these 7 cases
         # Date corrections from Bayanne cross-reference
         ('Adam Jamieson', {'born_date': '1861-10-04'}),
@@ -1612,7 +1613,7 @@ def main():
         # before stripping other markup
         intro_raw = text
         bio_raw = None
-        bio_match = re.search(r'==\s*Biography\s*==', text, re.IGNORECASE)
+        bio_match = re.search(r'==\s*(?:Biography|Profile|Background(?:\s+and\s+\w+)?|Early [Ll]ife(?:\s+and\s+\w+)?|Life|Personal Life|Abridged Biography|Naval [Cc]areer|Town Council Obituary Notes)\s*=*', text, re.IGNORECASE)
         if bio_match:
             intro_raw = text[:bio_match.start()]
             bio_raw = text[bio_match.end():]
