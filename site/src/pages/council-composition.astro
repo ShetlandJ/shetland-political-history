@@ -11,7 +11,7 @@ const ltcId = ltcCouncil.id;
 // Get all LTC elections in date order, including replaced person info
 const elections = db.prepare(`
   SELECT e.id, e.wiki_page_title, e.election_date, e.election_type,
-         e.replaced_person, e.replaced_person_id,
+         e.replaced_person, e.replaced_person_id, e.notes,
          rp.name as replaced_person_name, rp.slug as replaced_person_slug
   FROM elections e
   LEFT JOIN people rp ON e.replaced_person_id = rp.id
@@ -63,7 +63,9 @@ const manualDepartures: { name: string; date: string }[] = [
   { name: 'Thomas Cameron', date: '1883-09-01' },       // Retired from council, confirmed in profile
   { name: 'William Duncan (i)', date: '1886-07-12' },   // Resigned, confirmed in profile
   { name: 'John Harrison (i)', date: '1886-10-01' },    // Disqualified, confirmed from newspaper 23 Oct 1886
+  { name: 'Alexander Mitchell (i)', date: '1889-09-01' }, // Retired, confirmed from newspaper 26 Oct 1889
   { name: 'William MacDougall', date: '1912-04-01' },   // Resigned, confirmed in profile
+  { name: 'William Sinclair', date: '1921-10-01' },     // Retired, confirmed from newspaper Nov 1921
 ];
 
 // Helper: remove a person by name, handling disambiguations
@@ -124,6 +126,9 @@ for (const election of elections) {
 
   if (election.election_type === 'by-election') {
     // By-election: replace specific person, new member expires at next general
+    // Track council size before removals to detect already-departed replacements
+    const countBefore = new Set([...cohorts.flatMap(co => co.members.map(m => m.name)), ...byElectionMembers.map(m => m.name)]).size;
+
     const replacedName = election.replaced_person_name || election.replaced_person;
     if (replacedName) {
       for (const cohort of cohorts) {
@@ -131,8 +136,27 @@ for (const election of elections) {
       }
       byElectionMembers = removePerson(byElectionMembers, replacedName);
     }
+    // Handle second replacement stored in notes (e.g. Nov 1886 by-election: 2 co-options)
+    const alsoMatch = (election.notes || '').match(/Also replaced:\s*(.+)/);
+    if (alsoMatch) {
+      const alsoName = alsoMatch[1].trim();
+      for (const cohort of cohorts) {
+        cohort.members = removePerson(cohort.members, alsoName);
+      }
+      byElectionMembers = removePerson(byElectionMembers, alsoName);
+    }
+
+    const countAfter = new Set([...cohorts.flatMap(co => co.members.map(m => m.name)), ...byElectionMembers.map(m => m.name)]).size;
+    const removedCount = countBefore - countAfter;
+    // How many slots the by-election should fill: the number actually removed NOW,
+    // plus any that were already vacant (removed earlier by manualDepartures/death).
+    // Total elected should not push council above 12.
+    const maxToAdd = Math.max(removedCount, numElected);
+
     for (const c of elected) {
       const name = c.person_name || c.candidate_name;
+      const currentSize = new Set([...cohorts.flatMap(co => co.members.map(m => m.name)), ...byElectionMembers.map(m => m.name)]).size;
+      if (currentSize >= 12) break; // Council is full, don't overshoot
       byElectionMembers.push({
         name,
         slug: c.person_slug,
@@ -177,6 +201,53 @@ for (const election of elections) {
         members: members.slice(8, 12),
         expiresAfterGenerals: generalCount + 1,
       });
+    } else if (election.wiki_page_title === 'Lerwick Town Council Election November 1919') {
+      // Special case: post-WWI reset. Elections suspended 1915-1918.
+      // 7 vacancies: 2 by rotation + 5 ad interim (wartime co-options re-standing).
+      // 5 non-retiring holdovers from 1914 cohort stay on.
+      // Newspaper 9 Oct 1919, 18 Oct 1919, 30 Oct 1919.
+      cohorts = [];
+      byElectionMembers = [];
+      const mkMember = (name: string): Member => ({
+        name, slug: null, fromByElection: false,
+        diedDate: deathDates.get(name) || null,
+      });
+      // Look up slugs for known holdovers
+      const lookupSlug = (name: string) => {
+        const p = db.prepare('SELECT slug FROM people WHERE name = ?').get(name) as any;
+        return p?.slug || null;
+      };
+      const mkm = (name: string): Member => ({
+        name, slug: lookupSlug(name), fromByElection: false,
+        diedDate: deathDates.get(name) || null,
+      });
+      const newlyElected = elected.map((c: any) => ({
+        name: c.person_name || c.candidate_name,
+        slug: c.person_slug,
+        fromByElection: false,
+        diedDate: deathDates.get(c.person_name || c.candidate_name) || null,
+      }));
+      // 1-year cohort (retire 1920): Ganson, Ratter, W.Sinclair + Goodlad
+      // Goodlad doesn't re-stand at 1920, comes back via Jun 1921 by-election
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: ['Robert Ganson (i)', 'Alexander Ratter', 'William Sinclair', 'Peter Goodlad'].map(mkm),
+        expiresAfterGenerals: generalCount + 1,
+      });
+      // 3-year cohort (retire 1922): top 4 elected by votes
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: newlyElected.slice(0, 4),
+        expiresAfterGenerals: generalCount + 3,
+      });
+      // 2-year cohort (retire 1921): Smith + bottom 3 elected
+      // Newspaper Nov 1921: Smith, Ramsay, Sinclair, Ollason went out of office
+      cohorts.push({
+        wikiTitle: election.wiki_page_title,
+        members: [mkm('John Smith (i)'), ...newlyElected.slice(4)],
+        expiresAfterGenerals: generalCount + 2,
+      });
+      for (const m of newlyElected) newMembers.add(m.name);
     } else if (numElected >= 10) {
       // Full council replacement (pre-1876 triennial elections)
       cohorts = [];
@@ -213,18 +284,57 @@ for (const election of elections) {
       });
       // 4. Redistribute: move overflow members from any cohort with >4 into
       //    earlier cohorts with <4 (earliest-expiring first, to fill gaps).
-      //    This ensures vacancies from mid-term departures are absorbed within
-      //    one cycle rather than propagating indefinitely.
-      let moved = true;
-      while (moved) {
-        moved = false;
-        const overflowCohort = cohorts.find(c => c.members.length > 4);
-        if (overflowCohort) {
-          const gapCohort = cohorts.find(c => c.members.length < 4);
-          if (gapCohort) {
-            gapCohort.members.push(overflowCohort.members.pop()!);
-            moved = true;
+      // 4. Redistribute: move overflow members from any cohort with >4 into
+      //    earlier cohorts with <4 (earliest-expiring first, to fill gaps).
+      //    Skip for elections where the 5th member got a full term (no short-term re-standing
+      //    at the next general). Confirmed: 1883 and 1912 (next general had only 4 vacancies).
+      const skipRedistribute = new Set([
+        'Lerwick Town Council Election November 1883',
+        'Lerwick Town Council Election November 1912',
+        'Lerwick Town Council Election November 1932',  // Newspaper Oct 1932: 5 retiring, 1933 had 4
+      ]);
+      if (!skipRedistribute.has(election.wiki_page_title)) {
+        let moved = true;
+        while (moved) {
+          moved = false;
+          const overflowCohort = cohorts.find(c => c.members.length > 4);
+          if (overflowCohort) {
+            const gapCohort = cohorts.find(c => c.members.length < 4);
+            if (gapCohort) {
+              gapCohort.members.push(overflowCohort.members.pop()!);
+              moved = true;
+            }
           }
+        }
+      }
+      // 5. Manual cohort corrections where redistribution picked the wrong short-term fill.
+      //    The pop() heuristic (lowest votes) doesn't always match the council's actual assignment.
+      //    These corrections are confirmed from newspaper vacancy notices.
+      const corrections: Record<string, [string, string]> = {
+        // 1886: Jamieson was short-term fill, not Stove (confirmed: 1888 newspaper lists
+        //        Mitchell, Tulloch, Jamieson as retiring — Stove still serving until death Apr 1889)
+        'Lerwick Town Council Election November 1886': ['Laurence Stove', 'Andrew Jamieson'],
+        // 1887: Anderson was short-term fill, not Charles Robertson (confirmed: 1888 newspaper
+        //        says "one of the five gentlemen elected last year" must re-stand; Anderson re-elected 1888)
+        'Lerwick Town Council Election November 1887': ['Charles Robertson', 'John Anderson'],
+      };
+      const correction = corrections[election.wiki_page_title];
+      if (correction) {
+        const [wrongPerson, rightPerson] = correction;
+        // Find which cohorts they're in and swap them
+        let wrongCohort: typeof cohorts[0] | null = null;
+        let rightCohort: typeof cohorts[0] | null = null;
+        for (const c of cohorts) {
+          if (c.members.some(m => m.name === wrongPerson)) wrongCohort = c;
+          if (c.members.some(m => m.name === rightPerson)) rightCohort = c;
+        }
+        if (wrongCohort && rightCohort && wrongCohort !== rightCohort) {
+          const wrongMember = wrongCohort.members.find(m => m.name === wrongPerson)!;
+          const rightMember = rightCohort.members.find(m => m.name === rightPerson)!;
+          wrongCohort.members = wrongCohort.members.filter(m => m.name !== wrongPerson);
+          rightCohort.members = rightCohort.members.filter(m => m.name !== rightPerson);
+          wrongCohort.members.push(rightMember);
+          rightCohort.members.push(wrongMember);
         }
       }
       for (const m of allElected) newMembers.add(m.name);
@@ -242,7 +352,8 @@ for (const election of elections) {
   for (const m of allMembers) {
     seen.set(m.name, m);
   }
-  const members = Array.from(seen.values());
+  let members = Array.from(seen.values());
+
 
   // Sort: provost first (if in council), then alphabetical
   members.sort((a, b) => a.name.localeCompare(b.name));

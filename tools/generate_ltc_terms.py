@@ -21,7 +21,9 @@ MANUAL_DEPARTURES = [
     ("John Harrison (i)", "1886-10-01", "disqualified"),
     # James Hunter (ii) left early 1887, replaced by Porteous Mar 1887 — exact date unknown
     ("James Hunter (ii)", "1887-03-01", "unknown"),
+    ("Alexander Mitchell (i)", "1889-09-01", "retired"),  # Newspaper 26 Oct 1889
     ("William MacDougall", "1912-04-01", "resigned"),
+    ("William Sinclair", "1921-10-01", "retired"),  # Newspaper Nov 1921
 ]
 
 # People who were nominated/elected but declined to take office
@@ -30,6 +32,23 @@ DECLINED_OFFICE = {
     ("Lerwick Town Council Election November 1879", "Arthur Laurenson"),
     ("Lerwick Town Council Election November 1880", "James Goudie"),
     ("Lerwick Town Council Election November 1884", "Arthur Hay"),
+}
+
+# Elections where all elected members got full terms (no short-term redistribution).
+# Confirmed: next general had only 4 vacancies = no re-standing.
+SKIP_REDISTRIBUTE = {
+    'Lerwick Town Council Election November 1883',  # 1884 general had 4 vacancies
+    'Lerwick Town Council Election November 1912',  # 1913 general had 4 vacancies
+    'Lerwick Town Council Election November 1932',  # 1933 general had 4 vacancies
+}
+
+# Cohort corrections: redistribution put the wrong person in the short-term cohort.
+# Format: wiki_page_title -> (wrong_person, right_person) to swap between cohorts.
+COHORT_CORRECTIONS = {
+    # 1886: Jamieson was short-term fill, not Stove (confirmed 1888 newspaper)
+    'Lerwick Town Council Election November 1886': ('Laurence Stove', 'Andrew Jamieson'),
+    # 1887: Anderson was short-term fill, not Charles Robertson (confirmed 1888 newspaper)
+    'Lerwick Town Council Election November 1887': ('Charles Robertson', 'John Anderson'),
 }
 
 
@@ -86,12 +105,8 @@ def generate_terms():
     # Track all terms: list of dicts
     all_terms = []
 
-    # Track currently serving members
-    # Each: { name, person_id, start_date, start_reason, cohort_exp }
-    serving = []
-
-    cohorts = []  # { members: [{ name, person_id }], exp: int }
-    by_members = []  # [{ name, person_id }]
+    cohorts = []  # { members: [{ name, person_id, start_date, start_reason }], exp: int }
+    by_members = []  # [{ name, person_id, start_date, start_reason }]
     general_count = 0
 
     def end_term(member, end_date, end_reason):
@@ -123,15 +138,23 @@ def generate_terms():
                 return True
         return False
 
-    # Map general_count to election dates for term end tracking
-    general_dates = {}
-    gc = 0
-    for e in elections:
-        if e['election_type'] != 'by-election':
-            gc += 1
-            general_dates[gc] = e['election_date']
+    def mk_member(row, edate):
+        return {
+            'name': row['person_name'] or row['candidate_name'],
+            'person_id': row['person_id'],
+            'start_date': edate,
+            'start_reason': 'elected',
+        }
 
-    gc = 0
+    def mk_holdover(name, edate, reason='holdover'):
+        pid = person_ids.get(name)
+        return {
+            'name': name,
+            'person_id': pid,
+            'start_date': edate,
+            'start_reason': reason,
+        }
+
     for e in elections:
         edate = e['election_date'] or ''
         elected = get_elected(e['wiki_page_title'])
@@ -166,7 +189,6 @@ def generate_terms():
             # Remove replaced person
             replaced = e['replaced_person_name'] or e['replaced_person']
             if replaced:
-                # Don't double-end if already removed by manual departure
                 find_and_remove(replaced, edate, 'replaced')
 
             notes = e['notes'] or ''
@@ -188,7 +210,6 @@ def generate_terms():
 
             if e['wiki_page_title'] == 'Lerwick Town Council Election November 1876':
                 # Special: 1876 reform — 3 cohorts
-                # End all existing terms
                 for c in cohorts:
                     for m in c['members']:
                         end_term(m, edate, 'term_expired')
@@ -197,13 +218,38 @@ def generate_terms():
                 cohorts = []
                 by_members = []
 
-                members = [{'name': c['person_name'] or c['candidate_name'],
-                           'person_id': c['person_id'],
-                           'start_date': edate, 'start_reason': 'elected'}
-                          for c in elected]
+                members = [mk_member(c, edate) for c in elected]
                 cohorts.append({'members': members[0:4], 'exp': general_count + 3})
                 cohorts.append({'members': members[4:8], 'exp': general_count + 2})
                 cohorts.append({'members': members[8:12], 'exp': general_count + 1})
+
+            elif e['wiki_page_title'] == 'Lerwick Town Council Election November 1919':
+                # Post-WWI reset. Newspaper evidence: 9 Oct, 18 Oct, 30 Oct 1919.
+                # 7 vacancies: 2 by rotation + 5 ad interim (wartime co-options).
+                for c in cohorts:
+                    for m in c['members']:
+                        end_term(m, edate, 'term_expired')
+                for m in by_members:
+                    end_term(m, edate, 'term_expired')
+                cohorts = []
+                by_members = []
+
+                new_elected = [mk_member(c, edate) for c in elected]
+                # 1-year cohort (retire 1920): holdovers from 1914
+                cohorts.append({'members': [
+                    mk_holdover('Robert Ganson (i)', edate),
+                    mk_holdover('Alexander Ratter', edate),
+                    mk_holdover('William Sinclair', edate),
+                    mk_holdover('Peter Goodlad', edate),
+                ], 'exp': general_count + 1})
+                # 3-year cohort (retire 1922): top 4 elected by votes
+                cohorts.append({'members': new_elected[0:4], 'exp': general_count + 3})
+                # 2-year cohort (retire 1921): Smith + bottom 3 elected
+                # Newspaper Nov 1921: Smith, Ramsay, Sinclair, Ollason went out of office
+                cohorts.append({'members': [
+                    mk_holdover('John Smith (i)', edate),
+                    *new_elected[4:]
+                ], 'exp': general_count + 2})
 
             elif len(elected) >= 10:
                 # Full council replacement (pre-1876)
@@ -215,10 +261,7 @@ def generate_terms():
                 cohorts = []
                 by_members = []
 
-                members = [{'name': c['person_name'] or c['candidate_name'],
-                           'person_id': c['person_id'],
-                           'start_date': edate, 'start_reason': 'elected'}
-                          for c in elected]
+                members = [mk_member(c, edate) for c in elected]
                 cohorts.append({'members': members, 'exp': general_count + 3})
 
             else:
@@ -236,22 +279,34 @@ def generate_terms():
                 by_members = []
 
                 # 3. Add new cohort
-                new_members = [{'name': c['person_name'] or c['candidate_name'],
-                               'person_id': c['person_id'],
-                               'start_date': edate, 'start_reason': 'elected'}
-                              for c in elected]
+                new_members = [mk_member(c, edate) for c in elected]
                 cohorts.append({'members': new_members, 'exp': general_count + 3})
 
-                # 4. Redistribute overflow to fill gaps
-                moved = True
-                while moved:
-                    moved = False
-                    ov = next((c for c in cohorts if len(c['members']) > 4), None)
-                    if ov:
-                        gap = next((c for c in cohorts if len(c['members']) < 4), None)
-                        if gap:
-                            gap['members'].append(ov['members'].pop())
-                            moved = True
+                # 4. Redistribute overflow to fill gaps (skip for confirmed full-term elections)
+                if e['wiki_page_title'] not in SKIP_REDISTRIBUTE:
+                    moved = True
+                    while moved:
+                        moved = False
+                        ov = next((c for c in cohorts if len(c['members']) > 4), None)
+                        if ov:
+                            gap = next((c for c in cohorts if len(c['members']) < 4), None)
+                            if gap:
+                                gap['members'].append(ov['members'].pop())
+                                moved = True
+
+                # 5. Cohort corrections (swap wrong/right short-term fill)
+                correction = COHORT_CORRECTIONS.get(e['wiki_page_title'])
+                if correction:
+                    wrong, right = correction
+                    wc = next((c for c in cohorts if any(m['name'] == wrong for m in c['members'])), None)
+                    rc = next((c for c in cohorts if any(m['name'] == right for m in c['members'])), None)
+                    if wc and rc and wc is not rc:
+                        wm = next(m for m in wc['members'] if m['name'] == wrong)
+                        rm = next(m for m in rc['members'] if m['name'] == right)
+                        wc['members'].remove(wm)
+                        rc['members'].remove(rm)
+                        wc['members'].append(rm)
+                        rc['members'].append(wm)
 
     # End any remaining terms at council dissolution (1975)
     for c in cohorts:
@@ -277,7 +332,8 @@ def generate_terms():
     print(f"Generated {total} council terms for LTC")
 
     # Check a few snapshots
-    for check_date in ['1879-12-01', '1883-12-01', '1886-12-01', '1890-12-01', '1920-12-01', '1950-06-01']:
+    for check_date in ['1879-12-01', '1883-12-01', '1886-12-01', '1890-12-01',
+                        '1914-12-01', '1920-12-01', '1922-12-01', '1950-06-01']:
         count = cur.execute("""
             SELECT COUNT(*) as c FROM council_terms
             WHERE council_id = ? AND start_date <= ? AND end_date > ?

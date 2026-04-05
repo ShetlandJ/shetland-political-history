@@ -190,6 +190,7 @@ Answer the question "who were the councillors on date X?" via the council compos
 | William Duncan (i) | 12 Jul 1886 | Resigned | Profile intro |
 | John Harrison (i) | Oct 1886 | Disqualified | Newspaper 23 Oct 1886 |
 | James Hunter (ii) | early 1887 | Unknown (replaced by Porteous Mar 1887 by-election) | Needs research |
+| Alexander Mitchell (i) | before Oct 1889 | Retired (re-elected Nov 1888, retired before next election) | Newspaper 26 Oct 1889 |
 | Laurence Stove | 12 Apr 1889 | Died | Death date |
 | William MacDougall | Apr 1912 | Resigned | Profile intro |
 
@@ -201,6 +202,8 @@ Answer the question "who were the councillors on date X?" via the council compos
 | Nov 1884 general | Arthur Hay elected=0 (declined office) | His letter, 8 Nov 1884 |
 | Nov 1886 by-election (id=36) | replaced_person: William Duncan, also: John Harrison | Newspaper 23 Oct 1886 |
 | 1876-1885 LTC | 4 "William Duncan" candidacies relinked from Duncan (ii) to Duncan (i) | Duncan (i) profile + Duncan (ii) was Scalloway merchant |
+| Nov 1886 general | Short-term fill: Jamieson (not Stove). Stove stays in 1886 cohort. | Newspaper 6 Oct 1888 (lists Jamieson as retiring 1888) |
+| Nov 1887 general | Short-term fill: Anderson (not Charles Robertson). Anderson re-stands 1888. | Newspaper 6 Oct 1888 ("one of five elected last year") + Anderson re-elected 1888 |
 
 ### Research methodology for composition anomalies
 1. Query the composition model for years showing != 12 members
@@ -210,10 +213,39 @@ Answer the question "who were the councillors on date X?" via the council compos
 5. Cross-reference: retiring councillors listed in papers vs expiring cohort members; number of vacancies stated vs number elected
 6. Key search terms: "Town Council" + year, "Municipal Election" + year, "Commissioners of Police" (LTC's other title)
 
+### Confirmed newspaper vacancy notices
+| Date | Source | Vacancies | Retiring | Extra |
+|---|---|---|---|---|
+| 6 Oct 1888 | Newspaper | 4 | Mitchell, Tulloch jr, Jamieson | +1 short-term re-standing from 1887 five |
+| 26 Oct 1889 | Newspaper | 5 | Leisk, Halcrow, Harrison | +2: Mitchell retirement, Stove death |
+| 25 Oct 1890 | Newspaper | 4-5 | John Robertson (chief mag), Charles Robertson, Robertson jr, Porteous | +1 Chief Magistrate retirement (may be same as Robertson) |
+| 12 Oct 1912 | Newspaper | 5 | Stout, Laing, Smith, Loggie (by rotation) | +1: MacDougall resigned. All 5 got full terms, no short-term re-standing at 1913. |
+| Nov 1913 | Newspaper | 4 | (regular rotation) | Confirms no extra vacancy — MacDougall's seat absorbed |
+| 24 Oct 1914 | Newspaper | 4 | Ganson, W. Sinclair, Smith, Ratter | Normal rotation, council at 11 |
+| 9 Oct 1919 | Newspaper | 7 (8 if Goodlad resigns) | Sinclair, Manson, Henderson, Ramsay, Robertson, Stout, Laing | Post-WWI: 2 by rotation + 5 ad interim |
+| 18 Oct 1919 | Official notice | 7 | Laing, Ramsay (rotation); Sinclair, Henderson, Stout, Manson, Robertson (ad interim) | "unique in the history of the burgh" |
+| 30 Oct 1919 | Newspaper | 7 | Same as above | "six years since a municipal contest" — 6 of 7 re-stand (not Henderson) |
+
+### Manual cohort corrections in composition model
+The redistribution heuristic (`pop()` = lowest votes) doesn't always match the council's actual short-term fill assignment. These corrections swap the wrongly-assigned and correctly-assigned members between cohorts, confirmed from newspaper vacancy notices:
+- **1886 general**: Jamieson was short-term fill (not Stove). Stove served until death Apr 1889.
+- **1887 general**: Anderson was short-term fill (not Charles Robertson). Anderson re-stood and won 1888.
+
 ### Current state and next steps
 - **Pre-1876**: Model is correct (triennial full-replacement elections)
-- **1876-1890**: Partially researched. Multiple anomalies resolved. 1890 still shows 13 — likely Stove's death (Apr 1889) created the 5th vacancy at Nov 1889 election.
-- **1890-1975**: Unresearched. Many anomalies from mid-term departures, WWI/WWII disruptions.
+- **1877-1878**: Correct (12)
+- **1879-1880**: Shows 11. Needs newspaper research — likely Laurenson declining office / Goudie era cascading vacancy.
+- **1881-1883**: Correct (12)
+- **1884-1886**: Shows 11/10. Needs research — cascading from Hay declining office 1884, multiple mid-term departures (Duncan, Harrison, Hunter).
+- **1887-1889**: Shows 11. Anderson appears in two cohorts (dedup issue). Model limitation — the re-election removal fix was attempted but caused regressions. Needs either specific newspaper data for which person held each short-term seat, or the council_terms table approach.
+- **1890-1895**: Correct (12) — fixed by Mitchell departure + cohort corrections.
+- **1896-1907**: Unresearched.
+- **1908-1914**: Shows 11. Confirmed correct — MacDougall resigned Apr 1912, vacancy absorbed into 1912 election (5 elected, all got full terms). Newspapers confirm 4 vacancies in 1913 and 1914 (no short-term re-standings). Council ran at 11 from 1912 until 1919 reset.
+- **1915-1918 (WWI)**: Shows 11. By-elections only, no generals. Multiple wartime co-options.
+- **1919**: Correct (12) — post-WWI reset special case. Hardcoded cohort assignments: 4 holdovers (Ganson, Ratter, Sinclair, Smith) → 1-year term; top 4 elected → 3-year; bottom 3 elected + Goodlad → 2-year. Newspaper evidence: 9 Oct 1919, 18 Oct 1919, 30 Oct 1919.
+- **1920-1925**: Correct (12).
+- **1921**: Shows 13 — 6 elected for ~5 vacancies. Needs research (Goodlad by-el + Pottinger departure + ?).
+- **1926-1975**: Unresearched. Many anomalies from mid-term departures, WWII disruptions.
 - **Plan**: Replace cohort model with `council_terms` table (person, start_date, end_date, reasons). The table exists in schema but is not yet populated. Composition page will query it instead of simulating from elections.
 
 ## Known Issues / TODO

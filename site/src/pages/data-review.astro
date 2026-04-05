@@ -47,7 +47,9 @@ const manualDepartures: { name: string; date: string }[] = [
   { name: 'Thomas Cameron', date: '1883-09-01' },
   { name: 'William Duncan (i)', date: '1886-07-12' },
   { name: 'John Harrison (i)', date: '1886-10-01' },
+  { name: 'Alexander Mitchell (i)', date: '1889-09-01' },
   { name: 'William MacDougall', date: '1912-04-01' },
+  { name: 'William Sinclair', date: '1921-10-01' },
 ];
 
 function getElected(wt: string) {
@@ -112,6 +114,13 @@ for (const e of ltcElections) {
       cohorts.push({ members: members.slice(0, 4), exp: generalCount + 3 });
       cohorts.push({ members: members.slice(4, 8), exp: generalCount + 2 });
       cohorts.push({ members: members.slice(8, 12), exp: generalCount + 1 });
+    } else if (e.wiki_page_title === 'Lerwick Town Council Election November 1919') {
+      // Post-WWI reset: hardcoded cohort assignments from newspaper evidence
+      cohorts = []; byMembers = [];
+      const electedNames = elected.map((c: any) => c.person_name || c.candidate_name);
+      cohorts.push({ members: ['Robert Ganson (i)', 'Alexander Ratter', 'William Sinclair', 'Peter Goodlad'], exp: generalCount + 1 });
+      cohorts.push({ members: electedNames.slice(0, 4), exp: generalCount + 3 });
+      cohorts.push({ members: ['John Smith (i)', ...electedNames.slice(4)], exp: generalCount + 2 });
     } else if (num >= 10) {
       cohorts = []; byMembers = [];
       cohorts.push({ members: elected.map((c: any) => c.person_name || c.candidate_name), exp: generalCount + 3 });
@@ -129,6 +138,23 @@ for (const e of ltcElections) {
             gapCohort.members.push(overflowCohort.members.pop()!);
             moved = true;
           }
+        }
+      }
+      // Manual cohort corrections where redistribution picked the wrong short-term fill
+      const corrections: Record<string, [string, string]> = {
+        'Lerwick Town Council Election November 1886': ['Laurence Stove', 'Andrew Jamieson'],
+        'Lerwick Town Council Election November 1887': ['Charles Robertson', 'John Anderson'],
+      };
+      const corr = corrections[e.wiki_page_title];
+      if (corr) {
+        const [wrong, right] = corr;
+        let wc = cohorts.find(c => c.members.includes(wrong));
+        let rc = cohorts.find(c => c.members.includes(right));
+        if (wc && rc && wc !== rc) {
+          wc.members = wc.members.filter((m: string) => m !== wrong);
+          rc.members = rc.members.filter((m: string) => m !== right);
+          wc.members.push(right);
+          rc.members.push(wrong);
         }
       }
     }

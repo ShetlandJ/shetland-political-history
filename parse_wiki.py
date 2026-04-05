@@ -2024,6 +2024,8 @@ def main():
         # Nov 1886: 2 co-opted to replace Duncan (resigned Jul 1886) and Harrison (disqualified Oct 1886).
         # Confirmed from newspaper 23 Oct 1886. Only one replaced_person per record; Harrison handled via notes.
         ('Lerwick Town Council By-Election November 1886', 'William Duncan (i)', 'William_Duncan_(i)'),
+        # Jun 1932: Campbell (i) retired, not Campbell (ii). Parser linked to wrong disambiguation.
+        ('Lerwick Town Council By-Election June 1932', 'John Campbell (i)', 'John_Campbell_(i)'),
         ('Lerwick Town Council By-Election June 1921', 'James Pottinger (iii)', 'James_Pottinger_(iii)'),
         ('Lerwick Town Council By-Election May 1924', 'James Goodlad', 'James_Goodlad'),
         ('Lerwick Town Council By-Election August 1936', 'George Duffin', 'George_Duffin'),
@@ -2095,7 +2097,7 @@ def main():
         for variant in [wiki_title, wiki_title.replace(' ', '_')]:
             sqlite_cursor.execute("""
                 UPDATE elections SET replaced_person = ?, replaced_person_id = ?
-                WHERE wiki_page_title = ? AND (replaced_person IS NULL OR replaced_person_id IS NULL)
+                WHERE wiki_page_title = ?
             """, (repl_name, pid, variant))
             if sqlite_cursor.rowcount > 0:
                 repl_count += 1

@@ -98,6 +98,18 @@ CREATE TABLE IF NOT EXISTS leadership_roles (
     end_year TEXT
 );
 
+CREATE TABLE IF NOT EXISTS council_terms (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    council_id INTEGER NOT NULL REFERENCES councils(id),
+    person_id INTEGER REFERENCES people(id),
+    person_name TEXT NOT NULL,
+    start_date TEXT,
+    end_date TEXT,
+    start_reason TEXT,    -- 'elected', 'by-election', 'holdover'
+    end_reason TEXT,      -- 'term_expired', 'died', 'resigned', 'replaced', 'council_abolished'
+    confirmed INTEGER DEFAULT 0  -- 0 = model-generated, 1 = confirmed from primary sources
+);
+
 -- Indexes for common queries
 CREATE INDEX IF NOT EXISTS idx_elections_council ON elections(council_id);
 CREATE INDEX IF NOT EXISTS idx_elections_constituency ON elections(constituency_id);
