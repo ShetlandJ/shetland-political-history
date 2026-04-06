@@ -1070,13 +1070,15 @@ def parse_person_page(text, title):
 
     def clean_wiki_markup(t):
         t = strip_file_image_tags(t)
+        # Strip sub-section headings (=== and ====), keep text as bold markers
+        t = re.sub(r'={3,}\s*(.+?)\s*={3,}', r'<strong>\1</strong>', t)
         t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
         t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
         # Strip external links: [http://... display text] -> display text, [http://...] -> ''
         t = re.sub(r'\[https?://[^\s\]]+\s+([^\]]+)\]', r'\1', t)
         t = re.sub(r'\[https?://[^\]]+\]', '', t)
         t = re.sub(r"'{2,3}", '', t)
-        t = re.sub(r'<[^>]+>', '', t)
+        t = re.sub(r'<(?!/?strong\b)[^>]+>', '', t)
         t = re.sub(r'\{[^}]*\}', '', t)
         t = re.sub(r'\\n', '\n', t)
         t = re.sub(r'\n{3,}', '\n\n', t)
@@ -1104,6 +1106,12 @@ def parse_person_page(text, title):
     # Strip redundant election result sentences (shown in structured data)
     intro_text = strip_election_result_sentences(intro_text)
     bio_text = strip_election_result_sentences(bio_text)
+
+    # Ensure <strong> sub-headings from wiki === sections get paragraph breaks
+    if bio_text:
+        bio_text = re.sub(r'\s*(<strong>)', r'\n\n\1', bio_text)
+        bio_text = re.sub(r'(</strong>)\s*', r'\1\n\n', bio_text)
+        bio_text = re.sub(r'\n{3,}', '\n\n', bio_text).strip()
 
     # Extract categories
     categories = re.findall(r'\[\[Category:\s*([^\]]+?)\s*\]\]', text)
@@ -1645,12 +1653,13 @@ def main():
             t = re.sub(r'\[person:[^\]]+\]', save_marker, t)
 
             # Standard wiki markup cleanup
+            t = re.sub(r'={3,}\s*(.+?)\s*={3,}', r'\n\n<strong>\1</strong>\n', t)
             t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
             t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
             t = re.sub(r'\[https?://[^\s\]]+\s+([^\]]+)\]', r'\1', t)
             t = re.sub(r'\[https?://[^\]]+\]', '', t)
             t = re.sub(r"'{2,3}", '', t)
-            t = re.sub(r'<[^>]+>', '', t)
+            t = re.sub(r'<(?!/?strong\b)[^>]+>', '', t)
             t = re.sub(r'\{[^}]*\}', '', t)
             t = re.sub(r'\\n', '\n', t)
             t = re.sub(r'\n{3,}', '\n\n', t)
@@ -1675,6 +1684,12 @@ def main():
         # Strip redundant election result sentences (shown in structured data)
         intro_text = strip_election_result_sentences(intro_text)
         bio_text = strip_election_result_sentences(bio_text)
+
+        # Ensure <strong> sub-headings get paragraph breaks
+        if bio_text:
+            bio_text = re.sub(r'\s*(<strong>)', r'\n\n\1', bio_text)
+            bio_text = re.sub(r'(</strong>)\s*', r'\1\n\n', bio_text)
+            bio_text = re.sub(r'\n{3,}', '\n\n', bio_text).strip()
 
         sqlite_cursor.execute("UPDATE people SET intro = ?, biography = ? WHERE id = ?",
                               (intro_text, bio_text, pid))
@@ -2320,7 +2335,7 @@ def main():
             t = re.sub(r'\[\[([^\]|]+?)\|([^\]]+?)\]\]', r'\2', t)
             t = re.sub(r'\[\[([^\]]+?)\]\]', r'\1', t)
             t = re.sub(r"'{2,3}", '', t)
-            t = re.sub(r'<[^>]+>', '', t)
+            t = re.sub(r'<(?!/?strong\b)[^>]+>', '', t)
             t = re.sub(r'&quot;', '"', t)
             t = re.sub(r'\\n', '\n', t)
             t = re.sub(r'\n{3,}', '\n\n', t)
