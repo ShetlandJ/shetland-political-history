@@ -1960,6 +1960,40 @@ def main():
                 break
     print(f"  Fixed {swap_count} swaps")
 
+    # --- Step 6a5: Add missing candidacies from newspaper evidence ---
+    print("\n=== Adding missing candidacies ===")
+    missing_candidacies = [
+        # (election_wiki_page, candidate_name, person_wiki_page, votes, elected, after_candidate)
+        # 1874 1st group: John Leslie got 26 votes but omitted from wiki.
+        # Confirmed from official election notice (newspaper Sep 1874).
+        ('Lerwick Town Council Election September 1874', 'John Leslie', 'John_Leslie_(i)', 26, 1, 'William Robertson'),
+    ]
+    for wiki_page, cand_name, person_page, votes, elected, after_name in missing_candidacies:
+        pid = person_ids.get(person_page) if person_page else None
+        sqlite_cursor.execute("""
+            SELECT e.id FROM elections e
+            WHERE e.wiki_page_title IN (?, ?) ORDER BY e.id LIMIT 1
+        """, (wiki_page, wiki_page.replace(' ', '_')))
+        erow = sqlite_cursor.fetchone()
+        if not erow:
+            print(f"  Skipped (no election): {wiki_page}")
+            continue
+        eid = erow[0]
+        sqlite_cursor.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, cand_name))
+        if sqlite_cursor.fetchone():
+            print(f"  Skipped (exists): {cand_name}")
+            continue
+        sqlite_cursor.execute("SELECT position FROM candidacies WHERE election_id = ? AND candidate_name LIKE ?",
+                              (eid, after_name + '%'))
+        prow = sqlite_cursor.fetchone()
+        pos = (prow[0] + 1) if prow else 99
+        sqlite_cursor.execute("UPDATE candidacies SET position = position + 1 WHERE election_id = ? AND position >= ?", (eid, pos))
+        sqlite_cursor.execute("""
+            INSERT INTO candidacies (election_id, person_id, candidate_name, votes, elected, position)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (eid, pid, cand_name, votes, elected, pos))
+        print(f"  Added: {cand_name} ({votes} votes) to {wiki_page} at pos {pos}")
+
     # --- Step 6b: Hide erroneous elections ---
     print("\n=== Hiding erroneous elections ===")
     hidden_elections = [

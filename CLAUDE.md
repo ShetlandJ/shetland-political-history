@@ -164,7 +164,7 @@ npx astro preview
 
 ## Deployment
 
-Not yet deployed. Plan is Cloudflare Pages — just push the `site/dist/` output.
+Deployed to GitHub Pages. The site deploys automatically on push to master. The SQLite DB (`shetland.db`) must not be gitignored — it's committed to the repo and copied to `site/shetland.db` before build. After pushing, verify the build succeeded.
 
 ## LTC Composition Model
 

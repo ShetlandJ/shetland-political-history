@@ -315,15 +315,25 @@ def generate_terms():
     for m in by_members:
         end_term(m, '1975-05-15', 'council_abolished')
 
-    # Write to database
-    cur.execute("DELETE FROM council_terms WHERE council_id = ?", (ltc_id,))
+    # Write to database — preserve confirmed terms, only regenerate unconfirmed
+    cur.execute("DELETE FROM council_terms WHERE council_id = ? AND confirmed = 0", (ltc_id,))
 
+    # Get confirmed term boundaries to avoid inserting duplicates
+    confirmed_terms = set()
+    for r in cur.execute("SELECT person_name, start_date FROM council_terms WHERE council_id = ? AND confirmed = 1", (ltc_id,)):
+        confirmed_terms.add((r['person_name'], r['start_date']))
+
+    inserted = 0
     for t in all_terms:
+        # Skip if this term is already confirmed
+        if (t['person_name'], t['start_date']) in confirmed_terms:
+            continue
         cur.execute("""
             INSERT INTO council_terms (person_id, person_name, council_id, start_date, end_date, start_reason, end_reason, confirmed)
             VALUES (?, ?, ?, ?, ?, ?, ?, 0)
         """, (t['person_id'], t['person_name'], ltc_id, t['start_date'], t['end_date'],
               t['start_reason'], t['end_reason']))
+        inserted += 1
 
     db.commit()
 

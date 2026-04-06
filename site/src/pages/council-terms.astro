@@ -1,0 +1,267 @@
+---
+import Base from '../layouts/Base.astro';
+import Database from 'better-sqlite3';
+import path from 'path';
+
+const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
+
+const ltcId = (db.prepare("SELECT id FROM councils WHERE slug = 'lerwick-town-council'").get() as any).id;
+
+// Get all terms with person slugs
+const allTerms = db.prepare(`
+  SELECT ct.id, ct.person_name, ct.person_id, ct.start_date, ct.end_date,
+         ct.start_reason, ct.end_reason, ct.confirmed,
+         p.slug as person_slug
+  FROM council_terms ct
+  LEFT JOIN people p ON ct.person_id = p.id
+  WHERE ct.council_id = ?
+  ORDER BY ct.start_date, ct.person_name
+`).all(ltcId) as any[];
+
+// Get all election dates for the date picker snapshots
+const electionDates = db.prepare(`
+  SELECT DISTINCT e.election_date, e.election_type,
+         MIN(e.id) as election_id,
+         e.wiki_page_title
+  FROM elections e
+  JOIN councils co ON e.council_id = co.id
+  WHERE co.slug = 'lerwick-town-council' AND e.hidden = 0
+    AND e.election_date IS NOT NULL
+  GROUP BY e.wiki_page_title
+  ORDER BY e.election_date
+`).all() as any[];
+
+// Build snapshots: for each election date, who was serving right after?
+const snapshots = electionDates.map((ed: any) => {
+  const d = ed.election_date;
+  const members = db.prepare(`
+    SELECT ct.person_name, ct.person_id, ct.start_date, ct.end_date,
+           ct.start_reason, ct.end_reason, ct.confirmed,
+           p.slug as person_slug
+    FROM council_terms ct
+    LEFT JOIN people p ON ct.person_id = p.id
+    WHERE ct.council_id = ? AND ct.start_date <= ? AND ct.end_date > ?
+    ORDER BY ct.person_name
+  `).all(ltcId, d, d) as any[];
+  return {
+    date: d,
+    type: ed.election_type,
+    electionId: ed.election_id,
+    wikiTitle: ed.wiki_page_title,
+    members,
+    count: members.length,
+  };
+});
+
+// Get provosts
+const provosts = db.prepare(`
+  SELECT person_name, person_id, start_year, end_year
+  FROM leadership_roles
+  WHERE council_id = ? AND role = 'Provost'
+  ORDER BY start_year
+`).all(ltcId) as any[];
+
+function getProvost(date: string): { name: string; slug: string | null } | null {
+  const year = date.substring(0, 4);
+  for (const p of provosts) {
+    if (year >= p.start_year && year < p.end_year) {
+      if (p.person_id) {
+        const person = db.prepare('SELECT slug FROM people WHERE id = ?').get(p.person_id) as any;
+        return { name: p.person_name, slug: person?.slug || null };
+      }
+      return { name: p.person_name, slug: null };
+    }
+  }
+  return null;
+}
+
+function shortDate(d: string): string {
+  if (!d) return '?';
+  const date = new Date(d);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+function formatReason(r: string): string {
+  if (!r) return '';
+  return r.replace(/_/g, ' ');
+}
+---
+<Base title="LTC Council Terms">
+  <div class="breadcrumb">
+    <a href="/">Home</a> &rsaquo;
+    <a href="/council/lerwick-town-council">Lerwick Town Council</a> &rsaquo;
+    Council Terms
+  </div>
+
+  <h1>Lerwick Town Council — Service Terms</h1>
+  <p class="meta">
+    {allTerms.length} individual terms of service, 1818–1975.
+    Select a date to see who was serving. Also see the
+    <a href="/council-composition">composition grid</a> for an election-by-election view.
+  </p>
+
+  <div class="date-picker">
+    <label for="snapshot-select"><strong>View council at:</strong></label>
+    <select id="snapshot-select">
+      {snapshots.map((s, i) => (
+        <option value={i}
+          data-count={s.count}
+          selected={s.date === '1876-11-07' ? true : undefined}>
+          {shortDate(s.date)}{s.type === 'by-election' ? ' (by-election)' : ''} — {s.count} members
+        </option>
+      ))}
+    </select>
+  </div>
+
+  {snapshots.map((s, i) => {
+    const provost = getProvost(s.date);
+    const isAnomalous = s.date >= '1877-01-01' && s.count !== 12;
+    return (
+      <div class="snapshot" data-index={i} style={s.date === '1876-11-07' ? '' : 'display:none'}>
+        <div class="snapshot-header">
+          <h2>
+            <a href={`/election/${s.electionId}`}>{s.wikiTitle.replace(/_/g, ' ')}</a>
+          </h2>
+          <div class="snapshot-meta">
+            <span class={`member-count ${isAnomalous ? 'anomalous' : ''}`}>
+              {s.count} members
+            </span>
+            {provost && (
+              <span class="provost-badge">
+                Provost: {provost.slug
+                  ? <a href={`/person/${provost.slug}`}>{provost.name}</a>
+                  : provost.name}
+              </span>
+            )}
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>From</th>
+              <th>Until</th>
+              <th>How joined</th>
+              <th>How left</th>
+            </tr>
+          </thead>
+          <tbody>
+            {s.members.map((m: any) => {
+              const isNew = m.start_date === s.date;
+              return (
+                <tr class={isNew ? 'new-row' : ''}>
+                  <td>
+                    {m.person_slug
+                      ? <a href={`/person/${m.person_slug}`}>{m.person_name}</a>
+                      : m.person_name}
+                  </td>
+                  <td>{shortDate(m.start_date)}</td>
+                  <td>{shortDate(m.end_date)}</td>
+                  <td><span class={`reason reason-${m.start_reason}`}>{formatReason(m.start_reason)}</span></td>
+                  <td><span class={`reason reason-${m.end_reason}`}>{formatReason(m.end_reason)}</span></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  })}
+</Base>
+
+<script>
+  const select = document.getElementById('snapshot-select') as HTMLSelectElement;
+  const snapshots = document.querySelectorAll('.snapshot');
+
+  select.addEventListener('change', () => {
+    const idx = select.value;
+    snapshots.forEach(s => {
+      (s as HTMLElement).style.display = s.getAttribute('data-index') === idx ? '' : 'none';
+    });
+  });
+</script>
+
+<style>
+  .date-picker {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .date-picker select {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.9rem;
+    min-width: 20rem;
+  }
+
+  .snapshot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .snapshot-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    border: none;
+    padding: 0;
+  }
+
+  .snapshot-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.85rem;
+  }
+
+  .member-count {
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    background: var(--success-light);
+  }
+
+  .member-count.anomalous {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+  }
+
+  .provost-badge {
+    color: var(--muted);
+  }
+
+  .new-row {
+    background: var(--success-light);
+  }
+
+  .reason {
+    font-size: 0.8rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .reason-elected { background: var(--success-light); }
+  .reason-by-election { background: var(--warning-bg); color: var(--warning-text); }
+  .reason-term_expired { color: var(--muted); }
+  .reason-died { background: var(--danger-light, #fee); color: var(--danger, #c00); }
+  .reason-resigned { background: var(--warning-bg); color: var(--warning-text); }
+  .reason-disqualified { background: var(--danger-light, #fee); color: var(--danger, #c00); }
+  .reason-declined { background: var(--warning-bg); color: var(--warning-text); }
+  .reason-council_abolished { color: var(--muted); }
+  .reason-replaced { color: var(--muted); }
+</style>
