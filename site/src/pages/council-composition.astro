@@ -102,6 +102,13 @@ let cohorts: { wikiTitle: string; members: Member[]; expiresAfterGenerals: numbe
 let byElectionMembers: Member[] = [];
 let generalCount = 0;
 
+// People who were elected but declined to take office
+const declinedOffice = new Set([
+  'Lerwick Town Council Election November 1879|Arthur Laurenson',
+  'Lerwick Town Council Election November 1880|James Goudie',
+  'Lerwick Town Council Election November 1884|Arthur Hay',
+]);
+
 for (const election of elections) {
   const elected = electedByElection.get(election.wiki_page_title) || [];
   const electionYear = election.election_date?.substring(0, 4) || '';
