@@ -140,7 +140,8 @@ function renderLinkedText(text: string): string {
   return escaped.replace(
     /\[person:([^\]:]+):([^\]]+)\]/g,
     '<a href="/person/$1">$2</a>'
-  );
+  ).replace(/&lt;strong&gt;/g, '<strong>')
+   .replace(/&lt;\/strong&gt;/g, '</strong>');
 }
 ---
 <Base title={person.name} description={personDesc} ogType="profile" jsonLd={jsonLd}>
