@@ -231,22 +231,39 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 - **1886 general**: Jamieson was short-term fill (not Stove). Stove served until death Apr 1889.
 - **1887 general**: Anderson was short-term fill (not Charles Robertson). Anderson re-stood and won 1888.
 
-### Current state and next steps
-- **Pre-1876**: Model is correct (triennial full-replacement elections)
-- **1877-1878**: Correct (12)
-- **1879-1880**: Shows 11. Needs newspaper research — likely Laurenson declining office / Goudie era cascading vacancy.
-- **1881-1883**: Correct (12)
-- **1884-1886**: Shows 11/10. Needs research — cascading from Hay declining office 1884, multiple mid-term departures (Duncan, Harrison, Hunter).
-- **1887-1889**: Shows 11. Anderson appears in two cohorts (dedup issue). Model limitation — the re-election removal fix was attempted but caused regressions. Needs either specific newspaper data for which person held each short-term seat, or the council_terms table approach.
+### Current state and next steps (as of 2026-04-06)
+
+Two composition pages exist:
+- `/council-composition` — original cohort model (complex, ~350 lines of simulation logic)
+- `/council-composition-v2` — reads from `council_terms` table (simple SQL queries, ~100 lines)
+V2 is the future. The terms generator (`tools/generate_ltc_terms.py`) is the single place to fix anomalies. Confirmed terms (`confirmed=1`) are preserved across regenerations. 247 terms confirmed through Jan 1878.
+
+**Period status:**
+- **Pre-1876**: Correct (triennial full-replacement elections). Confirmed.
+- **1877-1878**: Correct (12). Confirmed. Newspaper Oct 1878: 4 vacancies, normal rotation.
+- **1879**: Correct at 11. Laurenson declined office. Newspaper Oct 1879: 4 retiring incl Laurenson. Composition model now handles declined-office removal. Council ran at 11 until Nov 1880 by-election.
+- **1880**: Next to research. Goudie declined office, Duncan replaced via by-election. Need Oct 1880 vacancy notice to confirm.
+- **1881-1883**: Correct (12) in v2/terms. V1 model shows 11 at 1883 (terms generator handles this better).
+- **1884-1886**: V2 shows 12 at 1884-1885, 13 at 1886. Hay declined 1884, Duncan/Harrison departures 1886. By-election gap-fill issue at 1886 persists.
+- **1887-1889**: V2 shows 12 (terms generator handles correctly). V1 model shows 11 (dedup issue).
 - **1890-1895**: Correct (12) — fixed by Mitchell departure + cohort corrections.
 - **1896-1907**: Unresearched.
-- **1908-1914**: Shows 11. Confirmed correct — MacDougall resigned Apr 1912, vacancy absorbed into 1912 election (5 elected, all got full terms). Newspapers confirm 4 vacancies in 1913 and 1914 (no short-term re-standings). Council ran at 11 from 1912 until 1919 reset.
-- **1915-1918 (WWI)**: Shows 11. By-elections only, no generals. Multiple wartime co-options.
-- **1919**: Correct (12) — post-WWI reset special case. Hardcoded cohort assignments: 4 holdovers (Ganson, Ratter, Sinclair, Smith) → 1-year term; top 4 elected → 3-year; bottom 3 elected + Goodlad → 2-year. Newspaper evidence: 9 Oct 1919, 18 Oct 1919, 30 Oct 1919.
-- **1920-1925**: Correct (12).
-- **1921**: Shows 13 — 6 elected for ~5 vacancies. Needs research (Goodlad by-el + Pottinger departure + ?).
-- **1926-1975**: Unresearched. Many anomalies from mid-term departures, WWII disruptions.
-- **Plan**: Replace cohort model with `council_terms` table (person, start_date, end_date, reasons). The table exists in schema but is not yet populated. Composition page will query it instead of simulating from elections.
+- **1908-1914**: Shows 11. Confirmed correct — MacDougall resigned Apr 1912, vacancy absorbed. Council ran at 11 from 1912 until 1919 reset.
+- **1915-1918 (WWI)**: By-elections only, no generals. Multiple wartime co-options.
+- **1919**: Correct (12) — post-WWI reset with hardcoded cohort assignments.
+- **1920-1928**: Correct (12).
+- **1929-1931**: Shows 11. Unresearched — likely a mid-term departure cascading. 1930 newspaper confirms 4 normal vacancies ("personnel remains as before"), so council was genuinely 12 at that point. Model disagrees.
+- **1932**: Correct (12) — Campbell (i) fix + skip-redistribute.
+- **1933**: Shows 13 in v1, 13 in v2. Cascade from 1929 deficit. Newspaper confirms 4 vacancies.
+- **1934**: Correct (12) — Sandison death + skip-redistribute for 1932.
+- **1935+**: Unresearched. WWII era has many anomalies (13s/14s from 1937-1946).
+- **1957-1958**: Unresearched 13s.
+
+**Key patterns:**
+- When 5 elected and next general has only 4: all 5 got full terms → add to `SKIP_REDISTRIBUTE` (1883, 1912, 1932).
+- Declined office: Laurenson 1879, Goudie 1880, Hay 1884 → handled via `declinedOffice` set in composition model and `DECLINED_OFFICE` in terms generator.
+- By-election replacing already-departed person: cap additions at council size 12.
+- `council_terms` table with `confirmed` flag is the path forward — fix in one place, display reads from table.
 
 ## Known Issues / TODO
 - [ ] Deploy to Cloudflare Pages

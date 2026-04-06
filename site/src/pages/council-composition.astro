@@ -345,6 +345,13 @@ for (const election of elections) {
         }
       }
       for (const m of allElected) newMembers.add(m.name);
+
+      // Remove anyone who declined office after being elected
+      for (const cohort of cohorts) {
+        cohort.members = cohort.members.filter(m =>
+          !declinedOffice.has(election.wiki_page_title + '|' + m.name)
+        );
+      }
     }
   }
 

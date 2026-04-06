@@ -836,22 +836,29 @@ def strip_election_result_sentences(text):
 
 
 def strip_file_image_tags(text):
-    """Strip [[File:...]] and [[Image:...]] tags, handling nested [[links]] in captions."""
+    """Strip [[File:...]] and [[Image:...]] tags, handling nested [[links]] and [external links] in captions."""
     result = []
     i = 0
     while i < len(text):
         upper = text[i:].upper()
         if upper.startswith('[[FILE:') or upper.startswith('[[IMAGE:'):
-            # Find matching ]] accounting for nested [[ ]]
+            # Find matching ]] accounting for nested [[ ]] and single [external links]
             depth = 1
+            single_depth = 0
             j = i + 2
             while j < len(text) and depth > 0:
                 if text[j:j+2] == '[[':
                     depth += 1
                     j += 2
-                elif text[j:j+2] == ']]':
+                elif text[j:j+2] == ']]' and single_depth == 0:
                     depth -= 1
                     j += 2
+                elif text[j] == '[' and text[j:j+2] != '[[':
+                    single_depth += 1
+                    j += 1
+                elif text[j] == ']' and single_depth > 0:
+                    single_depth -= 1
+                    j += 1
                 else:
                     j += 1
             i = j
@@ -1029,18 +1036,27 @@ def parse_person_page(text, title):
             if not m:
                 break
             # Find the matching ]] by counting bracket depth
+            # Also track single [brackets] (external links in captions)
+            # so their ] doesn't get mistaken for part of the closing ]]
             start = m.start()
             depth = 0
+            single_depth = 0
             i = start
             while i < len(t) - 1:
                 if t[i:i+2] == '[[':
                     depth += 1
                     i += 2
-                elif t[i:i+2] == ']]':
+                elif t[i:i+2] == ']]' and single_depth == 0:
                     depth -= 1
                     i += 2
                     if depth == 0:
                         break
+                elif t[i] == '[' and t[i:i+2] != '[[':
+                    single_depth += 1
+                    i += 1
+                elif t[i] == ']' and single_depth > 0:
+                    single_depth -= 1
+                    i += 1
                 else:
                     i += 1
             t = t[:start] + t[i:]
@@ -1101,6 +1117,8 @@ def parse_person_page(text, title):
         intro_text = re.sub(r"Not to be confused with [^.]+\.\s*", '', intro_text)
         # Strip the "(b. ..., d. ...)" parenthetical from intro since we show it structured
         intro_text = re.sub(r'\s*\(b\.\s*[^)]+\)\s*', ' ', intro_text)
+        # Fix "Name , description" left by parenthetical removal (e.g. "Bennet (b. ...), was" → "Bennet , was")
+        intro_text = re.sub(r'\s+,', ',', intro_text)
         intro_text = re.sub(r'\s{2,}', ' ', intro_text).strip()
 
     # Strip redundant election result sentences (shown in structured data)
@@ -1668,6 +1686,8 @@ def main():
             # Restore person markers
             for i, marker in enumerate(markers):
                 t = t.replace(f'\x00PERSON{i}\x00', marker)
+            # Fix stray spaces before commas (may appear after marker restoration)
+            t = re.sub(r'\s+,', ',', t)
             return t.strip()
 
         intro_text = clean_wiki_preserving_persons(intro_resolved) or None
@@ -1679,6 +1699,7 @@ def main():
             intro_text = re.sub(r"For other people (?:named )?with the same name,?\s*(?:please\s+)?see\s+[^.]+\.\s*", '', intro_text)
             intro_text = re.sub(r"Not to be confused with [^.]+\.\s*", '', intro_text)
             intro_text = re.sub(r'\s*\(b\.\s*[^)]+\)\s*', ' ', intro_text)
+            intro_text = re.sub(r'\s+,', ',', intro_text)
             intro_text = re.sub(r'\s{2,}', ' ', intro_text).strip()
 
         # Strip redundant election result sentences (shown in structured data)
@@ -1933,6 +1954,38 @@ def main():
             fix_count += sqlite_cursor.rowcount
             print(f"  Fixed: '{cand_name}' in '{election_page}' -> person {correct_person_page}")
     print(f"  Applied {fix_count} corrections")
+
+    # --- Step 6a2b: Manual candidacy unlinking ---
+    # Remove incorrect person links and optionally replace candidate_name with Bayanne external link
+    print("\n=== Applying manual candidacy unlinking ===")
+    candidacy_unlinks = [
+        # (election_wiki_page, candidate_name, new_candidate_name_or_None)
+        # Fetlar 1945: Edward Sinclair is not Edward Sinclair of Essenquoy (1617 parliamentarian)
+        ('County_Council_Election_December_1945', 'Edward Sinclair',
+         '[https://www.bayanne.info/Shetland/getperson.php?personID=I17558&tree=ID1 Edward Sinclair]'),
+    ]
+    unlink_count = 0
+    for entry in candidacy_unlinks:
+        election_page, cand_name = entry[0], entry[1]
+        new_name = entry[2] if len(entry) > 2 else None
+        for variant in [election_page, election_page.replace('_', ' ')]:
+            if new_name:
+                sqlite_cursor.execute("""
+                    UPDATE candidacies SET person_id = NULL, candidate_name = ?
+                    WHERE candidate_name = ? AND person_id IS NOT NULL
+                    AND election_id IN (SELECT id FROM elections WHERE wiki_page_title = ?)
+                """, (new_name, cand_name, variant))
+            else:
+                sqlite_cursor.execute("""
+                    UPDATE candidacies SET person_id = NULL
+                    WHERE candidate_name = ? AND person_id IS NOT NULL
+                    AND election_id IN (SELECT id FROM elections WHERE wiki_page_title = ?)
+                """, (cand_name, variant))
+            if sqlite_cursor.rowcount > 0:
+                unlink_count += sqlite_cursor.rowcount
+                print(f"  Unlinked: '{cand_name}' in '{election_page}'" +
+                      (f" -> '{new_name}'" if new_name else ""))
+    print(f"  Unlinked {unlink_count} candidacies")
 
     # --- Step 6a3: Fix elected/not-elected swaps ---
     print("\n=== Fixing elected status swaps ===")
