@@ -279,9 +279,11 @@ function renderLinkedText(text: string): string {
                 : <em>Constituency created</em>}
             </div>
             <div class="succession-cell succession-main">
-              <strong>Member for<br />
-              <a href={`/constituency/${t.constituency_slug}`}>{t.constituency_name}</a></strong><br />
-              {t.start_year}&ndash;{t.end_year}
+              <div>
+                <strong>Member for<br />
+                <a href={`/constituency/${t.constituency_slug}`}>{t.constituency_name}</a></strong><br />
+                {t.start_year}&ndash;{t.end_year}
+              </div>
             </div>
             <div class="succession-cell">
               {t.successor_name
@@ -328,9 +330,11 @@ function renderLinkedText(text: string): string {
             : <em>New position</em>}
         </div>
         <div class="succession-cell succession-main">
-          <strong>{ls.role}<br />
-          for <a href={`/council/${ls.council_slug}`}>{ls.council_name}</a></strong><br />
-          {ls.start_year}&ndash;{ls.end_year}
+          <div>
+            <strong>{ls.role}<br />
+            for <a href={`/council/${ls.council_slug}`}>{ls.council_name}</a></strong><br />
+            {ls.start_year}&ndash;{ls.end_year}
+          </div>
         </div>
         <div class="succession-cell">
           {ls.successor
@@ -526,6 +530,10 @@ function renderLinkedText(text: string): string {
     font-size: 0.88rem;
     border-right: 1px solid var(--border-light);
     line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .succession-cell:last-child {
