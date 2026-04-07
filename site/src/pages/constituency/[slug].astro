@@ -67,7 +67,7 @@ const constituencyDesc = `${constituency.name} - ${constituency.council_name} co
                     : winner.candidate_name)
                 : (e.notes || 'No data')}
             </td>
-            <td>{winner?.votes?.toLocaleString() || winner?.votes_text || ''}</td>
+            <td set:html={winner?.votes?.toLocaleString() || winner?.votes_text || ''} />
           </tr>
         );
       })}
@@ -77,12 +77,13 @@ const constituencyDesc = `${constituency.name} - ${constituency.council_name} co
 
 <style>
   .constituency-table {
-    table-layout: fixed;
+    table-layout: auto;
+    width: 100%;
   }
   .constituency-table th:nth-child(1),
-  .constituency-table td:nth-child(1) { width: 4.5rem; }
+  .constituency-table td:nth-child(1) { white-space: nowrap; }
   .constituency-table th:nth-child(2),
-  .constituency-table td:nth-child(2) { width: 6rem; }
+  .constituency-table td:nth-child(2) { white-space: nowrap; }
   .constituency-table th:nth-child(4),
-  .constituency-table td:nth-child(4) { width: 8rem; white-space: nowrap; }
+  .constituency-table td:nth-child(4) { white-space: normal; }
 </style>

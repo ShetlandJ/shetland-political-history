@@ -1556,7 +1556,7 @@ def main():
         ('James Henry', {'died_date': '2018-07-31'}),
         ('James Irvine (ii)', {'died_date': '2021-09-04'}),
         ('James Ogilvy', {'death_place': 'New Orleans'}),
-        ('James Pottinger (i)', {'born_date': '1790'}),
+        ('James Pottinger (i)', {'born_date': 'bef 1790'}),
         ('James Scott', {'died_date': '1859-12-20'}),
         ('John Inkster (iii)', {'died_date': '2021-12-12'}),
         ('John Nicolson', {'died_date': '2019-10-09'}),
@@ -2261,8 +2261,10 @@ def main():
                 if not (len(cfirst) <= 2 and p['first'].startswith(cfirst.rstrip('.'))):
                     continue
             if eyear:
-                by = int(p['born'][:4]) if p['born'] and len(p['born']) >= 4 else 0
-                dy = int(p['died'][:4]) if p['died'] and len(p['died']) >= 4 else 9999
+                born_yr = re.search(r'\d{4}', p['born']) if p['born'] else None
+                died_yr = re.search(r'\d{4}', p['died']) if p['died'] else None
+                by = int(born_yr.group()) if born_yr else 0
+                dy = int(died_yr.group()) if died_yr else 9999
                 if by and eyear < by - 5: continue
                 if dy < 9999 and eyear > dy + 1: continue
                 if by and eyear - by < 18: continue
@@ -2319,8 +2321,10 @@ def main():
 
         alive = []
         for m in matches:
-            by = int(m['born'][:4]) if m['born'] and len(m['born']) >= 4 else 0
-            dy = int(m['died'][:4]) if m['died'] and len(m['died']) >= 4 else 9999
+            born_yr = re.search(r'\d{4}', m['born']) if m['born'] else None
+            died_yr = re.search(r'\d{4}', m['died']) if m['died'] else None
+            by = int(born_yr.group()) if born_yr else 0
+            dy = int(died_yr.group()) if died_yr else 9999
             if by and eyear < by - 5: continue
             if dy < 9999 and eyear > dy + 1: continue
             if by and eyear - by < 18: continue

@@ -217,8 +217,8 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
                   {hasVotes && <td>{c.votes?.toLocaleString() || ''}</td>}
                   <td>
                     {c.elected
-                      ? <span class="elected">{c.votes_text && !c.votes ? c.votes_text : `Elected${c.role ? ` (${c.role})` : ''}`}</span>
-                      : <span class="not-elected">{c.votes_text || 'Not elected'}</span>}
+                      ? <span class="elected" set:html={c.votes_text && !c.votes ? c.votes_text : `Elected${c.role ? ` (${c.role})` : ''}`} />
+                      : <span class="not-elected" set:html={c.votes_text || 'Not elected'} />}
                   </td>
                 </tr>
                 );

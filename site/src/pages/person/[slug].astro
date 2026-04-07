@@ -29,6 +29,13 @@ for (const e of allElections) {
 
 function formatDate(d: string | null): string {
   if (!d) return '';
+  // Handle qualifiers: "abt 1776", "bef 1790", "aft 1800"
+  const qualMatch = d.match(/^(abt|bef|aft)\s+(.+)$/i);
+  if (qualMatch) {
+    const qualMap: Record<string, string> = { abt: 'c.', bef: 'bef.', aft: 'aft.' };
+    const qual = qualMap[qualMatch[1].toLowerCase()] || qualMatch[1];
+    return `${qual} ${formatDate(qualMatch[2])}`;
+  }
   if (/^\d{4}$/.test(d)) return d; // year only
   const parts = d.split('-');
   if (parts.length === 3) {
