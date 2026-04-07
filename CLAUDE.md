@@ -243,7 +243,7 @@ V2 is the future. The terms generator (`tools/generate_ltc_terms.py`) is the sin
 - **1877-1878**: Correct (12). Confirmed. Newspaper Oct 1878: 4 vacancies, normal rotation.
 - **1879**: Confirmed at 11. Laurenson declined office. Newspaper Oct 1879: 4 retiring incl Laurenson.
 - **1880**: Confirmed. General=11 (Goudie declined), by-election=12 (Duncan replaced Goudie). Newspaper Oct 1880: 4 retiring + "a vacancy to fill up" from Laurenson's unfilled seat = 5 vacancies.
-- **1881-1883**: Correct (12) in v2/terms. V1 model shows 11 at 1883 (terms generator handles this better).
+- **1881-1883**: Confirmed (12). 274 terms confirmed through Nov 1883.
 - **1884-1886**: V2 shows 12 at 1884-1885, 13 at 1886. Hay declined 1884, Duncan/Harrison departures 1886. By-election gap-fill issue at 1886 persists.
 - **1887-1889**: V2 shows 12 (terms generator handles correctly). V1 model shows 11 (dedup issue).
 - **1890-1895**: Correct (12) — fixed by Mitchell departure + cohort corrections.
