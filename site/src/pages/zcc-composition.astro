@@ -7,7 +7,7 @@ const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: tru
 
 const zccId = (db.prepare("SELECT id FROM councils WHERE slug = 'zetland-county-council'").get() as any).id;
 
-// Get all ZCC constituencies, ordered geographically (north to south roughly)
+// Get all ZCC constituencies
 const constituencies = db.prepare(`
   SELECT DISTINCT c.id, c.name, c.slug, MIN(e.election_date) as first_election, MAX(e.election_date) as last_election
   FROM constituencies c
@@ -17,85 +17,132 @@ const constituencies = db.prepare(`
   ORDER BY c.name
 `).all(zccId) as any[];
 
-// Get all distinct election dates (general elections as snapshot points)
-const generalElections = db.prepare(`
-  SELECT DISTINCT wiki_page_title, election_date
-  FROM elections
-  WHERE council_id = ? AND hidden = 0 AND election_type = 'general'
-  GROUP BY wiki_page_title
-  ORDER BY election_date
+// Get ALL elections (generals + by-elections) for the toggle
+const allElections = db.prepare(`
+  SELECT e.id, e.wiki_page_title, e.election_date, e.election_type, e.constituency_id
+  FROM elections e
+  WHERE e.council_id = ? AND e.hidden = 0
+  GROUP BY e.wiki_page_title
+  ORDER BY e.election_date
 `).all(zccId) as any[];
 
-// For each general election, get the elected member per constituency
+const generalElections = allElections.filter((e: any) => e.election_type === 'general');
+const byElections = allElections.filter((e: any) => e.election_type === 'by-election');
+
+// Get conveners
+const conveners = db.prepare(`
+  SELECT person_name, person_id, start_year, end_year
+  FROM leadership_roles
+  WHERE council_id = ? AND role = 'Convener'
+  ORDER BY start_year
+`).all(zccId) as any[];
+
+// Build slug lookup for all people (so carryover names keep their links)
+const slugLookup = new Map<string, string>();
+for (const p of db.prepare('SELECT name, slug FROM people').all() as any[]) {
+  slugLookup.set(p.name, p.slug);
+}
+
 interface CellData {
   name: string;
   slug: string | null;
-  isNew: boolean;      // newly elected (contested or first time)
-  unopposed: boolean;
+  isNew: boolean;
+  isByElection: boolean;
 }
 
-// Build a map: election_date -> constituency_id -> elected member
+interface ElectionColumn {
+  date: string;
+  type: string;
+  electionId: number;
+  wikiTitle: string;
+  isByElection: boolean;
+  constituencyId?: number; // for by-elections
+}
+
+// Build column list: generals always shown, by-elections toggled
+const columns: ElectionColumn[] = [];
+for (const e of allElections) {
+  columns.push({
+    date: e.election_date,
+    type: e.election_type,
+    electionId: e.id,
+    wikiTitle: e.wiki_page_title,
+    isByElection: e.election_type === 'by-election',
+    constituencyId: e.constituency_id,
+  });
+}
+
+// Build grid: for each column, who represents each constituency
 const grid = new Map<string, Map<number, CellData>>();
+const prevRep = new Map<number, { name: string; slug: string | null }>();
 
-// Track the previous representative per constituency (to detect changes)
-const prevRep = new Map<number, string>();
+// Get the min election ID per wiki_page_title for linking
+const electionIdMap = new Map<string, number>();
+for (const e of db.prepare('SELECT wiki_page_title, MIN(id) as min_id FROM elections WHERE council_id = ? AND hidden = 0 GROUP BY wiki_page_title').all(zccId) as any[]) {
+  electionIdMap.set(e.wiki_page_title, e.min_id);
+}
 
-for (const ge of generalElections) {
-  const results = db.prepare(`
-    SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug, c.votes_text
-    FROM candidacies c
-    JOIN elections e ON c.election_id = e.id
-    LEFT JOIN people p ON c.person_id = p.id
-    WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0
-  `).all(ge.wiki_page_title) as any[];
-
-  // Also include by-election changes since the last general
-  const byElectionResults = db.prepare(`
-    SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug
-    FROM candidacies c
-    JOIN elections e ON c.election_id = e.id
-    LEFT JOIN people p ON c.person_id = p.id
-    WHERE e.council_id = ? AND e.hidden = 0 AND e.election_type = 'by-election'
-      AND e.election_date > COALESCE(
-        (SELECT MAX(e2.election_date) FROM elections e2
-         WHERE e2.council_id = ? AND e2.hidden = 0 AND e2.election_type = 'general'
-         AND e2.election_date < ?),
-        '1800-01-01'
-      )
-      AND e.election_date <= ?
-      AND c.elected = 1
-  `).all(zccId, zccId, ge.election_date, ge.election_date) as any[];
-
+for (const col of columns) {
   const row = new Map<number, CellData>();
 
-  // Start with carried-over representatives from previous general
-  for (const [cid, name] of prevRep) {
-    row.set(cid, { name, slug: null, isNew: false, unopposed: false });
+  // Carry over previous state
+  for (const [cid, rep] of prevRep) {
+    row.set(cid, { name: rep.name, slug: rep.slug, isNew: false, isByElection: false });
   }
 
-  // Apply by-election changes (between last general and this one)
-  for (const r of byElectionResults) {
-    if (!r.constituency_id) continue;
-    const name = r.person_name || r.candidate_name;
-    row.set(r.constituency_id, { name, slug: r.slug, isNew: true, unopposed: false });
-    prevRep.set(r.constituency_id, name);
+  if (col.isByElection) {
+    // By-election: only the affected constituency changes, rest carries over
+    const results = db.prepare(`
+      SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug
+      FROM candidacies c
+      JOIN elections e ON c.election_id = e.id
+      LEFT JOIN people p ON c.person_id = p.id
+      WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0
+    `).all(col.wikiTitle) as any[];
+
+    for (const r of results) {
+      if (!r.constituency_id) continue;
+      const name = r.person_name || r.candidate_name;
+      const slug = r.slug || slugLookup.get(name) || null;
+      row.set(r.constituency_id, { name, slug, isNew: true, isByElection: true });
+      prevRep.set(r.constituency_id, { name, slug });
+    }
+  } else {
+    // General election: fresh start. Only show who was elected at THIS general.
+    // Don't carry over from previous generals — every constituency votes.
+    const row2 = new Map<number, CellData>();
+    const results = db.prepare(`
+      SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug, c.votes_text
+      FROM candidacies c
+      JOIN elections e ON c.election_id = e.id
+      LEFT JOIN people p ON c.person_id = p.id
+      WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0
+    `).all(col.wikiTitle) as any[];
+
+    // Reset prevRep for constituencies that had results, keep the rest
+    const constitsWithResults = new Set<number>();
+    for (const r of results) {
+      if (!r.constituency_id) continue;
+      constitsWithResults.add(r.constituency_id);
+      const name = r.person_name || r.candidate_name;
+      const slug = r.slug || slugLookup.get(name) || null;
+      const prev = prevRep.get(r.constituency_id);
+      const isNew = !prev || prev.name !== name;
+      row.set(r.constituency_id, { name, slug, isNew, isByElection: false });
+      prevRep.set(r.constituency_id, { name, slug });
+    }
+    // Clear prevRep for constituencies WITHOUT results at this general (seat vacant/not contested)
+    for (const c of constituencies) {
+      if (!constitsWithResults.has(c.id) && isActive(c, col.date)) {
+        row.delete(c.id);
+        prevRep.delete(c.id);
+      }
+    }
   }
 
-  // Apply this general's results
-  for (const r of results) {
-    if (!r.constituency_id) continue;
-    const name = r.person_name || r.candidate_name;
-    const prev = prevRep.get(r.constituency_id);
-    const isNew = prev !== name;
-    const unopposed = r.votes_text === 'Unopposed';
-    row.set(r.constituency_id, { name, slug: r.slug, isNew, unopposed });
-    prevRep.set(r.constituency_id, name);
-  }
-
-  grid.set(ge.election_date, row);
+  grid.set(col.wikiTitle, row);
 }
 
-// Determine which constituencies were active at each election
 function isActive(constit: any, electionDate: string): boolean {
   return constit.first_election <= electionDate && constit.last_election >= electionDate;
 }
@@ -107,10 +154,28 @@ function shortDate(d: string): string {
   return `${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-// Group constituencies: Lerwick wards (dropped 1929), then alphabetical rest
-const lerwicks = constituencies.filter(c => c.name.startsWith('Lerwick'));
-const others = constituencies.filter(c => !c.name.startsWith('Lerwick'));
+function electionLabel(col: ElectionColumn): string {
+  if (col.isByElection) return shortDate(col.date) + ' (by)';
+  return shortDate(col.date);
+}
+
+function getConvener(year: string): { name: string; slug: string | null } | null {
+  for (const c of conveners) {
+    if (year >= c.start_year && year < c.end_year) {
+      const slug = c.person_id ? (db.prepare('SELECT slug FROM people WHERE id = ?').get(c.person_id) as any)?.slug : null;
+      return { name: c.person_name, slug };
+    }
+  }
+  return null;
+}
+
+// Lerwick wards at the end
+const lerwicks = constituencies.filter((c: any) => c.name.startsWith('Lerwick'));
+const others = constituencies.filter((c: any) => !c.name.startsWith('Lerwick'));
 const orderedConstituencies = [...others, ...lerwicks];
+
+// Serialize columns as JSON for client-side toggle
+const columnsJson = JSON.stringify(columns.map((c, i) => ({ idx: i, isByElection: c.isByElection })));
 ---
 <Base title="Zetland County Council Composition">
   <div class="breadcrumb">
@@ -121,30 +186,49 @@ const orderedConstituencies = [...others, ...lerwicks];
 
   <h1>Zetland County Council Composition</h1>
   <p class="meta">
-    Representatives by constituency, 1890–1975. Each constituency elected one member.
+    Representatives by constituency, 1890–1975.
     <span class="new-legend">Highlighted</span> = new representative.
-    <span class="defunct-legend">*</span> = constituency not active at this election.
+    <span class="defunct-legend">*</span> = constituency not active.
+    <label class="toggle-label">
+      <input type="checkbox" id="show-by-elections" /> Show by-elections
+    </label>
   </p>
 
   <div class="timeline-wrapper">
-    <table class="timeline-table">
+    <table class="timeline-table" id="composition-table">
       <thead>
         <tr>
           <th class="row-label sticky-corner">Constituency</th>
-          {generalElections.map(ge => (
-            <th class="election-header">
-              {shortDate(ge.election_date)}
+          {columns.map((col, i) => (
+            <th class={`election-header ${col.isByElection ? 'by-election-header by-col' : ''}`} data-col-idx={i}>
+              <a href={`/election/${electionIdMap.get(col.wikiTitle) || col.electionId}`}>{electionLabel(col)}</a>
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
+        <tr class="convener-row">
+          <td class="row-label"><strong>Convener</strong></td>
+          {columns.map((col, i) => {
+            const year = col.date.substring(0, 4);
+            const conv = getConvener(year);
+            return (
+              <td class={`convener-cell ${col.isByElection ? 'by-col' : ''}`} data-col-idx={i}>
+                {conv
+                  ? (conv.slug
+                      ? <a href={`/person/${conv.slug}`}>{conv.name}</a>
+                      : conv.name)
+                  : ''}
+              </td>
+            );
+          })}
+        </tr>
         <tr class="count-row">
           <td class="row-label">Seats</td>
-          {generalElections.map(ge => {
-            const row = grid.get(ge.election_date);
+          {columns.map((col, i) => {
+            const row = grid.get(col.wikiTitle);
             const count = row ? row.size : 0;
-            return <td class="count-cell">{count}</td>;
+            return <td class={`count-cell ${col.isByElection ? 'by-col' : ''}`} data-col-idx={i}>{count}</td>;
           })}
         </tr>
         {orderedConstituencies.map(constit => (
@@ -152,19 +236,19 @@ const orderedConstituencies = [...others, ...lerwicks];
             <td class="row-label constit-label">
               <a href={`/constituency/${constit.slug}`}>{constit.name}</a>
             </td>
-            {generalElections.map(ge => {
-              const active = isActive(constit, ge.election_date);
+            {columns.map((col, i) => {
+              const active = isActive(constit, col.date);
               if (!active) {
-                return <td class="defunct-cell" title={`${constit.name} not active`}>*</td>;
+                return <td class={`defunct-cell ${col.isByElection ? 'by-col' : ''}`} data-col-idx={i}>*</td>;
               }
-              const row = grid.get(ge.election_date);
+              const row = grid.get(col.wikiTitle);
               const cell = row?.get(constit.id);
               if (!cell) {
-                return <td class="empty-cell"></td>;
+                return <td class={`empty-cell ${col.isByElection ? 'by-col' : ''}`} data-col-idx={i}></td>;
               }
               return (
-                <td class={`member-cell ${cell.isNew ? 'new-member' : ''}`}
-                    title={cell.unopposed ? 'Unopposed' : ''}>
+                <td class={`member-cell ${cell.isNew ? 'new-member' : ''} ${cell.isByElection ? 'by-elected' : ''} ${col.isByElection ? 'by-col' : ''}`}
+                    data-col-idx={i}>
                   {cell.slug
                     ? <a href={`/person/${cell.slug}`}>{cell.name}</a>
                     : cell.name}
@@ -190,6 +274,25 @@ const orderedConstituencies = [...others, ...lerwicks];
   .defunct-legend {
     color: var(--muted);
     font-weight: 600;
+  }
+
+  .toggle-label {
+    margin-left: 1rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .toggle-label input {
+    margin-right: 0.3rem;
+    cursor: pointer;
+  }
+
+  .by-col {
+    display: none;
+  }
+
+  .show-by-elections .by-col {
+    display: table-cell;
   }
 
   .timeline-wrapper {
@@ -254,6 +357,26 @@ const orderedConstituencies = [...others, ...lerwicks];
     font-weight: 500;
   }
 
+  .election-header a { color: var(--table-header-text); }
+
+  .by-election-header {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    min-width: 5.5rem;
+  }
+
+  .by-election-header a { color: var(--warning-text); }
+
+  .convener-row td {
+    background: var(--accent-light);
+    font-weight: 600;
+    font-size: 0.73rem;
+  }
+
+  .convener-row .row-label {
+    background: var(--accent-light);
+  }
+
   .count-row td {
     text-align: center;
     font-weight: 600;
@@ -270,6 +393,10 @@ const orderedConstituencies = [...others, ...lerwicks];
     font-weight: 600;
   }
 
+  .by-elected {
+    font-style: italic;
+  }
+
   .empty-cell {
     background: var(--bg-surface-alt);
   }
@@ -281,3 +408,12 @@ const orderedConstituencies = [...others, ...lerwicks];
     font-size: 0.65rem;
   }
 </style>
+
+<script>
+  const checkbox = document.getElementById('show-by-elections') as HTMLInputElement;
+  const table = document.getElementById('composition-table')!;
+
+  checkbox?.addEventListener('change', () => {
+    table.classList.toggle('show-by-elections', checkbox.checked);
+  });
+</script>
