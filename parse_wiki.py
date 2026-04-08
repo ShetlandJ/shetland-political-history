@@ -2061,6 +2061,47 @@ def main():
         """, (eid, pid, cand_name, votes, elected, pos))
         print(f"  Added: {cand_name} ({votes} votes) to {wiki_page} at pos {pos}")
 
+    # --- Step 6a6: Add combined constituency elections ---
+    # 1922 ZCC: Aithsting & Sandsting combined. Parser couldn't parse the dual-link heading.
+    # Manually insert elections for both constituencies with the same candidates.
+    print("\n=== Adding combined constituency elections ===")
+    combined_elections = [
+        # (wiki_page_title, constituency_names, election_date, turnout, candidates)
+        ('County Council Election December 1922', ['Aithsting', 'Sandsting'], '1922-12-05', 199, [
+            ('John Leslie', 'John_Leslie_(ii)', 110, 1),
+            ('Andrew Clark', 'Andrew_Clark', 89, 0),
+        ]),
+    ]
+    for wiki_page, constit_names, edate, turnout, candidates in combined_elections:
+        for cname in constit_names:
+            sqlite_cursor.execute("SELECT id FROM constituencies WHERE name = ? AND council_id = 2", (cname,))
+            cid_row = sqlite_cursor.fetchone()
+            if not cid_row:
+                print(f"  Skipped (no constituency): {cname}")
+                continue
+            cid = cid_row[0]
+            # Check not already present
+            sqlite_cursor.execute("""
+                SELECT id FROM elections WHERE wiki_page_title IN (?, ?) AND constituency_id = ? AND hidden = 0
+            """, (wiki_page, wiki_page.replace(' ', '_'), cid))
+            if sqlite_cursor.fetchone():
+                print(f"  Skipped (exists): {cname}")
+                continue
+            note = f'Combined Aithsting & Sandsting election'
+            sqlite_cursor.execute("""
+                INSERT INTO elections (council_id, constituency_id, election_date, election_type,
+                    turnout, notes, wiki_page_title)
+                VALUES (2, ?, ?, 'general', ?, ?, ?)
+            """, (cid, edate, turnout, note, wiki_page))
+            eid = sqlite_cursor.lastrowid
+            for pos, (cand_name, person_page, votes, elected) in enumerate(candidates, 1):
+                pid = person_ids.get(person_page)
+                sqlite_cursor.execute("""
+                    INSERT INTO candidacies (election_id, person_id, candidate_name, votes, elected, position)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, (eid, pid, cand_name, votes, elected, pos))
+            print(f"  Added: {cname} in {wiki_page} ({len(candidates)} candidates)")
+
     # --- Step 6b: Hide erroneous elections ---
     print("\n=== Hiding erroneous elections ===")
     hidden_elections = [

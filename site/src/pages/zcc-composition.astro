@@ -1,0 +1,283 @@
+---
+import Base from '../layouts/Base.astro';
+import Database from 'better-sqlite3';
+import path from 'path';
+
+const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
+
+const zccId = (db.prepare("SELECT id FROM councils WHERE slug = 'zetland-county-council'").get() as any).id;
+
+// Get all ZCC constituencies, ordered geographically (north to south roughly)
+const constituencies = db.prepare(`
+  SELECT DISTINCT c.id, c.name, c.slug, MIN(e.election_date) as first_election, MAX(e.election_date) as last_election
+  FROM constituencies c
+  JOIN elections e ON e.constituency_id = c.id
+  WHERE c.council_id = ? AND e.hidden = 0
+  GROUP BY c.id
+  ORDER BY c.name
+`).all(zccId) as any[];
+
+// Get all distinct election dates (general elections as snapshot points)
+const generalElections = db.prepare(`
+  SELECT DISTINCT wiki_page_title, election_date
+  FROM elections
+  WHERE council_id = ? AND hidden = 0 AND election_type = 'general'
+  GROUP BY wiki_page_title
+  ORDER BY election_date
+`).all(zccId) as any[];
+
+// For each general election, get the elected member per constituency
+interface CellData {
+  name: string;
+  slug: string | null;
+  isNew: boolean;      // newly elected (contested or first time)
+  unopposed: boolean;
+}
+
+// Build a map: election_date -> constituency_id -> elected member
+const grid = new Map<string, Map<number, CellData>>();
+
+// Track the previous representative per constituency (to detect changes)
+const prevRep = new Map<number, string>();
+
+for (const ge of generalElections) {
+  const results = db.prepare(`
+    SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug, c.votes_text
+    FROM candidacies c
+    JOIN elections e ON c.election_id = e.id
+    LEFT JOIN people p ON c.person_id = p.id
+    WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0
+  `).all(ge.wiki_page_title) as any[];
+
+  // Also include by-election changes since the last general
+  const byElectionResults = db.prepare(`
+    SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug
+    FROM candidacies c
+    JOIN elections e ON c.election_id = e.id
+    LEFT JOIN people p ON c.person_id = p.id
+    WHERE e.council_id = ? AND e.hidden = 0 AND e.election_type = 'by-election'
+      AND e.election_date > COALESCE(
+        (SELECT MAX(e2.election_date) FROM elections e2
+         WHERE e2.council_id = ? AND e2.hidden = 0 AND e2.election_type = 'general'
+         AND e2.election_date < ?),
+        '1800-01-01'
+      )
+      AND e.election_date <= ?
+      AND c.elected = 1
+  `).all(zccId, zccId, ge.election_date, ge.election_date) as any[];
+
+  const row = new Map<number, CellData>();
+
+  // Start with carried-over representatives from previous general
+  for (const [cid, name] of prevRep) {
+    row.set(cid, { name, slug: null, isNew: false, unopposed: false });
+  }
+
+  // Apply by-election changes (between last general and this one)
+  for (const r of byElectionResults) {
+    if (!r.constituency_id) continue;
+    const name = r.person_name || r.candidate_name;
+    row.set(r.constituency_id, { name, slug: r.slug, isNew: true, unopposed: false });
+    prevRep.set(r.constituency_id, name);
+  }
+
+  // Apply this general's results
+  for (const r of results) {
+    if (!r.constituency_id) continue;
+    const name = r.person_name || r.candidate_name;
+    const prev = prevRep.get(r.constituency_id);
+    const isNew = prev !== name;
+    const unopposed = r.votes_text === 'Unopposed';
+    row.set(r.constituency_id, { name, slug: r.slug, isNew, unopposed });
+    prevRep.set(r.constituency_id, name);
+  }
+
+  grid.set(ge.election_date, row);
+}
+
+// Determine which constituencies were active at each election
+function isActive(constit: any, electionDate: string): boolean {
+  return constit.first_election <= electionDate && constit.last_election >= electionDate;
+}
+
+function shortDate(d: string): string {
+  if (!d) return '?';
+  const date = new Date(d);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+// Group constituencies: Lerwick wards (dropped 1929), then alphabetical rest
+const lerwicks = constituencies.filter(c => c.name.startsWith('Lerwick'));
+const others = constituencies.filter(c => !c.name.startsWith('Lerwick'));
+const orderedConstituencies = [...others, ...lerwicks];
+---
+<Base title="Zetland County Council Composition">
+  <div class="breadcrumb">
+    <a href="/">Home</a> &rsaquo;
+    <a href="/council/zetland-county-council">Zetland County Council</a> &rsaquo;
+    Council Composition
+  </div>
+
+  <h1>Zetland County Council Composition</h1>
+  <p class="meta">
+    Representatives by constituency, 1890–1975. Each constituency elected one member.
+    <span class="new-legend">Highlighted</span> = new representative.
+    <span class="defunct-legend">*</span> = constituency not active at this election.
+  </p>
+
+  <div class="timeline-wrapper">
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th class="row-label sticky-corner">Constituency</th>
+          {generalElections.map(ge => (
+            <th class="election-header">
+              {shortDate(ge.election_date)}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="count-row">
+          <td class="row-label">Seats</td>
+          {generalElections.map(ge => {
+            const row = grid.get(ge.election_date);
+            const count = row ? row.size : 0;
+            return <td class="count-cell">{count}</td>;
+          })}
+        </tr>
+        {orderedConstituencies.map(constit => (
+          <tr>
+            <td class="row-label constit-label">
+              <a href={`/constituency/${constit.slug}`}>{constit.name}</a>
+            </td>
+            {generalElections.map(ge => {
+              const active = isActive(constit, ge.election_date);
+              if (!active) {
+                return <td class="defunct-cell" title={`${constit.name} not active`}>*</td>;
+              }
+              const row = grid.get(ge.election_date);
+              const cell = row?.get(constit.id);
+              if (!cell) {
+                return <td class="empty-cell"></td>;
+              }
+              return (
+                <td class={`member-cell ${cell.isNew ? 'new-member' : ''}`}
+                    title={cell.unopposed ? 'Unopposed' : ''}>
+                  {cell.slug
+                    ? <a href={`/person/${cell.slug}`}>{cell.name}</a>
+                    : cell.name}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>
+
+<style>
+  .new-legend {
+    background: var(--success-light);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .defunct-legend {
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .timeline-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    max-height: 85vh;
+  }
+
+  .timeline-table {
+    border-collapse: collapse;
+    font-size: 0.76rem;
+    white-space: nowrap;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .timeline-table th,
+  .timeline-table td {
+    padding: 0.25rem 0.45rem;
+    border: 1px solid var(--border-light);
+    vertical-align: middle;
+  }
+
+  .row-label {
+    position: sticky;
+    left: 0;
+    background: var(--bg-surface);
+    z-index: 2;
+    font-weight: 600;
+    border-right: 2px solid var(--border) !important;
+  }
+
+  .constit-label {
+    font-size: 0.73rem;
+    min-width: 10rem;
+  }
+
+  .sticky-corner {
+    z-index: 4;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+
+  .election-header {
+    background: var(--table-header-bg);
+    color: var(--table-header-text);
+    text-align: center;
+    font-size: 0.7rem;
+    min-width: 7rem;
+    font-weight: 500;
+  }
+
+  .count-row td {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .member-cell {
+    font-size: 0.73rem;
+  }
+
+  .new-member {
+    background: var(--success-light);
+    font-weight: 600;
+  }
+
+  .empty-cell {
+    background: var(--bg-surface-alt);
+  }
+
+  .defunct-cell {
+    background: var(--bg-surface-alt);
+    color: var(--muted);
+    text-align: center;
+    font-size: 0.65rem;
+  }
+</style>
