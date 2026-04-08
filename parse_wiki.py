@@ -1718,6 +1718,20 @@ def main():
 
     print(f"  Resolved person links in {link_count} people")
 
+    # --- Step 4f: Manual text corrections in bios ---
+    bio_text_corrections = [
+        ('Charlotte Nicol', 'biography',
+         'Charles Robert Stuart Nicol (b. 7 October 1891, d. after 1950)',
+         'Charles Robert Stuart Nicol (b. 7 October 1891, d. 21 January 1967, Canada)'),
+    ]
+    for person_name, field, old_text, new_text in bio_text_corrections:
+        row = sqlite_cursor.execute(f"SELECT id, {field} FROM people WHERE name = ?", (person_name,)).fetchone()
+        if row and row[1] and old_text in row[1]:
+            updated = row[1].replace(old_text, new_text)
+            sqlite_cursor.execute(f"UPDATE people SET {field} = ? WHERE id = ?", (updated, row[0]))
+            print(f"  Text fix: {person_name} {field}")
+    sqlite_conn.commit()
+
     def clean_candidate_name(name):
         """Strip external wiki links from candidate names, e.g. '[https://...url Display Name]' -> 'Display Name'"""
         cleaned = re.sub(r'\[https?://[^\s\]]+\s+([^\]]+)\]', r'\1', name)
