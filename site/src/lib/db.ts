@@ -653,3 +653,85 @@ export function getRelatedPeople(personSlug: string): { slug: string; name: stri
   result.sort((a, b) => a.name.localeCompare(b.name));
   return result;
 }
+
+// Records & statistics
+export function getMostElectionsWon(limit = 15): { name: string; slug: string; wins: number; first_win: string; last_win: string }[] {
+  return db.prepare(`
+    SELECT p.name, p.slug, COUNT(*) as wins,
+      MIN(e.election_date) as first_win, MAX(e.election_date) as last_win
+    FROM candidacies c
+    JOIN people p ON c.person_id = p.id
+    JOIN elections e ON c.election_id = e.id
+    WHERE c.elected = 1 AND e.hidden = 0
+    GROUP BY p.id ORDER BY wins DESC LIMIT ?
+  `).all(limit) as any[];
+}
+
+export function getLongestCareers(limit = 15): { name: string; slug: string; first_election: string; last_election: string; years: number; elections: number }[] {
+  return db.prepare(`
+    SELECT p.name, p.slug,
+      MIN(e.election_date) as first_election, MAX(e.election_date) as last_election,
+      CAST((julianday(MAX(e.election_date)) - julianday(MIN(e.election_date))) / 365.25 AS INTEGER) as years,
+      COUNT(*) as elections
+    FROM candidacies c
+    JOIN people p ON c.person_id = p.id
+    JOIN elections e ON c.election_id = e.id
+    WHERE c.elected = 1 AND e.hidden = 0
+    GROUP BY p.id HAVING years > 0
+    ORDER BY years DESC LIMIT ?
+  `).all(limit) as any[];
+}
+
+export function getBiggestWins(limit = 10): { name: string; slug: string; votes: number; runner_up: number; margin: number; date: string; constituency: string }[] {
+  return db.prepare(`
+    SELECT p.name, p.slug, c.votes,
+      (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as runner_up,
+      c.votes - (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as margin,
+      e.election_date as date, con.name as constituency
+    FROM candidacies c
+    JOIN people p ON c.person_id = p.id
+    JOIN elections e ON c.election_id = e.id
+    JOIN constituencies con ON e.constituency_id = con.id
+    WHERE c.elected = 1 AND c.votes IS NOT NULL AND e.hidden = 0
+      AND (SELECT COUNT(*) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0 AND c2.votes IS NOT NULL) > 0
+    ORDER BY margin DESC LIMIT ?
+  `).all(limit) as any[];
+}
+
+export function getNarrowestWins(limit = 10): { name: string; slug: string; votes: number; runner_up: number; margin: number; date: string; constituency: string }[] {
+  return db.prepare(`
+    SELECT p.name, p.slug, c.votes,
+      (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as runner_up,
+      c.votes - (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as margin,
+      e.election_date as date, con.name as constituency
+    FROM candidacies c
+    JOIN people p ON c.person_id = p.id
+    JOIN elections e ON c.election_id = e.id
+    JOIN constituencies con ON e.constituency_id = con.id
+    WHERE c.elected = 1 AND c.votes IS NOT NULL AND e.hidden = 0
+      AND (SELECT COUNT(*) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0 AND c2.votes IS NOT NULL) > 0
+    ORDER BY margin ASC LIMIT ?
+  `).all(limit) as any[];
+}
+
+export function getMultiCouncilMembers(): { name: string; slug: string; councils: number; council_names: string }[] {
+  return db.prepare(`
+    SELECT p.name, p.slug, COUNT(DISTINCT co.id) as councils, GROUP_CONCAT(DISTINCT co.name) as council_names
+    FROM candidacies c
+    JOIN people p ON c.person_id = p.id
+    JOIN elections e ON c.election_id = e.id
+    JOIN councils co ON e.council_id = co.id
+    WHERE c.elected = 1 AND e.hidden = 0
+    GROUP BY p.id HAVING councils > 1
+    ORDER BY councils DESC, p.name
+  `).all() as any[];
+}
+
+export function getUncontestedRate(): { uncontested: number; total: number } {
+  const uncontested = (db.prepare(`
+    SELECT COUNT(*) as c FROM elections e
+    WHERE e.hidden = 0 AND (SELECT COUNT(*) FROM candidacies c WHERE c.election_id = e.id) = 1
+  `).get() as any).c;
+  const total = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hidden = 0').get() as any).c;
+  return { uncontested, total };
+}

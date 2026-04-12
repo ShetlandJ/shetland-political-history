@@ -1,0 +1,190 @@
+---
+import Base from '../layouts/Base.astro';
+import {
+  getMostElectionsWon,
+  getLongestCareers,
+  getBiggestWins,
+  getNarrowestWins,
+  getMultiCouncilMembers,
+  getUncontestedRate,
+} from '../lib/db';
+
+const mostWins = getMostElectionsWon(15);
+const longestCareers = getLongestCareers(15);
+const biggestWins = getBiggestWins(10);
+const narrowestWins = getNarrowestWins(10);
+const multiCouncil = getMultiCouncilMembers().map(r => ({
+  ...r,
+  councils_display: r.council_names.split(',').join(', '),
+}));
+const { uncontested, total } = getUncontestedRate();
+const uncontestedPct = Math.round((uncontested / total) * 100);
+const totalStr = total.toLocaleString();
+const uncontestedStr = uncontested.toLocaleString();
+
+function formatYear(dateStr: string | null): string {
+  if (!dateStr) return '?';
+  return dateStr.slice(0, 4);
+}
+---
+<Base title="Records" description="Electoral records and statistics from Shetland political history.">
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Records</div>
+  <h1>Records</h1>
+  <p class="meta">Electoral records and statistics from over {totalStr} elections across two centuries</p>
+
+  <div class="records-stat-row">
+    <div class="records-stat">
+      <span class="records-stat-number">{uncontestedPct}%</span>
+      <span class="records-stat-label">of elections uncontested ({uncontestedStr} of {totalStr})</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>Most elections won</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Name</th><th>Wins</th><th>First</th><th>Last</th></tr></thead>
+        <tbody>
+          {mostWins.map((r, i) => (
+            <tr>
+              <td class="rank">{i + 1}</td>
+              <td><a href={'/person/' + r.slug}>{r.name}</a></td>
+              <td>{r.wins}</td>
+              <td>{formatYear(r.first_win)}</td>
+              <td>{formatYear(r.last_win)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Longest careers</h2>
+    <p class="meta">Years between first and last election won</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Name</th><th>Years</th><th>Elections</th><th>First</th><th>Last</th></tr></thead>
+        <tbody>
+          {longestCareers.map((r, i) => (
+            <tr>
+              <td class="rank">{i + 1}</td>
+              <td><a href={'/person/' + r.slug}>{r.name}</a></td>
+              <td>{r.years}</td>
+              <td>{r.elections}</td>
+              <td>{formatYear(r.first_election)}</td>
+              <td>{formatYear(r.last_election)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Biggest victories</h2>
+    <p class="meta">Largest margin of victory by votes</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Name</th><th>Margin</th><th>Votes</th><th>Runner-up</th><th>Constituency</th><th>Year</th></tr></thead>
+        <tbody>
+          {biggestWins.map((r, i) => (
+            <tr>
+              <td class="rank">{i + 1}</td>
+              <td><a href={'/person/' + r.slug}>{r.name}</a></td>
+              <td>+{r.margin}</td>
+              <td>{r.votes}</td>
+              <td>{r.runner_up}</td>
+              <td>{r.constituency}</td>
+              <td>{formatYear(r.date)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Narrowest victories</h2>
+    <p class="meta">Closest contested elections by margin</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Name</th><th>Margin</th><th>Votes</th><th>Runner-up</th><th>Constituency</th><th>Year</th></tr></thead>
+        <tbody>
+          {narrowestWins.map((r, i) => (
+            <tr>
+              <td class="rank">{i + 1}</td>
+              <td><a href={'/person/' + r.slug}>{r.name}</a></td>
+              <td>{r.margin <= 0 ? String(r.margin) : '+' + r.margin}</td>
+              <td>{r.votes}</td>
+              <td>{r.runner_up}</td>
+              <td>{r.constituency}</td>
+              <td>{formatYear(r.date)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Served on multiple councils</h2>
+    <p class="meta">{multiCouncil.length} people were elected to more than one council</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Councils</th></tr></thead>
+        <tbody>
+          {multiCouncil.map(r => (
+            <tr>
+              <td><a href={'/person/' + r.slug}>{r.name}</a></td>
+              <td>{r.councils_display}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>
+
+<style>
+  section {
+    margin-bottom: 2.5rem;
+  }
+  section h2 {
+    margin-bottom: 0.25rem;
+  }
+  section h2 + .meta {
+    margin-bottom: 0.75rem;
+  }
+  .rank {
+    color: var(--text-muted, #888);
+    font-size: 0.85em;
+    text-align: right;
+    padding-right: 0.5rem;
+    min-width: 2em;
+  }
+  .records-stat-row {
+    margin: 1.5rem 0 2rem;
+    display: flex;
+    gap: 1.5rem;
+  }
+  .records-stat {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .records-stat-number {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .records-stat-label {
+    color: var(--text-muted, #888);
+    font-size: 0.95rem;
+  }
+</style>

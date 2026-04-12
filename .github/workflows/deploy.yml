@@ -52,6 +52,7 @@ jobs:
             -e "s|href=\"/constituencies\"|href=\"${BASE}/constituencies\"|g" \
             -e "s|href=\"/referenda\"|href=\"${BASE}/referenda\"|g" \
             -e "s|href=\"/leadership\"|href=\"${BASE}/leadership\"|g" \
+            -e "s|href=\"/records\"|href=\"${BASE}/records\"|g" \
             -e "s|href=\"/search\"|href=\"${BASE}/search\"|g" \
             -e "s|href=\"/history\"|href=\"${BASE}/history\"|g" \
             -e "s|href=\"/data-review\"|href=\"${BASE}/data-review\"|g" \

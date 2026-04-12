@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Database from 'better-sqlite3';
 import path from 'path';
 
-const db = new Database(path.join(process.cwd(), 'shetland.db'), { readonly: true });
+const db = new Database(path.join(process.cwd(), '..', 'shetland.db'), { readonly: true });
 
 const zccId = (db.prepare("SELECT id FROM councils WHERE slug = 'zetland-county-council'").get() as any).id;
 
