@@ -710,6 +710,7 @@ export function getNarrowestWins(limit = 10): { name: string; slug: string; vote
     JOIN constituencies con ON e.constituency_id = con.id
     WHERE c.elected = 1 AND c.votes IS NOT NULL AND e.hidden = 0
       AND (SELECT COUNT(*) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0 AND c2.votes IS NOT NULL) > 0
+      AND c.votes > (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0)
     ORDER BY margin ASC LIMIT ?
   `).all(limit) as any[];
 }
