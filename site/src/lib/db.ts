@@ -687,7 +687,8 @@ export function getBiggestWins(limit = 10): { name: string; slug: string; votes:
     SELECT p.name, p.slug, c.votes,
       (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as runner_up,
       c.votes - (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as margin,
-      e.election_date as date, con.name as constituency, e.id as election_id
+      e.election_date as date, con.name as constituency,
+      (SELECT MIN(e2.id) FROM elections e2 WHERE e2.wiki_page_title = e.wiki_page_title AND e2.hidden = 0) as election_id
     FROM candidacies c
     JOIN people p ON c.person_id = p.id
     JOIN elections e ON c.election_id = e.id
@@ -703,7 +704,8 @@ export function getNarrowestWins(limit = 10): { name: string; slug: string; vote
     SELECT p.name, p.slug, c.votes,
       (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as runner_up,
       c.votes - (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as margin,
-      e.election_date as date, con.name as constituency, e.id as election_id
+      e.election_date as date, con.name as constituency,
+      (SELECT MIN(e2.id) FROM elections e2 WHERE e2.wiki_page_title = e.wiki_page_title AND e2.hidden = 0) as election_id
     FROM candidacies c
     JOIN people p ON c.person_id = p.id
     JOIN elections e ON c.election_id = e.id
