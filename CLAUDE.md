@@ -18,11 +18,10 @@ new-site/
 ├── schema.sql          # SQLite schema definition
 ├── shetland.db         # Generated SQLite database (output of parse_wiki.py)
 └── site/               # Astro static site
-    ├── shetland.db     # Copy of DB used at build time (must be copied before build)
     ├── src/
     │   ├── components/
     │   │   └── ExternalLink.astro  # External link component with icon
-    │   ├── lib/db.ts   # SQLite query layer (read-only, used at build time)
+    │   ├── lib/db.ts   # SQLite query layer (reads ../shetland.db at build time)
     │   ├── layouts/Base.astro  # Global layout with dark mode, sticky header, mobile nav
     │   └── pages/
     │       ├── index.astro           # Homepage with council cards and intro
@@ -147,8 +146,7 @@ python3 parse_wiki.py           # Parse wiki → SQLite
 python3 add_modern_sic.py       # Add 2017+ SIC elections
 python3 populate_shetland_flags.py  # Set born/died in Shetland flags
 python3 copy_images.py          # Copy photos from MW images dir
-cp shetland.db site/shetland.db # Copy DB to site
-cd site && npm run build         # Build static site
+cd site && npm run build         # Build static site (reads ../shetland.db directly)
 ```
 
 ### Preview locally
@@ -165,7 +163,7 @@ npx astro preview
 
 ## Deployment
 
-Deployed to GitHub Pages. The site deploys automatically on push to master. The SQLite DB (`shetland.db`) must not be gitignored — it's committed to the repo and copied to `site/shetland.db` before build. After pushing, verify the build succeeded.
+Deployed to GitHub Pages. The site deploys automatically on push to master. The SQLite DB (`shetland.db`) must not be gitignored — it's committed to the repo and read directly by the site build via `../shetland.db`. After pushing, verify the build succeeded.
 
 ## LTC Composition Model
 

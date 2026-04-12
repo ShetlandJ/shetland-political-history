@@ -27,9 +27,6 @@ jobs:
         working-directory: site
         run: npm ci
 
-      - name: Copy database
-        run: cp shetland.db site/shetland.db
-
       - name: Copy images
         run: |
           mkdir -p site/public/images/people
