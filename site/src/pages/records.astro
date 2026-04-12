@@ -95,7 +95,7 @@ function formatYear(dateStr: string | null): string {
               <td>+{r.margin}</td>
               <td>{r.votes}</td>
               <td>{r.runner_up}</td>
-              <td>{r.constituency}</td>
+              <td><a href={'/election/' + r.election_id}>{r.constituency}</a></td>
               <td>{formatYear(r.date)}</td>
             </tr>
           ))}
@@ -118,7 +118,7 @@ function formatYear(dateStr: string | null): string {
               <td>{r.margin}</td>
               <td>{r.votes}</td>
               <td>{r.runner_up}</td>
-              <td>{r.constituency}</td>
+              <td><a href={'/election/' + r.election_id}>{r.constituency}</a></td>
               <td>{formatYear(r.date)}</td>
             </tr>
           ))}

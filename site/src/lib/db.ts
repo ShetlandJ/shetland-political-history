@@ -682,12 +682,12 @@ export function getLongestCareers(limit = 15): { name: string; slug: string; fir
   `).all(limit) as any[];
 }
 
-export function getBiggestWins(limit = 10): { name: string; slug: string; votes: number; runner_up: number; margin: number; date: string; constituency: string }[] {
+export function getBiggestWins(limit = 10): { name: string; slug: string; votes: number; runner_up: number; margin: number; date: string; constituency: string; election_id: number }[] {
   return db.prepare(`
     SELECT p.name, p.slug, c.votes,
       (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as runner_up,
       c.votes - (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as margin,
-      e.election_date as date, con.name as constituency
+      e.election_date as date, con.name as constituency, e.id as election_id
     FROM candidacies c
     JOIN people p ON c.person_id = p.id
     JOIN elections e ON c.election_id = e.id
@@ -698,12 +698,12 @@ export function getBiggestWins(limit = 10): { name: string; slug: string; votes:
   `).all(limit) as any[];
 }
 
-export function getNarrowestWins(limit = 10): { name: string; slug: string; votes: number; runner_up: number; margin: number; date: string; constituency: string }[] {
+export function getNarrowestWins(limit = 10): { name: string; slug: string; votes: number; runner_up: number; margin: number; date: string; constituency: string; election_id: number }[] {
   return db.prepare(`
     SELECT p.name, p.slug, c.votes,
       (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as runner_up,
       c.votes - (SELECT MAX(c2.votes) FROM candidacies c2 WHERE c2.election_id = c.election_id AND c2.elected = 0) as margin,
-      e.election_date as date, con.name as constituency
+      e.election_date as date, con.name as constituency, e.id as election_id
     FROM candidacies c
     JOIN people p ON c.person_id = p.id
     JOIN elections e ON c.election_id = e.id
