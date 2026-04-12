@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS people (
     wiki_page_title TEXT,
     categories TEXT,          -- JSON array of original wiki categories
     born_in_shetland INTEGER, -- 1 = yes, 0 = no, NULL = unknown
-    died_in_shetland INTEGER  -- 1 = yes, 0 = no, NULL = unknown
+    died_in_shetland INTEGER, -- 1 = yes, 0 = no, NULL = unknown
+    findagrave_id INTEGER     -- Find A Grave memorial ID
 );
 
 CREATE TABLE IF NOT EXISTS elections (

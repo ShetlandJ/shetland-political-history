@@ -71,6 +71,7 @@ export interface Person {
   categories: string | null;
   born_in_shetland: number | null;
   died_in_shetland: number | null;
+  findagrave_id: number | null;
 }
 
 export interface Election {

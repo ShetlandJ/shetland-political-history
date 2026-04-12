@@ -26,7 +26,7 @@ function saveState(state) {
 
 function getReviewList() {
   const files = fs.readdirSync(IMAGES_DIR);
-  const headshots = new Set();
+  const headshots = new Map();
   const mains = new Map();
 
   for (const f of files) {
@@ -34,7 +34,7 @@ function getReviewList() {
     if (!['.jpg', '.jpeg', '.png', '.gif'].includes(ext)) continue;
     const name = path.basename(f, ext);
     if (name.endsWith('-headshot')) {
-      headshots.add(name.replace(/-headshot$/, ''));
+      headshots.set(name.replace(/-headshot$/, ''), f);
     } else {
       mains.set(name, f);
     }
@@ -46,7 +46,7 @@ function getReviewList() {
   const items = [];
   for (const [slug, filename] of mains) {
     if (headshots.has(slug) && !approvedSet.has(slug)) {
-      items.push({ slug, mainFile: filename });
+      items.push({ slug, mainFile: filename, headshotFile: headshots.get(slug) });
     }
   }
   items.sort((a, b) => a.slug.localeCompare(b.slug));
@@ -185,12 +185,12 @@ function renderCards() {
             <div class="preview-col">
               <label>Auto-crop</label>
               <img class="thumb-circle large" id="preview-\${item.slug}"
-                   src="/images/\${item.slug}-headshot.jpg?t=\${Date.now()}" />
+                   src="/images/\${item.headshotFile}?t=\${Date.now()}" />
             </div>
             <div class="preview-col">
               <label>28px</label>
               <img class="thumb-circle" id="preview-sm-\${item.slug}"
-                   src="/images/\${item.slug}-headshot.jpg?t=\${Date.now()}" />
+                   src="/images/\${item.headshotFile}?t=\${Date.now()}" />
             </div>
           </div>
           <div class="btn-row">
@@ -234,8 +234,10 @@ async function applyCrop(slug) {
   if (!croppers[slug]) return;
   await saveCropFromCropper(slug);
   const t = Date.now();
-  document.getElementById('preview-' + slug).src = '/images/' + slug + '-headshot.jpg?t=' + t;
-  document.getElementById('preview-sm-' + slug).src = '/images/' + slug + '-headshot.jpg?t=' + t;
+  const item = items.find(i => i.slug === slug);
+  const hsFile = item ? item.headshotFile : slug + '-headshot.jpg';
+  document.getElementById('preview-' + slug).src = '/images/' + hsFile + '?t=' + t;
+  document.getElementById('preview-sm-' + slug).src = '/images/' + hsFile + '?t=' + t;
   document.getElementById('adjust-' + slug).style.display = '';
   document.getElementById('apply-' + slug).style.display = 'none';
   document.getElementById('reset-' + slug).style.display = 'none';

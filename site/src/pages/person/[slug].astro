@@ -194,6 +194,12 @@ function renderLinkedText(text: string): string {
             <td><a href={`http://www.bayanne.info/Shetland/getperson.php?personID=${person.bayanne_id}&tree=ID1`} target="_blank" rel="noopener">Genealogy page</a></td>
           </tr>
         )}
+        {person.findagrave_id && (
+          <tr>
+            <th scope="row">Find A Grave</th>
+            <td><a href={`https://www.findagrave.com/memorial/${person.findagrave_id}`} target="_blank" rel="noopener">Memorial page</a></td>
+          </tr>
+        )}
       </table>
     </div>
 

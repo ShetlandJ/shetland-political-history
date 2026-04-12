@@ -145,6 +145,7 @@ SIC elections from 2017+ and by-elections from 2019+ are NOT in the wiki databas
 cd /Users/james/projects/shetland_history/new-site
 python3 parse_wiki.py           # Parse wiki → SQLite
 python3 add_modern_sic.py       # Add 2017+ SIC elections
+python3 populate_shetland_flags.py  # Set born/died in Shetland flags
 python3 copy_images.py          # Copy photos from MW images dir
 cp shetland.db site/shetland.db # Copy DB to site
 cd site && npm run build         # Build static site
