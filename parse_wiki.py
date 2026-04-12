@@ -1723,6 +1723,18 @@ def main():
         ('Charlotte Nicol', 'biography',
          'Charles Robert Stuart Nicol (b. 7 October 1891, d. after 1950)',
          'Charles Robert Stuart Nicol (b. 7 October 1891, d. 21 January 1967, Canada)'),
+        ('Adam Halcrow (i)', 'biography',
+         '0900662980) His',
+         '0900662980). His'),
+        ('David Murray', 'intro',
+         'and again in 1926',
+         'and again in 1926.'),
+        ('James Pottinger (iii)', 'intro',
+         'in May 1921 His',
+         'in May 1921. His'),
+        ('David Harbison', 'intro',
+         'Hewas married',
+         'He was married'),
     ]
     for person_name, field, old_text, new_text in bio_text_corrections:
         row = sqlite_cursor.execute(f"SELECT id, {field} FROM people WHERE name = ?", (person_name,)).fetchone()
