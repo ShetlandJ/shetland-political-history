@@ -138,7 +138,7 @@ def is_shetland(place_str):
 
 
 def main():
-    db_paths = ['shetland.db', 'site/shetland.db']
+    db_paths = ['shetland.db']
     for db_path in db_paths:
         try:
             db = sqlite3.connect(db_path)

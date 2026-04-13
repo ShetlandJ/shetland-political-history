@@ -1839,15 +1839,19 @@ def main():
                                 constituency_id = cid_val
                                 break
 
-                    # Store historical display name if different from constituency's current name
+                    # Store historical display name. Always set if we have one and
+                    # (a) no constituency matched (so template has text to show), or
+                    # (b) current constituency name differs (historical rename).
                     display_name = result.get('constituency_name')
                     constituency_display = None
-                    if constituency_id and display_name:
-                        # Look up the current constituency name
-                        sqlite_cursor.execute("SELECT name FROM constituencies WHERE id = ?", (constituency_id,))
-                        current_name = sqlite_cursor.fetchone()
-                        if current_name and current_name[0] != display_name:
+                    if display_name:
+                        if not constituency_id:
                             constituency_display = display_name
+                        else:
+                            sqlite_cursor.execute("SELECT name FROM constituencies WHERE id = ?", (constituency_id,))
+                            current_name = sqlite_cursor.fetchone()
+                            if current_name and current_name[0] != display_name:
+                                constituency_display = display_name
 
                     # Resolve replaced person for by-elections
                     replaced_name = parsed.get('replaced_person')
