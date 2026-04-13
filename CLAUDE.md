@@ -55,6 +55,7 @@ Three MediaWiki MySQL dumps exist locally. We use **shetland_history2** (prefix 
 - **constituencies** — 64+ electoral wards/divisions (includes new 2017/2022 SIC wards)
 - **people** — 535 councillors/politicians with intro, biography, birth/death dates+places, image_ref, headshot_ref, Bayanne ID
 - **elections** — ~1,300 rows (one per constituency result; multi-constituency elections create multiple rows sharing a wiki_page_title). Has `hidden` column for erroneous records. `constituency_display_name` stores historical names that differ from current (e.g. "Walls North" → now "Sandness"). `electorate_detail` stores breakdown like "107 men, 19 women". `replaced_person`/`replaced_person_id` for by-elections.
+  - **Gotcha**: SIC general elections 1974-2002 and pre-1876 LTC elections have `constituency_id = NULL`. Ward-level data wasn't captured for those. Queries matching "same constituency" must handle NULL specially — e.g. treat a NULL-constituency general election's term as ending at the next general election, not at any NULL-constituency by-election (which is in a specific ward).
 - **candidacies** — ~2,500 individual candidacy records with votes, party, elected status. Some candidate_names contain `[url display]` external links (Bayanne) — rendered via ExternalLink component, not stripped.
 - **referenda** — 6 referenda (1975 EEC, 1979 devolution, 1997 devolution x2 questions, 2011 AV, 2014 indyref, 2016 EU)
 - **referendum_results** — Vote counts per option per question
