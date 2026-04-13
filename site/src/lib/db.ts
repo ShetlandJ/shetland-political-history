@@ -674,18 +674,22 @@ export function getLongestCareers(limit = 15): { name: string; slug: string; fir
   const rows = db.prepare(`
     SELECT p.id as person_id, p.name, p.slug,
       e.election_date as start_date,
-      COALESCE(
-        (SELECT MIN(e2.election_date) FROM elections e2
-          WHERE e2.constituency_id IS e.constituency_id
-            AND e2.council_id = e.council_id
-            AND e2.election_date > e.election_date
-            AND e2.hidden = 0),
-        date(e.election_date, '+3 years')
+      MIN(
+        COALESCE(
+          (SELECT MIN(e2.election_date) FROM elections e2
+            WHERE e2.constituency_id IS e.constituency_id
+              AND e2.council_id = e.council_id
+              AND e2.election_date > e.election_date
+              AND e2.hidden = 0),
+          date(e.election_date, '+5 years')
+        ),
+        date(e.election_date, '+5 years')
       ) as end_date
     FROM candidacies c
     JOIN people p ON c.person_id = p.id
     JOIN elections e ON c.election_id = e.id
     WHERE c.elected = 1 AND e.hidden = 0
+    GROUP BY c.id, p.id, p.name, p.slug, e.election_date
     ORDER BY p.id, e.election_date
   `).all() as { person_id: number; name: string; slug: string; start_date: string; end_date: string }[];
 
