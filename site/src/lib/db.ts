@@ -446,6 +446,11 @@ export function getTenuresForPerson(personId: number): Tenure[] {
       ORDER BY e.election_date
     `).all(con.constituency_id) as any[];
 
+    // For terminal stints (no successor in this seat), the term ended at the
+    // next general election on this council — that's when the constituency was
+    // either contested again, or replaced/abolished (boundary changes).
+    const councilId = db.prepare(`SELECT council_id FROM constituencies WHERE id = ?`).get(con.constituency_id) as any;
+
     for (const stint of stints) {
       const startYear = winners[stint.firstIdx].election_date?.substring(0, 4) || '?';
       let endYear: string;
@@ -459,7 +464,14 @@ export function getTenuresForPerson(personId: number): Tenure[] {
         );
         endYear = (intermediate?.election_date || nextWinDate)?.substring(0, 4) || '?';
       } else {
-        endYear = winners[stint.lastIdx].election_date?.substring(0, 4) || '?';
+        // Terminal stint: look for next general election on this council
+        const lastWinDate = winners[stint.lastIdx].election_date;
+        const nextOnCouncil = db.prepare(`
+          SELECT MIN(election_date) as next_date FROM elections
+          WHERE council_id = ? AND election_type = 'general'
+            AND election_date > ? AND hidden = 0
+        `).get(councilId?.council_id, lastWinDate) as any;
+        endYear = (nextOnCouncil?.next_date || lastWinDate)?.substring(0, 4) || '?';
       }
 
       let predecessor_name: string | null = null;
