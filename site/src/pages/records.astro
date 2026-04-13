@@ -60,11 +60,11 @@ function formatYear(dateStr: string | null): string {
   </section>
 
   <section>
-    <h2>Longest careers</h2>
-    <p class="meta">Years between first and last election won</p>
+    <h2>Longest service</h2>
+    <p class="meta">Total years served (overlapping terms on multiple councils merged), based on election intervals</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th></th><th>Name</th><th>Years</th><th>Elections</th><th>First</th><th>Last</th></tr></thead>
+        <thead><tr><th></th><th>Name</th><th>Years</th><th>Elections won</th><th>First</th><th>Last</th></tr></thead>
         <tbody>
           {longestCareers.map((r, i) => (
             <tr>

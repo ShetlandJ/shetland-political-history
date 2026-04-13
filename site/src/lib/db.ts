@@ -668,18 +668,65 @@ export function getMostElectionsWon(limit = 15): { name: string; slug: string; w
 }
 
 export function getLongestCareers(limit = 15): { name: string; slug: string; first_election: string; last_election: string; years: number; elections: number }[] {
-  return db.prepare(`
-    SELECT p.name, p.slug,
-      MIN(e.election_date) as first_election, MAX(e.election_date) as last_election,
-      CAST((julianday(MAX(e.election_date)) - julianday(MIN(e.election_date))) / 365.25 AS INTEGER) as years,
-      COUNT(*) as elections
+  // Get all winning terms per person, with term end = next election in same council+constituency
+  // (fallback to +3 years if no subsequent election).
+  // Merge overlapping terms across councils/constituencies to get total years served.
+  const rows = db.prepare(`
+    SELECT p.id as person_id, p.name, p.slug,
+      e.election_date as start_date,
+      COALESCE(
+        (SELECT MIN(e2.election_date) FROM elections e2
+          WHERE e2.constituency_id IS e.constituency_id
+            AND e2.council_id = e.council_id
+            AND e2.election_date > e.election_date
+            AND e2.hidden = 0),
+        date(e.election_date, '+3 years')
+      ) as end_date
     FROM candidacies c
     JOIN people p ON c.person_id = p.id
     JOIN elections e ON c.election_id = e.id
     WHERE c.elected = 1 AND e.hidden = 0
-    GROUP BY p.id HAVING years > 0
-    ORDER BY years DESC LIMIT ?
-  `).all(limit) as any[];
+    ORDER BY p.id, e.election_date
+  `).all() as { person_id: number; name: string; slug: string; start_date: string; end_date: string }[];
+
+  const byPerson = new Map<number, { name: string; slug: string; terms: [number, number][]; elections: number }>();
+  for (const r of rows) {
+    const start = new Date(r.start_date).getTime();
+    const end = new Date(r.end_date).getTime();
+    if (!byPerson.has(r.person_id)) {
+      byPerson.set(r.person_id, { name: r.name, slug: r.slug, terms: [], elections: 0 });
+    }
+    const p = byPerson.get(r.person_id)!;
+    p.terms.push([start, end]);
+    p.elections++;
+  }
+
+  const results = [];
+  for (const [, p] of byPerson) {
+    // Merge overlapping intervals
+    p.terms.sort((a, b) => a[0] - b[0]);
+    const merged: [number, number][] = [];
+    for (const [s, e] of p.terms) {
+      if (merged.length && s <= merged[merged.length - 1][1]) {
+        merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], e);
+      } else {
+        merged.push([s, e]);
+      }
+    }
+    const totalMs = merged.reduce((sum, [s, e]) => sum + (e - s), 0);
+    const years = totalMs / (1000 * 60 * 60 * 24 * 365.25);
+    const first = new Date(p.terms[0][0]).toISOString().slice(0, 10);
+    const last = new Date(p.terms[p.terms.length - 1][0]).toISOString().slice(0, 10);
+    results.push({
+      name: p.name, slug: p.slug,
+      first_election: first, last_election: last,
+      years: Math.round(years * 10) / 10,
+      elections: p.elections,
+    });
+  }
+
+  results.sort((a, b) => b.years - a.years);
+  return results.slice(0, limit);
 }
 
 export function getBiggestWins(limit = 10): { name: string; slug: string; votes: number; runner_up: number; margin: number; date: string; constituency: string; election_id: number }[] {
