@@ -677,10 +677,15 @@ export function getLongestCareers(limit = 15): { name: string; slug: string; fir
       MIN(
         COALESCE(
           (SELECT MIN(e2.election_date) FROM elections e2
-            WHERE e2.constituency_id IS e.constituency_id
-              AND e2.council_id = e.council_id
+            WHERE e2.council_id = e.council_id
               AND e2.election_date > e.election_date
-              AND e2.hidden = 0),
+              AND e2.hidden = 0
+              AND (
+                -- If this election has a constituency, match same constituency (any type)
+                (e.constituency_id IS NOT NULL AND e2.constituency_id = e.constituency_id)
+                -- If no constituency (aggregate general election), only match next general
+                OR (e.constituency_id IS NULL AND e2.election_type = 'general')
+              )),
           date(e.election_date, '+5 years')
         ),
         date(e.election_date, '+5 years')
