@@ -724,19 +724,24 @@ def parse_uk_election_page(text, title):
                     break
 
             if candidate_cell_idx is None:
-                # No wiki link — might be a plain text candidate
-                # Look for cells that look like names (not numbers, not style, not party keywords)
+                # No wiki link — plain text candidate name
+                # Westminster tables with colour swatches have:
+                #   colour_swatch | Party | Candidate | Votes | ...
+                # First text cell after swatch is party, second is candidate
+                has_color_swatch = any(c.startswith('style=') for c in clean_cells)
+                text_cell_count = 0
                 for idx, c in enumerate(clean_cells):
                     if not c or c.startswith('style=') or c.startswith('{|'):
                         continue
                     if re.match(r'^[\d,.%±<>span/\s\-]+$', c):
                         continue
-                    # Check it's not a known party
                     c_plain = re.sub(r"'''", '', c).strip()
                     if c_plain and len(c_plain) > 2 and not any(mk in c_plain.lower() for mk in ['wikitable', 'background', 'colspan']):
-                        # Could be name or party - if we haven't found candidate yet
-                        if candidate_cell_idx is None:
-                            candidate_cell_idx = idx
+                        text_cell_count += 1
+                        if has_color_swatch and text_cell_count == 1:
+                            continue  # Skip party cell
+                        candidate_cell_idx = idx
+                        break
 
             if candidate_cell_idx is None:
                 continue
