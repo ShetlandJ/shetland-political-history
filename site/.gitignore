@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# database (read from ../ at build time, not stored here)
+shetland.db
+
 # jetbrains setting folder
 .idea/
