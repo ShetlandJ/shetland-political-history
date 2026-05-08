@@ -188,6 +188,22 @@ def main():
         add_candidacy(eid, "Nick Tulloch",     "Conservative",       503, elected=False, position=3)
         add_candidacy(eid, "Martin Kerr",      "Labour",             424, elected=False, position=4)
 
+    print("=== 2026 Scottish Parliament Election, Shetland Islands ===")
+    eid = add_election(
+        "2026 Scottish Parliament Election, Shetland Islands Result",
+        "2026-05-07", "general", con_shetland_islands,
+        turnout=11484, turnout_pct=64.2,
+    )
+    if eid:
+        add_candidacy(eid, "Hannah Mary Goodlad", "SNP",                              5453, elected=True,  position=1)
+        add_candidacy(eid, "Emma Macdonald",      "Liberal Democrats",                3936, elected=False, position=2, person_id=538)
+        add_candidacy(eid, "Alex Armitage",       "Scottish Green Party",              949, elected=False, position=3, person_id=543)
+        add_candidacy(eid, "Vic Currie",          "Reform UK",                         725, elected=False, position=4)
+        add_candidacy(eid, "John Erskine",        "Labour Party",                      169, elected=False, position=5)
+        add_candidacy(eid, "Douglas Barnett",     "Conservative and Unionist Party",   137, elected=False, position=6)
+        add_candidacy(eid, "Brian Nugent",        "Alliance to Liberate Scotland",      65, elected=False, position=7)
+        add_candidacy(eid, "Peter Tait",          "Independent",                        50, elected=False, position=8)
+
     db.commit()
 
     c.execute("SELECT COUNT(*) FROM elections WHERE council_id = ?", (sp_id,))
