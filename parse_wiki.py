@@ -1971,6 +1971,9 @@ def main():
         # (election_wiki_page, candidate_name, correct_person_wiki_page)
         ('Lerwick_Town_Council_Election_May_1956', 'Robert Anderson', 'Robert_Anderson_(i)'),
         ('Lerwick Town Council Election May 1956', 'Robert Anderson', 'Robert_Anderson_(i)'),
+        # 1881 LTC: William Duncan is Duncan (i), not Duncan (ii)
+        ('Lerwick_Town_Council_Election_November_1881', 'William Duncan', 'William_Duncan_(i)'),
+        ('Lerwick Town Council Election November 1881', 'William Duncan', 'William_Duncan_(i)'),
     ]
     fix_count = 0
     for election_page, cand_name, correct_person_page in candidacy_corrections:
