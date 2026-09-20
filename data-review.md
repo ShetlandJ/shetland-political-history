@@ -6,6 +6,7 @@ Items marked ⚠️ need manual confirmation. Items marked ✅ are confirmed.
 
 | By-Election | Replaced | Status |
 |---|---|---|
+| Apr 1830 | Alexander Irvine (died 3 Mar 1830; replaced by Magnus Burns, merchant) | ✅ Confirmed — LTC minute book pp53–54, added by `fix_minute_book.py` |
 | Nov 1880 | James Mouat Goudie (rejected seat at 1880 election) | ✅ Confirmed |
 | Nov 1884 | Arthur Hay (refused office) | ✅ Confirmed |
 | Nov 1886 | 2 co-opted (Charles Robertson, John B. Anderson) — unfilled seats, source unknown | ⚠️ Needs research |

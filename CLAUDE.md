@@ -145,6 +145,7 @@ SIC elections from 2017+ and by-elections from 2019+ are NOT in the wiki databas
 cd /Users/james/projects/shetland_history/new-site
 python3 parse_wiki.py           # Parse wiki → SQLite
 python3 add_modern_sic.py       # Add 2017+ SIC elections
+python3 fix_minute_book.py      # LTC minute book corrections (Andrew Duncan jr 1829, Apr 1830 by-election)
 python3 populate_missing_constituencies.py  # Create constituencies for unmatched ward names + link
 python3 populate_findagrave.py  # Restore Find A Grave memorial IDs from CSV
 python3 populate_shetland_flags.py  # Set born/died in Shetland flags
