@@ -119,7 +119,24 @@ DB says so — do not assert a relationship without Bayanne.
 
 ---
 
-## 3. Confirmed, no action
+## 3. Two general election dates are off by a day or three
+
+Applied 2026-09-20 by `fix_minute_book.py` step 4.
+
+| Election | DB had | Book says | Pages |
+|---|---|---|---|
+| Sept 1826 (id 4) | 1826-09-06 | 7 September 1826. The 6th was an ordinary council meeting the evening before, at the senior Bailie's house (p33). The election minute is headed "the 7th September 1826" and held "within the Sheriff Court Room ... upon the Seventh day of September" (p33–34), on a notice dated 30 August. | 33–35 |
+| Sept 1844 (id 11) | 1844-09-02 | 5 September 1844. The 2nd is the date of Bailie Leask's notice calling the meeting. Election held "within the Sheriff Court Room in Fort-Charlotte, the fifth day of September" (p104), "in terms of publick Notice dated the 2nd day of September current" (p104–105). | 104–106 |
+
+Both corrected dates are the first Thursday of September, consistent with the other
+pre-1876 elections below. Side note, not yet in the DB: on 5 Sept 1844 the burgesses elected
+Arthur Gifford of Busta Senior Bailie (p105), but he declined by letter (p107), and a separate
+burgess meeting was called for 27 September 1844 to elect a Senior Bailie in his place (notice
+24 September, p106). Check who the DB has as Senior Bailie/Provost for 1844–47.
+
+---
+
+## 4. Confirmed, no action
 
 Points where the book and the DB agree, recorded so nobody re-checks them:
 

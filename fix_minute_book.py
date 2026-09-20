@@ -13,6 +13,9 @@ idempotent: re-running does nothing once the corrections are in place.
 3. Un-hides the 3 May 1844 by-election (parse_wiki.py hides it as "not actually a
    by-election") and corrects it: the burgesses elected Joseph Leask Junior Bailie in place
    of the late Gilbert Duncan, not Charles Duncan (his son, never a Bailie by 1844).
+4. Corrects two general election dates: September 1826 was held on the 7th (the 6th was
+   an ordinary council meeting the evening before) and September 1844 on the 5th (the 2nd
+   is the date of Bailie Leask's notice calling the meeting).
 """
 
 import json
@@ -236,6 +239,28 @@ def main():
     if c.rowcount != 1:
         raise SystemExit(f"expected 1 Joseph Leask candidacy on election {election_id}, updated {c.rowcount}")
     print("  candidacy: Elected as Junior Bailie")
+
+    # ------------------------------------------------------------------
+    # 4. Election dates: Sept 1826 was the 7th, Sept 1844 the 5th
+    # ------------------------------------------------------------------
+    print("\n=== 4. Election dates ===")
+    for wiki_title, wrong, right in [
+        ('Lerwick Town Council Election September 1826', '1826-09-06', '1826-09-07'),
+        ('Lerwick Town Council Election September 1844', '1844-09-02', '1844-09-05'),
+    ]:
+        c.execute("SELECT id, election_date FROM elections WHERE wiki_page_title = ? AND council_id = ?",
+                  (wiki_title, ltc_id))
+        rows = c.fetchall()
+        if len(rows) != 1:
+            raise SystemExit(f"expected 1 election for '{wiki_title}', found {len(rows)}")
+        row = rows[0]
+        if row['election_date'] == right:
+            print(f"  {wiki_title}: already {right}")
+        elif row['election_date'] == wrong:
+            c.execute("UPDATE elections SET election_date = ? WHERE id = ?", (right, row['id']))
+            print(f"  {wiki_title} (id {row['id']}): {wrong} -> {right}")
+        else:
+            raise SystemExit(f"'{wiki_title}' has unexpected date {row['election_date']}")
 
     db.commit()
     db.close()
