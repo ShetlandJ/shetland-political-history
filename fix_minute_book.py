@@ -10,6 +10,9 @@ idempotent: re-running does nothing once the corrections are in place.
    councillor category from the Sheriff, and rewords William Rae Duncan's intro.
 2. Adds the 21 April 1830 by-election at which Magnus Burns, merchant (Bayanne I122332),
    replaced the late Alexander Cumming Irvine. Creates Magnus Burns.
+3. Un-hides the 3 May 1844 by-election (parse_wiki.py hides it as "not actually a
+   by-election") and corrects it: the burgesses elected Joseph Leask Junior Bailie in place
+   of the late Gilbert Duncan, not Charles Duncan (his son, never a Bailie by 1844).
 """
 
 import json
@@ -192,6 +195,47 @@ def main():
             VALUES (?, ?, 'Magnus Burns', 1, 1, 'councillor')
         """, (election_id, burns_id))
         print("  candidacy created")
+
+    # ------------------------------------------------------------------
+    # 3. May 1844 by-election: Joseph Leask elected Junior Bailie in place of Gilbert Duncan
+    # ------------------------------------------------------------------
+    print("\n=== 3. May 1844 by-election ===")
+    gilbert = get_person(c, 'gilbert-duncan')
+    if gilbert['died_date'] != '1844-02-19':
+        raise SystemExit(f"people.gilbert-duncan died_date is {gilbert['died_date']}, expected 1844-02-19")
+    leask = get_person(c, 'joseph-leask')
+
+    wiki_title = 'Lerwick Town Council By-Election May 1844'
+    c.execute("SELECT id FROM elections WHERE wiki_page_title = ? AND election_date = '1844-05-03'",
+              (wiki_title,))
+    row = c.fetchone()
+    if row is None:
+        raise SystemExit(f"elections '{wiki_title}' not found — run parse_wiki.py first")
+    election_id = row['id']
+
+    c.execute("""
+        UPDATE elections
+        SET hidden = 0, replaced_person = ?, replaced_person_id = ?, notes = ?
+        WHERE id = ?
+    """, (gilbert['name'], gilbert['id'],
+          "Held to fill the office of Junior Bailie after the death of Bailie Gilbert Duncan on "
+          "19 February 1844. Joseph Leask, already a councillor since 1835, was proposed by Andrew "
+          "Duncan junior, seconded by Mr Heddell, Comptroller of Customs, and elected unanimously by "
+          "the twenty-one burgesses present. The wiki recorded the vacancy as Charles Duncan's; the "
+          "Lerwick Town Council minute book, pp. 101–102, is explicit that it was Gilbert's (notice "
+          "20 April 1844 by Bailie Charles Ogilvy; election 3 May 1844 in the Sheriff Court Room, "
+          "Fort Charlotte).",
+          election_id))
+    print(f"  election {election_id}: shown, replaced_person = Gilbert Duncan")
+
+    c.execute("""
+        UPDATE candidacies
+        SET person_id = ?, elected = 1, role = 'Junior Bailie', votes_text = 'Elected as Junior Bailie'
+        WHERE election_id = ? AND candidate_name = 'Joseph Leask'
+    """, (leask['id'], election_id))
+    if c.rowcount != 1:
+        raise SystemExit(f"expected 1 Joseph Leask candidacy on election {election_id}, updated {c.rowcount}")
+    print("  candidacy: Elected as Junior Bailie")
 
     db.commit()
     db.close()
