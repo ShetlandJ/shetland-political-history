@@ -40,7 +40,7 @@ function formatDate(d: string | null): string {
   const parts = d.split('-');
   if (parts.length === 3) {
     const date = new Date(d);
-    return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+    return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
   }
   return d;
 }

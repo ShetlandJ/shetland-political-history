@@ -124,7 +124,7 @@ function electionYear(date: string | null): string {
 function formatDate(d: string | null): string {
   if (!d) return 'Date unknown';
   const date = new Date(d);
-  return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+  return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 }
 
 function parseExternalLink(name: string): { url: string; display: string } | null {
