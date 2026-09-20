@@ -4,3 +4,4 @@ dist/
 site/.astro/
 __pycache__/
 tools/.headshot-review-state.json
+tools/photo-archive-search-results.csv
