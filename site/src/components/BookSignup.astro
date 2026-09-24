@@ -1,0 +1,241 @@
+---
+// Book-updates signup strip, shown above the header on every page.
+// Posts to the book_signups endpoint on the Wha Biggit Dee Laravel app (wha-biggit-dee-app).
+// Override with PUBLIC_SIGNUP_ENDPOINT at build time to test against a local copy.
+const endpoint = import.meta.env.PUBLIC_SIGNUP_ENDPOINT || 'https://wha-biggit-dee-production-qzlr2l.laravel.cloud/api/book-signups';
+---
+<aside class="book-signup" aria-label="Book updates" data-endpoint={endpoint} hidden>
+  <div class="container book-signup-inner">
+    <div class="book-signup-copy">
+      <p class="book-signup-lead">
+        <span class="book-signup-kicker">Coming 2027</span>
+        I'm writing a book on Shetland's political history, aiming for Christmas 2027.
+      </p>
+      <p class="book-signup-small">
+        Your email is only used for news about the book. If it isn't out by the end of 2027, I'll
+        email once to ask if you'd still like to hear; if you don't reply, your address is deleted.
+      </p>
+    </div>
+    <form class="book-signup-form" novalidate>
+      <label for="book-signup-email" class="sr-only">Email address</label>
+      <input
+        id="book-signup-email"
+        type="email"
+        name="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        maxlength="254"
+        required
+      />
+      <!-- Honeypot: hidden from people, tempting to bots -->
+      <div class="book-signup-hp" aria-hidden="true">
+        <label for="book-signup-website">Website</label>
+        <input id="book-signup-website" type="text" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <button type="submit">Let me know</button>
+    </form>
+    <p class="book-signup-status" role="status" aria-live="polite"></p>
+    <button type="button" class="book-signup-close" aria-label="Hide book signup">&times;</button>
+  </div>
+</aside>
+
+<style>
+  .book-signup {
+    background: var(--accent-light);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  .book-signup-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    padding-right: 2.5rem;
+  }
+
+  .book-signup-copy { flex: 1; min-width: 0; }
+
+  .book-signup-copy p { margin: 0; }
+
+  .book-signup-lead {
+    color: var(--text);
+    line-height: 1.45;
+  }
+
+  .book-signup-kicker {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--accent);
+    margin-right: 0.35rem;
+  }
+
+  .book-signup-small {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-top: 0.2rem !important;
+  }
+
+  .book-signup-form {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .book-signup-form input[type="email"] {
+    width: 210px;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-family: var(--font-body);
+    background: var(--bg-surface);
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .book-signup-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--bg-surface);
+  }
+
+  .book-signup-form input[aria-invalid="true"] { border-color: var(--danger); }
+
+  .book-signup-form button {
+    padding: 0.45rem 0.85rem;
+    border: none;
+    border-radius: 4px;
+    background: var(--accent);
+    color: var(--bg-surface);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+
+  .book-signup-form button:hover { background: var(--accent-hover); }
+  .book-signup-form button:disabled { opacity: 0.6; cursor: default; }
+
+  .book-signup-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .book-signup-status:empty { display: none; }
+
+  .book-signup-status {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--danger);
+  }
+
+  .book-signup.done .book-signup-status { color: var(--success); font-weight: 600; }
+  .book-signup.done .book-signup-form,
+  .book-signup.done .book-signup-small { display: none; }
+
+  .book-signup-close {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.3rem;
+    line-height: 1;
+    padding: 0.25rem 0.4rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .book-signup-close:hover { color: var(--text); background: var(--bg-surface); }
+
+  @media (max-width: 740px) {
+    .book-signup-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.6rem;
+    }
+    .book-signup-close { top: 0.6rem; transform: none; }
+    .book-signup-form input[type="email"] { flex: 1; width: auto; min-width: 0; }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'bookSignup';
+  const DISMISS_DAYS = 30;
+
+  function readState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; }
+  }
+  function writeState(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  const el = document.querySelector<HTMLElement>('.book-signup');
+  if (el) {
+    const state = readState();
+    const dismissedRecently = state?.dismissedAt && Date.now() - state.dismissedAt < DISMISS_DAYS * 864e5;
+    if (!state?.signedUp && !dismissedRecently) el.hidden = false;
+
+    const form = el.querySelector<HTMLFormElement>('.book-signup-form')!;
+    const input = form.querySelector<HTMLInputElement>('input[type="email"]')!;
+    const honeypot = form.querySelector<HTMLInputElement>('input[name="website"]')!;
+    const button = form.querySelector<HTMLButtonElement>('button')!;
+    const status = el.querySelector<HTMLElement>('.book-signup-status')!;
+
+    el.querySelector('.book-signup-close')!.addEventListener('click', () => {
+      el.hidden = true;
+      if (!readState()?.signedUp) writeState({ dismissedAt: Date.now() });
+    });
+
+    input.addEventListener('input', () => {
+      input.removeAttribute('aria-invalid');
+      status.textContent = '';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = input.value.trim();
+      if (!input.checkValidity() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        input.setAttribute('aria-invalid', 'true');
+        status.textContent = 'Please enter a valid email address.';
+        input.focus();
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = '';
+      try {
+        const res = await fetch(el.dataset.endpoint!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email, website: honeypot.value, page: location.pathname }),
+        });
+        if (res.status === 422) {
+          input.setAttribute('aria-invalid', 'true');
+          status.textContent = 'Please enter a valid email address.';
+          return;
+        }
+        if (!res.ok) throw new Error(String(res.status));
+        el.classList.add('done');
+        status.textContent = "Thanks — you're on the list. I'll be in touch when the book is ready.";
+        writeState({ signedUp: true });
+      } catch {
+        status.textContent = 'Something went wrong. Please try again in a moment.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>

@@ -1,4 +1,6 @@
 ---
+import BookSignup from '../components/BookSignup.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -575,6 +577,7 @@ const fullTitle = `${title} | Shetland Political History`;
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
+  <BookSignup />
   <header>
     <div class="container">
       <div class="header-inner">
