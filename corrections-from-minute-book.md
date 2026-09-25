@@ -136,6 +136,27 @@ burgess meeting was called for 27 September 1844 to elect a Senior Bailie in his
 
 ---
 
+## 3a. Sept 1874: the Junior Bailie was John Robertson Senior, not his nephew
+
+Applied 2026-09-25 by `fix_minute_book.py` step 5.
+
+**What the DB said.** In the first 1874 council group (election id 21, Duncan's election),
+the Junior Bailie candidacy is named "John Robertson Snr" but was linked to
+`people.john-robertson-ii`, the nephew (1826–1905).
+
+**What the book says.** p258, meeting of 9 September 1874, copies Duncan's declaration:
+"John Robertson, Senior, Merchant, residing in New Town, Lerwick, Junior Bailie", and the
+Council records "the election of the said Messrs Arthur James Hay and John Robertson Senior,
+to the office of Bailies as aforesaid is invalid". The nephew appears separately as
+"John Robertson Jr" in 1874 sederunts (p252–254). Re-pointed to `people.john-robertson-i`.
+
+**Both men's records checked** against the book for every election up to 1876 (p123–124,
+134–136, 143–145, 153–154, 165–167, 188–190, 225–227, 237–239). Positions, offices and the
+senior/junior links all match. Senior was Junior Bailie 1865, 1868 and 1871. The one
+exception was 1874. The book ends in July 1877, so 1878 onward is unchecked from this source.
+
+---
+
 ## 4. Confirmed, no action
 
 Points where the book and the DB agree, recorded so nobody re-checks them:

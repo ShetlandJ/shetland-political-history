@@ -16,6 +16,8 @@ idempotent: re-running does nothing once the corrections are in place.
 4. Corrects two general election dates: September 1826 was held on the 7th (the 6th was
    an ordinary council meeting the evening before) and September 1844 on the 5th (the 2nd
    is the date of Bailie Leask's notice calling the meeting).
+5. The Junior Bailie in Duncan's 3 September 1874 election was John Robertson Senior, not
+   his nephew. The candidacy is named "John Robertson Snr" but was linked to John Robertson (ii).
 """
 
 import json
@@ -261,6 +263,31 @@ def main():
             print(f"  {wiki_title} (id {row['id']}): {wrong} -> {right}")
         else:
             raise SystemExit(f"'{wiki_title}' has unexpected date {row['election_date']}")
+
+    # ------------------------------------------------------------------
+    # 5. Sept 1874: Duncan's Junior Bailie was John Robertson Senior
+    # ------------------------------------------------------------------
+    print("\n=== 5. Sept 1874 Junior Bailie ===")
+    senior = get_person(c, 'john-robertson-i')
+    nephew = get_person(c, 'john-robertson-ii')
+    c.execute("""
+        UPDATE candidacies SET person_id = ?
+        WHERE person_id = ? AND candidate_name = 'John Robertson Snr' AND role = 'Junior Bailie'
+          AND election_id IN (SELECT id FROM elections
+                              WHERE council_id = ? AND election_date = '1874-09-03')
+    """, (senior['id'], nephew['id'], ltc_id))
+    if c.rowcount:
+        print(f"  1874 Junior Bailie re-pointed to {senior['name']}: {c.rowcount} row(s)")
+    else:
+        c.execute("""
+            SELECT COUNT(*) FROM candidacies
+            WHERE person_id = ? AND candidate_name = 'John Robertson Snr'
+              AND election_id IN (SELECT id FROM elections
+                                  WHERE council_id = ? AND election_date = '1874-09-03')
+        """, (senior['id'], ltc_id))
+        if c.fetchone()[0] != 1:
+            raise SystemExit("1874 'John Robertson Snr' candidacy not found on either Robertson")
+        print(f"  1874 Junior Bailie: already {senior['name']}")
 
     db.commit()
     db.close()
