@@ -36,13 +36,17 @@ def query(sql: str) -> str:
     """Run a read-only SQL query against the Shetland political history database.
 
     Tables: councils, constituencies, people, elections, candidacies,
-    referenda, referendum_results, leadership_roles.
+    referenda, referendum_results, leadership_roles, council_terms, term_issues.
 
     Key columns:
     - people: id, name, slug, born_date, died_date, birth_place, death_place, intro, biography, bayanne_id
     - elections: id, council_id, constituency_id, election_date, election_type, electorate, turnout, replaced_person, wiki_page_title, hidden
     - candidacies: id, election_id, person_id, candidate_name, party, votes, votes_text, elected, role
     - leadership_roles: id, council_id, person_id, person_name, role, start_year, end_year
+    - council_terms: council_id, person_id, person_name, candidacy_id (party comes from this candidacy),
+      constituency_id, start_date, end_date (exclusive, NULL = still serving), start_reason, end_reason,
+      confirmed, source. Serving on date X: start_date <= X AND (end_date IS NULL OR end_date > X).
+    - term_issues: council_id, kind, date_from, date_to, person_name, detail (unresolved membership checks)
     """
     db = get_db()
     try:
@@ -97,26 +101,34 @@ def find_person(name: str) -> str:
 
 
 @mcp.tool()
-def council_composition(year: int) -> str:
-    """Get the Lerwick Town Council composition at a given year (approximate).
-    Shows who was on the council based on election records."""
+def council_composition(council_slug: str, date: str, party: str = "") -> str:
+    """Who was sitting on a council on a given date (YYYY-MM-DD), from council_terms.
+
+    council_slug: lerwick-town-council, zetland-county-council or shetland-islands-council.
+    party: optional exact party label to filter on (e.g. "Labour"); party is the label the
+    member stood under when they won the seat.
+    """
     db = get_db()
-
-    # Get the most recent elections before this year for LTC
-    recent = db.execute("""
-        SELECT c.candidate_name, c.person_id, p.name as person_name,
-               e.election_date, e.election_type
-        FROM candidacies c
-        JOIN elections e ON c.election_id = e.id
-        LEFT JOIN people p ON c.person_id = p.id
-        WHERE e.council_id = 1 AND c.elected = 1 AND e.hidden = 0
-        AND CAST(SUBSTR(e.election_date, 1, 4) AS INTEGER) <= ?
-        AND CAST(SUBSTR(e.election_date, 1, 4) AS INTEGER) >= ? - 3
-        ORDER BY e.election_date DESC
-    """, (year, year)).fetchall()
-
+    rows = db.execute("""
+        SELECT ct.person_name, p.slug, k.name AS ward, c.party, ct.start_date, ct.end_date,
+               ct.start_reason, ct.end_reason, ct.confirmed
+        FROM council_terms ct
+        JOIN councils co ON co.id = ct.council_id
+        LEFT JOIN people p ON p.id = ct.person_id
+        LEFT JOIN constituencies k ON k.id = ct.constituency_id
+        LEFT JOIN candidacies c ON c.id = ct.candidacy_id
+        WHERE co.slug = ? AND ct.start_date <= ? AND (ct.end_date IS NULL OR ct.end_date > ?)
+          AND (? = '' OR c.party = ?)
+        ORDER BY ward, ct.person_name
+    """, (council_slug, date, date, party, party)).fetchall()
+    issues = db.execute("""
+        SELECT ti.kind, ti.date_from, ti.date_to, ti.detail FROM term_issues ti
+        JOIN councils co ON co.id = ti.council_id
+        WHERE co.slug = ? AND ti.date_from <= ? AND (ti.date_to IS NULL OR ti.date_to > ?)
+    """, (council_slug, date, date)).fetchall()
     db.close()
-    return json.dumps([dict(r) for r in recent], indent=2, default=str)
+    return json.dumps({"members": [dict(r) for r in rows],
+                       "open_issues_on_this_date": [dict(i) for i in issues]}, indent=2, default=str)
 
 
 @mcp.tool()

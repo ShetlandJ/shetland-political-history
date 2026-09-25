@@ -1,0 +1,650 @@
+person_slug,person_name,start_date,end_date,start_reason,end_reason,election_id,election,confirmed,source
+andrew-grierson-i,Andrew Grierson (i),1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-edmondston,Arthur Edmondston,1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-linklater,George Linklater,1818-04-02,1818-07-05,elected,died,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-gauden,Gilbert Gauden,1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-greig,James Greig,1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-mouat-i,James Mouat (i),1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-scott,James Scott,1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-morrison-i,John Morrison (i),1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-deans,Robert Deans,1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-angus,William Angus,1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-hay,William Hay,1818-04-02,1820-09-07,elected,term_expired,1,Lerwick Town Council Election April 1818,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-edmondston,Arthur Edmondston,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+balfour-spence,Balfour Spence,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-duncan,Gilbert Duncan,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-gauden,Gilbert Gauden,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-mouat-i,James Mouat (i),1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-ogilvy,James Ogilvy,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-pottinger-i,James Pottinger (i),1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-hughson,John Hughson,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+thomas-nicolson,Thomas Nicolson,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-angus,William Angus,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-hay,William Hay,1820-09-07,1823-09-04,elected,term_expired,2,Lerwick Town Council Election September 1820,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+balfour-spence,Balfour Spence,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+charles-ogilvy-i,Charles Ogilvy (i),1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+gilbert-duncan,Gilbert Duncan,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+gilbert-gauden,Gilbert Gauden,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+gilbert-paterson,Gilbert Paterson,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-greig,James Greig,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-ogilvy,James Ogilvy,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+robert-deans,Robert Deans,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-angus,William Angus,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-hay,William Hay,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-spence,William Spence,1823-09-04,1826-09-07,elected,term_expired,3,Lerwick Town Council Election September 1823,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+alexander-irvine,Alexander Irvine,1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+andrew-grierson-i,Andrew Grierson (i),1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+charles-ogilvy-i,Charles Ogilvy (i),1826-09-07,1827-02-13,elected,died,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+charles-ogilvy-ii,Charles Ogilvy (ii),1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+gilbert-duncan,Gilbert Duncan,1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+gilbert-paterson,Gilbert Paterson,1826-09-07,1828-04-05,elected,died,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-greig,James Greig,1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-mouat-i,James Mouat (i),1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+robert-deans,Robert Deans,1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-hay,William Hay,1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-spence,William Spence,1826-09-07,1829-09-03,elected,term_expired,4,Lerwick Town Council Election September 1826,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+alexander-irvine,Alexander Irvine,1829-09-03,1830-03-03,elected,died,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+andrew-duncan-ii,Andrew Duncan (ii),1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,"LTC minute book p47; Sheriff's son, not the Sheriff (corrections-from-minute-book.md)"
+charles-ogilvy-ii,Charles Ogilvy (ii),1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-robertson,Gilbert Robertson,1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-greig,James Greig,1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-pottinger-i,James Pottinger (i),1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-ogilvy,John Ogilvy,1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-clark-i,William Clark (i),1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-hay,William Hay,1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-i,William Sievwright (i),1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-spence,William Spence,1829-09-03,1832-09-06,elected,term_expired,5,Lerwick Town Council Election September 1829,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+magnus-burns,Magnus Burns,1830-04-21,1832-09-06,by-election,term_expired,1274,Lerwick Town Council By-Election April 1830,1,LTC minute book p53-54: elected 21 Apr 1830 in place of the late Mr Irvine
+charles-ogilvy-ii,Charles Ogilvy (ii),1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-duncan,Gilbert Duncan,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-robertson,Gilbert Robertson,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+isaac-cowie,Isaac Cowie,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-greig,James Greig,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-yorston,James Yorston,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-ogilvy,John Ogilvy,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-clark-i,William Clark (i),1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-hay,William Hay,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-i,William Sievwright (i),1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-spence,William Spence,1832-09-06,1835-09-03,elected,term_expired,6,Lerwick Town Council Election September 1832,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-ogilvy-ii,Charles Ogilvy (ii),1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+david-leask,David Leask,1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-duncan,Gilbert Duncan,1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-hunter-i,James Hunter (i),1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-yorston,James Yorston,1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+joseph-leask,Joseph Leask,1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-clark-i,William Clark (i),1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-copland,William Copland,1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-hay,William Hay,1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-i,William Sievwright (i),1835-09-03,1838-09-06,elected,term_expired,7,Lerwick Town Council Election September 1835,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-ogilvy-ii,Charles Ogilvy (ii),1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+david-leask,David Leask,1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+david-nicolson,David Nicolson,1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-duncan,Gilbert Duncan,1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-hunter-i,James Hunter (i),1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+joseph-leask,Joseph Leask,1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-goudie,Robert Goudie,1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-clark-i,William Clark (i),1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-hay,William Hay,1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-i,William Sievwright (i),1838-09-06,1841-09-02,elected,term_expired,8,Lerwick Town Council Election September 1838,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-ogilvy-ii,Charles Ogilvy (ii),1841-09-02,1844-06-05,elected,died,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+david-nicolson,David Nicolson,1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+gilbert-duncan,Gilbert Duncan,1841-09-02,1844-02-19,elected,died,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-hunter-i,James Hunter (i),1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-mouat-ii,James Mouat (ii),1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+joseph-leask,Joseph Leask,1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+robert-goudie,Robert Goudie,1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-clark-i,William Clark (i),1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-hay,William Hay,1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-sievwright-i,William Sievwright (i),1841-09-02,1844-09-05,elected,term_expired,9,Lerwick Town Council Election September 1841,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+alexander-nicol,Alexander Nicol,1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+archibald-greig,Archibald Greig,1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+david-burns,David Burns,1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+david-nicolson,David Nicolson,1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+gilbert-tait,Gilbert Tait,1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-hunter-i,James Hunter (i),1844-09-05,1847-08-02,elected,died,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+james-mouat-ii,James Mouat (ii),1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+joseph-leask,Joseph Leask,1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+ross-smith,Ross Smith,1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+william-sievwright-i,William Sievwright (i),1844-09-05,1847-09-02,elected,term_expired,11,Lerwick Town Council Election September 1844,1,Confirmed Apr 2026 composition research (per-row source not recorded); election date corrected from LTC minute book
+alexander-nicol,Alexander Nicol,1847-09-02,1848-03-22,elected,died,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+archibald-greig,Archibald Greig,1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+david-burns,David Burns,1847-09-02,1848-03-29,elected,died,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+david-nicolson,David Nicolson,1847-09-02,1849-06-04,elected,died,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-mouat-ii,James Mouat (ii),1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-cowie,John Cowie,1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+joseph-leask,Joseph Leask,1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-goudie,Robert Goudie,1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+ross-smith,Ross Smith,1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-i,William Sievwright (i),1847-09-02,1850-09-06,elected,term_expired,12,Lerwick Town Council Election September 1847,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+archibald-greig,Archibald Greig,1850-09-06,1852-10-11,elected,died,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-duncan,Charles Duncan,1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-mouat-ii,James Mouat (ii),1850-09-06,1853-02-28,elected,died,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-cowie,John Cowie,1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+peter-williamson,Peter Williamson,1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-hicks,Robert Hicks,1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+samuel-hunter,Samuel Hunter,1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+thomas-gilbertson,Thomas Gilbertson,1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-i,William Sievwright (i),1850-09-06,1853-09-01,elected,term_expired,13,Lerwick Town Council Election September 1850,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-duncan,Charles Duncan,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-laurence,George Laurence,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-cowie,John Cowie,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+laurence-laurenson-i,Laurence Laurenson (i),1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+peter-williamson,Peter Williamson,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-linklater,Robert Linklater,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+samuel-hunter,Samuel Hunter,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-merrylees,William Merrylees,1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-i,William Sievwright (i),1853-09-01,1856-09-04,elected,term_expired,14,Lerwick Town Council Election September 1853,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-duncan,Charles Duncan,1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-hay,George Hay,1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-tait,George Tait,1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-cowie,John Cowie,1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+peter-williamson,Peter Williamson,1856-09-04,1858-03-25,elected,died,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-hicks,Robert Hicks,1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-linklater,Robert Linklater,1856-09-04,1859-09-01,elected,term_expired,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+samuel-hunter,Samuel Hunter,1856-09-04,1858-02-02,elected,died,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-merrylees,William Merrylees,1856-09-04,1859-06-06,elected,died,15,Lerwick Town Council Election September 1856,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-duncan,Charles Duncan,1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-hay,George Hay,1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-tait,George Tait,1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-tait,Gilbert Tait,1859-09-01,1860-05-03,elected,died,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-cowie,John Cowie,1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-ii,John Robertson (ii),1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+laurence-laurenson-i,Laurence Laurenson (i),1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+peter-garriock-i,Peter Garriock (i),1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-hicks,Robert Hicks,1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-linklater,Robert Linklater,1859-09-01,1862-09-04,elected,term_expired,16,Lerwick Town Council Election September 1859,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+andrew-grierson-ii,Andrew Grierson (ii),1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-laurenson,Arthur Laurenson,1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-ii,John Robertson (ii),1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+joseph-leask,Joseph Leask,1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+peter-garriock-i,Peter Garriock (i),1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-goudie,Robert Goudie,1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-hicks,Robert Hicks,1862-09-04,1863-02-13,elected,died,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-linklater,Robert Linklater,1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-sinclair,Robert Sinclair,1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+thomas-gilbertson,Thomas Gilbertson,1862-09-04,1865-09-07,elected,term_expired,17,Lerwick Town Council Election September 1862,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-laurenson,Arthur Laurenson,1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-duncan,Charles Duncan,1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-smith-i,George Smith (i),1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-dalziel,James Dalziel,1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-harrison-i,John Harrison (i),1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-ii,John Robertson (ii),1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+peter-garriock-i,Peter Garriock (i),1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-goudie,Robert Goudie,1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-linklater,Robert Linklater,1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+ross-smith,Ross Smith,1865-09-07,1868-09-03,elected,term_expired,18,Lerwick Town Council Election September 1865,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-laurenson,Arthur Laurenson,1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-duncan,Charles Duncan,1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-robertson,Charles Robertson,1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-smith-i,George Smith (i),1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-dalziel,James Dalziel,1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-harrison-i,John Harrison (i),1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-ii,John Robertson (ii),1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+peter-garriock-i,Peter Garriock (i),1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-linklater,Robert Linklater,1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+ross-smith,Ross Smith,1868-09-03,1871-09-07,elected,term_expired,19,Lerwick Town Council Election September 1868,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-laurenson,Arthur Laurenson,1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-duncan,Charles Duncan,1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-merrylees,Charles Merrylees,1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+charles-robertson,Charles Robertson,1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-ii,John Robertson (ii),1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-tait,John Tait,1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+laurence-stove,Laurence Stove,1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-anderson-ii,Robert Anderson (ii),1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-linklater,Robert Linklater,1871-09-07,1874-04-18,elected,died,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-stout-i,Robert Stout (i),1871-09-07,1874-09-03,elected,term_expired,20,Lerwick Town Council Election September 1871,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+alfred-stove,Alfred Stove,1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+andrew-jamieson,Andrew Jamieson,1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+christopher-sandison,Christopher Sandison,1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+george-tait,George Tait,1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+john-leisk,John Leisk,1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+john-leslie-i,John Leslie (i),1874-09-03,1876-05-05,elected,died,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+laurence-stove,Laurence Stove,1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+robert-stout-i,Robert Stout (i),1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+william-duncan-i,William Duncan (i),1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+william-robertson,William Robertson,1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+william-sievwright-ii,William Sievwright (ii),1874-09-03,1876-11-07,elected,term_expired,22,Lerwick Town Council Election September 1874,1,"LTC minute book p258: first group's election invalid, second group took office"
+andrew-jamieson,Andrew Jamieson,1876-11-07,1877-11-06,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-hay,Arthur Hay,1876-11-07,1878-11-05,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-laurenson,Arthur Laurenson,1876-11-07,1879-11-04,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-hay,George Hay,1876-11-07,1879-11-04,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-hunter-ii,James Hunter (ii),1876-11-07,1879-11-04,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-leisk,John Leisk,1876-11-07,1877-11-06,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1876-11-07,1878-11-05,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+laurence-stove,Laurence Stove,1876-11-07,1877-11-06,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-sinclair,Robert Sinclair,1876-11-07,1878-11-05,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+thomas-cameron,Thomas Cameron,1876-11-07,1879-11-04,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-robertson,William Robertson,1876-11-07,1877-11-06,elected,term_expired,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-sievwright-ii,William Sievwright (ii),1876-11-07,1878-01-24,elected,replaced,23,Lerwick Town Council Election November 1876,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+andrew-jamieson,Andrew Jamieson,1877-11-06,1880-11-02,elected,term_expired,24,Lerwick Town Council Election November 1877,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-leisk,John Leisk,1877-11-06,1880-11-02,elected,term_expired,24,Lerwick Town Council Election November 1877,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+laurence-stove,Laurence Stove,1877-11-06,1880-11-02,elected,term_expired,24,Lerwick Town Council Election November 1877,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-robertson,William Robertson,1877-11-06,1880-11-02,elected,term_expired,24,Lerwick Town Council Election November 1877,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-ii,John Robertson (ii),1878-01-24,1878-11-05,by-election,term_expired,25,Lerwick Town Council By-Election January 1878,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-hay,Arthur Hay,1878-11-05,1881-11-08,elected,term_expired,26,Lerwick Town Council Election November 1878,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-i,John Robertson (i),1878-11-05,1881-11-08,elected,term_expired,26,Lerwick Town Council Election November 1878,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-robertson-ii,John Robertson (ii),1878-11-05,1881-11-08,elected,term_expired,26,Lerwick Town Council Election November 1878,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+robert-sinclair,Robert Sinclair,1878-11-05,1881-11-08,elected,term_expired,26,Lerwick Town Council Election November 1878,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+george-hay,George Hay,1879-11-04,1882-11-07,elected,term_expired,27,Lerwick Town Council Election November 1879,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-hunter-ii,James Hunter (ii),1879-11-04,1882-11-07,elected,term_expired,27,Lerwick Town Council Election November 1879,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+thomas-cameron,Thomas Cameron,1879-11-04,1882-11-07,elected,term_expired,27,Lerwick Town Council Election November 1879,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+andrew-jamieson,Andrew Jamieson,1880-11-02,1883-11-06,elected,term_expired,28,Lerwick Town Council Election November 1880,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-leisk,John Leisk,1880-11-02,1883-11-06,elected,term_expired,28,Lerwick Town Council Election November 1880,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+laurence-stove,Laurence Stove,1880-11-02,1883-11-06,elected,term_expired,28,Lerwick Town Council Election November 1880,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-robertson,William Robertson,1880-11-02,1883-10-22,elected,died,28,Lerwick Town Council Election November 1880,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+william-duncan-i,William Duncan (i),1880-11-25,1881-11-08,by-election,term_expired,29,Lerwick Town Council By-Election November 1880,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-hay,Arthur Hay,1881-11-08,1884-11-04,elected,term_expired,30,Lerwick Town Council Election November 1881,1,"Shetland Times 1 Nov 1884: retiring are Bailies Robertson and Hay, John Robertson jr, William Duncan"
+james-tulloch,James Tulloch,1881-11-08,1882-11-07,elected,term_expired,30,Lerwick Town Council Election November 1881,1,"Shetland Times 1 Nov 1884: retiring are Bailies Robertson and Hay, John Robertson jr, William Duncan"
+john-robertson-i,John Robertson (i),1881-11-08,1884-11-04,elected,term_expired,30,Lerwick Town Council Election November 1881,1,"Shetland Times 1 Nov 1884: retiring are Bailies Robertson and Hay, John Robertson jr, William Duncan"
+john-robertson-ii,John Robertson (ii),1881-11-08,1884-11-04,elected,term_expired,30,Lerwick Town Council Election November 1881,1,"Shetland Times 1 Nov 1884: retiring are Bailies Robertson and Hay, John Robertson jr, William Duncan"
+william-duncan-i,William Duncan (i),1881-11-08,1884-11-04,elected,term_expired,30,Lerwick Town Council Election November 1881,1,"Shetland Times 1 Nov 1884: retiring are Bailies Robertson and Hay, John Robertson jr, William Duncan"
+alexander-mitchell-i,Alexander Mitchell (i),1882-11-07,1885-11-03,elected,term_expired,31,Lerwick Town Council Election November 1882,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-hunter-ii,James Hunter (ii),1882-11-07,1885-11-03,elected,term_expired,31,Lerwick Town Council Election November 1882,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+james-tulloch,James Tulloch,1882-11-07,1885-11-03,elected,term_expired,31,Lerwick Town Council Election November 1882,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+thomas-cameron,Thomas Cameron,1882-11-07,1883-09-01,elected,resigned,31,Lerwick Town Council Election November 1882,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+andrew-jamieson,Andrew Jamieson,1883-11-06,1886-11-02,elected,term_expired,32,Lerwick Town Council Election November 1883,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+francis-halcrow,Francis Halcrow,1883-11-06,1886-11-02,elected,term_expired,32,Lerwick Town Council Election November 1883,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+gilbert-harrison,Gilbert Harrison,1883-11-06,1886-11-02,elected,term_expired,32,Lerwick Town Council Election November 1883,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+john-leisk,John Leisk,1883-11-06,1886-11-02,elected,term_expired,32,Lerwick Town Council Election November 1883,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+laurence-stove,Laurence Stove,1883-11-06,1885-11-03,elected,term_expired,32,Lerwick Town Council Election November 1883,1,Confirmed Apr 2026 composition research (per-row source not recorded)
+arthur-hay,Arthur Hay,1884-11-04,1884-11-22,elected,replaced,33,Lerwick Town Council Election November 1884,0,
+john-harrison-i,John Harrison (i),1884-11-04,1886-10-01,elected,disqualified,33,Lerwick Town Council Election November 1884,0,
+john-robertson-i,John Robertson (i),1884-11-04,1887-11-01,elected,term_expired,33,Lerwick Town Council Election November 1884,0,
+john-robertson-ii,John Robertson (ii),1884-11-04,1887-11-01,elected,term_expired,33,Lerwick Town Council Election November 1884,0,
+william-duncan-i,William Duncan (i),1884-11-22,1885-11-03,by-election,term_expired,34,Lerwick Town Council By-Election November 1884,0,
+alexander-mitchell-i,Alexander Mitchell (i),1885-11-03,1888-11-08,elected,term_expired,35,Lerwick Town Council Election November 1885,0,
+james-hunter-ii,James Hunter (ii),1885-11-03,1887-03-01,elected,unknown,35,Lerwick Town Council Election November 1885,0,
+james-tulloch,James Tulloch,1885-11-03,1888-11-08,elected,term_expired,35,Lerwick Town Council Election November 1885,0,
+william-duncan-i,William Duncan (i),1885-11-03,1886-07-12,elected,resigned,35,Lerwick Town Council Election November 1885,0,
+andrew-jamieson,Andrew Jamieson,1886-11-02,1887-11-01,elected,term_expired,36,Lerwick Town Council Election November 1886,0,
+francis-halcrow,Francis Halcrow,1886-11-02,1889-11-09,elected,term_expired,36,Lerwick Town Council Election November 1886,0,
+gilbert-harrison,Gilbert Harrison,1886-11-02,1889-11-09,elected,term_expired,36,Lerwick Town Council Election November 1886,0,
+john-leisk,John Leisk,1886-11-02,1889-11-09,elected,term_expired,36,Lerwick Town Council Election November 1886,0,
+laurence-stove,Laurence Stove,1886-11-02,1889-04-12,elected,died,36,Lerwick Town Council Election November 1886,0,
+charles-robertson,Charles Robertson,1886-11-24,1887-11-01,by-election,term_expired,37,Lerwick Town Council By-Election November 1886,0,
+john-anderson,John Anderson,1886-11-24,1887-11-01,by-election,term_expired,37,Lerwick Town Council By-Election November 1886,0,
+arthur-porteous,Arthur Porteous,1887-03-24,1887-11-01,by-election,term_expired,38,Lerwick Town Council By-Election March 1887,0,
+arthur-porteous,Arthur Porteous,1887-11-01,1890-11-04,elected,term_expired,39,Lerwick Town Council Election November 1887,0,
+charles-robertson,Charles Robertson,1887-11-01,1890-11-04,elected,term_expired,39,Lerwick Town Council Election November 1887,0,
+john-anderson,John Anderson,1887-11-01,1888-11-08,elected,term_expired,39,Lerwick Town Council Election November 1887,0,
+john-robertson-i,John Robertson (i),1887-11-01,1890-11-04,elected,term_expired,39,Lerwick Town Council Election November 1887,0,
+john-robertson-ii,John Robertson (ii),1887-11-01,1890-11-04,elected,term_expired,39,Lerwick Town Council Election November 1887,0,
+alexander-mitchell-i,Alexander Mitchell (i),1888-11-08,1889-09-01,elected,retired,40,Lerwick Town Council Election November 1888,0,
+arthur-laing,Arthur Laing,1888-11-08,1891-11-03,elected,term_expired,40,Lerwick Town Council Election November 1888,0,
+james-goudie,James Goudie,1888-11-08,1891-11-03,elected,term_expired,40,Lerwick Town Council Election November 1888,0,
+john-anderson,John Anderson,1888-11-08,1891-11-03,elected,term_expired,40,Lerwick Town Council Election November 1888,0,
+francis-halcrow,Francis Halcrow,1889-11-09,1892-11-01,elected,term_expired,41,Lerwick Town Council Election November 1889,0,
+george-kay,George Kay,1889-11-09,1892-11-01,elected,term_expired,41,Lerwick Town Council Election November 1889,0,
+gilbert-harrison,Gilbert Harrison,1889-11-09,1892-11-01,elected,term_expired,41,Lerwick Town Council Election November 1889,0,
+john-leisk,John Leisk,1889-11-09,1891-11-03,elected,term_expired,41,Lerwick Town Council Election November 1889,0,
+robert-hunter-i,Robert Hunter (i),1889-11-09,1892-11-01,elected,term_expired,41,Lerwick Town Council Election November 1889,0,
+arthur-porteous,Arthur Porteous,1890-11-04,1893-11-02,elected,term_expired,42,Lerwick Town Council Election November 1890,0,
+charles-laurenson,Charles Laurenson,1890-11-04,1893-11-02,elected,term_expired,42,Lerwick Town Council Election November 1890,0,
+charles-robertson,Charles Robertson,1890-11-04,1893-11-02,elected,term_expired,42,Lerwick Town Council Election November 1890,0,
+john-robertson-ii,John Robertson (ii),1890-11-04,1893-11-02,elected,term_expired,42,Lerwick Town Council Election November 1890,0,
+arthur-laing,Arthur Laing,1891-11-03,1894-11-06,elected,term_expired,43,Lerwick Town Council Election November 1891,0,
+james-goudie,James Goudie,1891-11-03,1894-11-06,elected,term_expired,43,Lerwick Town Council Election November 1891,0,
+john-leisk,John Leisk,1891-11-03,1894-11-06,elected,term_expired,43,Lerwick Town Council Election November 1891,0,
+john-tulloch-i,John Tulloch (i),1891-11-03,1894-11-06,elected,term_expired,43,Lerwick Town Council Election November 1891,0,
+francis-halcrow,Francis Halcrow,1892-11-01,1895-11-05,elected,term_expired,44,Lerwick Town Council Election November 1892,0,
+george-kay,George Kay,1892-11-01,1895-11-05,elected,term_expired,44,Lerwick Town Council Election November 1892,0,
+gilbert-harrison,Gilbert Harrison,1892-11-01,1895-11-05,elected,term_expired,44,Lerwick Town Council Election November 1892,0,
+robert-hunter-i,Robert Hunter (i),1892-11-01,1895-11-05,elected,term_expired,44,Lerwick Town Council Election November 1892,0,
+arthur-porteous,Arthur Porteous,1893-11-02,1896-11-03,elected,term_expired,45,Lerwick Town Council Election November 1893,0,
+charles-robertson,Charles Robertson,1893-11-02,1895-07-21,elected,died,45,Lerwick Town Council Election November 1893,0,
+john-robertson-ii,John Robertson (ii),1893-11-02,1896-11-03,elected,term_expired,45,Lerwick Town Council Election November 1893,0,
+peter-goodlad,Peter Goodlad,1893-11-02,1896-11-03,elected,term_expired,45,Lerwick Town Council Election November 1893,0,
+archibald-garriock,Archibald Garriock,1894-11-06,1897-11-02,elected,term_expired,46,Lerwick Town Council Election November 1894,0,
+arthur-laing,Arthur Laing,1894-11-06,1897-11-02,elected,term_expired,46,Lerwick Town Council Election November 1894,0,
+james-goudie,James Goudie,1894-11-06,1897-11-02,elected,term_expired,46,Lerwick Town Council Election November 1894,0,
+john-leisk,John Leisk,1894-11-06,1897-11-02,elected,term_expired,46,Lerwick Town Council Election November 1894,0,
+alfred-stove,Alfred Stove,1895-11-05,1896-11-03,elected,term_expired,47,Lerwick Town Council Election November 1895,0,
+francis-halcrow,Francis Halcrow,1895-11-05,1898-11-01,elected,term_expired,47,Lerwick Town Council Election November 1895,0,
+george-kay,George Kay,1895-11-05,1898-11-01,elected,term_expired,47,Lerwick Town Council Election November 1895,0,
+gilbert-harrison,Gilbert Harrison,1895-11-05,1898-11-01,elected,term_expired,47,Lerwick Town Council Election November 1895,0,
+robert-hunter-i,Robert Hunter (i),1895-11-05,1898-11-01,elected,term_expired,47,Lerwick Town Council Election November 1895,0,
+arthur-porteous,Arthur Porteous,1896-11-03,1899-11-07,elected,term_expired,48,Lerwick Town Council Election November 1896,0,
+john-robertson-ii,John Robertson (ii),1896-11-03,1899-11-07,elected,term_expired,48,Lerwick Town Council Election November 1896,0,
+peter-goodlad,Peter Goodlad,1896-11-03,1899-11-07,elected,term_expired,48,Lerwick Town Council Election November 1896,0,
+robert-hunter-i,Robert Hunter (i),1896-11-03,1899-11-07,elected,term_expired,48,Lerwick Town Council Election November 1896,0,
+archibald-garriock,Archibald Garriock,1897-11-02,1899-02-28,elected,died,49,Lerwick Town Council Election November 1897,0,
+arthur-laing,Arthur Laing,1897-11-02,1900-11-06,elected,term_expired,49,Lerwick Town Council Election November 1897,0,
+francis-halcrow,Francis Halcrow,1897-11-02,1900-11-06,elected,term_expired,49,Lerwick Town Council Election November 1897,0,
+james-goudie,James Goudie,1897-11-02,1900-11-06,elected,term_expired,49,Lerwick Town Council Election November 1897,0,
+alfred-stove,Alfred Stove,1898-11-01,1901-10-13,elected,died,50,Lerwick Town Council Election November 1898,0,
+george-kay,George Kay,1898-11-01,1901-11-01,elected,term_expired,50,Lerwick Town Council Election November 1898,0,
+gilbert-harrison,Gilbert Harrison,1898-11-01,1901-11-01,elected,term_expired,50,Lerwick Town Council Election November 1898,0,
+john-leisk,John Leisk,1898-11-01,1901-11-01,elected,term_expired,50,Lerwick Town Council Election November 1898,0,
+sinclair-johnson,Sinclair Johnson,1899-05-02,1899-11-07,by-election,term_expired,51,Lerwick Town Council By-Election May 1899,0,
+arthur-porteous,Arthur Porteous,1899-11-07,1902-11-04,elected,term_expired,52,Lerwick Town Council Election November 1899,0,
+donald-morrison,Donald Morrison,1899-11-07,1902-11-04,elected,term_expired,52,Lerwick Town Council Election November 1899,0,
+john-robertson-ii,John Robertson (ii),1899-11-07,1902-11-04,elected,term_expired,52,Lerwick Town Council Election November 1899,0,
+peter-goodlad,Peter Goodlad,1899-11-07,1902-11-04,elected,term_expired,52,Lerwick Town Council Election November 1899,0,
+sinclair-johnson,Sinclair Johnson,1899-11-07,1900-11-06,elected,term_expired,52,Lerwick Town Council Election November 1899,0,
+arthur-laing,Arthur Laing,1900-11-06,1903-11-03,elected,term_expired,53,Lerwick Town Council Election November 1900,0,
+francis-halcrow,Francis Halcrow,1900-11-06,1903-11-03,elected,term_expired,53,Lerwick Town Council Election November 1900,0,
+george-kay,George Kay,1900-11-06,1903-11-03,elected,term_expired,53,Lerwick Town Council Election November 1900,0,
+james-goudie,James Goudie,1900-11-06,1903-11-03,elected,term_expired,53,Lerwick Town Council Election November 1900,0,
+gilbert-harrison,Gilbert Harrison,1901-11-01,1904-11-01,elected,term_expired,54,Lerwick Town Council Election November 1901,0,
+john-irvine-iii,John Irvine (iii),1901-11-01,1904-11-01,elected,term_expired,54,Lerwick Town Council Election November 1901,0,
+john-leisk,John Leisk,1901-11-01,1904-11-01,elected,term_expired,54,Lerwick Town Council Election November 1901,0,
+sinclair-johnson,Sinclair Johnson,1901-11-01,1904-11-01,elected,term_expired,54,Lerwick Town Council Election November 1901,0,
+arthur-porteous,Arthur Porteous,1902-11-04,1905-11-07,elected,term_expired,55,Lerwick Town Council Election November 1902,0,
+donald-morrison,Donald Morrison,1902-11-04,1905-11-07,elected,term_expired,55,Lerwick Town Council Election November 1902,0,
+john-robertson-ii,John Robertson (ii),1902-11-04,1905-02-02,elected,died,55,Lerwick Town Council Election November 1902,0,
+peter-goodlad,Peter Goodlad,1902-11-04,1905-11-07,elected,term_expired,55,Lerwick Town Council Election November 1902,0,
+arthur-laing,Arthur Laing,1903-11-03,1906-11-06,elected,term_expired,56,Lerwick Town Council Election November 1903,0,
+george-kay,George Kay,1903-11-03,1906-11-06,elected,term_expired,56,Lerwick Town Council Election November 1903,0,
+james-goudie,James Goudie,1903-11-03,1906-11-06,elected,term_expired,56,Lerwick Town Council Election November 1903,0,
+robert-ganson-i,Robert Ganson (i),1903-11-03,1906-11-06,elected,term_expired,56,Lerwick Town Council Election November 1903,0,
+gilbert-harrison,Gilbert Harrison,1904-11-01,1907-11-05,elected,term_expired,57,Lerwick Town Council Election November 1904,0,
+john-irvine-iii,John Irvine (iii),1904-11-01,1907-11-05,elected,term_expired,57,Lerwick Town Council Election November 1904,0,
+john-sinclair,John Sinclair,1904-11-01,1907-11-05,elected,term_expired,57,Lerwick Town Council Election November 1904,0,
+sinclair-johnson,Sinclair Johnson,1904-11-01,1907-11-05,elected,term_expired,57,Lerwick Town Council Election November 1904,0,
+laurence-laurenson-ii,Laurence Laurenson (ii),1905-02-28,1905-11-07,by-election,term_expired,58,Lerwick Town Council By-Election February 1905,0,
+alexander-ratter,Alexander Ratter,1905-11-07,1908-11-03,elected,term_expired,59,Lerwick Town Council Election November 1905,0,
+arthur-porteous,Arthur Porteous,1905-11-07,1908-11-03,elected,term_expired,59,Lerwick Town Council Election November 1905,0,
+peter-goodlad,Peter Goodlad,1905-11-07,1908-11-03,elected,term_expired,59,Lerwick Town Council Election November 1905,0,
+william-sinclair,William Sinclair,1905-11-07,1908-11-03,elected,term_expired,59,Lerwick Town Council Election November 1905,0,
+arthur-laing,Arthur Laing,1906-11-06,1909-11-02,elected,term_expired,60,Lerwick Town Council Election November 1906,0,
+james-laing,James Laing,1906-11-06,1909-11-02,elected,term_expired,60,Lerwick Town Council Election November 1906,0,
+robert-ganson-i,Robert Ganson (i),1906-11-06,1909-11-02,elected,term_expired,60,Lerwick Town Council Election November 1906,0,
+robert-stout-i,Robert Stout (i),1906-11-06,1909-11-02,elected,term_expired,60,Lerwick Town Council Election November 1906,0,
+andrew-smith,Andrew Smith,1907-11-05,1910-11-01,elected,term_expired,61,Lerwick Town Council Election November 1907,0,
+john-irvine-iii,John Irvine (iii),1907-11-05,1910-01-01,elected,replaced,61,Lerwick Town Council Election November 1907,0,
+john-smith-i,John Smith (i),1907-11-05,1910-11-01,elected,term_expired,61,Lerwick Town Council Election November 1907,0,
+william-smith-ii,William Smith (ii),1907-11-05,1910-11-01,elected,term_expired,61,Lerwick Town Council Election November 1907,0,
+alexander-ratter,Alexander Ratter,1908-11-03,1911-11-07,elected,term_expired,62,Lerwick Town Council Election November 1908,0,
+peter-goodlad,Peter Goodlad,1908-11-03,1911-11-07,elected,term_expired,62,Lerwick Town Council Election November 1908,0,
+robert-ganson-i,Robert Ganson (i),1908-11-03,1911-11-07,elected,term_expired,62,Lerwick Town Council Election November 1908,0,
+william-sinclair,William Sinclair,1908-11-03,1911-11-07,elected,term_expired,62,Lerwick Town Council Election November 1908,0,
+arthur-laing,Arthur Laing,1909-11-02,1912-11-05,elected,term_expired,63,Lerwick Town Council Election November 1909,0,
+james-laing,James Laing,1909-11-02,1912-11-05,elected,term_expired,63,Lerwick Town Council Election November 1909,0,
+john-smith-i,John Smith (i),1909-11-02,1912-11-05,elected,term_expired,63,Lerwick Town Council Election November 1909,0,
+robert-stout-i,Robert Stout (i),1909-11-02,1912-11-05,elected,term_expired,63,Lerwick Town Council Election November 1909,0,
+james-loggie,James Loggie,1910-01-01,1910-11-01,by-election,term_expired,64,Lerwick Town Council By-Election January 1910,0,
+andrew-smith,Andrew Smith,1910-11-01,1913-11-04,elected,term_expired,65,Lerwick Town Council Election November 1910,0,
+james-loggie,James Loggie,1910-11-01,1913-11-04,elected,term_expired,65,Lerwick Town Council Election November 1910,0,
+william-macdougall,William MacDougall,1910-11-01,1912-04-01,elected,resigned,65,Lerwick Town Council Election November 1910,0,
+william-smith-ii,William Smith (ii),1910-11-01,1913-11-04,elected,term_expired,65,Lerwick Town Council Election November 1910,0,
+alexander-ratter,Alexander Ratter,1911-11-07,1914-11-03,elected,term_expired,66,Lerwick Town Council Election November 1911,0,
+peter-goodlad,Peter Goodlad,1911-11-07,1914-11-03,elected,term_expired,66,Lerwick Town Council Election November 1911,0,
+robert-ganson-i,Robert Ganson (i),1911-11-07,1914-11-03,elected,term_expired,66,Lerwick Town Council Election November 1911,0,
+william-sinclair,William Sinclair,1911-11-07,1914-11-03,elected,term_expired,66,Lerwick Town Council Election November 1911,0,
+james-grierson,James Grierson,1912-11-05,1915-07-03,elected,died,67,Lerwick Town Council Election November 1912,0,
+james-laing,James Laing,1912-11-05,1919-11-04,elected,term_expired,67,Lerwick Town Council Election November 1912,0,
+john-smith-i,John Smith (i),1912-11-05,1919-11-04,elected,term_expired,67,Lerwick Town Council Election November 1912,0,
+robert-ramsay,Robert Ramsay,1912-11-05,1919-11-04,elected,term_expired,67,Lerwick Town Council Election November 1912,0,
+robert-stout-i,Robert Stout (i),1912-11-05,1915-04-10,elected,died,67,Lerwick Town Council Election November 1912,0,
+andrew-smith,Andrew Smith,1913-11-04,1916-09-05,elected,replaced,68,Lerwick Town Council Election November 1913,0,
+laurence-laurenson-ii,Laurence Laurenson (ii),1913-11-04,1916-07-14,elected,died,68,Lerwick Town Council Election November 1913,0,
+peter-goodlad,Peter Goodlad,1913-11-04,1919-11-04,elected,term_expired,68,Lerwick Town Council Election November 1913,0,
+william-smith-ii,William Smith (ii),1913-11-04,1916-12-05,elected,replaced,68,Lerwick Town Council Election November 1913,0,
+alexander-ratter,Alexander Ratter,1914-11-03,1919-11-04,elected,term_expired,69,Lerwick Town Council Election November 1914,0,
+john-smith-i,John Smith (i),1914-11-03,1919-11-04,elected,term_expired,69,Lerwick Town Council Election November 1914,0,
+robert-ganson-i,Robert Ganson (i),1914-11-03,1919-11-04,elected,term_expired,69,Lerwick Town Council Election November 1914,0,
+william-sinclair,William Sinclair,1914-11-03,1919-11-04,elected,term_expired,69,Lerwick Town Council Election November 1914,0,
+john-sinclair,John Sinclair,1915-04-27,1919-11-04,by-election,term_expired,70,Lerwick Town Council By-Election April 1915,0,
+charles-stout,Charles Stout,1915-08-03,1919-11-04,by-election,term_expired,71,Lerwick Town Council By-Election August 1915,0,
+john-henderson,John Henderson,1916-08-01,1919-11-04,by-election,term_expired,72,Lerwick Town Council By-Election August 1916,0,
+magnus-manson,Magnus Manson,1916-09-05,1919-11-04,by-election,term_expired,73,Lerwick Town Council By-Election September 1916,0,
+hugh-robertson,Hugh Robertson,1916-12-05,1919-11-04,by-election,term_expired,74,Lerwick Town Council By-Election December 1916,0,
+alexander-ratter,Alexander Ratter,1919-11-04,1920-11-02,holdover,term_expired,,,0,
+james-laing,James Laing,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+james-morrison,James Morrison,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+james-pottinger-iii,James Pottinger (iii),1919-11-04,1921-06-11,elected,replaced,75,Lerwick Town Council Election November 1919,0,
+john-sinclair,John Sinclair,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+john-smith-i,John Smith (i),1919-11-04,1921-11-01,holdover,term_expired,,,0,
+magnus-manson,Magnus Manson,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+peter-goodlad,Peter Goodlad,1919-11-04,1920-11-02,holdover,term_expired,,,0,
+robert-ganson-i,Robert Ganson (i),1919-11-04,1920-11-02,holdover,term_expired,,,0,
+robert-ollason,Robert Ollason,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+robert-ramsay,Robert Ramsay,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+william-sinclair,William Sinclair,1919-11-04,1920-11-02,holdover,term_expired,,,0,
+alexander-ratter,Alexander Ratter,1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,0,
+george-duffin,George Duffin,1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,0,
+robert-ganson-i,Robert Ganson (i),1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,0,
+william-sinclair,William Sinclair,1920-11-02,1921-10-01,elected,retired,76,Lerwick Town Council Election November 1920,0,
+james-goodlad,James Goodlad,1921-06-11,1921-11-01,by-election,term_expired,77,Lerwick Town Council By-Election June 1921,0,
+alexander-manson,Alexander Manson,1921-11-01,1922-11-07,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
+david-murray,David Murray,1921-11-01,1923-11-06,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
+james-goodlad,James Goodlad,1921-11-01,1924-05-05,elected,replaced,78,Lerwick Town Council Election November 1921,0,
+john-sinclair,John Sinclair,1921-11-01,1924-11-04,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
+robert-ollason,Robert Ollason,1921-11-01,1924-11-04,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
+william-bruce-ii,William Bruce (ii),1921-11-01,1924-11-04,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
+george-duffin,George Duffin,1922-11-07,1925-11-03,elected,term_expired,79,Lerwick Town Council Election November 1922,0,
+james-laing,James Laing,1922-11-07,1925-11-03,elected,term_expired,79,Lerwick Town Council Election November 1922,0,
+james-morrison,James Morrison,1922-11-07,1925-11-03,elected,term_expired,79,Lerwick Town Council Election November 1922,0,
+magnus-manson,Magnus Manson,1922-11-07,1925-11-03,elected,term_expired,79,Lerwick Town Council Election November 1922,0,
+alexander-manson,Alexander Manson,1923-11-06,1926-11-02,elected,term_expired,80,Lerwick Town Council Election November 1923,0,
+alexander-ratter,Alexander Ratter,1923-11-06,1926-11-02,elected,term_expired,80,Lerwick Town Council Election November 1923,0,
+david-murray,David Murray,1923-11-06,1926-11-02,elected,term_expired,80,Lerwick Town Council Election November 1923,0,
+robert-ganson-i,Robert Ganson (i),1923-11-06,1926-11-02,elected,term_expired,80,Lerwick Town Council Election November 1923,0,
+edwyn-tait,Edwyn Tait,1924-05-05,1924-11-04,by-election,term_expired,81,Lerwick Town Council By-Election May 1924,0,
+edwyn-tait,Edwyn Tait,1924-11-04,1927-11-01,elected,term_expired,82,Lerwick Town Council Election November 1924,0,
+john-sinclair,John Sinclair,1924-11-04,1927-11-01,elected,term_expired,82,Lerwick Town Council Election November 1924,0,
+robert-ollason,Robert Ollason,1924-11-04,1927-11-01,elected,term_expired,82,Lerwick Town Council Election November 1924,0,
+william-bruce-ii,William Bruce (ii),1924-11-04,1927-11-01,elected,term_expired,82,Lerwick Town Council Election November 1924,0,
+george-duffin,George Duffin,1925-11-03,1928-11-06,elected,term_expired,83,Lerwick Town Council Election November 1925,0,
+john-campbell-i,John Campbell (i),1925-11-03,1928-11-06,elected,term_expired,83,Lerwick Town Council Election November 1925,0,
+laurence-cogle,Laurence Andrew Cogle,1925-11-03,1928-11-06,elected,term_expired,83,Lerwick Town Council Election November 1925,0,
+magnus-manson,Magnus Manson,1925-11-03,1928-11-06,elected,term_expired,83,Lerwick Town Council Election November 1925,0,
+alexander-ratter,Alexander Ratter,1926-11-02,1929-11-05,elected,term_expired,84,Lerwick Town Council Election November 1926,0,
+james-irvine-i,James Irvine (i),1926-11-02,1929-11-05,elected,term_expired,84,Lerwick Town Council Election November 1926,0,
+laurence-sandison,Laurence Sandison,1926-11-02,1929-11-05,elected,term_expired,84,Lerwick Town Council Election November 1926,0,
+robert-ganson-i,Robert Ganson (i),1926-11-02,1929-11-05,elected,term_expired,84,Lerwick Town Council Election November 1926,0,
+james-laing,James Laing,1927-11-01,1930-11-04,elected,term_expired,85,Lerwick Town Council Election November 1927,0,
+john-sinclair,John Sinclair,1927-11-01,1930-11-04,elected,term_expired,85,Lerwick Town Council Election November 1927,0,
+robert-ollason,Robert Ollason,1927-11-01,1930-11-04,elected,term_expired,85,Lerwick Town Council Election November 1927,0,
+william-bruce-ii,William Bruce (ii),1927-11-01,1930-11-04,elected,term_expired,85,Lerwick Town Council Election November 1927,0,
+george-duffin,George Duffin,1928-11-06,1931-11-03,elected,term_expired,86,Lerwick Town Council Election November 1928,0,
+john-campbell-i,John Campbell (i),1928-11-06,1931-11-03,elected,term_expired,86,Lerwick Town Council Election November 1928,0,
+laurence-cogle,Laurence Andrew Cogle,1928-11-06,1931-11-03,elected,term_expired,86,Lerwick Town Council Election November 1928,0,
+magnus-manson,Magnus Manson,1928-11-06,1931-11-03,elected,term_expired,86,Lerwick Town Council Election November 1928,0,
+alexander-manson,Alexander Manson,1929-11-05,1932-11-01,elected,term_expired,87,Lerwick Town Council Election November 1929,0,
+laurence-sandison,Laurence Sandison,1929-11-05,1932-11-01,elected,term_expired,87,Lerwick Town Council Election November 1929,0,
+robert-ganson-i,Robert Ganson (i),1929-11-05,1932-11-01,elected,term_expired,87,Lerwick Town Council Election November 1929,0,
+william-sinclair,William Sinclair,1929-11-05,1932-11-01,elected,term_expired,87,Lerwick Town Council Election November 1929,0,
+james-laing,James Laing,1930-11-04,1933-11-07,elected,term_expired,88,Lerwick Town Council Election November 1930,0,
+john-sinclair,John Sinclair,1930-11-04,1933-11-07,elected,term_expired,88,Lerwick Town Council Election November 1930,0,
+robert-ollason,Robert Ollason,1930-11-04,1933-11-07,elected,term_expired,88,Lerwick Town Council Election November 1930,0,
+william-bruce-ii,William Bruce (ii),1930-11-04,1933-11-07,elected,term_expired,88,Lerwick Town Council Election November 1930,0,
+george-duffin,George Duffin,1931-11-03,1934-11-06,elected,term_expired,89,Lerwick Town Council Election November 1931,0,
+john-campbell-i,John Campbell (i),1931-11-03,1932-06-07,elected,replaced,89,Lerwick Town Council Election November 1931,0,
+laurence-cogle,Laurence Andrew Cogle,1931-11-03,1934-11-06,elected,term_expired,89,Lerwick Town Council Election November 1931,0,
+magnus-manson,Magnus Manson,1931-11-03,1934-11-06,elected,term_expired,89,Lerwick Town Council Election November 1931,0,
+james-morrison,James Morrison,1932-06-07,1932-11-01,by-election,term_expired,90,Lerwick Town Council By-Election June 1932,0,
+alexander-manson,Alexander Manson,1932-11-01,1935-11-05,elected,term_expired,91,Lerwick Town Council Election November 1932,0,
+james-morrison,James Morrison,1932-11-01,1935-11-05,elected,term_expired,91,Lerwick Town Council Election November 1932,0,
+laurence-sandison,Laurence Sandison,1932-11-01,1934-09-30,elected,died,91,Lerwick Town Council Election November 1932,0,
+robert-ganson-ii,Robert Ganson (ii),1932-11-01,1935-11-05,elected,term_expired,91,Lerwick Town Council Election November 1932,0,
+thomas-johnston-ii,Thomas Johnston (ii),1932-11-01,1935-11-05,elected,term_expired,91,Lerwick Town Council Election November 1932,0,
+adam-halcrow-i,Adam Halcrow (i),1933-11-07,1936-11-03,elected,term_expired,92,Lerwick Town Council Election November 1933,0,
+charles-manson,Charles Manson,1933-11-07,1936-11-03,elected,term_expired,92,Lerwick Town Council Election November 1933,0,
+charlotte-nicol,Charlotte Nicol,1933-11-07,1936-11-03,elected,term_expired,92,Lerwick Town Council Election November 1933,0,
+robert-ollason,Robert Ollason,1933-11-07,1936-11-03,elected,term_expired,92,Lerwick Town Council Election November 1933,0,
+james-smith-i,James Smith (i),1934-11-06,1937-11-02,elected,term_expired,93,Lerwick Town Council Election November 1934,0,
+john-robertson-iv,John Robertson (iv),1934-11-06,1937-11-02,elected,term_expired,93,Lerwick Town Council Election November 1934,0,
+laurence-cogle,Laurence Andrew Cogle,1934-11-06,1936-07-07,elected,replaced,93,Lerwick Town Council Election November 1934,0,
+laurence-laurenson-iii,Laurence Laurenson (iii),1934-11-06,1937-11-02,elected,term_expired,93,Lerwick Town Council Election November 1934,0,
+peter-dalziel,Peter Dalziel,1934-11-06,1937-11-02,elected,term_expired,93,Lerwick Town Council Election November 1934,0,
+alexander-manson,Alexander Manson,1935-11-05,1938-07-22,elected,died,94,Lerwick Town Council Election November 1935,0,
+charlotte-nicol,Charlotte Nicol,1935-11-05,1938-11-01,elected,term_expired,94,Lerwick Town Council Election November 1935,0,
+george-duffin,George Duffin,1935-11-05,1936-06-28,elected,died,94,Lerwick Town Council Election November 1935,0,
+robert-ganson-ii,Robert Ganson (ii),1935-11-05,1938-11-01,elected,term_expired,94,Lerwick Town Council Election November 1935,0,
+thomas-sinclair,Thomas Sinclair,1936-07-07,1936-11-03,by-election,term_expired,95,Lerwick Town Council By-Election July 1936,0,
+thomas-irvine-ii,Thomas Irvine (ii),1936-08-04,1936-11-03,by-election,term_expired,96,Lerwick Town Council By-Election August 1936,0,
+adam-halcrow-i,Adam Halcrow (i),1936-11-03,1940-12-24,elected,died,97,Lerwick Town Council Election November 1936,0,
+magnus-shearer-i,Magnus Shearer (i),1936-11-03,1945-11-05,elected,term_expired,97,Lerwick Town Council Election November 1936,0,
+thomas-irvine-ii,Thomas Irvine (ii),1936-11-03,1941-10-09,elected,replaced,97,Lerwick Town Council Election November 1936,0,
+thomas-sinclair,Thomas Sinclair,1936-11-03,1945-11-05,elected,term_expired,97,Lerwick Town Council Election November 1936,0,
+erling-clausen,Erling Clausen,1936-11-10,1937-11-02,by-election,term_expired,98,Lerwick Town Council By-Election November 1936,0,
+erling-clausen,Erling Clausen,1937-11-02,1938-02-03,elected,replaced,99,Lerwick Town Council Election November 1937,0,
+james-aitken,James Aitken,1937-11-02,1946-11-04,elected,term_expired,99,Lerwick Town Council Election November 1937,0,
+james-laing,James Laing,1937-11-02,1945-12-10,elected,replaced,99,Lerwick Town Council Election November 1937,0,
+joseph-linklater,Joseph Linklater,1937-11-02,1941-10-09,elected,replaced,99,Lerwick Town Council Election November 1937,0,
+william-anderson-i,William Anderson (i),1937-11-02,1946-11-04,elected,term_expired,99,Lerwick Town Council Election November 1937,0,
+william-smith-iii,William Smith (iii),1937-11-02,1942-02-28,elected,died,99,Lerwick Town Council Election November 1937,0,
+peter-dalziel,Peter Dalziel,1938-02-03,1938-11-01,by-election,term_expired,100,Lerwick Town Council By-Election February 1938,0,
+magnus-shearer-i,Magnus Shearer (i),1938-11-01,1947-11-04,elected,term_expired,101,Lerwick Town Council Election November 1938,0,
+peter-dalziel,Peter Dalziel,1938-11-01,1947-11-04,elected,term_expired,101,Lerwick Town Council Election November 1938,0,
+robert-ganson-ii,Robert Ganson (ii),1938-11-01,1947-11-04,elected,term_expired,101,Lerwick Town Council Election November 1938,0,
+thomas-irvine-ii,Thomas Irvine (ii),1938-11-01,1946-06-06,elected,died,101,Lerwick Town Council Election November 1938,0,
+william-sinclair,William Sinclair,1938-11-01,1940-08-06,elected,replaced,101,Lerwick Town Council Election November 1938,0,
+andrew-mouat,Andrew Mouat,1940-08-06,1945-11-05,by-election,term_expired,102,Lerwick Town Council By-Election August 1940,0,
+john-williamson-iii,John Williamson (iii),1941-01-07,1945-11-05,by-election,term_expired,103,Lerwick Town Council By-Election January 1941,0,
+arthur-johnson,Arthur Johnson,1941-07-01,1945-11-05,by-election,term_expired,104,Lerwick Town Council By-Election July 1941,0,
+charles-inkster,Charles Inkster,1941-10-09,1944-11-07,by-election,replaced,105,Lerwick Town Council By-Election October 1941,0,
+john-gear,John Gear,1941-10-09,1943-02-11,by-election,replaced,105,Lerwick Town Council By-Election October 1941,0,
+thomas-sinclair,Thomas Sinclair,1942-04-09,1945-11-05,by-election,term_expired,106,Lerwick Town Council By-Election April 1942,0,
+robert-anderson-i,Robert Anderson (i),1943-02-11,1945-11-05,by-election,term_expired,107,Lerwick Town Council By-Election February 1943,0,
+prophet-smith,Prophet Smith,1944-11-07,1945-02-05,by-election,replaced,108,Lerwick Town Council By-Election November 1944,0,
+alexander-morrison,Alexander Morrison,1945-02-05,1945-11-05,by-election,term_expired,109,Lerwick Town Council By-Election February 1945,0,
+alexander-morrison,Alexander Morrison,1945-11-05,1946-11-04,elected,term_expired,110,Lerwick Town Council Election November 1945,0,
+david-gray-ii,David Gray (ii),1945-11-05,1946-03-04,elected,died,110,Lerwick Town Council Election November 1945,0,
+james-peterson,James Peterson,1945-11-05,1949-05-02,elected,term_expired,110,Lerwick Town Council Election November 1945,0,
+laurence-smith,Laurence Smith,1945-11-05,1949-05-02,elected,term_expired,110,Lerwick Town Council Election November 1945,0,
+robert-anderson-i,Robert Anderson (i),1945-11-05,1949-05-02,elected,term_expired,110,Lerwick Town Council Election November 1945,0,
+robert-ollason,Robert Ollason,1945-11-05,1949-05-02,elected,term_expired,110,Lerwick Town Council Election November 1945,0,
+arthur-johnson,Arthur Johnson,1945-12-10,1946-11-04,by-election,term_expired,111,Lerwick Town Council By-Election December 1945,0,
+thomas-sinclair,Thomas Sinclair,1946-05-22,1946-11-04,by-election,term_expired,112,Lerwick Town Council By-Election May 1946,0,
+arthur-johnson,Arthur Johnson,1946-11-04,1947-11-04,elected,term_expired,113,Lerwick Town Council Election November 1946,0,
+george-burgess,George Burgess,1946-11-04,1950-05-01,elected,term_expired,113,Lerwick Town Council Election November 1946,0,
+james-aitken,James Aitken,1946-11-04,1950-05-01,elected,term_expired,113,Lerwick Town Council Election November 1946,0,
+james-brownlie,James Brownlie,1946-11-04,1949-09-12,elected,replaced,113,Lerwick Town Council Election November 1946,0,
+william-anderson-i,William Anderson (i),1946-11-04,1950-05-01,elected,term_expired,113,Lerwick Town Council Election November 1946,0,
+alexander-morrison,Alexander Morrison,1947-11-04,1951-05-01,elected,term_expired,114,Lerwick Town Council Election November 1947,0,
+james-williamson,James Williamson,1947-11-04,1951-05-01,elected,term_expired,114,Lerwick Town Council Election November 1947,0,
+john-inkster-ii,John Inkster (ii),1947-11-04,1951-05-01,elected,term_expired,114,Lerwick Town Council Election November 1947,0,
+robert-anderson-i,Robert Anderson (i),1947-11-04,1951-05-01,elected,term_expired,114,Lerwick Town Council Election November 1947,0,
+james-jamieson-ii,James Jamieson (ii),1949-05-02,1950-09-12,elected,replaced,115,Lerwick Town Council Election May 1949,0,
+james-peterson,James Peterson,1949-05-02,1952-05-05,elected,term_expired,115,Lerwick Town Council Election May 1949,0,
+william-anderson-i,William Anderson (i),1949-05-02,1952-05-05,elected,term_expired,115,Lerwick Town Council Election May 1949,0,
+william-conochie,William Conochie,1949-05-02,1952-05-05,elected,term_expired,115,Lerwick Town Council Election May 1949,0,
+arthur-johnson,Arthur Johnson,1949-09-12,1950-05-01,by-election,term_expired,116,Lerwick Town Council By-Election September 1949,0,
+arthur-johnson,Arthur Johnson,1950-05-01,1953-05-04,elected,term_expired,117,Lerwick Town Council Election May 1950,0,
+george-burgess,George Burgess,1950-05-01,1953-05-04,elected,term_expired,117,Lerwick Town Council Election May 1950,0,
+james-aitken,James Aitken,1950-05-01,1953-05-04,elected,term_expired,117,Lerwick Town Council Election May 1950,0,
+james-williamson,James Williamson,1950-05-01,1953-05-04,elected,term_expired,117,Lerwick Town Council Election May 1950,0,
+robert-blance,Robert Blance,1950-09-12,1951-05-01,by-election,term_expired,118,Lerwick Town Council By-Election September 1950,0,
+alexander-morrison,Alexander Morrison,1951-05-01,1954-05-03,elected,term_expired,119,Lerwick Town Council Election May 1951,0,
+,James Inkster,1951-05-01,1954-05-03,elected,term_expired,119,Lerwick Town Council Election May 1951,0,
+robert-blance,Robert Blance,1951-05-01,1954-05-03,elected,term_expired,119,Lerwick Town Council Election May 1951,0,
+robert-ollason,Robert Ollason,1951-05-01,1954-05-03,elected,term_expired,119,Lerwick Town Council Election May 1951,0,
+arthur-johnson,Arthur Johnson,1952-05-05,1955-05-02,elected,term_expired,120,Lerwick Town Council Election May 1952,0,
+james-peterson,James Peterson,1952-05-05,1955-05-02,elected,term_expired,120,Lerwick Town Council Election May 1952,0,
+james-tait,James Tait,1952-05-05,1955-05-02,elected,term_expired,120,Lerwick Town Council Election May 1952,0,
+william-conochie,William Conochie,1952-05-05,1955-05-02,elected,term_expired,120,Lerwick Town Council Election May 1952,0,
+george-burgess,George Burgess,1953-05-04,1956-05-01,elected,term_expired,121,Lerwick Town Council Election May 1953,0,
+harry-gray,Harry Gray,1953-05-04,1956-05-01,elected,term_expired,121,Lerwick Town Council Election May 1953,0,
+john-eunson,John Eunson,1953-05-04,1956-05-01,elected,term_expired,121,Lerwick Town Council Election May 1953,0,
+robert-anderson-i,Robert Anderson (i),1953-05-04,1956-05-01,elected,term_expired,121,Lerwick Town Council Election May 1953,0,
+alexander-morrison,Alexander Morrison,1954-05-03,1957-05-07,elected,term_expired,122,Lerwick Town Council Election May 1954,0,
+grace-halcrow,Grace Halcrow,1954-05-03,1955-05-06,elected,replaced,122,Lerwick Town Council Election May 1954,0,
+robert-blance,Robert Blance,1954-05-03,1957-05-07,elected,term_expired,122,Lerwick Town Council Election May 1954,0,
+robert-ollason,Robert Ollason,1954-05-03,1957-05-07,elected,term_expired,122,Lerwick Town Council Election May 1954,0,
+andrew-nicolson,Andrew Nicolson,1955-05-02,1958-05-05,elected,term_expired,123,Lerwick Town Council Election May 1955,0,
+james-daniel,James Daniel,1955-05-02,1958-05-05,elected,term_expired,123,Lerwick Town Council Election May 1955,0,
+james-tait,James Tait,1955-05-02,1958-05-05,elected,term_expired,123,Lerwick Town Council Election May 1955,0,
+william-conochie,William Conochie,1955-05-02,1958-05-05,elected,term_expired,123,Lerwick Town Council Election May 1955,0,
+arthur-johnson,Arthur Johnson,1955-05-06,1956-05-01,by-election,term_expired,124,Lerwick Town Council By-Election May 1955,0,
+arthur-johnson,Arthur Johnson,1956-05-01,1959-05-04,elected,term_expired,125,Lerwick Town Council Election May 1956,0,
+george-burgess,George Burgess,1956-05-01,1957-05-07,elected,term_expired,125,Lerwick Town Council Election May 1956,0,
+harry-gray,Harry Gray,1956-05-01,1959-05-04,elected,term_expired,125,Lerwick Town Council Election May 1956,0,
+john-eunson,John Eunson,1956-05-01,1959-05-04,elected,term_expired,125,Lerwick Town Council Election May 1956,0,
+robert-anderson-i,Robert Anderson (i),1956-05-01,1959-05-04,elected,term_expired,125,Lerwick Town Council Election May 1956,0,
+alexander-morrison,Alexander Morrison,1957-05-07,1960-05-02,elected,term_expired,126,Lerwick Town Council Election May 1957,0,
+grace-halcrow,Grace Halcrow,1957-05-07,1960-05-02,elected,term_expired,126,Lerwick Town Council Election May 1957,0,
+robert-blance,Robert Blance,1957-05-07,1960-05-02,elected,term_expired,126,Lerwick Town Council Election May 1957,0,
+robert-ollason,Robert Ollason,1957-05-07,1960-05-02,elected,term_expired,126,Lerwick Town Council Election May 1957,0,
+eric-gray,Eric Gray,1958-05-05,1961-05-01,elected,term_expired,127,Lerwick Town Council Election May 1958,0,
+george-burgess,George Burgess,1958-05-05,1961-05-01,elected,term_expired,127,Lerwick Town Council Election May 1958,0,
+james-daniel,James Daniel,1958-05-05,1961-05-01,elected,term_expired,127,Lerwick Town Council Election May 1958,0,
+james-tait,James Tait,1958-05-05,1958-06-24,elected,replaced,127,Lerwick Town Council Election May 1958,0,
+magnus-sandison,Magnus Sandison,1958-05-05,1959-09-03,elected,replaced,127,Lerwick Town Council Election May 1958,0,
+arthur-johnson,Arthur Johnson,1958-06-24,1959-05-04,by-election,term_expired,128,Lerwick Town Council By-Election June 1958,0,
+andrew-nicolson,Andrew Nicolson,1959-05-04,1962-05-01,elected,term_expired,129,Lerwick Town Council Election May 1959,0,
+arthur-johnson,Arthur Johnson,1959-05-04,1962-05-01,elected,term_expired,129,Lerwick Town Council Election May 1959,0,
+robert-anderson-i,Robert Anderson (i),1959-05-04,1962-05-01,elected,term_expired,129,Lerwick Town Council Election May 1959,0,
+robert-strachan,Robert Strachan,1959-05-04,1961-05-01,elected,term_expired,129,Lerwick Town Council Election May 1959,0,
+william-conochie,William Conochie,1959-05-04,1962-05-01,elected,term_expired,129,Lerwick Town Council Election May 1959,0,
+harry-gray,Harry Gray,1959-09-03,1960-05-02,by-election,term_expired,130,Lerwick Town Council By-Election September 1959,0,
+alexander-morrison,Alexander Morrison,1960-05-02,1963-05-06,elected,term_expired,131,Lerwick Town Council Election May 1960,0,
+eric-gray,Eric Gray,1960-05-02,1963-05-06,elected,term_expired,131,Lerwick Town Council Election May 1960,0,
+harry-gray,Harry Gray,1960-05-02,1963-05-06,elected,term_expired,131,Lerwick Town Council Election May 1960,0,
+james-daniel,James Daniel,1960-05-02,1962-08-07,elected,replaced,131,Lerwick Town Council Election May 1960,0,
+james-paton-i,James Paton (i),1960-05-02,1964-05-04,elected,term_expired,131,Lerwick Town Council Election May 1960,0,
+andrew-anderson,Andrew Anderson,1961-05-01,1964-05-04,elected,term_expired,132,Lerwick Town Council Election May 1961,0,
+kenneth-thomson,Kenneth Thomson,1961-05-01,1961-05-05,elected,replaced,132,Lerwick Town Council Election May 1961,0,
+peter-robertson,Peter Robertson,1961-05-01,1964-05-04,elected,term_expired,132,Lerwick Town Council Election May 1961,0,
+william-conochie,William Conochie,1961-05-01,1964-05-04,elected,term_expired,132,Lerwick Town Council Election May 1961,0,
+robert-strachan,Robert Strachan,1961-05-05,1962-05-01,by-election,term_expired,133,Lerwick Town Council By-Election May 1961,0,
+andrew-nicolson,Andrew Nicolson,1962-05-01,1965-05-04,elected,term_expired,134,Lerwick Town Council Election May 1962,0,
+arthur-johnson,Arthur Johnson,1962-05-01,1965-05-04,elected,term_expired,134,Lerwick Town Council Election May 1962,0,
+james-paton-i,James Paton (i),1962-05-01,1965-05-04,elected,term_expired,134,Lerwick Town Council Election May 1962,0,
+james-taylor,James Taylor,1962-05-01,1965-05-04,elected,term_expired,134,Lerwick Town Council Election May 1962,0,
+robert-anderson-i,Robert Anderson (i),1962-05-01,1965-05-04,elected,term_expired,134,Lerwick Town Council Election May 1962,0,
+magnus-shearer-ii,Magnus Shearer (ii),1962-08-07,1963-05-06,by-election,term_expired,135,Lerwick Town Council By-Election August 1962,0,
+alexander-morrison,Alexander Morrison,1963-05-06,1966-05-03,elected,term_expired,136,Lerwick Town Council Election May 1963,0,
+eric-gray,Eric Gray,1963-05-06,1966-05-03,elected,term_expired,136,Lerwick Town Council Election May 1963,0,
+magnus-shearer-ii,Magnus Shearer (ii),1963-05-06,1966-05-03,elected,term_expired,136,Lerwick Town Council Election May 1963,0,
+robert-adair,Robert Adair,1963-05-06,1966-05-03,elected,term_expired,136,Lerwick Town Council Election May 1963,0,
+arthur-johnson,Arthur Johnson,1964-05-04,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
+grace-halcrow,Grace Halcrow,1964-05-04,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
+james-taylor,James Taylor,1964-05-04,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
+peter-robertson,Peter Robertson,1964-05-04,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
+andrew-nicolson,Andrew Nicolson,1965-05-04,1967-05-12,elected,replaced,138,Lerwick Town Council Election May 1965,0,
+harry-gray,Harry Gray,1965-05-04,1968-05-02,elected,term_expired,138,Lerwick Town Council Election May 1965,0,
+james-paton-i,James Paton (i),1965-05-04,1968-05-02,elected,term_expired,138,Lerwick Town Council Election May 1965,0,
+robert-anderson-i,Robert Anderson (i),1965-05-04,1967-06-26,elected,died,138,Lerwick Town Council Election May 1965,0,
+alexander-morrison,Alexander Morrison,1966-05-03,1969-05-06,elected,term_expired,139,Lerwick Town Council Election May 1966,0,
+eric-gray,Eric Gray,1966-05-03,1969-05-06,elected,term_expired,139,Lerwick Town Council Election May 1966,0,
+john-smith-ii,John Smith (ii),1966-05-03,1969-05-06,elected,term_expired,139,Lerwick Town Council Election May 1966,0,
+magnus-shearer-ii,Magnus Shearer (ii),1966-05-03,1969-05-06,elected,term_expired,139,Lerwick Town Council Election May 1966,0,
+george-blance,George Blance,1967-05-02,1970-05-05,elected,term_expired,140,Lerwick Town Council Election May 1967,0,
+james-taylor,James Taylor,1967-05-02,1970-05-05,elected,term_expired,140,Lerwick Town Council Election May 1967,0,
+peter-robertson,Peter Robertson,1967-05-02,1970-05-05,elected,term_expired,140,Lerwick Town Council Election May 1967,0,
+william-smith-iv,William Smith (iv),1967-05-02,1970-05-05,elected,term_expired,140,Lerwick Town Council Election May 1967,0,
+grace-halcrow,Grace Halcrow,1967-05-12,1968-05-02,by-election,term_expired,141,Lerwick Town Council By-Election May 1967,0,
+ronald-cumming,Ronald Cumming,1967-08-08,1968-05-02,by-election,term_expired,142,Lerwick Town Council By-Election August 1967,0,
+grace-halcrow,Grace Halcrow,1968-05-02,1971-05-04,elected,term_expired,143,Lerwick Town Council Election May 1968,0,
+harry-gray,Harry Gray,1968-05-02,1971-05-04,elected,term_expired,143,Lerwick Town Council Election May 1968,0,
+ronald-cumming,Ronald Cumming,1968-05-02,1971-05-04,elected,term_expired,143,Lerwick Town Council Election May 1968,0,
+william-thomson-iii,William Thomson (iii),1968-05-02,1971-05-04,elected,term_expired,143,Lerwick Town Council Election May 1968,0,
+alexander-morrison,Alexander Morrison,1969-05-06,1972-05-02,elected,term_expired,144,Lerwick Town Council Election May 1969,0,
+james-paton-i,James Paton (i),1969-05-06,1972-05-02,elected,term_expired,144,Lerwick Town Council Election May 1969,0,
+john-smith-ii,John Smith (ii),1969-05-06,1970-08-08,elected,replaced,144,Lerwick Town Council Election May 1969,0,
+william-smith-iv,William Smith (iv),1969-05-06,1972-05-02,elected,term_expired,144,Lerwick Town Council Election May 1969,0,
+andrew-tait,Andrew Tait,1970-05-05,1973-05-01,elected,term_expired,145,Lerwick Town Council Election May 1970,0,
+george-blance,George Blance,1970-05-05,1973-05-01,elected,term_expired,145,Lerwick Town Council Election May 1970,0,
+james-taylor,James Taylor,1970-05-05,1973-05-01,elected,term_expired,145,Lerwick Town Council Election May 1970,0,
+william-peterson,William Peterson,1970-05-05,1973-05-01,elected,term_expired,145,Lerwick Town Council Election May 1970,0,
+robert-adair,Robert Adair,1970-08-08,1971-05-04,by-election,term_expired,146,Lerwick Town Council By-Election May 1970,0,
+eric-gray,Eric Gray,1971-05-04,1975-05-15,elected,council_abolished,147,Lerwick Town Council Election May 1971,0,
+harry-gray,Harry Gray,1971-05-04,1975-05-15,elected,council_abolished,147,Lerwick Town Council Election May 1971,0,
+john-butler,John Butler,1971-05-04,1972-05-02,elected,term_expired,147,Lerwick Town Council Election May 1971,0,
+robert-adair,Robert Adair,1971-05-04,1975-05-15,elected,council_abolished,147,Lerwick Town Council Election May 1971,0,
+ronald-cumming,Ronald Cumming,1971-05-04,1975-05-15,elected,council_abolished,147,Lerwick Town Council Election May 1971,0,
+alexander-morrison,Alexander Morrison,1972-05-02,1975-05-15,elected,council_abolished,148,Lerwick Town Council Election May 1972,0,
+james-paton-i,James Paton (i),1972-05-02,1975-05-15,elected,council_abolished,148,Lerwick Town Council Election May 1972,0,
+peter-laurenson,Peter Laurenson,1972-05-02,1975-05-15,elected,council_abolished,148,Lerwick Town Council Election May 1972,0,
+william-peterson,William Peterson,1972-05-02,1975-05-15,elected,council_abolished,148,Lerwick Town Council Election May 1972,0,
+eric-gray,Eric Gray,1973-05-01,1975-05-15,elected,council_abolished,149,Lerwick Town Council Election May 1973,0,
+george-blance,George Blance,1973-05-01,1975-05-15,elected,council_abolished,149,Lerwick Town Council Election May 1973,0,
+james-taylor,James Taylor,1973-05-01,1975-05-15,elected,council_abolished,149,Lerwick Town Council Election May 1973,0,
+john-butler,John Butler,1973-05-01,1975-05-15,elected,council_abolished,149,Lerwick Town Council Election May 1973,0,

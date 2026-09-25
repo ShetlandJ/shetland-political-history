@@ -21,9 +21,10 @@ idempotent: re-running does nothing once the corrections are in place.
 """
 
 import json
+import os
 import sqlite3
 
-DB_PATH = '/Users/james/projects/shetland_history/new-site/shetland.db'
+DB_PATH = os.environ.get('SHETLAND_DB', '/Users/james/projects/shetland_history/new-site/shetland.db')
 
 LTC_COUNCILLORS = 'Lerwick Town Councillors'
 

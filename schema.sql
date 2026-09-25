@@ -99,16 +99,33 @@ CREATE TABLE IF NOT EXISTS leadership_roles (
     end_year TEXT
 );
 
+-- council_terms and term_issues are created by build.py (see TERMS_DDL there), not by
+-- parse_wiki.py. LTC rows come from data/ltc_terms.csv; ZCC and SIC rows are derived.
 CREATE TABLE IF NOT EXISTS council_terms (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     council_id INTEGER NOT NULL REFERENCES councils(id),
     person_id INTEGER REFERENCES people(id),
     person_name TEXT NOT NULL,
-    start_date TEXT,
-    end_date TEXT,
+    candidacy_id INTEGER REFERENCES candidacies(id),  -- the win that gave the seat; party comes from here
+    constituency_id INTEGER REFERENCES constituencies(id),
+    start_date TEXT NOT NULL,
+    end_date TEXT,        -- exclusive; NULL = still serving
     start_reason TEXT,    -- 'elected', 'by-election', 'holdover'
-    end_reason TEXT,      -- 'term_expired', 'died', 'resigned', 'replaced', 'council_abolished'
-    confirmed INTEGER DEFAULT 0  -- 0 = model-generated, 1 = confirmed from primary sources
+    end_reason TEXT,      -- 'term_expired', 'died', 'resigned', 'replaced', 'council_abolished', ...
+    confirmed INTEGER NOT NULL DEFAULT 0,  -- 1 = confirmed from primary sources
+    source TEXT
+);
+
+CREATE TABLE IF NOT EXISTS term_issues (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    council_id INTEGER NOT NULL REFERENCES councils(id),
+    kind TEXT NOT NULL,   -- 'size-over', 'size-short', 'overlap', 'ward-overfull', 'by-election', ...
+    date_from TEXT,
+    date_to TEXT,
+    person_id INTEGER REFERENCES people(id),
+    person_name TEXT,
+    election_id INTEGER REFERENCES elections(id),
+    detail TEXT NOT NULL
 );
 
 -- Indexes for common queries

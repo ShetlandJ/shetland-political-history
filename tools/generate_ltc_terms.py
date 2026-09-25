@@ -1,18 +1,21 @@
 """
-Generate council_terms for Lerwick Town Council from election data.
+Draft Lerwick Town Council service terms from election data.
 
-This script traces through LTC elections and generates service terms for each
-councillor. It uses the cohort model as a starting point but applies confirmed
-corrections from newspaper research.
+data/ltc_terms.csv is the source of truth for LTC membership, and build.py loads it.
+This script only writes a *draft* of that file: it walks the LTC elections with the
+cohort model and the corrections below, and prints CSV. Use it to draft years that
+haven't been researched, then edit the ledger by hand and mark rows confirmed.
 
-Run after parse_wiki.py and add_modern_sic.py:
-    python3 tools/generate_ltc_terms.py
+    python3 tools/generate_ltc_terms.py > draft.csv
 """
 
-import sqlite3
+import csv
+import os
 import re
+import sqlite3
+import sys
 
-DB_PATH = "shetland.db"
+DB_PATH = os.environ.get('SHETLAND_DB', 'shetland.db')
 
 # Confirmed mid-term departures not recorded as by-elections
 MANUAL_DEPARTURES = [
@@ -52,6 +55,12 @@ COHORT_CORRECTIONS = {
 }
 
 
+# Elections that did not seat anyone. Sept 1874: the council split and voted in two
+# rooms; the minute book (p258, 9 Sept 1874) records the first group's election of
+# Bailies as invalid, and the second group took office.
+INVALID_ELECTION_IDS = {21}
+
+
 def remove_person(lst, name):
     """Remove a person by name, handling disambiguation suffixes."""
     clean = re.sub(r'\s*\([^)]*\)\s*$', '', name)
@@ -80,22 +89,26 @@ def generate_terms():
 
     # Death dates
     death_dates = {}
-    for r in cur.execute("SELECT name, died_date FROM people WHERE died_date IS NOT NULL"):
-        death_dates[r['name']] = r['died_date']
+    for r in cur.execute("SELECT id, died_date FROM people WHERE died_date IS NOT NULL"):
+        death_dates[r['id']] = r['died_date']
 
-    # Person ID lookup
+    # Person lookups
     person_ids = {}
-    for r in cur.execute("SELECT id, name FROM people"):
+    person_slugs = {}
+    for r in cur.execute("SELECT id, name, slug FROM people"):
         person_ids[r['name']] = r['id']
+        person_slugs[r['id']] = r['slug']
 
     def get_elected(wiki_page_title):
-        return cur.execute("""
-            SELECT c.candidate_name, c.person_id, p.name as person_name, c.elected
+        rows = cur.execute("""
+            SELECT c.candidate_name, c.person_id, p.name as person_name, c.elected,
+                   p.slug, e.id as election_id, c.role
             FROM candidacies c JOIN elections e ON c.election_id = e.id
             LEFT JOIN people p ON c.person_id = p.id
             WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0
-            ORDER BY c.position
+            ORDER BY e.id, c.position
         """, (wiki_page_title,)).fetchall()
+        return [r for r in rows if r['election_id'] not in INVALID_ELECTION_IDS]
 
     # Manual departure lookup
     departure_map = {}
@@ -112,8 +125,10 @@ def generate_terms():
     def end_term(member, end_date, end_reason):
         """Record a completed term."""
         all_terms.append({
-            'person_id': member.get('person_id'),
+            'person_slug': person_slugs.get(member.get('person_id'), ''),
             'person_name': member['name'],
+            'election_id': member.get('election_id', ''),
+            'election': member.get('election', ''),
             'start_date': member.get('start_date', ''),
             'end_date': end_date,
             'start_reason': member.get('start_reason', 'elected'),
@@ -144,7 +159,13 @@ def generate_terms():
             'person_id': row['person_id'],
             'start_date': edate,
             'start_reason': 'elected',
+            'election_id': row['election_id'],
+            'election': e['wiki_page_title'],
         }
+
+    def is_sitting(name):
+        return any(m['name'] == name for c in cohorts for m in c['members']) or \
+            any(m['name'] == name for m in by_members)
 
     def mk_holdover(name, edate, reason='holdover'):
         pid = person_ids.get(name)
@@ -162,12 +183,12 @@ def generate_terms():
         # Remove dead people before this election
         for c in list(cohorts):
             for m in list(c['members']):
-                dd = death_dates.get(m['name'])
+                dd = death_dates.get(m['person_id'])
                 if dd and dd < edate:
                     end_term(m, dd, 'died')
                     c['members'].remove(m)
         for m in list(by_members):
-            dd = death_dates.get(m['name'])
+            dd = death_dates.get(m['person_id'])
             if dd and dd < edate:
                 end_term(m, dd, 'died')
                 by_members.remove(m)
@@ -176,12 +197,12 @@ def generate_terms():
         for c in list(cohorts):
             for m in list(c['members']):
                 dep = departure_map.get(m['name'])
-                if dep and dep[0] < edate:
+                if dep and m['start_date'] <= dep[0] < edate:
                     end_term(m, dep[0], dep[1])
                     c['members'].remove(m)
         for m in list(by_members):
             dep = departure_map.get(m['name'])
-            if dep and dep[0] < edate:
+            if dep and m['start_date'] <= dep[0] < edate:
                 end_term(m, dep[0], dep[1])
                 by_members.remove(m)
 
@@ -196,14 +217,19 @@ def generate_terms():
             if also:
                 find_and_remove(also.group(1).strip(), edate, 'replaced')
 
-            # Add new by-election members
+            # Add new by-election members. A sitting councillor elected to an office at a
+            # by-election (Joseph Leask, Junior Bailie, May 1844) takes no new seat.
             for c in elected:
                 name = c['person_name'] or c['candidate_name']
+                if is_sitting(name) and c['role'] not in (None, '', 'councillor'):
+                    continue
                 by_members.append({
                     'name': name,
                     'person_id': c['person_id'],
                     'start_date': edate,
                     'start_reason': 'by-election',
+                    'election_id': c['election_id'],
+                    'election': e['wiki_page_title'],
                 })
         else:
             general_count += 1
@@ -315,42 +341,18 @@ def generate_terms():
     for m in by_members:
         end_term(m, '1975-05-15', 'council_abolished')
 
-    # Write to database — preserve confirmed terms, only regenerate unconfirmed
-    cur.execute("DELETE FROM council_terms WHERE council_id = ? AND confirmed = 0", (ltc_id,))
-
-    # Get confirmed term boundaries to avoid inserting duplicates
-    confirmed_terms = set()
-    for r in cur.execute("SELECT person_name, start_date FROM council_terms WHERE council_id = ? AND confirmed = 1", (ltc_id,)):
-        confirmed_terms.add((r['person_name'], r['start_date']))
-
-    inserted = 0
-    for t in all_terms:
-        # Skip if this term is already confirmed
-        if (t['person_name'], t['start_date']) in confirmed_terms:
-            continue
-        cur.execute("""
-            INSERT INTO council_terms (person_id, person_name, council_id, start_date, end_date, start_reason, end_reason, confirmed)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 0)
-        """, (t['person_id'], t['person_name'], ltc_id, t['start_date'], t['end_date'],
-              t['start_reason'], t['end_reason']))
-        inserted += 1
-
-    db.commit()
-
-    # Stats
-    total = cur.execute("SELECT COUNT(*) as c FROM council_terms WHERE council_id = ?", (ltc_id,)).fetchone()['c']
-    print(f"Generated {total} council terms for LTC")
-
-    # Check a few snapshots
-    for check_date in ['1879-12-01', '1883-12-01', '1886-12-01', '1890-12-01',
-                        '1914-12-01', '1920-12-01', '1922-12-01', '1950-06-01']:
-        count = cur.execute("""
-            SELECT COUNT(*) as c FROM council_terms
-            WHERE council_id = ? AND start_date <= ? AND end_date > ?
-        """, (ltc_id, check_date, check_date)).fetchone()['c']
-        print(f"  {check_date}: {count} members")
-
     db.close()
+
+    all_terms.sort(key=lambda t: (t['start_date'], t['person_name']))
+    w = csv.writer(sys.stdout, lineterminator='\n')
+    w.writerow(LEDGER_COLUMNS)
+    for t in all_terms:
+        w.writerow([t['person_slug'], t['person_name'], t['start_date'], t['end_date'],
+                    t['start_reason'], t['end_reason'], t['election_id'], t['election'], 0, ''])
+
+
+LEDGER_COLUMNS = ['person_slug', 'person_name', 'start_date', 'end_date', 'start_reason',
+                  'end_reason', 'election_id', 'election', 'confirmed', 'source']
 
 
 if __name__ == '__main__':

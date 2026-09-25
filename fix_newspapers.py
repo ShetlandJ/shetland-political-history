@@ -16,9 +16,10 @@ idempotent: re-running does nothing once the corrections are in place.
    (newspaper, 22 Nov 1884, per CLAUDE.md), not the 11th.
 """
 
+import os
 import sqlite3
 
-DB_PATH = '/Users/james/projects/shetland_history/new-site/shetland.db'
+DB_PATH = os.environ.get('SHETLAND_DB', '/Users/james/projects/shetland_history/new-site/shetland.db')
 
 GENERAL = 'Lerwick Town Council Election November 1884'
 BY_ELECTION = 'Lerwick Town Council By-Election November 1884'
