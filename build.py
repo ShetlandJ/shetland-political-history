@@ -32,7 +32,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(ROOT, 'shetland.db')
 DATA = os.path.join(ROOT, 'data')
 
-CORRECTIONS = ['fix_minute_book.py', 'fix_newspapers.py', 'fix_sic_by_elections.py']
+CORRECTIONS = ['fix_minute_book.py', 'fix_newspapers.py', 'fix_sic_by_elections.py', 'fix_spelling.py', 'fix_parse_errors.py']
 
 # Councils that stopped existing at local government reorganisation (SIC took over).
 ABOLISHED = {'lerwick-town-council': '1975-05-15', 'zetland-county-council': '1975-05-15'}
