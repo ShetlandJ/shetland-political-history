@@ -146,6 +146,7 @@ cd /Users/james/projects/shetland_history/new-site
 python3 parse_wiki.py           # Parse wiki → SQLite
 python3 add_modern_sic.py       # Add 2017+ SIC elections
 python3 fix_minute_book.py      # LTC minute book corrections (Andrew Duncan jr 1829, Apr 1830 by-election, May 1844 by-election, 1826/1844 election dates, 1874 Junior Bailie)
+python3 fix_newspapers.py        # Newspaper corrections (Nov 1884 election: dates, William Duncan (i) links, Hay declined note)
 python3 populate_missing_constituencies.py  # Create constituencies for unmatched ward names + link
 python3 populate_findagrave.py  # Restore Find A Grave memorial IDs from CSV
 python3 populate_shetland_flags.py  # Set born/died in Shetland flags
