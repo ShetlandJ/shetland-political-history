@@ -8,31 +8,49 @@ The project extracts Shetland political data from the MediaWiki MySQL database i
 
 This is 17 years of research — historical accuracy matters above all else. Never invent data. If something looks wrong, verify against the wiki source.
 
+**The DB is built, never edited.** `shetland.db` is the output of `python3 build.py`, which loads a frozen text baseline (`data/baseline.sql`) and applies the source-cited correction scripts and `data/` files on top. Any direct edit to `shetland.db` is lost on the next build, and CI (`build.py --check`) fails the deploy if the committed DB doesn't match its sources. To change data, add to a correction script (or `data/` file), run `python3 build.py`, commit both.
+
 ## Architecture
 
 ```
 new-site/
-├── parse_wiki.py       # Python script: reads MediaWiki MySQL → writes SQLite
-├── add_modern_sic.py   # Supplements parser with 2017/2022 SIC elections + by-elections (not in wiki)
+├── build.py            # THE build: baseline + corrections + terms + checks → shetland.db
+├── data/
+│   ├── baseline.sql        # Frozen extraction (wiki parse + every script fix to 2026-09-25). Text, diffable.
+│   ├── ltc_terms.csv       # LTC membership ledger — source of truth for who sat when (hand-edited)
+│   ├── party_aliases.csv   # Party label spelling/markup variants
+│   ├── not_seated.csv      # Elected but never took a seat (declined office, invalid 1874 group, office elections)
+│   └── council_size.csv    # Researched exceptions to LTC's 12 seats (empty for now)
+├── fix_minute_book.py  # Correction script: LTC minute book (run by build.py)
+├── fix_newspapers.py   # Correction script: newspaper evidence (run by build.py)
+├── fix_sic_by_elections.py  # Correction script: who the modern SIC by-elections replaced (run by build.py)
+├── tools/generate_ltc_terms.py  # Drafting aid: cohort model → CSV draft of LTC terms (not part of the build)
+├── parse_wiki.py, add_*.py, populate_*.py, ...  # Provenance: produced data/baseline.sql. Do not re-run.
 ├── copy_images.py      # Copies person photos + headshots from MW images dir to site
 ├── schema.sql          # SQLite schema definition
-├── shetland.db         # Generated SQLite database (output of parse_wiki.py)
+├── shetland.db         # Built by build.py. Committed (CI reads it). Never edit directly.
 └── site/               # Astro static site
     ├── src/
     │   ├── components/
-    │   │   └── ExternalLink.astro  # External link component with icon
+    │   │   ├── ExternalLink.astro  # External link component with icon
+    │   │   └── PartyChart.astro    # Seats-by-party stacked step chart (council pages), from council_terms
     │   ├── lib/db.ts   # SQLite query layer (reads ../shetland.db at build time)
     │   ├── layouts/Base.astro  # Global layout with dark mode, sticky header, mobile nav
     │   └── pages/
     │       ├── index.astro           # Homepage with council cards and intro
-    │       ├── search.astro          # Client-side search (index baked in at build)
+    │       ├── search.astro          # Client-side search; fetches /search-index.json (cacheable)
+    │       ├── search-index.json.ts  # Search index, built as a static JSON file
     │       ├── people.astro          # A-Z people listing
     │       ├── constituencies.astro  # Constituencies grouped by council
     │       ├── referenda.astro       # All 6 referenda with results
-    │       ├── anomalies.astro       # Data quality checks
+    │       ├── data-review.astro     # Data quality checks, incl. council membership checks (term_issues)
+    │       ├── council-terms.astro   # "Who served when": pick council + date → members, party tally, party over time
+    │       ├── council-composition.astro  # LTC election-by-election grid (from council_terms)
+    │       ├── zcc-composition.astro # ZCC ward-by-election grid (from council_terms)
     │       ├── council/[slug].astro  # Election list for a council
     │       ├── election/[id].astro   # Election results with prev/next nav
-    │       ├── person/[slug].astro   # Biography + dynamic career + succession boxes + photos
+    │       ├── person/[slug].astro   # Biography + career + "Served" periods (council_terms) + succession boxes + photos
+    │       ├── council/[slug].astro  # Election list; party chart for LTC and SIC
     │       ├── constituency/[slug].astro  # Historical representatives
     │       └── referendum/[slug].astro    # Individual referendum detail
     ├── public/images/people/   # Person photos + headshot thumbnails
@@ -55,10 +73,12 @@ Three MediaWiki MySQL dumps exist locally. We use **shetland_history2** (prefix 
 - **constituencies** — 64+ electoral wards/divisions (includes new 2017/2022 SIC wards)
 - **people** — 535 councillors/politicians with intro, biography, birth/death dates+places, image_ref, headshot_ref, Bayanne ID
 - **elections** — ~1,300 rows (one per constituency result; multi-constituency elections create multiple rows sharing a wiki_page_title). Has `hidden` column for erroneous records. `constituency_display_name` stores historical names that differ from current (e.g. "Walls North" → now "Sandness"). `electorate_detail` stores breakdown like "107 men, 19 women". `replaced_person`/`replaced_person_id` for by-elections.
-  - **Gotcha**: SIC general elections 1974-2002 and pre-1876 LTC elections have `constituency_id = NULL`. Ward-level data wasn't captured for those. Queries matching "same constituency" must handle NULL specially — e.g. treat a NULL-constituency general election's term as ending at the next general election, not at any NULL-constituency by-election (which is in a specific ward).
+  - **Gotcha**: LTC elections have `constituency_id = NULL` (burgh-wide). SIC generals now all have wards (populate_missing_constituencies.py), and every SIC by-election now has a ward (`fix_sic_by_elections.py` set ten from their titles).
 - **candidacies** — ~2,500 individual candidacy records with votes, party, elected status. Some candidate_names contain `[url display]` external links (Bayanne) — rendered via ExternalLink component, not stripped.
 - **referenda** — 6 referenda (1975 EEC, 1979 devolution, 1997 devolution x2 questions, 2011 AV, 2014 indyref, 2016 EU)
 - **referendum_results** — Vote counts per option per question
+- **council_terms** — one row per period of service on LTC, ZCC or SIC. Built by `build.py`: LTC from `data/ltc_terms.csv`; ZCC/SIC derived from ward results (a general replaces every seat; a by-election replaces the named member, or the only member of a single-member ward; deaths end terms). `candidacy_id` is the win that gave the seat — party comes from there. `end_date` is exclusive, NULL = still serving. Serving on X: `start_date <= X AND (end_date IS NULL OR end_date > X)`.
+- **term_issues** — checks over council_terms (oversize/short council, overlapping terms, over-filled wards, unplaceable by-elections, serving after death, elected with no term). The research to-do list; shown on /data-review.
 
 Person linkage: ~86% of candidacies are linked to person records via:
 1. Wiki link matching (primary)
@@ -140,19 +160,17 @@ SIC elections from 2017+ and by-elections from 2019+ are NOT in the wiki databas
 
 ## Commands
 
-### Full rebuild from scratch
+### Build the DB
 ```bash
 cd /Users/james/projects/shetland_history/new-site
-python3 parse_wiki.py           # Parse wiki → SQLite
-python3 add_modern_sic.py       # Add 2017+ SIC elections
-python3 fix_minute_book.py      # LTC minute book corrections (Andrew Duncan jr 1829, Apr 1830 by-election, May 1844 by-election, 1826/1844 election dates, 1874 Junior Bailie)
-python3 fix_newspapers.py        # Newspaper corrections (Nov 1884 election: dates, William Duncan (i) links, Hay declined note)
-python3 populate_missing_constituencies.py  # Create constituencies for unmatched ward names + link
-python3 populate_findagrave.py  # Restore Find A Grave memorial IDs from CSV
-python3 populate_shetland_flags.py  # Set born/died in Shetland flags
-python3 copy_images.py          # Copy photos from MW images dir
-cd site && npm run build         # Build static site (reads ../shetland.db directly)
+python3 build.py            # data/baseline.sql → corrections → party aliases → council_terms → term_issues
+python3 build.py --check    # CI runs this: fails if shetland.db doesn't match its sources
+cd site && npm run build    # Build static site (reads ../shetland.db directly)
 ```
+
+To add a correction: put it in the relevant `fix_*.py` (idempotent, guard on the old value, cite the source in the docstring) or a new script added to `CORRECTIONS` in build.py. To change LTC membership: edit `data/ltc_terms.csv` (set `confirmed=1` and `source` when a row is confirmed from a primary source), then rebuild and check /data-review.
+
+The old pipeline (`parse_wiki.py` → `add_modern_sic.py` → `populate_*.py` → ...) produced `data/baseline.sql` and is kept as provenance. Don't re-run it: `parse_wiki.py` deletes `shetland.db`, and that's how 274 confirmed LTC terms were lost in April 2026 (recovered from commit 38f2f89 into the ledger). `copy_images.py` is still how photos get into `site/public/images/people/`.
 
 ### Preview locally
 ```bash
@@ -161,19 +179,27 @@ npx astro preview
 ```
 
 ### Dependencies
-- Python: `mysql-connector-python`
+- Python 3 standard library only for `build.py` (`mysql-connector-python` only for the retired `parse_wiki.py`)
 - Node: `better-sqlite3`, `astro`
-- Local MySQL with shetland_history2 database imported
 - MediaWiki images directory at `/Users/james/projects/shetland_history/images/`
 
 ## Deployment
 
-Deployed to GitHub Pages. The site deploys automatically on push to master. The SQLite DB (`shetland.db`) must not be gitignored — it's committed to the repo and read directly by the site build via `../shetland.db`. After pushing, verify the build succeeded.
+**Cloudflare Pages** builds and serves shetlandhistory.com from master (project `shetland-political-history`, also at shetland-political-history.pages.dev). The build command is set in the Cloudflare dashboard and should be:
+
+```
+python3 build.py --check && cd site && npm ci && npm run build
+```
+with output directory `site/dist`. The `--check` stops a stale DB from deploying.
+
+`.github/workflows/check.yml` runs the same check plus a site build on every push and PR. It doesn't deploy. The old GitHub Pages deploy workflow (with its `/shetland-political-history` base path and sed link rewriting) was removed on 2026-09-25: github.io only redirected to the custom domain. The GitHub Pages setting on the repo can be switched off.
+
+The SQLite DB (`shetland.db`) must not be gitignored — it's committed and read directly by the site build via `../shetland.db`. After pushing, verify the Cloudflare build succeeded.
 
 ## LTC Composition Model
 
 ### Goal
-Answer the question "who were the councillors on date X?" via the council composition page (`council-composition.astro`). The current approach uses a cohort-based model to simulate composition from election results, but this is being replaced with a `council_terms` table of confirmed service periods.
+Answer the question "who were the councillors on date X?" — now answered by `/council-terms` (any council, any date, with party) from `council_terms`. For LTC the source is the ledger `data/ltc_terms.csv`; the cohort model below survives only as `tools/generate_ltc_terms.py`, a drafting aid.
 
 ### Council structure
 - **Pre-1876**: Triennial elections, full council replacement (all 11-12 members elected at once)
@@ -203,7 +229,7 @@ Answer the question "who were the councillors on date X?" via the council compos
 |---|---|---|
 | Nov 1884 general (id=33) | Date: 1884-11-04 | Newspaper 8 Nov 1884 |
 | Nov 1884 by-election (id=34) | Date: 1884-11-22 (council co-option) | Newspaper 22 Nov 1884 |
-| Nov 1884 general | Arthur Hay elected=0 (declined office) | His letter, 8 Nov 1884 |
+| Nov 1884 general | Arthur Hay stays elected=1 (topped the poll) with a declined-office note; he's in `data/not_seated.csv`, so he gets no term | His letter, 8 Nov 1884; fix_newspapers.py |
 | Nov 1886 by-election (id=36) | replaced_person: William Duncan, also: John Harrison | Newspaper 23 Oct 1886 |
 | 1876-1885 LTC | 4 "William Duncan" candidacies relinked from Duncan (ii) to Duncan (i) | Duncan (i) profile + Duncan (ii) was Scalloway merchant |
 | Nov 1886 general | Short-term fill: Jamieson (not Stove). Stove stays in 1886 cohort. | Newspaper 6 Oct 1888 (lists Jamieson as retiring 1888) |
@@ -235,44 +261,59 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 - **1886 general**: Jamieson was short-term fill (not Stove). Stove served until death Apr 1889.
 - **1887 general**: Anderson was short-term fill (not Charles Robertson). Anderson re-stood and won 1888.
 
-### Current state and next steps (as of 2026-04-06)
+### Current state (as of 2026-09-25)
 
-Two composition pages exist:
-- `/council-composition` — original cohort model (complex, ~350 lines of simulation logic)
-- `/council-composition-v2` — reads from `council_terms` table (simple SQL queries, ~100 lines)
-V2 is the future. The terms generator (`tools/generate_ltc_terms.py`) is the single place to fix anomalies. Confirmed terms (`confirmed=1`) are preserved across regenerations. 247 terms confirmed through Jan 1878.
+`data/ltc_terms.csv` holds 649 LTC terms, 263 confirmed (everything starting up to Nov 1883), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
+- 1826/1844 election dates, Andrew Duncan (ii) 1829, Magnus Burns 1830 → from the minute book.
+- **1874**: the April "confirmed" rows held both rival groups (23 rows). Minute book p258 records the first group's election as invalid, so the ledger has only the second group's 11.
+- **May 1844**: the generator had given Joseph Leask a second seat. It was an election to the office of Junior Bailie; he already sat.
+- 1881 cohort ends at the 4 Nov 1884 general (Shetland Times 1 Nov 1884).
 
-**Period status:**
-- **Pre-1876**: Correct (triennial full-replacement elections). Confirmed.
-- **1877-1878**: Correct (12). Confirmed. Newspaper Oct 1878: 4 vacancies, normal rotation.
-- **1879**: Confirmed at 11. Laurenson declined office. Newspaper Oct 1879: 4 retiring incl Laurenson.
-- **1880**: Confirmed. General=11 (Goudie declined), by-election=12 (Duncan replaced Goudie). Newspaper Oct 1880: 4 retiring + "a vacancy to fill up" from Laurenson's unfilled seat = 5 vacancies.
-- **1881-1883**: Confirmed (12). 274 terms confirmed through Nov 1883.
-- **1884-1886**: V2 shows 12 at 1884-1885, 13 at 1886. Hay declined 1884, Duncan/Harrison departures 1886. By-election gap-fill issue at 1886 persists.
-- **1887-1889**: V2 shows 12 (terms generator handles correctly). V1 model shows 11 (dedup issue).
-- **1890-1895**: Correct (12) — fixed by Mitchell departure + cohort corrections.
-- **1896-1907**: Unresearched.
-- **1908-1914**: Shows 11. Confirmed correct — MacDougall resigned Apr 1912, vacancy absorbed. Council ran at 11 from 1912 until 1919 reset.
-- **1915-1918 (WWI)**: By-elections only, no generals. Multiple wartime co-options.
-- **1919**: Correct (12) — post-WWI reset with hardcoded cohort assignments.
-- **1920-1928**: Correct (12).
-- **1929-1931**: Shows 11. Unresearched — likely a mid-term departure cascading. 1930 newspaper confirms 4 normal vacancies ("personnel remains as before"), so council was genuinely 12 at that point. Model disagrees.
-- **1932**: Correct (12) — Campbell (i) fix + skip-redistribute.
-- **1933**: Shows 13 in v1, 13 in v2. Cascade from 1929 deficit. Newspaper confirms 4 vacancies.
-- **1934**: Correct (12) — Sandison death + skip-redistribute for 1932.
-- **1935+**: Unresearched. WWII era has many anomalies (13s/14s from 1937-1946).
-- **1957-1958**: Unresearched 13s.
+Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-**Key patterns:**
-- When 5 elected and next general has only 4: all 5 got full terms → add to `SKIP_REDISTRIBUTE` (1883, 1912, 1932).
-- Declined office: Laurenson 1879, Goudie 1880, Hay 1884 → handled via `declinedOffice` set in composition model and `DECLINED_OFFICE` in terms generator.
-- By-election replacing already-departed person: cap additions at council size 12.
-- `council_terms` table with `confirmed` flag is the path forward — fix in one place, display reads from table.
+The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1951–52, 1967 — often genuine vacancies before a by-election or general); oversize 1913–1919, 1934–1946 and 1958–1965; and 30 overlapping terms, which are where the cohort model kept someone sitting who had already left (e.g. Arthur Johnson's repeated co-options, 1941–1958).
+
+**1912–1914 needs a decision**: the notes above say both "all 5 got full terms" (Oct 1912: council back to 12) and "council at 11 from 1912 until 1919". The ledger currently has 12 from Nov 1912 and 13 from Nov 1913. Once settled, record it in the ledger (and `data/council_size.csv` if the council really ran at 11).
+
+**Key patterns (for editing the ledger):**
+- When 5 elected and next general has only 4: all 5 got full terms (1883, 1912, 1932).
+- Declined office: Laurenson 1879, Goudie 1880, Hay 1884 → listed in `data/not_seated.csv`.
+- A sitting councillor winning a by-election for an office (Bailie) takes no new seat.
+
+## Learnings and gotchas
+
+### Data
+- **Look people up by `person_id`, never by name.** Name lookups caused the James Inkster death bug and the William Sinclair departure bug (see "Current state" above). Unlinked candidacies share names with linked people.
+- **Election ids are stable now** (frozen baseline), so `data/` files can safely refer to `election_id`. The ledger stores both `election_id` and `election` (wiki title), and `build.py` fails if they disagree.
+- **`replaced_person` placeholders:** `[unfilled seat]` (the seat was empty at the general for lack of nominations, and the by-election filled it) and `[voided election re-run]` are markers, not people. Use the same convention for new cases (e.g. North Isles Aug 2022).
+- **Ward seat counts** = winners at the last general + seats filled since via `[unfilled seat]` by-elections. Multi-member SIC wards (2007+) need `replaced_person` on every by-election, or the ward shows over-full.
+- **Office elections are not seats.** A sitting councillor elected Bailie at a by-election (Joseph Leask, May 1844) takes no new term. Detected by `candidacies.role` not being NULL or `councillor`.
+- **Party is per candidacy** (the label they won under). A mid-term change of party can't be represented yet; if one turns up, it needs a column on `council_terms`.
+- **Party aliases are for spelling and markup only.** Don't merge genuinely different labels (Labour vs Independent Labour vs Socialist, Liberal Democrats vs Scottish Liberal Democrats): they're historical record.
+- **Before trusting a `confirmed` flag, check it against later corrections.** The April 1874 rows were "confirmed" but double-counted both groups.
+- **Constituency slugs aren't unique across councils** (10 pairs: `bressay`, `delting-north`, `lerwick-central`, `lerwick-north`, `lerwick-south`, `yell-south`, … — ZCC and SIC wards with the same name). `/constituency/[slug]` renders only one of each pair (the build warns "conflicts with higher priority route"), so the other ward's page is missing and links to it land on the wrong council's ward.
+- **SIC by-elections are matched to the ward in their title.** `fix_sic_by_elections.py` fixed ten that had no ward or an out-of-date one. ZCC "Northmavine South County Council By-Election February 1951" is correctly on Northmavine North (David Walker's seat, which Joseph Peterson then held): the wiki title is wrong, not the data.
+- **Council end dates:** terms use 1975-05-15 for LTC/ZCC abolition, but `history.astro` says the councils ran "until August 1975". Unresolved.
+
+### Site
+- **The site is served at the domain root**, so plain `/path` hrefs are fine. Some pages still prefix `import.meta.env.BASE_URL` (now always `/`); harmless.
+- **Working pages** (`/data-review`, and any future review pages) pass `noindex` to `Base` and are filtered out of the sitemap in `astro.config.mjs`.
+- **Party chart colours** are validated as a set, in stack order, for colour-blind separation in light and dark mode (dataviz skill validator). Labour sits at the base so its seats read directly. To add a party, re-run the validator on the new order rather than picking a colour by eye.
+- **Elements created at runtime don't get Astro's scoped styles.** Style them with `:global(...)`.
+
+### Process
+- The drift check compares full dumps. After any change to `data/` or a correction script, run `python3 build.py` and commit `shetland.db` with it.
+- When a check on /data-review is resolved, fix the ledger or add a correction. Don't add special cases to `build.py`'s checks to make the issue go away.
 
 ## Known Issues / TODO
-- [ ] Deploy to Cloudflare Pages
-- [ ] 354 candidacies remain unlinked — mostly SIC candidates without person pages (deliberate) and party names being parsed as candidates in Westminster elections
+- [ ] Work through the 70 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
+- [ ] Decide LTC council size for 1912–1914 (see "Current state")
+- [ ] SIC by-elections Sep 1993 (Jonathan Wills, Whiteness Weisdale & Tingwall) and Mar 2002 (Joseph G. Simpson, Whalsay & Skerries): wards now set from the titles, and the replaced member is inferred as the sitting member. Confirm who it was.
+- [ ] Make constituency slugs unique across councils (see Learnings); needs redirects for any existing URLs that change
+- [ ] Set the Cloudflare Pages build command (see Deployment) and switch off GitHub Pages
+- [ ] Junk candidacy rows from parsing: `Image:cross.gif` (Lerwick Twageos 1988 by-election), `Unknown` (1722 election, with "James Moodie" in the party column). Fix with a correction script.
+- [ ] 420 candidacies unlinked — mostly SIC candidates without person pages (deliberate)
 - [ ] 32 person photos missing from MW images directory
 - [ ] 11 people with zero candidacies are pre-1707 politicians whose elections aren't in the dataset
-- [ ] Westminster election parser: party names (Labour, Conservative, etc.) sometimes parsed as candidate names
 - [ ] Some people missing birth/death places — genuinely absent from wiki source, not a parsing bug
+- Parser fixes (e.g. the old Westminster party-name issue, now fixed) can no longer go in `parse_wiki.py`: they're corrections on top of the baseline.

@@ -2,14 +2,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
-
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: isGitHubPages ? 'https://shetlandj.github.io' : 'https://shetlandhistory.com',
-  ...(isGitHubPages ? {
-    base: '/shetland-political-history',
-  } : {}),
-  integrations: [sitemap()],
+  site: 'https://shetlandhistory.com',
+  // Working pages are reachable but kept out of search engines (they also set noindex).
+  integrations: [sitemap({ filter: (page) => !page.includes('/data-review') })],
 });

@@ -1,0 +1,32 @@
+name: Check
+
+# The live site (shetlandhistory.com) is built and deployed by Cloudflare Pages from master.
+# This workflow only checks: that shetland.db is exactly what build.py produces from data/
+# and the correction scripts, and that the site builds. Cloudflare's build command should
+# also run `python3 build.py --check` so a stale DB can't deploy.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: shetland.db is built from its sources
+        run: python3 build.py --check
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Build site
+        working-directory: site
+        run: npm run build
