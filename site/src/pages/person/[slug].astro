@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
-import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson, getLeadershipRolesForPerson, getLeadershipSuccessionForPerson, getConstituencyMembers, getConstituencyIdBySlug, getRelatedPeople } from '../../lib/db';
+import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson, getLeadershipRolesForPerson, getLeadershipSuccessionForPerson, getConstituencyMembers, getConstituencyIdBySlug, getRelatedPeople, getServiceForPerson } from '../../lib/db';
 import fs from 'fs';
 import path from 'path';
 
@@ -17,6 +17,14 @@ if (!person) return Astro.redirect('/');
 const candidacies = getCandidaciesForPerson(person.id);
 const tenures = getTenuresForPerson(person.id);
 const leadershipRoles = getLeadershipRolesForPerson(person.id);
+const service = getServiceForPerson(person.id);
+
+function servicePeriod(p: { start: string; end: string | null }): string {
+  const a = p.start.substring(0, 4);
+  if (p.end === null) return `${a}–present`;
+  const b = p.end.substring(0, 4);
+  return a === b ? a : `${a}–${b}`;
+}
 
 // Build election page ID lookup: wiki_page_title -> first election id
 const allElections = getAllElections();
@@ -180,6 +188,16 @@ function renderLinkedText(text: string): string {
           <tr>
             <th scope="row">{r.role}</th>
             <td><a href={`/council/${r.council_slug}`}>{r.council_name}</a><br />{r.start_year}–{r.end_year}</td>
+          </tr>
+        ))}
+        {service.map(s => (
+          <tr>
+            <th scope="row">Served</th>
+            <td>
+              <a href={`/council/${s.council_slug}`}>{s.council_name}</a><br />
+              {s.periods.map(servicePeriod).join(', ')}
+              {s.provisional && <><br /><a class="provisional" href="/data-review#composition">provisional: still being researched</a></>}
+            </td>
           </tr>
         ))}
         {candidacies.length > 0 && (
@@ -456,6 +474,11 @@ function renderLinkedText(text: string): string {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+
+  .provisional {
+    font-size: 0.8rem;
+    color: var(--muted);
   }
 
   .infobox-table {

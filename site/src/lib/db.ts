@@ -806,3 +806,54 @@ export function getUncontestedRate(): { uncontested: number; total: number } {
   const total = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hidden = 0').get() as any).c;
   return { uncontested, total };
 }
+
+export interface ServicePeriod {
+  start: string;
+  end: string | null;   // null = still serving
+}
+
+export interface CouncilService {
+  council_name: string;
+  council_slug: string;
+  periods: ServicePeriod[];
+  provisional: boolean; // unconfirmed LTC terms, or an open membership check on this person
+}
+
+/**
+ * Continuous periods of service on each council, from council_terms. Back-to-back and
+ * overlapping terms merge into one period; a gap of even a day starts a new one.
+ */
+export function getServiceForPerson(personId: number): CouncilService[] {
+  const terms = db.prepare(`
+    SELECT ct.start_date, ct.end_date, ct.confirmed, co.name as council_name, co.slug as council_slug
+    FROM council_terms ct JOIN councils co ON co.id = ct.council_id
+    WHERE ct.person_id = ?
+    ORDER BY co.id, ct.start_date
+  `).all(personId) as any[];
+  const openIssues = new Set((db.prepare(
+    'SELECT DISTINCT council_id FROM term_issues WHERE person_id = ?'
+  ).all(personId) as any[]).map(r => r.council_id));
+  const councilIds = new Map((db.prepare('SELECT id, slug FROM councils').all() as any[]).map(r => [r.slug, r.id]));
+
+  const out: CouncilService[] = [];
+  for (const t of terms) {
+    let svc = out.find(s => s.council_slug === t.council_slug);
+    if (!svc) {
+      svc = {
+        council_name: t.council_name,
+        council_slug: t.council_slug,
+        periods: [],
+        provisional: openIssues.has(councilIds.get(t.council_slug)),
+      };
+      out.push(svc);
+    }
+    if (t.council_slug === 'lerwick-town-council' && !t.confirmed) svc.provisional = true;
+    const last = svc.periods[svc.periods.length - 1];
+    if (last && last.end !== null && t.start_date <= last.end) {
+      if (t.end_date === null || t.end_date > last.end) last.end = t.end_date;
+    } else if (!last || last.end !== null) {
+      svc.periods.push({ start: t.start_date, end: t.end_date });
+    }
+  }
+  return out;
+}

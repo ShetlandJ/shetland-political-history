@@ -72,9 +72,15 @@ for (const e of allElections) {
   });
 }
 
-// Build grid: for each column, who represents each constituency
-const grid = new Map<string, Map<number, CellData>>();
-const prevRep = new Map<number, { name: string; slug: string | null }>();
+// Build grid from council_terms: for each column, who was sitting for each constituency on
+// that election's date. Terms record deaths and by-election replacements, so a seat left
+// empty by a death shows empty until it's filled.
+const zccTerms = db.prepare(`
+  SELECT ct.constituency_id, ct.person_name, p.slug, ct.start_date, ct.end_date, ct.start_reason
+  FROM council_terms ct LEFT JOIN people p ON p.id = ct.person_id
+  WHERE ct.council_id = ?
+  ORDER BY ct.start_date, ct.person_name
+`).all(zccId) as any[];
 
 // Get the min election ID per wiki_page_title for linking
 const electionIdMap = new Map<string, number>();
@@ -82,64 +88,20 @@ for (const e of db.prepare('SELECT wiki_page_title, MIN(id) as min_id FROM elect
   electionIdMap.set(e.wiki_page_title, e.min_id);
 }
 
+const grid = new Map<string, Map<number, CellData[]>>();
 for (const col of columns) {
-  const row = new Map<number, CellData>();
-
-  // Carry over previous state
-  for (const [cid, rep] of prevRep) {
-    row.set(cid, { name: rep.name, slug: rep.slug, isNew: false, isByElection: false });
+  const row = new Map<number, CellData[]>();
+  for (const t of zccTerms) {
+    if (t.constituency_id == null || t.start_date > col.date || (t.end_date !== null && t.end_date <= col.date)) continue;
+    const isNew = t.start_date === col.date;
+    const cell: CellData = {
+      name: t.person_name,
+      slug: t.slug || slugLookup.get(t.person_name) || null,
+      isNew,
+      isByElection: isNew && t.start_reason === 'by-election',
+    };
+    row.set(t.constituency_id, [...(row.get(t.constituency_id) || []), cell]);
   }
-
-  if (col.isByElection) {
-    // By-election: only the affected constituency changes, rest carries over
-    const results = db.prepare(`
-      SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug
-      FROM candidacies c
-      JOIN elections e ON c.election_id = e.id
-      LEFT JOIN people p ON c.person_id = p.id
-      WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0
-    `).all(col.wikiTitle) as any[];
-
-    for (const r of results) {
-      if (!r.constituency_id) continue;
-      const name = r.person_name || r.candidate_name;
-      const slug = r.slug || slugLookup.get(name) || null;
-      row.set(r.constituency_id, { name, slug, isNew: true, isByElection: true });
-      prevRep.set(r.constituency_id, { name, slug });
-    }
-  } else {
-    // General election: fresh start. Only show who was elected at THIS general.
-    // Don't carry over from previous generals — every constituency votes.
-    const row2 = new Map<number, CellData>();
-    const results = db.prepare(`
-      SELECT e.constituency_id, c.candidate_name, p.name as person_name, p.slug, c.votes_text
-      FROM candidacies c
-      JOIN elections e ON c.election_id = e.id
-      LEFT JOIN people p ON c.person_id = p.id
-      WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0
-    `).all(col.wikiTitle) as any[];
-
-    // Reset prevRep for constituencies that had results, keep the rest
-    const constitsWithResults = new Set<number>();
-    for (const r of results) {
-      if (!r.constituency_id) continue;
-      constitsWithResults.add(r.constituency_id);
-      const name = r.person_name || r.candidate_name;
-      const slug = r.slug || slugLookup.get(name) || null;
-      const prev = prevRep.get(r.constituency_id);
-      const isNew = !prev || prev.name !== name;
-      row.set(r.constituency_id, { name, slug, isNew, isByElection: false });
-      prevRep.set(r.constituency_id, { name, slug });
-    }
-    // Clear prevRep for constituencies WITHOUT results at this general (seat vacant/not contested)
-    for (const c of constituencies) {
-      if (!constitsWithResults.has(c.id) && isActive(c, col.date)) {
-        row.delete(c.id);
-        prevRep.delete(c.id);
-      }
-    }
-  }
-
   grid.set(col.wikiTitle, row);
 }
 
@@ -227,7 +189,7 @@ const columnsJson = JSON.stringify(columns.map((c, i) => ({ idx: i, isByElection
           <td class="row-label">Seats</td>
           {columns.map((col, i) => {
             const row = grid.get(col.wikiTitle);
-            const count = row ? row.size : 0;
+            const count = row ? [...row.values()].reduce((n, cells) => n + cells.length, 0) : 0;
             return <td class={`count-cell ${col.isByElection ? 'by-col' : ''}`} data-col-idx={i}>{count}</td>;
           })}
         </tr>
@@ -242,16 +204,23 @@ const columnsJson = JSON.stringify(columns.map((c, i) => ({ idx: i, isByElection
                 return <td class={`defunct-cell ${col.isByElection ? 'by-col' : ''}`} data-col-idx={i}>*</td>;
               }
               const row = grid.get(col.wikiTitle);
-              const cell = row?.get(constit.id);
-              if (!cell) {
+              const cells = row?.get(constit.id);
+              if (!cells) {
                 return <td class={`empty-cell ${col.isByElection ? 'by-col' : ''}`} data-col-idx={i}></td>;
               }
+              const isNew = cells.some(c => c.isNew);
+              const isBy = cells.some(c => c.isByElection);
               return (
-                <td class={`member-cell ${cell.isNew ? 'new-member' : ''} ${cell.isByElection ? 'by-elected' : ''} ${col.isByElection ? 'by-col' : ''}`}
+                <td class={`member-cell ${isNew ? 'new-member' : ''} ${isBy ? 'by-elected' : ''} ${col.isByElection ? 'by-col' : ''}`}
                     data-col-idx={i}>
-                  {cell.slug
-                    ? <a href={`/person/${cell.slug}`}>{cell.name}</a>
-                    : cell.name}
+                  {cells.map((cell, k) => (
+                    <>
+                      {k > 0 && <br />}
+                      {cell.slug
+                        ? <a href={`/person/${cell.slug}`}>{cell.name}</a>
+                        : cell.name}
+                    </>
+                  ))}
                 </td>
               );
             })}

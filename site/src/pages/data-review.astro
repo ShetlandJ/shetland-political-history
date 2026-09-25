@@ -25,157 +25,28 @@ const unfilledSeats = missing.filter((e: any) => notAReplacement.has(e.replaced_
 const unlinked = byElectionStatus.filter((e: any) => e.replaced_person && !e.replaced_person_id);
 const linked = byElectionStatus.filter((e: any) => e.replaced_person_id);
 
-// Council composition anomalies — compute inline
-const ltcId = (db.prepare("SELECT id FROM councils WHERE slug = 'lerwick-town-council'").get() as any).id;
+// Council membership checks, computed by build.py over council_terms
+const termIssues = db.prepare(`
+  SELECT ti.kind, ti.date_from, ti.date_to, ti.person_name, ti.detail, ti.election_id,
+         p.slug as person_slug, co.name as council_name, co.slug as council_slug
+  FROM term_issues ti
+  JOIN councils co ON co.id = ti.council_id
+  LEFT JOIN people p ON p.id = ti.person_id
+  ORDER BY co.id, ti.date_from, ti.kind
+`).all() as any[];
 
-const ltcElections = db.prepare(`
-  SELECT MIN(e.id) as id, e.wiki_page_title, e.election_date, e.election_type, e.replaced_person,
-         rp.name as replaced_person_name, e.notes
-  FROM elections e
-  LEFT JOIN people rp ON e.replaced_person_id = rp.id
-  WHERE e.council_id = ? AND e.hidden = 0
-  GROUP BY e.wiki_page_title ORDER BY e.election_date
-`).all(ltcId) as any[];
+const issueKinds: Record<string, string> = {
+  'size-over': 'More members than seats',
+  'size-short': 'Fewer members than seats',
+  'overlap': 'Two terms at once',
+  'ward-overfull': 'Ward over-filled',
+  'by-election': "By-election can't be placed",
+  'after-death': 'Serving after death',
+  'no-term': 'Elected but no term',
+  'bad-dates': 'Term ends before it starts',
+};
 
-const deaths = new Map<string, string>();
-for (const r of db.prepare("SELECT name, died_date FROM people WHERE died_date IS NOT NULL").all() as any[]) {
-  deaths.set(r.name, r.died_date);
-}
-
-// Mid-term departures not recorded as by-elections in the wiki data.
-const manualDepartures: { name: string; date: string }[] = [
-  { name: 'Thomas Cameron', date: '1883-09-01' },
-  { name: 'William Duncan (i)', date: '1886-07-12' },
-  { name: 'John Harrison (i)', date: '1886-10-01' },
-  { name: 'Alexander Mitchell (i)', date: '1889-09-01' },
-  { name: 'William MacDougall', date: '1912-04-01' },
-  { name: 'William Sinclair', date: '1921-10-01' },
-];
-
-function getElected(wt: string) {
-  return db.prepare(`
-    SELECT c.candidate_name, p.name as person_name
-    FROM candidacies c JOIN elections e ON c.election_id = e.id
-    LEFT JOIN people p ON c.person_id = p.id
-    WHERE e.wiki_page_title = ? AND c.elected = 1 AND e.hidden = 0 ORDER BY c.position
-  `).all(wt) as any[];
-}
-
-function removePerson(lst: string[], name: string): string[] {
-  const clean = name.replace(/\s*\([^)]*\)\s*$/, '');
-  return lst.filter(m => m !== name && m.replace(/\s*\([^)]*\)\s*$/, '') !== clean);
-}
-
-let cohorts: { members: string[]; exp: number }[] = [];
-let byMembers: string[] = [];
-let generalCount = 0;
-
-interface Anomaly {
-  date: string;
-  type: string;
-  size: number;
-  wikiTitle: string;
-  direction: string;
-  electionId: number;
-}
-
-const anomalies: Anomaly[] = [];
-
-for (const e of ltcElections) {
-  const elected = getElected(e.wiki_page_title);
-  const num = elected.length;
-  const edate: string = e.election_date || '';
-  const year = edate.substring(0, 4);
-
-  const departed = new Set(manualDepartures.filter(d => d.date < edate).map(d => d.name));
-  for (const c of cohorts) {
-    c.members = c.members.filter(m => !departed.has(m) && (deaths.get(m) || '9999') >= edate);
-  }
-  byMembers = byMembers.filter(m => !departed.has(m) && (deaths.get(m) || '9999') >= edate);
-
-  if (e.election_type === 'by-election') {
-    const replaced = e.replaced_person_name || e.replaced_person;
-    if (replaced) {
-      for (const c of cohorts) c.members = removePerson(c.members, replaced);
-      byMembers = removePerson(byMembers, replaced);
-    }
-    const notes: string = e.notes || '';
-    const also = notes.match(/Also replaced:\s*(.+)/);
-    if (also) {
-      for (const c of cohorts) c.members = removePerson(c.members, also[1].trim());
-      byMembers = removePerson(byMembers, also[1].trim());
-    }
-    for (const c of elected) byMembers.push(c.person_name || c.candidate_name);
-  } else {
-    generalCount++;
-    if (e.wiki_page_title === 'Lerwick Town Council Election November 1876') {
-      cohorts = []; byMembers = [];
-      const members = elected.map((c: any) => c.person_name || c.candidate_name);
-      cohorts.push({ members: members.slice(0, 4), exp: generalCount + 3 });
-      cohorts.push({ members: members.slice(4, 8), exp: generalCount + 2 });
-      cohorts.push({ members: members.slice(8, 12), exp: generalCount + 1 });
-    } else if (e.wiki_page_title === 'Lerwick Town Council Election November 1919') {
-      // Post-WWI reset: hardcoded cohort assignments from newspaper evidence
-      cohorts = []; byMembers = [];
-      const electedNames = elected.map((c: any) => c.person_name || c.candidate_name);
-      cohorts.push({ members: ['Robert Ganson (i)', 'Alexander Ratter', 'William Sinclair', 'Peter Goodlad'], exp: generalCount + 1 });
-      cohorts.push({ members: electedNames.slice(0, 4), exp: generalCount + 3 });
-      cohorts.push({ members: ['John Smith (i)', ...electedNames.slice(4)], exp: generalCount + 2 });
-    } else if (num >= 10) {
-      cohorts = []; byMembers = [];
-      cohorts.push({ members: elected.map((c: any) => c.person_name || c.candidate_name), exp: generalCount + 3 });
-    } else {
-      cohorts = cohorts.filter(c => c.exp > generalCount);
-      byMembers = [];
-      cohorts.push({ members: elected.map((c: any) => c.person_name || c.candidate_name), exp: generalCount + 3 });
-      let moved = true;
-      while (moved) {
-        moved = false;
-        const overflowCohort = cohorts.find(c => c.members.length > 4);
-        if (overflowCohort) {
-          const gapCohort = cohorts.find(c => c.members.length < 4);
-          if (gapCohort) {
-            gapCohort.members.push(overflowCohort.members.pop()!);
-            moved = true;
-          }
-        }
-      }
-      // Manual cohort corrections where redistribution picked the wrong short-term fill
-      const corrections: Record<string, [string, string]> = {
-        'Lerwick Town Council Election November 1886': ['Laurence Stove', 'Andrew Jamieson'],
-        'Lerwick Town Council Election November 1887': ['Charles Robertson', 'John Anderson'],
-      };
-      const corr = corrections[e.wiki_page_title];
-      if (corr) {
-        const [wrong, right] = corr;
-        let wc = cohorts.find(c => c.members.includes(wrong));
-        let rc = cohorts.find(c => c.members.includes(right));
-        if (wc && rc && wc !== rc) {
-          wc.members = wc.members.filter((m: string) => m !== wrong);
-          rc.members = rc.members.filter((m: string) => m !== right);
-          wc.members.push(right);
-          rc.members.push(wrong);
-        }
-      }
-    }
-  }
-
-  const allNames = new Set<string>();
-  for (const c of cohorts) for (const m of c.members) allNames.add(m);
-  for (const m of byMembers) allNames.add(m);
-  const size = allNames.size;
-
-  if (year && parseInt(year) > 1877 && size !== 12) {
-    anomalies.push({
-      date: edate,
-      type: e.election_type,
-      size,
-      wikiTitle: e.wiki_page_title,
-      direction: size > 12 ? 'over' : 'under',
-      electionId: e.id,
-    });
-  }
-}
+const issueCouncils = [...new Set(termIssues.map((i: any) => i.council_name))];
 
 // People with no candidacies
 const noCandidacies = db.prepare(`
@@ -274,7 +145,7 @@ const totalCandidacies = (db.prepare('SELECT COUNT(*) as c FROM candidacies').ge
 const linkedCandidacies = (db.prepare('SELECT COUNT(*) as c FROM candidacies WHERE person_id IS NOT NULL').get() as any).c;
 const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hidden = 0').get() as any).c;
 ---
-<Base title="Data Review">
+<Base title="Data Review" noindex>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Data Review</div>
   <h1>Data Review</h1>
   <p class="meta">Data quality checks and items needing research. This page is a working tool, not a public-facing feature.</p>
@@ -289,7 +160,7 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
       {longCareers.length > 0 && <li><a href="#long-careers">Long careers ({longCareers.length})</a></li>}
       {voteAnomalies.length > 0 && <li><a href="#vote-anomalies">Vote anomalies ({voteAnomalies.length})</a></li>}
       <li><a href="#similar-names">Disambiguated names ({similarNames.length})</a></li>
-      <li><a href="#composition">LTC composition ({anomalies.length} anomalies)</a></li>
+      <li><a href="#composition">Council membership checks ({termIssues.length})</a></li>
       <li><a href="#by-elections">By-election replacements ({genuinelyUnknown.length} unknown)</a></li>
       <li><a href="#unlinked-cands">Unlinked candidacies ({totalUnlinked})</a></li>
       {potentialMatches.length > 0 && <li><a href="#potential-matches">Potential matches ({potentialMatches.length})</a></li>}
@@ -300,30 +171,31 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
   </nav>
 
   <details>
-    <summary><h2 id="composition">LTC Composition Anomalies</h2></summary>
-    <p class="meta">Expected council size: 12 (post-1877). Showing elections where the computed size differs. "Over" means unresolved departures; "under" means unfilled seats.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Type</th>
-          <th>Size</th>
-          <th>Issue</th>
-          <th>Election</th>
-        </tr>
-      </thead>
-      <tbody>
-        {anomalies.map(a => (
-          <tr>
-            <td>{a.date}</td>
-            <td><span class={`badge badge-${a.type}`}>{a.type}</span></td>
-            <td class={a.direction === 'over' ? 'danger' : 'warning'}><strong>{a.size}</strong></td>
-            <td>{a.direction === 'over' ? `+${a.size - 12} extra` : `${12 - a.size} missing`}</td>
-            <td><a href={`/election/${a.electionId}`}>{a.wikiTitle.replace(/_/g, ' ')}</a></td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <summary><h2 id="composition">Council Membership Checks</h2></summary>
+    <p class="meta">
+      Checks over the council terms behind the <a href="/council-terms">who served when</a> page.
+      LTC terms come from <code>data/ltc_terms.csv</code>; periods where every sitting member's term
+      is confirmed are not flagged. ZCC and SIC terms are traced from ward results.
+    </p>
+    {issueCouncils.map((council) => (
+      <>
+        <h3>{council}</h3>
+        <table>
+          <thead><tr><th>From</th><th>To</th><th>Check</th><th>Who</th><th>Detail</th></tr></thead>
+          <tbody>
+            {termIssues.filter((i: any) => i.council_name === council).map((i: any) => (
+              <tr>
+                <td>{i.date_from}</td>
+                <td>{i.date_to || ''}</td>
+                <td><span class={i.kind === 'size-short' ? 'warning' : 'danger'}>{issueKinds[i.kind] || i.kind}</span></td>
+                <td>{i.person_slug ? <a href={`/person/${i.person_slug}`}>{i.person_name}</a> : (i.person_name || '')}</td>
+                <td>{i.election_id ? <a href={`/election/${i.election_id}`}>{i.detail}</a> : i.detail}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    ))}
   </details>
 
   <details>

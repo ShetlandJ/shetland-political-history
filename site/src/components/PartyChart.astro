@@ -1,0 +1,360 @@
+---
+/**
+ * Seats by party over time, from council_terms. A stacked step area: seats change on the
+ * day of an election, death or departure, so the bands step rather than slope.
+ *
+ * Party is the label each member stood under when they won the seat. Groups are listed
+ * bottom to top; the stack order and colours were checked for colour-blind separation in
+ * light and dark mode (dataviz validator), so change them together.
+ */
+import Database from 'better-sqlite3';
+import path from 'path';
+
+export interface PartyGroup {
+  label: string;
+  parties?: string[];   // exact party labels; omit for the catch-all "Other"
+  light: string;
+  dark: string;
+}
+
+interface Props {
+  councilSlug: string;
+  from: string;          // YYYY-MM-DD: start of the chart
+  groups: PartyGroup[];  // bottom to top; "No party recorded" is added on top
+  note?: string;
+}
+
+const { councilSlug, from, groups, note } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const db = new Database(path.join(process.cwd(), '..', 'shetland.db'), { readonly: true });
+
+const terms = db.prepare(`
+  SELECT COALESCE(ct.person_id, ct.person_name) AS who, ct.person_name AS name, c.party,
+         ct.start_date AS a, ct.end_date AS b
+  FROM council_terms ct
+  JOIN councils co ON co.id = ct.council_id
+  LEFT JOIN candidacies c ON c.id = ct.candidacy_id
+  WHERE co.slug = ?
+`).all(councilSlug) as { who: string | number; name: string; party: string | null; a: string; b: string | null }[];
+
+const today = new Date().toISOString().substring(0, 10);
+const until = terms.some(t => t.b === null) ? today : terms.reduce((m, t) => (t.b! > m ? t.b! : m), from);
+
+const NO_PARTY = 'No party recorded';
+const other = groups.find(g => !g.parties);
+function groupOf(party: string | null): string {
+  if (!party) return NO_PARTY;
+  const g = groups.find(g => g.parties?.includes(party));
+  return g ? g.label : (other ? other.label : party);
+}
+const labels = [...groups.map(g => g.label), NO_PARTY];
+
+// Segments between every change, each with seats per group (one seat per person).
+const points = [...new Set([from, until, ...terms.flatMap(t => [t.a, ...(t.b ? [t.b] : [])])])]
+  .filter(d => d >= from && d <= until).sort();
+interface Segment { a: string; b: string; counts: number[]; other: Record<string, number> }
+const segments: Segment[] = [];
+for (let i = 0; i < points.length - 1; i++) {
+  const d = points[i];
+  const sitting = new Map<string | number, { party: string | null }>();
+  for (const t of terms) if (t.a <= d && (t.b === null || t.b > d)) sitting.set(t.who, t);
+  const counts = labels.map(() => 0);
+  const otherLabels: Record<string, number> = {};
+  for (const t of sitting.values()) {
+    const g = groupOf(t.party);
+    counts[labels.indexOf(g)]++;
+    if (other && g === other.label && t.party) otherLabels[t.party] = (otherLabels[t.party] || 0) + 1;
+  }
+  const last = segments[segments.length - 1];
+  if (last && last.counts.join() === counts.join() && JSON.stringify(last.other) === JSON.stringify(otherLabels)) {
+    last.b = points[i + 1];
+  } else {
+    segments.push({ a: d, b: points[i + 1], counts, other: otherLabels });
+  }
+}
+
+// Geometry
+const W = 760, H = 260, M = { top: 12, right: 12, bottom: 28, left: 32 };
+const days = (d: string) => Date.parse(d) / 86400000;
+const x0 = days(from), x1 = days(until);
+const maxSeats = Math.max(1, ...segments.map(s => s.counts.reduce((a, b) => a + b, 0)));
+const yStep = maxSeats > 16 ? 5 : 2;
+const yMax = Math.ceil(maxSeats / yStep) * yStep;
+const sx = (d: string) => M.left + ((days(d) - x0) / (x1 - x0)) * (W - M.left - M.right);
+const sy = (n: number) => H - M.bottom - (n / yMax) * (H - M.top - M.bottom);
+
+const bands = labels.map((label, gi) => {
+  const top: string[] = [], bottom: string[] = [];
+  for (const s of segments) {
+    const below = s.counts.slice(0, gi).reduce((a, b) => a + b, 0);
+    const above = below + s.counts[gi];
+    top.push(`L${sx(s.a).toFixed(1)},${sy(above).toFixed(1)}`, `L${sx(s.b).toFixed(1)},${sy(above).toFixed(1)}`);
+    bottom.unshift(`L${sx(s.b).toFixed(1)},${sy(below).toFixed(1)}`, `L${sx(s.a).toFixed(1)},${sy(below).toFixed(1)}`);
+  }
+  const d = 'M' + top.join(' ').substring(1) + ' ' + bottom.join(' ') + ' Z';
+  return { label, d, index: gi };
+});
+
+const yTicks = Array.from({ length: yMax / yStep + 1 }, (_, i) => i * yStep);
+const firstYear = parseInt(from.substring(0, 4)), lastYear = parseInt(until.substring(0, 4));
+const decade = lastYear - firstYear > 60 ? 20 : 10;
+const xTicks: number[] = [];
+for (let y = Math.ceil(firstYear / decade) * decade; y <= lastYear; y += decade) xTicks.push(y);
+
+const id = `party-chart-${councilSlug}`;
+// Dark mode gets its own validated steps, not an automatic flip.
+const colourCss = `#${id} { ${groups.map((g, i) => `--pc-${i}: ${g.light};`).join(' ')} }
+@media (prefers-color-scheme: dark) { #${id} { ${groups.map((g, i) => `--pc-${i}: ${g.dark};`).join(' ')} } }`;
+const data = JSON.stringify({ base, labels, segments, x0, x1, W, M, other: other?.label ?? null });
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const fmt = (d: string) => `${parseInt(d.substring(8, 10))} ${MONTHS[parseInt(d.substring(5, 7)) - 1]} ${d.substring(0, 4)}`;
+---
+<style set:html={colourCss}></style>
+<figure class="party-chart" id={id}>
+  <figcaption>
+    <strong>Seats by party</strong>
+    <span class="meta">
+      The label each member stood under when they won the seat.
+      {note && <> {note}</>}
+    </span>
+  </figcaption>
+
+  <ul class="legend">
+    {labels.slice().reverse().map(label => {
+      const gi = labels.indexOf(label);
+      return (
+        <li>
+          <svg width="14" height="14" aria-hidden="true">
+            {label === NO_PARTY
+              ? <rect width="14" height="14" rx="3" fill={`url(#${id}-hatch)`} class="no-party-swatch" />
+              : <rect width="14" height="14" rx="3" style={`fill: var(--pc-${gi})`} />}
+          </svg>
+          {label}
+        </li>
+      );
+    })}
+  </ul>
+
+  <div class="plot">
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Seats by party on the council from ${firstYear} to ${lastYear}. The table below has the figures.`}>
+      <defs>
+        <pattern id={`${id}-hatch`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="6" height="6" class="hatch-bg" />
+          <line x1="0" y1="0" x2="0" y2="6" class="hatch-line" stroke-width="2" />
+        </pattern>
+      </defs>
+      {yTicks.map(t => (
+        <g>
+          <line x1={M.left} x2={W - M.right} y1={sy(t)} y2={sy(t)} class="grid" />
+          <text x={M.left - 6} y={sy(t) + 4} class="tick" text-anchor="end">{t}</text>
+        </g>
+      ))}
+      {xTicks.map(y => (
+        <text x={sx(`${y}-01-01`)} y={H - 8} class="tick" text-anchor="middle">{y}</text>
+      ))}
+      {bands.map(b => (
+        <path d={b.d} class="band"
+              style={b.label === NO_PARTY ? `fill: url(#${id}-hatch)` : `fill: var(--pc-${b.index})`} />
+      ))}
+      <line class="crosshair" x1="0" x2="0" y1={M.top} y2={H - M.bottom} visibility="hidden" />
+      <rect class="hit" x={M.left} y={M.top} width={W - M.left - M.right} height={H - M.top - M.bottom} />
+    </svg>
+    <div class="tooltip" hidden></div>
+  </div>
+
+  <details class="chart-table">
+    <summary>Show as a table</summary>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>From</th><th>Until</th>{labels.map(l => <th>{l}</th>)}</tr>
+        </thead>
+        <tbody>
+          {segments.map(s => (
+            <tr>
+              <td><a href={`${base}/council-terms?council=${councilSlug}&date=${s.a}`}>{fmt(s.a)}</a></td>
+              <td>{s.b === today ? 'present' : fmt(s.b)}</td>
+              {s.counts.map(n => <td>{n || ''}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <script type="application/json" set:html={data} />
+</figure>
+
+<script>
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const fmt = (d: string) => `${parseInt(d.substring(8, 10))} ${MONTHS[parseInt(d.substring(5, 7)) - 1]} ${d.substring(0, 4)}`;
+
+  for (const fig of document.querySelectorAll<HTMLElement>('.party-chart')) {
+    const { labels, segments, x0, x1, W, M, other } = JSON.parse(fig.querySelector('script[type="application/json"]')!.textContent!);
+    const svg = fig.querySelector('svg[role="img"]') as SVGSVGElement;
+    const hit = fig.querySelector('.hit') as SVGRectElement;
+    const cross = fig.querySelector('.crosshair') as SVGLineElement;
+    const tip = fig.querySelector('.tooltip') as HTMLElement;
+
+    function show(ev: PointerEvent) {
+      const r = svg.getBoundingClientRect();
+      const vx = ((ev.clientX - r.left) / r.width) * W;
+      const day = x0 + ((vx - M.left) / (W - M.left - M.right)) * (x1 - x0);
+      const date = new Date(day * 86400000).toISOString().substring(0, 10);
+      const s = segments.find((s: any) => s.a <= date && date < s.b) || segments[segments.length - 1];
+      cross.setAttribute('x1', String(vx));
+      cross.setAttribute('x2', String(vx));
+      cross.setAttribute('visibility', 'visible');
+
+      tip.replaceChildren();
+      const head = document.createElement('div');
+      head.className = 'tip-head';
+      head.textContent = `${fmt(s.a)} – ${fmt(s.b)}`;
+      tip.appendChild(head);
+      for (let i = labels.length - 1; i >= 0; i--) {
+        if (!s.counts[i]) continue;
+        const row = document.createElement('div');
+        row.className = 'tip-row';
+        const detail = labels[i] === other && Object.keys(s.other).length
+          ? ` (${Object.entries(s.other).map(([p, n]) => `${p} ${n}`).join(', ')})` : '';
+        row.textContent = `${labels[i]}: ${s.counts[i]}${detail}`;
+        tip.appendChild(row);
+      }
+      tip.hidden = false;
+      const px = ev.clientX - r.left;
+      tip.style.left = `${Math.min(Math.max(px + 12, 0), r.width - tip.offsetWidth)}px`;
+      tip.style.top = `8px`;
+    }
+    hit.addEventListener('pointermove', show);
+    hit.addEventListener('pointerdown', show);
+    hit.addEventListener('pointerleave', () => {
+      tip.hidden = true;
+      cross.setAttribute('visibility', 'hidden');
+    });
+  }
+</script>
+
+<style>
+  .party-chart {
+    margin: 1.5rem 0 2rem;
+    padding: 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .legend {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  /* On narrow screens the chart keeps a readable size and scrolls sideways in its card. */
+  .plot {
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .plot svg {
+    display: block;
+    width: 100%;
+    min-width: 600px;
+    height: auto;
+  }
+
+  .grid {
+    stroke: var(--border-light);
+    stroke-width: 1;
+  }
+
+  .tick {
+    font-size: 11px;
+    fill: var(--muted);
+    font-family: var(--font-body);
+  }
+
+  .band {
+    stroke: var(--bg-surface);
+    stroke-width: 1;
+  }
+
+  .hatch-bg {
+    fill: var(--border-light);
+  }
+
+  .hatch-line {
+    stroke: var(--muted);
+    stroke-opacity: 0.35;
+  }
+
+  .crosshair {
+    stroke: var(--text);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+
+  .hit {
+    fill: transparent;
+    cursor: crosshair;
+  }
+
+  .tooltip {
+    position: absolute;
+    pointer-events: none;
+    min-width: 11rem;
+    max-width: 18rem;
+    padding: 0.45rem 0.6rem;
+    background: var(--bg-surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+
+  .tooltip :global(.tip-head) {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .chart-table {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .chart-table summary {
+    cursor: pointer;
+    color: var(--muted);
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    max-height: 24rem;
+    overflow-y: auto;
+  }
+
+  .chart-table td,
+  .chart-table th {
+    white-space: nowrap;
+  }
+</style>

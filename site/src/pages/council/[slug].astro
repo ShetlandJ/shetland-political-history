@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PartyChart, { type PartyGroup } from '../../components/PartyChart.astro';
 import { getAllCouncils, getCouncilBySlug, getDistinctElectionPages } from '../../lib/db';
 
 export function getStaticPaths() {
@@ -31,12 +32,45 @@ function formatDate(d: string | null): string {
 function electionTitle(wpt: string): string {
   return wpt.replace(/_/g, ' ');
 }
+// Party charts only where party labels were recorded. Bottom-to-top order and colours are
+// validated as a set (see PartyChart.astro): Labour at the base so its seats read directly.
+const RED = { light: '#e34948', dark: '#e66767' };
+const BLUE = { light: '#2a78d6', dark: '#3987e5' };
+const YELLOW = { light: '#eda100', dark: '#c98500' };
+const AQUA = { light: '#1baf7a', dark: '#199e70' };
+const ORANGE = { light: '#eb6834', dark: '#d95926' };
+const partyCharts: Record<string, { from: string; groups: PartyGroup[]; note?: string }> = {
+  'lerwick-town-council': {
+    from: '1900-01-01',
+    groups: [
+      { label: 'Labour', parties: ['Labour'], ...RED },
+      { label: 'Independent', parties: ['Independent'], ...BLUE },
+      { label: 'Other', ...YELLOW },
+      { label: 'Ratepayers Association', parties: ['Ratepayers Association'], ...AQUA },
+    ],
+    note: 'Labels were rarely recorded before the 1930s.',
+  },
+  'shetland-islands-council': {
+    from: '1974-05-07',
+    groups: [
+      { label: 'Labour', parties: ['Labour'], ...RED },
+      { label: 'Independent', parties: ['Independent'], ...BLUE },
+      { label: 'Other', ...YELLOW },
+      { label: 'Shetland Movement', parties: ['Shetland Movement'], ...AQUA },
+      { label: 'Scottish Liberal Democrats', parties: ['Scottish Liberal Democrats'], ...ORANGE },
+    ],
+  },
+};
+const chart = partyCharts[council.slug];
+
 const councilDesc = `${council.name} - ${elections.length} elections. Browse election results and candidates.`;
 ---
 <Base title={council.name} description={councilDesc}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; {council.name}</div>
   <h1>{council.name}</h1>
   <p class="meta">{elections.length} elections</p>
+
+  {chart && <PartyChart councilSlug={council.slug} from={chart.from} groups={chart.groups} note={chart.note} />}
 
   {Object.entries(byDecade).map(([decade, items]) => (
     <div>
