@@ -265,7 +265,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 ### Current state (as of 2026-09-25)
 
-`data/ltc_terms.csv` holds 650 LTC terms, 333 confirmed (everything starting up to Nov 1883, plus 1912–14, 1929–38 and 1955–65), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
+`data/ltc_terms.csv` holds 650 LTC terms, 340 confirmed (everything starting up to Nov 1883, plus 1912–14, 1929–38, 1951, 1954 and 1955–65), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
 - 1826/1844 election dates, Andrew Duncan (ii) 1829, Magnus Burns 1830 → from the minute book.
 - **1874**: the April "confirmed" rows held both rival groups (23 rows). Minute book p258 records the first group's election as invalid, so the ledger has only the second group's 11.
 - **May 1844**: the generator had given Joseph Leask a second seat. It was an election to the office of Junior Bailie; he already sat.

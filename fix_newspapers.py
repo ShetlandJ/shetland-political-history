@@ -58,6 +58,18 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    1963 (19 Apr 1963); "Tuesday, 5th of May" (1 May 1964). Arthur Johnson's co-option in room of
    James Brownlie (September 1949) was at the monthly meeting "on Tuesday", 13 September 1949
    (Shetland Times, 16 Sep 1949), not Monday the 12th. Evidence: research/bna/ltc-election-dates-1949-1964.md.
+
+8. The May 1954 Lerwick Town Council election was contested. The wiki has the four winners
+   unopposed. Shetland Times, 7 May 1954, "Senior Bailie loses his seat", THE RESULT: A. Morrison
+   (Soc.) 1031, Miss G. Halcrow (Ind) 1013, R. B. Blance (Soc.) 1010, R. Ollason (Ind) 929;
+   unsuccessful J. Inkster (Ind) 813, R. Strachan (Soc.) 719, J. B. A. Sutherland (Ind) 704,
+   J. Gair (Soc.) 692. "There are 3950 on the roll, but of these 32 are not eligible to vote until
+   the autumn", an effective 3918; 1913 voted, including 16 postal votes. The defeated Senior
+   Bailie was "Mr John N. Inkster"; Strachan and Gair "were also unsuccessful last year" (1953).
+   Party labels follow the wiki's for the same candidates (Soc. = Labour).
+   The "James Inkster" elected in May 1951 was the same man: the nominations (Shetland Times,
+   13 Apr 1951) list the four retiring members, among them "JOHN N. INKSTER, Cairnfield", junior
+   Bailie. Evidence: research/bna/ltc-1954-result.md.
 """
 
 import os
@@ -103,6 +115,19 @@ POLLING_DAYS = [  # (wiki title, baseline Monday, Tuesday from the Shetland Time
     ('Lerwick Town Council Election May 1963', '1963-05-06', '1963-05-07'),
     ('Lerwick Town Council Election May 1964', '1964-05-04', '1964-05-05'),
 ]
+RESULT_1954 = 'Lerwick Town Council Election May 1954'
+WINNERS_1954 = [('alexander-morrison', 1031), ('grace-halcrow', 1013), ('robert-blance', 1010),
+                ('robert-ollason', 929)]
+LOSERS_1954 = [  # (person slug or None, candidate_name, party, votes)
+    ('john-inkster-ii', 'John N. Inkster', 'Independent', 813),
+    ('robert-strachan', 'Robert Strachan', 'Labour', 719),
+    (None, '[https://www.bayanne.info/Shetland/getperson.php?personID=I86195&tree=ID1 J. B. A. Sutherland]',
+     'Independent', 704),
+    (None, '[https://www.bayanne.info/Shetland/getperson.php?personID=I52866&tree=ID1 James R. Gair]',
+     'Labour', 692),
+]
+ELECTORATE_1954 = (3918, '3950 on the roll, 32 not eligible to vote until the autumn', 1913, 48.8)
+INKSTER_1951 = 'Lerwick Town Council Election May 1951'
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -264,6 +289,54 @@ def main():
     print("=== 7. LTC polling days 1949-1964 ===")
     for title, wrong, right in POLLING_DAYS:
         set_date(c, title, wrong, right)
+
+    print("=== 8. May 1954 LTC result, and John N. Inkster in 1951 ===")
+    e1954 = one(c, "SELECT id, electorate, electorate_detail, turnout, turnout_pct FROM elections "
+                   "WHERE wiki_page_title = ?", (RESULT_1954,))
+    electorate, detail, turnout, pct = ELECTORATE_1954
+    if (e1954['electorate'], e1954['electorate_detail'], e1954['turnout'], e1954['turnout_pct']) == ELECTORATE_1954:
+        print("  electorate/turnout: already set")
+    elif e1954['electorate'] is None and e1954['turnout'] is None:
+        c.execute("UPDATE elections SET electorate = ?, electorate_detail = ?, turnout = ?, turnout_pct = ? "
+                  "WHERE id = ?", (electorate, detail, turnout, pct, e1954['id']))
+        print("  electorate/turnout: set")
+    else:
+        raise SystemExit(f"{RESULT_1954} has unexpected electorate/turnout")
+    for slug, votes in WINNERS_1954:
+        row = one(c, """SELECT c.id, c.votes, c.votes_text FROM candidacies c JOIN people p ON p.id = c.person_id
+                        WHERE c.election_id = ? AND p.slug = ? AND c.elected = 1""", (e1954['id'], slug))
+        if row['votes'] == votes and row['votes_text'] is None:
+            print(f"  {slug}: already {votes}")
+        elif row['votes'] is None and row['votes_text'] == 'Unopposed':
+            c.execute("UPDATE candidacies SET votes = ?, votes_text = NULL WHERE id = ?", (votes, row['id']))
+            print(f"  {slug}: Unopposed -> {votes}")
+        else:
+            raise SystemExit(f"{RESULT_1954}: {slug} has unexpected votes {row['votes']} / {row['votes_text']}")
+    for position, (slug, name, party, votes) in enumerate(LOSERS_1954, start=len(WINNERS_1954) + 1):
+        c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (e1954['id'], name))
+        if c.fetchone():
+            print(f"  {name}: exists")
+            continue
+        person_id = one(c, "SELECT id FROM people WHERE slug = ?", (slug,))['id'] if slug else None
+        c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, party, votes, elected, position)
+                     VALUES (?, ?, ?, ?, ?, 0, ?)""", (e1954['id'], person_id, name, party, votes, position))
+        print(f"  {name}: added ({votes})")
+
+    inkster = one(c, "SELECT id FROM people WHERE slug = 'john-inkster-ii'", ())
+    e1951 = one(c, "SELECT id FROM elections WHERE wiki_page_title = ?", (INKSTER_1951,))
+    c.execute("SELECT id, candidate_name, person_id FROM candidacies WHERE election_id = ? AND candidate_name "
+              "IN ('James Inkster', 'John N. Inkster')", (e1951['id'],))
+    found = c.fetchall()
+    if len(found) != 1:
+        raise SystemExit(f"{INKSTER_1951}: expected one Inkster candidacy, found {len(found)}")
+    if found[0]['candidate_name'] == 'John N. Inkster' and found[0]['person_id'] == inkster['id']:
+        print("  1951 Inkster: already John N. Inkster")
+    elif found[0]['candidate_name'] == 'James Inkster' and found[0]['person_id'] is None:
+        c.execute("UPDATE candidacies SET candidate_name = 'John N. Inkster', person_id = ? WHERE id = ?",
+                  (inkster['id'], found[0]['id']))
+        print(f"  1951 candidacy {found[0]['id']}: James Inkster -> John N. Inkster (john-inkster-ii)")
+    else:
+        raise SystemExit(f"{INKSTER_1951}: unexpected Inkster candidacy {dict(found[0])}")
 
     db.commit()
     db.close()

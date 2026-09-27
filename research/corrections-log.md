@@ -9,13 +9,20 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-27: LTC May 1954 result (`research/bna/ltc-1954-result.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | **May 1954**: Morrison, Halcrow, Blance, Ollason returned unopposed | A poll of 1913 (effective electorate 3918). Morrison 1031, Halcrow 1013, Blance 1010, Ollason 929; **Senior Bailie John N. Inkster lost his seat** (813), then Strachan 719, J. B. A. Sutherland 704, Gair 692 (ST 7 May 1954) | Fixed: `fix_newspapers.py` #8 |
+| 2 | wiki | **"James Inkster"** elected in May 1951 (no person page) | It was **John N. Inkster**, Cairnfield, junior Bailie and retiring member (ST 13 Apr 1951), i.e. John Inkster (ii), sitting since 1947 | Fixed: candidacy relinked (`fix_newspapers.py` #8), ledger |
+
 ## 2026-09-27: LTC polling days 1949–1964 (`research/bna/ltc-election-dates-1949-1964.md`)
 
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki | Twelve LTC generals 1949–1964 dated on the **Monday** | Every one was on the **Tuesday** (ST each year, see evidence) | Fixed: `fix_newspapers.py` #7, ledger (102 dates) |
 | 2 | wiki | Arthur Johnson co-opted for Brownlie on **Mon 12 Sep 1949** | Reported with the monthly meeting "on Tuesday", **13 Sep 1949** (ST 16 Sep 1949) | Fixed (same). The co-option report doesn't name the day itself |
-| 3 | wiki | **May 1954** election uncontested: the four winners, no votes | **Contested**: "eight candidates" (ST 23 Apr 1954); Blance was "third … 21 votes behind the top of the poll" (ST 14 May 1954) | **Open**: the result (votes, four losing candidates) isn't in the DB yet (queued) |
+| 3 | wiki | **May 1954** election uncontested: the four winners, no votes | **Contested**: "eight candidates" (ST 23 Apr 1954); Blance was "third … 21 votes behind the top of the poll" (ST 14 May 1954) | Fixed 2026-09-27: see "LTC May 1954 result" |
 
 ## 2026-09-27: LTC 1955–1965 (`research/bna/ltc-1955-1965.md`)
 
