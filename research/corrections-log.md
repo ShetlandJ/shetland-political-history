@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-27: Grace Halcrow on the County Council (`research/bna/grace-halcrow-county.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Halcrow County Councillor for Cunningsburgh "between 1955 and 1961" | **1955–58**. Opposed by Joan McLeod in 1958, she withdrew before the poll and McLeod was returned unopposed (ST 25 Apr, 9 May 1958) | Fixed: intro (`fix_newspapers.py` #9). Election data was already right |
+
 ## 2026-09-27: LTC May 1954 result (`research/bna/ltc-1954-result.md`)
 
 | # | Where | We had | Sources show | Status |
@@ -33,7 +39,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 3 | wiki | Not recorded: **John Eunson resigned** in January 1958 | Resignation accepted 14 Jan 1958; seat left empty until May (ST 17 and 24 Jan 1958) | Ledger fixed |
 | 4 | wiki | Magnus Sandison sat until the Sept 1959 by-election | He **resigned 11 Aug 1959** (ST 14 Aug 1959) | Ledger fixed |
 | 5 | draft | Every 1955–64 winner sat 3 years | Uncontested years broke the rotation; the council **drew lots** (1958: Burgess, Johnson; 1959: Nicolson) and gave short seats to the lowest winners. Provosts Conochie (1956–59) and Blance (1959–62) stayed on | Ledger fixed (20 rows) |
-| 6 | wiki | Halcrow a County Councillor "between 1955 and 1961" | ST 17 Apr 1964: "one three-year term", then did not re-stand, which reads as 1955–58 | **Open**: not changed; check the 1958 ZCC election |
+| 6 | wiki | Halcrow a County Councillor "between 1955 and 1961" | ST 17 Apr 1964: "one three-year term", then did not re-stand, which reads as 1955–58 | Fixed 2026-09-27: see "Grace Halcrow on the County Council" |
 | 7 | wiki | LTC general elections 1949–1964 dated on **Mondays** (e.g. 1960-05-02, 1963-05-06) | Polling was on Tuesdays: "Tuesday, 3rd May" 1960 (ST 15 Apr 1960), "Tuesday, 7th May" 1963 (ST 19 Apr 1963), "Tuesday" 1958 | Fixed 2026-09-27: see "LTC polling days 1949–1964" |
 
 ## 2026-09-27: LTC 1912–1914 (`research/bna/ltc-1912-1914.md`)

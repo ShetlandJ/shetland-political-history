@@ -70,6 +70,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    The "James Inkster" elected in May 1951 was the same man: the nominations (Shetland Times,
    13 Apr 1951) list the four retiring members, among them "JOHN N. INKSTER, Cairnfield", junior
    Bailie. Evidence: research/bna/ltc-1954-result.md.
+
+9. Grace Halcrow on Zetland County Council. Her profile says County Councillor for Cunningsburgh
+   "between 1955 and 1961". She was opposed by Mrs Joan McLeod in 1958 (Shetland Times, 25 Apr
+   1958, "Six County Council elections"), then "Miss Grace Halcrow has withdrawn from
+   Cunningsburgh, leaving Mrs Joan MacLeod returned unopposed" (Shetland Times, 9 May 1958). The
+   1964 preview (17 Apr 1964) says she served one three-year term. So 1955-58; the election data
+   (McLeod unopposed 1958) was already right. Evidence: research/bna/grace-halcrow-county.md.
 """
 
 import os
@@ -93,6 +100,8 @@ WILLIAMSON_INTRO = ('Lerwick Town Councillor between 1941 and 1945',
 HALCROW_1957 = 'Lerwick Town Council Election May 1957'
 HALCROW_INTRO = ('a Lerwick Town Councillor from 1957 till the late 1960s',
                  'a Lerwick Town Councillor in 1954-55 and from 1964 till the late 1960s')
+HALCROW_COUNTY = ('a County Councillor for the same area between 1955 and 1961',
+                  'a County Councillor for the same area between 1955 and 1958')
 STRACHAN_BY_ELECTION = 'Lerwick Town Council By-Election May 1961'
 STRACHAN_NOTE = (
     "Co-option at the Town Council meeting of 13 June 1961, to fill the vacancy left when the Rev. "
@@ -272,6 +281,16 @@ def main():
     elif old in halcrow['intro']:
         c.execute("UPDATE people SET intro = ? WHERE id = ?", (halcrow['intro'].replace(old, new), halcrow['id']))
         print("  intro: from 1957 -> 1954-55 and from 1964")
+    else:
+        raise SystemExit(f"grace-halcrow intro doesn't contain {old!r}")
+
+    old, new = HALCROW_COUNTY
+    halcrow = one(c, "SELECT id, intro FROM people WHERE slug = 'grace-halcrow'", ())
+    if new in halcrow['intro']:
+        print("  county council: already corrected")
+    elif old in halcrow['intro']:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (halcrow['intro'].replace(old, new), halcrow['id']))
+        print("  county council: 1955-61 -> 1955-58")
     else:
         raise SystemExit(f"grace-halcrow intro doesn't contain {old!r}")
 
