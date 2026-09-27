@@ -48,6 +48,16 @@ idempotent: re-running does nothing once the corrections are in place.
    16 Jun 1961), i.e. 13 June 1961.
 
 Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
+
+7. Lerwick Town Council polling days 1949-1964. From 1949 the elections were in May, on the
+   Tuesday. The baseline dates twelve of them on the Monday before. The Shetland Times gives the
+   Tuesday each year: "Tuesday first is polling day" (29 Apr 1949, 1 May 1953, 29 Apr 1955);
+   "Tuesday, 2nd May" (21 Apr 1950); "Tuesday 6th May" (2 May 1952); "following Tuesday's
+   municipal election" (7 May 1954); "poor weather on Tuesday" (9 May 1958); "5th May" (1 May
+   1959); Tuesday 3 May 1960 (15 Apr 1960); "last Tuesday's poll" (12 May 1961); Tuesday 7 May
+   1963 (19 Apr 1963); "Tuesday, 5th of May" (1 May 1964). Arthur Johnson's co-option in room of
+   James Brownlie (September 1949) was at the monthly meeting "on Tuesday", 13 September 1949
+   (Shetland Times, 16 Sep 1949), not Monday the 12th. Evidence: research/bna/ltc-election-dates-1949-1964.md.
 """
 
 import os
@@ -78,7 +88,22 @@ STRACHAN_NOTE = (
     "Strachan had headed the unsuccessful candidates at the May 1961 election. From the Shetland Times, "
     "12 May and 16 June 1961."
 )
-MACDOUGALL_INTRO = ('until he resigned in April 1912', 'until he resigned in October 1912')
+POLLING_DAYS = [  # (wiki title, baseline Monday, Tuesday from the Shetland Times)
+    ('Lerwick Town Council Election May 1949', '1949-05-02', '1949-05-03'),
+    ('Lerwick Town Council By-Election September 1949', '1949-09-12', '1949-09-13'),
+    ('Lerwick Town Council Election May 1950', '1950-05-01', '1950-05-02'),
+    ('Lerwick Town Council Election May 1952', '1952-05-05', '1952-05-06'),
+    ('Lerwick Town Council Election May 1953', '1953-05-04', '1953-05-05'),
+    ('Lerwick Town Council Election May 1954', '1954-05-03', '1954-05-04'),
+    ('Lerwick Town Council Election May 1955', '1955-05-02', '1955-05-03'),
+    ('Lerwick Town Council Election May 1958', '1958-05-05', '1958-05-06'),
+    ('Lerwick Town Council Election May 1959', '1959-05-04', '1959-05-05'),
+    ('Lerwick Town Council Election May 1960', '1960-05-02', '1960-05-03'),
+    ('Lerwick Town Council Election May 1961', '1961-05-01', '1961-05-02'),
+    ('Lerwick Town Council Election May 1963', '1963-05-06', '1963-05-07'),
+    ('Lerwick Town Council Election May 1964', '1964-05-04', '1964-05-05'),
+]
+MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
     "Arthur J. Hay topped the poll but declined to take office (letter, 8 November 1884). "
@@ -235,6 +260,10 @@ def main():
         print("  note: added")
     else:
         raise SystemExit(f"{STRACHAN_BY_ELECTION} already has notes, not overwriting: {row['notes']}")
+
+    print("=== 7. LTC polling days 1949-1964 ===")
+    for title, wrong, right in POLLING_DAYS:
+        set_date(c, title, wrong, right)
 
     db.commit()
     db.close()

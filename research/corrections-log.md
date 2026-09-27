@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-27: LTC polling days 1949–1964 (`research/bna/ltc-election-dates-1949-1964.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Twelve LTC generals 1949–1964 dated on the **Monday** | Every one was on the **Tuesday** (ST each year, see evidence) | Fixed: `fix_newspapers.py` #7, ledger (102 dates) |
+| 2 | wiki | Arthur Johnson co-opted for Brownlie on **Mon 12 Sep 1949** | Reported with the monthly meeting "on Tuesday", **13 Sep 1949** (ST 16 Sep 1949) | Fixed (same). The co-option report doesn't name the day itself |
+| 3 | wiki | **May 1954** election uncontested: the four winners, no votes | **Contested**: "eight candidates" (ST 23 Apr 1954); Blance was "third … 21 votes behind the top of the poll" (ST 14 May 1954) | **Open**: the result (votes, four losing candidates) isn't in the DB yet (queued) |
+
 ## 2026-09-27: LTC 1955–1965 (`research/bna/ltc-1955-1965.md`)
 
 | # | Where | We had | Sources show | Status |
@@ -19,7 +27,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 4 | wiki | Magnus Sandison sat until the Sept 1959 by-election | He **resigned 11 Aug 1959** (ST 14 Aug 1959) | Ledger fixed |
 | 5 | draft | Every 1955–64 winner sat 3 years | Uncontested years broke the rotation; the council **drew lots** (1958: Burgess, Johnson; 1959: Nicolson) and gave short seats to the lowest winners. Provosts Conochie (1956–59) and Blance (1959–62) stayed on | Ledger fixed (20 rows) |
 | 6 | wiki | Halcrow a County Councillor "between 1955 and 1961" | ST 17 Apr 1964: "one three-year term", then did not re-stand, which reads as 1955–58 | **Open**: not changed; check the 1958 ZCC election |
-| 7 | wiki | LTC general elections 1949–1964 dated on **Mondays** (e.g. 1960-05-02, 1963-05-06) | Polling was on Tuesdays: "Tuesday, 3rd May" 1960 (ST 15 Apr 1960), "Tuesday, 7th May" 1963 (ST 19 Apr 1963), "Tuesday" 1958 | **Open**: dates not changed (queued) |
+| 7 | wiki | LTC general elections 1949–1964 dated on **Mondays** (e.g. 1960-05-02, 1963-05-06) | Polling was on Tuesdays: "Tuesday, 3rd May" 1960 (ST 15 Apr 1960), "Tuesday, 7th May" 1963 (ST 19 Apr 1963), "Tuesday" 1958 | Fixed 2026-09-27: see "LTC polling days 1949–1964" |
 
 ## 2026-09-27: LTC 1912–1914 (`research/bna/ltc-1912-1914.md`)
 

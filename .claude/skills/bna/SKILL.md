@@ -69,9 +69,16 @@ Search URL (all parameters matter):
 https://www.britishnewspaperarchive.com/search-newspapers/results?keywords=<kw>&newspaper=shetland%20times&startdate=YYYY-MM-DD&enddate=YYYY-MM-DD&exactdate=true&o=date&d=asc
 ```
 
-`o=date&d=asc` gives oldest first. For a single issue, set startdate = enddate = the Saturday.
+`o=date&d=asc` gives oldest first. For a single issue, set startdate = enddate = the publication
+day (Saturday until the 1940s; **Friday by 1949**).
 
-### Lerwick Town Council timing (learned from 1932–1941)
+Keywords are ANDed, and a long phrase often returns nothing ("town council election tuesday"
+found 0 in a week that had the answer). Use one or two words and filter the snippets in JS
+instead. Only 12 results show per page, so a common word over a two-week range (`tuesday`: 60
+hits) hides most of them: narrow the dates or add a second word (`town election` worked well
+for 1953–64).
+
+### Lerwick Town Council timing (learned from 1932–1941, and 1949–64)
 
 - The Shetland Times came out on **Saturdays**. Council meetings were on **Tuesdays**, and the
   report appears in the following Saturday's paper ("at their meeting on Tuesday").
@@ -84,6 +91,10 @@ https://www.britishnewspaperarchive.com/search-newspapers/results?keywords=<kw>&
 - The **statutory meeting** after the general elected the Provost and Bailies.
 - A co-option usually went to the unsuccessful candidate with most votes at the last general, at
   the first meeting after the vacancy arose.
+- **From 1949** the generals were in **May, on the first Tuesday** (Mon dates in the wiki are
+  wrong; checked 1949–64). The Friday paper before says "Tuesday first is polling day", candidates'
+  adverts give the date, and the next Friday has the result. Uncontested isn't safe to assume
+  from the wiki: it shows 1954 with no votes, but there was a poll.
 - A Provost due to retire stayed on, and someone else retired in his place (the Clerk,
   October 1937: "as the Provost was not retiring at this time, Mrs Nicol, after two years, had
   to retire").
@@ -93,8 +104,27 @@ Useful keywords: `town council`, `retiring councillors`, `co-opted`, `special me
 
 ## 2. Read the snippets
 
-Navigate, wait about 3 seconds (results render late; `get_page_text` fails on this page), then
-read the results text:
+Navigate, wait about **6–8 seconds** (results render late, and at 3–4 seconds the page is often
+still empty; `get_page_text` fails on this page), then read the results. Best: this helper pairs
+each result with its issue, page and article id, so you get the citation and the snippet together.
+Page navigation clears `window`, so define it in every batch that navigates:
+
+```js
+window._rs = () => { const seen = new Set(); const out = [];
+  for (const a of document.querySelectorAll('a[href*="viewer"]')) {
+    const m = a.getAttribute('href').match(/(\d{8}).page.(\d+).article.(\d+)/);
+    if (!m || seen.has(m[0])) continue; seen.add(m[0]);
+    let el = a; while (el && !/Added on/.test(el.innerText)) el = el.parentElement;
+    const txt = el ? el.innerText.replace(/Lerwick, Shetland, Scotland[\s\S]*/, '').replace(/\s+/g, ' ').slice(0, 200) : '';
+    out.push(m[1] + ' p' + m[2] + ' a' + m[3] + ': ' + txt); }
+  return out.join('\n').replace(/[?&=]/g, ' '); };
+document.body.innerText.match(/\d+ of \d+ results/) + '\n' +
+  _rs().split('\n').filter(s => /tuesday|poll|elect/i.test(s)).join('\n').slice(0, 1400)
+```
+
+A `null` count means the page hadn't rendered yet (or there were no results): wait and re-run.
+
+The plain version:
 
 ```js
 const t = document.body.innerText;
@@ -117,8 +147,11 @@ Links can't be read via JavaScript (hrefs with query strings are blocked), so:
 2. Wait about 5 seconds. The viewer opens at
    `image-viewer?issue=BL/0000666/YYYYMMDD&page=N&article=NNN`. `0000666` is the Shetland Times,
    so you can also navigate straight to a known issue and page.
-3. Click the **Articles** button in the toolbar (top right, about x=860, y=27 in the 1133-wide
-   frame). The selected article's OCR loads into the page text.
+3. Open the **Articles** panel. Clicking by coordinates (about x=860, y=27) often misses when the
+   page hasn't finished loading. Clicking it in JS is reliable after an 8-second wait, and can go
+   in the same batch as the read:
+   `[...document.querySelectorAll('button')].find(b=>/^Articles on this page/.test(b.getAttribute('aria-label')||'')).click(); await new Promise(r=>setTimeout(r,3000));`
+   The article text starts after "Select text below to edit it.".
 4. Read it: `const t=document.body.innerText; const i=t.indexOf('<first words of article>'); t.slice(i, i+1500).replace(/[?&=]/g,' ')`,
    continuing in chunks as needed.
 
