@@ -9,6 +9,15 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-27: LTC 1945–1953 (`research/bna/ltc-1945-1953.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Not recorded: **Magnus Shearer (i) resigned** from the Town Council in June 1947, and **Peter Dalziel was co-opted** in his place | ST 4 Jul 1947; Dalziel then stood down in Nov 1947 (ST 10 Oct 1947) | Ledger fixed (both rows unconfirmed: exact dates not found). No by-election page on the wiki |
+| 2 | wiki | Peter Dalziel's 1938 seat ran to 1947 | He retired in **Nov 1946** (ST 4 Oct 1946); the intro's "1938 to 1946" was right | Ledger fixed |
+| 3 | draft | Thomas Irvine (ii) sat until his death in June 1946 | **Not on the council by Oct 1945**: the six staying on that month don't include him (ST 5 Oct 1945) | Open: wartime item |
+| 4 | draft | Every 1945–52 winner sat 3 years | The lowest winners got short seats (R. Anderson and Morrison 1945; W. Anderson and Johnson 1946; Williamson 1947; Johnson 1950). **Treasurer Ollason** was kept on to 1951 and **Provost R. A. Anderson** to 1953 | Ledger fixed (27 rows) |
+
 ## 2026-09-27: Grace Halcrow on the County Council (`research/bna/grace-halcrow-county.md`)
 
 | # | Where | We had | Sources show | Status |
