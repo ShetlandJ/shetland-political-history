@@ -265,7 +265,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 ### Current state (as of 2026-09-25)
 
-`data/ltc_terms.csv` holds 649 LTC terms, 263 confirmed (everything starting up to Nov 1883), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
+`data/ltc_terms.csv` holds 650 LTC terms, 333 confirmed (everything starting up to Nov 1883, plus 1912–14, 1929–38 and 1955–65), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
 - 1826/1844 election dates, Andrew Duncan (ii) 1829, Magnus Burns 1830 → from the minute book.
 - **1874**: the April "confirmed" rows held both rival groups (23 rows). Minute book p258 records the first group's election as invalid, so the ledger has only the second group's 11.
 - **May 1844**: the generator had given Joseph Leask a second seat. It was an election to the office of Junior Bailie; he already sat.
@@ -273,12 +273,15 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1951–52, 1967 — often genuine vacancies before a by-election or general); oversize 1913–1919, 1934–1946 and 1958–1965; and 30 overlapping terms, which are where the cohort model kept someone sitting who had already left (e.g. Arthur Johnson's repeated co-options, 1941–1958).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1951–52, 1967 — often genuine vacancies before a by-election or general); oversize 1934–1946; and 30 overlapping terms, which are where the cohort model kept someone sitting who had already left (e.g. Arthur Johnson's repeated co-options, 1941–1958).
 
 **1912–1914 settled (2026-09-27)**: the council had 12 members throughout, from the Shetland Times retiring lists. Evidence with BNA links: `research/bna/ltc-1912-1914.md`.
 
+**1955–1965 settled (2026-09-27)**: 12 throughout apart from dated vacancies. The 1957 seat the wiki gives Grace Halcrow was Andrew Nicolson's (`fix_newspapers.py` #5). Evidence: `research/bna/ltc-1955-1965.md`.
+
 **Key patterns (for editing the ledger):**
 - When 5 elected and next general has only 4: all 5 got full terms (1883, 1912, 1932).
+- After uncontested elections (no votes to rank by), the council **drew lots** for the order of retirement (1958, 1959). Otherwise short seats went to the lowest-placed winners (Paton 1960). Don't assume 3-year terms after 1955: take each end date from the next retiring lists.
 - Declined office: Laurenson 1879, Goudie 1880, Hay 1884 → listed in `data/not_seated.csv`.
 - A sitting councillor winning a by-election for an office (Bailie) takes no new seat.
 

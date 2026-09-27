@@ -34,6 +34,20 @@ idempotent: re-running does nothing once the corrections are in place.
    (Shetland Times, 6 Apr 1912), attended the 1 October 1912 meeting (Shetland Times, 5 Oct 1912),
    and resigned on Tuesday 8 October 1912 (Shetland Times, 12 Oct 1912). Evidence with BNA links:
    research/bna/ltc-1912-1914.md.
+
+5. The May 1957 Lerwick Town Council election. The wiki lists Grace Halcrow among the four
+   returned unopposed. The Shetland Times, 19 Apr 1957, gives the four nominations: Robert B.
+   Blance, Alexander Morrison, Andrew J. Nicolson and Robert Ollason. Its preview of the 1964
+   election (17 Apr 1964) says Halcrow had been elected ten years before and served only one year
+   before resigning to become county councillor. So the 1957 seat was Nicolson's (Labour, like his
+   other candidacies), and her profile's "from 1957" becomes 1954-55 and from 1964.
+
+6. The "Lerwick Town Council By-Election May 1961" was a co-option in June. The Rev. Kenneth
+   Thomson resigned at the statutory meeting on Friday 5 May 1961, being ineligible (Shetland Times,
+   12 May 1961). Robert Strachan was co-opted at "Tuesday's Town Council meeting" (Shetland Times,
+   16 Jun 1961), i.e. 13 June 1961.
+
+Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 """
 
 import os
@@ -54,6 +68,16 @@ WILLIAMSON_NOTE = (
 )
 WILLIAMSON_INTRO = ('Lerwick Town Councillor between 1941 and 1945',
                     'Lerwick Town Councillor in 1938 and between 1941 and 1945')
+HALCROW_1957 = 'Lerwick Town Council Election May 1957'
+HALCROW_INTRO = ('a Lerwick Town Councillor from 1957 till the late 1960s',
+                 'a Lerwick Town Councillor in 1954-55 and from 1964 till the late 1960s')
+STRACHAN_BY_ELECTION = 'Lerwick Town Council By-Election May 1961'
+STRACHAN_NOTE = (
+    "Co-option at the Town Council meeting of 13 June 1961, to fill the vacancy left when the Rev. "
+    "Kenneth Thomson, being ineligible, resigned at the statutory meeting on 5 May 1961. Robert "
+    "Strachan had headed the unsuccessful candidates at the May 1961 election. From the Shetland Times, "
+    "12 May and 16 June 1961."
+)
 MACDOUGALL_INTRO = ('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -176,6 +200,41 @@ def main():
         print("  intro: April 1912 -> October 1912")
     else:
         raise SystemExit(f"william-macdougall intro doesn't contain {old!r}")
+
+    print("=== 5. May 1957 LTC election: Nicolson, not Halcrow ===")
+    halcrow = one(c, "SELECT id, intro FROM people WHERE slug = 'grace-halcrow'", ())
+    nicolson = one(c, "SELECT id FROM people WHERE slug = 'andrew-nicolson'", ())
+    e1957 = one(c, "SELECT id FROM elections WHERE wiki_page_title = ?", (HALCROW_1957,))
+    c.execute("SELECT id, person_id FROM candidacies WHERE election_id = ? AND person_id IN (?, ?)",
+              (e1957['id'], halcrow['id'], nicolson['id']))
+    found = c.fetchall()
+    if len(found) != 1:
+        raise SystemExit(f"{HALCROW_1957}: expected one Halcrow or Nicolson candidacy, found {len(found)}")
+    if found[0]['person_id'] == nicolson['id']:
+        print("  candidacy: already Nicolson")
+    else:
+        c.execute("""UPDATE candidacies SET person_id = ?, candidate_name = 'Andrew J. Nicolson', party = 'Labour'
+                     WHERE id = ?""", (nicolson['id'], found[0]['id']))
+        print(f"  candidacy {found[0]['id']}: Grace Halcrow -> Andrew J. Nicolson")
+    old, new = HALCROW_INTRO
+    if new in halcrow['intro']:
+        print("  intro: already corrected")
+    elif old in halcrow['intro']:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (halcrow['intro'].replace(old, new), halcrow['id']))
+        print("  intro: from 1957 -> 1954-55 and from 1964")
+    else:
+        raise SystemExit(f"grace-halcrow intro doesn't contain {old!r}")
+
+    print("=== 6. June 1961 LTC co-option of Robert Strachan ===")
+    by_id = set_date(c, STRACHAN_BY_ELECTION, '1961-05-05', '1961-06-13')
+    row = one(c, "SELECT notes FROM elections WHERE id = ?", (by_id,))
+    if row['notes'] == STRACHAN_NOTE:
+        print("  note: already set")
+    elif not row['notes']:
+        c.execute("UPDATE elections SET notes = ? WHERE id = ?", (STRACHAN_NOTE, by_id))
+        print("  note: added")
+    else:
+        raise SystemExit(f"{STRACHAN_BY_ELECTION} already has notes, not overwriting: {row['notes']}")
 
     db.commit()
     db.close()
