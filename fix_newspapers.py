@@ -14,6 +14,26 @@ idempotent: re-running does nothing once the corrections are in place.
    Arthur Hay stays elected: he topped the poll (87) and then declined to take office, which is
    recorded as an election note. The co-option filling his seat was on 22 November 1884
    (newspaper, 22 Nov 1884, per CLAUDE.md), not the 11th.
+
+2. November 1936 Lerwick Town Council co-option of Erling Clausen. Shetland Times preview of
+   the 3 Nov 1936 election: "Only four candidates have been nominated for the five vacancies",
+   so one seat was left empty at the general and Clausen's co-option on 10 November filled it.
+   He did not replace Laurence Cogle: Cogle's seat had gone to T. A. Sinclair, co-opted in July
+   1936 and re-elected at the general.
+
+3. August 1938 Lerwick Town Council co-option of John A. Williamson, which the wiki doesn't
+   record. Shetland Times, 27 Aug 1938: "A special meeting of Lerwick Town Council was held on
+   Thursday of last week" (18 August), where "it was resolved to co-opt Mr John A. Williamson, the
+   unsuccessful candidate at the last Council election receiving the highest number of votes", in
+   the room of the late Councillor A. S. Manson (died 22 July 1938). He is listed as a retiring
+   councillor at the November 1938 election, standing for Labour (Shetland Times, 29 Oct 1938).
+   His profile's "Lerwick Town Councillor between 1941 and 1945" gains the 1938 spell.
+
+4. William MacDougall's resignation from Lerwick Town Council. His profile says April 1912. He
+   tendered it on 2 April 1912 but "had reconsidered his decision to resign" by that Friday
+   (Shetland Times, 6 Apr 1912), attended the 1 October 1912 meeting (Shetland Times, 5 Oct 1912),
+   and resigned on Tuesday 8 October 1912 (Shetland Times, 12 Oct 1912). Evidence with BNA links:
+   research/bna/ltc-1912-1914.md.
 """
 
 import os
@@ -23,6 +43,18 @@ DB_PATH = os.environ.get('SHETLAND_DB', '/Users/james/projects/shetland_history/
 
 GENERAL = 'Lerwick Town Council Election November 1884'
 BY_ELECTION = 'Lerwick Town Council By-Election November 1884'
+CLAUSEN_BY_ELECTION = 'Lerwick Town Council By-Election November 1936'
+UNFILLED = '[unfilled seat]'
+WILLIAMSON_BY_ELECTION = 'Lerwick Town Council By-Election August 1938'
+WILLIAMSON_NOTE = (
+    "Co-option at a special meeting of the Town Council on 18 August 1938 to fill the vacancy left by "
+    "the death of Alexander S. Manson. John A. Williamson was chosen as the unsuccessful candidate at "
+    "the November 1937 election with the highest number of votes. Not recorded on the wiki; from the "
+    "Shetland Times, 27 August 1938."
+)
+WILLIAMSON_INTRO = ('Lerwick Town Councillor between 1941 and 1945',
+                    'Lerwick Town Councillor in 1938 and between 1941 and 1945')
+MACDOUGALL_INTRO = ('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
     "Arthur J. Hay topped the poll but declined to take office (letter, 8 November 1884). "
@@ -81,6 +113,69 @@ def main():
         print("  Hay note: added")
     else:
         raise SystemExit(f"{GENERAL} already has notes, not overwriting: {row['notes']}")
+
+    print("=== 2. November 1936 LTC co-option ===")
+    row = one(c, "SELECT id, replaced_person, replaced_person_id FROM elections WHERE wiki_page_title = ?",
+              (CLAUSEN_BY_ELECTION,))
+    if row['replaced_person'] == UNFILLED and row['replaced_person_id'] is None:
+        print(f"  {CLAUSEN_BY_ELECTION}: already {UNFILLED}")
+    elif row['replaced_person'] == 'Laurence Cogle':
+        c.execute("UPDATE elections SET replaced_person = ?, replaced_person_id = NULL WHERE id = ?",
+                  (UNFILLED, row['id']))
+        print(f"  {CLAUSEN_BY_ELECTION} (id {row['id']}): replaced_person Laurence Cogle -> {UNFILLED}")
+    else:
+        raise SystemExit(f"'{CLAUSEN_BY_ELECTION}' has unexpected replaced_person {row['replaced_person']}")
+
+    print("=== 3. August 1938 LTC co-option ===")
+    ltc = one(c, "SELECT id FROM councils WHERE name = 'Lerwick Town Council'", ())
+    manson = one(c, "SELECT id, name, died_date FROM people WHERE slug = 'alexander-manson'", ())
+    if manson['died_date'] != '1938-07-22':
+        raise SystemExit(f"people.alexander-manson died_date is {manson['died_date']}, expected 1938-07-22")
+    williamson = one(c, "SELECT id FROM people WHERE slug = 'john-williamson-iii'", ())
+    c.execute("SELECT id FROM elections WHERE wiki_page_title = ?", (WILLIAMSON_BY_ELECTION,))
+    row = c.fetchone()
+    if row:
+        election_id = row['id']
+        print(f"  by-election exists (id {election_id})")
+    else:
+        c.execute("""
+            INSERT INTO elections (council_id, election_date, election_type, wiki_page_title,
+                                   replaced_person, replaced_person_id, notes)
+            VALUES (?, '1938-08-18', 'by-election', ?, ?, ?, ?)
+        """, (ltc['id'], WILLIAMSON_BY_ELECTION, manson['name'], manson['id'], WILLIAMSON_NOTE))
+        election_id = c.lastrowid
+        print(f"  by-election created (id {election_id})")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = 'John A. Williamson'",
+              (election_id,))
+    if c.fetchone():
+        print("  candidacy exists")
+    else:
+        c.execute("""
+            INSERT INTO candidacies (election_id, person_id, candidate_name, party, votes_text, elected, position)
+            VALUES (?, ?, 'John A. Williamson', 'Labour', 'Co-opted', 1, 1)
+        """, (election_id, williamson['id']))
+        print("  candidacy created")
+
+    old, new = WILLIAMSON_INTRO
+    row = one(c, "SELECT intro FROM people WHERE id = ?", (williamson['id'],))
+    if new in row['intro']:
+        print("  intro: already mentions 1938")
+    elif old in row['intro']:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (row['intro'].replace(old, new), williamson['id']))
+        print("  intro: 1938 added")
+    else:
+        raise SystemExit(f"john-williamson-iii intro doesn't contain {old!r}")
+
+    print("=== 4. William MacDougall's resignation ===")
+    old, new = MACDOUGALL_INTRO
+    row = one(c, "SELECT id, intro FROM people WHERE slug = 'william-macdougall'", ())
+    if new in row['intro']:
+        print("  intro: already October 1912")
+    elif old in row['intro']:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (row['intro'].replace(old, new), row['id']))
+        print("  intro: April 1912 -> October 1912")
+    else:
+        raise SystemExit(f"william-macdougall intro doesn't contain {old!r}")
 
     db.commit()
     db.close()

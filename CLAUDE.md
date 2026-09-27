@@ -224,7 +224,7 @@ Answer the question "who were the councillors on date X?" — now answered by `/
 | James Hunter (ii) | early 1887 | Unknown (replaced by Porteous Mar 1887 by-election) | Needs research |
 | Alexander Mitchell (i) | before Oct 1889 | Retired (re-elected Nov 1888, retired before next election) | Newspaper 26 Oct 1889 |
 | Laurence Stove | 12 Apr 1889 | Died | Death date |
-| William MacDougall | Apr 1912 | Resigned | Profile intro |
+| William MacDougall | 8 Oct 1912 | Resigned (an April 1912 resignation was withdrawn) | Shetland Times 6 Apr and 12 Oct 1912 |
 
 ### Confirmed DB corrections
 | Election | Fix | Source |
@@ -251,9 +251,9 @@ Answer the question "who were the councillors on date X?" — now answered by `/
 | 6 Oct 1888 | Newspaper | 4 | Mitchell, Tulloch jr, Jamieson | +1 short-term re-standing from 1887 five |
 | 26 Oct 1889 | Newspaper | 5 | Leisk, Halcrow, Harrison | +2: Mitchell retirement, Stove death |
 | 25 Oct 1890 | Newspaper | 4-5 | John Robertson (chief mag), Charles Robertson, Robertson jr, Porteous | +1 Chief Magistrate retirement (may be same as Robertson) |
-| 12 Oct 1912 | Newspaper | 5 | Stout, Laing, Smith, Loggie (by rotation) | +1: MacDougall resigned. All 5 got full terms, no short-term re-standing at 1913. |
-| Nov 1913 | Newspaper | 4 | (regular rotation) | Confirms no extra vacancy — MacDougall's seat absorbed |
-| 24 Oct 1914 | Newspaper | 4 | Ganson, W. Sinclair, Smith, Ratter | Normal rotation, council at 11 |
+| 12 Oct 1912 | Newspaper | 5 | Stout, J. Smith, J. Laing, Loggie (automatic; Loggie in place of Provost A. Laing, who stayed on) | +1: MacDougall resigned 8 Oct. Council 12 after the election. |
+| 11 Oct 1913 | Newspaper | 4 | Provost A. Laing, Bailie Goodlad, A. Smith, W. S. Smith | Goodlad a year early; Laing did not re-stand |
+| 24 Oct 1914 | Newspaper | 4 | Ganson, W. Sinclair, J. Smith, Ratter | J. Smith's 1912 seat was a two-year one. All returned unopposed. Council at 12 |
 | 9 Oct 1919 | Newspaper | 7 (8 if Goodlad resigns) | Sinclair, Manson, Henderson, Ramsay, Robertson, Stout, Laing | Post-WWI: 2 by rotation + 5 ad interim |
 | 18 Oct 1919 | Official notice | 7 | Laing, Ramsay (rotation); Sinclair, Henderson, Stout, Manson, Robertson (ad interim) | "unique in the history of the burgh" |
 | 30 Oct 1919 | Newspaper | 7 | Same as above | "six years since a municipal contest" — 6 of 7 re-stand (not Henderson) |
@@ -275,7 +275,7 @@ Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bug
 
 The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1951–52, 1967 — often genuine vacancies before a by-election or general); oversize 1913–1919, 1934–1946 and 1958–1965; and 30 overlapping terms, which are where the cohort model kept someone sitting who had already left (e.g. Arthur Johnson's repeated co-options, 1941–1958).
 
-**1912–1914 needs a decision**: the notes above say both "all 5 got full terms" (Oct 1912: council back to 12) and "council at 11 from 1912 until 1919". The ledger currently has 12 from Nov 1912 and 13 from Nov 1913. Once settled, record it in the ledger (and `data/council_size.csv` if the council really ran at 11).
+**1912–1914 settled (2026-09-27)**: the council had 12 members throughout, from the Shetland Times retiring lists. Evidence with BNA links: `research/bna/ltc-1912-1914.md`.
 
 **Key patterns (for editing the ledger):**
 - When 5 elected and next general has only 4: all 5 got full terms (1883, 1912, 1932).
@@ -306,10 +306,12 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 ### Process
 - The drift check compares full dumps. After any change to `data/` or a correction script, run `python3 build.py` and commit `shetland.db` with it.
 - When a check on /data-review is resolved, fix the ledger or add a correction. Don't add special cases to `build.py`'s checks to make the issue go away.
+- Newspaper research: the `/bna` skill (`.claude/skills/bna/`) searches the British Newspaper Archive through James's logged-in Chrome. James often asks for the search plan rather than the search ("what do you propose searching to find X?"). Then give the issues, date ranges, keywords and what to look for, in priority order, without opening the browser.
+- BNA findings are saved as evidence in `research/bna/<topic>.md`: one entry per article, with the citation, the BNA viewer link (`image-viewer?issue=BL%2F0000666%2FYYYYMMDD&page=NNNN&article=NNN`), a short quote and the ledger edit it supports. James checks them there.
+- Whenever research contradicts the wiki, the notes or a confirmed ledger row, add an entry to `research/corrections-log.md` (what we had, what the sources show, whether the site text is fixed). James uses it to update his own understanding. Flag it in the reply too.
 
 ## Known Issues / TODO
 - [ ] Work through the 70 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
-- [ ] Decide LTC council size for 1912–1914 (see "Current state")
 - [ ] SIC by-elections Sep 1993 (Jonathan Wills, Whiteness Weisdale & Tingwall) and Mar 2002 (Joseph G. Simpson, Whalsay & Skerries): wards now set from the titles, and the replaced member is inferred as the sitting member. Confirm who it was.
 - [ ] Make constituency slugs unique across councils (see Learnings); needs redirects for any existing URLs that change
 - [ ] Set the Cloudflare Pages build command (see Deployment) and switch off GitHub Pages
