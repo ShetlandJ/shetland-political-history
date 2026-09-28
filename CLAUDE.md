@@ -315,6 +315,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - When a check on /data-review is resolved, fix the ledger or add a correction. Don't add special cases to `build.py`'s checks to make the issue go away.
 - Newspaper research: the `/bna` skill (`.claude/skills/bna/`) searches the British Newspaper Archive through James's logged-in Chrome. James often asks for the search plan rather than the search ("what do you propose searching to find X?"). Then give the issues, date ranges, keywords and what to look for, in priority order, without opening the browser.
 - BNA findings are saved as evidence in `research/bna/<topic>.md`: one entry per article, with the citation, the BNA viewer link (`image-viewer?issue=BL%2F0000666%2FYYYYMMDD&page=NNNN&article=NNN`), a short quote and the ledger edit it supports. James checks them there.
+- Anything a BNA run can't settle, or that needs James's call, goes in `research/bna/open-questions.md` with its options and the ledger row it affects. James answers there in batches.
 - Whenever research contradicts the wiki, the notes or a confirmed ledger row, add an entry to `research/corrections-log.md` (what we had, what the sources show, whether the site text is fixed). James uses it to update his own understanding. Flag it in the reply too.
 
 ## Known Issues / TODO

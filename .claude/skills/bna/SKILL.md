@@ -56,7 +56,11 @@ The order of work is set by cost. Always try the cheaper step first:
 8. Don't commit unless James asks.
 
 If the evidence is ambiguous on the point that decides an edit, don't guess. Leave that row
-alone, record it in the evidence file, and ask James.
+alone, record it in the evidence file, and add it to `research/bna/open-questions.md` (date
+raised, the question, the options, the evidence file, the ledger row). James often works
+remotely and answers there in a batch, so every unresolved point goes in that file, not only in
+the reply. At the start of `/bna next`, apply any answers James has written in it and delete
+those entries.
 
 ## 1. Plan the searches
 
