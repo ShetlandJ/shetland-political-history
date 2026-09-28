@@ -65,7 +65,7 @@ which. See the timing rules in the skill.
   recombined the Aithsting & Sandsting parishes"), but the parser made two rows (1242, 1243)
   with identical results, so John Leslie (ii) gets two seats. Hide 1243 and show 1242 as
   "Aithsting & Sandsting" (`fix_parse_errors.py`). Clears 1 overlap.
-- [ ] **ZCC William Sinclair, Dec 1919**: a genuine double return (Burra and Whiteness &
+- [x] **ZCC William Sinclair, Dec 1919** (done: Burra win in `not_seated.csv`, by-election 15 Apr 1920 with `[double return]`, `fix_parse_errors.py` #9; ward councils now honour `not_seated.csv`): a genuine double return (Burra and Whiteness &
   Weisdale). He chose Whiteness, which caused the Burra by-election of Apr 1920. Needs a way to
   record a win that wasn't taken up on a ward council (see open-questions).
 

@@ -186,7 +186,8 @@ def load_ltc_ledger(db, T):
 
 def derive_ward_terms(db, T, slug):
     """Ward-based councils: each general election replaces every seat; a by-election replaces the
-    named member, or the only member of a single-member ward. Deaths end terms on the day."""
+    named member, or the only member of a single-member ward. Deaths end terms on the day. Wins in
+    data/not_seated.csv (a double return: elected for two wards, sat for one) get no term."""
     cid = council_ids(db)[slug]
     deaths = {pid: d for pid, d in db.execute("SELECT id, died_date FROM people WHERE died_date IS NOT NULL")}
 
@@ -212,7 +213,10 @@ def derive_ward_terms(db, T, slug):
         return db.execute("""
             SELECT c.id, c.person_id, COALESCE(p.name, c.candidate_name)
             FROM candidacies c LEFT JOIN people p ON p.id = c.person_id
-            WHERE c.election_id = ? AND c.elected = 1 ORDER BY c.position, c.id
+            WHERE c.election_id = ? AND c.elected = 1
+              AND NOT EXISTS (SELECT 1 FROM temp.not_seated ns WHERE CAST(ns.election_id AS INTEGER) = c.election_id
+                              AND (ns.person_slug = '' OR ns.person_slug = p.slug))
+            ORDER BY c.position, c.id
         """, (election_id,)).fetchall()
 
     def close(t, date, reason):

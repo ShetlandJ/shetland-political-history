@@ -44,6 +44,11 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    parishes", with one result under "===Aithsting & Sandsting===" (Leslie 110, Clark 89). The parser
    made a row for each ward with the same result, giving John Leslie (ii) two seats. The Sandsting
    row is hidden and the Aithsting row shows the combined name.
+9. Burra County Council By-Election April 1920: "took place on 15 April. In 1919, William Sinclair
+   was elected to both Burra and to Whiteness and Weisdale, and as he chose to represent the latter
+   George Anderson was appointed." The baseline has 1 April (month only) and Sinclair as the member
+   replaced. He never took the Burra seat (listed in data/not_seated.csv), so the replaced member
+   is the marker [double return], and the seat is vacant until Anderson.
 """
 
 import os
@@ -79,6 +84,8 @@ WRONG_NAMESAKE = [
 HUNTER_1920 = ('Nesting County Council By-Election November 1920', 'Robert Hunter', 429, 430)
 
 PETERSON_1919 = ('County_Council_Election_December_1919', 'Delting North', 'Joseph Peterson')
+BURRA_1920 = ('Burra County Council By-Election April 1920', ('1920-04-01', '1920-04-15'),
+              (('William Sinclair', 522), ('[double return]', None)))
 COMBINED_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting')
 
 HUNTER_BROTHER = (430, '[person:james-hunter-iv:James]', '[person:james-hunter-iii:James]')
@@ -188,6 +195,21 @@ def main():
             raise SystemExit(f"election {rows[keep][0]}: unexpected display name {rows[keep][2]!r}")
         c.execute("UPDATE elections SET constituency_display_name = ? WHERE id = ?", (combined, rows[keep][0]))
         print(f"election {rows[keep][0]}: shown as {combined}")
+
+    title, (d_wrong, d_right), (rp_wrong, rp_right) = BURRA_1920
+    eid, date, rp = c.execute("SELECT id, election_date, replaced_person FROM elections WHERE wiki_page_title = ?",
+                              (title,)).fetchone()
+    rp_id = c.execute("SELECT replaced_person_id FROM elections WHERE id = ?", (eid,)).fetchone()[0]
+    if date == d_wrong:
+        c.execute("UPDATE elections SET election_date = ? WHERE id = ?", (d_right, eid))
+        print(f"election {eid}: date {d_wrong} -> {d_right}")
+    elif date != d_right:
+        raise SystemExit(f"election {eid}: unexpected date {date}")
+    if (rp, rp_id) == rp_wrong:
+        c.execute("UPDATE elections SET replaced_person = ?, replaced_person_id = ? WHERE id = ?", (*rp_right, eid))
+        print(f"election {eid}: replaced {rp_wrong[0]} -> {rp_right[0]}")
+    elif (rp, rp_id) != rp_right:
+        raise SystemExit(f"election {eid}: unexpected replaced member {rp!r}/{rp_id}")
 
     db.commit()
     db.close()

@@ -19,7 +19,7 @@ new-site/
 │   ├── baseline.sql        # Frozen extraction (wiki parse + every script fix to 2026-09-25). Text, diffable.
 │   ├── ltc_terms.csv       # LTC membership ledger — source of truth for who sat when (hand-edited)
 │   ├── party_aliases.csv   # Party label spelling/markup variants
-│   ├── not_seated.csv      # Elected but never took a seat (declined office, invalid 1874 group, office elections)
+│   ├── not_seated.csv      # Elected but never took a seat (declined office, invalid 1874 group, office elections, ZCC double returns)
 │   └── council_size.csv    # Researched exceptions to LTC's 12 seats (empty for now)
 ├── fix_minute_book.py  # Correction script: LTC minute book (run by build.py)
 ├── fix_newspapers.py   # Correction script: newspaper evidence (run by build.py)
@@ -273,7 +273,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: only William Sinclair's 1919 double return is left (Peterson's and Leslie's were parse errors, fixed in `fix_parse_errors.py` #7–8); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
 
@@ -304,7 +304,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 ### Data
 - **Look people up by `person_id`, never by name.** Name lookups caused the James Inkster death bug and the William Sinclair departure bug (see "Current state" above). Unlinked candidacies share names with linked people.
 - **Election ids are stable now** (frozen baseline), so `data/` files can safely refer to `election_id`. The ledger stores both `election_id` and `election` (wiki title), and `build.py` fails if they disagree.
-- **`replaced_person` placeholders:** `[unfilled seat]` (the seat was empty at the general for lack of nominations, and the by-election filled it) and `[voided election re-run]` are markers, not people. Use the same convention for new cases (e.g. North Isles Aug 2022).
+- **`replaced_person` placeholders:** `[unfilled seat]` (the seat was empty at the general for lack of nominations, and the by-election filled it), `[voided election re-run]` and `[double return]` (the winner of two wards sat for the other, so this seat was never taken up; the win is in `data/not_seated.csv`, e.g. William Sinclair, Burra 1919) are markers, not people. Use the same convention for new cases (e.g. North Isles Aug 2022).
 - **Ward seat counts** = winners at the last general + seats filled since via `[unfilled seat]` by-elections. Multi-member SIC wards (2007+) need `replaced_person` on every by-election, or the ward shows over-full.
 - **`replaced_person_id` can point at a namesake from another era** (the parser matched names across centuries: a 1914-born GP for a councillor who died in 1920). `build.py` only matches by name for unlinked terms, so a wrong link shows up as "replaced member ... is not sitting" on /data-review. Fix the link in `fix_parse_errors.py`, not the check.
 - **Office elections are not seats.** A sitting councillor elected Bailie at a by-election (Joseph Leask, May 1844) takes no new term. Detected by `candidacies.role` not being NULL or `councillor`.
