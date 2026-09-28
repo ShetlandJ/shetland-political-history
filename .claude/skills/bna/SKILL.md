@@ -76,7 +76,8 @@ Search URL (all parameters matter):
 https://www.britishnewspaperarchive.com/search-newspapers/results?keywords=<kw>&newspaper=shetland%20times&startdate=YYYY-MM-DD&enddate=YYYY-MM-DD&exactdate=true&o=date&d=asc
 ```
 
-`o=date&d=asc` gives oldest first. For a single issue, set startdate = enddate = the publication
+`o=date&d=asc` gives oldest first. The Shetland Times has gaps (nothing 24 Apr–12 Jun 1915). If a
+week returns 0 results, try `newspaper=shetland%20news` (viewer code `0003210` instead of `0000666`). For a single issue, set startdate = enddate = the publication
 day (Saturday to at least Feb 1943; **Friday by Oct 1944**).
 
 Keywords are ANDed, and a long phrase often returns nothing ("town council election tuesday"

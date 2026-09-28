@@ -69,8 +69,18 @@ which. See the timing rules in the skill.
   6 Feb 1945; Nov 1945 general Tue 6 Nov, not Mon 5th (`fix_newspapers.py` #19). Gear, Inkster
   and P. Smith resigned before their successors' co-options. 11 rows confirmed; J. Smith (i)'s
   1941 end in open-questions. `ltc-1940-1945.md`.
-- [ ] **LTC 1915–1916 (3 size-short rows)**: Apr 1915, Jul 1915, Jul 1916. Wartime departures and
-  co-options.
+- [x] **LTC 1915–1916 (3 size-short rows)**: 21 → 18. All genuine vacancies. Stout died Sat
+  10 Apr 1915, Sinclair elected Tue 27 Apr (Shetland News 1 May; the ST for 24 Apr–12 Jun 1915
+  isn't digitised); Grierson died 3 Jul, C. B. Stout 3 Aug 1915; Laurenson died 14 Jul, Henderson
+  1 Aug 1916; A. Smith resigned, Manson 5 Sep; W. S. Smith resigned Tue 7 Nov 1916 (not 5 Dec),
+  Robertson 5 Dec. 1919 notice confirms the seven Nov 1919 ends. 17 rows confirmed.
+  `ltc-1915-1916.md`.
+- [ ] **LTC holdovers 1919–1921**: Ratter, Goodlad, Ganson and W. Sinclair sat on to 1920, J. Smith
+  (i) to 1921 (unconfirmed holdover rows). Did Provost Goodlad retire in 1919–20 ("at the end of the
+  war", ST 18 Oct 1919 art. 055; "8 if Goodlad resigns", ST 9 Oct 1919)? Check the Oct 1920 retiring
+  list and the 1920 Provost election.
+- [ ] **LTC Oct–Nov 1912 short row**: MacDougall's 8 Oct–5 Nov 1912 vacancy. The unconfirmed rows
+  sitting through it (the 1908, 1909 and 1911 cohorts) need their starts sourced.
 - [ ] **LTC 1945–1947 rows**: 29 Nov–10 Dec 1945 held by David Gray (ii)'s 1945 row (start: read
   the 9 Nov 1945 result, ST p2 art. 047, whose OCR list is garbled; zoom if needed), and 3 Jun–1 Jul
   1947 by James Brownlie's 1946 row (start: the Nov 1946 result; end: his 1949 departure before the
