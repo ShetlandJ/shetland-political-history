@@ -8,6 +8,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-28: Two 1890 ZCC electorates.** ST 8 Feb 1890 (p3, art. 061) gives Whiteness and
+  Weisdale "M. 86, F. 30—Total 116" (DB 126) and Nesting and Lunnasting "Total 93" (DB 83). The
+  OCR adds up for Whiteness, but the page image wouldn't render to check. Options: change both
+  (`fix_newspapers.py`), or check the image or the wiki's source first. Elections 174 and 162.
+  Evidence: `zcc-1890-1899.md`.
+
 - **2026-09-28: Should unconfirmed rows with checked end dates be confirmed?** Gear and Inkster
   (co-opted 7 Oct 1941) have confirmed start dates but unchecked end dates. The six 1945
   retirements are confirmed by ST 5 Oct 1945, but their start dates weren't checked. So far a row
