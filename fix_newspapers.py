@@ -247,6 +247,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Nov 1904) and the result "DELTING NORTH, Pole J. Inkster" (ST 10 Dec 1904); White was returned
    unopposed for Northmavine South. The wiki table has White 13. The votes are left as they are.
    Evidence: research/bna/zcc-1900-1919.md.
+
+34. Sandwick, December 1907: William Smith was returned unopposed. The wiki's 1907 Sandwick table
+   (electorate 276, turnout 161, Smith 91, James Thomson 70) is a copy of 1904's. The 1907
+   nominations list Smith alone, and the five contests were Delting North, Delting South, Walls,
+   Sandsting and Northmavine North (ST 23 and 30 Nov 1907). Thomson's 1907 candidacy is removed,
+   Smith's votes become "Unopposed", and the copied electorate and turnout are cleared.
+   Evidence: research/bna/zcc-1900-1919.md.
 """
 
 import os
@@ -373,6 +380,7 @@ ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland
 ]
 DELTING_NORTH_1904 = ('County Council Election December 1904', 'Delting North', 'Arthur White', 'arthur-white',
                       'James Inkster', 'james-inkster')
+SANDWICK_1907 = ('County Council Election December 1907', 'Sandwick', (276, 161), ('William Smith', 91), ('James Thomson', 70))
 WHITENESS_1890 = ('County Council Election February 1890', 'Whiteness And Weisdale', (126, 52.9), (116, 56.9))
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
@@ -734,6 +742,31 @@ def main():
         print(f"  candidacy {row['id']}: {wrong_name} -> {right_name}")
     else:
         raise SystemExit(f"candidacy {row['id']}: unexpected {row['candidate_name']!r}/{row['person_id']}")
+
+    print("=== 34. Sandwick 1907: Smith unopposed (the wiki copied 1904) ===")
+    title, ward, (electorate, turnout), (winner, winner_votes), (loser, loser_votes) = SANDWICK_1907
+    row = one(c, """SELECT e.id, e.electorate, e.turnout FROM elections e JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+    eid = row['id']
+    if (row['electorate'], row['turnout']) == (electorate, turnout):
+        c.execute("UPDATE elections SET electorate = NULL, turnout = NULL WHERE id = ?", (eid,))
+        print(f"  election {eid}: copied electorate/turnout cleared")
+    elif (row['electorate'], row['turnout']) != (None, None):
+        raise SystemExit(f"election {eid}: unexpected electorate/turnout {row['electorate']}/{row['turnout']}")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ? AND votes = ? AND elected = 0",
+              (eid, loser, loser_votes))
+    ids = [r['id'] for r in c.fetchall()]
+    if len(ids) == 1:
+        c.execute("DELETE FROM candidacies WHERE id = ?", ids)
+        print(f"  candidacy {ids[0]} ({loser}, copied from 1904) removed")
+    elif ids:
+        raise SystemExit(f"election {eid}: several {loser} rows")
+    w = one(c, "SELECT id, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, winner))
+    if (w['votes'], w['votes_text']) == (winner_votes, None):
+        c.execute("UPDATE candidacies SET votes = NULL, votes_text = 'Unopposed' WHERE id = ?", (w['id'],))
+        print(f"  candidacy {w['id']} ({winner}): {winner_votes} votes -> Unopposed")
+    elif (w['votes'], w['votes_text']) != (None, 'Unopposed'):
+        raise SystemExit(f"candidacy {w['id']}: unexpected votes {w['votes']!r}/{w['votes_text']!r}")
 
     db.commit()
     db.close()
