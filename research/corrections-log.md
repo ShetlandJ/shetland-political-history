@@ -9,6 +9,17 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1940–1945 (`research/bna/ltc-1940-1945.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Mouat co-opted for W. Sinclair ("By-Election **August** 1940") on 6 Aug 1940 | Co-opted at the meeting of **Tue 2 Jul 1940** (ST 6 and 13 Jul 1940). Sinclair had resigned in writing on 24 May and the seat was declared vacant in early June (ST 25 May, 8 Jun 1940) | Fixed: `fix_newspapers.py` #19, ledger |
+| 2 | wiki | T. A. Sinclair co-opted ("By-Election April 1942") on 9 Apr 1942 | At a special meeting on **Tue 31 Mar 1942** (ST 4 Apr 1942) | Fixed (same) |
+| 3 | wiki | Morrison co-opted for Prophet Smith on **Mon 5 Feb 1945** | At the monthly meeting of **Tue 6 Feb 1945** (ST 9 Feb 1945) | Fixed (same) |
+| 4 | wiki | Nov 1945 general on **Mon 5 Nov 1945** | Polled on **Tuesday 6 Nov 1945** (ST 9 Nov 1945) | Fixed (same), 12 ledger dates |
+| 5 | draft | Gear, Inkster and Prophet Smith sat until their successors were co-opted | Gear resigned (read **2 Feb 1943**, postmaster at Lyness), Inkster **3 Oct 1944** (leaving for the south), P. Smith **9 Jan 1945** (letter of 2 Jan, Greenock) (ST 6 Feb 1943, 6 Oct 1944, 12 Jan 1945) | Ledger fixed |
+| 6 | notes | Provost J. A. Smith (i) left at the 1 Jul 1941 co-option (confirmed row, from his profile) | His letter giving **three weeks' notice** was accepted at the meeting of **Tue 3 Jun 1941** (ST 7 Jun 1941), so he probably left about 23 Jun | Not changed: open question |
+
 ## 2026-09-28: LTC 1936–1945 (`research/bna/ltc-1936-1945.md`)
 
 | # | Where | We had | Sources show | Status |

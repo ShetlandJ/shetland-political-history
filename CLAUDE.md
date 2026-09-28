@@ -273,11 +273,13 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1895–1905, 1912, 1921, 1936–38, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1895–1905, 1912, 1921, 1945, 1947, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
 
 **1934–1938 settled (2026-09-28)**: all dated vacancies. Johnston resigned 9 Oct 1934 and Sandison was killed 30 Sep 1934 (both had two-year 1932 seats); Cogle resigned 5 May 1936 (not July); co-options 7 Jul, 4 Aug and 10 Nov 1936. Evidence: `research/bna/ltc-1934-1938.md`.
 
 **1936–1945 rows confirmed (2026-09-28)**: Halcrow died 24 Dec 1940 (Williamson co-opted 7 Jan 1941); Clausen resigned 4 Jan 1938 on moving to Thurso and Dalziel was co-opted Tue 1 Feb 1938 (not the 3rd); W. G. Smith died 28 Feb 1942; Laing retired from 29 Nov 1945 (Johnston co-opted 10 Dec). This cleared the Nov 1936, Oct 1937 and Jul 1938 rows. Evidence: `research/bna/ltc-1936-1945.md`.
+
+**1940–1945 settled (2026-09-28)**: W. Sinclair resigned 24 May 1940 (seat declared vacant in June) and Mouat was co-opted Tue 2 Jul 1940 (not 6 Aug); T. A. Sinclair co-opted 31 Mar 1942 (not 9 Apr); Gear, Inkster and Prophet Smith resigned before their successors' co-options (2 Feb 1943, 3 Oct 1944, 9 Jan 1945); Morrison co-opted Tue 6 Feb 1945; the Nov 1945 general was Tue 6 Nov, not Mon 5th (`fix_newspapers.py` #19). A size-short run is hidden once every row sitting through it is confirmed, so confirming both ends of each row is what clears a genuine vacancy. Evidence: `research/bna/ltc-1940-1945.md`.
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
 
@@ -335,7 +337,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - Whenever research contradicts the wiki, the notes or a confirmed ledger row, add an entry to `research/corrections-log.md` (what we had, what the sources show, whether the site text is fixed). James uses it to update his own understanding. Flag it in the reply too.
 
 ## Known Issues / TODO
-- [ ] Work through the 26 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
+- [ ] Work through the 21 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
 - [ ] SIC by-elections Sep 1993 (Jonathan Wills, Whiteness Weisdale & Tingwall) and Mar 2002 (Joseph G. Simpson, Whalsay & Skerries): wards now set from the titles, and the replaced member is inferred as the sitting member. Confirm who it was.
 - [ ] Make constituency slugs unique across councils (see Learnings); needs redirects for any existing URLs that change
 - [ ] Set the Cloudflare Pages build command (see Deployment) and switch off GitHub Pages

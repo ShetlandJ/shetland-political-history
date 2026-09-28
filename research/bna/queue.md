@@ -62,11 +62,21 @@ which. See the timing rules in the skill.
   Tue 24 Dec 1940; Williamson co-opted Tue 7 Jan 1941; Clausen resigned (read Tue 4 Jan 1938, moved
   to Thurso); Dalziel co-opted Tue 1 Feb 1938, not Thu 3rd (`fix_newspapers.py` #18); W. G. Smith
   died Sat 28 Feb 1942; Laing retired from 29 Nov 1945. 6 rows confirmed. `ltc-1936-1945.md`.
-- [ ] **LTC Dec 1940 short row**: holds on Shearer's 1938 row (resignation day, Jun 1947, not found)
-  and Mouat's Aug 1940 co-option (and the 1938 William Sinclair row it replaced). Check Sinclair's
-  1940 departure and Mouat's co-option, and the ends of the 1940–45 co-optees at the Nov 1945 general.
+- [x] **LTC Dec 1940 short row**: 26 → 21 (Dec 1940, both Aug–Oct 1941, Feb–Apr 1942 and
+  Mar–May 1946 rows cleared: all genuine vacancies, now fully confirmed). 1938 result sourced
+  (Shearer's row confirmed). W. Sinclair resigned 24 May 1940 (seat declared vacant early June);
+  Mouat co-opted Tue 2 Jul 1940, not 6 Aug; T. A. Sinclair 31 Mar 1942, not 9 Apr; Morrison Tue
+  6 Feb 1945; Nov 1945 general Tue 6 Nov, not Mon 5th (`fix_newspapers.py` #19). Gear, Inkster
+  and P. Smith resigned before their successors' co-options. 11 rows confirmed; J. Smith (i)'s
+  1941 end in open-questions. `ltc-1940-1945.md`.
 - [ ] **LTC 1915–1916 (3 size-short rows)**: Apr 1915, Jul 1915, Jul 1916. Wartime departures and
   co-options.
+- [ ] **LTC 1945–1947 rows**: 29 Nov–10 Dec 1945 held by David Gray (ii)'s 1945 row (start: read
+  the 9 Nov 1945 result, ST p2 art. 047, whose OCR list is garbled; zoom if needed), and 3 Jun–1 Jul
+  1947 by James Brownlie's 1946 row (start: the Nov 1946 result; end: his 1949 departure before the
+  Sep 1949 co-option).
+- [ ] **Nov 1946 LTC polling day**: the DB has Mon 4 Nov 1946; 1945 turned out to be the Tuesday,
+  so 1946 is probably Tue 5 Nov. Check the Friday 1 and 8 Nov 1946 papers.
 
 ## Not BNA: wiki checks (found 2026-09-28)
 

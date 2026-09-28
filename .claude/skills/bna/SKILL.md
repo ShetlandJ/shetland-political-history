@@ -43,7 +43,10 @@ The order of work is set by cost. Always try the cheaper step first:
    correction script such as `fix_newspapers.py`: guard on the old value, cite the source in the
    docstring.
 4. `python3 build.py`, then `python3 build.py --check`. Compare the term_issues count before and
-   after, and look at any new issues it creates.
+   after, and look at any new issues it creates. A size-short run is hidden once **every** row
+   sitting through it is `confirmed=1`, so a genuine vacancy only clears when both ends of each
+   sitting row are sourced. For a size-short item, list the unconfirmed rows sitting in that
+   window first: those are the real targets, not the vacancy itself.
 5. Save the evidence to `research/bna/<topic>.md`: one entry per article, with the citation, the
    viewer link `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2FYYYYMMDD&page=NNNN&article=NNN`,
    a short quote, and the ledger edit it supports. Get article ids from the result links:
@@ -74,7 +77,7 @@ https://www.britishnewspaperarchive.com/search-newspapers/results?keywords=<kw>&
 ```
 
 `o=date&d=asc` gives oldest first. For a single issue, set startdate = enddate = the publication
-day (Saturday until the 1940s; **Friday by 1949**).
+day (Saturday to at least Feb 1943; **Friday by Oct 1944**).
 
 Keywords are ANDed, and a long phrase often returns nothing ("town council election tuesday"
 found 0 in a week that had the answer). Use one or two words and filter the snippets in JS
@@ -95,6 +98,11 @@ for 1953–64).
 - The **statutory meeting** after the general elected the Provost and Bailies.
 - A co-option usually went to the unsuccessful candidate with most votes at the last general, at
   the first meeting after the vacancy arose.
+- **Wartime (1939–45)** there were no generals; every vacancy was filled by co-option. The wiki's
+  co-option dates are often days or weeks out, and even the month in the title can be wrong
+  ("By-Election August 1940" was 2 July). Departures were usually a resignation letter read at a
+  meeting ("The Clerk read a letter from ..."), not the successor's co-option. Search the
+  surname + `resignation`, or `co-opted`, over the two months before the co-option.
 - **From 1949** the generals were in **May, on the first Tuesday** (Mon dates in the wiki are
   wrong; checked 1949–64). The Friday paper before says "Tuesday first is polling day", candidates'
   adverts give the date, and the next Friday has the result. Uncontested isn't safe to assume
@@ -147,17 +155,32 @@ the question (it did for the Jan 1941 Williamson co-option), stop here and cite 
 
 Links can't be read via JavaScript (hrefs with query strings are blocked), so:
 
-1. `find` "search result link <headline words>" to get a ref, then click it.
-2. Wait about 5 seconds. The viewer opens at
-   `image-viewer?issue=BL/0000666/YYYYMMDD&page=N&article=NNN`. `0000666` is the Shetland Times,
-   so you can also navigate straight to a known issue and page.
+1. Fastest: with the issue, page and article id from `_rs()`, navigate straight to
+   `https://www.britishnewspaperarchive.com/viewer/bl/0000666/YYYYMMDD/NNN/PPPP` (article, then
+   4-digit page); it opens the viewer on that page. Otherwise `find` "search result link <headline
+   words>" and click it.
+2. Wait about 8 seconds. The viewer opens at
+   `image-viewer?issue=BL/0000666/YYYYMMDD&page=N&article=NNN`. `0000666` is the Shetland Times.
 3. Open the **Articles** panel. Clicking by coordinates (about x=860, y=27) often misses when the
    page hasn't finished loading. Clicking it in JS is reliable after an 8-second wait, and can go
    in the same batch as the read:
    `[...document.querySelectorAll('button')].find(b=>/^Articles on this page/.test(b.getAttribute('aria-label')||'')).click(); await new Promise(r=>setTimeout(r,3000));`
    The article text starts after "Select text below to edit it.".
-4. Read it: `const t=document.body.innerText; const i=t.indexOf('<first words of article>'); t.slice(i, i+1500).replace(/[?&=]/g,' ')`,
-   continuing in chunks as needed.
+4. Open the article. The panel doesn't open the one in the URL; you pick it from the list.
+   Clicking a `find` ref usually does nothing (find often returns the `LI`, not its `BUTTON`).
+   This helper clicks the button by its title and returns the text, and handles "Back to all
+   articles" so you can open several in one call (define it after each navigation):
+   ```js
+   window._open = async (re) => { const back=[...document.querySelectorAll('button')].find(b=>/Back to all articles/.test(b.innerText)); if(back){back.click(); await new Promise(r=>setTimeout(r,1500));}
+     const b=[...document.querySelectorAll('button')].find(e=>re.test((e.innerText||'').trim())); if(!b) return 'nf'; b.click(); await new Promise(r=>setTimeout(r,3000));
+     const t=document.body.innerText; return t.slice(t.indexOf('Select text below')+30).replace(/[?&=]/g,' '); };
+   const s = await _open(/^COUNCILLOR DEPARTS/); s.slice(0,1400)
+   ```
+   Titles come from the list (`t.slice(t.indexOf('Titles are generated'), ...)`). A council report
+   is often split into sub-articles (a sub-heading like "NEW COUNCILLOR CO-OPTED"); the meeting's
+   day is in the first one ("Lerwick Town Council. ..."), so open that too.
+5. Read long text in chunks with `s.slice(1400, 2800)`, or `s.search(/surname/)` to jump to the
+   point.
 
 The page image itself is not in the text; only the Articles panel is.
 

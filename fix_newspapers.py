@@ -139,6 +139,17 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Saturday 5 Feb 1938), i.e. 1 February, not Thursday the 3rd. Clausen's resignation letter had
    been read at the monthly meeting of Tuesday 4 January (Shetland Times, 8 Jan 1938).
    Evidence: research/bna/ltc-1936-1945.md.
+
+19. Lerwick Town Council, 1940-45. William Sinclair tendered his resignation in writing at a
+   special meeting on Friday 24 May 1940, was asked to reconsider, and adhered to it at the June
+   monthly meeting, where the seat was declared vacant (Shetland Times, 25 May and 8 Jun 1940).
+   Andrew Mouat, the highest unsuccessful candidate of Nov 1938, was co-opted at the meeting on
+   "Tuesday evening of last week" (Shetland Times, 13 Jul 1940), i.e. 2 July, not 6 August.
+   T. A. Sinclair was co-opted at a special meeting "on Tuesday, 31st March" 1942 (Shetland Times,
+   4 Apr 1942), not 9 April. Alexander Morrison was co-opted for Prophet Smith at the monthly
+   meeting "on Tuesday" (Shetland Times, 9 Feb 1945), i.e. 6 February, not Monday the 5th. The
+   first post-war general was polled on Tuesday 6 November 1945, not Monday the 5th (Shetland
+   Times, 9 Nov 1945). Evidence: research/bna/ltc-1940-1945.md.
 """
 
 import os
@@ -223,6 +234,12 @@ CO_OPTION_1887 = ('Lerwick Town Council By-Election March 1887', '1887-03-24', '
 HUNTER_1887 = (231, 229)  # replaced_person_id: James Hunter (iv) -> James Hunter (ii)
 POLLING_DAY_1889 = ('Lerwick Town Council Election November 1889', '1889-11-09', '1889-11-05')
 CO_OPTION_1938 = ('Lerwick Town Council By-Election February 1938', '1938-02-03', '1938-02-01')
+WARTIME_DATES = [  # (wiki title, baseline date, date from the Shetland Times)
+    ('Lerwick Town Council By-Election August 1940', '1940-08-06', '1940-07-02'),
+    ('Lerwick Town Council By-Election April 1942', '1942-04-09', '1942-03-31'),
+    ('Lerwick Town Council By-Election February 1945', '1945-02-05', '1945-02-06'),
+    ('Lerwick Town Council Election November 1945', '1945-11-05', '1945-11-06'),
+]
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -509,6 +526,10 @@ def main():
 
     print("=== 18. LTC co-option Feb 1938 ===")
     set_date(c, *CO_OPTION_1938)
+
+    print("=== 19. LTC co-options 1940-45 and the Nov 1945 polling day ===")
+    for title, wrong, right in WARTIME_DATES:
+        set_date(c, title, wrong, right)
 
     db.commit()
     db.close()

@@ -51,6 +51,14 @@ Format: date raised, the question, the options, the evidence file, the row it af
   vacancies were to be filled then), keep 1 Oct, or check the minute book. Row: `john-harrison-i`
   1884-11-04. Evidence: `ltc-1886-duncan-harrison.md`.
 
+- **2026-09-28: End of Provost James Smith (i)'s seat, June 1941.** His letter resigning as
+  Councillor and Provost "three weeks from this date" was read and accepted at the meeting of Tue
+  3 Jun 1941; the letter's date isn't printed, but Shearer had learnt of it the night before
+  (ST 7 Jun 1941). Johnson was co-opted Tue 1 Jul (ST 5 Jul 1941). The confirmed row ends 1 Jul.
+  Options: 3 Jun (acceptance, the Hunter 1887 convention), about 23 Jun (three weeks from a
+  2 Jun letter; the Linklater 1941 convention), or keep 1 Jul. No issue depends on it.
+  Row: `james-smith-i` 1934-11-06. Evidence: `ltc-1940-1945.md`.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
