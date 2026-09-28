@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC May 1968 polling day (`research/bna/ltc-1968-polling-day.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | May 1968 Town Council election on **Thursday 2 May 1968** | "Polling takes place in Lerwick on **7th May**" (ST 19 Apr 1968), a Tuesday. Votes as the wiki has them (ST 10 May 1968) | Fixed: `fix_newspapers.py` #13, ledger (8 dates) |
+
 ## 2026-09-28: ZCC polling days 1949–1964 (`research/bna/zcc-election-dates-1949-1964.md`)
 
 | # | Where | We had | Sources show | Status |

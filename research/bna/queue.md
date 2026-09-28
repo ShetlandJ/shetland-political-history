@@ -30,7 +30,7 @@ which. See the timing rules in the skill.
 - [x] **Uncontested-looking generals**: all 12 (1900, 1902, 1911, 1923, 1924, 1927, 1928, 1930, 1931, 1956, 1965, 1966) confirmed unopposed; the wiki is right. In 1966 there were five nominations, but Junior Bailie Adair withdrew (ST 22 Apr 1966). No edits, 0 issues (41). `ltc-uncontested-generals.md`.
 - [x] **ZCC polling days 1949–1964**: all six on a Tuesday: 10 May 1949, **13 May 1952** (not the 5th), 10 May 1955 (not Thu 5th), 13 May 1958, 9 May 1961, 12 May 1964. `fix_newspapers.py` #12 (144 ward rows). 0 issues (41). `zcc-election-dates-1949-1964.md`.
 
-- [ ] **May 1968 LTC polling day**: the DB has Thursday 2 May 1968; every other year 1949–73 was the first Tuesday (7 May 1968). Check the preview (ST 26 Apr / 3 May 1968) and the result (ST 10 May), then move the date in `fix_newspapers.py` like #7 and confirm the four 1968 rows (Cumming, H. Gray, Thomson, Halcrow), whose ends are already sourced. 0 issues.
+- [x] **May 1968 LTC polling day**: Tuesday 7 May 1968 (ST 19 Apr 1968); the votes match (ST 10 May 1968). `fix_newspapers.py` #13; 8 ledger dates moved and the 4 winners confirmed. 0 issues (41). `ltc-1968-polling-day.md`.
 
 - [ ] **Date of Shearer's ZCC appointment, May 1947**: the DB has Whalsay and Skerries County Council By-Election May 1947 (id 692) on 1947-05-01. ST 23 May 1947 p7 (art. 145) reports him appointed on petition at the County Council meeting on Tuesday, i.e. 20 May. Check the OCR order (he's also in the attendance list) and move the date in `fix_newspapers.py`. 0 issues.
 

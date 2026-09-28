@@ -99,6 +99,11 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    (28 Apr 1961), 9 May, with the count on Wednesday 10 May (12 May 1961); "Tuesday first" (8 May
    1964), 12 May. Each general is one row per ward, so every row moves. Evidence:
    research/bna/zcc-election-dates-1949-1964.md.
+
+13. The May 1968 Lerwick Town Council election is dated Thursday 2 May 1968 in the baseline.
+   "Polling takes place in Lerwick on 7th May" (Shetland Times, 19 Apr 1968), a Tuesday like every
+   other year from 1949. The result (Shetland Times, 10 May 1968) matches the baseline's votes.
+   Evidence: research/bna/ltc-1968-polling-day.md.
 """
 
 import os
@@ -168,6 +173,7 @@ ZCC_POLLING_DAYS = [  # (wiki title, baseline date, Tuesday from the Shetland Ti
     ('County Council Election May 1961', '1961-05-08', '1961-05-09'),
     ('County Council Election May 1964', '1964-05-11', '1964-05-12'),
 ]
+POLLING_DAY_1968 = ('Lerwick Town Council Election May 1968', '1968-05-02', '1968-05-07')
 ADAIR_BY_ELECTION = 'Lerwick Town Council By-Election May 1970'
 ADAIR_NOTE = (
     "Co-option at the statutory meeting of the Town Council on 8 May 1970, to fill the vacancy left when "
@@ -425,6 +431,9 @@ def main():
     print("=== 12. ZCC polling days 1949-1964 ===")
     for title, wrong, right in ZCC_POLLING_DAYS:
         set_date_all(c, title, wrong, right)
+
+    print("=== 13. LTC polling day May 1968 ===")
+    set_date(c, *POLLING_DAY_1968)
 
     db.commit()
     db.close()
