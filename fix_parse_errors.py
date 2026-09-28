@@ -49,6 +49,13 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    George Anderson was appointed." The baseline has 1 April (month only) and Sinclair as the member
    replaced. He never took the Burra seat (listed in data/not_seated.csv), so the replaced member
    is the marker [double return], and the seat is vacant until Anderson.
+10. Burra County Council By-Election February 1898: the wiki's table has a "Council decision"
+   column, and its vote cells are "One petition of 59<br>Second petition of 35" (Henderson,
+   appointed) and "Petition of 113" (Lennie, rejected). The parser kept the first number of each
+   as votes. There was no poll (Shetland Times, 5 Feb 1898). Votes cleared; the text kept.
+11. Delting North County Council By-Election May 1890: "took place on May 22"; the baseline has
+   1 May (month only). Inkster was appointed at the Council's first meeting, reported in the
+   Shetland Times of 24 May 1890.
 """
 
 import os
@@ -86,6 +93,11 @@ HUNTER_1920 = ('Nesting County Council By-Election November 1920', 'Robert Hunte
 PETERSON_1919 = ('County_Council_Election_December_1919', 'Delting North', 'Joseph Peterson')
 BURRA_1920 = ('Burra County Council By-Election April 1920', ('1920-04-01', '1920-04-15'),
               (('William Sinclair', 522), ('[double return]', None)))
+BURRA_1898_PETITIONS = ('Burra County Council By-Election February 1898', [
+    ('Henry Henderson', 59, 'Petitions of 59 and 35; appointed'),
+    ('Charles Lennie', 113, 'Petition of 113; rejected'),
+])
+DELTING_NORTH_1890 = ('Delting North County Council By-Election May 1890', '1890-05-01', '1890-05-22')
 COMBINED_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting')
 
 HUNTER_BROTHER = (430, '[person:james-hunter-iv:James]', '[person:james-hunter-iii:James]')
@@ -210,6 +222,25 @@ def main():
         print(f"election {eid}: replaced {rp_wrong[0]} -> {rp_right[0]}")
     elif (rp, rp_id) != rp_right:
         raise SystemExit(f"election {eid}: unexpected replaced member {rp!r}/{rp_id}")
+
+    title, rows = BURRA_1898_PETITIONS
+    for name, wrong_votes, text in rows:
+        cid, votes, votes_text = c.execute(
+            """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+               WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name)).fetchone()
+        if (votes, votes_text) == (wrong_votes, None):
+            c.execute("UPDATE candidacies SET votes = NULL, votes_text = ? WHERE id = ?", (text, cid))
+            print(f"candidacy {cid} ({name}, Burra 1898): {wrong_votes} votes -> {text!r}")
+        elif (votes, votes_text) != (None, text):
+            raise SystemExit(f"candidacy {cid}: unexpected votes {votes!r}/{votes_text!r}")
+
+    title, d_wrong, d_right = DELTING_NORTH_1890
+    eid, date = c.execute("SELECT id, election_date FROM elections WHERE wiki_page_title = ?", (title,)).fetchone()
+    if date == d_wrong:
+        c.execute("UPDATE elections SET election_date = ? WHERE id = ?", (d_right, eid))
+        print(f"election {eid}: date {d_wrong} -> {d_right}")
+    elif date != d_right:
+        raise SystemExit(f"election {eid}: unexpected date {date}")
 
     db.commit()
     db.close()

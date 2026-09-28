@@ -8,28 +8,10 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
-- **2026-09-28: Burra by-election, Feb 1898: petition signatures shown as votes.** The DB has
-  Lennie 113 (not elected) and Henderson 59 (elected). There was no poll: the Council chose
-  between petitions, Lennie's with 113 signatures (ST 5 Feb 1898). Options: clear the vote
-  figures and add a note (`fix_newspapers.py`), or keep them with a note saying they're
-  signatures. Election 245. Evidence: `zcc-1890-1899.md`.
-
-- **2026-09-28: Day of Inkster's appointment for Delting North, May 1890.** At the Council's
-  first meeting (ST 24 May 1890); the day is lost in the OCR. The Commissioners of Supply met
-  "on Thursday forenoon" (22 May) with the same convener, so probably Thu 22 May. The DB has
-  1 May. Options: 22 May, or keep 1 May until the image or minute book is read. Election 181.
-  Evidence: `zcc-1890-1899.md`.
-
 - **2026-09-28: Aithsting, Dec 1892: a contest the DB shows as unopposed.** Grierson and McCullie
   were both nominated; McCullie "had practically a walk over" (ST 26 Nov, 10 Dec 1892). No
-  figures were printed. Options: add Grierson as a candidate with no votes, or leave it.
+  figures were printed, and the wiki page says "Unopposed". Options: add Grierson as a candidate with no votes, or leave it.
   Election 184. Evidence: `zcc-1890-1899.md`.
-
-- **2026-09-28: Two 1890 ZCC electorates.** ST 8 Feb 1890 (p3, art. 061) gives Whiteness and
-  Weisdale "M. 86, F. 30—Total 116" (DB 126) and Nesting and Lunnasting "Total 93" (DB 83). The
-  OCR adds up for Whiteness, but the page image wouldn't render to check. Options: change both
-  (`fix_newspapers.py`), or check the image or the wiki's source first. Elections 174 and 162.
-  Evidence: `zcc-1890-1899.md`.
 
 - **2026-09-28: Should unconfirmed rows with checked end dates be confirmed?** Gear and Inkster
   (co-opted 7 Oct 1941) have confirmed start dates but unchecked end dates. The six 1945

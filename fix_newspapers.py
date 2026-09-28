@@ -222,6 +222,11 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    - Delting South, February 1899: election fixed for 24 Jan 1899 (ST 31 Dec 1898); Adie the only
      nomination (ST 14 Jan 1899).
    Evidence: research/bna/zcc-1890-1899.md.
+
+31. Whiteness and Weisdale electorate, February 1890: 116, not 126. The Shetland Times (8 Feb
+   1890) gives "M. 86, F. 30—Total 116"; the wiki has "126 (86 men, 30 women)", whose own
+   breakdown adds up to 116. Turnout 66, so 56.9%, not 52.9%.
+   Evidence: research/bna/zcc-1890-1899.md.
 """
 
 import os
@@ -339,6 +344,7 @@ ZCC_BY_ELECTIONS_1890S = [  # (wiki title, baseline date, date from the Shetland
     ('Dunrossness North County Council By-Election August 1898', '1898-08-01', '1898-09-01'),
     ('Delting South County Council By-Election February 1899', '1899-02-04', '1899-01-24'),
 ]
+WHITENESS_1890 = ('County Council Election February 1890', 'Whiteness And Weisdale', (126, 52.9), (116, 56.9))
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -668,6 +674,18 @@ def main():
     print("=== 30. ZCC by-elections 1890-1899 ===")
     for args in ZCC_BY_ELECTIONS_1890S:
         set_date(c, *args)
+
+    print("=== 31. Whiteness and Weisdale electorate 1890 ===")
+    title, ward, wrong, right = WHITENESS_1890
+    row = one(c, """SELECT e.id, e.electorate, e.turnout_pct FROM elections e JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+    if (row['electorate'], row['turnout_pct']) == right:
+        print(f"  election {row['id']}: already {right}")
+    elif (row['electorate'], row['turnout_pct']) == wrong:
+        c.execute("UPDATE elections SET electorate = ?, turnout_pct = ? WHERE id = ?", (*right, row['id']))
+        print(f"  election {row['id']}: electorate {wrong} -> {right}")
+    else:
+        raise SystemExit(f"election {row['id']}: unexpected electorate {row['electorate']}/{row['turnout_pct']}")
 
     db.commit()
     db.close()
