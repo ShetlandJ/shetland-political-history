@@ -56,11 +56,25 @@ The order of work is set by cost. Always try the cheaper step first:
    a short quote, and the ledger edit it supports. Get article ids from the result links:
    `[...document.querySelectorAll('a[href*="viewer"]')].map(a=>a.getAttribute('href'))`, with
    `?&=` replaced so the output isn't blocked. `ltc-1912-1914.md` is the model.
+   **Record the citations in `data/`** too, so later runs don't have to search again:
+   - `data/citations.csv`: one row per article, id `st-YYYYMMDD-pN-aNNN` (`sn-` for the Shetland
+     News; `st-YYYYMMDD` for a whole issue; `mb-pN` for a minute-book page). `summary` is the short
+     quote or paraphrase; `evidence_file` the research file. `build.py` builds the citation text
+     and BNA link from the parts, and fails if the id doesn't match them or the date isn't a
+     publication day. Before searching, check here and in `data/searches.csv`: the article may
+     already be on file.
+   - `data/citation_links.csv`: one row per fact the article supports. `target_type` is `term`
+     (`person_slug@start_date` of the ledger row), `election` (the election id) or `person`
+     (`slug:field`, e.g. `robert-anderson-i:died_date`). `basis` is `read` when the paper states
+     the fact, `inferred` when it's worked out from it (a meeting day taken from "Tuesday
+     night", a co-option dated by the only meeting that week), with a `note` saying how.
+   - `data/searches.csv`: every search that found nothing useful, with keywords, date range,
+     the question and what came back.
 6. Anything that contradicts the wiki, CLAUDE.md or a confirmed ledger row goes in
    `research/corrections-log.md` and is flagged in the reply.
 7. Tick the queue item with a one-line result (issues cleared, evidence file). Add any new items
    the research turns up. Update CLAUDE.md where its notes are now wrong.
-8. Commit when done: the ledger, `shetland.db`, the evidence file, the queue and any CLAUDE.md or correction-script changes together, with a message naming what was confirmed and the source (e.g. "Confirm LTC terms 1920-23 from the Shetland Times retiring lists"). Don't push.
+8. Commit when done: the ledger, `shetland.db`, the evidence file, the three citation files, the queue and any CLAUDE.md or correction-script changes together, with a message naming what was confirmed and the source (e.g. "Confirm LTC terms 1920-23 from the Shetland Times retiring lists"). Don't push.
 
 If the evidence is ambiguous on the point that decides an edit, don't guess. Leave that row
 alone, record it in the evidence file, and add it to `research/bna/open-questions.md` (date

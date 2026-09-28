@@ -16,6 +16,10 @@ Steps:
                               ward-based, so their terms are derived from election results.
   5. term_issues              Checks over council_terms: the research to-do list, shown on
                               /data-review.
+  6. citations                data/citations.csv (one row per source: a newspaper article or issue,
+                              or a minute-book page), data/citation_links.csv (what each one
+                              supports: a term, an election, or a fact on a person page) and
+                              data/searches.csv (searches that found nothing, so they aren't re-run).
 """
 
 import csv
@@ -71,6 +75,50 @@ CREATE TABLE term_issues (
     detail TEXT NOT NULL
 );
 """
+
+CITATIONS_DDL = """
+DROP TABLE IF EXISTS citations;
+CREATE TABLE citations (
+    id TEXT PRIMARY KEY,      -- st-19640508-p4-a055; st-19381029 (issue only); mb-p258 (minute book)
+    publication TEXT NOT NULL,
+    issue_date TEXT,
+    page INTEGER,
+    article TEXT,
+    citation TEXT NOT NULL,   -- 'Shetland Times, Fri 8 May 1964, p. 4 (art. 055)'
+    url TEXT,                 -- BNA viewer link, built from the parts
+    summary TEXT,
+    evidence_file TEXT        -- research/bna/ file(s) with the full entry
+);
+DROP TABLE IF EXISTS citation_links;
+CREATE TABLE citation_links (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    citation_id TEXT NOT NULL REFERENCES citations(id),
+    term_id INTEGER REFERENCES council_terms(id),
+    election_id INTEGER REFERENCES elections(id),
+    person_id INTEGER REFERENCES people(id),
+    field TEXT,               -- person facts: the column it supports (died_date, intro, ...)
+    basis TEXT,               -- 'read' (on the page), 'inferred' (worked out from it), '' (not reviewed)
+    note TEXT
+);
+CREATE INDEX idx_citation_links_term ON citation_links(term_id);
+CREATE INDEX idx_citation_links_election ON citation_links(election_id);
+CREATE INDEX idx_citation_links_person ON citation_links(person_id);
+DROP TABLE IF EXISTS searches;
+CREATE TABLE searches (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    searched_on TEXT, publication TEXT, keywords TEXT, start_date TEXT, end_date TEXT,
+    question TEXT, result TEXT, evidence_file TEXT
+);
+"""
+
+# Newspapers: BNA title code and citation prefix. The minute book has pages but no issues.
+PUBLICATIONS = {
+    'shetland-times': ('Shetland Times', 'st', '0000666'),
+    'shetland-news': ('Shetland News', 'sn', '0003210'),
+    'ltc-minute-book': ('LTC minute book', 'mb', None),
+}
+PERSON_FIELDS = {'born_date', 'died_date', 'birth_place', 'death_place', 'intro', 'biography'}
+BASES = {'', 'read', 'inferred'}
 
 FULL_DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 
@@ -486,6 +534,98 @@ def check_ward_occupancy(db, T, cid, terms):
 
 
 # ---------------------------------------------------------------------------
+# Step 6: citations
+# ---------------------------------------------------------------------------
+
+def load_citations(db):
+    import datetime
+    db.executescript(CITATIONS_DDL)
+    ids = set()
+    for i, r in enumerate(read_csv('citations.csv'), start=2):
+        where = f"data/citations.csv line {i}"
+        if r['publication'] not in PUBLICATIONS:
+            sys.exit(f"{where}: unknown publication {r['publication']}")
+        name, prefix, code = PUBLICATIONS[r['publication']]
+        page = int(r['page']) if r['page'] else None
+        if code:
+            if not FULL_DATE.match(r['issue_date']):
+                sys.exit(f"{where}: issue_date must be YYYY-MM-DD")
+            d = datetime.date.fromisoformat(r['issue_date'])
+            # The Shetland Times came out on Saturdays to 1943 and Fridays from 1944.
+            if r['publication'] == 'shetland-times' and d.weekday() not in ((5,) if d.year < 1944 else (4, 5) if d.year == 1944 else (4,)):
+                sys.exit(f"{where}: {r['issue_date']} is a {d:%A}, not a Shetland Times publication day")
+            expect = f"{prefix}-{d:%Y%m%d}" + (f"-p{page}" if page else '') + (f"-a{r['article']}" if r['article'] else '')
+            citation = f"{name}, {d:%a} {d.day} {d:%b %Y}" + (f", p. {page}" if page else '') + \
+                       (f" (art. {r['article']})" if r['article'] else '')
+            url = (f"https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F{code}%2F{d:%Y%m%d}"
+                   + (f"&page={page:04d}" if page else '') + (f"&article={r['article']}" if r['article'] else ''))
+        else:
+            expect = f"{prefix}-p{page}"
+            citation, url = f"{name}, p. {page}", None
+        if r['id'] != expect:
+            sys.exit(f"{where}: id {r['id']} should be {expect} from its publication, date, page and article")
+        if r['id'] in ids:
+            sys.exit(f"{where}: duplicate id {r['id']}")
+        ids.add(r['id'])
+        db.execute("INSERT INTO citations VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                   (r['id'], r['publication'], r['issue_date'] or None, page, r['article'] or None,
+                    citation, url, r['summary'] or None, r['evidence_file'] or None))
+
+    ltc = council_ids(db)['lerwick-town-council']
+    terms = {}
+    for tid, slug, name, start in db.execute("""
+            SELECT t.id, p.slug, t.person_name, t.start_date FROM council_terms t
+            LEFT JOIN people p ON p.id = t.person_id WHERE t.council_id = ?""", (ltc,)):
+        terms.setdefault(f"{slug or name}@{start}", []).append(tid)
+    elections = {eid for (eid,) in db.execute("SELECT id FROM elections")}
+    people = {slug: pid for pid, slug in db.execute("SELECT id, slug FROM people")}
+    seen = set()
+    for i, r in enumerate(read_csv('citation_links.csv'), start=2):
+        where = f"data/citation_links.csv line {i}"
+        if r['citation_id'] not in ids:
+            sys.exit(f"{where}: unknown citation {r['citation_id']}")
+        if r['basis'] not in BASES:
+            sys.exit(f"{where}: basis must be one of read, inferred or empty")
+        term_id = election_id = person_id = field = None
+        if r['target_type'] == 'term':
+            found = terms.get(r['target'], [])
+            if len(found) != 1:
+                sys.exit(f"{where}: term {r['target']} matches {len(found)} LTC ledger rows (want slug@start_date)")
+            term_id = found[0]
+        elif r['target_type'] == 'election':
+            election_id = int(r['target'])
+            if election_id not in elections:
+                sys.exit(f"{where}: unknown election {election_id}")
+        elif r['target_type'] == 'person':
+            slug, _, field = r['target'].partition(':')
+            person_id = people.get(slug)
+            if person_id is None or field not in PERSON_FIELDS:
+                sys.exit(f"{where}: person target must be slug:field, with field one of {sorted(PERSON_FIELDS)}")
+        else:
+            sys.exit(f"{where}: target_type must be term, election or person")
+        key = (r['citation_id'], r['target_type'], r['target'])
+        if key in seen:
+            sys.exit(f"{where}: duplicate link {key}")
+        seen.add(key)
+        db.execute("""INSERT INTO citation_links (citation_id, term_id, election_id, person_id, field, basis, note)
+                      VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                   (r['citation_id'], term_id, election_id, person_id, field, r['basis'], r['note'] or None))
+
+    for i, r in enumerate(read_csv('searches.csv'), start=2):
+        where = f"data/searches.csv line {i}"
+        if r['publication'] not in PUBLICATIONS:
+            sys.exit(f"{where}: unknown publication {r['publication']}")
+        for col in ('searched_on', 'start_date', 'end_date'):
+            if not FULL_DATE.match(r[col]):
+                sys.exit(f"{where}: {col} must be YYYY-MM-DD")
+        db.execute("""INSERT INTO searches (searched_on, publication, keywords, start_date, end_date, question,
+                      result, evidence_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                   tuple(r[c] or None for c in ('searched_on', 'publication', 'keywords', 'start_date', 'end_date',
+                                                'question', 'result', 'evidence_file')))
+    return len(ids), len(seen)
+
+
+# ---------------------------------------------------------------------------
 
 def build(db_path):
     if os.path.exists(db_path):
@@ -509,6 +649,7 @@ def build(db_path):
     T.issues.sort(key=lambda i: (i[0], i[2] or '', i[1], i[5] or '', i[7]))
     db.executemany("""INSERT INTO term_issues (council_id, kind, date_from, date_to, person_id, person_name,
                       election_id, detail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", T.issues)
+    T.citations = load_citations(db)
     db.commit()
     db.execute("VACUUM")
     db.close()
@@ -539,6 +680,7 @@ def main():
     print(f"party labels normalised: {aliased}")
     print(f"council_terms: {dict(counts)} (by council_id)")
     print(f"term_issues: {len(T.issues)} {dict(kinds)}")
+    print(f"citations: {T.citations[0]}, links: {T.citations[1]}")
 
     if check:
         same = dump(target) == dump(DB_PATH)

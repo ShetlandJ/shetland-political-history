@@ -20,7 +20,10 @@ new-site/
 │   ├── ltc_terms.csv       # LTC membership ledger — source of truth for who sat when (hand-edited)
 │   ├── party_aliases.csv   # Party label spelling/markup variants
 │   ├── not_seated.csv      # Elected but never took a seat (declined office, invalid 1874 group, office elections, ZCC double returns)
-│   └── council_size.csv    # Researched exceptions to LTC's 12 seats (empty for now)
+│   ├── council_size.csv    # Researched exceptions to LTC's 12 seats (empty for now)
+│   ├── citations.csv       # Sources: newspaper articles/issues and minute-book pages (hand-edited)
+│   ├── citation_links.csv  # What each citation supports: a ledger term, an election, a person fact
+│   └── searches.csv        # Searches that found nothing
 ├── fix_minute_book.py  # Correction script: LTC minute book (run by build.py)
 ├── fix_newspapers.py   # Correction script: newspaper evidence (run by build.py)
 ├── fix_sic_by_elections.py  # Correction script: who the modern SIC by-elections replaced (run by build.py)
@@ -80,6 +83,9 @@ Three MediaWiki MySQL dumps exist locally. We use **shetland_history2** (prefix 
 - **referenda** — 6 referenda (1975 EEC, 1979 devolution, 1997 devolution x2 questions, 2011 AV, 2014 indyref, 2016 EU)
 - **referendum_results** — Vote counts per option per question
 - **council_terms** — one row per period of service on LTC, ZCC or SIC. Built by `build.py`: LTC from `data/ltc_terms.csv`; ZCC/SIC derived from ward results (a general replaces every seat; a by-election replaces the named member, or the only member of a single-member ward; deaths end terms). `candidacy_id` is the win that gave the seat — party comes from there. `end_date` is exclusive, NULL = still serving. Serving on X: `start_date <= X AND (end_date IS NULL OR end_date > X)`.
+- **citations** — one row per source: a newspaper article (`st-19640508-p4-a055`), a whole issue (`st-19381029`) or a minute-book page (`mb-p258`). From `data/citations.csv`; `build.py` makes the `citation` text and the BNA `url` from the parts. Backfilled 2026-09-28 from the `research/bna/` links and the ledger's `source` strings (`tools/backfill_citations.py`, provenance only).
+- **citation_links** — what each citation supports: a `term_id`, an `election_id`, or a `person_id` + `field` (e.g. `died_date`). `basis` is `read`, `inferred` or empty (the backfilled links aren't reviewed yet). From `data/citation_links.csv`.
+- **searches** — searches that found nothing, from `data/searches.csv`, so they aren't re-run.
 - **term_issues** — checks over council_terms (oversize/short council, overlapping terms, over-filled wards, unplaceable by-elections, serving after death, elected with no term). The research to-do list; shown on /data-review.
 
 Person linkage: ~86% of candidacies are linked to person records via:

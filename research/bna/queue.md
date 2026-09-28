@@ -127,6 +127,24 @@ Not batched: 1884–1889 (6 issues) waits on the open questions (Harrison, Mitch
 date); the two John Robertsons' 1884 and 1887 rows sit through all of them. 1961 is James
 Daniel's resignation, not in the paper (minute book).
 
+## Citations (added 2026-09-28)
+
+`data/citations.csv` and `data/citation_links.csv` now hold every source used so far (293
+citations, 801 links). Gaps:
+
+- [ ] **Election previews with no issue date (8 LTC rows)**: the April 2026 research cited "the
+  Shetland Times preview" of the 1 Nov 1932, 7 Nov 1933 and 3 Nov 1936 elections without the
+  issue. Find each preview (the Saturday before, by the timing rules), add the article to
+  `citations.csv` and link it to the rows: `william-sinclair@1929-11-05`, `william-bruce-ii@1930-11-04`,
+  `james-laing@1930-11-04`, `john-sinclair@1930-11-04`, `robert-ollason@1930-11-04`,
+  `adam-halcrow-i@1933-11-07`, `charles-manson@1933-11-07`, `robert-ollason@1933-11-07`.
+- [ ] **244 confirmed rows with no recorded source**: the April 2026 rows ("per-row source not
+  recorded"), all starting 1818–1883 (most before 1872, when the Shetland Times began).
+  Mostly minute-book work: record the page for each as an `mb-pN` citation. The 13 from the
+  1880s could come from the Shetland Times retiring lists.
+- **Basis not reviewed**: the 801 backfilled links have `basis` empty. Set `read` or `inferred`
+  as each is next used; no separate run needed.
+
 ## Not BNA: wiki checks (found 2026-09-28)
 
 - [x] **ZCC Delting North 1919** (done, `fix_parse_errors.py` #7): the wiki marks Joseph Peterson (i) as losing (15 votes, cross),
