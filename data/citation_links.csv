@@ -1426,3 +1426,48 @@ st-19101126-p4-a090,election,395,read,Hoggan; Williamson withdrew (ST 26 Nov)
 st-19110114-p4-a075,election,396,read,Fotheringham the only nomination; the election day itself not given
 st-19110114-p4-a075,election,397,read,Shand the only nomination; the election day itself not given
 st-19110114-p4-a075,election,398,read,Sandison the only nomination; the election day itself not given
+st-19131115-p4-a068,election,399,read,nominated
+st-19131122-p4-a087,election,399,read,contested
+st-19131129-p4-a053,election,399,read,polled Tue 2 Dec 1913
+st-19131206-p4-a094,election,399,read,"Grierson 31, Bowie 31, as in the DB"
+st-19131115-p4-a068,election,400,read,nominated
+st-19131122-p4-a087,election,400,read,contested
+st-19131129-p4-a053,election,400,read,polled Tue 2 Dec 1913
+st-19131206-p4-a094,election,400,read,"Anderson 48, Laing 26, as in the DB"
+st-19131115-p4-a068,election,401,read,nominated
+st-19131122-p4-a087,election,401,read,contested
+st-19131129-p4-a053,election,401,read,polled Tue 2 Dec 1913
+st-19131206-p4-a094,election,401,read,"Jamieson 36, Sinclair 26, as in the DB"
+st-19131115-p4-a068,election,402,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,403,read,nominated
+st-19131122-p4-a087,election,403,read,contested
+st-19131129-p4-a053,election,403,read,polled Tue 2 Dec 1913
+st-19131206-p4-a094,election,403,read,figures lost in the OCR
+st-19131115-p4-a068,election,404,read,"White; McDougall also nominated, withdrew (he sat for Northmavine North)"
+st-19131122-p4-a087,election,404,read,not among the five contests
+st-19131115-p4-a068,election,405,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,406,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,407,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,408,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,409,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,410,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,411,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,412,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,413,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,414,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,415,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,416,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,417,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,418,read,"Inkster; Mouat also nominated, withdrew (not among the five contests)"
+st-19131122-p4-a087,election,418,read,not among the five contests
+st-19131115-p4-a068,election,419,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,420,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,421,read,nominated
+st-19131122-p4-a087,election,421,read,contested
+st-19131129-p4-a053,election,421,read,polled Tue 2 Dec 1913
+st-19131206-p4-a094,election,421,read,"Thomason 53, as in the DB (Groundwater's figure lost)"
+st-19131115-p4-a068,election,422,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,423,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,424,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131115-p4-a068,election,425,inferred,"only nomination read, and not among the five contests, so returned unopposed"
+st-19131220-p4-a057,election,399,read,tie decided by the Returning Officer's casting vote for Grierson
