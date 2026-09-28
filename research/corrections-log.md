@@ -14,6 +14,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki | Delting South Apr 1903 dated 1 Apr (wiki "Saturday 18 April"); Northmavine North Sep 1903 dated Sat 19 Sep | Appointed at Council meetings on Thu 16 Apr and Thu 17 Sep 1903 (ST 18 Apr, 19 Sep 1903) | Fixed: `fix_newspapers.py` #32 |
+| 3 | wiki | Walls Feb 1905 "February 21"; Yell North "Saturday 19th March" 1906; Dunrossness South "Thursday 16th August" 1907 | Tue 14 Feb 1905 (the fixed day); Thu 15 Feb 1906; Thu 15 Aug 1907 (ST 21 Jan 1905, 17 Feb 1906, 24 Aug 1907) | Fixed: `fix_newspapers.py` #32 |
 | 2 | wiki | Delting North Dec 1904: Pole 31 beat **Arthur White** 13 | Pole beat **James Inkster**, the sitting member (ST 26 Nov, 10 Dec 1904); White was returned unopposed for Northmavine South | Fixed: `fix_newspapers.py` #33. Wiki table still says White |
 
 ## 2026-09-28: ZCC 1890–1899 (`research/bna/zcc-1890-1899.md`)

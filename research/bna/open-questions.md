@@ -8,6 +8,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-28: Day of James Budge's appointment for Dunrossness North, June 1907.** Reported in
+  ST 22 Jun 1907 (p8 art. 131), but the report's opening, with the day, is garbled. The DB has
+  1 Jun (month only); the wiki's "Thursday 16th June" was a Sunday. The Council met on
+  Thursdays, so probably Thu 20 Jun (or 13 Jun). Options: set 20 Jun (inferred), or leave 1 Jun.
+  Election 337. Evidence: `zcc-1900-1919.md`.
+
 - **2026-09-28: Day of the Feb 1902 ZCC by-elections (Unst South, Fetlar, Yell South).** An Order
   read on Thu 2 Jan fixed a day "instant" (January; the date is lost in the OCR); the three were
   the only nominations, "no poll" (ST 18 Jan), and were reported elected at the meeting of Thu

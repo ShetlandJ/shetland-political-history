@@ -233,6 +233,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
      (ST 18 Apr 1903), 16 Apr, for W. J. Adie, resigned (ST 21 Feb 1903).
    - Northmavine North, September 1903: Haldane appointed on a petition at the adjourned general
      meeting "on Thursday at noon" (ST 19 Sep 1903), 17 Sep.
+   - Walls, February 1905: new election ordered, nominations 31 Jan, "the election for 14th
+     February" (ST 21 Jan 1905); Holborn reported elected (ST 25 Feb 1905). The wiki's 21 Feb is
+     unsupported.
+   - Yell North, March 1906: T. J. Sandison appointed on the ratepayers' recommendation at the
+     monthly meeting "on Thursday at noon" (ST 17 Feb 1906), 15 Feb, for Zachary Hamilton, dead.
+   - Dunrossness South, August 1907: Rev. W. Fotheringham appointed on a petition at the monthly
+     meeting "on Thursday of last week" (ST 24 Aug 1907), 15 Aug, for John Bruce, dead.
    Evidence: research/bna/zcc-1900-1919.md.
 
 33. Delting North, December 1904: the losing candidate was James Inkster, the sitting member, not
@@ -360,6 +367,9 @@ ZCC_BY_ELECTIONS_1890S = [  # (wiki title, baseline date, date from the Shetland
 ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland Times)
     ('Delting South County Council By-Election April 1903', '1903-04-01', '1903-04-16'),
     ('Northmavine North County Council By-Election September 1903', '1903-09-19', '1903-09-17'),
+    ('Walls_County_Council_By-Election_February_1905', '1905-02-01', '1905-02-14'),
+    ('Yell North County Council By-Election March 1906', '1906-03-01', '1906-02-15'),
+    ('Dunrossness South County Council By-Election August 1907', '1907-08-01', '1907-08-15'),
 ]
 DELTING_NORTH_1904 = ('County Council Election December 1904', 'Delting North', 'Arthur White', 'arthur-white',
                       'James Inkster', 'james-inkster')
