@@ -36,6 +36,14 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
 6. Robert Hunter (ii)'s intro: "the death of his brother, [[James Hunter (iv)|James]]". The
    brother who died in 1920 is James Hunter (iii), the Nesting author, whose page names Robert as
    his successor. James Hunter (iv) is a GP born in 1914. The wiki page has the wrong link.
+7. County Council Election December 1919, Delting North: the wiki row is
+   "[[Joseph Peterson (i)|Joseph Peterson]] || 15 || [[Image:cross.gif]]" (James Hay won with 29),
+   but the baseline has Peterson elected there as well as in Delting South. His page: "County
+   Councillor for Delting South between 1919 and 1922".
+8. County Council Election December 1922: "This election recombined the Aithsting & Sandsting
+   parishes", with one result under "===Aithsting & Sandsting===" (Leslie 110, Clark 89). The parser
+   made a row for each ward with the same result, giving John Leslie (ii) two seats. The Sandsting
+   row is hidden and the Aithsting row shows the combined name.
 """
 
 import os
@@ -69,6 +77,9 @@ WRONG_NAMESAKE = [
 ]
 # Nesting 1920 winner: Robert Hunter (ii) (430), not the Lerwick bank agent Robert Hunter (i) (429)
 HUNTER_1920 = ('Nesting County Council By-Election November 1920', 'Robert Hunter', 429, 430)
+
+PETERSON_1919 = ('County_Council_Election_December_1919', 'Delting North', 'Joseph Peterson')
+COMBINED_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting')
 
 HUNTER_BROTHER = (430, '[person:james-hunter-iv:James]', '[person:james-hunter-iii:James]')
 
@@ -150,6 +161,33 @@ def main():
         print(f"people#{pid}: brother link -> james-hunter-iii")
     elif new not in intro:
         raise SystemExit(f"people#{pid}: brother link not found")
+
+    title, ward, name = PETERSON_1919
+    cid, elected = c.execute("""SELECT ca.id, ca.elected FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                                JOIN constituencies k ON k.id = e.constituency_id
+                                WHERE e.wiki_page_title = ? AND k.name = ? AND ca.candidate_name = ?""",
+                             (title, ward, name)).fetchone()
+    if elected == 1:
+        c.execute("UPDATE candidacies SET elected = 0 WHERE id = ?", (cid,))
+        print(f"candidacy {cid}: Peterson, Delting North 1919, not elected")
+
+    title, keep, drop, combined = COMBINED_1922
+    rows = {k: (eid, hidden, disp) for eid, k, hidden, disp in c.execute(
+        """SELECT e.id, k.name, e.hidden, e.constituency_display_name FROM elections e
+           JOIN constituencies k ON k.id = e.constituency_id
+           WHERE e.wiki_page_title = ? AND k.name IN (?, ?)""", (title, keep, drop))}
+    results = [c.execute("SELECT candidate_name, votes, elected FROM candidacies WHERE election_id = ? ORDER BY position",
+                         (rows[k][0],)).fetchall() for k in (keep, drop)]
+    if results[0] != results[1]:
+        raise SystemExit(f"{title}: {keep} and {drop} results differ, not a duplicate")
+    if not rows[drop][1]:
+        c.execute("UPDATE elections SET hidden = 1 WHERE id = ?", (rows[drop][0],))
+        print(f"election {rows[drop][0]}: duplicate {drop} 1922 row hidden")
+    if rows[keep][2] != combined:
+        if rows[keep][2]:
+            raise SystemExit(f"election {rows[keep][0]}: unexpected display name {rows[keep][2]!r}")
+        c.execute("UPDATE elections SET constituency_display_name = ? WHERE id = ?", (combined, rows[keep][0]))
+        print(f"election {rows[keep][0]}: shown as {combined}")
 
     db.commit()
     db.close()

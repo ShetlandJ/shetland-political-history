@@ -22,6 +22,22 @@ Format: date raised, the question, the options, the evidence file, the row it af
   may not be digitised for that year. Election 246; Henderson's seat and Whyte's term start.
   Evidence: `zcc-by-elections.md`.
 
+- **2026-09-28: How should William Sinclair's Burra win (Dec 1919) be recorded?** He was
+  returned for both Burra and Whiteness & Weisdale and chose Whiteness (wiki), so the Burra seat
+  was never taken up and was filled at the Apr 1920 by-election. Today he gets both seats from
+  2 Dec 1919, which is the overlap on /data-review. Options: (a) let `build.py` apply
+  `data/not_seated.csv` to ward councils as well, list candidacy 1164 there, and set the Apr 1920
+  by-election's replaced person to a marker such as `[double return]` (otherwise it would close
+  his Whiteness seat); (b) leave the overlap as a known, genuine case. (a) changes `build.py`.
+  Row: ZCC term 944, election 435.
+
+- **2026-09-28: Day of Alexander Mitchell's resignation, October 1889.** ST Sat 19 Oct 1889 (p2,
+  art. 051) reports it accepted "At a meeting of the Town Council, held last ..."; the scan loses
+  the word after "last". The item just above says the Commissioners met "last night" (Fri 18 Oct).
+  The ledger now ends his 1888 seat on 1889-10-18, unconfirmed. Options: accept 18 Oct and
+  confirm, or check the minute book or the 26 Oct report for the meeting date.
+  Evidence: `ltc-1885-1889.md`. Row: `alexander-mitchell-i` 1888-11-08.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)

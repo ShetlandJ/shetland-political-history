@@ -221,8 +221,8 @@ Answer the question "who were the councillors on date X?" — now answered by `/
 | Thomas Cameron | Sept 1883 | Retired | Profile intro |
 | William Duncan (i) | 12 Jul 1886 | Resigned | Profile intro |
 | John Harrison (i) | Oct 1886 | Disqualified | Newspaper 23 Oct 1886 |
-| James Hunter (ii) | early 1887 | Unknown (replaced by Porteous Mar 1887 by-election) | Needs research |
-| Alexander Mitchell (i) | before Oct 1889 | Retired (re-elected Nov 1888, retired before next election) | Newspaper 26 Oct 1889 |
+| James Hunter (ii) | 4 Jan 1887 | Resigned on moving to the Union Bank at Portsoy (Porteous elected 18 Mar 1887) | Shetland Times 11 Dec 1886 and 8 Jan 1887 |
+| Alexander Mitchell (i) | Oct 1889 (probably Fri 18th) | Resigned (re-elected Nov 1888) | Shetland Times 19 and 26 Oct 1889 |
 | Laurence Stove | 12 Apr 1889 | Died | Death date |
 | William MacDougall | 8 Oct 1912 | Resigned (an April 1912 resignation was withdrawn) | Shetland Times 6 Apr and 12 Oct 1912 |
 
@@ -273,11 +273,13 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: only the three same-day overlaps (Peterson (i) and Sinclair 1919, Leslie (ii) 1922) are left; the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: only William Sinclair's 1919 double return is left (Peterson's and Leslie's were parse errors, fixed in `fix_parse_errors.py` #7–8); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
 
 **1905–1910 settled (2026-09-28)**: Provost Porteous stayed on from 1908 to 1910. Ganson retired in his place in 1908, and J. Smith retired a year early in 1909. Evidence: `research/bna/ltc-1908-1910.md`.
+
+**1885–1889 settled (2026-09-28)**: Stove's 1883 seat ran to 1886 (the confirmed row had 1885) and Jamieson's 1886 seat to 1888. Hunter (ii) resigned 4 Jan 1887; Robertson and Anderson were co-opted 19 Nov 1886 and Porteous 18 Mar 1887 (not the 24th); Mitchell resigned Oct 1889. The council met on Friday evenings then. Evidence: `research/bna/ltc-1885-1889.md`.
 
 **1966–1973 settled (2026-09-28)**: Provost Eric Gray stayed on 1969–71 (W. A. Smith retired in his place in 1969), Halcrow's 1968 seat ended 1970, Provost W. A. Smith stayed on in 1972 (Tait and Peterson retired a year early), and Eric Gray and Butler had two-year seats from 1971. J. R. Smith resigned 14 Apr 1970 and Adair was co-opted 8 May 1970 (not 8 Aug). 1971–73 were unopposed. Evidence: `research/bna/ltc-1969-1973.md`.
 
@@ -329,7 +331,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - Whenever research contradicts the wiki, the notes or a confirmed ledger row, add an entry to `research/corrections-log.md` (what we had, what the sources show, whether the site text is fixed). James uses it to update his own understanding. Flag it in the reply too.
 
 ## Known Issues / TODO
-- [ ] Work through the 35 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
+- [ ] Work through the 30 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
 - [ ] SIC by-elections Sep 1993 (Jonathan Wills, Whiteness Weisdale & Tingwall) and Mar 2002 (Joseph G. Simpson, Whalsay & Skerries): wards now set from the titles, and the replaced member is inferred as the sitting member. Confirm who it was.
 - [ ] Make constituency slugs unique across councils (see Learnings); needs redirects for any existing URLs that change
 - [ ] Set the Cloudflare Pages build command (see Deployment) and switch off GitHub Pages

@@ -119,6 +119,15 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    recently resigned his Yell seat to contest Tingwall" (Shetland Times, 21 Jul 1950), and both polls
    were on Tuesday 1 August (Shetland Times, 28 Jul and 4 Aug 1950). So the Yell South seat was
    Spence's. The wiki text says the same. Evidence: research/bna/zcc-by-elections.md.
+
+16. Lerwick Town Council co-options 1886-87. Robertson and Anderson were "elected to fill the
+   vacancies at the Council Board" at the meeting "on Friday evening" (Shetland Times, Saturday
+   20 Nov 1886), i.e. 19 November, not the 24th. Porteous was elected "till the vacancy caused by
+   Mr Hunter's resignation" at the fortnightly meeting held "yesterday (Friday) evening" (Shetland
+   Times, 19 Mar 1887), i.e. 18 March, not the 24th. The Hunter who resigned (accepted at the
+   meeting of Tuesday 4 Jan 1887, on his move to the Union Bank at Portsoy; Shetland Times, 11 Dec
+   1886 and 8 Jan 1887) is James Hunter (ii), the bank accountant, not the GP born in 1914.
+   Evidence: research/bna/ltc-1885-1889.md.
 """
 
 import os
@@ -198,6 +207,9 @@ ADAIR_NOTE = (
     "unsuccessful candidate with most votes at the May 1970 election. From the Shetland Times, "
     "17 April and 15 May 1970."
 )
+CO_OPTION_1886 = ('Lerwick Town Council By-Election November 1886', '1886-11-24', '1886-11-19')
+CO_OPTION_1887 = ('Lerwick Town Council By-Election March 1887', '1887-03-24', '1887-03-18')
+HUNTER_1887 = (231, 229)  # replaced_person_id: James Hunter (iv) -> James Hunter (ii)
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -465,6 +477,19 @@ def main():
         print(f"  election {row['id']}: replaced George Ross -> George Spence")
     else:
         raise SystemExit(f"{title}: unexpected replaced member {row['replaced_person']!r}/{row['replaced_person_id']}")
+
+    print("=== 16. LTC co-options Nov 1886 and Mar 1887 ===")
+    set_date(c, *CO_OPTION_1886)
+    by_id = set_date(c, *CO_OPTION_1887)
+    wrong, right = HUNTER_1887
+    row = one(c, "SELECT replaced_person_id FROM elections WHERE id = ?", (by_id,))
+    if row['replaced_person_id'] == right:
+        print("  replaced: already James Hunter (ii)")
+    elif row['replaced_person_id'] == wrong:
+        c.execute("UPDATE elections SET replaced_person_id = ? WHERE id = ?", (right, by_id))
+        print(f"  election {by_id}: replaced_person_id {wrong} -> {right}")
+    else:
+        raise SystemExit(f"election {by_id}: unexpected replaced_person_id {row['replaced_person_id']}")
 
     db.commit()
     db.close()

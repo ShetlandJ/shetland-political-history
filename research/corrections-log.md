@@ -9,6 +9,19 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1885–1889 (`research/bna/ltc-1885-1889.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | notes (confirmed row) | **Stove's 1883 seat ended Nov 1885** (a confirmed April 2026 row) | Still sitting after the Nov 1885 election, at the statutory meeting (ST 21 Nov 1885); retiring in 1886 (ST 23 Oct 1886). All five 1883 winners had full terms | Ledger fixed |
+| 2 | draft | **Jamieson's 1886 seat ended Nov 1887** | He retired in 1888 and didn't stand, having left town (ST 6 Oct, 3 Nov 1888). CLAUDE.md already said so; the ledger didn't | Ledger fixed |
+| 3 | notes, draft | **James Hunter (ii)** left "early 1887", reason unknown | Resigned on moving to the Union Bank at Portsoy; accepted **Tue 4 Jan 1887** (ST 11 Dec 1886, 8 Jan 1887) | Ledger and CLAUDE.md fixed |
+| 4 | wiki | Porteous by-election **24 Mar 1887**, replacing James Hunter (iv) (a GP born 1914) | Elected at the meeting of **Fri 18 Mar 1887** (ST 19 Mar 1887), in the room of James Hunter (ii) | Fixed (`fix_newspapers.py` #16) |
+| 5 | wiki | Robertson and Anderson by-election **24 Nov 1886** | Co-opted **Fri 19 Nov 1886** (ST 20 Nov 1886) | Fixed (same) |
+| 6 | notes, draft | Mitchell **retired** "before Oct 1889" (1 Sep in the ledger) | **Resigned**; accepted at a Town Council meeting reported ST 19 Oct 1889, probably Fri 18 Oct | Ledger fixed (day in open-questions) |
+| 7 | wiki | ZCC Dec 1919: Joseph Peterson (i) elected for Delting North as well as Delting South | The wiki's own table has him losing Delting North (15 v 29); his page says Delting South only | Fixed (`fix_parse_errors.py` #7) |
+| 8 | wiki | ZCC Dec 1922: John Leslie (ii) elected for Aithsting and for Sandsting | One combined Aithsting & Sandsting ward that year (wiki text) | Fixed (`fix_parse_errors.py` #8) |
+
 ## 2026-09-28: ZCC by-elections, who was replaced (`research/bna/zcc-by-elections.md`)
 
 | # | Where | We had | Sources show | Status |

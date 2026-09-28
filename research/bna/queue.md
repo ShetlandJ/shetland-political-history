@@ -38,10 +38,40 @@ which. See the timing rules in the skill.
 
 - [x] **ZCC by-elections (who was replaced)**: Cleared 7 issues (42 → 35). Mostly namesake mislinks, not research: `build.py` matched a dead member's by-election to a namesake in another ward by name (fixed), and five replaced members plus the 1920 Nesting winner were linked to people from other eras (`fix_parse_errors.py` #5). Yell South 1950 was Spence's seat, not Ross's (ST 23 Jun, 21 Jul 1950; `fix_newspapers.py` #15). 1898 Dunrossness North date in open-questions. `zcc-by-elections.md`.
 
+## Next (added 2026-09-28, 35 issues left)
+
+- [x] **LTC 1885–1889**: 8 → 5 (the 5 left are dated vacancies). Stove's 1883 seat ran to 1886
+  (confirmed row was wrong), Jamieson's 1886 seat to 1888; Hunter resigned 4 Jan 1887; co-options
+  19 Nov 1886 and 18 Mar 1887 (`fix_newspapers.py` #16); Mitchell resigned Oct 1889. 16 rows
+  confirmed. With the two ZCC fixes below, 35 → 30. `ltc-1885-1889.md`.
+- [ ] **LTC general dates 1885–1891**: 1888 is dated Thu 8 Nov and 1889 Sat 9 Nov, but the poll
+  was on the first Tuesday (1885 notice), and ST 3 Nov 1888 has the 1888 nominations closing on
+  Thu 1 Nov. Check each year's notice for the election day (likely 6 Nov 1888, 5 Nov 1889).
+- [ ] **Duncan's resignation (Jul 1886) and John Harrison's disqualification (Oct 1886)**: dates
+  from the profile and CLAUDE.md, not checked in the paper. ST Jul and Oct 1886.
+- [ ] **LTC 1934–1938 (5 size-short rows)**: Sep 1934, Jun 1936, Nov 1936, Oct 1937, Jul 1938.
+  Probably dated vacancies before co-options, but each needs the departure and co-option dates.
+- [ ] **LTC 1915–1916 (3 size-short rows)**: Apr 1915, Jul 1915, Jul 1916. Wartime departures and
+  co-options.
+
+## Not BNA: wiki checks (found 2026-09-28)
+
+- [x] **ZCC Delting North 1919** (done, `fix_parse_errors.py` #7): the wiki marks Joseph Peterson (i) as losing (15 votes, cross),
+  but the baseline has him elected there as well as in Delting South. His profile says he sat for
+  Delting South 1919–22. Set candidacy 1169 to elected=0 (`fix_parse_errors.py`). Clears 1
+  overlap. The wiki's Delting South row gives Peterson a cross and J. T. J. Sinclair a tick,
+  which looks the wrong way round (78 v 30); the DB already has it right.
+- [x] **ZCC Aithsting & Sandsting 1922** (done, `fix_parse_errors.py` #8): the wiki has one combined ward ("This election
+  recombined the Aithsting & Sandsting parishes"), but the parser made two rows (1242, 1243)
+  with identical results, so John Leslie (ii) gets two seats. Hide 1243 and show 1242 as
+  "Aithsting & Sandsting" (`fix_parse_errors.py`). Clears 1 overlap.
+- [ ] **ZCC William Sinclair, Dec 1919**: a genuine double return (Burra and Whiteness &
+  Weisdale). He chose Whiteness, which caused the Burra by-election of Apr 1920. Needs a way to
+  record a win that wasn't taken up on a ward council (see open-questions).
+
 ## Not for BNA yet
 
 - **By-election days from the wiki text**: the parser kept only the month for by-elections, but many wiki pages give the day in their first sentence ("took place on 17 May"). Seven were set in `fix_parse_errors.py` #5; the rest of the ~100 dated the 1st could be done the same way, checking the weekday. No BNA needed.
-- **LTC By-Election March 1887** has `replaced_person_id` pointing at James Hunter (iv), the GP born 1914; it should be James Hunter (ii). It doesn't affect LTC terms (they come from the ledger), but the election page shows the wrong link.
 - **James Hunter (iii)'s birth date**: DB 1872-02-06, but his wiki page says 6 January 1872. Check which is right.
 
 - **LTC size-short rows (25)**: mostly the gap between a death or resignation and the co-option, so probably genuine vacancies. Re-check after the overlaps are cleared, since the counts will shift.
