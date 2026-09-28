@@ -107,7 +107,7 @@ sitting through each size-short window (listed per sub-item).
     ST p2 art. 047, whose OCR list is garbled; zoom if needed; end: his Mar 1946 departure).
   - [x] **Nov 1946 polling day** (Tue 5 Nov: ST 1 and 8 Nov 1946; `fix_newspapers.py` #23, 10 ledger dates; 0 issues): the DB has Mon 4 Nov 1946; 1945 was the Tuesday, so probably
     Tue 5 Nov. Check the Friday 1 and 8 Nov 1946 papers. Do this before the next sub-item.
-  - [ ] 3 Jun–1 Jul 1947: James Brownlie 1946→1949-09-13 (start: the Nov 1946 result; end: his
+  - [x] 3 Jun–1 Jul 1947 (cleared, 11 → 10; resignation read 13 Sep 1949, ST 16 Sep 1949): James Brownlie 1946→1949-09-13 (start: the Nov 1946 result; end: his
     1949 departure before the Sep 1949 co-option).
   - [ ] 26 Apr–6 May 1955: Johnson, Peterson, Tait, Conochie (1952-05-06→1955-05-03); Burgess,
     Harry Gray, Eunson, R. Anderson (i) (1953-05-05→1956-05-01). April retiring lists 1955–56.
