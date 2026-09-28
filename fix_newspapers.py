@@ -167,6 +167,11 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    meeting" (Shetland Times, 8 Jan 1910), i.e. 4 January, not the 1st. Irvine's letter of
    resignation had been read at the meeting of Tuesday 7 December 1909 (Shetland Times, 11 Dec
    1909). Evidence: research/bna/ltc-1894-1907.md.
+
+23. Lerwick Town Council general of November 1946 was polled on Tuesday 5 November, not Monday
+   the 4th. The preview says Lerwick electors "will find Tuesday's choice a difficult matter"
+   (Shetland Times, 1 Nov 1946), and the Harbour Trust election "coincided with the municipal
+   election on Tuesday" (Shetland Times, 8 Nov 1946). Evidence: research/bna/ltc-1945-1956.md.
 """
 
 import os
@@ -260,6 +265,7 @@ WARTIME_DATES = [  # (wiki title, baseline date, date from the Shetland Times)
 CO_OPTION_1921 = ('Lerwick Town Council By-Election June 1921', '1921-06-11', '1921-06-07')
 POLLING_DAY_1901 = ('Lerwick Town Council Election November 1901', '1901-11-01', '1901-11-05')
 CO_OPTION_1910 = ('Lerwick Town Council By-Election January 1910', '1910-01-01', '1910-01-04')
+POLLING_DAY_1946 = ('Lerwick Town Council Election November 1946', '1946-11-04', '1946-11-05')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -559,6 +565,9 @@ def main():
 
     print("=== 22. LTC co-option Jan 1910 ===")
     set_date(c, *CO_OPTION_1910)
+
+    print("=== 23. LTC polling day Nov 1946 ===")
+    set_date(c, *POLLING_DAY_1946)
 
     db.commit()
     db.close()
