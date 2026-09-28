@@ -21,6 +21,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 6 | notes, draft | Mitchell **retired** "before Oct 1889" (1 Sep in the ledger) | **Resigned**; accepted at a Town Council meeting reported ST 19 Oct 1889, probably Fri 18 Oct | Ledger fixed (day in open-questions) |
 | 7 | wiki | ZCC Dec 1919: Joseph Peterson (i) elected for Delting North as well as Delting South | The wiki's own table has him losing Delting North (15 v 29); his page says Delting South only | Fixed (`fix_parse_errors.py` #7) |
 | 8 | wiki | ZCC Dec 1922: John Leslie (ii) elected for Aithsting and for Sandsting | One combined Aithsting & Sandsting ward that year (wiki text) | Fixed (`fix_parse_errors.py` #8) |
+| 9 | draft | Arthur Hay sat 4–22 Nov 1884 (ledger row) | He topped the poll and declined office, so the seat was vacant until Duncan's co-option on 22 Nov (James, 2026-09-28; `not_seated.csv`) | Ledger row removed; shows as a dated vacancy |
 
 ## 2026-09-28: ZCC by-elections, who was replaced (`research/bna/zcc-by-elections.md`)
 
