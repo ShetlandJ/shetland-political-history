@@ -815,3 +815,25 @@ st-19500421-p4-a047,election,117,read,polling day
 st-19550513,election,124,read,the co-option
 st-19710416,election,147,read,unopposed
 st-19620316-p4-a066,election,134,read,retiring list
+st-19321029-p5-a039,election,91,read,the candidates and polling day (Tue 1 Nov 1932)
+st-19321029-p5-a039,term,william-bruce-ii@1930-11-04,read,retiring in 1932 (a year early)
+st-19321029-p5-a039,term,william-sinclair@1929-11-05,inferred,Provost Sinclair not among those retiring in 1932
+st-19321029-p5-a039,term,alexander-manson@1929-11-05,read,retiring in 1932
+st-19321029-p5-a039,term,laurence-sandison@1929-11-05,read,retiring in 1932
+st-19321029-p5-a039,term,robert-ganson-i@1929-11-05,read,retiring in 1932 and not standing again
+st-19321029-p5-a039,term,james-morrison@1932-06-07,read,retiring in 1932
+st-19331104-p4-a083,election,92,read,the candidates and polling day (Tue 7 Nov 1933)
+st-19331104-p4-a083,term,william-sinclair@1929-11-05,read,retiring in 1933
+st-19331104-p4-a083,term,james-laing@1930-11-04,read,retiring in 1933
+st-19331104-p4-a083,term,john-sinclair@1930-11-04,read,retiring in 1933
+st-19331104-p4-a083,term,robert-ollason@1930-11-04,read,retiring in 1933
+st-19361031-p4-a074,election,97,read,unopposed; four nominations for five seats; declared elected Tue 3 Nov 1936
+st-19361031-p4-a074,term,adam-halcrow-i@1933-11-07,read,retiring in 1936 (re-standing)
+st-19361031-p4-a074,term,charles-manson@1933-11-07,read,retiring in 1936 (not re-standing)
+st-19361031-p4-a074,term,robert-ollason@1933-11-07,read,retiring in 1936 as Provost (not re-standing)
+st-19361031-p4-a074,term,thomas-sinclair@1936-07-07,read,co-opted member retiring in 1936
+st-19361031-p4-a074,term,thomas-irvine-ii@1936-08-04,read,co-opted member retiring in 1936
+st-19361031-p4-a074,term,adam-halcrow-i@1936-11-03,read,returned unopposed
+st-19361031-p4-a074,term,thomas-irvine-ii@1936-11-03,read,returned unopposed
+st-19361031-p4-a074,term,magnus-shearer-i@1936-11-03,read,returned unopposed (new candidate)
+st-19361031-p4-a074,term,thomas-sinclair@1936-11-03,read,returned unopposed

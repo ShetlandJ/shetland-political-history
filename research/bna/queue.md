@@ -142,7 +142,7 @@ citations, 801 links). Gaps:
   sub-item. Find what's still missing with:
   `sqlite3 shetland.db "select e.id, e.election_date, e.wiki_page_title from elections e where council_id=1 and hidden=0 and election_date>='1872' and not exists (select 1 from citation_links l where l.election_id=e.id) order by 2"`
   (and the same over `council_terms` with `confirmed=1` for rows).
-  - [ ] **Undated previews, 1932, 1933, 1936** (8 rows): the Saturday before each general.
+  - [x] **Undated previews, 1932, 1933, 1936** (done: ST 29 Oct 1932 p5, 4 Nov 1933 p4, 31 Oct 1936 p4; 3 citations, 22 links; all agree with the ledger. The 1929 Manson, Sandison, Ganson (i) rows and Morrison's Jun 1932 row now have their ends sourced; starts still open. `ltc-previews-1932-1936.md`) (8 rows): the Saturday before each general.
     Link to `william-sinclair@1929-11-05`, `william-bruce-ii@1930-11-04`,
     `james-laing@1930-11-04`, `john-sinclair@1930-11-04`, `robert-ollason@1930-11-04`,
     `adam-halcrow-i@1933-11-07`, `charles-manson@1933-11-07`, `robert-ollason@1933-11-07`, and
