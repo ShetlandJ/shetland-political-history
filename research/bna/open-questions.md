@@ -8,6 +8,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-28: Day of the Jan 1911 ZCC by-elections (Dunrossness South, Sandwick, Unst North).**
+  Nominations closed Tue 10 Jan 1911, one each, "no contests" (ST 14 Jan 1911). The wiki and DB
+  have Thu 12 Jan, which the paper neither confirms nor contradicts (probably the day fixed for
+  the election). Options: keep 12 Jan, or date them 10 Jan (the close of nominations, when the
+  returns were settled). Elections 396–398. Evidence: `zcc-1900-1919.md`.
+
 - **2026-09-28: Day of James Budge's appointment for Dunrossness North, June 1907.** Reported in
   ST 22 Jun 1907 (p8 art. 131), but the report's opening, with the day, is garbled. The DB has
   1 Jun (month only); the wiki's "Thursday 16th June" was a Sunday. The Council met on
