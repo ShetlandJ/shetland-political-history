@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: Shearer's resignation from the Town Council, June 1947 (`research/bna/ltc-1947-shearer-dalziel.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | notes | ST 6 Jun 1947's report of the 3 Jun meeting has "no resignation mentioned", so Shearer's seat was held to 1 Jul | The same issue reports "Lt.-Col. Magnus Shearer has resigned from the council" (he had been appointed county councillor for Whalsay), with the vacancy to be filled in July | Fixed: ledger ends 1947-06-03 (found by James) |
+
 ## 2026-09-28: Shearer's County Council appointment, May 1947 (`research/bna/ltc-1947-shearer-dalziel.md`)
 
 | # | Where | We had | Sources show | Status |

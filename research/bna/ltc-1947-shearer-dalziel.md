@@ -25,11 +25,21 @@ the day Peter Dalziel was co-opted in his place. Follows on from `ltc-1945-1953.
   **Edit**: election 692 moved 1947-05-01 → 1947-05-20 (`fix_newspapers.py` #14). The derived
   ZCC terms follow (Jamieson ends and Shearer starts on 20 May).
 
-### Town council, June 1947: Shearer absent, no resignation reported
+### Town council, June 1947: Shearer's resignation reported at the 3 June meeting
 - **ST Fri 6 Jun 1947, p4 (art. 084)**: monthly meeting on Tuesday (3 Jun). Present: Provost
   Aitken, Bailies L. W. Smith and R. A. Anderson, Councillors Burgess, W. Anderson, Peterson,
-  Ollason, Morrison, A. Johnson and Brownlie. Shearer not present; no resignation mentioned.
+  Ollason, Morrison, A. Johnson and Brownlie. Shearer was not present.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19470606&page=0004&article=084
+- **ST Fri 6 Jun 1947 (found by James 2026-09-28; page and article id not recorded)**: in the
+  same issue's council report, "Lt.-Col. Magnus Shearer has resigned from the council, as he was
+  recently appointed county councillor for Whalsay". The "vacancy will be filled at a special
+  meeting of the council in July". Provost Aitken paid tribute, and the council agreed to write
+  expressing its regret. The earlier run read only art. 084 and wrongly noted "no resignation
+  mentioned".
+  **Edit**: `magnus-shearer-i` 1938-11-01: end 1947-07-01 → 1947-06-03, the meeting where the
+  resignation was reported (the Tait 1958 precedent). The paper doesn't give the date of his
+  letter. Left `confirmed=0`, since the 1938 start isn't separately sourced (see the open question
+  on one-ended rows). This shows a genuine vacancy from 3 Jun to Dalziel's co-option on 1 Jul.
 
 ### Dalziel co-opted, Tuesday 1 July 1947
 - **ST Fri 6 Jun 1947, p1 (art. 018)**: Burgh notice names a meeting of the Town Council on
