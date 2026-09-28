@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1936–1945 (`research/bna/ltc-1936-1945.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Dalziel's co-option for Clausen ("By-Election February 1938") on **Thu 3 Feb 1938** | At the monthly meeting "on Tuesday evening", **Tue 1 Feb 1938** (ST 5 Feb 1938) | Fixed: `fix_newspapers.py` #18, ledger |
+| 2 | draft | Clausen sat until Dalziel replaced him on 3 Feb 1938 | His resignation letter was read at the meeting of **Tue 4 Jan 1938**; he had moved to Thurso (ST 1 and 8 Jan 1938) | Ledger fixed |
+| 3 | draft | James Laing sat until Johnston replaced him on 10 Dec 1945 | He **retired from 29 Nov 1945** (ST 16 Nov 1945) | Ledger fixed |
+
 ## 2026-09-28: LTC 1934–1938 (`research/bna/ltc-1934-1938.md`)
 
 | # | Where | We had | Sources show | Status |

@@ -133,6 +133,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    the 9th (the day the result was published). The Burgh notice gives the "municipal election on
    Tuesday next" and the week's diary has "Voting Tuesday, in the Burgh Court Room" (Shetland
    Times, 2 Nov 1889). Evidence: research/bna/ltc-general-dates-1885-1891.md.
+
+18. Lerwick Town Council co-option of February 1938. Peter Dalziel was co-opted "in place of Mr
+   E. J. F. Clausen, resigned" at the monthly meeting held "on Tuesday evening" (Shetland Times,
+   Saturday 5 Feb 1938), i.e. 1 February, not Thursday the 3rd. Clausen's resignation letter had
+   been read at the monthly meeting of Tuesday 4 January (Shetland Times, 8 Jan 1938).
+   Evidence: research/bna/ltc-1936-1945.md.
 """
 
 import os
@@ -216,6 +222,7 @@ CO_OPTION_1886 = ('Lerwick Town Council By-Election November 1886', '1886-11-24'
 CO_OPTION_1887 = ('Lerwick Town Council By-Election March 1887', '1887-03-24', '1887-03-18')
 HUNTER_1887 = (231, 229)  # replaced_person_id: James Hunter (iv) -> James Hunter (ii)
 POLLING_DAY_1889 = ('Lerwick Town Council Election November 1889', '1889-11-09', '1889-11-05')
+CO_OPTION_1938 = ('Lerwick Town Council By-Election February 1938', '1938-02-03', '1938-02-01')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -499,6 +506,9 @@ def main():
 
     print("=== 17. LTC polling day Nov 1889 ===")
     set_date(c, *POLLING_DAY_1889)
+
+    print("=== 18. LTC co-option Feb 1938 ===")
+    set_date(c, *CO_OPTION_1938)
 
     db.commit()
     db.close()

@@ -57,11 +57,14 @@ which. See the timing rules in the skill.
   30 Sep 1934; Johnston resigned Tue 9 Oct 1934 (his and Sandison's 1932 seats were two-year);
   Cogle resigned Tue 5 May 1936, not July; Duffin died 28 Jun 1936; co-options 7 Jul, 4 Aug and
   10 Nov 1936 confirmed; A. S. Manson died 22 Jul 1938. 9 rows confirmed. `ltc-1934-1938.md`.
-- [ ] **Adam Halcrow (i)'s death (24 Dec 1940?) and Clausen's departure (Feb 1938)**: the Nov 1936,
-  Oct 1937 and Jul 1938 short rows are genuine vacancies but stay on /data-review because
-  Halcrow's 1936 row is unconfirmed (and, for 1938, Dalziel's 3 Feb 1938 co-option for Clausen,
-  W. Smith (iii) 1937 to his 1942 death, and James Laing 1937–45). Check Halcrow's death and the
-  Jan 1941 Williamson co-option (clears issue 21 too), then why Clausen left and when Dalziel came in.
+- [x] **Adam Halcrow (i)'s death and Clausen's departure**: 28 → 26 (the Nov 1936, Oct 1937 and
+  Jul 1938 rows cleared; new 29 Nov–10 Dec 1945 row is Laing's dated vacancy). Halcrow died late
+  Tue 24 Dec 1940; Williamson co-opted Tue 7 Jan 1941; Clausen resigned (read Tue 4 Jan 1938, moved
+  to Thurso); Dalziel co-opted Tue 1 Feb 1938, not Thu 3rd (`fix_newspapers.py` #18); W. G. Smith
+  died Sat 28 Feb 1942; Laing retired from 29 Nov 1945. 6 rows confirmed. `ltc-1936-1945.md`.
+- [ ] **LTC Dec 1940 short row**: holds on Shearer's 1938 row (resignation day, Jun 1947, not found)
+  and Mouat's Aug 1940 co-option (and the 1938 William Sinclair row it replaced). Check Sinclair's
+  1940 departure and Mouat's co-option, and the ends of the 1940–45 co-optees at the Nov 1945 general.
 - [ ] **LTC 1915–1916 (3 size-short rows)**: Apr 1915, Jul 1915, Jul 1916. Wartime departures and
   co-options.
 
