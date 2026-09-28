@@ -9,6 +9,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC general dates 1885–1891 (`research/bna/ltc-general-dates-1885-1891.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Nov 1889 general on **Sat 9 Nov 1889** | Polled on **Tue 5 Nov 1889** ("municipal election on Tuesday next", ST 2 Nov 1889); the 9th is the day the result was printed | Fixed: `fix_newspapers.py` #17, ledger (8 dates) |
+| 2 | wiki | Nov 1888 general on **Thu 8 Nov 1888** | Nominations closed **Thu 1 Nov**, unopposed; the paper calls that day the election (ST 3 Nov 1888). The 8th fits nothing | Not changed: 1 Nov or Tue 6 Nov is in open-questions |
+
 ## 2026-09-28: LTC 1885–1889 (`research/bna/ltc-1885-1889.md`)
 
 | # | Where | We had | Sources show | Status |

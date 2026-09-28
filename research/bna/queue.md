@@ -44,9 +44,10 @@ which. See the timing rules in the skill.
   (confirmed row was wrong), Jamieson's 1886 seat to 1888; Hunter resigned 4 Jan 1887; co-options
   19 Nov 1886 and 18 Mar 1887 (`fix_newspapers.py` #16); Mitchell resigned Oct 1889. 16 rows
   confirmed. With the two ZCC fixes below, 35 → 30. `ltc-1885-1889.md`.
-- [ ] **LTC general dates 1885–1891**: 1888 is dated Thu 8 Nov and 1889 Sat 9 Nov, but the poll
-  was on the first Tuesday (1885 notice), and ST 3 Nov 1888 has the 1888 nominations closing on
-  Thu 1 Nov. Check each year's notice for the election day (likely 6 Nov 1888, 5 Nov 1889).
+- [x] **LTC general dates 1885–1891**: 1889 polled Tue 5 Nov, not Sat 9th (ST 2 Nov 1889;
+  `fix_newspapers.py` #17, 8 ledger dates). 1888: nominations Thu 1 Nov, unopposed; 1 Nov vs
+  6 Nov left in open-questions. 1890–91 fit the Thursday-nomination, Tuesday-poll pattern.
+  0 issues (30). `ltc-general-dates-1885-1891.md`.
 - [ ] **Duncan's resignation (Jul 1886) and John Harrison's disqualification (Oct 1886)**: dates
   from the profile and CLAUDE.md, not checked in the paper. ST Jul and Oct 1886.
 - [ ] **LTC 1934–1938 (5 size-short rows)**: Sep 1934, Jun 1936, Nov 1936, Oct 1937, Jul 1938.

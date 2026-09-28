@@ -128,6 +128,11 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    meeting of Tuesday 4 Jan 1887, on his move to the Union Bank at Portsoy; Shetland Times, 11 Dec
    1886 and 8 Jan 1887) is James Hunter (ii), the bank accountant, not the GP born in 1914.
    Evidence: research/bna/ltc-1885-1889.md.
+
+17. Lerwick Town Council general of November 1889 was polled on Tuesday 5 November, not Saturday
+   the 9th (the day the result was published). The Burgh notice gives the "municipal election on
+   Tuesday next" and the week's diary has "Voting Tuesday, in the Burgh Court Room" (Shetland
+   Times, 2 Nov 1889). Evidence: research/bna/ltc-general-dates-1885-1891.md.
 """
 
 import os
@@ -210,6 +215,7 @@ ADAIR_NOTE = (
 CO_OPTION_1886 = ('Lerwick Town Council By-Election November 1886', '1886-11-24', '1886-11-19')
 CO_OPTION_1887 = ('Lerwick Town Council By-Election March 1887', '1887-03-24', '1887-03-18')
 HUNTER_1887 = (231, 229)  # replaced_person_id: James Hunter (iv) -> James Hunter (ii)
+POLLING_DAY_1889 = ('Lerwick Town Council Election November 1889', '1889-11-09', '1889-11-05')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -490,6 +496,9 @@ def main():
         print(f"  election {by_id}: replaced_person_id {wrong} -> {right}")
     else:
         raise SystemExit(f"election {by_id}: unexpected replaced_person_id {row['replaced_person_id']}")
+
+    print("=== 17. LTC polling day Nov 1889 ===")
+    set_date(c, *POLLING_DAY_1889)
 
     db.commit()
     db.close()
