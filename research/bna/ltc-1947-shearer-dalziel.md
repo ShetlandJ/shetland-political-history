@@ -15,6 +15,15 @@ the day Peter Dalziel was co-opted in his place. Follows on from `ltc-1945-1953.
   and Skerries seat (election 692, dated 1947-05-01 in the DB). Probably why he left the town
   council the next month, though no article says so.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19470523&page=0007&article=145
+- **Re-read 2026-09-28 for the date.** The article is headed by Tuesday's meeting ("vacated the
+  chair at Tuesday's meeting of Zetland County Council"), and the appointment is part of that
+  meeting's business: "Mr J. Sutherland moved the appointment of Lt. Col. Shearer ... Mr J. J. Hay
+  seconded". His name at the top of the attendance list is just the list of those present. A
+  "James Jamieson" is also listed, so the list doesn't show who resigned. The paper gives no first
+  name for the Mr Jamieson who resigned; the DB has John Jamieson (Whalsay 1945), which the article
+  doesn't contradict.
+  **Edit**: election 692 moved 1947-05-01 → 1947-05-20 (`fix_newspapers.py` #14). The derived
+  ZCC terms follow (Jamieson ends and Shearer starts on 20 May).
 
 ### Town council, June 1947: Shearer absent, no resignation reported
 - **ST Fri 6 Jun 1947, p4 (art. 084)**: monthly meeting on Tuesday (3 Jun). Present: Provost

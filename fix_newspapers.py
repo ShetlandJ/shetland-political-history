@@ -104,6 +104,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    "Polling takes place in Lerwick on 7th May" (Shetland Times, 19 Apr 1968), a Tuesday like every
    other year from 1949. The result (Shetland Times, 10 May 1968) matches the baseline's votes.
    Evidence: research/bna/ltc-1968-polling-day.md.
+
+14. The "Whalsay And Skerries County Council By-Election May 1947" (Magnus Shearer, for Jamieson) is
+   dated 1 May 1947 in the baseline, which is month precision only. It was an appointment on petition
+   at "Tuesday's meeting of Zetland County Council" (Shetland Times, Friday 23 May 1947), i.e. 20 May:
+   "The petition for the election of Lt. Col. Shearer to the vacancy was signed by 207 persons", and
+   his appointment was moved "following acceptance of Mr Jamieson's resignation". He is also in that
+   meeting's attendance list, as is a "James Jamieson". Evidence: research/bna/ltc-1947-shearer-dalziel.md.
 """
 
 import os
@@ -174,6 +181,7 @@ ZCC_POLLING_DAYS = [  # (wiki title, baseline date, Tuesday from the Shetland Ti
     ('County Council Election May 1964', '1964-05-11', '1964-05-12'),
 ]
 POLLING_DAY_1968 = ('Lerwick Town Council Election May 1968', '1968-05-02', '1968-05-07')
+SHEARER_ZCC_1947 = ('Whalsay And Skerries County Council By-Election May 1947', '1947-05-01', '1947-05-20')
 ADAIR_BY_ELECTION = 'Lerwick Town Council By-Election May 1970'
 ADAIR_NOTE = (
     "Co-option at the statutory meeting of the Town Council on 8 May 1970, to fill the vacancy left when "
@@ -434,6 +442,9 @@ def main():
 
     print("=== 13. LTC polling day May 1968 ===")
     set_date(c, *POLLING_DAY_1968)
+
+    print("=== 14. ZCC appointment of Magnus Shearer, May 1947 ===")
+    set_date(c, *SHEARER_ZCC_1947)
 
     db.commit()
     db.close()

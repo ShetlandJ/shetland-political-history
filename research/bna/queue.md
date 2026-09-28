@@ -32,7 +32,7 @@ which. See the timing rules in the skill.
 
 - [x] **May 1968 LTC polling day**: Tuesday 7 May 1968 (ST 19 Apr 1968); the votes match (ST 10 May 1968). `fix_newspapers.py` #13; 8 ledger dates moved and the 4 winners confirmed. 0 issues (41). `ltc-1968-polling-day.md`.
 
-- [ ] **Date of Shearer's ZCC appointment, May 1947**: the DB has Whalsay and Skerries County Council By-Election May 1947 (id 692) on 1947-05-01. ST 23 May 1947 p7 (art. 145) reports him appointed on petition at the County Council meeting on Tuesday, i.e. 20 May. Check the OCR order (he's also in the attendance list) and move the date in `fix_newspapers.py`. 0 issues.
+- [x] **Date of Shearer's ZCC appointment, May 1947**: Tue 20 May 1947, appointed on petition at that meeting (ST 23 May 1947). The attendance list is just those present. Election 692 moved (`fix_newspapers.py` #14). 0 issues (41). `ltc-1947-shearer-dalziel.md`.
 
 ## Not for BNA yet
 

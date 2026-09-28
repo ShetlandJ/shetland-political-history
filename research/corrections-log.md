@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: Shearer's County Council appointment, May 1947 (`research/bna/ltc-1947-shearer-dalziel.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Whalsay and Skerries by-election, **May 1947** (dated the 1st) | An appointment on petition (207 signatures) at the County Council meeting of **Tue 20 May 1947** (ST 23 May 1947) | Fixed: `fix_newspapers.py` #14 |
+
 ## 2026-09-28: LTC May 1968 polling day (`research/bna/ltc-1968-polling-day.md`)
 
 | # | Where | We had | Sources show | Status |
