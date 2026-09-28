@@ -273,13 +273,15 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and 1 overlapping term (1922), where the cohort model gave someone a full term that the retiring lists cut short.
+The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled).
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
 
 **1905–1910 settled (2026-09-28)**: Provost Porteous stayed on from 1908 to 1910. Ganson retired in his place in 1908, and J. Smith retired a year early in 1909. Evidence: `research/bna/ltc-1908-1910.md`.
 
 **1966–1973 settled (2026-09-28)**: Provost Eric Gray stayed on 1969–71 (W. A. Smith retired in his place in 1969), Halcrow's 1968 seat ended 1970, Provost W. A. Smith stayed on in 1972 (Tait and Peterson retired a year early), and Eric Gray and Butler had two-year seats from 1971. J. R. Smith resigned 14 Apr 1970 and Adair was co-opted 8 May 1970 (not 8 Aug). 1971–73 were unopposed. Evidence: `research/bna/ltc-1969-1973.md`.
+
+**1920–1923 settled (2026-09-28)**: Duffin's 1920 seat ended in 1922 (he retired by rotation a year early, reason not stated) and A. S. Manson's 1921 seat ran to 1923. 1922 was unopposed. This cleared the 1922 overlap. Evidence: `research/bna/ltc-1920-1923.md`.
 
 **1912–1914 settled (2026-09-27)**: the council had 12 members throughout, from the Shetland Times retiring lists. Evidence with BNA links: `research/bna/ltc-1912-1914.md`.
 

@@ -53,7 +53,7 @@ The order of work is set by cost. Always try the cheaper step first:
    `research/corrections-log.md` and is flagged in the reply.
 7. Tick the queue item with a one-line result (issues cleared, evidence file). Add any new items
    the research turns up. Update CLAUDE.md where its notes are now wrong.
-8. Don't commit unless James asks.
+8. Commit when done: the ledger, `shetland.db`, the evidence file, the queue and any CLAUDE.md or correction-script changes together, with a message naming what was confirmed and the source (e.g. "Confirm LTC terms 1920-23 from the Shetland Times retiring lists"). Don't push.
 
 If the evidence is ambiguous on the point that decides an edit, don't guess. Leave that row
 alone, record it in the evidence file, and add it to `research/bna/open-questions.md` (date

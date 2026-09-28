@@ -405,24 +405,24 @@ john-henderson,John Henderson,1916-08-01,1919-11-04,by-election,term_expired,72,
 magnus-manson,Magnus Manson,1916-09-05,1919-11-04,by-election,term_expired,73,Lerwick Town Council By-Election September 1916,0,
 hugh-robertson,Hugh Robertson,1916-12-05,1919-11-04,by-election,term_expired,74,Lerwick Town Council By-Election December 1916,0,
 alexander-ratter,Alexander Ratter,1919-11-04,1920-11-02,holdover,term_expired,,,0,
-james-laing,James Laing,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
-james-morrison,James Morrison,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+james-laing,James Laing,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,1,Elected 1919; retiring by rotation in 1922 (Shetland Times 14 Oct 1922: Laing M. L. Manson Morrison Duffin); returned unopposed (Shetland Times 4 Nov 1922)
+james-morrison,James Morrison,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,1,Elected 1919; retiring by rotation in 1922 (Shetland Times 14 Oct 1922: Laing M. L. Manson Morrison Duffin); returned unopposed (Shetland Times 4 Nov 1922)
 james-pottinger-iii,James Pottinger (iii),1919-11-04,1921-06-11,elected,replaced,75,Lerwick Town Council Election November 1919,0,
-john-sinclair,John Sinclair,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+john-sinclair,John Sinclair,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,1,Retiring by rotation in 1921 (Shetland Times 8 and 15 Oct 1921: J. Smith Ramsay J. T. J. Sinclair Ollason)
 john-smith-i,John Smith (i),1919-11-04,1921-11-01,holdover,term_expired,,,0,
-magnus-manson,Magnus Manson,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+magnus-manson,Magnus Manson,1919-11-04,1922-11-07,elected,term_expired,75,Lerwick Town Council Election November 1919,1,Elected 1919; retiring by rotation in 1922 (Shetland Times 14 Oct 1922: Laing M. L. Manson Morrison Duffin); returned unopposed (Shetland Times 4 Nov 1922)
 peter-goodlad,Peter Goodlad,1919-11-04,1920-11-02,holdover,term_expired,,,0,
 robert-ganson-i,Robert Ganson (i),1919-11-04,1920-11-02,holdover,term_expired,,,0,
-robert-ollason,Robert Ollason,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
-robert-ramsay,Robert Ramsay,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,0,
+robert-ollason,Robert Ollason,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,1,Retiring by rotation in 1921 (Shetland Times 8 and 15 Oct 1921: J. Smith Ramsay J. T. J. Sinclair Ollason)
+robert-ramsay,Robert Ramsay,1919-11-04,1921-11-01,elected,term_expired,75,Lerwick Town Council Election November 1919,1,Retiring by rotation in 1921 (Shetland Times 8 and 15 Oct 1921: J. Smith Ramsay J. T. J. Sinclair Ollason)
 william-sinclair,William Sinclair,1919-11-04,1920-11-02,holdover,term_expired,,,0,
-alexander-ratter,Alexander Ratter,1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,0,
-george-duffin,George Duffin,1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,0,
-robert-ganson-i,Robert Ganson (i),1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,0,
+alexander-ratter,Alexander Ratter,1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,1,Elected 1920 in a rotation seat (Shetland Times 16 Oct 1920: P. S. Goodlad Ganson Ratter W. Sinclair retiring); retiring by rotation in 1923 (Shetland Times 6 and 13 Oct 1923: Provost Ganson Bailie Ratter A. S. Manson D. Murray)
+george-duffin,George Duffin,1920-11-02,1922-11-07,elected,term_expired,76,Lerwick Town Council Election November 1920,1,Elected 1920 but retiring a year early by rotation in 1922 (Shetland Times 14 Oct 1922: Laing M. L. Manson Morrison Duffin); returned unopposed (Shetland Times 4 Nov 1922); elected 1920 in a rotation seat (Shetland Times 16 Oct 1920: P. S. Goodlad Ganson Ratter W. Sinclair retiring)
+robert-ganson-i,Robert Ganson (i),1920-11-02,1923-11-06,elected,term_expired,76,Lerwick Town Council Election November 1920,1,Elected 1920 in a rotation seat (Shetland Times 16 Oct 1920: P. S. Goodlad Ganson Ratter W. Sinclair retiring); retiring by rotation in 1923 (Shetland Times 6 and 13 Oct 1923: Provost Ganson Bailie Ratter A. S. Manson D. Murray)
 william-sinclair,William Sinclair,1920-11-02,1921-10-01,elected,retired,76,Lerwick Town Council Election November 1920,0,
 james-goodlad,James Goodlad,1921-06-11,1921-11-01,by-election,term_expired,77,Lerwick Town Council By-Election June 1921,0,
-alexander-manson,Alexander Manson,1921-11-01,1922-11-07,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
-david-murray,David Murray,1921-11-01,1923-11-06,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
+alexander-manson,Alexander Manson,1921-11-01,1923-11-06,elected,term_expired,78,Lerwick Town Council Election November 1921,1,One of six elected 1921 (Shetland Times 8 Oct 1921: J. Smith Ramsay J. T. J. Sinclair Ollason by rotation; J. M. Goodlad ad interim; Bailie Sinclair resigned); retiring by rotation in 1923 (Shetland Times 6 and 13 Oct 1923: Provost Ganson Bailie Ratter A. S. Manson D. Murray)
+david-murray,David Murray,1921-11-01,1923-11-06,elected,term_expired,78,Lerwick Town Council Election November 1921,1,One of six elected 1921 (Shetland Times 8 Oct 1921: J. Smith Ramsay J. T. J. Sinclair Ollason by rotation; J. M. Goodlad ad interim; Bailie Sinclair resigned); retiring by rotation in 1923 (Shetland Times 6 and 13 Oct 1923: Provost Ganson Bailie Ratter A. S. Manson D. Murray)
 james-goodlad,James Goodlad,1921-11-01,1924-05-05,elected,replaced,78,Lerwick Town Council Election November 1921,0,
 john-sinclair,John Sinclair,1921-11-01,1924-11-04,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
 robert-ollason,Robert Ollason,1921-11-01,1924-11-04,elected,term_expired,78,Lerwick Town Council Election November 1921,0,
