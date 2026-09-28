@@ -33,6 +33,9 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    - Gulberwick, Mar 1945: "the resignation of Reverend George Smith", 20 March. George Smith
      (ii), not (iii).
    - Gulberwick, May 1951: 15 May. The link was already right.
+6. Robert Hunter (ii)'s intro: "the death of his brother, [[James Hunter (iv)|James]]". The
+   brother who died in 1920 is James Hunter (iii), the Nesting author, whose page names Robert as
+   his successor. James Hunter (iv) is a GP born in 1914. The wiki page has the wrong link.
 """
 
 import os
@@ -66,6 +69,8 @@ WRONG_NAMESAKE = [
 ]
 # Nesting 1920 winner: Robert Hunter (ii) (430), not the Lerwick bank agent Robert Hunter (i) (429)
 HUNTER_1920 = ('Nesting County Council By-Election November 1920', 'Robert Hunter', 429, 430)
+
+HUNTER_BROTHER = (430, '[person:james-hunter-iv:James]', '[person:james-hunter-iii:James]')
 
 REF_OLD = ('larger dogs.&lt;ref&gt;Beryl Thynne, The Shetland Sheepdog, The Illustrated Kennel News, '
            'London, 1916 (first monograph of the breed).&lt;/ref&gt; ')
@@ -137,6 +142,14 @@ def main():
         print(f"candidacy {cid}: Robert Hunter 1920 -> person {right}")
     elif pid != right:
         raise SystemExit(f"candidacy {cid}: unexpected person_id {pid}")
+
+    pid, old, new = HUNTER_BROTHER
+    intro = c.execute("SELECT intro FROM people WHERE id = ?", (pid,)).fetchone()[0]
+    if intro.count(old) == 1:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (intro.replace(old, new), pid))
+        print(f"people#{pid}: brother link -> james-hunter-iii")
+    elif new not in intro:
+        raise SystemExit(f"people#{pid}: brother link not found")
 
     db.commit()
     db.close()
