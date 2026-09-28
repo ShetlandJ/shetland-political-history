@@ -234,6 +234,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    - Northmavine North, September 1903: Haldane appointed on a petition at the adjourned general
      meeting "on Thursday at noon" (ST 19 Sep 1903), 17 Sep.
    Evidence: research/bna/zcc-1900-1919.md.
+
+33. Delting North, December 1904: the losing candidate was James Inkster, the sitting member, not
+   Arthur White. The nominations were "Mr James Inkster, merchant, Brae, and Mr Wm. Pole" (ST 26
+   Nov 1904) and the result "DELTING NORTH, Pole J. Inkster" (ST 10 Dec 1904); White was returned
+   unopposed for Northmavine South. The wiki table has White 13. The votes are left as they are.
+   Evidence: research/bna/zcc-1900-1919.md.
 """
 
 import os
@@ -355,6 +361,8 @@ ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland
     ('Delting South County Council By-Election April 1903', '1903-04-01', '1903-04-16'),
     ('Northmavine North County Council By-Election September 1903', '1903-09-19', '1903-09-17'),
 ]
+DELTING_NORTH_1904 = ('County Council Election December 1904', 'Delting North', 'Arthur White', 'arthur-white',
+                      'James Inkster', 'james-inkster')
 WHITENESS_1890 = ('County Council Election February 1890', 'Whiteness And Weisdale', (126, 52.9), (116, 56.9))
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
@@ -701,6 +709,21 @@ def main():
     print("=== 32. ZCC by-elections 1900-1919 ===")
     for args in ZCC_BY_ELECTIONS_1900S:
         set_date(c, *args)
+
+    print("=== 33. Delting North 1904: the loser was James Inkster ===")
+    title, ward, wrong_name, wrong_slug, right_name, right_slug = DELTING_NORTH_1904
+    right_id = one(c, "SELECT id FROM people WHERE slug = ?", (right_slug,))['id']
+    wrong_id = one(c, "SELECT id FROM people WHERE slug = ?", (wrong_slug,))['id']
+    row = one(c, """SELECT c.id, c.candidate_name, c.person_id FROM candidacies c
+                   JOIN elections e ON e.id = c.election_id JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ? AND c.elected = 0""", (title, ward))
+    if (row['candidate_name'], row['person_id']) == (right_name, right_id):
+        print("  already James Inkster")
+    elif (row['candidate_name'], row['person_id']) == (wrong_name, wrong_id):
+        c.execute("UPDATE candidacies SET candidate_name = ?, person_id = ? WHERE id = ?", (right_name, right_id, row['id']))
+        print(f"  candidacy {row['id']}: {wrong_name} -> {right_name}")
+    else:
+        raise SystemExit(f"candidacy {row['id']}: unexpected {row['candidate_name']!r}/{row['person_id']}")
 
     db.commit()
     db.close()
