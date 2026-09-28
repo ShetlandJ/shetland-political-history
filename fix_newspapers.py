@@ -227,6 +227,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    1890) gives "M. 86, F. 30—Total 116"; the wiki has "126 (86 men, 30 women)", whose own
    breakdown adds up to 116. Turnout 66, so 56.9%, not 52.9%.
    Evidence: research/bna/zcc-1890-1899.md.
+
+32. Zetland County Council by-elections 1900-1919, dated by the rule in #30.
+   - Delting South, April 1903: J. A. Adie appointed at the meeting "on Thursday at noon"
+     (ST 18 Apr 1903), 16 Apr, for W. J. Adie, resigned (ST 21 Feb 1903).
+   - Northmavine North, September 1903: Haldane appointed on a petition at the adjourned general
+     meeting "on Thursday at noon" (ST 19 Sep 1903), 17 Sep.
+   Evidence: research/bna/zcc-1900-1919.md.
 """
 
 import os
@@ -343,6 +350,10 @@ ZCC_BY_ELECTIONS_1890S = [  # (wiki title, baseline date, date from the Shetland
     ('Northmavine North County Council By-Election December 1897', '1897-12-02', '1897-11-03'),
     ('Dunrossness North County Council By-Election August 1898', '1898-08-01', '1898-09-01'),
     ('Delting South County Council By-Election February 1899', '1899-02-04', '1899-01-24'),
+]
+ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland Times)
+    ('Delting South County Council By-Election April 1903', '1903-04-01', '1903-04-16'),
+    ('Northmavine North County Council By-Election September 1903', '1903-09-19', '1903-09-17'),
 ]
 WHITENESS_1890 = ('County Council Election February 1890', 'Whiteness And Weisdale', (126, 52.9), (116, 56.9))
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
@@ -686,6 +697,10 @@ def main():
         print(f"  election {row['id']}: electorate {wrong} -> {right}")
     else:
         raise SystemExit(f"election {row['id']}: unexpected electorate {row['electorate']}/{row['turnout_pct']}")
+
+    print("=== 32. ZCC by-elections 1900-1919 ===")
+    for args in ZCC_BY_ELECTIONS_1900S:
+        set_date(c, *args)
 
     db.commit()
     db.close()

@@ -1264,3 +1264,16 @@ st-19011207-p4-a064,election,290,read,polled Tue 3 Dec 1901
 st-19011207-p4-a071,election,290,read,"winner; Northmavine North majority 35 and Nesting's two-vote margin agree with the DB, other figures lost in the OCR"
 st-19011207-p4-a064,election,294,read,polled Tue 3 Dec 1901
 st-19011207-p4-a071,election,294,read,"winner; Northmavine North majority 35 and Nesting's two-vote margin agree with the DB, other figures lost in the OCR"
+st-19020104-p5-a075,election,302,read,election ordered; day lost in the OCR
+st-19020104-p5-a075,election,303,read,election ordered; day lost in the OCR
+st-19020104-p5-a075,election,304,read,election ordered; day lost in the OCR
+st-19020118-p4-a066,election,302,read,Nicolson the only nomination; no poll
+st-19020118-p4-a066,election,303,read,Sandison the only nomination; no poll
+st-19020118-p4-a066,election,304,read,Williamson the only nomination; no poll
+st-19020208-p8-a155,election,302,read,"reported elected at the meeting of Thu 6 Feb 1902, so the DB's day is too late"
+st-19020208-p8-a155,election,303,read,"reported elected at the meeting of Thu 6 Feb 1902, so the DB's 8 Feb is too late"
+st-19020208-p8-a155,election,304,read,"reported elected at the meeting of Thu 6 Feb 1902, so the DB's 8 Feb is too late"
+st-19020809-p4-a062,election,305,inferred,"Holbourn the new member for Sandness by 2 Aug 1902; the appointment meeting not found, and the wiki's Thu 24 Jul fits the Thursday meetings"
+st-19030221-p4-a053,election,306,read,W. J. Adie resigned
+st-19030418-p5-a072,election,306,read,J. A. Adie appointed Thu 16 Apr 1903
+st-19030919-p5-a112,election,307,read,Haldane appointed Thu 17 Sep 1903

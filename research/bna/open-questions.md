@@ -8,6 +8,14 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-28: Day of the Feb 1902 ZCC by-elections (Unst South, Fetlar, Yell South).** An Order
+  read on Thu 2 Jan fixed a day "instant" (January; the date is lost in the OCR); the three were
+  the only nominations, "no poll" (ST 18 Jan), and were reported elected at the meeting of Thu
+  6 Feb 1902 (ST 8 Feb). The DB has Fetlar 1 Feb and the other two 8 Feb (the wiki says 8 Feb for
+  all three, the paper's date). Options: leave, set all three to 6 Feb (the meeting that
+  recorded it), or check the Order's day in the minute book / Edinburgh Gazette. Elections
+  302–304. Evidence: `zcc-1900-1919.md`.
+
 - **2026-09-28: Aithsting, Dec 1892: a contest the DB shows as unopposed.** Grierson and McCullie
   were both nominated; McCullie "had practically a walk over" (ST 26 Nov, 10 Dec 1892). No
   figures were printed, and the wiki page says "Unopposed". Options: add Grierson as a candidate with no votes, or leave it.
