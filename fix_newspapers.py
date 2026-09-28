@@ -260,6 +260,11 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Sandsting and Northmavine North (ST 23 and 30 Nov 1907). Thomson's 1907 candidacy is removed,
    Smith's votes become "Unopposed", and the copied electorate and turnout are cleared.
    Evidence: research/bna/zcc-1900-1919.md.
+
+35. ZCC polling day, December 1910: Tuesday 6 December, not Saturday 3rd. "Polling ... takes
+   place on Tuesday, [6th] December" (ST 26 Nov 1910); the contested divisions polled "on
+   Tuesday in disagreeable weather" (ST 10 Dec 1910).
+   Evidence: research/bna/zcc-1900-1919.md.
 """
 
 import os
@@ -389,6 +394,7 @@ ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland
 ]
 DELTING_NORTH_1904 = ('County Council Election December 1904', 'Delting North', 'Arthur White', 'arthur-white',
                       'James Inkster', 'james-inkster')
+POLLING_DAY_ZCC_1910 = ('County_Council_Election_December_1910', '1910-12-03', '1910-12-06')
 SANDWICK_1907 = ('County Council Election December 1907', 'Sandwick', (276, 161), ('William Smith', 91), ('James Thomson', 70))
 WHITENESS_1890 = ('County Council Election February 1890', 'Whiteness And Weisdale', (126, 52.9), (116, 56.9))
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
@@ -776,6 +782,9 @@ def main():
         print(f"  candidacy {w['id']} ({winner}): {winner_votes} votes -> Unopposed")
     elif (w['votes'], w['votes_text']) != (None, 'Unopposed'):
         raise SystemExit(f"candidacy {w['id']}: unexpected votes {w['votes']!r}/{w['votes_text']!r}")
+
+    print("=== 35. ZCC polling day Dec 1910 ===")
+    set_date_all(c, *POLLING_DAY_ZCC_1910)
 
     db.commit()
     db.close()

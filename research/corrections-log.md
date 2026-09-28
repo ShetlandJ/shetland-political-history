@@ -14,6 +14,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki | Delting South Apr 1903 dated 1 Apr (wiki "Saturday 18 April"); Northmavine North Sep 1903 dated Sat 19 Sep | Appointed at Council meetings on Thu 16 Apr and Thu 17 Sep 1903 (ST 18 Apr, 19 Sep 1903) | Fixed: `fix_newspapers.py` #32 |
+| 6 | wiki | Dec 1910 ZCC general on Sat 3 Dec | Tue 6 Dec 1910 (ST 26 Nov, 10 Dec 1910) | Fixed: `fix_newspapers.py` #35 |
 | 5 | DB | Burra Aug 1909 dated 27 Jun 1909 (Lennie's death); Tingwall Mar 1909 and Whalsay Jul 1910 the 1st of the month | Thu 12 Aug 1909, Thu 18 Mar 1909, Thu 21 Jul 1910, as the wiki text says (ST 14 Aug 1909, 20 Mar 1909, 30 Jul 1910) | Fixed: `fix_newspapers.py` #32 |
 | 4 | wiki | Sandwick Dec 1907: Smith 91, Thomson 70 (electorate 276, turnout 161) | Smith unopposed; the figures are 1904's, copied (ST 23 and 30 Nov 1907) | Fixed: `fix_newspapers.py` #34. Wiki table still has the copy |
 | 3 | wiki | Walls Feb 1905 "February 21"; Yell North "Saturday 19th March" 1906; Dunrossness South "Thursday 16th August" 1907 | Tue 14 Feb 1905 (the fixed day); Thu 15 Feb 1906; Thu 15 Aug 1907 (ST 21 Jan 1905, 17 Feb 1906, 24 Aug 1907) | Fixed: `fix_newspapers.py` #32 |
