@@ -9,6 +9,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1945–1956 (`research/bna/ltc-1945-1956.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Nov 1946 general on **Mon 4 Nov 1946** | Polled on **Tuesday 5 Nov** ("Tuesday's choice", ST 1 Nov; "the municipal election on Tuesday", ST 8 Nov 1946) | Fixed: `fix_newspapers.py` #23, ledger (10 dates) |
+| 2 | draft | Brownlie's seat ended at Johnson's co-option, reason `replaced` | He **resigned**: ill and on six months' leave earlier in 1949, then transferred south; the letter was read at the same meeting that co-opted Johnson (ST 16 Sep 1949) | Ledger fixed |
+
 ## 2026-09-28: LTC 1894–1910 (`research/bna/ltc-1894-1907.md`)
 
 | # | Where | We had | Sources show | Status |

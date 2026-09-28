@@ -102,14 +102,16 @@ sitting through each size-short window (listed per sub-item).
   - [x] 13 Oct–1 Nov 1901: the 1899 and 1900 cohorts (results 1899, 1900; lists 1902, 1903).
   - [x] 2–28 Feb 1905: the 1902, 1903 and 1904 cohorts (results; lists 1905, 1906, 1907).
   - [x] John Irvine (iii)'s 1907 row: resigned 7 Dec 1909.
-- [ ] **Batch 2: LTC 1945–1956 (3 issues)**.
+- [x] **Batch 2: LTC 1945–1956 (3 issues)**: 12 → 9, all three genuine vacancies, now fully
+  confirmed (11 rows). Nov 1946 general was Tue 5 Nov, not Mon 4th (`fix_newspapers.py` #23);
+  Brownlie resigned (letter read at Johnson's 13 Sep 1949 co-option). `ltc-1945-1956.md`.
   - [x] 29 Nov–10 Dec 1945 (cleared, 12 → 11; died Mon 4 Mar 1946, ST 8 Mar 1946): David Gray (ii) 1945-11-06→1946-03-04 (start: the 9 Nov 1945 result,
     ST p2 art. 047, whose OCR list is garbled; zoom if needed; end: his Mar 1946 departure).
   - [x] **Nov 1946 polling day** (Tue 5 Nov: ST 1 and 8 Nov 1946; `fix_newspapers.py` #23, 10 ledger dates; 0 issues): the DB has Mon 4 Nov 1946; 1945 was the Tuesday, so probably
     Tue 5 Nov. Check the Friday 1 and 8 Nov 1946 papers. Do this before the next sub-item.
   - [x] 3 Jun–1 Jul 1947 (cleared, 11 → 10; resignation read 13 Sep 1949, ST 16 Sep 1949): James Brownlie 1946→1949-09-13 (start: the Nov 1946 result; end: his
     1949 departure before the Sep 1949 co-option).
-  - [ ] 26 Apr–6 May 1955: Johnson, Peterson, Tait, Conochie (1952-05-06→1955-05-03); Burgess,
+  - [x] 26 Apr–6 May 1955 (cleared, 10 → 9; ST 9 May 1952, 8 May 1953, 11 Mar 1955, 16 Mar 1956): Johnson, Peterson, Tait, Conochie (1952-05-06→1955-05-03); Burgess,
     Harry Gray, Eunson, R. Anderson (i) (1953-05-05→1956-05-01). April retiring lists 1955–56.
 - [ ] **Batch 3: LTC 1965–1970 (2 issues)**.
   - [ ] 26 Jun–8 Aug 1967: Harry Gray, James Paton (i) (1965-05-04→1968-05-07); Grace Halcrow
@@ -137,6 +139,9 @@ Daniel's resignation, not in the paper (minute book).
   record a win that wasn't taken up on a ward council (see open-questions).
 
 ## Not for BNA yet
+
+- **T. A. Sinclair's co-option for David Gray, 1946**: the DB has Wed 22 May 1946 (unconfirmed).
+  Check the ST for 24 and 31 May 1946 for the meeting day. No issue depends on it.
 
 - **By-election days from the wiki text**: the parser kept only the month for by-elections, but many wiki pages give the day in their first sentence ("took place on 17 May"). Seven were set in `fix_parse_errors.py` #5; the rest of the ~100 dated the 1st could be done the same way, checking the weekday. No BNA needed.
 - **James Hunter (iii)'s birth date**: DB 1872-02-06, but his wiki page says 6 January 1872. Check which is right.

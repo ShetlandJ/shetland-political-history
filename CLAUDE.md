@@ -274,7 +274,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1945, 1947, 1955, 1961, 1967, 1970 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1884, 1886–87 and 1889, all dated vacancies; 1961, 1967, 1970 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
 
 **1915–1916 settled (2026-09-28)**: three dated wartime vacancies (Stout died 10 Apr 1915, Sinclair elected 27 Apr; Grierson died 3 Jul, C. B. Stout 3 Aug 1915; Laurenson died 14 Jul, Henderson 1 Aug 1916). W. S. Smith resigned 7 Nov 1916, not 5 Dec. The Shetland Times for 24 Apr–12 Jun 1915 isn't digitised; the Shetland News (`BL/0003210`) filled the gap. Evidence: `research/bna/ltc-1915-1916.md`.
 
@@ -303,6 +303,8 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 **1941 settled (2026-09-27)**: Irvine (ii) and Linklater resigned in Aug 1941 and were replaced by co-option on 7 Oct; this removed the wartime 13-member rows. Evidence: `research/bna/ltc-wartime-1941.md`.
 
 **1945–1953 settled (2026-09-27)**: from the retiring lists each year. The lowest winners got short seats, Treasurer Ollason was kept on to 1951 and Provost R. A. Anderson to 1953, the Nov 1948 election was put back to May 1949, and Shearer resigned in June 1947 (Dalziel co-opted). Evidence: `research/bna/ltc-1945-1953.md`.
+
+**1945–1956 vacancies settled (2026-09-28)**: the 1945, 1947 and 1955 short rows are genuine vacancies (Laing, Shearer, Halcrow), now fully confirmed. David Gray (ii) died Mon 4 Mar 1946; the Nov 1946 general was Tue 5 Nov, not Mon 4th (`fix_newspapers.py` #23); Brownlie resigned, his letter read at the 13 Sep 1949 meeting that co-opted Johnson. Evidence: `research/bna/ltc-1945-1956.md`.
 
 **1955–1965 settled (2026-09-27)**: 12 throughout apart from dated vacancies. The 1957 seat the wiki gives Grace Halcrow was Andrew Nicolson's (`fix_newspapers.py` #5). Evidence: `research/bna/ltc-1955-1965.md`.
 
