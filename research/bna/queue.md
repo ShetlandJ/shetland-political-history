@@ -150,7 +150,7 @@ citations, 801 links). Gaps:
   - [x] **1874–1883** (done: 16 citations, 105 links, 38 ledger sources. All agree except the Nov 1881 general, Tue 1 Nov not the 8th (`fix_newspapers.py` #25, 10 ledger dates). The paper was a Monday one until 15 Mar 1875 (`build.py` check updated). Laurenson 1879 and Duncan's 1880 co-option day in open-questions. 0 issues (7). `ltc-1874-1883.md`) (elections 21–32; 37 confirmed rows from the April 2026 research with no
     source): the results and the October retiring lists. Both ends of each row, so a row's end
     is linked from the next retiring list. Check the Shetland Times exists for 1874 first.
-  - [ ] **1884–1935**: elections 34 (co-option, 22 Nov 1884), 39 (1887), 44 (1892), 45 (1893),
+  - [x] **1884–1935** (done: 15 citations, 73 links, 17 rows confirmed. 1893 general Tue 7 Nov not Thu 2nd, Johnson elected 4 Apr 1899 not 2 May, Reid Tait 6 May 1924 not 5th (`fix_newspapers.py` #26–28); Campbell resigned May 1932, not at Morrison's co-option; Duncan's 1884 co-option was before 18 Nov (open question). ST mid-1932 not digitised (Shetland News used). 0 issues (7). `ltc-1884-1935-citations.md`): elections 34 (co-option, 22 Nov 1884), 39 (1887), 44 (1892), 45 (1893),
     51 (by-election May 1899), 58 (by-election Feb 1905), 81 (by-election May 1924), 83 (1925),
     84 (1926), 87 (1929), 90 (by-election Jun 1932).
   - [ ] **1946–1950**: elections 112 (T. A. Sinclair's co-option for David Gray, May 1946: the

@@ -185,6 +185,18 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    November next" (Shetland Times, 22 Oct 1881), and the paper says "Tuesday first is the day
    fixed by the Acts" (Shetland Times, 29 Oct 1881). It was uncontested. Evidence:
    research/bna/ltc-1874-1883.md.
+
+26. Lerwick Town Council general of November 1893 was on Tuesday 7 November, not Thursday the 2nd
+   (the nomination day). With nominations equal to the vacancies, "on Tuesday next, the day of
+   election, those nominated ... will be declared duly elected" (Shetland Times, 4 Nov 1893).
+
+27. Sinclair Johnson was elected in place of the late A. J. Garriock when the monthly meeting of
+   Tuesday 4 April 1899 "sat in committee" (Shetland Times, 8 Apr 1899), not on 2 May: that was
+   the meeting at which he took his seat (Shetland Times, 6 May 1899).
+
+28. E. S. Reid Tait was co-opted for James Goodlad at the monthly meeting "on Tuesday evening"
+   (Shetland Times, 10 May 1924), i.e. 6 May 1924, not Monday the 5th.
+   Evidence for 26-28: research/bna/ltc-1884-1935-citations.md.
 """
 
 import os
@@ -281,6 +293,9 @@ CO_OPTION_1910 = ('Lerwick Town Council By-Election January 1910', '1910-01-01',
 POLLING_DAY_1946 = ('Lerwick Town Council Election November 1946', '1946-11-04', '1946-11-05')
 CO_OPTION_1967 = ('Lerwick Town Council By-Election May 1967', '1967-05-12', '1967-05-05')
 POLLING_DAY_1881 = ('Lerwick Town Council Election November 1881', '1881-11-08', '1881-11-01')
+POLLING_DAY_1893 = ('Lerwick Town Council Election November 1893', '1893-11-02', '1893-11-07')
+CO_OPTION_1899 = ('Lerwick Town Council By-Election May 1899', '1899-05-02', '1899-04-04')
+CO_OPTION_1924 = ('Lerwick Town Council By-Election May 1924', '1924-05-05', '1924-05-06')
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
@@ -599,6 +614,11 @@ def main():
 
     print("=== 25. LTC polling day Nov 1881 ===")
     set_date(c, *POLLING_DAY_1881)
+
+    print("=== 26-28. LTC polling day Nov 1893, co-options Apr 1899 and May 1924 ===")
+    set_date(c, *POLLING_DAY_1893)
+    set_date(c, *CO_OPTION_1899)
+    set_date(c, *CO_OPTION_1924)
 
     db.commit()
     db.close()

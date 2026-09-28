@@ -79,6 +79,21 @@ Format: date raised, the question, the options, the evidence file, the row it af
   Dec). The DB's Thu 25 Nov 1880 is unchecked. Options: keep, or check the minute book.
   Election 29; row `william-duncan-i` 1880-11-25. Evidence: `ltc-1874-1883.md`.
 
+- **2026-09-28: Day of William Duncan (i)'s co-option for Bailie Hay, Nov 1884.** Election 34
+  and his ledger row have 22 Nov, the paper's date. ST 15 Nov 1884 reports his election at a
+  meeting after the annual meeting of Mon 10 Nov (C. G. Duncan, who died that night, died
+  "since last meeting"), and he sat at the adjourned meeting of Tue 18 Nov (ST 22 Nov). The
+  meeting's own day isn't in the OCR. Options: Fri 14 Nov (the council met on Friday evenings
+  in the 1880s), check the minute book, or zoom on the ST 15 Nov p3 heading. It also shortens the
+  4–22 Nov 1884 size-short row. Row `william-duncan-i` 1884-11-22. Evidence:
+  `ltc-1884-1935-citations.md`.
+
+- **2026-09-28: Day of Bailie John Campbell's resignation, May 1932.** His letter was read at the
+  monthly meeting reported in the Shetland News of Thu 5 May 1932; the day is lost in the OCR
+  and the Shetland Times isn't digitised for May–June 1932. The ledger now ends his 1931 row on
+  Tue 3 May 1932 (the first Tuesday), unconfirmed. Options: accept 3 May and confirm, or zoom
+  on the SN page. Evidence: `ltc-1884-1935-citations.md`.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)

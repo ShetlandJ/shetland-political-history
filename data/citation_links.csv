@@ -55,9 +55,9 @@ st-18951019-p2-a069,term,francis-halcrow@1892-11-01,,
 st-18951019-p2-a069,term,george-kay@1892-11-01,,
 st-18951019-p2-a069,term,gilbert-harrison@1892-11-01,,
 st-18951019-p2-a069,term,robert-hunter-i@1892-11-01,,
-st-18961024-p2-a029,term,arthur-porteous@1893-11-02,,
-st-18961024-p2-a029,term,john-robertson-ii@1893-11-02,,
-st-18961024-p2-a029,term,peter-goodlad@1893-11-02,,
+st-18961024-p2-a029,term,arthur-porteous@1893-11-07,,
+st-18961024-p2-a029,term,john-robertson-ii@1893-11-07,,
+st-18961024-p2-a029,term,peter-goodlad@1893-11-07,,
 st-18941110-p2-a040,term,archibald-garriock@1894-11-06,,
 st-18941110-p2-a030,term,archibald-garriock@1894-11-06,,
 st-18971016-p4-a091,term,archibald-garriock@1894-11-06,,
@@ -942,3 +942,76 @@ st-18831103-p2-a083,term,john-leisk@1883-11-06,read,nominated
 st-18831110-p2-a094,term,john-leisk@1883-11-06,read,declared acceptance
 st-18831103-p2-a083,term,laurence-stove@1883-11-06,read,nominated
 st-18831110-p2-a094,term,laurence-stove@1883-11-06,read,declared acceptance
+st-18841115-p3-a042,election,34,read,Duncan elected for Bailie Hay; meeting between 11 and 14 Nov 1884 (day not found)
+st-18841115-p3-a042,term,william-duncan-i@1884-11-22,read,elected for Hay; the ledger start date is too late
+st-18841122-p3-a041,election,34,read,Duncan already sitting on Tue 18 Nov 1884
+st-18871029-p2-a048,election,39,read,five retiring re-nominated unopposed
+st-18871029-p2-a048,term,john-robertson-i@1884-11-04,read,retiring in 1887
+st-18871029-p2-a048,term,john-robertson-ii@1884-11-04,read,retiring in 1887
+st-18871029-p2-a048,term,charles-robertson@1886-11-19,read,retiring in 1887
+st-18871029-p2-a048,term,john-anderson@1886-11-19,read,retiring in 1887
+st-18871029-p2-a048,term,arthur-porteous@1887-03-18,read,retiring in 1887
+st-18871029-p2-a048,term,arthur-porteous@1887-11-01,read,re-nominated unopposed
+st-18901025-p2-a066,term,arthur-porteous@1887-11-01,read,retiring in 1890
+st-18871029-p2-a048,term,charles-robertson@1887-11-01,read,re-nominated unopposed
+st-18901025-p2-a066,term,charles-robertson@1887-11-01,read,retiring in 1890
+st-18871029-p2-a048,term,john-anderson@1887-11-01,read,re-nominated unopposed
+st-18871029-p2-a048,term,john-robertson-i@1887-11-01,read,re-nominated unopposed
+st-18901025-p2-a066,term,john-robertson-i@1887-11-01,read,retiring in 1890
+st-18871029-p2-a048,term,john-robertson-ii@1887-11-01,read,re-nominated unopposed
+st-18901025-p2-a066,term,john-robertson-ii@1887-11-01,read,retiring in 1890
+st-18881103-p2-a044,term,john-anderson@1887-11-01,read,re-nominated in 1888 so retiring
+st-18921029-p2-a033,election,44,read,the four retiring re-nominated; no poll
+st-18921029-p2-a033,term,francis-halcrow@1889-11-05,inferred,the retiring four (not named here)
+st-18921029-p2-a033,term,francis-halcrow@1892-11-01,inferred,re-nominated (names from the election)
+st-18921029-p2-a033,term,george-kay@1889-11-05,inferred,the retiring four (not named here)
+st-18921029-p2-a033,term,george-kay@1892-11-01,inferred,re-nominated (names from the election)
+st-18921029-p2-a033,term,gilbert-harrison@1889-11-05,inferred,the retiring four (not named here)
+st-18921029-p2-a033,term,gilbert-harrison@1892-11-01,inferred,re-nominated (names from the election)
+st-18921029-p2-a033,term,robert-hunter-i@1889-11-05,inferred,the retiring four (not named here)
+st-18921029-p2-a033,term,robert-hunter-i@1892-11-01,inferred,re-nominated (names from the election)
+st-18931021-p2-a027,election,45,read,retiring list
+st-18931104-p2-a058,election,45,read,polling day Tue 7 Nov 1893 (the DB had Thu 2 Nov)
+st-18931021-p2-a027,term,arthur-porteous@1890-11-04,read,retiring in 1893
+st-18931021-p2-a027,term,charles-laurenson@1890-11-04,read,retiring in 1893
+st-18931021-p2-a027,term,charles-robertson@1890-11-04,read,retiring in 1893
+st-18931021-p2-a027,term,john-robertson-ii@1890-11-04,read,retiring in 1893
+st-18931104-p2-a058,term,arthur-porteous@1893-11-07,read,nominated and declared elected
+st-18931104-p2-a058,term,charles-robertson@1893-11-07,read,nominated and declared elected
+st-18931104-p2-a058,term,john-robertson-ii@1893-11-07,read,nominated and declared elected
+st-18931104-p2-a058,term,peter-goodlad@1893-11-07,read,nominated and declared elected
+st-18990408-p4-a055,election,51,read,Johnson elected Tue 4 Apr 1899 (the DB had 2 May)
+st-18990506-p8-a140,election,51,read,took his seat 2 May
+st-18990408-p4-a055,term,sinclair-johnson@1899-04-04,read,elected for Garriock
+st-18990506-p8-a140,term,sinclair-johnson@1899-04-04,read,took his seat
+st-18991028-p4-a101,term,sinclair-johnson@1899-04-04,read,retiring in Nov 1899
+st-19050304-p4-a051,election,58,read,special meeting Tue 28 Feb 1905
+st-19050304-p4-a051,term,laurence-laurenson-ii@1905-02-28,read,appointed
+st-19051014-p4-a047,term,laurence-laurenson-ii@1905-02-28,read,retiring in Nov 1905
+st-19240510-p5-a133,election,81,read,co-option Tue 6 May 1924 (the DB had Mon 5th)
+st-19240510-p5-a133,term,edwyn-tait@1924-05-06,read,co-opted
+st-19240510-p5-a133,term,james-goodlad@1921-11-01,read,resigned before 6 May 1924
+st-19241101-p4-a091,term,edwyn-tait@1924-05-06,read,nominated in Nov 1924
+st-19251107-p4-a080,election,83,read,result: Campbell 763 and Morrison 518 match; roll 2099 poll 1305 match
+st-19251107-p4-a080,term,george-duffin@1925-11-03,read,elected
+st-19251107-p4-a080,term,john-campbell-i@1925-11-03,read,elected
+st-19251107-p4-a080,term,laurence-cogle@1925-11-03,read,elected
+st-19251107-p4-a080,term,magnus-manson@1925-11-03,read,elected
+st-19261106-p4-a073,election,84,read,order of the poll and total poll 1196 match; figures not in the OCR
+st-19261106-p4-a073,term,alexander-ratter@1926-11-02,read,elected
+st-19261106-p4-a073,term,james-irvine-i@1926-11-02,read,elected
+st-19261106-p4-a073,term,laurence-sandison@1926-11-02,read,elected
+st-19261106-p4-a073,term,robert-ganson-i@1926-11-02,read,elected
+st-19291109-p4-a130,election,87,read,result: Sinclair 780 Sandison 756 Manson 514 match; Ganson figure garbled
+st-19291109-p4-a130,term,alexander-ratter@1926-11-02,read,retiring member defeated in 1929
+st-19291109-p4-a130,term,james-irvine-i@1926-11-02,read,retiring member defeated in 1929
+st-19291109-p4-a130,term,laurence-sandison@1926-11-02,inferred,sat in the last council and re-elected in 1929
+st-19291109-p4-a130,term,robert-ganson-i@1926-11-02,inferred,sat in the last council and re-elected in 1929
+st-19291109-p4-a130,term,alexander-manson@1929-11-05,read,elected
+st-19291109-p4-a130,term,laurence-sandison@1929-11-05,read,elected
+st-19291109-p4-a130,term,robert-ganson-i@1929-11-05,read,elected
+st-19291109-p4-a130,term,william-sinclair@1929-11-05,read,elected
+sn-19320505-p5-a049,election,90,read,Campbell resigned (May 1932)
+sn-19320609-p4-a030,election,90,read,Morrison co-opted for Campbell by 9 Jun 1932
+sn-19320505-p5-a049,term,john-campbell-i@1931-11-03,read,resignation letter read at the May monthly meeting
+sn-19320609-p4-a030,term,james-morrison@1932-06-07,read,co-opted in place of Campbell; day not stated

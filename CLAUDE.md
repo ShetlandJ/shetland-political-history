@@ -237,7 +237,7 @@ Answer the question "who were the councillors on date X?" — now answered by `/
 | Election | Fix | Source |
 |---|---|---|
 | Nov 1884 general (id=33) | Date: 1884-11-04 | Newspaper 8 Nov 1884 |
-| Nov 1884 by-election (id=34) | Date: 1884-11-22 (council co-option) | Newspaper 22 Nov 1884 |
+| Nov 1884 by-election (id=34) | Date: 1884-11-22 (council co-option). Too late: he was elected between 11 and 14 Nov and sat on 18 Nov (ST 15 and 22 Nov 1884); day in open-questions | Newspaper 22 Nov 1884 |
 | Nov 1884 general | Arthur Hay stays elected=1 (topped the poll) with a declined-office note; he's in `data/not_seated.csv`, so he gets no term | His letter, 8 Nov 1884; fix_newspapers.py |
 | Nov 1886 by-election (id=36) | replaced_person: William Duncan, also: John Harrison | Newspaper 23 Oct 1886 |
 | 1876-1885 LTC | 4 "William Duncan" candidacies relinked from Duncan (ii) to Duncan (i) | Duncan (i) profile + Duncan (ii) was Scalloway merchant |

@@ -9,6 +9,16 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC citations 1884–1935 (`research/bna/ltc-1884-1935-citations.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Nov 1893 general on **Thu 2 Nov** | **Tue 7 Nov 1893** ("on Tuesday next, the day of election", ST 4 Nov 1893); the 2nd was nomination day | Fixed: `fix_newspapers.py` #26, ledger |
+| 2 | wiki | Sinclair Johnson elected for Garriock on **2 May 1899** | Elected **Tue 4 Apr 1899** (ST 8 Apr 1899); 2 May was when he took his seat | Fixed: #27, ledger |
+| 3 | wiki | Reid Tait co-opted for Goodlad on **Mon 5 May 1924** | **Tue 6 May 1924**, the monthly meeting (ST 10 May 1924) | Fixed: #28, ledger |
+| 4 | notes, wiki | Duncan co-opted for Hay on **22 Nov 1884** (CLAUDE.md "Confirmed DB corrections") | 22 Nov is the paper's date. He was elected at a meeting between Tue 11 and Fri 14 Nov (ST 15 Nov) and sat on 18 Nov (ST 22 Nov) | Not changed: day in open-questions |
+| 5 | draft | Bailie John Campbell sat until Morrison's co-option, **7 Jun 1932** | His resignation letter was read at the **May 1932** monthly meeting (Shetland News 5 May 1932) | Ledger end moved to 3 May 1932 (unconfirmed) |
+
 ## 2026-09-28: LTC 1874–1883 (`research/bna/ltc-1874-1883.md`)
 
 | # | Where | We had | Sources show | Status |
