@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1895–1901 (`research/bna/ltc-1895-1901.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | draft | Alfred Stove took the short seat (Charles Robertson's) in Nov 1895; Hunter sat 1895–98 | **Hunter** had the short seat and retired in 1896; Stove sat to 1898 (ST 24 Oct 1896, 29 Oct 1898) | Ledger fixed |
+| 2 | draft | Leisk retired in 1897 with his 1894 cohort; Halcrow sat 1895–98 | **Halcrow** retired a year early in 1897; Provost Leisk stayed on to 1898 (ST 16 Oct 1897, 29 Oct 1898) | Ledger fixed |
+| 3 | draft | Kay sat 1898–1901; Sinclair Johnson's 1899 seat ended in 1900 | Only three were due out in 1900, so **Kay volunteered to retire**; Johnson retired in 1901 (ST 13 Oct 1900, 5 Oct 1901) | Ledger fixed |
+
 ## 2026-09-27: LTC wartime resignations 1941 (`research/bna/ltc-wartime-1941.md`)
 
 | # | Where | We had | Sources show | Status |
