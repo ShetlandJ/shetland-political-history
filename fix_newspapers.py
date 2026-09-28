@@ -111,6 +111,14 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    "The petition for the election of Lt. Col. Shearer to the vacancy was signed by 207 persons", and
    his appointment was moved "following acceptance of Mr Jamieson's resignation". He is also in that
    meeting's attendance list, as is a "James Jamieson". Evidence: research/bna/ltc-1947-shearer-dalziel.md.
+
+15. The "Yell South County Council By-Election August 1950" (John Williamson (iv)) records George
+   Ross as the member replaced. Ross sat for Tingwall: his resignation was accepted at the County
+   Council meeting of Tuesday 20 June 1950 (Shetland Times, 23 Jun 1950), and G. K. Spence, "already a
+   member of the County Council representing South Yell", was petitioned for Tingwall. "Mr Spence
+   recently resigned his Yell seat to contest Tingwall" (Shetland Times, 21 Jul 1950), and both polls
+   were on Tuesday 1 August (Shetland Times, 28 Jul and 4 Aug 1950). So the Yell South seat was
+   Spence's. The wiki text says the same. Evidence: research/bna/zcc-by-elections.md.
 """
 
 import os
@@ -182,6 +190,7 @@ ZCC_POLLING_DAYS = [  # (wiki title, baseline date, Tuesday from the Shetland Ti
 ]
 POLLING_DAY_1968 = ('Lerwick Town Council Election May 1968', '1968-05-02', '1968-05-07')
 SHEARER_ZCC_1947 = ('Whalsay And Skerries County Council By-Election May 1947', '1947-05-01', '1947-05-20')
+YELL_SOUTH_1950 = ('Yell South County Council By-Election August 1950', ('George Ross', 164), ('George Spence', 169))
 ADAIR_BY_ELECTION = 'Lerwick Town Council By-Election May 1970'
 ADAIR_NOTE = (
     "Co-option at the statutory meeting of the Town Council on 8 May 1970, to fill the vacancy left when "
@@ -445,6 +454,17 @@ def main():
 
     print("=== 14. ZCC appointment of Magnus Shearer, May 1947 ===")
     set_date(c, *SHEARER_ZCC_1947)
+
+    print("=== 15. Yell South by-election Aug 1950: the seat was George Spence's ===")
+    title, wrong, right = YELL_SOUTH_1950
+    row = one(c, "SELECT id, replaced_person, replaced_person_id FROM elections WHERE wiki_page_title = ?", (title,))
+    if (row['replaced_person'], row['replaced_person_id']) == right:
+        print("  already George Spence")
+    elif (row['replaced_person'], row['replaced_person_id']) == wrong:
+        c.execute("UPDATE elections SET replaced_person = ?, replaced_person_id = ? WHERE id = ?", (*right, row['id']))
+        print(f"  election {row['id']}: replaced George Ross -> George Spence")
+    else:
+        raise SystemExit(f"{title}: unexpected replaced member {row['replaced_person']!r}/{row['replaced_person_id']}")
 
     db.commit()
     db.close()

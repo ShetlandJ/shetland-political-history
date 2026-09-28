@@ -232,7 +232,11 @@ def derive_ward_terms(db, T, slug):
         for t in open_terms:
             if pid is not None and t['person_id'] == pid:
                 return t
+        # By name only for unlinked terms when the replaced member is linked: otherwise a linked
+        # member who has already died (Thomas Anderson (iii), 1920) matches a namesake in another ward.
         for t in open_terms:
+            if pid is not None and t['person_id'] is not None:
+                continue
             if name and (t['person_name'] == name or strip_suffix(t['person_name']) == strip_suffix(name)):
                 return t
         return None

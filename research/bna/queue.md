@@ -34,8 +34,15 @@ which. See the timing rules in the skill.
 
 - [x] **Date of Shearer's ZCC appointment, May 1947**: Tue 20 May 1947, appointed on petition at that meeting (ST 23 May 1947). The attendance list is just those present. Election 692 moved (`fix_newspapers.py` #14). 0 issues (41). `ltc-1947-shearer-dalziel.md`.
 
+## ZCC
+
+- [x] **ZCC by-elections (who was replaced)**: Cleared 7 issues (42 → 35). Mostly namesake mislinks, not research: `build.py` matched a dead member's by-election to a namesake in another ward by name (fixed), and five replaced members plus the 1920 Nesting winner were linked to people from other eras (`fix_parse_errors.py` #5). Yell South 1950 was Spence's seat, not Ross's (ST 23 Jun, 21 Jul 1950; `fix_newspapers.py` #15). 1898 Dunrossness North date in open-questions. `zcc-by-elections.md`.
+
 ## Not for BNA yet
+
+- **By-election days from the wiki text**: the parser kept only the month for by-elections, but many wiki pages give the day in their first sentence ("took place on 17 May"). Seven were set in `fix_parse_errors.py` #5; the rest of the ~100 dated the 1st could be done the same way, checking the weekday. No BNA needed.
+- **LTC By-Election March 1887** has `replaced_person_id` pointing at James Hunter (iv), the GP born 1914; it should be James Hunter (ii). It doesn't affect LTC terms (they come from the ledger), but the election page shows the wrong link.
+- **James Hunter (iii)'s birth date**: DB 1872-02-06, but his wiki page says 6 January 1872. Check which is right.
 
 - **LTC size-short rows (25)**: mostly the gap between a death or resignation and the co-option, so probably genuine vacancies. Re-check after the overlaps are cleared, since the counts will shift.
 - **ZCC overlaps on the same day** (Peterson (i) and Sinclair 1919, Leslie (ii) 1922): someone starting two terms at the same general looks like a data problem (two wards, or a duplicate row). Check the wiki first.
-- **ZCC by-elections** (1898 Henderson, 1920 Hunter, 1921 Anderson (ii), 1950 Ross and the Spence overlap / Yell South over-full, 1951 J. Williamson (iv)): each needs its own "who was replaced" search. Do them after the LTC items.

@@ -273,7 +273,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: only the three same-day overlaps (Peterson (i) and Sinclair 1919, Leslie (ii) 1922) are left; the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
 
@@ -304,6 +304,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - **Election ids are stable now** (frozen baseline), so `data/` files can safely refer to `election_id`. The ledger stores both `election_id` and `election` (wiki title), and `build.py` fails if they disagree.
 - **`replaced_person` placeholders:** `[unfilled seat]` (the seat was empty at the general for lack of nominations, and the by-election filled it) and `[voided election re-run]` are markers, not people. Use the same convention for new cases (e.g. North Isles Aug 2022).
 - **Ward seat counts** = winners at the last general + seats filled since via `[unfilled seat]` by-elections. Multi-member SIC wards (2007+) need `replaced_person` on every by-election, or the ward shows over-full.
+- **`replaced_person_id` can point at a namesake from another era** (the parser matched names across centuries: a 1914-born GP for a councillor who died in 1920). `build.py` only matches by name for unlinked terms, so a wrong link shows up as "replaced member ... is not sitting" on /data-review. Fix the link in `fix_parse_errors.py`, not the check.
 - **Office elections are not seats.** A sitting councillor elected Bailie at a by-election (Joseph Leask, May 1844) takes no new term. Detected by `candidacies.role` not being NULL or `councillor`.
 - **Party is per candidacy** (the label they won under). A mid-term change of party can't be represented yet; if one turns up, it needs a column on `council_terms`.
 - **Party aliases are for spelling and markup only.** Don't merge genuinely different labels (Labour vs Independent Labour vs Socialist, Liberal Democrats vs Scottish Liberal Democrats): they're historical record.
@@ -328,7 +329,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - Whenever research contradicts the wiki, the notes or a confirmed ledger row, add an entry to `research/corrections-log.md` (what we had, what the sources show, whether the site text is fixed). James uses it to update his own understanding. Flag it in the reply too.
 
 ## Known Issues / TODO
-- [ ] Work through the 70 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
+- [ ] Work through the 35 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
 - [ ] SIC by-elections Sep 1993 (Jonathan Wills, Whiteness Weisdale & Tingwall) and Mar 2002 (Joseph G. Simpson, Whalsay & Skerries): wards now set from the titles, and the replaced member is inferred as the sitting member. Confirm who it was.
 - [ ] Make constituency slugs unique across councils (see Learnings); needs redirects for any existing URLs that change
 - [ ] Set the Cloudflare Pages build command (see Deployment) and switch off GitHub Pages
