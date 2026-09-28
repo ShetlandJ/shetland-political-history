@@ -9,6 +9,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1934–1938 (`research/bna/ltc-1934-1938.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | draft | **Cogle** sat until Sinclair's co-option on 7 Jul 1936 | He **resigned at the meeting of Tue 5 May 1936** over the water question and refused to reconsider (ST 9 May 1936); the seat was empty two months | Ledger fixed. Wiki intro ("until 1936") is fine |
+| 2 | notes | **Johnston** resigned at some point between Nov 1933 and Nov 1934 | Resignation (ill-health) read at the meeting of **Tue 9 Oct 1934** (ST 13 Oct 1934); the Clerk also listed him as due to retire in Nov 1934, so his 1932 seat was two-year, like Sandison's | Ledger fixed |
+
 ## 2026-09-28: LTC 1886, Duncan and Harrison (`research/bna/ltc-1886-duncan-harrison.md`)
 
 | # | Where | We had | Sources show | Status |
