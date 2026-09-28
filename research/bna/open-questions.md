@@ -67,6 +67,18 @@ Format: date raised, the question, the options, the evidence file, the row it af
   minute book for the meeting that accepted it. Row: `james-pottinger-iii` 1919-11-04.
   Evidence: `ltc-1919-1921.md`.
 
+- **2026-09-28: Arthur Laurenson in 1879: declined office, or never a candidate?** ST 1 Nov 1879
+  says he "would not allow himself to be re-nominated", so he wasn't nominated at all. The DB
+  has him as an 1879 candidate (not elected), and `not_seated.csv` and CLAUDE.md call it
+  "declined office". Options: hide or delete his 1879 candidacy (`fix_parse_errors.py`) and drop
+  the `not_seated.csv` row; or keep both and only reword the reason. Election 27.
+  Evidence: `ltc-1874-1883.md`.
+
+- **2026-09-28: Day of William Duncan (i)'s co-option, Nov 1880.** ST 11 Dec 1880 says he was
+  elected "at last meeting" for Goudie, resigned; the meeting isn't reported (searched 6 Nov–11
+  Dec). The DB's Thu 25 Nov 1880 is unchecked. Options: keep, or check the minute book.
+  Election 29; row `william-duncan-i` 1880-11-25. Evidence: `ltc-1874-1883.md`.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)

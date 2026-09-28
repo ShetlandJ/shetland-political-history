@@ -147,7 +147,7 @@ citations, 801 links). Gaps:
     `james-laing@1930-11-04`, `john-sinclair@1930-11-04`, `robert-ollason@1930-11-04`,
     `adam-halcrow-i@1933-11-07`, `charles-manson@1933-11-07`, `robert-ollason@1933-11-07`, and
     to elections 91 (Nov 1932) and 92 (Nov 1933).
-  - [ ] **1874–1883** (elections 21–32; 37 confirmed rows from the April 2026 research with no
+  - [x] **1874–1883** (done: 16 citations, 105 links, 38 ledger sources. All agree except the Nov 1881 general, Tue 1 Nov not the 8th (`fix_newspapers.py` #25, 10 ledger dates). The paper was a Monday one until 15 Mar 1875 (`build.py` check updated). Laurenson 1879 and Duncan's 1880 co-option day in open-questions. 0 issues (7). `ltc-1874-1883.md`) (elections 21–32; 37 confirmed rows from the April 2026 research with no
     source): the results and the October retiring lists. Both ends of each row, so a row's end
     is linked from the next retiring list. Check the Shetland Times exists for 1874 first.
   - [ ] **1884–1935**: elections 34 (co-option, 22 Nov 1884), 39 (1887), 44 (1892), 45 (1893),
@@ -163,8 +163,8 @@ citations, 801 links). Gaps:
   and pre-1872 (minute book).
 - [ ] **244 confirmed rows with no recorded source**: the April 2026 rows ("per-row source not
   recorded"), all starting 1818–1883 (most before 1872, when the Shetland Times began).
-  Mostly minute-book work: record the page for each as an `mb-pN` citation. The 13 from the
-  1880s could come from the Shetland Times retiring lists.
+  Mostly minute-book work: record the page for each as an `mb-pN` citation. The 1876–1883
+  rows now have Shetland Times sources (`ltc-1874-1883.md`).
 - **Basis not reviewed**: the 801 backfilled links have `basis` empty. Set `read` or `inferred`
   as each is next used; no separate run needed.
 

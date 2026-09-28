@@ -179,6 +179,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    on 27 April (Shetland Times, 14 Apr 1967). Ex-Provost Robert A. Anderson (i) died at home "on
    Sunday morning" (Shetland Times, 30 Jun 1967), "on 25th June, 1967" in the death notice
    (Shetland Times, 7 Jul 1967), not the 26th. Evidence: research/bna/ltc-1965-1970.md.
+
+25. Lerwick Town Council general of November 1881 was on Tuesday 1 November, not the 8th. The
+   Town Clerk's notice fixes the election of five councillors for "Tuesday the first day of
+   November next" (Shetland Times, 22 Oct 1881), and the paper says "Tuesday first is the day
+   fixed by the Acts" (Shetland Times, 29 Oct 1881). It was uncontested. Evidence:
+   research/bna/ltc-1874-1883.md.
 """
 
 import os
@@ -274,6 +280,7 @@ POLLING_DAY_1901 = ('Lerwick Town Council Election November 1901', '1901-11-01',
 CO_OPTION_1910 = ('Lerwick Town Council By-Election January 1910', '1910-01-01', '1910-01-04')
 POLLING_DAY_1946 = ('Lerwick Town Council Election November 1946', '1946-11-04', '1946-11-05')
 CO_OPTION_1967 = ('Lerwick Town Council By-Election May 1967', '1967-05-12', '1967-05-05')
+POLLING_DAY_1881 = ('Lerwick Town Council Election November 1881', '1881-11-08', '1881-11-01')
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
@@ -589,6 +596,9 @@ def main():
         print(f"  {slug} died_date: {wrong} -> {right}")
     else:
         raise SystemExit(f"people.{slug} died_date is {row['died_date']}, expected {wrong}")
+
+    print("=== 25. LTC polling day Nov 1881 ===")
+    set_date(c, *POLLING_DAY_1881)
 
     db.commit()
     db.close()

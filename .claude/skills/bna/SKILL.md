@@ -96,7 +96,7 @@ https://www.britishnewspaperarchive.com/search-newspapers/results?keywords=<kw>&
 
 `o=date&d=asc` gives oldest first. The Shetland Times has gaps (nothing 24 Apr–12 Jun 1915). If a
 week returns 0 results, try `newspaper=shetland%20news` (viewer code `0003210` instead of `0000666`). For a single issue, set startdate = enddate = the publication
-day (Saturday to at least Feb 1943; **Friday by Oct 1944**).
+day (**Monday to 15 Mar 1875**, Saturday from 20 Mar 1875 to at least Feb 1943; **Friday by Oct 1944**).
 
 Keywords are ANDed, and a long phrase often returns nothing ("town council election tuesday"
 found 0 in a week that had the answer). Use one or two words and filter the snippets in JS

@@ -12,11 +12,11 @@ mb-p258,term,robert-stout-i@1874-09-03,,
 mb-p258,term,william-duncan-i@1874-09-03,,
 mb-p258,term,william-robertson@1874-09-03,,
 mb-p258,term,william-sievwright-ii@1874-09-03,,
-st-18841101,term,arthur-hay@1881-11-08,,
-st-18841101,term,james-tulloch@1881-11-08,,
-st-18841101,term,john-robertson-i@1881-11-08,,
-st-18841101,term,john-robertson-ii@1881-11-08,,
-st-18841101,term,william-duncan-i@1881-11-08,,
+st-18841101,term,arthur-hay@1881-11-01,,
+st-18841101,term,james-tulloch@1881-11-01,,
+st-18841101,term,john-robertson-i@1881-11-01,,
+st-18841101,term,john-robertson-ii@1881-11-01,,
+st-18841101,term,william-duncan-i@1881-11-01,,
 st-18851121-p3-a049,term,laurence-stove@1883-11-06,,
 st-18861023-p2-a044,term,laurence-stove@1883-11-06,,
 st-18861016-p2-a048,term,john-harrison-i@1884-11-04,,
@@ -837,3 +837,108 @@ st-19361031-p4-a074,term,adam-halcrow-i@1936-11-03,read,returned unopposed
 st-19361031-p4-a074,term,thomas-irvine-ii@1936-11-03,read,returned unopposed
 st-19361031-p4-a074,term,magnus-shearer-i@1936-11-03,read,returned unopposed (new candidate)
 st-19361031-p4-a074,term,thomas-sinclair@1936-11-03,read,returned unopposed
+st-18740907-p3-a032,election,21,read,the first group's Bailies declared 3 Sep 1874
+st-18761028-p3-a045,election,23,read,polling day and twelve seats under the 1876 Act
+st-18761028-p3-a045,term,alfred-stove@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,andrew-jamieson@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,christopher-sandison@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,george-tait@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,john-leisk@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,laurence-stove@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,robert-stout-i@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,william-duncan-i@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,william-robertson@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761028-p3-a045,term,william-sievwright-ii@1874-09-03,inferred,the whole council elected afresh under the 1876 Act
+st-18761111-p2-a050,election,23,read,result and votes (match the DB); electorate 252 turnout 187
+st-18761111-p2-a050,term,andrew-jamieson@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,arthur-hay@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,arthur-laurenson@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,george-hay@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,james-hunter-ii@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,john-leisk@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,john-robertson-i@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,laurence-stove@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,robert-sinclair@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,thomas-cameron@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,william-robertson@1876-11-07,read,elected 7 Nov 1876
+st-18761111-p2-a050,term,william-sievwright-ii@1876-11-07,read,elected 7 Nov 1876
+st-18771027-p2-a024,election,24,read,polling day Tue 6 Nov 1877
+st-18771103-p2-a044,election,24,read,unopposed
+st-18771103-p2-a044,term,andrew-jamieson@1876-11-07,read,retiring in 1877
+st-18771103-p2-a044,term,andrew-jamieson@1877-11-06,read,re-nominated unopposed
+st-18771103-p2-a044,term,john-leisk@1876-11-07,read,retiring in 1877
+st-18771103-p2-a044,term,john-leisk@1877-11-06,read,re-nominated unopposed
+st-18771103-p2-a044,term,laurence-stove@1876-11-07,read,retiring in 1877
+st-18771103-p2-a044,term,laurence-stove@1877-11-06,read,re-nominated unopposed
+st-18771103-p2-a044,term,william-robertson@1876-11-07,read,retiring in 1877
+st-18771103-p2-a044,term,william-robertson@1877-11-06,read,re-nominated unopposed
+st-18780126-p2-a028,election,25,read,co-option Thu 24 Jan 1878
+st-18780126-p2-a028,term,william-sievwright-ii@1876-11-07,read,resigned
+st-18780126-p2-a028,term,john-robertson-ii@1878-01-24,read,elected at the special meeting
+st-18781102-p1-a018,election,26,read,no poll
+st-18781102-p1-a018,term,arthur-hay@1876-11-07,inferred,proposed for the 1878 vacancies so retiring
+st-18781102-p1-a018,term,john-robertson-i@1876-11-07,inferred,proposed for the 1878 vacancies so retiring
+st-18781102-p1-a018,term,robert-sinclair@1876-11-07,inferred,proposed for the 1878 vacancies so retiring
+st-18781102-p1-a018,term,john-robertson-ii@1878-01-24,inferred,proposed for the 1878 vacancies so retiring
+st-18781102-p1-a018,term,arthur-hay@1878-11-05,read,returned without a poll
+st-18781102-p1-a018,term,john-robertson-i@1878-11-05,read,returned without a poll
+st-18781102-p1-a018,term,john-robertson-ii@1878-11-05,read,returned without a poll
+st-18781102-p1-a018,term,robert-sinclair@1878-11-05,read,returned without a poll
+st-18791101-p2-a057,election,27,read,nominations; Laurenson not re-nominated
+st-18791101-p2-a057,term,arthur-laurenson@1876-11-07,read,retiring in 1879
+st-18791101-p2-a057,term,george-hay@1876-11-07,read,retiring in 1879
+st-18791101-p2-a057,term,james-hunter-ii@1876-11-07,read,retiring in 1879
+st-18791101-p2-a057,term,thomas-cameron@1876-11-07,read,retiring in 1879
+st-18791101-p2-a057,term,george-hay@1879-11-04,read,re-nominated
+st-18791101-p2-a057,term,james-hunter-ii@1879-11-04,read,re-nominated
+st-18791101-p2-a057,term,thomas-cameron@1879-11-04,read,re-nominated
+st-18801030-p2-a043,election,28,read,nominations; no poll
+st-18801030-p2-a043,term,andrew-jamieson@1877-11-06,read,retiring in 1880
+st-18801030-p2-a043,term,andrew-jamieson@1880-11-02,read,re-nominated unopposed
+st-18801030-p2-a043,term,john-leisk@1877-11-06,read,retiring in 1880
+st-18801030-p2-a043,term,john-leisk@1880-11-02,read,re-nominated unopposed
+st-18801030-p2-a043,term,laurence-stove@1877-11-06,read,retiring in 1880
+st-18801030-p2-a043,term,laurence-stove@1880-11-02,read,re-nominated unopposed
+st-18801030-p2-a043,term,william-robertson@1877-11-06,read,retiring in 1880
+st-18801030-p2-a043,term,william-robertson@1880-11-02,read,re-nominated unopposed
+st-18801211-p2-a037,election,29,read,Duncan elected for Goudie resigned (meeting day not stated)
+st-18801211-p2-a037,term,william-duncan-i@1880-11-25,read,elected at the last meeting; day not stated
+st-18811022-p2-a018,election,30,read,polling day Tue 1 Nov 1881 (the DB had the 8th)
+st-18811029-p2-a026,election,30,read,five vacancies; no poll
+st-18811029-p2-a026,term,arthur-hay@1878-11-05,read,retiring in rotation in 1881
+st-18811029-p2-a026,term,john-robertson-i@1878-11-05,read,retiring in rotation in 1881
+st-18811029-p2-a026,term,john-robertson-ii@1878-11-05,read,retiring in rotation in 1881
+st-18811029-p2-a026,term,robert-sinclair@1878-11-05,read,retiring in rotation in 1881
+st-18811029-p2-a026,term,william-duncan-i@1880-11-25,read,elected to a vacancy so re-seeking election in 1881
+st-18811029-p2-a026,term,arthur-hay@1881-11-01,read,nominated for the five vacancies
+st-18811029-p2-a026,term,john-robertson-i@1881-11-01,read,nominated for the five vacancies
+st-18811029-p2-a026,term,john-robertson-ii@1881-11-01,read,nominated for the five vacancies
+st-18811029-p2-a026,term,william-duncan-i@1881-11-01,read,nominated for the five vacancies
+st-18811029-p2-a026,term,james-tulloch@1881-11-01,read,nominated for the five vacancies
+st-18821104-p2-a040,election,31,read,nominations
+st-18821104-p2-a040,term,george-hay@1879-11-04,read,retiring in 1882
+st-18821104-p2-a040,term,james-hunter-ii@1879-11-04,read,retiring in 1882
+st-18821104-p2-a040,term,thomas-cameron@1879-11-04,read,retiring in 1882
+st-18821104-p2-a040,term,james-tulloch@1881-11-01,read,retiring in 1882 (a one-year seat)
+st-18821104-p2-a040,term,alexander-mitchell-i@1882-11-07,read,nominated for the four vacancies
+st-18821104-p2-a040,term,james-hunter-ii@1882-11-07,read,nominated for the four vacancies
+st-18821104-p2-a040,term,james-tulloch@1882-11-07,read,nominated for the four vacancies
+st-18821104-p2-a040,term,thomas-cameron@1882-11-07,read,nominated for the four vacancies
+st-18831027-p2-a067,election,32,read,five vacancies
+st-18831027-p2-a067,term,andrew-jamieson@1880-11-02,read,term expired in 1883
+st-18831027-p2-a067,term,john-leisk@1880-11-02,read,term expired in 1883
+st-18831027-p2-a067,term,laurence-stove@1880-11-02,read,term expired in 1883
+st-18831027-p2-a067,term,william-robertson@1880-11-02,read,his decease a vacancy (day not given)
+st-18831027-p2-a067,term,thomas-cameron@1882-11-07,read,his resignation a vacancy (day not given)
+st-18831103-p2-a083,election,32,read,nominations
+st-18831110-p2-a094,election,32,read,new councillors took office
+st-18831103-p2-a083,term,andrew-jamieson@1883-11-06,read,nominated
+st-18831110-p2-a094,term,andrew-jamieson@1883-11-06,read,declared acceptance
+st-18831103-p2-a083,term,francis-halcrow@1883-11-06,read,nominated
+st-18831110-p2-a094,term,francis-halcrow@1883-11-06,read,declared acceptance
+st-18831103-p2-a083,term,gilbert-harrison@1883-11-06,read,nominated
+st-18831110-p2-a094,term,gilbert-harrison@1883-11-06,read,declared acceptance
+st-18831103-p2-a083,term,john-leisk@1883-11-06,read,nominated
+st-18831110-p2-a094,term,john-leisk@1883-11-06,read,declared acceptance
+st-18831103-p2-a083,term,laurence-stove@1883-11-06,read,nominated
+st-18831110-p2-a094,term,laurence-stove@1883-11-06,read,declared acceptance

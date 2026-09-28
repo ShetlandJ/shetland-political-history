@@ -551,8 +551,9 @@ def load_citations(db):
             if not FULL_DATE.match(r['issue_date']):
                 sys.exit(f"{where}: issue_date must be YYYY-MM-DD")
             d = datetime.date.fromisoformat(r['issue_date'])
-            # The Shetland Times came out on Saturdays to 1943 and Fridays from 1944.
-            if r['publication'] == 'shetland-times' and d.weekday() not in ((5,) if d.year < 1944 else (4, 5) if d.year == 1944 else (4,)):
+            # The Shetland Times came out on Mondays to 15 Mar 1875, Saturdays from 20 Mar 1875 to
+            # 1943 and Fridays from 1944.
+            if r['publication'] == 'shetland-times' and d.weekday() not in ((0,) if d < datetime.date(1875, 3, 20) else (5,) if d.year < 1944 else (4, 5) if d.year == 1944 else (4,)):
                 sys.exit(f"{where}: {r['issue_date']} is a {d:%A}, not a Shetland Times publication day")
             expect = f"{prefix}-{d:%Y%m%d}" + (f"-p{page}" if page else '') + (f"-a{r['article']}" if r['article'] else '')
             citation = f"{name}, {d:%a} {d.day} {d:%b %Y}" + (f", p. {page}" if page else '') + \

@@ -298,6 +298,8 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 
 **1905–1910 settled (2026-09-28)**: Provost Porteous stayed on from 1908 to 1910. Ganson retired in his place in 1908, and J. Smith retired a year early in 1909. Evidence: `research/bna/ltc-1908-1910.md`.
 
+**1874–1883 sourced (2026-09-28)**: every election and the 38 April-2026 rows from 1876 now cite the Shetland Times results, nominations and retiring lists; all agreed except the Nov 1881 general, Tue 1 Nov not the 8th (`fix_newspapers.py` #25). 1877–1883 were all unopposed. The paper came out on Mondays until 15 Mar 1875. Evidence: `research/bna/ltc-1874-1883.md`.
+
 **1885–1889 settled (2026-09-28)**: Stove's 1883 seat ran to 1886 (the confirmed row had 1885) and Jamieson's 1886 seat to 1888. Hunter (ii) resigned 4 Jan 1887; Robertson and Anderson were co-opted 19 Nov 1886 and Porteous 18 Mar 1887 (not the 24th); Mitchell resigned Oct 1889. The council met on Friday evenings then. Evidence: `research/bna/ltc-1885-1889.md`.
 
 **1965–1970 settled (2026-09-28)**: the 1967 and 1970 short rows are genuine vacancies, now fully confirmed. Provost Nicolson resigned from 27 Apr 1967 and Halcrow was co-opted at the statutory meeting Fri 5 May 1967 (not the 12th); R. A. Anderson died Sun 25 Jun 1967 (not the 26th, `fix_newspapers.py` #24) and Cumming was co-opted Tue 8 Aug. Evidence: `research/bna/ltc-1965-1970.md`.
@@ -319,7 +321,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 **Key patterns (for editing the ledger):**
 - When 5 elected and next general has only 4: all 5 got full terms (1883, 1912, 1932).
 - After uncontested elections (no votes to rank by), the council **drew lots** for the order of retirement (1958, 1959). Otherwise short seats went to the lowest-placed winners (Paton 1960). Don't assume 3-year terms after 1955: take each end date from the next retiring lists.
-- Declined office: Laurenson 1879, Goudie 1880, Hay 1884 → listed in `data/not_seated.csv`.
+- Declined office: Goudie 1880, Hay 1884 → listed in `data/not_seated.csv`. Laurenson 1879 is there too, but he refused re-nomination rather than declining a seat (ST 1 Nov 1879; open question).
 - A sitting councillor winning a by-election for an office (Bailie) takes no new seat.
 
 ## Learnings and gotchas

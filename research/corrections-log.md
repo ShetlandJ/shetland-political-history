@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1874–1883 (`research/bna/ltc-1874-1883.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Nov 1881 general on **8 Nov 1881** | **Tuesday 1 Nov 1881** (Town Clerk's notice, ST 22 Oct 1881; "Tuesday first", ST 29 Oct 1881) | Fixed: `fix_newspapers.py` #25, ledger (10 dates) |
+| 2 | notes, wiki | Arthur Laurenson **declined office** in 1879 (CLAUDE.md groups him with Goudie and Hay), and the wiki lists him as a 1879 candidate | He "would not allow himself to be re-nominated" (ST 1 Nov 1879), so he was never a candidate; his vacancy went to Goudie at the 1880 general | Not changed: the DB candidacy (not elected) and `not_seated.csv` row still stand. James's call |
+| 3 | notes | James Tulloch's 1881 row cited the 1884 retiring list | He wasn't in it: his 1881 seat was the one-year fifth vacancy, re-nominated in 1882 (ST 29 Oct 1881, 4 Nov 1882) | Ledger source fixed |
+
 ## 2026-09-28: LTC 1965–1970 (`research/bna/ltc-1965-1970.md`)
 
 | # | Where | We had | Sources show | Status |
