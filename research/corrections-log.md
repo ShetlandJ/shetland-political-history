@@ -9,6 +9,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1886, Duncan and Harrison (`research/bna/ltc-1886-duncan-harrison.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | notes, draft | John Harrison (i) **disqualified 1 Oct 1886** ("Newspaper 23 Oct 1886" in CLAUDE.md) | Still a member after the 15 Oct meeting: "one member will be disqualified" (ST 16 Oct 1886). Cause not given | CLAUDE.md fixed; ledger date in open-questions |
+| 2 | notes | Duncan **resigned 12 Jul 1886** | His letter was read that day, to take effect three weeks later; the council tried to keep him and only on **15 Oct** was his refusal reported (ST 17 Jul, 16 Oct 1886). His profile already says so | Ledger date in open-questions |
+
 ## 2026-09-28: LTC general dates 1885–1891 (`research/bna/ltc-general-dates-1885-1891.md`)
 
 | # | Where | We had | Sources show | Status |

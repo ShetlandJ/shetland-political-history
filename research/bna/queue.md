@@ -48,8 +48,11 @@ which. See the timing rules in the skill.
   `fix_newspapers.py` #17, 8 ledger dates). 1888: nominations Thu 1 Nov, unopposed; 1 Nov vs
   6 Nov left in open-questions. 1890–91 fit the Thursday-nomination, Tuesday-poll pattern.
   0 issues (30). `ltc-general-dates-1885-1891.md`.
-- [ ] **Duncan's resignation (Jul 1886) and John Harrison's disqualification (Oct 1886)**: dates
-  from the profile and CLAUDE.md, not checked in the paper. ST Jul and Oct 1886.
+- [x] **Duncan's resignation (Jul 1886) and John Harrison's disqualification (Oct 1886)**: Duncan's
+  letter read Mon 12 Jul 1886 (ST 17 Jul), refusal to reconsider reported Fri 15 Oct (ST 16 Oct).
+  Harrison "will be disqualified" after 15 Oct (ST 16 Oct), so 1 Oct is too early; cause not found.
+  Both end dates in open-questions; sources updated, no dates changed. 0 issues (30).
+  `ltc-1886-duncan-harrison.md`.
 - [ ] **LTC 1934–1938 (5 size-short rows)**: Sep 1934, Jun 1936, Nov 1936, Oct 1937, Jul 1938.
   Probably dated vacancies before co-options, but each needs the departure and co-option dates.
 - [ ] **LTC 1915–1916 (3 size-short rows)**: Apr 1915, Jul 1915, Jul 1916. Wartime departures and

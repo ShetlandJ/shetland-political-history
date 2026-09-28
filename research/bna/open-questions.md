@@ -38,6 +38,19 @@ Format: date raised, the question, the options, the evidence file, the row it af
   (the 1885/1886/1887 rows ending then and the four 1888 rows starting then).
   Evidence: `ltc-general-dates-1885-1891.md`.
 
+- **2026-09-28: End of William Duncan (i)'s 1885 seat, 1886.** His letter was read at the
+  meeting of Mon 12 Jul 1886, saying he would cease "three weeks hence"; the council sent a
+  deputation, and on Fri 15 Oct it was reported he "definitely refused" (ST 17 Jul, 16 Oct 1886).
+  He was absent on 12 Jul, 30 Jul, 11 and 15 Oct (other meetings not checked). Options: 12 Jul (as now), about 2 Aug (his
+  three weeks), or 15 Oct (the council's acceptance; for Hunter in 1887 we used the acceptance
+  date). Row: `william-duncan-i` 1885-11-03. Evidence: `ltc-1886-duncan-harrison.md`.
+
+- **2026-09-28: John Harrison (i)'s disqualification, 1886.** After the 15 Oct 1886 meeting the
+  paper says "one member will be disqualified" (ST 16 Oct 1886), so the ledger's 1 Oct end is too
+  early. The cause and day aren't in the paper. Options: end at the 2 Nov 1886 general (the seven
+  vacancies were to be filled then), keep 1 Oct, or check the minute book. Row: `john-harrison-i`
+  1884-11-04. Evidence: `ltc-1886-duncan-harrison.md`.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)

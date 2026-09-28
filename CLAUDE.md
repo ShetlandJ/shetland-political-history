@@ -219,8 +219,8 @@ Answer the question "who were the councillors on date X?" — now answered by `/
 | Person | Date | Reason | Source |
 |---|---|---|---|
 | Thomas Cameron | Sept 1883 | Retired | Profile intro |
-| William Duncan (i) | 12 Jul 1886 | Resigned | Profile intro |
-| John Harrison (i) | Oct 1886 | Disqualified | Newspaper 23 Oct 1886 |
+| William Duncan (i) | 12 Jul 1886 | Resigned (letter read 12 Jul; refusal to reconsider reported 15 Oct; end date open) | Profile intro; Shetland Times 17 Jul and 16 Oct 1886 |
+| John Harrison (i) | after 15 Oct 1886 | Disqualified ("will be", cause and day not found) | Shetland Times 16 Oct 1886 |
 | James Hunter (ii) | 4 Jan 1887 | Resigned on moving to the Union Bank at Portsoy (Porteous elected 18 Mar 1887) | Shetland Times 11 Dec 1886 and 8 Jan 1887 |
 | Alexander Mitchell (i) | Oct 1889 (probably Fri 18th) | Resigned (re-elected Nov 1888) | Shetland Times 19 and 26 Oct 1889 |
 | Laurence Stove | 12 Apr 1889 | Died | Death date |
