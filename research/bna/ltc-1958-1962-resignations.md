@@ -51,4 +51,10 @@ isn't known. It was probably between late June and early August; the July monthl
   `resignation` (1 Jun–10 Aug, 12 results) and `resigned` (29 Jun–10 Aug, 4 results). The only
   report is still ST 10 Aug 1962 ("recently submitted his resignation").
 
-**Ledger edit**: none. The row stays at 1962-08-07, unconfirmed. Only the minute book is left.
+**Ledger edit**: none from the search. The row stays at 1962-08-07, unconfirmed. Only the minute book is left.
+
+**Decision (James, 2026-09-28)**: not findable in the paper, so the row ends on 1962-07-01 at month
+precision, and the `source` says so. July is an estimate: he was still on council committees in
+mid-June (ST 15 Jun 1962), the report of the 3 Jul meeting doesn't mention a resignation, and by
+10 Aug it had been "recently submitted". This shows a vacancy from 1 Jul to the 7 Aug co-option,
+which is longer than the real one could have been.
