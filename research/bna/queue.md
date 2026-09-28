@@ -155,8 +155,24 @@ citations, 801 links). Gaps:
     84 (1926), 87 (1929), 90 (by-election Jun 1932).
   - [x] **1946–1950** (done: Sinclair elected Tue 2 Apr 1946, not 22 May (`fix_newspapers.py` #29); Blance's Sep 1950 co-option confirmed, day not printed. 2 citations, 6 links. 0 issues (7). `ltc-1946-1950-citations.md`): elections 112 (T. A. Sinclair's co-option for David Gray, May 1946: the
     DB's Wed 22 May is unconfirmed, so check the day) and 118 (by-election Sep 1950).
-- [ ] **Citations batch 2: ZCC elections 1890–1973** (130 without a citation): one result
-  article per general covers every ward row. By decade.
+- **Citations batch 2: ZCC elections 1890–1973** (27 generals, about 680 ward rows, and 103
+  by-elections without a citation). Five runs. In each, do the generals first: one Shetland Times
+  result article covers every ward row of a general, so link it to each ward's election id.
+  Check polling days (Tuesday pattern; LTC had seven wrong dates in this era) and votes against
+  the DB while there. Then the by-elections, one search each: who replaced whom, and the day.
+  ZCC has no ledger (terms come from ward results), so a wrong date or vote is a correction in
+  `fix_newspapers.py` (`set_date_all` for a general) and there are no rows to confirm. Rebuild
+  and commit after each general and after the by-elections. Find what's left with:
+  `sqlite3 shetland.db "select id, election_date, wiki_page_title from elections e where council_id=2 and hidden=0 and not exists (select 1 from citation_links l where l.election_id=e.id) order by 2"`
+  - [ ] **ZCC 1890–1899**: generals Feb 1890, Dec 1892, Dec 1895, Dec 1898; 17 by-elections
+    (Dunrossness North 1898 is already in open-questions). The ST for 1898 may not be digitised.
+  - [ ] **ZCC 1900–1919**: generals Dec 1901, 1904, 1907, 1910, 1913, 1919 (Sinclair's 1919 double
+    return is in `not_seated.csv`); 23 by-elections.
+  - [ ] **ZCC 1920–1939**: generals Dec 1922, 1925, 1928, 1929, 1932, 1935, 1938; 28 by-elections.
+  - [ ] **ZCC 1940–1959**: generals Dec 1945, May 1949, 1952, 1955, 1958 (polling days already
+    fixed, #12: cite and check votes only); 17 by-elections.
+  - [ ] **ZCC 1960–1973**: generals May 1961, 1964, 1967, 1970, 1973 (1961 and 1964 days fixed);
+    18 by-elections.
 - [ ] **Citations batch 3: Westminster 1872–1975** (30 without a citation): the Orkney and
   Shetland results in the Shetland Times.
 - Not BNA: SIC 1976+ and Holyrood (38; official results pages, needs a `web` publication type),
