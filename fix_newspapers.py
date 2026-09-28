@@ -240,6 +240,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
      monthly meeting "on Thursday at noon" (ST 17 Feb 1906), 15 Feb, for Zachary Hamilton, dead.
    - Dunrossness South, August 1907: Rev. W. Fotheringham appointed on a petition at the monthly
      meeting "on Thursday of last week" (ST 24 Aug 1907), 15 Aug, for John Bruce, dead.
+   - Tingwall, March 1909: L. J. Garriock appointed on a petition at the monthly meeting "on
+     Thursday forenoon" (ST 20 Mar 1909), 18 Mar, for W. Rae Duncan, resigned.
+   - Burra, August 1909: Robert Inkster appointed on two petitions at the monthly meeting "on
+     Thursday" (ST 14 Aug 1909), 12 Aug. The DB had 27 Jun, the date Charles Lennie died.
+   - Whalsay, July 1910: James Shearer appointed on a Parish Council petition at the monthly
+     meeting "on Thursday last week" (ST 30 Jul 1910), 21 Jul, for Rev. C. Stobie, resigned.
    Evidence: research/bna/zcc-1900-1919.md.
 
 33. Delting North, December 1904: the losing candidate was James Inkster, the sitting member, not
@@ -377,6 +383,9 @@ ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland
     ('Walls_County_Council_By-Election_February_1905', '1905-02-01', '1905-02-14'),
     ('Yell North County Council By-Election March 1906', '1906-03-01', '1906-02-15'),
     ('Dunrossness South County Council By-Election August 1907', '1907-08-01', '1907-08-15'),
+    ('Tingwall County Council By-Election March 1909', '1909-03-01', '1909-03-18'),
+    ('Burra County Council By-Election August 1909', '1909-06-27', '1909-08-12'),
+    ('Whalsay And Skerries County Council By-Election July 1910', '1910-07-01', '1910-07-21'),
 ]
 DELTING_NORTH_1904 = ('County Council Election December 1904', 'Delting North', 'Arthur White', 'arthur-white',
                       'James Inkster', 'james-inkster')
