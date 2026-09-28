@@ -36,7 +36,11 @@ The order of work is set by cost. Always try the cheaper step first:
 `research/bna/queue.md` is a ranked list of research items. On `/bna next`:
 
 1. Take the first unticked item. Read its current term_issues and ledger rows first
-   (`data/ltc_terms.csv`, looked up by `person_slug`).
+   (`data/ltc_terms.csv`, looked up by `person_slug`). An item may be a **batch** of sub-items
+   (one per issue): work them all in one run, in order, and do steps 3–8 (edits, rebuild,
+   evidence, tick, commit) after **each** sub-item, so a run that stalls loses nothing. Share
+   searches across sub-items where one retiring list or result covers several. Tick the batch
+   when its last sub-item is done.
 2. Run the searches (sections 1–4 below).
 3. **Apply** the edits without asking. James authorised this for queue items. Ledger rows get
    `confirmed=1` and a comma-free `source` naming the issues. Site text (intros, notes) goes in a

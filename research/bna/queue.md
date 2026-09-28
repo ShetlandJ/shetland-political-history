@@ -85,14 +85,42 @@ which. See the timing rules in the skill.
   sourced from the 1909, 1910 and 1911 results (ST 6 Nov 1909, 5 Nov 1910, 11 Nov 1911) and the
   1908 cohort's from ST 7 Nov 1908 and the Oct 1911 retiring list. 12 rows confirmed.
   `ltc-1908-1911.md`.
-- [ ] **John Irvine (iii)'s departure, 1909–10**: his 1907 row ends at the Jan 1910 by-election,
-  unconfirmed. Find his resignation or death (ST late 1909). No issue depends on it.
-- [ ] **LTC 1945–1947 rows**: 29 Nov–10 Dec 1945 held by David Gray (ii)'s 1945 row (start: read
-  the 9 Nov 1945 result, ST p2 art. 047, whose OCR list is garbled; zoom if needed), and 3 Jun–1 Jul
-  1947 by James Brownlie's 1946 row (start: the Nov 1946 result; end: his 1949 departure before the
-  Sep 1949 co-option).
-- [ ] **Nov 1946 LTC polling day**: the DB has Mon 4 Nov 1946; 1945 turned out to be the Tuesday,
-  so 1946 is probably Tue 5 Nov. Check the Friday 1 and 8 Nov 1946 papers.
+
+## Batches (added 2026-09-28, 16 issues left)
+
+Each batch is one `/bna next` run; commit after each sub-item. Targets are the unconfirmed rows
+sitting through each size-short window (listed per sub-item).
+
+- [ ] **Batch 1: LTC 1894–1905 (4 issues)**. Retiring lists (October meeting, then the page-1
+  election notice "who retire by rotation") and results (the Saturday after the poll, plus page-1
+  "To the Electors" thanks) for 1894–1904.
+  - [ ] 21 Jul–5 Nov 1895: Archibald Garriock 1894-11-06→1897-11-02.
+  - [ ] 28 Feb–2 May 1899: Alfred Stove 1898-11-01→1901-10-13 (start 1898 result; end his
+    Oct 1901 departure).
+  - [ ] 13 Oct–1 Nov 1901: Porteous, Morrison, John Robertson (ii), Goodlad (1899-11-07→1902);
+    A. Laing, F. Halcrow, Kay, Goudie (1900-11-06→1903).
+  - [ ] 2–28 Feb 1905: Porteous, Morrison, Goodlad (1902→1905); A. Laing, Kay, Goudie, Ganson (i)
+    (1903→1906); G. Harrison, Irvine (iii), J. Sinclair, S. Johnson (1904→1907).
+  - [ ] No issue: John Irvine (iii)'s 1907 row ends at the Jan 1910 by-election, unconfirmed.
+    Find his resignation or death (ST late 1909).
+- [ ] **Batch 2: LTC 1945–1956 (3 issues)**.
+  - [ ] 29 Nov–10 Dec 1945: David Gray (ii) 1945-11-06→1946-03-04 (start: the 9 Nov 1945 result,
+    ST p2 art. 047, whose OCR list is garbled; zoom if needed; end: his Mar 1946 departure).
+  - [ ] **Nov 1946 polling day**: the DB has Mon 4 Nov 1946; 1945 was the Tuesday, so probably
+    Tue 5 Nov. Check the Friday 1 and 8 Nov 1946 papers. Do this before the next sub-item.
+  - [ ] 3 Jun–1 Jul 1947: James Brownlie 1946→1949-09-13 (start: the Nov 1946 result; end: his
+    1949 departure before the Sep 1949 co-option).
+  - [ ] 26 Apr–6 May 1955: Johnson, Peterson, Tait, Conochie (1952-05-06→1955-05-03); Burgess,
+    Harry Gray, Eunson, R. Anderson (i) (1953-05-05→1956-05-01). April retiring lists 1955–56.
+- [ ] **Batch 3: LTC 1965–1970 (2 issues)**.
+  - [ ] 26 Jun–8 Aug 1967: Harry Gray, James Paton (i) (1965-05-04→1968-05-07); Grace Halcrow
+    1967-05-12→1968-05-07 (her co-option date, and the 1968 retiring list).
+  - [ ] 14 Apr–8 May 1970: William Smith (iv) 1969-05-06→1975-05-15 (start: the May 1969
+    result; end is abolition).
+
+Not batched: 1884–1889 (6 issues) waits on the open questions (Harrison, Mitchell, the 1888
+date); the two John Robertsons' 1884 and 1887 rows sit through all of them. 1961 is James
+Daniel's resignation, not in the paper (minute book).
 
 ## Not BNA: wiki checks (found 2026-09-28)
 
