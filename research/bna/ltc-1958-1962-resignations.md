@@ -41,3 +41,14 @@ was no vacancy before the co-option.
 left `confirmed=0`. The end date stays at the co-option (1962-08-07) because the resignation date
 isn't known. It was probably between late June and early August; the July monthly meeting
 (Tue 3 Jul 1962) report would be the place to look.
+
+### James A. Daniel, 1962: second search (2026-09-28)
+- **ST Fri 6 Jul 1962, p2 (art. 023)**: the Town Council report of the July meeting (Tue 3 Jul)
+  covers the Planning Committee (the Post Office engineering centre site). The OCR has no mention
+  of Daniel, a resignation or a vacancy.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19620706&page=0002&article=023
+- **Not found**, again: `town council` (6 Jul–3 Aug 1962, 15 results; none about Daniel),
+  `resignation` (1 Jun–10 Aug, 12 results) and `resigned` (29 Jun–10 Aug, 4 results). The only
+  report is still ST 10 Aug 1962 ("recently submitted his resignation").
+
+**Ledger edit**: none. The row stays at 1962-08-07, unconfirmed. Only the minute book is left.
