@@ -103,7 +103,7 @@ sitting through each size-short window (listed per sub-item).
   - [x] 2–28 Feb 1905: the 1902, 1903 and 1904 cohorts (results; lists 1905, 1906, 1907).
   - [x] John Irvine (iii)'s 1907 row: resigned 7 Dec 1909.
 - [ ] **Batch 2: LTC 1945–1956 (3 issues)**.
-  - [ ] 29 Nov–10 Dec 1945: David Gray (ii) 1945-11-06→1946-03-04 (start: the 9 Nov 1945 result,
+  - [x] 29 Nov–10 Dec 1945 (cleared, 12 → 11; died Mon 4 Mar 1946, ST 8 Mar 1946): David Gray (ii) 1945-11-06→1946-03-04 (start: the 9 Nov 1945 result,
     ST p2 art. 047, whose OCR list is garbled; zoom if needed; end: his Mar 1946 departure).
   - [ ] **Nov 1946 polling day**: the DB has Mon 4 Nov 1946; 1945 was the Tuesday, so probably
     Tue 5 Nov. Check the Friday 1 and 8 Nov 1946 papers. Do this before the next sub-item.
