@@ -75,10 +75,12 @@ which. See the timing rules in the skill.
   1 Aug 1916; A. Smith resigned, Manson 5 Sep; W. S. Smith resigned Tue 7 Nov 1916 (not 5 Dec),
   Robertson 5 Dec. 1919 notice confirms the seven Nov 1919 ends. 17 rows confirmed.
   `ltc-1915-1916.md`.
-- [ ] **LTC holdovers 1919–1921**: Ratter, Goodlad, Ganson and W. Sinclair sat on to 1920, J. Smith
-  (i) to 1921 (unconfirmed holdover rows). Did Provost Goodlad retire in 1919–20 ("at the end of the
-  war", ST 18 Oct 1919 art. 055; "8 if Goodlad resigns", ST 9 Oct 1919)? Check the Oct 1920 retiring
-  list and the 1920 Provost election.
+- [x] **LTC holdovers 1919–1921**: 18 → 17 (the Oct–Nov 1921 row cleared, a genuine vacancy).
+  Goodlad sat on to Nov 1920 and retired by rotation (Ex-Provost by May 1921); the five holdover
+  rows confirmed from the 1919–21 notices. J. M. Goodlad co-opted for Pottinger Tue 7 Jun 1921,
+  not the 11th, on the Provost's casting vote (`fix_newspapers.py` #20); Bailie W. Sinclair's
+  resignation read Tue 4 Oct 1921, not 1 Oct. 8 rows confirmed; Pottinger's retiral day in
+  open-questions. `ltc-1919-1921.md`.
 - [ ] **LTC Oct–Nov 1912 short row**: MacDougall's 8 Oct–5 Nov 1912 vacancy. The unconfirmed rows
   sitting through it (the 1908, 1909 and 1911 cohorts) need their starts sourced.
 - [ ] **LTC 1945–1947 rows**: 29 Nov–10 Dec 1945 held by David Gray (ii)'s 1945 row (start: read

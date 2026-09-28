@@ -150,6 +150,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    meeting "on Tuesday" (Shetland Times, 9 Feb 1945), i.e. 6 February, not Monday the 5th. The
    first post-war general was polled on Tuesday 6 November 1945, not Monday the 5th (Shetland
    Times, 9 Nov 1945). Evidence: research/bna/ltc-1940-1945.md.
+
+20. Lerwick Town Council, June 1921. J. M. Goodlad was co-opted for J. J. Pottinger (who had
+   retired) at the monthly meeting "on Tuesday evening" (Shetland Times, 11 Jun 1921), i.e.
+   7 June, not the 11th (the paper's publication day). The vote was five each for Goodlad and
+   William Bruce, and the Provost gave his casting vote for Goodlad.
+   Evidence: research/bna/ltc-1919-1921.md.
 """
 
 import os
@@ -240,6 +246,7 @@ WARTIME_DATES = [  # (wiki title, baseline date, date from the Shetland Times)
     ('Lerwick Town Council By-Election February 1945', '1945-02-05', '1945-02-06'),
     ('Lerwick Town Council Election November 1945', '1945-11-05', '1945-11-06'),
 ]
+CO_OPTION_1921 = ('Lerwick Town Council By-Election June 1921', '1921-06-11', '1921-06-07')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -530,6 +537,9 @@ def main():
     print("=== 19. LTC co-options 1940-45 and the Nov 1945 polling day ===")
     for title, wrong, right in WARTIME_DATES:
         set_date(c, title, wrong, right)
+
+    print("=== 20. LTC co-option Jun 1921 ===")
+    set_date(c, *CO_OPTION_1921)
 
     db.commit()
     db.close()

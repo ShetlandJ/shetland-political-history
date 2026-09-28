@@ -277,6 +277,8 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 
 **1915–1916 settled (2026-09-28)**: three dated wartime vacancies (Stout died 10 Apr 1915, Sinclair elected 27 Apr; Grierson died 3 Jul, C. B. Stout 3 Aug 1915; Laurenson died 14 Jul, Henderson 1 Aug 1916). W. S. Smith resigned 7 Nov 1916, not 5 Dec. The Shetland Times for 24 Apr–12 Jun 1915 isn't digitised; the Shetland News (`BL/0003210`) filled the gap. Evidence: `research/bna/ltc-1915-1916.md`.
 
+**1919–1921 settled (2026-09-28)**: Goodlad, Ratter, Ganson and W. Sinclair sat on to Nov 1920 and J. Smith (i) to Nov 1921 (holdover rows confirmed). J. M. Goodlad was co-opted for Pottinger (retired, day unknown) on Tue 7 Jun 1921, not the 11th (`fix_newspapers.py` #20); Bailie W. Sinclair's resignation was read on Tue 4 Oct 1921. Evidence: `research/bna/ltc-1919-1921.md`.
+
 **1934–1938 settled (2026-09-28)**: all dated vacancies. Johnston resigned 9 Oct 1934 and Sandison was killed 30 Sep 1934 (both had two-year 1932 seats); Cogle resigned 5 May 1936 (not July); co-options 7 Jul, 4 Aug and 10 Nov 1936. Evidence: `research/bna/ltc-1934-1938.md`.
 
 **1936–1945 rows confirmed (2026-09-28)**: Halcrow died 24 Dec 1940 (Williamson co-opted 7 Jan 1941); Clausen resigned 4 Jan 1938 on moving to Thurso and Dalziel was co-opted Tue 1 Feb 1938 (not the 3rd); W. G. Smith died 28 Feb 1942; Laing retired from 29 Nov 1945 (Johnston co-opted 10 Dec). This cleared the Nov 1936, Oct 1937 and Jul 1938 rows. Evidence: `research/bna/ltc-1936-1945.md`.

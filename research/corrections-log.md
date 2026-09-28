@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1919–1921 (`research/bna/ltc-1919-1921.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | J. M. Goodlad co-opted for Pottinger on **11 Jun 1921** | Co-opted at the monthly meeting of **Tue 7 Jun 1921**, on the Provost's casting vote (5–5 against William Bruce) (ST 11 Jun 1921). 11 Jun was the paper's date | Fixed: `fix_newspapers.py` #20, ledger |
+| 2 | draft | Bailie W. Sinclair "retired" on 1 Oct 1921 | His resignation as Magistrate and Councillor was read at the monthly meeting of **Tue 4 Oct 1921**; he said he had too many other public duties (ST 8 Oct 1921) | Ledger fixed |
+| 3 | notes | Open question whether Provost Goodlad left in 1919–20 ("at the end of the war") | He sat on to Nov 1920 and retired by rotation (ST 16 Oct 1920); he was "Ex-Provost" by May 1921, with Ganson as Provost | Ledger confirmed |
+
 ## 2026-09-28: LTC 1940–1945 (`research/bna/ltc-1940-1945.md`)
 
 | # | Where | We had | Sources show | Status |

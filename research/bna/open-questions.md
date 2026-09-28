@@ -59,6 +59,14 @@ Format: date raised, the question, the options, the evidence file, the row it af
   2 Jun letter; the Linklater 1941 convention), or keep 1 Jul. No issue depends on it.
   Row: `james-smith-i` 1934-11-06. Evidence: `ltc-1940-1945.md`.
 
+- **2026-09-28: Day of J. J. Pottinger's retiral from the Town Council, 1921.** Last seen
+  present at a meeting reported 23 Apr 1921; absent 3 May and 7 Jun. His County Council seat was
+  already vacant by the meeting reported 28 May. On Tue 7 Jun the council filled "the vacancy
+  caused by the retiral of Mr J. J. Pottinger" (ST 11 Jun 1921), but no letter or date was
+  found. The row now ends at the 7 Jun co-option, unconfirmed. Options: keep 7 Jun, or check the
+  minute book for the meeting that accepted it. Row: `james-pottinger-iii` 1919-11-04.
+  Evidence: `ltc-1919-1921.md`.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
