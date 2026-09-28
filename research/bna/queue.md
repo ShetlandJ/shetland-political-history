@@ -81,8 +81,12 @@ which. See the timing rules in the skill.
   not the 11th, on the Provost's casting vote (`fix_newspapers.py` #20); Bailie W. Sinclair's
   resignation read Tue 4 Oct 1921, not 1 Oct. 8 rows confirmed; Pottinger's retiral day in
   open-questions. `ltc-1919-1921.md`.
-- [ ] **LTC Oct–Nov 1912 short row**: MacDougall's 8 Oct–5 Nov 1912 vacancy. The unconfirmed rows
-  sitting through it (the 1908, 1909 and 1911 cohorts) need their starts sourced.
+- [x] **LTC Oct–Nov 1912 short row**: 17 → 16 (a genuine vacancy, now fully confirmed). Starts
+  sourced from the 1909, 1910 and 1911 results (ST 6 Nov 1909, 5 Nov 1910, 11 Nov 1911) and the
+  1908 cohort's from ST 7 Nov 1908 and the Oct 1911 retiring list. 12 rows confirmed.
+  `ltc-1908-1911.md`.
+- [ ] **John Irvine (iii)'s departure, 1909–10**: his 1907 row ends at the Jan 1910 by-election,
+  unconfirmed. Find his resignation or death (ST late 1909). No issue depends on it.
 - [ ] **LTC 1945–1947 rows**: 29 Nov–10 Dec 1945 held by David Gray (ii)'s 1945 row (start: read
   the 9 Nov 1945 result, ST p2 art. 047, whose OCR list is garbled; zoom if needed), and 3 Jun–1 Jul
   1947 by James Brownlie's 1946 row (start: the Nov 1946 result; end: his 1949 departure before the
