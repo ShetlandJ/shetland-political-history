@@ -164,8 +164,16 @@ citations, 801 links). Gaps:
   `fix_newspapers.py` (`set_date_all` for a general) and there are no rows to confirm. Rebuild
   and commit after each general and after the by-elections. Find what's left with:
   `sqlite3 shetland.db "select id, election_date, wiki_page_title from elections e where council_id=2 and hidden=0 and not exists (select 1 from citation_links l where l.election_id=e.id) order by 2"`
-  - [ ] **ZCC 1890–1899**: generals Feb 1890, Dec 1892, Dec 1895, Dec 1898; 17 by-elections
-    (Dunrossness North 1898 is already in open-questions). The ST for 1898 may not be digitised.
+  - [x] **ZCC 1890–1899** (done: 4 generals and 17 by-elections cited, 29 citations, 204 links.
+    Polling days of all four generals agree and the readable votes match. Eleven by-election dates
+    moved (`fix_newspapers.py` #30), mostly appointments by the Council on a petition; Dunrossness
+    North 1898 was 1 Sep, not 1 Aug (open question closed). The ST for 1898 is digitised. Burra
+    1898 "votes" are petition signatures, Inkster's May 1890 day, Aithsting 1892 and two 1890
+    electorates in open-questions. 0 issues (7). `zcc-1890-1899.md`)
+  - [ ] **ZCC Walls North (Sandness) 1890–92**: no nomination at the Feb 1890 general, still
+    vacant in May 1890 (the Council deferred it and wrote to the Secretary for Scotland, ST 24 May
+    1890), and the DB has no by-election before Grierson's Dec 1892 return. Search `sandness` and
+    `walls` with `county council`, Jun 1890–Nov 1892, for an appointment or election.
   - [ ] **ZCC 1900–1919**: generals Dec 1901, 1904, 1907, 1910, 1913, 1919 (Sinclair's 1919 double
     return is in `not_seated.csv`); 23 by-elections.
   - [ ] **ZCC 1920–1939**: generals Dec 1922, 1925, 1928, 1929, 1932, 1935, 1938; 28 by-elections.

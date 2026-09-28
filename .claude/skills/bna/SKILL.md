@@ -130,6 +130,18 @@ for 1953–64).
   October 1937: "as the Provost was not retiring at this time, Mrs Nicol, after two years, had
   to retire").
 
+### Zetland County Council timing (learned from 1890–1899)
+
+- Generals polled on a **Tuesday** (4 Feb 1890, then early December every three years). The
+  nominations report is the Saturday before or two before ("The Nominations"); the result is the
+  next Saturday. Unopposed seats are often all you get, so read the nominations list too.
+- The Council met on **Thursday at noon** (some Wednesdays). Most "by-elections" were
+  **appointments by the Council on a ratepayers' petition** at that meeting, not polls; figures in
+  the wiki can be petition signatures (Burra 1898). The report is headed with the ward
+  ("Appointment of a representative for ...") under "Zetland County Council".
+- When a poll was needed, the Secretary for Scotland fixed the day ("has fixed Tuesday the 24th
+  ..."), announced in the local news column a few weeks before.
+
 Useful keywords: `town council`, `retiring councillors`, `co-opted`, `special meeting`,
 `vacancy`, `statutory meeting`, `municipal election`, plus a surname.
 

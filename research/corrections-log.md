@@ -9,6 +9,17 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: ZCC 1890–1899 (`research/bna/zcc-1890-1899.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Eleven 1890s by-election dates (mostly the 1st of the month or the paper's Saturday) | The fixed election day or the Council meeting that appointed: e.g. Goudie 16 Dec 1890 (not Jan 1891), Tingwall 4 Feb 1897 (not Mar), Northmavine North 3 Nov 1897 (not Dec), Delting South 24 Jan 1899 (not Feb) | Fixed: `fix_newspapers.py` #30. Wiki page titles still give the old months |
+| 2 | wiki, notes | Dunrossness North: Whyte appointed "Thursday 1 August" 1898 | Put off on 4 Aug "till the September meeting"; appointed then (ST 6 Aug, 3 Sep 1898), so Thursday 1 September | Fixed: #30; open question closed |
+| 3 | wiki | Burra, Feb 1898: Lennie 113 votes, Henderson 59, Henderson elected | No poll: petition signatures; the Council chose Henderson (ST 5 Feb 1898) | Open question |
+| 4 | wiki | Walls North (Sandness): no by-election between Feb 1890 (no nomination) and Dec 1892 | Still vacant in May 1890, when the Council deferred it (ST 24 May 1890); whether it was filled later isn't known | Queued |
+| 5 | wiki | Aithsting Dec 1892: McCullie unopposed | Grierson was nominated too; McCullie "had practically a walk over" (ST 10 Dec 1892) | Open question |
+| 6 | wiki | Whiteness and Weisdale 1890 electorate 126; Nesting 83 | ST 8 Feb 1890 OCR: 116 (86 men, 30 women); Nesting 93 | Open question (image not read) |
+
 ## 2026-09-28: LTC co-options 1946 and 1950 (`research/bna/ltc-1946-1950-citations.md`)
 
 | # | Where | We had | Sources show | Status |

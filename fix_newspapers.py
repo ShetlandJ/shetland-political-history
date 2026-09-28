@@ -201,6 +201,27 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 29. T. A. Sinclair was elected to the vacancy "caused through the death of Mr David Gray" at the
    Town Council meeting "on Tuesday" (Shetland Times, 5 Apr 1946), i.e. 2 April 1946, not
    Wednesday 22 May. Evidence: research/bna/ltc-1946-1950-citations.md.
+
+30. Zetland County Council by-elections 1890-1899. Most wiki dates were the 1st of the month or
+   the Saturday paper's date. The day comes from the Shetland Times: the election day the
+   Secretary for Scotland fixed (unopposed returns are dated to it, as for the LTC), the day of
+   the Council meeting that appointed the member, or failing both the formal declaration.
+   - Fetlar and Walls, March 1890: declared elected "On Saturday last" (ST 5 Apr 1890), 29 Mar.
+   - Aithsting and Sandsting, April 1890: re-run polling fixed for 11 April (ST 22 Mar 1890).
+   - Lerwick South, January 1891: Goudie appointed at the annual meeting "on Tuesday" (ST 20 Dec
+     1890), 16 Dec 1890, for Arthur Laurenson (died 14 Nov 1890).
+   - Burra, Fetlar and Walls, February 1893: election fixed for Tue 24 Jan 1893 (ST 31 Dec 1892);
+     Fetlar polled "On Tuesday last week" (ST 4 Feb 1893).
+   - Aithsting, January 1896: polled "on Tuesday" (ST 18 Jan 1896), 14 Jan.
+   - Cunningsburgh, June 1896: appointed at the adjourned meeting "on Thursday" (ST 6 Jun 1896), 4 Jun.
+   - Tingwall, March 1897: A. C. Hay appointed at the monthly meeting "on Thursday" (ST 6 Feb 1897), 4 Feb.
+   - Northmavine North, December 1897: Robertson appointed at the monthly meeting "on Wednesday"
+     (ST 6 Nov 1897), 3 Nov.
+   - Dunrossness North, August 1898: left over at the meeting of Thu 4 Aug "till the September
+     meeting" (ST 6 Aug 1898); Whyte appointed there (ST 3 Sep 1898), Thursday 1 September.
+   - Delting South, February 1899: election fixed for 24 Jan 1899 (ST 31 Dec 1898); Adie the only
+     nomination (ST 14 Jan 1899).
+   Evidence: research/bna/zcc-1890-1899.md.
 """
 
 import os
@@ -302,6 +323,22 @@ CO_OPTION_1899 = ('Lerwick Town Council By-Election May 1899', '1899-05-02', '18
 CO_OPTION_1924 = ('Lerwick Town Council By-Election May 1924', '1924-05-05', '1924-05-06')
 CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '1946-04-02')
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
+ZCC_BY_ELECTIONS_1890S = [  # (wiki title, baseline date, date from the Shetland Times)
+    ('Fetlar County Council By-Election March 1890', '1890-03-01', '1890-03-29'),
+    ('Walls County Council By-Election March 1890', '1890-03-01', '1890-03-29'),
+    ('Aithsting County Council By-Election April 1890', '1890-04-14', '1890-04-11'),
+    ('Sandsting County Council By-Election April 1890', '1890-04-14', '1890-04-11'),
+    ('Lerwick South County Council By-Election January 1891', '1891-01-01', '1890-12-16'),
+    ('Burra County Council By-Election February 1893', '1893-02-01', '1893-01-24'),
+    ('Fetlar County Council By-Election February 1893', '1893-02-02', '1893-01-24'),
+    ('Walls County Council By-Election February 1893', '1893-02-01', '1893-01-24'),
+    ('Aithsting County Council By-Election January 1896', '1896-01-02', '1896-01-14'),
+    ('Cunningsburgh County Council By-Election June 1896', '1896-06-06', '1896-06-04'),
+    ('Tingwall County Council By-Election March 1897', '1897-03-01', '1897-02-04'),
+    ('Northmavine North County Council By-Election December 1897', '1897-12-02', '1897-11-03'),
+    ('Dunrossness North County Council By-Election August 1898', '1898-08-01', '1898-09-01'),
+    ('Delting South County Council By-Election February 1899', '1899-02-04', '1899-01-24'),
+]
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -627,6 +664,10 @@ def main():
 
     print("=== 29. LTC co-option Apr 1946 ===")
     set_date(c, *CO_OPTION_1946)
+
+    print("=== 30. ZCC by-elections 1890-1899 ===")
+    for args in ZCC_BY_ELECTIONS_1890S:
+        set_date(c, *args)
 
     db.commit()
     db.close()
