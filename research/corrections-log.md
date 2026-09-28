@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-27: LTC wartime resignations 1941 (`research/bna/ltc-wartime-1941.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | draft | Thomas Irvine (ii) sat until his death on 6 Jun 1946 | He **resigned**, accepted 5 Aug 1941, having not attended since Dec 1939 (ST 9 Aug 1941) | Ledger fixed |
+| 2 | wiki | Joseph Linklater replaced at the Oct 1941 by-election | He **resigned** by letter of 26 Jul 1941, effective three weeks later (ST 9 Aug 1941) | Ledger fixed |
+| 3 | wiki | Gear and Inkster co-opted on **Thu 9 Oct 1941** | "At Tuesday's meeting": **Tue 7 Oct 1941** (ST 11 Oct 1941) | Fixed: `fix_newspapers.py` #10 |
+
 ## 2026-09-27: LTC 1945–1953 (`research/bna/ltc-1945-1953.md`)
 
 | # | Where | We had | Sources show | Status |

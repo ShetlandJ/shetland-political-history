@@ -77,6 +77,11 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Cunningsburgh, leaving Mrs Joan MacLeod returned unopposed" (Shetland Times, 9 May 1958). The
    1964 preview (17 Apr 1964) says she served one three-year term. So 1955-58; the election data
    (McLeod unopposed 1958) was already right. Evidence: research/bna/grace-halcrow-county.md.
+
+10. The October 1941 Lerwick Town Council co-options (John Gear and Charles Inkster, for the
+   resigned J. L. Linklater and Thomas Irvine) were made "at Tuesday's meeting of the Council"
+   (Shetland Times, Saturday 11 Oct 1941): Tuesday 7 October, not Thursday the 9th.
+   Evidence: research/bna/ltc-wartime-1941.md.
 """
 
 import os
@@ -137,6 +142,7 @@ LOSERS_1954 = [  # (person slug or None, candidate_name, party, votes)
 ]
 ELECTORATE_1954 = (3918, '3950 on the roll, 32 not eligible to vote until the autumn', 1913, 48.8)
 INKSTER_1951 = 'Lerwick Town Council Election May 1951'
+CO_OPTION_1941 = ('Lerwick Town Council By-Election October 1941', '1941-10-09', '1941-10-07')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -356,6 +362,9 @@ def main():
         print(f"  1951 candidacy {found[0]['id']}: James Inkster -> John N. Inkster (john-inkster-ii)")
     else:
         raise SystemExit(f"{INKSTER_1951}: unexpected Inkster candidacy {dict(found[0])}")
+
+    print("=== 10. October 1941 LTC co-options: Tuesday 7 October ===")
+    set_date(c, *CO_OPTION_1941)
 
     db.commit()
     db.close()
