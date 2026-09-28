@@ -90,6 +90,15 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    (Shetland Times, 17 Apr 1970), 14 April, hours after nominations closed. Adair was co-opted "at
    Friday's statutory meeting" (Shetland Times, 15 May 1970), 8 May 1970, as the unsuccessful
    candidate with most votes at the 5 May election. Evidence: research/bna/ltc-1969-1973.md.
+
+12. Zetland County Council polling days 1949-1964. The baseline dates five generals on a Monday
+   and 1955 on a Thursday. Each was on a Tuesday, a week after the Town Council's except in 1958 and
+   1964: "the County Council election on 10th May" (Shetland Times, 29 Apr 1949); "the county will
+   have its turn on Tuesday first" (9 May 1952), i.e. 13 May; "Tuesday first, 10th" (6 May 1955);
+   "Polling took place ... on Tuesday" (16 May 1958), 13 May; elections "a week from Tuesday"
+   (28 Apr 1961), 9 May, with the count on Wednesday 10 May (12 May 1961); "Tuesday first" (8 May
+   1964), 12 May. Each general is one row per ward, so every row moves. Evidence:
+   research/bna/zcc-election-dates-1949-1964.md.
 """
 
 import os
@@ -151,6 +160,14 @@ LOSERS_1954 = [  # (person slug or None, candidate_name, party, votes)
 ELECTORATE_1954 = (3918, '3950 on the roll, 32 not eligible to vote until the autumn', 1913, 48.8)
 INKSTER_1951 = 'Lerwick Town Council Election May 1951'
 CO_OPTION_1941 = ('Lerwick Town Council By-Election October 1941', '1941-10-09', '1941-10-07')
+ZCC_POLLING_DAYS = [  # (wiki title, baseline date, Tuesday from the Shetland Times)
+    ('County Council Election May 1949', '1949-05-09', '1949-05-10'),
+    ('County Council Election May 1952', '1952-05-05', '1952-05-13'),
+    ('County Council Election May 1955', '1955-05-05', '1955-05-10'),
+    ('County Council Election May 1958', '1958-05-12', '1958-05-13'),
+    ('County Council Election May 1961', '1961-05-08', '1961-05-09'),
+    ('County Council Election May 1964', '1964-05-11', '1964-05-12'),
+]
 ADAIR_BY_ELECTION = 'Lerwick Town Council By-Election May 1970'
 ADAIR_NOTE = (
     "Co-option at the statutory meeting of the Town Council on 8 May 1970, to fill the vacancy left when "
@@ -184,6 +201,19 @@ def set_date(c, wiki_title, wrong, right):
     else:
         raise SystemExit(f"'{wiki_title}' has unexpected date {row['election_date']}")
     return row['id']
+
+
+def set_date_all(c, wiki_title, wrong, right):
+    """set_date for a general held as one row per ward: every row must move together."""
+    c.execute("SELECT DISTINCT election_date FROM elections WHERE wiki_page_title = ?", (wiki_title,))
+    dates = {r['election_date'] for r in c.fetchall()}
+    if dates == {right}:
+        print(f"  {wiki_title}: already {right}")
+    elif dates == {wrong}:
+        c.execute("UPDATE elections SET election_date = ? WHERE wiki_page_title = ?", (right, wiki_title))
+        print(f"  {wiki_title} ({c.rowcount} rows): {wrong} -> {right}")
+    else:
+        raise SystemExit(f"'{wiki_title}' has unexpected dates {sorted(dates)}")
 
 
 def main():
@@ -391,6 +421,10 @@ def main():
         print("  note: added")
     else:
         raise SystemExit(f"{ADAIR_BY_ELECTION} already has notes, not overwriting: {row['notes']}")
+
+    print("=== 12. ZCC polling days 1949-1964 ===")
+    for title, wrong, right in ZCC_POLLING_DAYS:
+        set_date_all(c, title, wrong, right)
 
     db.commit()
     db.close()

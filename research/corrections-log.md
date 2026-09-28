@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: ZCC polling days 1949–1964 (`research/bna/zcc-election-dates-1949-1964.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | County Council generals on **Mon 9 May 1949, Mon 5 May 1952, Thu 5 May 1955, Mon 12 May 1958, Mon 8 May 1961, Mon 11 May 1964** | All on a **Tuesday**: 10 May 1949, **13 May 1952** (a week later, not the day after), 10 May 1955, 13 May 1958, 9 May 1961, 12 May 1964 | Fixed: `fix_newspapers.py` #12 (144 ward rows); ZCC terms follow |
+
 ## 2026-09-28: LTC 1969–1973 (`research/bna/ltc-1969-1973.md`)
 
 | # | Where | We had | Sources show | Status |
