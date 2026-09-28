@@ -132,12 +132,35 @@ Daniel's resignation, not in the paper (minute book).
 `data/citations.csv` and `data/citation_links.csv` now hold every source used so far (293
 citations, 801 links). Gaps:
 
-- [ ] **Election previews with no issue date (8 LTC rows)**: the April 2026 research cited "the
-  Shetland Times preview" of the 1 Nov 1932, 7 Nov 1933 and 3 Nov 1936 elections without the
-  issue. Find each preview (the Saturday before, by the timing rules), add the article to
-  `citations.csv` and link it to the rows: `william-sinclair@1929-11-05`, `william-bruce-ii@1930-11-04`,
-  `james-laing@1930-11-04`, `john-sinclair@1930-11-04`, `robert-ollason@1930-11-04`,
-  `adam-halcrow-i@1933-11-07`, `charles-manson@1933-11-07`, `robert-ollason@1933-11-07`.
+- [ ] **Citations batch 1: LTC 1872–1962 (Shetland Times)**. Collect a citation for every LTC
+  election and confirmed ledger row from 1872 that has none. For each: find the article
+  (result, nominations report, retiring list or co-option report), add it to
+  `data/citations.csv`, link it in `data/citation_links.csv` (`election` and/or `term`
+  `slug@start_date`, with `basis` read/inferred and a `note` saying what it supports), and add
+  dead ends to `data/searches.csv`. Check the votes and dates against the DB while there;
+  anything that differs goes in the corrections log as usual. Rebuild and commit after each
+  sub-item. Find what's still missing with:
+  `sqlite3 shetland.db "select e.id, e.election_date, e.wiki_page_title from elections e where council_id=1 and hidden=0 and election_date>='1872' and not exists (select 1 from citation_links l where l.election_id=e.id) order by 2"`
+  (and the same over `council_terms` with `confirmed=1` for rows).
+  - [ ] **Undated previews, 1932, 1933, 1936** (8 rows): the Saturday before each general.
+    Link to `william-sinclair@1929-11-05`, `william-bruce-ii@1930-11-04`,
+    `james-laing@1930-11-04`, `john-sinclair@1930-11-04`, `robert-ollason@1930-11-04`,
+    `adam-halcrow-i@1933-11-07`, `charles-manson@1933-11-07`, `robert-ollason@1933-11-07`, and
+    to elections 91 (Nov 1932) and 92 (Nov 1933).
+  - [ ] **1874–1883** (elections 21–32; 37 confirmed rows from the April 2026 research with no
+    source): the results and the October retiring lists. Both ends of each row, so a row's end
+    is linked from the next retiring list. Check the Shetland Times exists for 1874 first.
+  - [ ] **1884–1935**: elections 34 (co-option, 22 Nov 1884), 39 (1887), 44 (1892), 45 (1893),
+    51 (by-election May 1899), 58 (by-election Feb 1905), 81 (by-election May 1924), 83 (1925),
+    84 (1926), 87 (1929), 90 (by-election Jun 1932).
+  - [ ] **1946–1950**: elections 112 (T. A. Sinclair's co-option for David Gray, May 1946: the
+    DB's Wed 22 May is unconfirmed, so check the day) and 118 (by-election Sep 1950).
+- [ ] **Citations batch 2: ZCC elections 1890–1973** (130 without a citation): one result
+  article per general covers every ward row. By decade.
+- [ ] **Citations batch 3: Westminster 1872–1975** (30 without a citation): the Orkney and
+  Shetland results in the Shetland Times.
+- Not BNA: SIC 1976+ and Holyrood (38; official results pages, needs a `web` publication type),
+  and pre-1872 (minute book).
 - [ ] **244 confirmed rows with no recorded source**: the April 2026 rows ("per-row source not
   recorded"), all starting 1818–1883 (most before 1872, when the Shetland Times began).
   Mostly minute-book work: record the page for each as an `mb-pN` citation. The 13 from the
