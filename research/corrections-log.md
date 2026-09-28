@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1908–1910 (`research/bna/ltc-1908-1910.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | draft | Provost Arthur Porteous's seat ended Nov 1908, and Ganson (1906) and J. Smith (1907) each sat a full 3 years | Porteous **stayed on as Provost until Nov 1910**. Ganson retired in his place in 1908 and J. Smith a year early in 1909 (ST 17 Oct 1908, 16 Oct 1909, 8 Oct 1910). The wiki profile's "1887 to 1910" was already right | Ledger fixed |
+
 ## 2026-09-28: LTC 1895–1901 (`research/bna/ltc-1895-1901.md`)
 
 | # | Where | We had | Sources show | Status |

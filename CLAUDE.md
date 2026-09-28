@@ -273,9 +273,11 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and 6 overlapping terms (1908–09, 1922, 1969–73), where the cohort model gave someone a full term that the retiring lists cut short.
+The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and 4 overlapping terms (1922, 1969–73), where the cohort model gave someone a full term that the retiring lists cut short.
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
+
+**1905–1910 settled (2026-09-28)**: Provost Porteous stayed on from 1908 to 1910. Ganson retired in his place in 1908, and J. Smith retired a year early in 1909. Evidence: `research/bna/ltc-1908-1910.md`.
 
 **1912–1914 settled (2026-09-27)**: the council had 12 members throughout, from the Shetland Times retiring lists. Evidence with BNA links: `research/bna/ltc-1912-1914.md`.
 
