@@ -173,8 +173,14 @@ citations, 801 links). Gaps:
     in open-questions. 0 issues (7). `zcc-1890-1899.md`)
   - [x] **ZCC Walls North (Sandness) 1890–92** (done from the wiki: the Sandness constituency
     page lists "1890 - Vacant", then Grierson 1892. Agrees with the paper; no by-election missing.)
-  - [ ] **ZCC 1900–1919**: generals Dec 1901, 1904, 1907, 1910, 1913, 1919 (Sinclair's 1919 double
-    return is in `not_seated.csv`); 23 by-elections.
+  - [x] **ZCC 1900–1919** (done: 6 generals and 23 by-elections cited, 56 citations, 302 links.
+    Dec 1910 was Tue 6 Dec, not Sat 3rd (#35); 18 by-election dates moved (#32), all Council
+    appointments on Thursdays. Wrong members or candidates: Lerwick South 1919 was James Laing, not
+    Charles Stout (#36); Delting North 1904's loser was James Inkster, not Arthur White (#33);
+    Sandwick 1907 was unopposed, the wiki's poll a copy of 1904 (#34); Delting North 1919
+    unopposed (parse #13). Petitions and Council ballots 1914–19 no longer shown as votes (parse
+    #12; the rest queued). Feb 1902, Jun 1907 and Jan 1911 days in open-questions. 0 issues (7).
+    `zcc-1900-1919.md`)
   - [ ] **ZCC 1920–1939**: generals Dec 1922, 1925, 1928, 1929, 1932, 1935, 1938; 28 by-elections.
   - [ ] **ZCC 1940–1959**: generals Dec 1945, May 1949, 1952, 1955, 1958 (polling days already
     fixed, #12: cite and check votes only); 17 by-elections.

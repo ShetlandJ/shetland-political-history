@@ -281,6 +281,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    place on Tuesday, [6th] December" (ST 26 Nov 1910); the contested divisions polled "on
    Tuesday in disagreeable weather" (ST 10 Dec 1910).
    Evidence: research/bna/zcc-1900-1919.md.
+
+36. Lerwick South, December 1919: James Laing was returned unopposed, not Charles Stout. Both were
+   nominated (ST 15 Nov 1919), and "Mr C. B. Stout from Lerwick South" withdrew, "leaving Mr Jas.
+   Laing unopposed" (ST 22 Nov 1919). "J. Laing" sat at the County Council's January 1920 meeting;
+   Stout did not (ST 24 Jan 1920). The wiki has Stout unopposed, and Laing's page dates his seat
+   from 1922. The candidacy is re-pointed to Laing, and his intro now says 1919.
+   Evidence: research/bna/zcc-1900-1919.md.
 """
 
 import os
@@ -418,6 +425,10 @@ ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland
 DELTING_NORTH_1904 = ('County Council Election December 1904', 'Delting North', 'Arthur White', 'arthur-white',
                       'James Inkster', 'james-inkster')
 POLLING_DAY_ZCC_1910 = ('County_Council_Election_December_1910', '1910-12-03', '1910-12-06')
+LAING_INTRO = ('james-laing', 'County Councillor for Lerwick South between 1922 and 1929',
+               'County Councillor for Lerwick South between 1919 and 1929')
+LERWICK_SOUTH_1919 = ('County_Council_Election_December_1919', 'Lerwick South', ('Charles Stout', 'charles-stout'),
+                     ('James Laing', 'james-laing'))
 SANDWICK_1907 = ('County Council Election December 1907', 'Sandwick', (276, 161), ('William Smith', 91), ('James Thomson', 70))
 WHITENESS_1890 = ('County Council Election February 1890', 'Whiteness And Weisdale', (126, 52.9), (116, 56.9))
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
@@ -808,6 +819,30 @@ def main():
 
     print("=== 35. ZCC polling day Dec 1910 ===")
     set_date_all(c, *POLLING_DAY_ZCC_1910)
+
+    print("=== 36. Lerwick South 1919: James Laing, not Charles Stout ===")
+    title, ward, (wrong_name, wrong_slug), (right_name, right_slug) = LERWICK_SOUTH_1919
+    wrong_id = one(c, "SELECT id FROM people WHERE slug = ?", (wrong_slug,))['id']
+    right_id = one(c, "SELECT id FROM people WHERE slug = ?", (right_slug,))['id']
+    row = one(c, """SELECT c.id, c.candidate_name, c.person_id FROM candidacies c
+                   JOIN elections e ON e.id = c.election_id JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+    if (row['candidate_name'], row['person_id']) == (right_name, right_id):
+        print("  already James Laing")
+    elif (row['candidate_name'], row['person_id']) == (wrong_name, wrong_id):
+        c.execute("UPDATE candidacies SET candidate_name = ?, person_id = ? WHERE id = ?", (right_name, right_id, row['id']))
+        print(f"  candidacy {row['id']}: {wrong_name} -> {right_name}")
+    else:
+        raise SystemExit(f"candidacy {row['id']}: unexpected {row['candidate_name']!r}/{row['person_id']}")
+    slug, wrong, right = LAING_INTRO
+    intro = one(c, "SELECT intro FROM people WHERE slug = ?", (slug,))['intro']
+    if right in intro:
+        print("  Laing intro: already 1919")
+    elif wrong in intro:
+        c.execute("UPDATE people SET intro = ? WHERE slug = ?", (intro.replace(wrong, right), slug))
+        print("  Laing intro: 1922 -> 1919")
+    else:
+        raise SystemExit("james-laing intro: expected text not found")
 
     db.commit()
     db.close()

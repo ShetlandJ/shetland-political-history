@@ -61,6 +61,10 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    kept the first number as votes. None was a poll. Votes cleared; the wiki's text kept. The
    figures agree with the Shetland Times reports (ST 26 Dec 1914, 28 Aug 1915, 21 Jul 1917,
    1 Mar 1919; Whiteness 1914's report is unreadable in the OCR).
+13. Delting North, December 1919 (goes further than #7): Joseph Peterson withdrew, "leaving Mr Jas.
+   Hay unopposed" (Shetland Times, 22 Nov 1919). The wiki's "Hay 29, Peterson 15" looks borrowed
+   from 1913 (Hay 29, Smith 26, Henderson 15). Peterson's row is removed and Hay's votes become
+   "Unopposed". Evidence: research/bna/zcc-1900-1919.md.
 """
 
 import os
@@ -205,6 +209,19 @@ def main():
     if elected == 1:
         c.execute("UPDATE candidacies SET elected = 0 WHERE id = ?", (cid,))
         print(f"candidacy {cid}: Peterson, Delting North 1919, not elected")
+    # 13: he withdrew, so Hay was unopposed and there were no votes
+    c.execute("DELETE FROM candidacies WHERE id = ? AND elected = 0 AND votes = 15", (cid,))
+    if c.rowcount:
+        print(f"candidacy {cid}: Peterson, Delting North 1919, withdrew: removed")
+    hay, votes, votes_text = c.execute("""SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                                JOIN constituencies k ON k.id = e.constituency_id
+                                WHERE e.wiki_page_title = ? AND k.name = ? AND ca.candidate_name = 'James Hay'""",
+                             (title, ward)).fetchone()
+    if (votes, votes_text) == (29, None):
+        c.execute("UPDATE candidacies SET votes = NULL, votes_text = 'Unopposed' WHERE id = ?", (hay,))
+        print(f"candidacy {hay}: Hay, Delting North 1919: 29 votes -> Unopposed")
+    elif (votes, votes_text) != (None, 'Unopposed'):
+        raise SystemExit(f"candidacy {hay}: unexpected votes {votes!r}/{votes_text!r}")
 
     title, keep, drop, combined = COMBINED_1922
     rows = {k: (eid, hidden, disp) for eid, k, hidden, disp in c.execute(
