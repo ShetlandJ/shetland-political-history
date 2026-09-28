@@ -113,10 +113,14 @@ sitting through each size-short window (listed per sub-item).
     1949 departure before the Sep 1949 co-option).
   - [x] 26 Apr–6 May 1955 (cleared, 10 → 9; ST 9 May 1952, 8 May 1953, 11 Mar 1955, 16 Mar 1956): Johnson, Peterson, Tait, Conochie (1952-05-06→1955-05-03); Burgess,
     Harry Gray, Eunson, R. Anderson (i) (1953-05-05→1956-05-01). April retiring lists 1955–56.
-- [ ] **Batch 3: LTC 1965–1970 (2 issues)**.
-  - [ ] 26 Jun–8 Aug 1967: Harry Gray, James Paton (i) (1965-05-04→1968-05-07); Grace Halcrow
+- [x] **Batch 3: LTC 1965–1970 (2 issues)**: 9 → 7, both genuine vacancies, now fully confirmed
+  (11 rows). Provost Nicolson resigned from 27 Apr 1967 (ill-health); Halcrow co-opted at the
+  statutory meeting Fri 5 May 1967, not the 12th; R. A. Anderson died Sun 25 Jun 1967, not the 26th
+  (`fix_newspapers.py` #24); Cumming co-opted Tue 8 Aug. W. A. Smith's 1969 row is the first
+  abolition-ending row confirmed. One commit for the batch. `ltc-1965-1970.md`.
+  - [x] 26 Jun–8 Aug 1967: Harry Gray, James Paton (i) (1965-05-04→1968-05-07); Grace Halcrow
     1967-05-12→1968-05-07 (her co-option date, and the 1968 retiring list).
-  - [ ] 14 Apr–8 May 1970: William Smith (iv) 1969-05-06→1975-05-15 (start: the May 1969
+  - [x] 14 Apr–8 May 1970: William Smith (iv) 1969-05-06→1975-05-15 (start: the May 1969
     result; end is abolition).
 
 Not batched: 1884–1889 (6 issues) waits on the open questions (Harrison, Mitchell, the 1888

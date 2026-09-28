@@ -172,6 +172,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    the 4th. The preview says Lerwick electors "will find Tuesday's choice a difficult matter"
    (Shetland Times, 1 Nov 1946), and the Harbour Trust election "coincided with the municipal
    election on Tuesday" (Shetland Times, 8 Nov 1946). Evidence: research/bna/ltc-1945-1956.md.
+
+24. Lerwick Town Council, 1967. Grace Halcrow was co-opted in place of Provost A. J. Nicolson "at
+   the statutory meeting of the council last Friday night" (Shetland Times, 12 May 1967), i.e.
+   Friday 5 May, not the 12th (the paper's publication day). Nicolson's resignation took effect
+   on 27 April (Shetland Times, 14 Apr 1967). Ex-Provost Robert A. Anderson (i) died at home "on
+   Sunday morning" (Shetland Times, 30 Jun 1967), "on 25th June, 1967" in the death notice
+   (Shetland Times, 7 Jul 1967), not the 26th. Evidence: research/bna/ltc-1965-1970.md.
 """
 
 import os
@@ -266,6 +273,8 @@ CO_OPTION_1921 = ('Lerwick Town Council By-Election June 1921', '1921-06-11', '1
 POLLING_DAY_1901 = ('Lerwick Town Council Election November 1901', '1901-11-01', '1901-11-05')
 CO_OPTION_1910 = ('Lerwick Town Council By-Election January 1910', '1910-01-01', '1910-01-04')
 POLLING_DAY_1946 = ('Lerwick Town Council Election November 1946', '1946-11-04', '1946-11-05')
+CO_OPTION_1967 = ('Lerwick Town Council By-Election May 1967', '1967-05-12', '1967-05-05')
+ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -568,6 +577,18 @@ def main():
 
     print("=== 23. LTC polling day Nov 1946 ===")
     set_date(c, *POLLING_DAY_1946)
+
+    print("=== 24. LTC co-option May 1967 and R. A. Anderson's death ===")
+    set_date(c, *CO_OPTION_1967)
+    slug, wrong, right = ANDERSON_DEATH
+    row = one(c, "SELECT id, died_date FROM people WHERE slug = ?", (slug,))
+    if row['died_date'] == right:
+        print(f"  {slug} died_date: already {right}")
+    elif row['died_date'] == wrong:
+        c.execute("UPDATE people SET died_date = ? WHERE id = ?", (right, row['id']))
+        print(f"  {slug} died_date: {wrong} -> {right}")
+    else:
+        raise SystemExit(f"people.{slug} died_date is {row['died_date']}, expected {wrong}")
 
     db.commit()
     db.close()

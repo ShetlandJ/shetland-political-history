@@ -605,14 +605,14 @@ alexander-morrison,Alexander Morrison,1963-05-07,1966-05-03,elected,term_expired
 eric-gray,Eric Gray,1963-05-07,1966-05-03,elected,term_expired,136,Lerwick Town Council Election May 1963,0,
 magnus-shearer-ii,Magnus Shearer (ii),1963-05-07,1966-05-03,elected,term_expired,136,Lerwick Town Council Election May 1963,0,
 robert-adair,Robert Adair,1963-05-07,1966-05-03,elected,term_expired,136,Lerwick Town Council Election May 1963,0,
-arthur-johnson,Arthur Johnson,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
-grace-halcrow,Grace Halcrow,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
-james-taylor,James Taylor,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
-peter-robertson,Peter Robertson,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,0,
-andrew-nicolson,Andrew Nicolson,1965-05-04,1967-05-12,elected,replaced,138,Lerwick Town Council Election May 1965,0,
-harry-gray,Harry Gray,1965-05-04,1968-05-07,elected,term_expired,138,Lerwick Town Council Election May 1965,0,
-james-paton-i,James Paton (i),1965-05-04,1968-05-07,elected,term_expired,138,Lerwick Town Council Election May 1965,0,
-robert-anderson-i,Robert Anderson (i),1965-05-04,1967-06-26,elected,died,138,Lerwick Town Council Election May 1965,0,
+arthur-johnson,Arthur Johnson,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,1,ST 8 May 1964 p4 (result); ST 14 Apr 1967 p4 (retiring 1967)
+grace-halcrow,Grace Halcrow,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,1,ST 8 May 1964 p4 (result); ST 14 Apr 1967 p4 (retiring 1967)
+james-taylor,James Taylor,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,1,ST 8 May 1964 p4 (result); ST 14 Apr 1967 p4 (retiring 1967)
+peter-robertson,Peter Robertson,1964-05-05,1967-05-02,elected,term_expired,137,Lerwick Town Council Election May 1964,1,ST 8 May 1964 p4 (result); ST 14 Apr 1967 p4 (retiring 1967)
+andrew-nicolson,Andrew Nicolson,1965-05-04,1967-04-27,elected,resigned,138,Lerwick Town Council Election May 1965,1,ST 16 Apr 1965 (unopposed); ST 14 Apr 1967 p4 (Provost; resigned through ill-health from 27 Apr 1967)
+harry-gray,Harry Gray,1965-05-04,1968-05-07,elected,term_expired,138,Lerwick Town Council Election May 1965,1,ST 16 Apr 1965 (unopposed); ST 15 Mar 1968 p5 (retires 1968)
+james-paton-i,James Paton (i),1965-05-04,1968-05-07,elected,term_expired,138,Lerwick Town Council Election May 1965,1,ST 16 Apr 1965 (unopposed); ST 15 Mar 1968 p5 (retires 1968); ST 10 May 1968 (defeated)
+robert-anderson-i,Robert Anderson (i),1965-05-04,1967-06-25,elected,died,138,Lerwick Town Council Election May 1965,1,ST 16 Apr 1965 (unopposed); ST 30 Jun 1967 p6 and 7 Jul 1967 p4 (died Sun 25 Jun 1967)
 alexander-morrison,Alexander Morrison,1966-05-03,1969-05-06,elected,term_expired,139,Lerwick Town Council Election May 1966,1,ST 14 Mar 1969 (retires 1969)
 eric-gray,Eric Gray,1966-05-03,1971-05-04,elected,term_expired,139,Lerwick Town Council Election May 1966,1,ST 14 Mar 1969 (Provost; not retiring 1969); ST 12 Mar 1971 (retires 1971)
 john-smith-ii,John Smith (ii),1966-05-03,1969-05-06,elected,term_expired,139,Lerwick Town Council Election May 1966,1,ST 14 Mar 1969 (retires 1969)
@@ -621,8 +621,8 @@ george-blance,George Blance,1967-05-02,1970-05-05,elected,term_expired,140,Lerwi
 james-taylor,James Taylor,1967-05-02,1970-05-05,elected,term_expired,140,Lerwick Town Council Election May 1967,1,ST 13 Mar 1970 (retires 1970)
 peter-robertson,Peter Robertson,1967-05-02,1970-05-05,elected,term_expired,140,Lerwick Town Council Election May 1967,1,ST 13 Mar 1970 (retires 1970 and does not re-stand)
 william-smith-iv,William Smith (iv),1967-05-02,1969-05-06,elected,term_expired,140,Lerwick Town Council Election May 1967,1,ST 14 Mar 1969 (least successful winner in 1967; retires 1969)
-grace-halcrow,Grace Halcrow,1967-05-12,1968-05-07,by-election,term_expired,141,Lerwick Town Council By-Election May 1967,0,
-ronald-cumming,Ronald Cumming,1967-08-08,1968-05-07,by-election,term_expired,142,Lerwick Town Council By-Election August 1967,0,
+grace-halcrow,Grace Halcrow,1967-05-05,1968-05-07,by-election,term_expired,141,Lerwick Town Council By-Election May 1967,1,ST 12 May 1967 p3 (co-opted for Nicolson at the statutory meeting Fri 5 May 1967); ST 15 Mar 1968 p5 (retires 1968)
+ronald-cumming,Ronald Cumming,1967-08-08,1968-05-07,by-election,term_expired,142,Lerwick Town Council By-Election August 1967,1,ST 11 Aug 1967 p4 and p5 (co-opted for the late R. A. Anderson at the meeting of Tue 8 Aug 1967); ST 15 Mar 1968 p5 (retires 1968)
 grace-halcrow,Grace Halcrow,1968-05-07,1970-05-05,elected,term_expired,143,Lerwick Town Council Election May 1968,1,ST 19 Apr 1968 and 10 May 1968 (elected Tue 7 May); ST 13 Mar 1970 (retires 1970 by rotation and does not re-stand)
 harry-gray,Harry Gray,1968-05-07,1971-05-04,elected,term_expired,143,Lerwick Town Council Election May 1968,1,ST 19 Apr 1968 and 10 May 1968 (elected Tue 7 May); ST 12 Mar 1971 (retires 1971)
 ronald-cumming,Ronald Cumming,1968-05-07,1971-05-04,elected,term_expired,143,Lerwick Town Council Election May 1968,1,ST 19 Apr 1968 and 10 May 1968 (elected Tue 7 May); ST 12 Mar 1971 (retires 1971)
@@ -630,7 +630,7 @@ william-thomson-iii,William Thomson (iii),1968-05-07,1971-05-04,elected,term_exp
 alexander-morrison,Alexander Morrison,1969-05-06,1972-05-02,elected,term_expired,144,Lerwick Town Council Election May 1969,1,ST 17 Mar 1972 (retires 1972)
 james-paton-i,James Paton (i),1969-05-06,1972-05-02,elected,term_expired,144,Lerwick Town Council Election May 1969,1,ST 17 Mar 1972 (retires 1972)
 john-smith-ii,John Smith (ii),1969-05-06,1970-04-14,elected,resigned,144,Lerwick Town Council Election May 1969,1,ST 17 Apr 1970 (resignation read at the meeting of Tue 14 Apr 1970)
-william-smith-iv,William Smith (iv),1969-05-06,1975-05-15,elected,council_abolished,144,Lerwick Town Council Election May 1969,0,ST 17 Mar 1972 and ST 14 Apr 1972 (Provost; not retiring 1972)
+william-smith-iv,William Smith (iv),1969-05-06,1975-05-15,elected,council_abolished,144,Lerwick Town Council Election May 1969,1,ST 9 May 1969 p1 (result); ST 17 Mar 1972 and ST 14 Apr 1972 (Provost; not retiring 1972); end is abolition
 andrew-tait,Andrew Tait,1970-05-05,1972-05-02,elected,term_expired,145,Lerwick Town Council Election May 1970,1,ST 17 Mar 1972 (retires 1972 a year early and does not re-stand)
 george-blance,George Blance,1970-05-05,1973-05-01,elected,term_expired,145,Lerwick Town Council Election May 1970,1,ST 13 Apr 1973 (retires 1973)
 james-taylor,James Taylor,1970-05-05,1973-05-01,elected,term_expired,145,Lerwick Town Council Election May 1970,1,ST 13 Apr 1973 (retires 1973)

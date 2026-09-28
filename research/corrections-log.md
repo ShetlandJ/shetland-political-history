@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1965–1970 (`research/bna/ltc-1965-1970.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Robert A. Anderson (i) died **26 June 1967** | Died at home **Sunday 25 June 1967** (obituary, ST 30 Jun; death notice "on 25th June", ST 7 Jul 1967) | Fixed: `fix_newspapers.py` #24 (`died_date`), ledger |
+| 2 | wiki | Grace Halcrow's co-option for Nicolson on **12 May 1967** | Co-opted at the statutory meeting **Friday 5 May 1967** (ST 12 May 1967; the 12th is the paper's date) | Fixed: `fix_newspapers.py` #24, ledger |
+| 3 | draft | Provost Nicolson sat until Halcrow's co-option (`replaced`) | He **resigned through ill-health from 27 April 1967** (ST 14 Apr 1967), before the May general | Ledger fixed |
+
 ## 2026-09-28: LTC 1945–1956 (`research/bna/ltc-1945-1956.md`)
 
 | # | Where | We had | Sources show | Status |
