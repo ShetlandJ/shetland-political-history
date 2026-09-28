@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC co-options 1946 and 1950 (`research/bna/ltc-1946-1950-citations.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | T. A. Sinclair co-opted for David Gray in **May 1946** (DB Wed 22 May) | Elected at the council meeting of **Tue 2 Apr 1946** (ST 5 Apr 1946) | Fixed: `fix_newspapers.py` #29, ledger. The wiki page title still says May |
+
 ## 2026-09-28: LTC citations 1884–1935 (`research/bna/ltc-1884-1935-citations.md`)
 
 | # | Where | We had | Sources show | Status |

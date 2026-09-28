@@ -132,7 +132,7 @@ Daniel's resignation, not in the paper (minute book).
 `data/citations.csv` and `data/citation_links.csv` now hold every source used so far (293
 citations, 801 links). Gaps:
 
-- [ ] **Citations batch 1: LTC 1872–1962 (Shetland Times)**. Collect a citation for every LTC
+- [x] **Citations batch 1: LTC 1872–1962 (Shetland Times)** (done 2026-09-28, four sub-items; seven dates corrected, `fix_newspapers.py` #25–29). Collect a citation for every LTC
   election and confirmed ledger row from 1872 that has none. For each: find the article
   (result, nominations report, retiring list or co-option report), add it to
   `data/citations.csv`, link it in `data/citation_links.csv` (`election` and/or `term`
@@ -153,7 +153,7 @@ citations, 801 links). Gaps:
   - [x] **1884–1935** (done: 15 citations, 73 links, 17 rows confirmed. 1893 general Tue 7 Nov not Thu 2nd, Johnson elected 4 Apr 1899 not 2 May, Reid Tait 6 May 1924 not 5th (`fix_newspapers.py` #26–28); Campbell resigned May 1932, not at Morrison's co-option; Duncan's 1884 co-option was before 18 Nov (open question). ST mid-1932 not digitised (Shetland News used). 0 issues (7). `ltc-1884-1935-citations.md`): elections 34 (co-option, 22 Nov 1884), 39 (1887), 44 (1892), 45 (1893),
     51 (by-election May 1899), 58 (by-election Feb 1905), 81 (by-election May 1924), 83 (1925),
     84 (1926), 87 (1929), 90 (by-election Jun 1932).
-  - [ ] **1946–1950**: elections 112 (T. A. Sinclair's co-option for David Gray, May 1946: the
+  - [x] **1946–1950** (done: Sinclair elected Tue 2 Apr 1946, not 22 May (`fix_newspapers.py` #29); Blance's Sep 1950 co-option confirmed, day not printed. 2 citations, 6 links. 0 issues (7). `ltc-1946-1950-citations.md`): elections 112 (T. A. Sinclair's co-option for David Gray, May 1946: the
     DB's Wed 22 May is unconfirmed, so check the day) and 118 (by-election Sep 1950).
 - [ ] **Citations batch 2: ZCC elections 1890–1973** (130 without a citation): one result
   article per general covers every ward row. By decade.
@@ -184,9 +184,6 @@ citations, 801 links). Gaps:
   record a win that wasn't taken up on a ward council (see open-questions).
 
 ## Not for BNA yet
-
-- **T. A. Sinclair's co-option for David Gray, 1946**: the DB has Wed 22 May 1946 (unconfirmed).
-  Check the ST for 24 and 31 May 1946 for the meeting day. No issue depends on it.
 
 - **By-election days from the wiki text**: the parser kept only the month for by-elections, but many wiki pages give the day in their first sentence ("took place on 17 May"). Seven were set in `fix_parse_errors.py` #5; the rest of the ~100 dated the 1st could be done the same way, checking the weekday. No BNA needed.
 - **James Hunter (iii)'s birth date**: DB 1872-02-06, but his wiki page says 6 January 1872. Check which is right.

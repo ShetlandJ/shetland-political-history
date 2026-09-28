@@ -197,6 +197,10 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 28. E. S. Reid Tait was co-opted for James Goodlad at the monthly meeting "on Tuesday evening"
    (Shetland Times, 10 May 1924), i.e. 6 May 1924, not Monday the 5th.
    Evidence for 26-28: research/bna/ltc-1884-1935-citations.md.
+
+29. T. A. Sinclair was elected to the vacancy "caused through the death of Mr David Gray" at the
+   Town Council meeting "on Tuesday" (Shetland Times, 5 Apr 1946), i.e. 2 April 1946, not
+   Wednesday 22 May. Evidence: research/bna/ltc-1946-1950-citations.md.
 """
 
 import os
@@ -296,6 +300,7 @@ POLLING_DAY_1881 = ('Lerwick Town Council Election November 1881', '1881-11-08',
 POLLING_DAY_1893 = ('Lerwick Town Council Election November 1893', '1893-11-02', '1893-11-07')
 CO_OPTION_1899 = ('Lerwick Town Council By-Election May 1899', '1899-05-02', '1899-04-04')
 CO_OPTION_1924 = ('Lerwick Town Council By-Election May 1924', '1924-05-05', '1924-05-06')
+CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '1946-04-02')
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
@@ -619,6 +624,9 @@ def main():
     set_date(c, *POLLING_DAY_1893)
     set_date(c, *CO_OPTION_1899)
     set_date(c, *CO_OPTION_1924)
+
+    print("=== 29. LTC co-option Apr 1946 ===")
+    set_date(c, *CO_OPTION_1946)
 
     db.commit()
     db.close()
