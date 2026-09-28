@@ -246,6 +246,22 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
      Thursday" (ST 14 Aug 1909), 12 Aug. The DB had 27 Jun, the date Charles Lennie died.
    - Whalsay, July 1910: James Shearer appointed on a Parish Council petition at the monthly
      meeting "on Thursday last week" (ST 30 Jul 1910), 21 Jul, for Rev. C. Stobie, resigned.
+   - Whiteness and Weisdale, June 1914: the vacancy (Peter Anderson, dead) was filled at the
+     monthly meeting "on Thursday at noon", whose report was held over (ST 20 and 27 Jun 1914):
+     18 Jun, as the wiki says.
+   - Nesting, December 1914: Pearson elected by ballot, 16 to 3, at the monthly meeting "on
+     Thursday last" (ST 26 Dec 1914), 24 Dec; the 19 Dec issue has no Council report. The wiki's
+     "Thursday 17 December" is a week early.
+   - Aithsting, August 1915: T. A. Anderson elected by ballot, 12 to 4, at the monthly meeting
+     "on Thursday, of last week" (ST 28 Aug 1915), 19 Aug. The wiki's "Thursday 15 August" was a
+     Sunday.
+   - Fetlar, July 1917: Sir Arthur J. F. W. Nicolson appointed on a petition of 29 ratepayers at
+     the monthly meeting "on Thursday (yesterday)" (ST 21 Jul 1917), 19 Jul.
+   - Cunningsburgh, February 1919: Laurence Anderson elected 5 to 3 over James Laing at the
+     monthly meeting "on Thursday of last week" (ST 1 Mar 1919; the meeting also ST 22 Feb 1919),
+     20 Feb. The wiki's "Thursday 23 February" was a Sunday.
+   - Dunrossness South and Tingwall, June 1919: J. R. Irvine and J. P. Mouat appointed at the
+     monthly meeting "on Thursday of this week" (ST 21 Jun 1919), 19 Jun.
    Evidence: research/bna/zcc-1900-1919.md.
 
 33. Delting North, December 1904: the losing candidate was James Inkster, the sitting member, not
@@ -391,6 +407,13 @@ ZCC_BY_ELECTIONS_1900S = [  # (wiki title, baseline date, date from the Shetland
     ('Tingwall County Council By-Election March 1909', '1909-03-01', '1909-03-18'),
     ('Burra County Council By-Election August 1909', '1909-06-27', '1909-08-12'),
     ('Whalsay And Skerries County Council By-Election July 1910', '1910-07-01', '1910-07-21'),
+    ('Whiteness And Weisdale County Council By-Election June 1914', '1914-06-01', '1914-06-18'),
+    ('Nesting County Council By-Election December 1914', '1914-12-01', '1914-12-24'),
+    ('Aithsting County Council By-Election August 1915', '1915-08-01', '1915-08-19'),
+    ('Fetlar County Council By-Election July 1917', '1917-07-01', '1917-07-19'),
+    ('Cunningsburgh_County_Council_By-Election_February_1919', '1919-02-01', '1919-02-20'),
+    ('Dunrossness South County Council By-Election June 1919', '1919-06-01', '1919-06-19'),
+    ('Tingwall County Council By-Election June 1919', '1919-06-01', '1919-06-19'),
 ]
 DELTING_NORTH_1904 = ('County Council Election December 1904', 'Delting North', 'Arthur White', 'arthur-white',
                       'James Inkster', 'james-inkster')

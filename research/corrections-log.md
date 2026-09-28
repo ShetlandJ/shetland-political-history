@@ -14,6 +14,8 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki | Delting South Apr 1903 dated 1 Apr (wiki "Saturday 18 April"); Northmavine North Sep 1903 dated Sat 19 Sep | Appointed at Council meetings on Thu 16 Apr and Thu 17 Sep 1903 (ST 18 Apr, 19 Sep 1903) | Fixed: `fix_newspapers.py` #32 |
+| 8 | wiki | Council appointments 1914–19 shown as polls: Whiteness 1914 "Henderson 22, Sinclair 67", Nesting 16–3, Aithsting 12–4, Fetlar 29, Cunningsburgh 5–3 | Petition signatures (Whiteness 22 and 67; Fetlar 29; Cunningsburgh 18 and 70) and Council ballots (10–7, 16–3, 12–4, 5–3). No polls (ST 26 Dec 1914, 28 Aug 1915, 21 Jul 1917, 1 Mar 1919) | Fixed: `fix_parse_errors.py` #12 (the wiki tables were right; the parser misread them) |
+| 7 | wiki | Nesting "Thursday 17 December" 1914; Aithsting "Thursday 15 August" 1915; Cunningsburgh "Thursday 23 February" 1919 | Thu 24 Dec 1914, Thu 19 Aug 1915, Thu 20 Feb 1919 (ST 26 Dec 1914, 28 Aug 1915, 1 Mar 1919) | Fixed: `fix_newspapers.py` #32 |
 | 6 | wiki | Dec 1910 ZCC general on Sat 3 Dec | Tue 6 Dec 1910 (ST 26 Nov, 10 Dec 1910) | Fixed: `fix_newspapers.py` #35 |
 | 5 | DB | Burra Aug 1909 dated 27 Jun 1909 (Lennie's death); Tingwall Mar 1909 and Whalsay Jul 1910 the 1st of the month | Thu 12 Aug 1909, Thu 18 Mar 1909, Thu 21 Jul 1910, as the wiki text says (ST 14 Aug 1909, 20 Mar 1909, 30 Jul 1910) | Fixed: `fix_newspapers.py` #32 |
 | 4 | wiki | Sandwick Dec 1907: Smith 91, Thomson 70 (electorate 276, turnout 161) | Smith unopposed; the figures are 1904's, copied (ST 23 and 30 Nov 1907) | Fixed: `fix_newspapers.py` #34. Wiki table still has the copy |

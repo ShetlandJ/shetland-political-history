@@ -56,6 +56,11 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
 11. Delting North County Council By-Election May 1890: "took place on May 22"; the baseline has
    1 May (month only). Inkster was appointed at the Council's first meeting, reported in the
    Shetland Times of 24 May 1890.
+12. ZCC by-elections 1914-1919 filled by the Council: the wiki tables have "Local petition" and
+   "Council votes" columns, or "16 (council votes)", "29 (petition of rate payers)"; the parser
+   kept the first number as votes. None was a poll. Votes cleared; the wiki's text kept. The
+   figures agree with the Shetland Times reports (ST 26 Dec 1914, 28 Aug 1915, 21 Jul 1917,
+   1 Mar 1919; Whiteness 1914's report is unreadable in the OCR).
 """
 
 import os
@@ -97,6 +102,17 @@ BURRA_1898_PETITIONS = ('Burra County Council By-Election February 1898', [
     ('Henry Henderson', 59, 'Petitions of 59 and 35; appointed'),
     ('Charles Lennie', 113, 'Petition of 113; rejected'),
 ])
+COUNCIL_APPOINTMENTS_1914_1919 = [  # (wiki title, candidate, wrong votes, text)
+    ('Whiteness And Weisdale County Council By-Election June 1914', 'John Henderson', 22, 'Petition of 22; 10 Council votes'),
+    ('Whiteness And Weisdale County Council By-Election June 1914', 'William Sinclair', 67, 'Petition of 67; 7 Council votes'),
+    ('Nesting County Council By-Election December 1914', 'John Pearson', 16, '16 Council votes'),
+    ('Nesting County Council By-Election December 1914', 'H. E. Denis De Vitre', 3, '3 Council votes'),
+    ('Aithsting County Council By-Election August 1915', 'Thomas Anderson', 12, '12 Council votes'),
+    ('Aithsting County Council By-Election August 1915', 'Dr. James C. Bowie', 4, '4 Council votes'),
+    ('Fetlar County Council By-Election July 1917', 'Sir Arthur J. Nicolson', 29, 'Petition of 29 ratepayers'),
+    ('Cunningsburgh_County_Council_By-Election_February_1919', 'Laurence Anderson', 5, 'Petitions of 18; 5 Council votes'),
+    ('Cunningsburgh_County_Council_By-Election_February_1919', 'James Laing', 3, 'Petition of 70; 3 Council votes'),
+]
 DELTING_NORTH_1890 = ('Delting North County Council By-Election May 1890', '1890-05-01', '1890-05-22')
 COMBINED_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting')
 
@@ -241,6 +257,16 @@ def main():
         print(f"election {eid}: date {d_wrong} -> {d_right}")
     elif date != d_right:
         raise SystemExit(f"election {eid}: unexpected date {date}")
+
+    for title, name, wrong_votes, text in COUNCIL_APPOINTMENTS_1914_1919:
+        cid, votes, votes_text = c.execute(
+            """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+               WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name)).fetchone()
+        if (votes, votes_text) == (wrong_votes, None):
+            c.execute("UPDATE candidacies SET votes = NULL, votes_text = ? WHERE id = ?", (text, cid))
+            print(f"candidacy {cid} ({name}): {wrong_votes} votes -> {text!r}")
+        elif (votes, votes_text) != (None, text):
+            raise SystemExit(f"candidacy {cid}: unexpected votes {votes!r}/{votes_text!r}")
 
     db.commit()
     db.close()
