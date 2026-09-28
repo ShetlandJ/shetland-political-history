@@ -224,6 +224,7 @@ Answer the question "who were the councillors on date X?" — now answered by `/
 | James Hunter (ii) | 4 Jan 1887 | Resigned on moving to the Union Bank at Portsoy (Porteous elected 18 Mar 1887) | Shetland Times 11 Dec 1886 and 8 Jan 1887 |
 | Alexander Mitchell (i) | Oct 1889 (probably Fri 18th) | Resigned (re-elected Nov 1888) | Shetland Times 19 and 26 Oct 1889 |
 | Laurence Stove | 12 Apr 1889 | Died | Death date |
+| John Irvine (iii) | 7 Dec 1909 | Resigned (Loggie appointed Tue 4 Jan 1910) | Shetland Times 11 Dec 1909 and 8 Jan 1910 |
 | William MacDougall | 8 Oct 1912 | Resigned (an April 1912 resignation was withdrawn) | Shetland Times 6 Apr and 12 Oct 1912 |
 
 ### Confirmed DB corrections
@@ -265,7 +266,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 ### Current state (as of 2026-09-25)
 
-`data/ltc_terms.csv` holds 650 LTC terms, 511 confirmed (everything starting up to Nov 1883, plus most of 1885–1923, 1929–38, 1941, 1945–54, 1955–65 and 1966–71), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
+`data/ltc_terms.csv` holds 650 LTC terms, 538 confirmed (everything starting up to Nov 1883, plus most of 1885–1923, 1929–38, 1941, 1945–54, 1955–65 and 1966–71), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
 - 1826/1844 election dates, Andrew Duncan (ii) 1829, Magnus Burns 1830 → from the minute book.
 - **1874**: the April "confirmed" rows held both rival groups (23 rows). Minute book p258 records the first group's election as invalid, so the ledger has only the second group's 11.
 - **May 1844**: the generator had given Joseph Leask a second seat. It was an election to the office of Junior Bailie; he already sat.
@@ -273,7 +274,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1895–1905, 1912, 1921, 1945, 1947, 1955, 1961, 1967, 1970 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1886–87 and 1889, all dated vacancies; 1945, 1947, 1955, 1961, 1967, 1970 — often genuine vacancies before a by-election or general); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
 
 **1915–1916 settled (2026-09-28)**: three dated wartime vacancies (Stout died 10 Apr 1915, Sinclair elected 27 Apr; Grierson died 3 Jul, C. B. Stout 3 Aug 1915; Laurenson died 14 Jul, Henderson 1 Aug 1916). W. S. Smith resigned 7 Nov 1916, not 5 Dec. The Shetland Times for 24 Apr–12 Jun 1915 isn't digitised; the Shetland News (`BL/0003210`) filled the gap. Evidence: `research/bna/ltc-1915-1916.md`.
 
@@ -286,6 +287,8 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 **1940–1945 settled (2026-09-28)**: W. Sinclair resigned 24 May 1940 (seat declared vacant in June) and Mouat was co-opted Tue 2 Jul 1940 (not 6 Aug); T. A. Sinclair co-opted 31 Mar 1942 (not 9 Apr); Gear, Inkster and Prophet Smith resigned before their successors' co-options (2 Feb 1943, 3 Oct 1944, 9 Jan 1945); Morrison co-opted Tue 6 Feb 1945; the Nov 1945 general was Tue 6 Nov, not Mon 5th (`fix_newspapers.py` #19). A size-short run is hidden once every row sitting through it is confirmed, so confirming both ends of each row is what clears a genuine vacancy. Evidence: `research/bna/ltc-1940-1945.md`.
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
+
+**1894–1910 settled (2026-09-28)**: the 1895, 1899, 1901 and 1905 short rows are genuine vacancies after deaths, now fully confirmed. The Nov 1901 general was Tue 5 Nov, not Fri 1st (`fix_newspapers.py` #21). Provost Goudie stayed on 1906–07: the Clerk said a Provost "had to serve a period of three years" from his election as Provost, so J. T. J. Sinclair, lowest of the 1904 winners, retired in 1906 in his place. Irvine (iii) resigned 7 Dec 1909 and Loggie was appointed Tue 4 Jan 1910 (#22). Evidence: `research/bna/ltc-1894-1907.md`.
 
 **1905–1910 settled (2026-09-28)**: Provost Porteous stayed on from 1908 to 1910. Ganson retired in his place in 1908, and J. Smith retired a year early in 1909. Evidence: `research/bna/ltc-1908-1910.md`.
 

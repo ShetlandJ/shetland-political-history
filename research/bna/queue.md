@@ -91,18 +91,17 @@ which. See the timing rules in the skill.
 Each batch is one `/bna next` run; commit after each sub-item. Targets are the unconfirmed rows
 sitting through each size-short window (listed per sub-item).
 
-- [ ] **Batch 1: LTC 1894–1905 (4 issues)**. Retiring lists (October meeting, then the page-1
-  election notice "who retire by rotation") and results (the Saturday after the poll, plus page-1
-  "To the Electors" thanks) for 1894–1904.
-  - [ ] 21 Jul–5 Nov 1895: Archibald Garriock 1894-11-06→1897-11-02.
-  - [ ] 28 Feb–2 May 1899: Alfred Stove 1898-11-01→1901-10-13 (start 1898 result; end his
-    Oct 1901 departure).
-  - [ ] 13 Oct–1 Nov 1901: Porteous, Morrison, John Robertson (ii), Goodlad (1899-11-07→1902);
-    A. Laing, F. Halcrow, Kay, Goudie (1900-11-06→1903).
-  - [ ] 2–28 Feb 1905: Porteous, Morrison, Goodlad (1902→1905); A. Laing, Kay, Goudie, Ganson (i)
-    (1903→1906); G. Harrison, Irvine (iii), J. Sinclair, S. Johnson (1904→1907).
-  - [ ] No issue: John Irvine (iii)'s 1907 row ends at the Jan 1910 by-election, unconfirmed.
-    Find his resignation or death (ST late 1909).
+- [x] **Batch 1: LTC 1894–1905 (4 issues)**: 16 → 12, all four genuine vacancies, now fully
+  confirmed (28 rows edited). The 1901 general was Tue 5 Nov, not Fri 1st (`fix_newspapers.py`
+  #21). Provost Goudie stayed on 1906–07 ("had to serve a period of three years" as Provost) and
+  J. T. J. Sinclair, lowest in 1904, retired in 1906 in his place. Irvine resigned Tue 7 Dec 1909;
+  Loggie appointed Tue 4 Jan 1910, not the 1st (#22). One commit for the batch: the sub-items
+  shared the 1901 date change. `ltc-1894-1907.md`.
+  - [x] 21 Jul–5 Nov 1895: Garriock's 1894 seat (ST 10 Nov 1894).
+  - [x] 28 Feb–2 May 1899: Stove's 1898 seat (unopposed, ST 29 Oct 1898; died Sun 13 Oct 1901).
+  - [x] 13 Oct–1 Nov 1901: the 1899 and 1900 cohorts (results 1899, 1900; lists 1902, 1903).
+  - [x] 2–28 Feb 1905: the 1902, 1903 and 1904 cohorts (results; lists 1905, 1906, 1907).
+  - [x] John Irvine (iii)'s 1907 row: resigned 7 Dec 1909.
 - [ ] **Batch 2: LTC 1945–1956 (3 issues)**.
   - [ ] 29 Nov–10 Dec 1945: David Gray (ii) 1945-11-06→1946-03-04 (start: the 9 Nov 1945 result,
     ST p2 art. 047, whose OCR list is garbled; zoom if needed; end: his Mar 1946 departure).

@@ -156,6 +156,17 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    7 June, not the 11th (the paper's publication day). The vote was five each for Goodlad and
    William Bruce, and the Provost gave his casting vote for Goodlad.
    Evidence: research/bna/ltc-1919-1921.md.
+
+21. Lerwick Town Council general of November 1901 was polled on Tuesday 5 November, not Friday
+   the 1st. The Burgh notice has the "Municipal Election on TUESDAY NEXT" (Shetland Times, 2 Nov
+   1901), and the result was declared that evening (Shetland Times, 9 Nov 1901).
+   Evidence: research/bna/ltc-1894-1907.md.
+
+22. Lerwick Town Council co-option of January 1910. James A. Loggie was appointed in place of
+   John G. Irvine, resigned, at a special meeting "held on Tuesday night, before the ordinary
+   meeting" (Shetland Times, 8 Jan 1910), i.e. 4 January, not the 1st. Irvine's letter of
+   resignation had been read at the meeting of Tuesday 7 December 1909 (Shetland Times, 11 Dec
+   1909). Evidence: research/bna/ltc-1894-1907.md.
 """
 
 import os
@@ -247,6 +258,8 @@ WARTIME_DATES = [  # (wiki title, baseline date, date from the Shetland Times)
     ('Lerwick Town Council Election November 1945', '1945-11-05', '1945-11-06'),
 ]
 CO_OPTION_1921 = ('Lerwick Town Council By-Election June 1921', '1921-06-11', '1921-06-07')
+POLLING_DAY_1901 = ('Lerwick Town Council Election November 1901', '1901-11-01', '1901-11-05')
+CO_OPTION_1910 = ('Lerwick Town Council By-Election January 1910', '1910-01-01', '1910-01-04')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -540,6 +553,12 @@ def main():
 
     print("=== 20. LTC co-option Jun 1921 ===")
     set_date(c, *CO_OPTION_1921)
+
+    print("=== 21. LTC polling day Nov 1901 ===")
+    set_date(c, *POLLING_DAY_1901)
+
+    print("=== 22. LTC co-option Jan 1910 ===")
+    set_date(c, *CO_OPTION_1910)
 
     db.commit()
     db.close()

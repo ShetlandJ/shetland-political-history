@@ -9,6 +9,15 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1894–1910 (`research/bna/ltc-1894-1907.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Nov 1901 general on **Fri 1 Nov 1901** | Polled on **Tue 5 Nov 1901** ("Municipal Election on TUESDAY NEXT", ST 2 Nov 1901) | Fixed: `fix_newspapers.py` #21, ledger (7 dates) |
+| 2 | wiki | Loggie's "By-Election January 1910" on 1 Jan 1910 | Appointed at a special meeting on **Tue 4 Jan 1910** (ST 8 Jan 1910) | Fixed: `fix_newspapers.py` #22, ledger |
+| 3 | draft | Goudie's 1903 seat ended 1906 and J. T. J. Sinclair's 1904 seat ran to 1907 | Goudie, as Provost, "had to serve a period of three years", so Sinclair, the lowest winner of 1904, retired in **1906** in his place; Goudie retired in **1907** (ST 6 Oct 1906, 5 Oct 1907) | Ledger fixed. The wiki profiles were already right |
+| 4 | draft | John Irvine (iii) sat until Loggie's appointment | His resignation letter was read at the meeting of **Tue 7 Dec 1909** (ST 11 Dec 1909) | Ledger fixed. His profile (Dec 1909) was right |
+
 ## 2026-09-28: LTC 1919–1921 (`research/bna/ltc-1919-1921.md`)
 
 | # | Where | We had | Sources show | Status |
