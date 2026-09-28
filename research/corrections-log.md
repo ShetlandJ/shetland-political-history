@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-28: LTC 1969–1973 (`research/bna/ltc-1969-1973.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | "By-Election **May** 1970" (Adair for J. R. Smith) dated **8 Aug 1970** | Smith resigned **Tue 14 Apr 1970**; Adair co-opted at the statutory meeting of **Fri 8 May 1970** (ST 17 Apr, 15 May 1970) | Fixed: `fix_newspapers.py` #11, ledger |
+| 2 | wiki | Grace Halcrow a town councillor "from 1964 till the **late 1960s**" | She retired by rotation in **May 1970** and did not re-stand (ST 13 Mar, 17 Apr 1970) | Fixed: intro (`fix_newspapers.py` #5) |
+| 3 | draft | Every 1966–71 winner sat 3 years | Provost E. Gray stayed on 1969–71 (W. A. Smith retired in his place in 1969); Halcrow's 1968 seat ended 1970; Provost W. A. Smith stayed on in 1972 (Tait and Peterson retired a year early); E. Gray and Butler had 2-year seats from 1971 | Ledger fixed (34 rows) |
+
 ## 2026-09-28: LTC 1908–1910 (`research/bna/ltc-1908-1910.md`)
 
 | # | Where | We had | Sources show | Status |

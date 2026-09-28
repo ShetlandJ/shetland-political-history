@@ -265,7 +265,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 ### Current state (as of 2026-09-25)
 
-`data/ltc_terms.csv` holds 651 LTC terms, 396 confirmed (everything starting up to Nov 1883, plus most of 1892–99, 1912–14, 1929–38, 1941, 1945–54 and 1955–65), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
+`data/ltc_terms.csv` holds 651 LTC terms, 426 confirmed (everything starting up to Nov 1883, plus most of 1892–99, 1905–10, 1912–14, 1929–38, 1941, 1945–54, 1955–65 and 1966–71), each with a `source`. The 274 terms confirmed in April 2026 were recovered from commit 38f2f89 and reconciled with later corrections:
 - 1826/1844 election dates, Andrew Duncan (ii) 1829, Magnus Burns 1830 → from the minute book.
 - **1874**: the April "confirmed" rows held both rival groups (23 rows). Minute book p258 records the first group's election as invalid, so the ledger has only the second group's 11.
 - **May 1844**: the generator had given Joseph Leask a second seat. It was an election to the office of Junior Bailie; he already sat.
@@ -273,11 +273,13 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and 4 overlapping terms (1922, 1969–73), where the cohort model gave someone a full term that the retiring lists cut short.
+The open research list is `term_issues` on /data-review. For LTC: short periods (1885–89, 1895–1905, 1912, 1921, 1934–36, 1941–42, 1946, 1967 — often genuine vacancies before a by-election or general); no oversize rows left; and 1 overlapping term (1922), where the cohort model gave someone a full term that the retiring lists cut short.
 
 **1895–1901 settled (2026-09-28)**: Hunter had the short seat in 1895, Halcrow retired a year early in 1897 while Provost Leisk stayed on, and Kay volunteered to retire in 1900 to make up the third. Evidence: `research/bna/ltc-1895-1901.md`.
 
 **1905–1910 settled (2026-09-28)**: Provost Porteous stayed on from 1908 to 1910. Ganson retired in his place in 1908, and J. Smith retired a year early in 1909. Evidence: `research/bna/ltc-1908-1910.md`.
+
+**1966–1973 settled (2026-09-28)**: Provost Eric Gray stayed on 1969–71 (W. A. Smith retired in his place in 1969), Halcrow's 1968 seat ended 1970, Provost W. A. Smith stayed on in 1972 (Tait and Peterson retired a year early), and Eric Gray and Butler had two-year seats from 1971. J. R. Smith resigned 14 Apr 1970 and Adair was co-opted 8 May 1970 (not 8 Aug). 1971–73 were unopposed. Evidence: `research/bna/ltc-1969-1973.md`.
 
 **1912–1914 settled (2026-09-27)**: the council had 12 members throughout, from the Shetland Times retiring lists. Evidence with BNA links: `research/bna/ltc-1912-1914.md`.
 

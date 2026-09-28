@@ -40,7 +40,9 @@ idempotent: re-running does nothing once the corrections are in place.
    Blance, Alexander Morrison, Andrew J. Nicolson and Robert Ollason. Its preview of the 1964
    election (17 Apr 1964) says Halcrow had been elected ten years before and served only one year
    before resigning to become county councillor. So the 1957 seat was Nicolson's (Labour, like his
-   other candidacies), and her profile's "from 1957" becomes 1954-55 and from 1964.
+   other candidacies), and her profile's "from 1957" becomes 1954-55 and from 1964. She retired by
+   rotation in May 1970 and did not re-stand (Shetland Times, 13 Mar and 17 Apr 1970), so "till the
+   late 1960s" becomes "to 1970" (research/bna/ltc-1969-1973.md).
 
 6. The "Lerwick Town Council By-Election May 1961" was a co-option in June. The Rev. Kenneth
    Thomson resigned at the statutory meeting on Friday 5 May 1961, being ineligible (Shetland Times,
@@ -82,6 +84,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    resigned J. L. Linklater and Thomas Irvine) were made "at Tuesday's meeting of the Council"
    (Shetland Times, Saturday 11 Oct 1941): Tuesday 7 October, not Thursday the 9th.
    Evidence: research/bna/ltc-wartime-1941.md.
+
+11. The "Lerwick Town Council By-Election May 1970" (Robert Adair, for John R. Smith) is dated
+   8 August 1970 in the baseline. Smith's letter of resignation was read "on Tuesday night"
+   (Shetland Times, 17 Apr 1970), 14 April, hours after nominations closed. Adair was co-opted "at
+   Friday's statutory meeting" (Shetland Times, 15 May 1970), 8 May 1970, as the unsuccessful
+   candidate with most votes at the 5 May election. Evidence: research/bna/ltc-1969-1973.md.
 """
 
 import os
@@ -104,7 +112,7 @@ WILLIAMSON_INTRO = ('Lerwick Town Councillor between 1941 and 1945',
                     'Lerwick Town Councillor in 1938 and between 1941 and 1945')
 HALCROW_1957 = 'Lerwick Town Council Election May 1957'
 HALCROW_INTRO = ('a Lerwick Town Councillor from 1957 till the late 1960s',
-                 'a Lerwick Town Councillor in 1954-55 and from 1964 till the late 1960s')
+                 'a Lerwick Town Councillor in 1954-55 and from 1964 to 1970')
 HALCROW_COUNTY = ('a County Councillor for the same area between 1955 and 1961',
                   'a County Councillor for the same area between 1955 and 1958')
 STRACHAN_BY_ELECTION = 'Lerwick Town Council By-Election May 1961'
@@ -143,6 +151,13 @@ LOSERS_1954 = [  # (person slug or None, candidate_name, party, votes)
 ELECTORATE_1954 = (3918, '3950 on the roll, 32 not eligible to vote until the autumn', 1913, 48.8)
 INKSTER_1951 = 'Lerwick Town Council Election May 1951'
 CO_OPTION_1941 = ('Lerwick Town Council By-Election October 1941', '1941-10-09', '1941-10-07')
+ADAIR_BY_ELECTION = 'Lerwick Town Council By-Election May 1970'
+ADAIR_NOTE = (
+    "Co-option at the statutory meeting of the Town Council on 8 May 1970, to fill the vacancy left when "
+    "John R. Smith resigned on 14 April 1970, just after nominations closed. Robert Adair was the "
+    "unsuccessful candidate with most votes at the May 1970 election. From the Shetland Times, "
+    "17 April and 15 May 1970."
+)
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -286,7 +301,7 @@ def main():
         print("  intro: already corrected")
     elif old in halcrow['intro']:
         c.execute("UPDATE people SET intro = ? WHERE id = ?", (halcrow['intro'].replace(old, new), halcrow['id']))
-        print("  intro: from 1957 -> 1954-55 and from 1964")
+        print("  intro: from 1957 till the late 1960s -> 1954-55 and from 1964 to 1970")
     else:
         raise SystemExit(f"grace-halcrow intro doesn't contain {old!r}")
 
@@ -365,6 +380,17 @@ def main():
 
     print("=== 10. October 1941 LTC co-options: Tuesday 7 October ===")
     set_date(c, *CO_OPTION_1941)
+
+    print("=== 11. May 1970 LTC co-option of Robert Adair ===")
+    by_id = set_date(c, ADAIR_BY_ELECTION, '1970-08-08', '1970-05-08')
+    row = one(c, "SELECT notes FROM elections WHERE id = ?", (by_id,))
+    if row['notes'] == ADAIR_NOTE:
+        print("  note: already set")
+    elif not row['notes']:
+        c.execute("UPDATE elections SET notes = ? WHERE id = ?", (ADAIR_NOTE, by_id))
+        print("  note: added")
+    else:
+        raise SystemExit(f"{ADAIR_BY_ELECTION} already has notes, not overwriting: {row['notes']}")
 
     db.commit()
     db.close()
