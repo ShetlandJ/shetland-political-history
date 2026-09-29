@@ -193,7 +193,7 @@ citations, 801 links). Gaps:
     `zcc-1920-1939.md`)
   - [x] **ZCC 1940–1959** (done: 5 generals and 16 by-elections cited, 23 citations, 233 links.
     Dec 1945 was Tue 4 Dec, not Mon 3rd (#49). General votes agree (1949 mostly unreadable; Yell
-    North 1955 118 v 119 in open-questions). 12 by-election dates moved from the month to the day
+    North 1955 OCR 118, 119 confirmed by James). 12 by-election dates moved from the month to the day
     (#50). Gulberwick 1951 was a poll, Nicolson 98 v Prophet Smith 49, Tue 8 May (#51). Council
     votes, not polls: 1940–45 (parse #16, #52). Burra 1959 not found (wiki day, parse #15).
     0 issues (7). `zcc-1940-1959.md`)

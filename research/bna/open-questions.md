@@ -8,11 +8,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
-- **2026-09-29: Yell North, May 1955: Youngman 118 or 119?** The ST 13 May 1955 (p4 art. 061)
-  OCR has "AMANDA YOUNGMAN 118", Stewart 62; the wiki and DB have 119 and a turnout of 181 (119 +
-  62). "Over 47 per cent of 383" fits either. Options: leave 119, or zoom on the page (images
-  don't render in the viewer). Election 771. Evidence: `zcc-1940-1959.md`.
-
 - **2026-09-29: Walls, May 1930: day, and was Halcrow unopposed?** Rev. T. Andrew resigned (ST 3
   May 1930). The re-constituted Council's first meeting filled the seat (ST 24 May 1930 p5 art.
   088), but the OCR is garbled; it mentions a petition "in favour of Mr William Hales, Spurries,
