@@ -13,10 +13,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   62). "Over 47 per cent of 383" fits either. Options: leave 119, or zoom on the page (images
   don't render in the viewer). Election 771. Evidence: `zcc-1940-1959.md`.
 
-- **2026-09-29: Is Gulberwick 1951's Prophet Smith the `prophet-smith` person page?** He stood as a
-  Socialist against Nicolson (ST 11 May 1951, 98 to 49). The new candidacy is unlinked. Options:
-  link to person 398 (`fix_newspapers.py` #51), or leave. Election 722. Evidence: `zcc-1940-1959.md`.
-
 - **2026-09-29: Walls, May 1930: day, and was Halcrow unopposed?** Rev. T. Andrew resigned (ST 3
   May 1930). The re-constituted Council's first meeting filled the seat (ST 24 May 1930 p5 art.
   088), but the OCR is garbled; it mentions a petition "in favour of Mr William Hales, Spurries,

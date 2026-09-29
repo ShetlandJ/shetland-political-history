@@ -414,8 +414,8 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 51. Gulberwick, May 1951: a poll, not an appointment. "In the bye-election on Tuesday he polled
    twice as many votes as his Socialist opponent, Mr Prophet Smith—98 to 49" (Shetland Times,
    11 May 1951; Nicolson's thanks for "the Poll on Tuesday, 8th instant"). Nicolson's
-   "Unanimously appointed" becomes 98 votes and Prophet Smith is added, unlinked (a namesake
-   check is James's call). The day is set in fix_parse_errors.py (WRONG_NAMESAKE), which runs later.
+   "Unanimously appointed" becomes 98 votes and Prophet Smith is added, linked to his page (James:
+   there was only one Prophet Smith). The day is set in fix_parse_errors.py (WRONG_NAMESAKE), which runs later.
 52. Gulberwick, March 1945: petitions for Keith and Mitchell, "After a vote Mr C. E. Mitchell was
    elected" by the Council (Shetland Times, 23 Mar 1945). The wiki's 15 and 6 are Council votes,
    not a poll.
@@ -637,7 +637,7 @@ ZCC_BY_ELECTIONS_1940S_1950S = [
     ('Aithsting County Council By-Election February 1959', '1959-02-01', '1959-02-03'),
 ]
 GULBERWICK_1951 = ('Gulberwick County Council By-Election May 1951', ('James J. Nicolson', 'Unanimously appointed', 98),
-                   ('Prophet Smith', 49))
+                   ('Prophet Smith', 49, 'prophet-smith'))
 GULBERWICK_1945 = ('Gulberwick County Council By-Election March 1945', [
     ('Charles E. Mitchell', 15, '15 Council votes'),
     ('Magnus Keith', 6, '6 Council votes'),
@@ -1219,7 +1219,7 @@ def main():
         set_date(c, *args)
 
     print("=== 51. Gulberwick 1951: a poll, Nicolson 98, Prophet Smith 49 ===")
-    title, (winner, wrong_text, winner_votes), (loser, loser_votes) = GULBERWICK_1951
+    title, (winner, wrong_text, winner_votes), (loser, loser_votes, loser_slug) = GULBERWICK_1951
     eid = one(c, "SELECT id FROM elections WHERE wiki_page_title = ?", (title,))['id']
     w = one(c, "SELECT id, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, winner))
     if (w['votes'], w['votes_text']) == (None, wrong_text):
@@ -1231,8 +1231,9 @@ def main():
     if c.fetchall():
         print(f"  {loser}: already added")
     else:
-        c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
-                     VALUES (?, ?, ?, 0, 2)""", (eid, loser, loser_votes))
+        pid = one(c, "SELECT id FROM people WHERE slug = ?", (loser_slug,))['id']
+        c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, votes, elected, position)
+                     VALUES (?, ?, ?, ?, 0, 2)""", (eid, pid, loser, loser_votes))
         print(f"  election {eid}: {loser} added, {loser_votes} votes")
 
     print("=== 52. Gulberwick 1945: Council votes ===")
