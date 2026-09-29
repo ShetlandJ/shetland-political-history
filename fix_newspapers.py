@@ -288,6 +288,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Stout did not (ST 24 Jan 1920). The wiki has Stout unopposed, and Laing's page dates his seat
    from 1922. The candidacy is re-pointed to Laing, and his intro now says 1919.
    Evidence: research/bna/zcc-1900-1919.md.
+
+37. Dunrossness North, December 1922: a contest, not an unopposed return. "Mr J. R. White, 99
+   Commercial Street, Lerwick; and Mr A. Irvine, jun." were nominated (Shetland Times, 25 Nov
+   1922), and White "topped the poll with 60 votes, Mr A. Irvine, jun., Boddam, Dunrossness,
+   receiving 36", two spoiled (ST 16 Dec 1922; the OCR heads it "Dunrossness (South)", but William
+   Leslie was the only South nomination). The wiki has White unopposed.
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -437,6 +444,9 @@ HAY_NOTE = (
     "Arthur J. Hay topped the poll but declined to take office (letter, 8 November 1884). "
     "The vacancy was filled by co-option: see Lerwick Town Council By-Election November 1884."
 )
+
+DUNROSSNESS_NORTH_1922 = ('County Council Election December 1922', 'Dunrossness North',
+                          ('James Robert White', 60), ('A. Irvine, jun.', 36))
 
 
 def one(c, sql, args):
@@ -843,6 +853,24 @@ def main():
         print("  Laing intro: 1922 -> 1919")
     else:
         raise SystemExit("james-laing intro: expected text not found")
+
+    print("=== 37. Dunrossness North 1922: a contest ===")
+    title, ward, (winner, winner_votes), (loser, loser_votes) = DUNROSSNESS_NORTH_1922
+    eid = one(c, """SELECT e.id FROM elections e JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))['id']
+    w = one(c, "SELECT id, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, winner))
+    if (w['votes'], w['votes_text']) == (None, 'Unopposed'):
+        c.execute("UPDATE candidacies SET votes = ?, votes_text = NULL WHERE id = ?", (winner_votes, w['id']))
+        print(f"  candidacy {w['id']} ({winner}): Unopposed -> {winner_votes}")
+    elif (w['votes'], w['votes_text']) != (winner_votes, None):
+        raise SystemExit(f"candidacy {w['id']}: unexpected votes {w['votes']!r}/{w['votes_text']!r}")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, loser))
+    if c.fetchall():
+        print(f"  {loser}: already added")
+    else:
+        c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
+                     VALUES (?, ?, ?, 0, 2)""", (eid, loser, loser_votes))
+        print(f"  election {eid}: {loser} added, {loser_votes} votes")
 
     db.commit()
     db.close()

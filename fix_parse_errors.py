@@ -40,10 +40,15 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    "[[Joseph Peterson (i)|Joseph Peterson]] || 15 || [[Image:cross.gif]]" (James Hay won with 29),
    but the baseline has Peterson elected there as well as in Delting South. His page: "County
    Councillor for Delting South between 1919 and 1922".
-8. County Council Election December 1922: "This election recombined the Aithsting & Sandsting
-   parishes", with one result under "===Aithsting & Sandsting===" (Leslie 110, Clark 89). The parser
-   made a row for each ward with the same result, giving John Leslie (ii) two seats. The Sandsting
-   row is hidden and the Aithsting row shows the combined name.
+8. County Council Election December 1922: the wiki says "This election recombined the Aithsting &
+   Sandsting parishes", with one result under "===Aithsting & Sandsting===" (Leslie 110, Clark 89),
+   and the parser made a row for each ward with that result, giving John Leslie (ii) two seats. The
+   wards were not combined. The nominations list "Aithsting—Mr John Leslie ... and Mr Andrew D.
+   Clark" and, separately, "Sandsting—Mr Robert A. Sutherland, Sand" (Shetland Times, 25 Nov 1922),
+   and R. A. Sutherland sat at the new Council's first meeting on Thursday 21 Dec (ST 30 Dec 1922).
+   The Aithsting row keeps the Leslie-Clark result; the Sandsting row becomes Sutherland,
+   unopposed, and his intro's 1922 becomes 1925 (Bowie won Sandsting in Dec 1925).
+   Evidence: research/bna/zcc-1920-1939.md.
 9. Burra County Council By-Election April 1920: "took place on 15 April. In 1919, William Sinclair
    was elected to both Burra and to Whiteness and Weisdale, and as he chose to represent the latter
    George Anderson was appointed." The baseline has 1 April (month only) and Sinclair as the member
@@ -118,7 +123,9 @@ COUNCIL_APPOINTMENTS_1914_1919 = [  # (wiki title, candidate, wrong votes, text)
     ('Cunningsburgh_County_Council_By-Election_February_1919', 'James Laing', 3, 'Petition of 70; 3 Council votes'),
 ]
 DELTING_NORTH_1890 = ('Delting North County Council By-Election May 1890', '1890-05-01', '1890-05-22')
-COMBINED_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting')
+SANDSTING_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting',
+                  ('robert-sutherland', 'Robert A. Sutherland'))
+SUTHERLAND_INTRO = ('robert-sutherland', 'Sandsting between 1919 and 1922', 'Sandsting between 1919 and 1925')
 
 HUNTER_BROTHER = (430, '[person:james-hunter-iv:James]', '[person:james-hunter-iii:James]')
 
@@ -223,23 +230,42 @@ def main():
     elif (votes, votes_text) != (None, 'Unopposed'):
         raise SystemExit(f"candidacy {hay}: unexpected votes {votes!r}/{votes_text!r}")
 
-    title, keep, drop, combined = COMBINED_1922
+    title, aith, sand, combined, (slug, name) = SANDSTING_1922
     rows = {k: (eid, hidden, disp) for eid, k, hidden, disp in c.execute(
         """SELECT e.id, k.name, e.hidden, e.constituency_display_name FROM elections e
            JOIN constituencies k ON k.id = e.constituency_id
-           WHERE e.wiki_page_title = ? AND k.name IN (?, ?)""", (title, keep, drop))}
+           WHERE e.wiki_page_title = ? AND k.name IN (?, ?)""", (title, aith, sand))}
+    if rows[aith][2] == combined:
+        c.execute("UPDATE elections SET constituency_display_name = NULL WHERE id = ?", (rows[aith][0],))
+        print(f"election {rows[aith][0]}: no longer shown as {combined}")
+    elif rows[aith][2]:
+        raise SystemExit(f"election {rows[aith][0]}: unexpected display name {rows[aith][2]!r}")
+    if rows[sand][1]:
+        raise SystemExit(f"election {rows[sand][0]}: {sand} 1922 row is hidden")
+    sid = rows[sand][0]
+    pid = c.execute("SELECT id FROM people WHERE slug = ?", (slug,)).fetchone()[0]
     results = [c.execute("SELECT candidate_name, votes, elected FROM candidacies WHERE election_id = ? ORDER BY position",
-                         (rows[k][0],)).fetchall() for k in (keep, drop)]
-    if results[0] != results[1]:
-        raise SystemExit(f"{title}: {keep} and {drop} results differ, not a duplicate")
-    if not rows[drop][1]:
-        c.execute("UPDATE elections SET hidden = 1 WHERE id = ?", (rows[drop][0],))
-        print(f"election {rows[drop][0]}: duplicate {drop} 1922 row hidden")
-    if rows[keep][2] != combined:
-        if rows[keep][2]:
-            raise SystemExit(f"election {rows[keep][0]}: unexpected display name {rows[keep][2]!r}")
-        c.execute("UPDATE elections SET constituency_display_name = ? WHERE id = ?", (combined, rows[keep][0]))
-        print(f"election {rows[keep][0]}: shown as {combined}")
+                         (rows[k][0],)).fetchall() for k in (aith, sand)]
+    got = c.execute("SELECT candidate_name, person_id, votes_text, elected FROM candidacies WHERE election_id = ?",
+                    (sid,)).fetchall()
+    if got == [(name, pid, 'Unopposed', 1)]:
+        print(f"election {sid}: already {name} unopposed")
+    elif results[0] == results[1]:
+        c.execute("DELETE FROM candidacies WHERE election_id = ?", (sid,))
+        c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, votes_text, elected, position)
+                     VALUES (?, ?, ?, 'Unopposed', 1, 1)""", (sid, pid, name))
+        print(f"election {sid}: copied Aithsting result replaced by {name}, unopposed")
+    else:
+        raise SystemExit(f"election {sid}: unexpected {sand} 1922 candidacies {got}")
+    slug, wrong, right = SUTHERLAND_INTRO
+    intro = c.execute("SELECT intro FROM people WHERE slug = ?", (slug,)).fetchone()[0]
+    if right in intro:
+        print("  Sutherland intro: already 1925")
+    elif wrong in intro:
+        c.execute("UPDATE people SET intro = ? WHERE slug = ?", (intro.replace(wrong, right), slug))
+        print("  Sutherland intro: 1922 -> 1925")
+    else:
+        raise SystemExit(f"{slug} intro: expected text not found")
 
     title, (d_wrong, d_right), (rp_wrong, rp_right) = BURRA_1920
     eid, date, rp = c.execute("SELECT id, election_date, replaced_person FROM elections WHERE wiki_page_title = ?",

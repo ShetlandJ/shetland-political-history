@@ -1528,3 +1528,39 @@ st-19191122-p5-a071,election,457,read,contested; polling Tue 2 Dec 1919
 st-19191213-p4-a070,election,457,read,"80 to 62, as in the DB"
 st-19191115-p4-a079,election,458,inferred,"only nomination, and not among the eight contests (ST 22 Nov), so returned unopposed"
 st-19191115-p4-a079,election,459,inferred,"only nomination, and not among the eight contests (ST 22 Nov), so returned unopposed"
+st-19221125-p5-a096,election,468,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,469,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,470,read,candidates nominated; election on 5 Dec
+st-19221209-p4-a078,election,470,read,"80 to 56, as in the DB; polled Tuesday (5 Dec)"
+st-19221125-p5-a096,election,471,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,472,read,candidates nominated; election on 5 Dec
+st-19221216-p4-a087,election,472,read,"90, 43, 10 and 6, as in the DB"
+st-19221125-p5-a096,election,473,read,candidates nominated; election on 5 Dec
+st-19221216-p4-a087,election,473,read,"60 to 36: a contest, not unopposed (fix_newspapers.py #37)"
+st-19221125-p5-a096,election,474,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,475,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,476,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,477,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,478,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,479,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,480,read,candidates nominated; election on 5 Dec
+st-19221209-p4-a078,election,480,read,"83 to 73, as in the DB"
+st-19221125-p5-a096,election,481,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,482,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,483,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,484,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,485,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,486,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,487,read,candidates nominated; election on 5 Dec
+st-19221216-p4-a087,election,487,read,"59 to 49, as in the DB"
+st-19221125-p5-a096,election,488,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,489,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,490,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221125-p5-a096,election,491,read,candidates nominated; election on 5 Dec
+st-19221216-p4-a087,election,491,read,"61 to 15, as in the DB"
+st-19221125-p5-a096,election,492,read,candidates nominated; election on 5 Dec
+st-19221216-p4-a087,election,492,read,"106 to 28, as in the DB"
+st-19221125-p5-a096,election,1242,read,candidates nominated; election on 5 Dec
+st-19221216-p4-a087,election,1242,read,"110 to 89, as in the DB"
+st-19221125-p5-a096,election,1243,inferred,"only nomination, and not among the eight contests, so returned unopposed"
+st-19221230-p5-a084,election,1243,read,"R. A. Sutherland present at the new Council, so Sandsting was a separate ward (fix_parse_errors.py #8)"
