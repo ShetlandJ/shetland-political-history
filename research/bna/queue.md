@@ -181,7 +181,7 @@ citations, 801 links). Gaps:
     unopposed (parse #13). Petitions and Council ballots 1914–19 no longer shown as votes (parse
     #12; the rest queued). Feb 1902, Jun 1907 and Jan 1911 days in open-questions. 0 issues (7).
     `zcc-1900-1919.md`)
-  - [x] **ZCC 1920–1939** (done: 7 generals and 28 by-elections cited, 57 citations, 1,070 links.
+  - [x] **ZCC 1920–1939** (done: 7 generals and 28 by-elections cited, 53 citations, 306 links.
     Polling days: Dec 1925 was Tue 1 Dec, not Sat 5th (#38); Dec 1928 Tue 4 Dec, not Wed 5th (#39).
     Wrong results: Dunrossness North 1922 and Yell South 1938 were contests (#37, #45); Walls 1935
     and Whalsay 1938 losers had 4 and 32, the wiki took the majority (#42, #44); Walls 1928
