@@ -336,6 +336,20 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Sandwick, has definitely retired from the Council and has not sought nomination" (Shetland
    Times, 16 Nov 1935). His intro's "between 1919 and 1932" becomes "between 1919 and 1935".
    Evidence: research/bna/zcc-1920-1939.md.
+
+44. Whalsay and Skerries, December 1938: James J. Hay had 32 votes, not 121. "Robert Ollason ...
+   153; *James J. Hay ... 82 [32]—majority 121. Total electorate 410, total votes cast 185"
+   (Shetland Times, 10 Dec 1938). As with Walls in 1935 (#42), the wiki took the majority for the
+   loser's vote: 153 + 32 = 185.
+   Evidence: research/bna/zcc-1920-1939.md.
+
+45. Yell North and Yell South, December 1938. Yell South was a contest: "*Thomas R. Manson ... 166;
+   William Leask, Vatster, Mid Yell, 145—majority 21. Total electorate 471, votes cast 311, or 66
+   per cent. 11 spoiled papers"; Yell North was "Total electorate 257, total votes cast 158 or 61
+   per cent" (Shetland Times, 26 Nov and 10 Dec 1938). The wiki has Manson unopposed, and gives
+   Yell North the Yell South figures (471, with 331 for 311). Leask is added, Manson gets his
+   votes, and each ward gets its own electorate and turnout.
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -510,6 +524,12 @@ ZCC_1933_DATE = '1933-02-14'
 
 WALLS_1935 = ('County Council Election December 1935', 'Walls', 'Andrew Halcrow', 85, 4, (328, 93, 28.3))
 JAMIESON_INTRO = ('william-jamieson', 'Sandwick between 1919 and 1932', 'Sandwick between 1919 and 1935')
+
+WHALSAY_1938 = ('County Council Election December 1938', 'Whalsay And Skerries', 'James Hay', 121, 32)
+YELL_1938 = ('County Council Election December 1938',
+             ('Yell North', (471, 331, 66.0), (257, 158, 61.5)),
+             ('Yell South', (None, None, None), (471, 311, 66.0)),
+             ('Thomas R. Manson', 166), ('William Leask', 145))
 
 
 def one(c, sql, args):
@@ -1005,6 +1025,45 @@ def main():
         print("  intro: 1932 -> 1935")
     else:
         raise SystemExit(f"{slug} intro: expected text not found")
+
+    print("=== 44. Whalsay 1938: Hay 32 votes ===")
+    title, ward, name, wrong, right = WHALSAY_1938
+    eid = one(c, """SELECT e.id FROM elections e JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))['id']
+    cand = one(c, "SELECT id, votes FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, name))
+    if cand['votes'] == wrong:
+        c.execute("UPDATE candidacies SET votes = ? WHERE id = ?", (right, cand['id']))
+        print(f"  candidacy {cand['id']} ({name}): {wrong} -> {right}")
+    elif cand['votes'] != right:
+        raise SystemExit(f"candidacy {cand['id']}: unexpected votes {cand['votes']!r}")
+
+    print("=== 45. Yell North and Yell South 1938 ===")
+    title, *wards, (winner, winner_votes), (loser, loser_votes) = YELL_1938
+    ids = {}
+    for ward, wrong, right in wards:
+        row = one(c, """SELECT e.id, e.electorate, e.turnout, e.turnout_pct FROM elections e
+                       JOIN constituencies k ON k.id = e.constituency_id WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+        ids[ward] = row['id']
+        got = (row['electorate'], row['turnout'], row['turnout_pct'])
+        if got == wrong:
+            c.execute("UPDATE elections SET electorate = ?, turnout = ?, turnout_pct = ? WHERE id = ?", (*right, row['id']))
+            print(f"  election {row['id']} ({ward}): {wrong} -> {right}")
+        elif got != right:
+            raise SystemExit(f"election {row['id']}: unexpected electorate/turnout {got}")
+    eid = ids['Yell South']
+    w = one(c, "SELECT id, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, winner))
+    if (w['votes'], w['votes_text']) == (None, 'Unopposed'):
+        c.execute("UPDATE candidacies SET votes = ?, votes_text = NULL WHERE id = ?", (winner_votes, w['id']))
+        print(f"  candidacy {w['id']} ({winner}): Unopposed -> {winner_votes}")
+    elif (w['votes'], w['votes_text']) != (winner_votes, None):
+        raise SystemExit(f"candidacy {w['id']}: unexpected votes {w['votes']!r}/{w['votes_text']!r}")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, loser))
+    if c.fetchall():
+        print(f"  {loser}: already added")
+    else:
+        c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
+                     VALUES (?, ?, ?, 0, 2)""", (eid, loser, loser_votes))
+        print(f"  election {eid}: {loser} added, {loser_votes} votes")
 
     db.commit()
     db.close()

@@ -1771,3 +1771,34 @@ st-19351116-p5-a108,election,629,read,listed as returned unopposed
 st-19351116-p5-a108,election,630,read,listed as returned unopposed
 st-19351116-p5-a108,election,631,read,listed as returned unopposed
 st-19351116-p5-a108,person,william-jamieson:intro,read,"sitting member for Sandwick in Nov 1935, retired (fix_newspapers.py #43)"
+st-19381126-p4-a111,election,639,read,left unopposed by withdrawals
+st-19381126-p4-a111,election,640,read,contested
+st-19381210-p4-a087,election,640,read,"71, majority 38 (McKinnon 33), as in the DB"
+st-19381126-p4-a111,election,641,read,left unopposed by withdrawals
+st-19381126-p4-a111,election,642,read,contested
+st-19381210-p4-a087,election,642,read,"74 to 72, as in the DB"
+st-19381126-p4-a111,election,643,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,644,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,645,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,646,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,647,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,648,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,649,read,contested
+st-19381210-p4-a087,election,649,read,"106 to 89, as in the DB"
+st-19381126-p4-a111,election,650,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,651,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,652,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,653,read,left unopposed by withdrawals
+st-19381126-p4-a111,election,654,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,655,read,left unopposed by withdrawals
+st-19381126-p4-a111,election,656,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,657,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,658,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,659,read,contested
+st-19381210-p4-a087,election,659,read,"153, majority 121: Hay 32, not 121 (fix_newspapers.py #44)"
+st-19381126-p4-a111,election,660,inferred,"not among the six contests, so returned unopposed"
+st-19381126-p4-a111,election,661,read,contested
+st-19381210-p4-a087,election,661,read,"104 to 54 as in the DB; electorate 257 and 158 votes, not Yell South's figures (fix_newspapers.py #45)"
+st-19381126-p4-a111,election,662,read,contested
+st-19381210-p4-a087,election,662,read,"a contest: Manson 166, Leask 145 (fix_newspapers.py #45)"
+st-19381210-p1-a012,election,642,read,polled Tuesday 6 Dec 1938

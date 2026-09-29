@@ -21,6 +21,8 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 6 | wiki | Sandwick "was incorporated into Cunningsburgh and Dunrossness North" in 1932; no member 1932–35 | **No nomination** in 1932; **William Jamieson** returned at a new election fixed for **14 Feb 1933** (ST 19 Nov 1932, 14 and 28 Jan 1933). He sat to 1935 | Fixed (`fix_newspapers.py` #41); his intro now 1919–1935 (#43, ST 16 Nov 1935). The wiki Sandwick page is unchanged |
 | 7 | wiki | Sandness 1932: James A. Jamieson unopposed, sat from Dec 1932 | **Not eligible** (a minor Council appointment); re-elected unopposed **14 Feb 1933** after resigning it (ST 28 Jan 1933) | Fixed (#41, `not_seated.csv`) |
 | 8 | wiki | Walls 1935: Williamson 89, Halcrow 85 | **Halcrow 4** ("majority 85", 93 votes cast, ST 7 Dec 1935) | Fixed (`fix_newspapers.py` #42) |
+| 9 | wiki | Whalsay 1938: Ollason 153, Hay 121 | **Hay 32** ("majority 121", 185 votes, ST 10 Dec 1938) | Fixed (`fix_newspapers.py` #44) |
+| 10 | wiki | Yell South 1938: Manson unopposed; Yell North electorate 471, turnout 331 | Yell South a **contest, Manson 166, William Leask 145** (471 electors, 311 votes); Yell North 257 electors, 158 votes (ST 26 Nov, 10 Dec 1938) | Fixed (`fix_newspapers.py` #45) |
 
 ## 2026-09-28: ZCC 1900–1919 (`research/bna/zcc-1900-1919.md`)
 
