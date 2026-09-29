@@ -150,7 +150,8 @@ for 1953–64).
 - **1960–74** (Friday paper): a by-election had a fixed day, announced weeks ahead in "News in
   brief". A sole nominee was "declared councillor" on that day (search the winner's surname or the
   ward over the nomination weeks); co-option came only when nobody was nominated. Wiki days and
-  even the title's month are usually wrong, and many "appointed" returns were polls.
+  even the title's month are usually wrong, and many "appointed" returns were polls. Look out for
+  returns that never took effect (Mrs Fisher, Dunrossness North 1971): the wiki may have only the re-run.
 
 Useful keywords: `town council`, `retiring councillors`, `co-opted`, `special meeting`,
 `vacancy`, `statutory meeting`, `municipal election`, plus a surname.

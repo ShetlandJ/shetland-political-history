@@ -455,6 +455,14 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 58. Unopposed returns that the wiki shows as appointments or unanimous elections: Bentley,
    Dunrossness South 1964; A. B. Irvine, Tingwall 1967; Jamieson, Northmavine South 1972.
    Evidence for 53-58: research/bna/zcc-1960-1974.md.
+59. Dunrossness North, August 1971: a by-election the wiki doesn't have. For Iain Campbell's seat,
+   "when nominations closed last week the name of Mrs Fisher was the only one lodged", and she
+   "will be formally elected ... on 24th August" (Shetland Times, 13 Aug 1971). "A legal
+   technicality ... debarred her from taking her seat", and "to assist the council to overcome the
+   difficulty created by her election, Mrs Fisher has resigned" (10 Sep 1971): she was a council
+   employee (24 Sep 1971). The August by-election is added, her win is in data/not_seated.csv, and
+   the November poll becomes a '[voided election re-run]' rather than replacing Campbell again.
+   Evidence: research/bna/zcc-1960-1974.md.
 """
 
 import os
@@ -725,6 +733,12 @@ ZCC_UNOPPOSED_1960S_1970S = [
     ('Tingwall County Council By-Election September 1967', 'Andrew B. Irvine', 'Unanimously elected'),
     ('Northmavine South County Council By-Election June 1972', 'John Jamieson', 'Unanimously elected'),
 ]
+FISHER_1971 = ('Dunrossness North County Council By-Election August 1971', 'Dunrossness North', '1971-08-24',
+               'Iain Campbell', 'iain-campbell', 'Mary T. Fisher',
+               "Mrs Mary T. Fisher, the only nominee, was formally elected on 24 August, the day fixed for the "
+               "by-election. As a council employee she could not take her seat, and resigned; a second "
+               "by-election followed in November. From the Shetland Times, 13 August and 10 and 24 September 1971.")
+FISHER_RERUN_1971 = ('Dunrossness North County Council By-Election October 1971', 'Iain Campbell', '[voided election re-run]')
 AITHSTING_1932 = ('Aithsting County Council By-Election May 1932', [
     ('Andrew D. Clark', 102, 'Petition of 102; 10 Council votes, then 10'),
     ('[https://www.bayanne.info/Shetland/getperson.php?personID=I56157&tree=ID1 Creighton G. Williamson]', 99,
@@ -1431,6 +1445,38 @@ def main():
             print(f"  candidacy {cand['id']} ({name}): {wrong!r} -> 'Unopposed'")
         elif cand['votes_text'] != 'Unopposed':
             raise SystemExit(f"candidacy {cand['id']}: unexpected votes_text {cand['votes_text']!r}")
+
+    print("=== 59. Dunrossness North, August 1971: Mrs Fisher elected, not seated ===")
+    title, ward, date, replaced, replaced_slug, name, note = FISHER_1971
+    zcc = one(c, "SELECT id FROM councils WHERE slug = 'zetland-county-council'", ())['id']
+    ward_id = one(c, """SELECT DISTINCT k.id FROM constituencies k JOIN elections e ON e.constituency_id = k.id
+                       WHERE k.name = ? AND e.council_id = ?""", (ward, zcc))['id']
+    replaced_id = one(c, "SELECT id FROM people WHERE slug = ?", (replaced_slug,))['id']
+    c.execute("SELECT id FROM elections WHERE wiki_page_title = ?", (title,))
+    row = c.fetchone()
+    if row:
+        eid = row['id']
+        print(f"  {title}: exists (id {eid})")
+    else:
+        c.execute("""INSERT INTO elections (council_id, constituency_id, election_date, election_type,
+                                           wiki_page_title, replaced_person, replaced_person_id, notes)
+                     VALUES (?, ?, ?, 'by-election', ?, ?, ?, ?)""", (zcc, ward_id, date, title, replaced, replaced_id, note))
+        eid = c.lastrowid
+        print(f"  {title}: created (id {eid})")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ?", (eid,))
+    if c.fetchall():
+        print("    candidacy exists")
+    else:
+        c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes_text, elected, position)
+                     VALUES (?, ?, 'Unopposed', 1, 1)""", (eid, name))
+        print(f"    {name} unopposed")
+    title, wrong, right = FISHER_RERUN_1971
+    row = one(c, "SELECT id, replaced_person, replaced_person_id FROM elections WHERE wiki_page_title = ?", (title,))
+    if (row['replaced_person'], row['replaced_person_id']) == (wrong, replaced_id):
+        c.execute("UPDATE elections SET replaced_person = ?, replaced_person_id = NULL WHERE id = ?", (right, row['id']))
+        print(f"  election {row['id']}: replaced {wrong} -> {right}")
+    elif (row['replaced_person'], row['replaced_person_id']) != (right, None):
+        raise SystemExit(f"election {row['id']}: unexpected replaced_person {row['replaced_person']!r}")
 
     db.commit()
     db.close()

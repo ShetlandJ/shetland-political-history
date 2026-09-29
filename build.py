@@ -128,6 +128,25 @@ def read_csv(name):
         return list(csv.DictReader(f))
 
 
+def not_seated_rows(db):
+    """data/not_seated.csv with each election resolved to its id. An election created by a
+    correction script gets its id at build time, so its row names the election by title instead."""
+    by_title = {}
+    for eid, title in db.execute("SELECT id, wiki_page_title FROM elections"):
+        by_title.setdefault(title, []).append(eid)
+    rows = []
+    for i, r in enumerate(read_csv('not_seated.csv'), start=2):
+        key = r['election_id']
+        if key.isdigit():
+            rows.append((int(key), r['person_slug']))
+            continue
+        found = by_title.get(key, [])
+        if len(found) != 1:
+            sys.exit(f"data/not_seated.csv line {i}: election '{key}' matches {len(found)} elections")
+        rows.append((found[0], r['person_slug']))
+    return rows
+
+
 def strip_suffix(name):
     return re.sub(r'\s*\([^)]*\)\s*$', '', name or '').strip()
 
@@ -416,8 +435,8 @@ def check_terms(db, T):
         # Elected candidacies with no term
         seated = {t['candidacy_id'] for t in terms if t['candidacy_id']}
         exempt = defaultdict(set)
-        for r in read_csv('not_seated.csv'):
-            exempt[int(r['election_id'])].add(r['person_slug'])
+        for eid, slug in not_seated_rows(db):
+            exempt[eid].add(slug)
         for cand_id, eid, title, date, pname, slug in db.execute("""
             SELECT c.id, e.id, e.wiki_page_title, e.election_date, COALESCE(p.name, c.candidate_name), p.slug
             FROM candidacies c JOIN elections e ON e.id = c.election_id LEFT JOIN people p ON p.id = c.person_id
@@ -649,8 +668,7 @@ def build(db_path):
     aliased = apply_party_aliases(db)
     db.executescript(TERMS_DDL)
     db.execute("CREATE TEMP TABLE not_seated (election_id, person_slug)")
-    db.executemany("INSERT INTO temp.not_seated VALUES (?, ?)",
-                   [(r['election_id'], r['person_slug']) for r in read_csv('not_seated.csv')])
+    db.executemany("INSERT INTO temp.not_seated VALUES (?, ?)", not_seated_rows(db))
 
     T = Terms(db)
     load_ltc_ledger(db, T)

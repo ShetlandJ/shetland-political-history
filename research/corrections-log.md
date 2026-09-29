@@ -20,7 +20,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 5 | wiki | Burra and Quarff 1964 electorate 524 (22.5%) | **500** (66 + 434), 23.6 per cent (ST 15 May 1964) | Fixed (#53) |
 | 6 | wiki | By-election days and months: e.g. Yell South "22 March" 1966, Fetlar "19 September" and Tingwall "7 July" 1967, Burra and Whiteness "11 August" 1970, Gulberwick "20 October" 1970, Burra "19 September" 1972, Yell North "5 February" 1974 | 22 Feb 1966; both 25 Jul 1967; 14 Jul 1970; 29 Sep 1970; 8 Aug 1972; 8 Jan 1974 (all 18 in the evidence file) | Fixed (#57); page titles keep the wiki's month |
 | 7 | wiki | Dunrossness North 1963: Bruce appointed 24 September | No nomination at the by-election; **co-opted Tue 22 Oct 1963** (ST 25 Oct 1963) | Fixed (#57) |
-| 8 | wiki | Dunrossness North 1971: one by-election | **Two**: Mrs Fisher returned unopposed in August but couldn't sit (a council employee), then the November poll (ST 24 Sep, 29 Oct 1971) | Open question (add the August return?) |
+| 8 | wiki | Dunrossness North 1971: one by-election | **Two**: Mrs Mary T. Fisher elected unopposed on 24 Aug but couldn't sit (a council employee), then the November poll (ST 13 Aug, 10 and 24 Sep, 29 Oct 1971) | Fixed: August by-election added, her win in `not_seated.csv` (`fix_newspapers.py` #59) |
 
 ## 2026-09-29: ZCC 1940–1959 (`research/bna/zcc-1940-1959.md`)
 

@@ -8,14 +8,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
-- **2026-09-29: Dunrossness North, August 1971: add Mrs Mary Fisher's return?** She was the only
-  valid nominee at an August by-election for Iain Campbell's seat but, as a council employee,
-  "could not take her seat" and resigned; a second by-election followed in November, Leask v Fisher
-  (ST 24 Sep, 29 Oct 1971). The DB has only the November one. Options: add an August 1971
-  by-election with Fisher unopposed and list it in `not_seated.csv` (as for the 1933 pair, #41); or
-  leave it in the notes. The August day isn't known yet (the Order would be in an August issue).
-  Election 913. Evidence: `zcc-1960-1974.md`.
-
 - **2026-09-29: Dunrossness North, November 1971: day and votes.** "Fixed for Tuesday, [..]th
   November" (ST 29 Oct 1971; the day is lost in the OCR). Set to Tue 9 Nov (the wiki's Wed 10 Nov
   is probably the count). The result report wasn't found in three searches, so Leask 55, Fisher 15
