@@ -101,6 +101,14 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
 18. Westminster polling days the parser dropped, from the wiki's first sentence: the 1873
    by-election "was contested on 6-7 January 1873" (the Shetland Times of 30 Dec 1872 has the
    poll in "the first week of January"); 1922 "15 November 1922"; 1923 "6 December 1923".
+19. Whalsay and Skerries County Council By-Election May 1947, filled by the Council as in #12: the
+   wiki cell is "Petition of 307", and the parser kept 307 as votes. Shearer was appointed at the
+   Council meeting of Tuesday 20 May (Shetland Times, 23 May 1947, p7), whose OCR has the petition
+   "signed by 207 persons"; the wiki's figure is kept until the digit is checked (open-questions).
+   The other ZCC by-elections whose wiki text has a petition or Council vote were checked on
+   2026-09-29 and are already right (Dunrossness North Sep 1963, Northmavine North Dec 1897 and
+   Sep 1903, Whalsay Jul 1910, Cunningsburgh Jun 1896, Gulberwick Oct 1958: text, no votes;
+   Aithsting Jan 1896, Apr 1890 and Walls Feb 1960 were polls).
 """
 
 import os
@@ -181,6 +189,7 @@ COUNCIL_APPOINTMENTS_1940_1942 = [  # (wiki title, candidate, wrong votes, text)
     ('Yell South County Council By-Election December 1940', 'William Leask', 2, '2 Council votes'),
     ('Unst South County Council By-Election December 1942', 'Captain Henry Hunter', 11, 'Petition of 55; 11 Council votes'),
     ('Unst South County Council By-Election December 1942', 'John Sutherland', 6, 'Petition of 19; 6 Council votes'),
+    ('Whalsay And Skerries County Council By-Election May 1947', 'Magnus Shearer', 307, 'Petition of 307'),  # 19
 ]
 WIKI_BY_ELECTION_DAYS = [
     ('Lerwick Central County Council By-Election May 1921', '1921-05-01', '1921-05-19'),

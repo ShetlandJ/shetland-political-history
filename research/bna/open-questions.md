@@ -8,6 +8,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-29: Whalsay and Skerries, May 1947: Shearer's petition 207 or 307?** The wiki has
+  "Petition of 307"; the Shetland Times OCR (23 May 1947 p7 art. 145) has "signed by 207
+  persons". The page image wouldn't render in the viewer, so the digit isn't checked. The DB now
+  shows "Petition of 307" (no votes, `fix_parse_errors.py` #19). Options: keep 307, take 207, or
+  zoom on the page. Election 692. Evidence: `zcc-1940-1959.md`.
+
 - **2026-09-29: Was Balfour Spence elected in Sept 1823?** The minute book never recorded the
   1823 result (p27–28, then blank). Ten of the wiki's eleven sat at meetings from Oct 1823 (p29–31),
   but Balfour Spence isn't seen at any meeting from Oct 1823 to Sep 1826. His row stays
