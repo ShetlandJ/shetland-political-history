@@ -400,6 +400,26 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Shetland Times isn't digitised then). The wiki has the petitions as a "First Council vote" and a
    ballot of 8, 8 and 3 before the 10 to 9; the parser kept the petitions as votes.
    Evidence: research/bna/zcc-1920-1939.md.
+49. Zetland County Council general election, December 1945: "The results of the elections held on
+   Tuesday" (Shetland Times, Fri 7 Dec 1945), so Tuesday 4 December. The wiki's "Tuesday 3
+   December" has the wrong date (the 3rd was a Monday). Every ward row moves.
+50. Zetland County Council by-elections 1940-1959, dated to the Council meeting that appointed the
+   member, or the poll, from the Shetland Times report (the baseline had the 1st of the month):
+   Cunningsburgh Tue 16 Apr 1940; Yell South Tue 10 Dec 1940 (reported Sat 14 Dec, not in the
+   7 Dec issue; the wiki's "Tuesday 8 December" was a Sunday); Dunrossness North Tue 17 Dec 1946;
+   Nesting and Yell North Tue 18 May 1948; Northmavine North "co-opted on Tuesday", 20 Feb 1951;
+   Dunrossness North Tue 19 Feb 1952; Yell South, poll Tue 29 Jul 1952; Delting South and
+   Sandwick, polls "on Tuesday", 12 Jul 1955; Gulberwick "on Tuesday co-opted", 21 Oct 1958;
+   Aithsting, poll "on Tuesday", 3 Feb 1959 (the wiki's 9 February was a Monday).
+51. Gulberwick, May 1951: a poll, not an appointment. "In the bye-election on Tuesday he polled
+   twice as many votes as his Socialist opponent, Mr Prophet Smith—98 to 49" (Shetland Times,
+   11 May 1951; Nicolson's thanks for "the Poll on Tuesday, 8th instant"). Nicolson's
+   "Unanimously appointed" becomes 98 votes and Prophet Smith is added, unlinked (a namesake
+   check is James's call). The day is set in fix_parse_errors.py (WRONG_NAMESAKE), which runs later.
+52. Gulberwick, March 1945: petitions for Keith and Mitchell, "After a vote Mr C. E. Mitchell was
+   elected" by the Council (Shetland Times, 23 Mar 1945). The wiki's 15 and 6 are Council votes,
+   not a poll.
+   Evidence for 49-52: research/bna/zcc-1940-1959.md.
 """
 
 import os
@@ -601,6 +621,27 @@ ZCC_BY_ELECTIONS_1920S_1930S = [
     ('Unst North County Council By-Election December 1937', '1937-12-01', '1937-12-14'),
     ('Sandsting County Council By-Election February 1938', '1938-02-01', '1938-02-22'),
 ]
+ZCC_GENERAL_1945 = ('County Council Election December 1945', '1945-12-03', '1945-12-04')
+ZCC_BY_ELECTIONS_1940S_1950S = [
+    ('Cunningsburgh County Council By-Election April 1940', '1940-04-01', '1940-04-16'),
+    ('Yell South County Council By-Election December 1940', '1940-12-01', '1940-12-10'),
+    ('Dunrossness North County Council By-Election December 1946', '1946-12-01', '1946-12-17'),
+    ('Nesting County Council By-Election May 1948', '1948-05-01', '1948-05-18'),
+    ('Yell North County Council By-Election May 1948', '1948-05-01', '1948-05-18'),
+    ('Northmavine South County Council By-Election February 1951', '1951-02-01', '1951-02-20'),
+    ('Dunrossness North County Council By-Election February 1952', '1952-02-01', '1952-02-19'),
+    ('Yell South County Council By-Election July 1952', '1952-07-01', '1952-07-29'),
+    ('Delting South County Council By-Election July 1955', '1955-07-01', '1955-07-12'),
+    ('Sandwick County Council By-Election July 1955', '1955-07-01', '1955-07-12'),
+    ('Gulberwick County Council By-Election October 1958', '1958-10-01', '1958-10-21'),
+    ('Aithsting County Council By-Election February 1959', '1959-02-01', '1959-02-03'),
+]
+GULBERWICK_1951 = ('Gulberwick County Council By-Election May 1951', ('James J. Nicolson', 'Unanimously appointed', 98),
+                   ('Prophet Smith', 49))
+GULBERWICK_1945 = ('Gulberwick County Council By-Election March 1945', [
+    ('Charles E. Mitchell', 15, '15 Council votes'),
+    ('Magnus Keith', 6, '6 Council votes'),
+])
 UNST_SOUTH_1936 = ('Unst South County Council By-Election February 1936',
                    [('William Fordyce Clark', 'Unanimously appointed', 'Unopposed'), ('Magnus Manson', 'Rejected', 'Withdrew')])
 AITHSTING_1932 = ('Aithsting County Council By-Election May 1932', [
@@ -1161,6 +1202,41 @@ def main():
 
     print("=== 48. Aithsting 1932: petitions and ballots ===")
     title, rows = AITHSTING_1932
+    for name, wrong, text in rows:
+        cand = one(c, """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name))
+        if (cand['votes'], cand['votes_text']) == (wrong, None):
+            c.execute("UPDATE candidacies SET votes = NULL, votes_text = ? WHERE id = ?", (text, cand['id']))
+            print(f"  candidacy {cand['id']}: {wrong} votes -> {text!r}")
+        elif (cand['votes'], cand['votes_text']) != (None, text):
+            raise SystemExit(f"candidacy {cand['id']}: unexpected votes {cand['votes']!r}/{cand['votes_text']!r}")
+
+    print("=== 49. ZCC general December 1945: Tuesday 4 December ===")
+    set_date_all(c, *ZCC_GENERAL_1945)
+
+    print("=== 50. ZCC by-elections 1940-1959 ===")
+    for args in ZCC_BY_ELECTIONS_1940S_1950S:
+        set_date(c, *args)
+
+    print("=== 51. Gulberwick 1951: a poll, Nicolson 98, Prophet Smith 49 ===")
+    title, (winner, wrong_text, winner_votes), (loser, loser_votes) = GULBERWICK_1951
+    eid = one(c, "SELECT id FROM elections WHERE wiki_page_title = ?", (title,))['id']
+    w = one(c, "SELECT id, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, winner))
+    if (w['votes'], w['votes_text']) == (None, wrong_text):
+        c.execute("UPDATE candidacies SET votes = ?, votes_text = NULL WHERE id = ?", (winner_votes, w['id']))
+        print(f"  candidacy {w['id']} ({winner}): {wrong_text!r} -> {winner_votes}")
+    elif (w['votes'], w['votes_text']) != (winner_votes, None):
+        raise SystemExit(f"candidacy {w['id']}: unexpected votes {w['votes']!r}/{w['votes_text']!r}")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, loser))
+    if c.fetchall():
+        print(f"  {loser}: already added")
+    else:
+        c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
+                     VALUES (?, ?, ?, 0, 2)""", (eid, loser, loser_votes))
+        print(f"  election {eid}: {loser} added, {loser_votes} votes")
+
+    print("=== 52. Gulberwick 1945: Council votes ===")
+    title, rows = GULBERWICK_1945
     for name, wrong, text in rows:
         cand = one(c, """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
                         WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name))

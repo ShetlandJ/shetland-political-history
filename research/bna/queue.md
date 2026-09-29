@@ -191,8 +191,12 @@ citations, 801 links). Gaps:
     Unst South 1936 an unopposed return (#47); Aithsting 1932 ballots (#48). Walls 1930, Unst South
     1936's day, Gulberwick 1936 and the May 1930 changeover in open-questions. 0 issues (7).
     `zcc-1920-1939.md`)
-  - [ ] **ZCC 1940–1959**: generals Dec 1945, May 1949, 1952, 1955, 1958 (polling days already
-    fixed, #12: cite and check votes only); 17 by-elections.
+  - [x] **ZCC 1940–1959** (done: 5 generals and 16 by-elections cited, 23 citations, 233 links.
+    Dec 1945 was Tue 4 Dec, not Mon 3rd (#49). General votes agree (1949 mostly unreadable; Yell
+    North 1955 118 v 119 in open-questions). 12 by-election dates moved from the month to the day
+    (#50). Gulberwick 1951 was a poll, Nicolson 98 v Prophet Smith 49, Tue 8 May (#51). Council
+    votes, not polls: 1940–45 (parse #16, #52). Burra 1959 not found (wiki day, parse #15).
+    0 issues (7). `zcc-1940-1959.md`)
   - [ ] **ZCC 1960–1973**: generals May 1961, 1964, 1967, 1970, 1973 (1961 and 1964 days fixed);
     18 by-elections.
 - [ ] **Citations batch 3: Westminster 1872–1975** (30 without a citation): the Orkney and
@@ -210,10 +214,9 @@ citations, 801 links). Gaps:
 
 - [ ] **ZCC by-elections whose tables hold petitions or Council ballots, not poll votes** (found in
   the ZCC 1900–1919 run): the parser took the first number as votes. 1914–1919 and Burra 1898 are
-  fixed (`fix_parse_errors.py` #10, #12), and 1921–1937 (#14, `zcc-1920-1939.md`). The rest,
-  from the wiki text ("council vote", "petition of", "Local petition"): Cunningsburgh Apr 1940;
-  Dunrossness North Sep 1963; Gulberwick Oct 1958; Unst South Dec 1942; Whalsay May 1947; Yell
-  South Dec 1940 (and Northmavine North Dec 1897, Whalsay Jul 1910: check). Extend #14's list
+  fixed (`fix_parse_errors.py` #10, #12), 1921–1937 (#14, `zcc-1920-1939.md`) and 1940–1945
+  (#16, `fix_newspapers.py` #52). The rest, from the wiki text ("council vote", "petition of",
+  "Local petition"): Dunrossness North Sep 1963; Whalsay May 1947 (and Northmavine North Dec 1897, Whalsay Jul 1910: check). Extend #14's list
   from the wiki source; cite the paper when each decade's run reaches it.
 
 - [x] **ZCC Delting North 1919** (done, `fix_parse_errors.py` #7): the wiki marks Joseph Peterson (i) as losing (15 votes, cross),

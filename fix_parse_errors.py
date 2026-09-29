@@ -32,7 +32,8 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
      (ii), the master mariner, not (iv).
    - Gulberwick, Mar 1945: "the resignation of Reverend George Smith", 20 March. George Smith
      (ii), not (iii).
-   - Gulberwick, May 1951: 15 May. The link was already right.
+   - Gulberwick, May 1951: the wiki says 15 May, but it was a poll on Tue 8 May (Shetland Times,
+     11 May 1951; fix_newspapers.py #51). The link was already right.
 6. Robert Hunter (ii)'s intro: "the death of his brother, [[James Hunter (iv)|James]]". The
    brother who died in 1920 is James Hunter (iii), the Nesting author, whose page names Robert as
    his successor. James Hunter (iv) is a GP born in 1914. The wiki page has the wrong link.
@@ -82,7 +83,14 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
      Fordyce, whose death was announced at the 20 Oct 1921 meeting.
    - Dunrossness South, April 1937: "took place on 20 April" (a Tuesday), after W. L. McDougall's
      death. The ST 24 Apr 1937 report is garbled in the OCR.
-   Evidence: research/bna/zcc-1920-1939.md.
+   - Burra, July 1959: "took place on 21 July" (a Tuesday). Alexander Bennet for Robert Strachan;
+     three searches of the ST for Jul-Aug 1959 found no report (data/searches.csv).
+   Evidence: research/bna/zcc-1920-1939.md, research/bna/zcc-1940-1959.md.
+16. ZCC by-elections 1940-1942 filled by the Council, as in #12 and #14: the wiki gives "18 council
+   votes" and "11 council votes (petition of 55)", and the parser kept the first number as votes.
+   Cunningsburgh 1940's petitions (86 and 72) are from the Shetland Times, 20 Apr 1940; Yell South
+   1940 and Unst South 1942 as in the wiki (ST 14 Dec 1940, 26 Dec 1942 confirm the co-options).
+   Evidence: research/bna/zcc-1940-1959.md.
 """
 
 import os
@@ -112,7 +120,7 @@ WRONG_NAMESAKE = [
     ('Aithsting County Council By-Election February 1921', None, ('1921-02-01', '1921-02-17')),
     ('Aithsting County Council By-Election May 1932', (208, 206), ('1932-05-01', '1932-05-17')),
     ('Gulberwick County Council By-Election March 1945', (168, 167), ('1945-03-01', '1945-03-20')),
-    ('Gulberwick County Council By-Election May 1951', None, ('1951-05-01', '1951-05-15')),
+    ('Gulberwick County Council By-Election May 1951', None, ('1951-05-01', '1951-05-08')),  # poll day, fix_newspapers.py #51
 ]
 # Nesting 1920 winner: Robert Hunter (ii) (430), not the Lerwick bank agent Robert Hunter (i) (429)
 HUNTER_1920 = ('Nesting County Council By-Election November 1920', 'Robert Hunter', 429, 430)
@@ -156,10 +164,19 @@ COUNCIL_APPOINTMENTS_1921_1937 = [  # (wiki title, candidate, wrong votes, text)
     ('Fetlar County Council By-Election October 1937', 'John A. Campbell', 18, 'Petition of 71; 18 Council votes'),
     ('Fetlar County Council By-Election October 1937', 'Magnus Manson', 4, 'Petition of 42; 4 Council votes'),
 ]
+COUNCIL_APPOINTMENTS_1940_1942 = [  # (wiki title, candidate, wrong votes, text)
+    ('Cunningsburgh County Council By-Election April 1940', 'Laurence Laurenson', 18, 'Petition of 86; 18 Council votes'),
+    ('Cunningsburgh County Council By-Election April 1940', 'Magnus Manson', 8, 'Petition of 72; 8 Council votes'),
+    ('Yell South County Council By-Election December 1940', 'John Williamson', 14, '14 Council votes'),
+    ('Yell South County Council By-Election December 1940', 'William Leask', 2, '2 Council votes'),
+    ('Unst South County Council By-Election December 1942', 'Captain Henry Hunter', 11, 'Petition of 55; 11 Council votes'),
+    ('Unst South County Council By-Election December 1942', 'John Sutherland', 6, 'Petition of 19; 6 Council votes'),
+]
 WIKI_BY_ELECTION_DAYS = [
     ('Lerwick Central County Council By-Election May 1921', '1921-05-01', '1921-05-19'),
     ('Gulberwick County Council By-Election December 1921', '1921-12-01', '1921-12-15'),
     ('Dunrossness South County Council By-Election April 1937', '1937-04-01', '1937-04-20'),
+    ('Burra County Council By-Election July 1959', '1959-07-01', '1959-07-21'),
 ]
 DELTING_NORTH_1890 = ('Delting North County Council By-Election May 1890', '1890-05-01', '1890-05-22')
 SANDSTING_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting',
@@ -348,7 +365,7 @@ def main():
         elif date != right:
             raise SystemExit(f"election {eid}: unexpected date {date}")
 
-    for title, name, wrong_votes, text in COUNCIL_APPOINTMENTS_1914_1919 + COUNCIL_APPOINTMENTS_1921_1937:
+    for title, name, wrong_votes, text in COUNCIL_APPOINTMENTS_1914_1919 + COUNCIL_APPOINTMENTS_1921_1937 + COUNCIL_APPOINTMENTS_1940_1942:
         cid, votes, votes_text = c.execute(
             """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
                WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name)).fetchone()

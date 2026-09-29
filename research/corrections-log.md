@@ -9,6 +9,16 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-29: ZCC 1940–1959 (`research/bna/zcc-1940-1959.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Dec 1945 general on "Tuesday **3** December" | 3 Dec was a Monday; "held on Tuesday", **4 Dec 1945** (ST 7 Dec 1945) | Fixed (`fix_newspapers.py` #49) |
+| 2 | wiki | Gulberwick May 1951: Nicolson "Unanimously appointed", 15 May | A **poll on Tue 8 May**: Nicolson 98, Prophet Smith (Socialist) 49 (ST 11 May 1951) | Fixed (#51); Prophet Smith unlinked |
+| 3 | wiki | Yell South by-election "Tuesday 8 December" 1940 | A Sunday; reported 14 Dec, so the meeting of Tue 10 Dec | Fixed (#50) |
+| 4 | wiki | Aithsting by-election 9 Feb 1959 | A Monday; polled "on Tuesday", **3 Feb 1959** (ST 6 Feb 1959) | Fixed (#50) |
+| 5 | wiki | Council ballots shown as poll votes (Cunningsburgh 1940, Yell South 1940, Unst South 1942, Gulberwick 1945) | Council votes on petitions; no polls | Fixed (`fix_parse_errors.py` #16, `fix_newspapers.py` #52) |
+
 ## 2026-09-29: ZCC 1920–1939 (`research/bna/zcc-1920-1939.md`)
 
 | # | Where | We had | Sources show | Status |

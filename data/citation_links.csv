@@ -1834,3 +1834,236 @@ st-19370220-p5-a176,election,634,inferred,"reported in the 20 Feb paper, so the 
 st-19371030-p5-a108,election,636,inferred,"reported in the 30 Oct paper, so the Tuesday meeting of 26 Oct 1937 (fix_newspapers.py #46); petition of 42 for Manson"
 st-19371218-p5-a092,election,637,inferred,"reported in the 18 Dec paper, so the Tuesday meeting of 14 Dec 1937 (fix_newspapers.py #46)"
 st-19380226-p5-a107,election,638,inferred,"reported in the 26 Feb paper, so the Tuesday meeting of 22 Feb 1938 (fix_newspapers.py #46)"
+st-19451116-p2-a048,election,667,read,nominations
+st-19451207-p2-a049,election,667,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,667,read,contests
+st-19451116-p2-a048,election,668,read,nominations
+st-19451207-p2-a049,election,668,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,668,read,contests
+st-19451116-p2-a048,election,669,read,nominations
+st-19451207-p2-a049,election,669,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,669,read,contests
+st-19451116-p2-a048,election,670,read,nominations
+st-19451207-p2-a049,election,670,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,670,read,contests
+st-19451116-p2-a048,election,671,read,nominations
+st-19451207-p2-a049,election,671,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,671,read,contests
+st-19451116-p2-a048,election,672,read,nominations
+st-19451207-p2-a049,election,672,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,672,read,contests
+st-19451116-p2-a048,election,673,read,nominations
+st-19451207-p2-a049,election,673,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,673,read,contests
+st-19451116-p2-a048,election,674,read,nominations
+st-19451207-p2-a049,election,674,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,674,read,contests
+st-19451116-p2-a048,election,675,read,nominations
+st-19451207-p2-a049,election,675,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,675,read,contests
+st-19451116-p2-a048,election,676,read,nominations
+st-19451207-p2-a049,election,676,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,676,read,contests
+st-19451116-p2-a048,election,677,read,nominations
+st-19451207-p2-a049,election,677,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,677,read,contests
+st-19451116-p2-a048,election,678,read,nominations
+st-19451207-p2-a049,election,678,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,678,read,contests
+st-19451116-p2-a048,election,679,read,nominations
+st-19451207-p2-a049,election,679,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,679,read,contests
+st-19451116-p2-a048,election,680,read,nominations
+st-19451207-p2-a049,election,680,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,680,read,contests
+st-19451116-p2-a048,election,681,read,nominations
+st-19451207-p2-a049,election,681,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,681,read,contests
+st-19451116-p2-a048,election,682,read,nominations
+st-19451207-p2-a049,election,682,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,682,read,contests
+st-19451116-p2-a048,election,683,read,nominations
+st-19451207-p2-a049,election,683,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,683,read,contests
+st-19451116-p2-a048,election,684,read,nominations
+st-19451207-p2-a049,election,684,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,684,read,contests
+st-19451116-p2-a048,election,685,read,nominations
+st-19451207-p2-a049,election,685,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,685,read,contests
+st-19451116-p2-a048,election,686,read,nominations
+st-19451207-p2-a049,election,686,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,686,read,contests
+st-19451116-p2-a048,election,687,read,nominations
+st-19451207-p2-a049,election,687,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,687,read,contests
+st-19451116-p2-a048,election,688,read,nominations
+st-19451207-p2-a049,election,688,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,688,read,contests
+st-19451116-p2-a048,election,689,read,nominations
+st-19451207-p2-a049,election,689,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,689,read,contests
+st-19451116-p2-a048,election,690,read,nominations
+st-19451207-p2-a049,election,690,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451123-p2-a034,election,690,read,contests
+st-19490513-p4-a076,election,695,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,695,read,"results, continued"
+st-19490513-p4-a076,election,696,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,696,read,"results, continued"
+st-19490513-p4-a076,election,697,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,697,read,"results, continued"
+st-19490513-p4-a076,election,698,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,698,read,"results, continued"
+st-19490513-p4-a076,election,699,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,699,read,"results, continued"
+st-19490513-p4-a076,election,700,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,700,read,"results, continued"
+st-19490513-p4-a076,election,701,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,701,read,"results, continued"
+st-19490513-p4-a076,election,702,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,702,read,"results, continued"
+st-19490513-p4-a076,election,703,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,703,read,"results, continued"
+st-19490513-p4-a076,election,704,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,704,read,"results, continued"
+st-19490513-p4-a076,election,705,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,705,read,"results, continued"
+st-19490513-p4-a076,election,706,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,706,read,"results, continued"
+st-19490513-p4-a076,election,707,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,707,read,"results, continued"
+st-19490513-p4-a076,election,708,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,708,read,"results, continued"
+st-19490513-p4-a076,election,709,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,709,read,"results, continued"
+st-19490513-p4-a076,election,710,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,710,read,"results, continued"
+st-19490513-p4-a076,election,711,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,711,read,"results, continued"
+st-19490513-p4-a076,election,712,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,712,read,"results, continued"
+st-19490513-p4-a076,election,713,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,713,read,"results, continued"
+st-19490513-p4-a076,election,714,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,714,read,"results, continued"
+st-19490513-p4-a076,election,715,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,715,read,"results, continued"
+st-19490513-p4-a076,election,716,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,716,read,"results, continued"
+st-19490513-p4-a076,election,717,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,717,read,"results, continued"
+st-19490513-p4-a076,election,718,read,results; votes largely unreadable in the OCR
+st-19490513-p5-a079,election,718,read,"results, continued"
+st-19520516-p5-a080,election,724,read,results
+st-19520516-p5-a080,election,725,read,results
+st-19520516-p5-a080,election,726,read,results
+st-19520516-p5-a080,election,727,read,results
+st-19520516-p5-a080,election,728,read,results
+st-19520516-p5-a080,election,729,read,results
+st-19520516-p5-a080,election,730,read,results
+st-19520516-p5-a080,election,731,read,results
+st-19520516-p5-a080,election,732,read,results
+st-19520516-p5-a080,election,733,read,results
+st-19520516-p5-a080,election,734,read,results
+st-19520516-p5-a080,election,735,read,results
+st-19520516-p5-a080,election,736,read,results
+st-19520516-p5-a080,election,737,read,results
+st-19520516-p5-a080,election,738,read,results
+st-19520516-p5-a080,election,739,read,results
+st-19520516-p5-a080,election,740,read,results
+st-19520516-p5-a080,election,741,read,results
+st-19520516-p5-a080,election,742,read,results
+st-19520516-p5-a080,election,743,read,results
+st-19520516-p5-a080,election,744,read,results
+st-19520516-p5-a080,election,745,read,results
+st-19520516-p5-a080,election,746,read,results
+st-19520516-p5-a080,election,747,read,results
+st-19550513-p4-a057,election,749,read,results
+st-19550513-p4-a061,election,749,read,Yell results
+st-19550513-p4-a057,election,750,read,results
+st-19550513-p4-a061,election,750,read,Yell results
+st-19550513-p4-a057,election,751,read,results
+st-19550513-p4-a061,election,751,read,Yell results
+st-19550513-p4-a057,election,752,read,results
+st-19550513-p4-a061,election,752,read,Yell results
+st-19550513-p4-a057,election,753,read,results
+st-19550513-p4-a061,election,753,read,Yell results
+st-19550513-p4-a057,election,754,read,results
+st-19550513-p4-a061,election,754,read,Yell results
+st-19550513-p4-a057,election,755,read,results
+st-19550513-p4-a061,election,755,read,Yell results
+st-19550513-p4-a057,election,756,read,results
+st-19550513-p4-a061,election,756,read,Yell results
+st-19550513-p4-a057,election,757,read,results
+st-19550513-p4-a061,election,757,read,Yell results
+st-19550513-p4-a057,election,758,read,results
+st-19550513-p4-a061,election,758,read,Yell results
+st-19550513-p4-a057,election,759,read,results
+st-19550513-p4-a061,election,759,read,Yell results
+st-19550513-p4-a057,election,760,read,results
+st-19550513-p4-a061,election,760,read,Yell results
+st-19550513-p4-a057,election,761,read,results
+st-19550513-p4-a061,election,761,read,Yell results
+st-19550513-p4-a057,election,762,read,results
+st-19550513-p4-a061,election,762,read,Yell results
+st-19550513-p4-a057,election,763,read,results
+st-19550513-p4-a061,election,763,read,Yell results
+st-19550513-p4-a057,election,764,read,results
+st-19550513-p4-a061,election,764,read,Yell results
+st-19550513-p4-a057,election,765,read,results
+st-19550513-p4-a061,election,765,read,Yell results
+st-19550513-p4-a057,election,766,read,results
+st-19550513-p4-a061,election,766,read,Yell results
+st-19550513-p4-a057,election,767,read,results
+st-19550513-p4-a061,election,767,read,Yell results
+st-19550513-p4-a057,election,768,read,results
+st-19550513-p4-a061,election,768,read,Yell results
+st-19550513-p4-a057,election,769,read,results
+st-19550513-p4-a061,election,769,read,Yell results
+st-19550513-p4-a057,election,770,read,results
+st-19550513-p4-a061,election,770,read,Yell results
+st-19550513-p4-a057,election,771,read,results
+st-19550513-p4-a061,election,771,read,Yell results
+st-19550513-p4-a057,election,772,read,results
+st-19550513-p4-a061,election,772,read,Yell results
+st-19580516-p5-a061,election,777,read,results; all five contests agree
+st-19580516-p5-a061,election,778,read,results; all five contests agree
+st-19580516-p5-a061,election,779,read,results; all five contests agree
+st-19580516-p5-a061,election,780,read,results; all five contests agree
+st-19580516-p5-a061,election,781,read,results; all five contests agree
+st-19580516-p5-a061,election,782,read,results; all five contests agree
+st-19580516-p5-a061,election,783,read,results; all five contests agree
+st-19580516-p5-a061,election,784,read,results; all five contests agree
+st-19580516-p5-a061,election,785,read,results; all five contests agree
+st-19580516-p5-a061,election,786,read,results; all five contests agree
+st-19580516-p5-a061,election,787,read,results; all five contests agree
+st-19580516-p5-a061,election,788,read,results; all five contests agree
+st-19580516-p5-a061,election,789,read,results; all five contests agree
+st-19580516-p5-a061,election,790,read,results; all five contests agree
+st-19580516-p5-a061,election,791,read,results; all five contests agree
+st-19580516-p5-a061,election,792,read,results; all five contests agree
+st-19580516-p5-a061,election,793,read,results; all five contests agree
+st-19580516-p5-a061,election,794,read,results; all five contests agree
+st-19580516-p5-a061,election,795,read,results; all five contests agree
+st-19580516-p5-a061,election,796,read,results; all five contests agree
+st-19580516-p5-a061,election,797,read,results; all five contests agree
+st-19580516-p5-a061,election,798,read,results; all five contests agree
+st-19580516-p5-a061,election,799,read,results; all five contests agree
+st-19400420-p5-a081,election,663,inferred,"Council ballot on petitions; meeting day not in the OCR, so the wiki's Tuesday 16 Apr, the week of the 20 Apr paper"
+st-19401214-p5-a085,election,664,inferred,"reported 14 Dec, not 7 Dec, so the Tuesday meeting of 10 Dec 1940 (fix_newspapers.py #50)"
+st-19421226-p3-a080,election,665,inferred,"reported 26 Dec, so the Tuesday meeting of 22 Dec 1942, as the wiki"
+st-19450323-p3-a069,election,666,read,meeting on Tuesday (20 Mar 1945); a Council vote (fix_newspapers.py #52)
+st-19461220-p7-a105,election,691,inferred,"reported 20 Dec, so the Tuesday meeting of 17 Dec 1946, as the wiki"
+st-19480521-p4-a078,election,693,inferred,"reported 21 May, so the Tuesday meeting of 18 May 1948, as the wiki"
+st-19480521-p4-a078,election,694,inferred,"reported 21 May, so the Tuesday meeting of 18 May 1948, as the wiki"
+st-19510223-p5-a063,election,721,read,"co-opted on Tuesday, 20 Feb 1951"
+st-19510511-p1-a006,election,722,read,poll on Tuesday 8 May 1951
+st-19510511-p4-a038,election,722,read,"Nicolson 98, Prophet Smith 49 (fix_newspapers.py #51)"
+st-19520222-p7-a110,election,723,inferred,"reported 22 Feb, so the Tuesday meeting of 19 Feb 1952, as the wiki"
+st-19520801-p4-a051,election,748,read,Johnson 131; poll day the wiki's Tuesday 29 Jul (results announced Thursday)
+st-19550624-p4-a072,election,774,read,nominations
+st-19550715-p4-a074,election,774,read,polled Tuesday 12 Jul 1955; 133 to 15
+st-19550715-p4-a074,election,773,read,polled Tuesday 12 Jul 1955; majority 75
+st-19550715-p4-a074,election,775,read,polled Tuesday 12 Jul 1955; 95 votes
+st-19581024-p4-a064,election,800,read,"co-opted on Tuesday, 21 Oct 1958"
+st-19590206-p4-a052,election,801,read,poll on Tuesday 3 Feb 1959; 164 to 98
