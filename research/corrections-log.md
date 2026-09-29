@@ -9,6 +9,19 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-29: ZCC 1960–1974 (`research/bna/zcc-1960-1974.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | **Hugh Sutherland** won Northmavine South in May 1970, and the 1972 by-election replaced him; Balfour's intro "Northmavine South between 1955 and 1967" | **Robert Balfour** held Northmavine South to March 1972, "seventeen years" (ST 24 Mar 1972; "the Northmavine representative", ST 2 Oct 1970) | Fixed: candidacy, replaced member, both intros (`fix_newspapers.py` #55) |
+| 2 | wiki | Bressay 1960, Delting North 1963, Yell South 1966, Bressay 1966, Gulberwick 1970, Yell North 1974 unopposed or "appointed" | All six were **polls** (86–79, 57–11, 140–22, 46–34, 55–22, 108–90) | Fixed (#56) |
+| 3 | wiki | Delting North 1963 won by "Willie Peterson" | **A. W. (Andrew W.) Peterson**, the former Yell North member (ST 27 Sep 1963) | Fixed (#56) |
+| 4 | wiki | Aithsting 1973: Caldwell v Garrick | Three candidates: **Peter F. M. Tulloch 46** too (ST 11 May 1973) | Fixed (#54) |
+| 5 | wiki | Burra and Quarff 1964 electorate 524 (22.5%) | **500** (66 + 434), 23.6 per cent (ST 15 May 1964) | Fixed (#53) |
+| 6 | wiki | By-election days and months: e.g. Yell South "22 March" 1966, Fetlar "19 September" and Tingwall "7 July" 1967, Burra and Whiteness "11 August" 1970, Gulberwick "20 October" 1970, Burra "19 September" 1972, Yell North "5 February" 1974 | 22 Feb 1966; both 25 Jul 1967; 14 Jul 1970; 29 Sep 1970; 8 Aug 1972; 8 Jan 1974 (all 18 in the evidence file) | Fixed (#57); page titles keep the wiki's month |
+| 7 | wiki | Dunrossness North 1963: Bruce appointed 24 September | No nomination at the by-election; **co-opted Tue 22 Oct 1963** (ST 25 Oct 1963) | Fixed (#57) |
+| 8 | wiki | Dunrossness North 1971: one by-election | **Two**: Mrs Fisher returned unopposed in August but couldn't sit (a council employee), then the November poll (ST 24 Sep, 29 Oct 1971) | Open question (add the August return?) |
+
 ## 2026-09-29: ZCC 1940–1959 (`research/bna/zcc-1940-1959.md`)
 
 | # | Where | We had | Sources show | Status |

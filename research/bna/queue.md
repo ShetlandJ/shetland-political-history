@@ -197,8 +197,11 @@ citations, 801 links). Gaps:
     (#50). Gulberwick 1951 was a poll, Nicolson 98 v Prophet Smith 49, Tue 8 May (#51). Council
     votes, not polls: 1940–45 (parse #16, #52). Burra 1959 not found (wiki day, parse #15).
     0 issues (7). `zcc-1940-1959.md`)
-  - [ ] **ZCC 1960–1973**: generals May 1961, 1964, 1967, 1970, 1973 (1961 and 1964 days fixed);
-    18 by-elections.
+  - [x] **ZCC 1960–1974** (done: 5 generals and 18 by-elections cited, 39 citations, 278 links.
+    All five polling days agree. Six by-elections were polls, not unopposed returns (#56), and all
+    18 dates moved (#57). Northmavine South 1970–72 was Balfour's, not Sutherland's (#55); Aithsting
+    1973 had a third candidate (#54); Burra 1964 electorate 500 (#53). Dunrossness North 1971 (two
+    by-elections) and Sutherland after 1970 in open-questions. 0 issues (7). `zcc-1960-1974.md`)
 - [ ] **Citations batch 3: Westminster 1872–1975** (30 without a citation): the Orkney and
   Shetland results in the Shetland Times.
 - Not BNA: SIC 1976+ and Holyrood (38; official results pages, needs a `web` publication type),

@@ -147,6 +147,10 @@ for 1953–64).
   Council or "accepted" his seat), so date to the meeting that appointed him.
 - When a poll was needed, the Secretary for Scotland fixed the day ("has fixed Tuesday the 24th
   ..."), announced in the local news column a few weeks before.
+- **1960–74** (Friday paper): a by-election had a fixed day, announced weeks ahead in "News in
+  brief". A sole nominee was "declared councillor" on that day (search the winner's surname or the
+  ward over the nomination weeks); co-option came only when nobody was nominated. Wiki days and
+  even the title's month are usually wrong, and many "appointed" returns were polls.
 
 Useful keywords: `town council`, `retiring councillors`, `co-opted`, `special meeting`,
 `vacancy`, `statutory meeting`, `municipal election`, plus a surname.

@@ -420,6 +420,41 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    elected" by the Council (Shetland Times, 23 Mar 1945). The wiki's 15 and 6 are Council votes,
    not a poll.
    Evidence for 49-52: research/bna/zcc-1940-1959.md.
+53. Burra and Quarff electorate, May 1964: 500, not 524. "In Quarff, 28 of the 66 people on the roll
+   voted but in Burra only 90 of the 434", "a fairly low poll, 23.6 per cent" (Shetland Times,
+   15 May 1964). The wiki's 22.5% is 118 of 524.
+54. Aithsting, May 1973: a three-cornered contest. Peter F. M. Tulloch had 46 votes (Caldwell 151,
+   Garrick 124, two spoiled; Shetland Times, 11 May 1973). The wiki leaves him out, and its turnout
+   of 275 is the other two's votes; 323 counts all three and the spoiled papers.
+55. Northmavine South, 1970-1972: Robert Balfour, not Hugh Sutherland. Balfour "has resigned as
+   member for Northmavine South" after "seventeen years" (Shetland Times, 24 Mar 1972), and
+   spoke as "the Northmavine representative" at the Council in 1970 (2 Oct 1970). The May 1970
+   seat is re-pointed to Balfour, the 1972 by-election replaced him, and the two intros drop the
+   wiki's Northmavine South years for Sutherland (1970-72 were Balfour's).
+56. Six ZCC by-elections that were polls, which the wiki shows as unopposed or appointments:
+   Bressay, Tue 29 Mar 1960, John R. Smith 86, George A. Kerr 79 (1 Apr 1960); Delting North,
+   Tue 24 Sep 1963, A. W. Peterson 57, William Nicolson 11, 34.5 per cent (27 Sep 1963; the wiki's
+   "Willie Peterson" is Andrew W. Peterson, "until last year he represented a Yell division");
+   Yell South, Tue 22 Feb 1966, Robert S. Gray 140, Alan Rhodes 22, "163 of the 589 electors voted"
+   (25 Feb 1966); Bressay, Tue 14 Jun 1966, John H. Scott 46, William Smith 34, 38.6 per cent of
+   216 (17 Jun 1966); Gulberwick and Quarff, Tue 29 Sep 1970, Arthur Irvine 55, Mrs C. F. Johnson
+   22, 58 per cent of 131 (2 Oct 1970); Yell North, Tue 8 Jan 1974, David J. Johnston 108,
+   Andrew J. Williamson 90, 72 per cent, no spoiled papers (11 Jan 1974).
+57. Zetland County Council by-elections 1960-1974, dated to the poll, the day fixed for an
+   unopposed return, or the Council meeting (the baseline had the 1st of the month, or the wiki's
+   day): Walls, poll "on Tuesday", 9 Feb 1960 (the wiki's 10 February was a Wednesday); Yell North,
+   the day fixed, 4 Dec 1962 (Sutherland took his seat on the 18th); Dunrossness North, no
+   nomination, Bruce "co-opted ... on Tuesday", 22 Oct 1963; Dunrossness South and Whalsay, "due on
+   7th July" 1964, one nomination each; Fetlar and Tingwall, "become county councillors on 25th
+   July" 1967; Burra and Whiteness and Weisdale, "declared county councillors on 14th July" 1970;
+   Dunrossness North, the Tuesday poll of November 1971 (the day is lost in the OCR; the wiki's
+   Wed 10 Nov was probably the count), 9 Nov; Northmavine South, John Jamieson the only nominee,
+   takes his seat "on 16th May" 1972 (20 June was his first meeting); Burra, "declared councillor
+   ... on 8th August, the date fixed for the poll", 1972; and the polls in #56. Several wiki
+   titles give the wrong month; the titles are kept.
+58. Unopposed returns that the wiki shows as appointments or unanimous elections: Bentley,
+   Dunrossness South 1964; A. B. Irvine, Tingwall 1967; Jamieson, Northmavine South 1972.
+   Evidence for 53-58: research/bna/zcc-1960-1974.md.
 """
 
 import os
@@ -644,6 +679,52 @@ GULBERWICK_1945 = ('Gulberwick County Council By-Election March 1945', [
 ])
 UNST_SOUTH_1936 = ('Unst South County Council By-Election February 1936',
                    [('William Fordyce Clark', 'Unanimously appointed', 'Unopposed'), ('Magnus Manson', 'Rejected', 'Withdrew')])
+BURRA_1964 = ('County Council Election May 1964', 'Burra', (524, 118, 22.5), (500, 118, 23.6))
+AITHSTING_1973 = ('County Council Election May 1973', 'Aithsting', ('Peter F. M. Tulloch', 46), (275, 323))
+NORTHMAVINE_SOUTH_1970 = ('County Council Election May 1970', 'Northmavine South', 'Hugh Sutherland', 'hugh-sutherland',
+                          'Robert Balfour', 'robert-balfour')
+NORTHMAVINE_SOUTH_1972 = ('Northmavine South County Council By-Election June 1972', 'Hugh Sutherland', 'Robert Balfour')
+ZCC_INTROS_1970 = [
+    ('robert-balfour', 'Northmavine South between 1955 and 1967', 'Northmavine South between 1955 and 1972'),
+    ('hugh-sutherland', 'then for Delting South, and finally for Northmavine South.', 'then for Delting South.'),
+]
+# (title, winner as in the DB, winner as in the paper or None, winner votes, loser, loser votes,
+#  (electorate, turnout, turnout_pct) or None)
+ZCC_BY_ELECTION_POLLS_1960S_1970S = [
+    ('Bressay County Council By-Election March 1960', 'John R. Smith', None, 86, 'George A. Kerr', 79, None),
+    ('Delting North County Council By-Election September 1963', 'Willie Peterson', 'Andrew W. Peterson', 57,
+     'William Nicolson', 11, (None, None, 34.5)),
+    ('Yell South County Council By-Election March 1966', 'Robert S. Gray', None, 140, 'Alan Rhodes', 22, (589, 163, 27.7)),
+    ('Bressay County Council By-Election June 1966', 'John Scott', 'John H. Scott', 46, 'William Smith', 34, (216, None, 38.6)),
+    ('Gulberwick County Council By-Election October 1970', 'Arthur Irvine', None, 55, 'Mrs C. F. Johnson', 22, (131, None, 58.0)),
+    ('Yell North County Council By-Election February 1974', 'David Johnson', 'David J. Johnston', 108,
+     'Andrew J. Williamson', 90, (None, 198, 72.0)),
+]
+ZCC_BY_ELECTIONS_1960S_1970S = [
+    ('Walls County Council By-Election February 1960', '1960-02-01', '1960-02-09'),
+    ('Bressay County Council By-Election March 1960', '1960-03-01', '1960-03-29'),
+    ('Yell North County Council By-Election December 1962', '1962-12-01', '1962-12-04'),
+    ('Delting North County Council By-Election September 1963', '1963-09-01', '1963-09-24'),
+    ('Dunrossness North County Council By-Election September 1963', '1963-09-01', '1963-10-22'),
+    ('Dunrossness South County Council By-Election July 1964', '1964-07-01', '1964-07-07'),
+    ('Whalsay And Skerries County Council By-Election July 1964', '1964-07-01', '1964-07-07'),
+    ('Yell South County Council By-Election March 1966', '1966-03-01', '1966-02-22'),
+    ('Bressay County Council By-Election June 1966', '1966-06-01', '1966-06-14'),
+    ('Fetlar County Council By-Election September 1967', '1967-09-01', '1967-07-25'),
+    ('Tingwall County Council By-Election September 1967', '1967-09-01', '1967-07-25'),
+    ('Burra County Council By-Election August 1970', '1970-08-01', '1970-07-14'),
+    ('Whiteness And Weisdale County Council By-Election August 1970', '1970-08-01', '1970-07-14'),
+    ('Gulberwick County Council By-Election October 1970', '1970-10-01', '1970-09-29'),
+    ('Dunrossness North County Council By-Election October 1971', '1971-10-01', '1971-11-09'),
+    ('Northmavine South County Council By-Election June 1972', '1972-06-20', '1972-05-16'),
+    ('Burra County Council By-Election September 1972', '1972-09-01', '1972-08-08'),
+    ('Yell North County Council By-Election February 1974', '1974-02-01', '1974-01-08'),
+]
+ZCC_UNOPPOSED_1960S_1970S = [
+    ('Dunrossness South County Council By-Election July 1964', 'Raymond Bentley', 'Unanimously appointed'),
+    ('Tingwall County Council By-Election September 1967', 'Andrew B. Irvine', 'Unanimously elected'),
+    ('Northmavine South County Council By-Election June 1972', 'John Jamieson', 'Unanimously elected'),
+]
 AITHSTING_1932 = ('Aithsting County Council By-Election May 1932', [
     ('Andrew D. Clark', 102, 'Petition of 102; 10 Council votes, then 10'),
     ('[https://www.bayanne.info/Shetland/getperson.php?personID=I56157&tree=ID1 Creighton G. Williamson]', 99,
@@ -1246,6 +1327,110 @@ def main():
             print(f"  candidacy {cand['id']}: {wrong} votes -> {text!r}")
         elif (cand['votes'], cand['votes_text']) != (None, text):
             raise SystemExit(f"candidacy {cand['id']}: unexpected votes {cand['votes']!r}/{cand['votes_text']!r}")
+
+    print("=== 53. Burra 1964: electorate 500 ===")
+    title, ward, wrong, right = BURRA_1964
+    row = one(c, """SELECT e.id, e.electorate, e.turnout, e.turnout_pct FROM elections e
+                   JOIN constituencies k ON k.id = e.constituency_id WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+    got = (row['electorate'], row['turnout'], row['turnout_pct'])
+    if got == wrong:
+        c.execute("UPDATE elections SET electorate = ?, turnout = ?, turnout_pct = ? WHERE id = ?", (*right, row['id']))
+        print(f"  election {row['id']}: {wrong} -> {right}")
+    elif got != right:
+        raise SystemExit(f"election {row['id']}: unexpected electorate/turnout {got}")
+
+    print("=== 54. Aithsting 1973: Tulloch 46 ===")
+    title, ward, (loser, loser_votes), (wrong, right) = AITHSTING_1973
+    row = one(c, """SELECT e.id, e.turnout FROM elections e
+                   JOIN constituencies k ON k.id = e.constituency_id WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+    if row['turnout'] == wrong:
+        c.execute("UPDATE elections SET turnout = ? WHERE id = ?", (right, row['id']))
+        print(f"  election {row['id']}: turnout {wrong} -> {right}")
+    elif row['turnout'] != right:
+        raise SystemExit(f"election {row['id']}: unexpected turnout {row['turnout']!r}")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (row['id'], loser))
+    if c.fetchall():
+        print(f"  {loser}: already added")
+    else:
+        c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
+                     VALUES (?, ?, ?, 0, 3)""", (row['id'], loser, loser_votes))
+        print(f"  election {row['id']}: {loser} added, {loser_votes} votes")
+
+    print("=== 55. Northmavine South 1970-72: Balfour, not Sutherland ===")
+    title, ward, wrong_name, wrong_slug, right_name, right_slug = NORTHMAVINE_SOUTH_1970
+    eid = one(c, """SELECT e.id FROM elections e JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))['id']
+    wrong_pid = one(c, "SELECT id FROM people WHERE slug = ?", (wrong_slug,))['id']
+    right_pid = one(c, "SELECT id FROM people WHERE slug = ?", (right_slug,))['id']
+    cand = one(c, "SELECT id, person_id, candidate_name FROM candidacies WHERE election_id = ?", (eid,))
+    if (cand['person_id'], cand['candidate_name']) == (wrong_pid, wrong_name):
+        c.execute("UPDATE candidacies SET person_id = ?, candidate_name = ? WHERE id = ?", (right_pid, right_name, cand['id']))
+        print(f"  candidacy {cand['id']}: {wrong_name} -> {right_name}")
+    elif (cand['person_id'], cand['candidate_name']) != (right_pid, right_name):
+        raise SystemExit(f"candidacy {cand['id']}: unexpected {cand['candidate_name']!r}")
+    title, wrong, right = NORTHMAVINE_SOUTH_1972
+    row = one(c, "SELECT id, replaced_person, replaced_person_id FROM elections WHERE wiki_page_title = ?", (title,))
+    if (row['replaced_person'], row['replaced_person_id']) == (wrong, wrong_pid):
+        c.execute("UPDATE elections SET replaced_person = ?, replaced_person_id = ? WHERE id = ?", (right, right_pid, row['id']))
+        print(f"  election {row['id']}: replaced {wrong} -> {right}")
+    elif (row['replaced_person'], row['replaced_person_id']) != (right, right_pid):
+        raise SystemExit(f"election {row['id']}: unexpected replaced_person {row['replaced_person']!r}")
+    for slug, wrong, right in ZCC_INTROS_1970:
+        intro = one(c, "SELECT intro FROM people WHERE slug = ?", (slug,))['intro']
+        if right in intro:
+            print(f"  {slug} intro: already fixed")
+        elif wrong in intro:
+            c.execute("UPDATE people SET intro = ? WHERE slug = ?", (intro.replace(wrong, right), slug))
+            print(f"  {slug} intro: fixed")
+        else:
+            raise SystemExit(f"{slug} intro: expected text not found")
+
+    print("=== 56. ZCC by-elections 1960-1974 that were polls ===")
+    for title, winner, new_name, winner_votes, loser, loser_votes, figures in ZCC_BY_ELECTION_POLLS_1960S_1970S:
+        row = one(c, "SELECT id, electorate, turnout, turnout_pct FROM elections WHERE wiki_page_title = ?", (title,))
+        eid = row['id']
+        name = new_name or winner
+        c.execute("SELECT id, candidate_name, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name IN (?, ?)",
+                  (eid, winner, name))
+        w = c.fetchall()
+        if len(w) != 1:
+            raise SystemExit(f"election {eid}: expected one winner row, got {len(w)}")
+        w = w[0]
+        if (w['candidate_name'], w['votes']) == (name, winner_votes):
+            print(f"  election {eid}: {name} already {winner_votes}")
+        elif w['votes'] is None and w['candidate_name'] == winner:
+            c.execute("UPDATE candidacies SET candidate_name = ?, votes = ?, votes_text = NULL WHERE id = ?", (name, winner_votes, w['id']))
+            print(f"  candidacy {w['id']} ({winner}): {w['votes_text']!r} -> {name}, {winner_votes}")
+        else:
+            raise SystemExit(f"candidacy {w['id']}: unexpected {w['candidate_name']!r}/{w['votes']!r}")
+        c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, loser))
+        if c.fetchall():
+            print(f"  {loser}: already added")
+        else:
+            c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
+                         VALUES (?, ?, ?, 0, 2)""", (eid, loser, loser_votes))
+            print(f"  election {eid}: {loser} added, {loser_votes} votes")
+        if figures:
+            got = (row['electorate'], row['turnout'], row['turnout_pct'])
+            if got == (None, None, None):
+                c.execute("UPDATE elections SET electorate = ?, turnout = ?, turnout_pct = ? WHERE id = ?", (*figures, eid))
+                print(f"  election {eid}: electorate/turnout {figures}")
+            elif got != figures:
+                raise SystemExit(f"election {eid}: unexpected electorate/turnout {got}")
+
+    print("=== 57. ZCC by-elections 1960-1974 ===")
+    for args in ZCC_BY_ELECTIONS_1960S_1970S:
+        set_date(c, *args)
+
+    print("=== 58. ZCC unopposed returns 1964-1972 ===")
+    for title, name, wrong in ZCC_UNOPPOSED_1960S_1970S:
+        cand = one(c, """SELECT ca.id, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name))
+        if cand['votes_text'] == wrong:
+            c.execute("UPDATE candidacies SET votes_text = 'Unopposed' WHERE id = ?", (cand['id'],))
+            print(f"  candidacy {cand['id']} ({name}): {wrong!r} -> 'Unopposed'")
+        elif cand['votes_text'] != 'Unopposed':
+            raise SystemExit(f"candidacy {cand['id']}: unexpected votes_text {cand['votes_text']!r}")
 
     db.commit()
     db.close()
