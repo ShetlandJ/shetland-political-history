@@ -8,6 +8,18 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-29: Was Balfour Spence elected in Sept 1823?** The minute book never recorded the
+  1823 result (p27–28, then blank). Ten of the wiki's eleven sat at meetings from Oct 1823 (p29–31),
+  but Balfour Spence isn't seen at any meeting from Oct 1823 to Sep 1826. His row stays
+  `confirmed=1` on the wiki's word. Options: keep, set `confirmed=0`, or check the wiki's source
+  (the Shetland Times doesn't exist yet). Row `balfour-spence` 1823-09-04. Evidence:
+  `ltc-1818-1871-minute-book.md`.
+
+- **2026-09-29: Add Arthur Gifford of Busta to the Sept 1844 election?** Elected Senior Bailie on
+  5 Sep 1844 (mb p105) but "could not accept the office" (p107, 27 Sep). The DB has no candidacy
+  for him. Options: add him as elected Senior Bailie with a `not_seated.csv` row (like Hay 1884,
+  needs a person record), or leave it. Election 11. Evidence: `ltc-1818-1871-minute-book.md`.
+
 - **2026-09-29: Orkney and Shetland 1892: Younger 1616 or 1617?** The Shetland Times of 30 Jul
   1892 has "Lyell, 2624; Younger, 1616" twice (majority 1008). Its 1902 table has 2624 and 1617
   (1007); the Shetland News (10 Aug 1895) and ST 1906 have 2623 and 1617 (1006). The DB keeps the

@@ -210,10 +210,11 @@ citations, 801 links). Gaps:
   open-questions. 1939–40 wasn't an election. 0 issues (7). `westminster-1873-1974.md`)
 - Not BNA: SIC 1976+ and Holyrood (38; official results pages, needs a `web` publication type),
   and pre-1872 (minute book).
-- [ ] **244 confirmed rows with no recorded source**: the April 2026 rows ("per-row source not
-  recorded"), all starting 1818–1883 (most before 1872, when the Shetland Times began).
-  Mostly minute-book work: record the page for each as an `mb-pN` citation. The 1876–1883
-  rows now have Shetland Times sources (`ltc-1874-1883.md`).
+- [x] **244 confirmed rows with no recorded source** (done: the 206 left, all generals 1818–1871,
+  now cite the minute-book page that declares them elected; 24 `mb-pN` citations, 238 links. All
+  match the book. 1823's result was never entered: 10 rows cited from the meetings they sat at,
+  Balfour Spence never seen, in open-questions; Gifford of Busta, 1844 Senior Bailie who didn't
+  accept, not in the DB, in open-questions. 7 issues (7). `ltc-1818-1871-minute-book.md`)
 - **Basis not reviewed**: the 801 backfilled links have `basis` empty. Set `read` or `inferred`
   as each is next used; no separate run needed.
 
