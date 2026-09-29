@@ -202,8 +202,12 @@ citations, 801 links). Gaps:
     18 dates moved (#57). Northmavine South 1970–72 was Balfour's, not Sutherland's (#55); Aithsting
     1973 had a third candidate (#54); Burra 1964 electorate 500 (#53). Dunrossness North 1971 (two
     by-elections) and Sutherland after 1970 in open-questions. 0 issues (7). `zcc-1960-1974.md`)
-- [ ] **Citations batch 3: Westminster 1872–1975** (30 without a citation): the Orkney and
-  Shetland results in the Shetland Times.
+- [x] **Citations batch 3: Westminster 1872–1975** (done: 30 elections cited, the hidden 1902
+  by-election restored with its results (`fix_parse_errors.py` #17), 61 citations, 82 links.
+  Wrong results: 1880 opponent Badenoch 518, not Riddell (#61); 1886 and 1895 copied from 1885 and
+  1892 (#62, #63); 1950 Labour 4198; Labour 1951 Fairnie, 1955 Ramsay, 1966 Lynch (#64). Polling
+  days for 16 (#60, parse #18); copied turnouts (#65); electorates (#66). 1892's 1616/1617 in
+  open-questions. 1939–40 wasn't an election. 0 issues (7). `westminster-1873-1974.md`)
 - Not BNA: SIC 1976+ and Holyrood (38; official results pages, needs a `web` publication type),
   and pre-1872 (minute book).
 - [ ] **244 confirmed rows with no recorded source**: the April 2026 rows ("per-row source not

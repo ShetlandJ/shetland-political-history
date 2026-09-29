@@ -8,6 +8,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-29: Orkney and Shetland 1892: Younger 1616 or 1617?** The Shetland Times of 30 Jul
+  1892 has "Lyell, 2624; Younger, 1616" twice (majority 1008). Its 1902 table has 2624 and 1617
+  (1007); the Shetland News (10 Aug 1895) and ST 1906 have 2623 and 1617 (1006). The DB keeps the
+  wiki's 2624 and 1617. Options: keep, or take the night's 1616. Election 1206. Evidence:
+  `westminster-1873-1974.md`.
+
 - **2026-09-29: Dunrossness North, November 1971: day and votes.** "Fixed for Tuesday, [..]th
   November" (ST 29 Oct 1971; the day is lost in the OCR). Set to Tue 9 Nov (the wiki's Wed 10 Nov
   is probably the count). The result report wasn't found in three searches, so Leask 55, Fisher 15

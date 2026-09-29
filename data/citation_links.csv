@@ -2348,3 +2348,85 @@ st-19740111-p1-a008,election,940,read,poll on Tuesday 8 Jan 1974; 108 to 90
 st-19710813-p1-a006,election,Dunrossness North County Council By-Election August 1971,read,sole nominee; formally elected 24 Aug 1971
 st-19710910-p1-a002,election,Dunrossness North County Council By-Election August 1971,read,could not take her seat; resigned
 st-19710924-p1-a002,election,Dunrossness North County Council By-Election August 1971,read,council employee; resigned; second by-election
+st-18721223-p2-a012,election,1201,read,nomination Mon 30 Dec 1872
+st-18721230-p3-a032,election,1201,read,poll in the first week of January 1873
+st-18730113-p2-a048,election,1201,read,Laing elected over Tait
+st-18740209-p2-a038,election,1202,read,only candidate
+st-18740223-p2-a067,election,1202,inferred,"returned at the nomination, Friday last = 20 Feb 1874"
+st-18800424-p3-a033,election,1203,read,poll 26-27 Apr 1880; opponent George Roy Badenoch
+st-18800501-p2-a025,election,1203,inferred,"total 1414 and majority 378 give Laing 896, Badenoch 518"
+st-18800501-p2-a027,election,1203,read,majority 378
+st-18851219-p3-a087,election,1204,read,"poll Mon 14 Dec 1885, two days"
+st-18851219-p3-a089,election,1204,read,"Dundas 1940, majority 1412 (Lyell 3352)"
+st-18860731-p2-a053,election,1205,read,"Lyell 2353, Hoare 1382"
+st-18860731-p3-a060,election,1205,read,poll Mon 26 and Tue 27 Jul 1886
+st-18920730-p2-a053,election,1206,read,poll Mon 25 and Tue 26 Jul 1892
+st-18920730-p2-a053,election,1204,read,1885 Lyell 3352 Dundas 1940
+st-18920730-p2-a053,election,1205,read,1886 Lyell 2353 Hoare 1382
+st-18920730-p2-a054,election,1206,read,Lyell 2624; Younger 1616 (the DB has 1617)
+sn-18950810-p5-a027,election,1207,read,poll Tue 6 and Wed 7 Aug 1895
+sn-18950810-p5-a027,election,1206,read,1892 as 2623 v 1617
+st-18950817-p2-a045,election,1207,read,candidates' full names
+st-18950817-p2-a046,election,1207,read,majority 781
+st-18950817-p2-a061,election,1201,read,"electorate 1537; 646 v 621 (OCR 040, 021), majority 25"
+st-18950817-p2-a061,election,1202,read,electorate 1618; unopposed
+st-18950817-p2-a061,election,1203,read,"electorate 1703; Badenoch 518, majority 378"
+st-18950817-p2-a061,election,1204,read,electorate 7394
+st-18950817-p2-a061,election,1205,read,"2353 v 1382, majority 971"
+sn-18950817-p5-a024,election,1207,read,majority 781; the vote figures are garbled in the OCR
+st-18970410-p3-a032,election,1207,read,Lyell 2361
+st-19001020-p5-a095,election,1208,read,poll Tue 23 and Wed 24 Oct 1900
+st-19001027-p4-a094,election,1208,read,polling report
+st-19001103-p4-a087,election,1207,read,"Lyell 2361, Fullarton 1580, majority 781"
+st-19001103-p4-a087,election,1208,read,majority 40
+st-19001103-p4-a088,election,1208,read,"Wason 2057, Lyell 2017"
+st-19021122-p4-a072,election,1209,read,poll Tue 18 and Wed 19 Nov 1902
+st-19021129-p4-a078,election,1209,read,"Wason 2412, McKinnon Wood 2001"
+st-19021129-p4-a078,election,1206,read,"2624 v 1617, majority 1007"
+st-19021129-p4-a078,election,1207,read,2361 v 1580
+st-19021129-p4-a078,election,1208,read,"2057 v 2017, majority 40"
+st-19060127-p1-a004,election,1210,read,poll 6-7 Feb 1906
+st-19060217-p4-a065,election,1210,read,majority 2816 (3837 v 1021)
+st-19060217-p4-a065,election,1209,read,McKinnon Wood 2001; T. V. S. Angier
+st-19100205-p3-a047,election,1211,read,poll Tue 8 and Wed 9 Feb 1910
+st-19100212-p4-a076,election,1211,read,polling report
+st-19100219-p4-a099,election,1211,read,majority 3123 (4117 v 994)
+st-19101217-p4-a066,election,1212,inferred,"returned at the nomination, Wednesday = 14 Dec 1910"
+st-19181207-p4-a093,election,1213,inferred,"returned at the nomination, Wednesday = 4 Dec 1918"
+st-19210521-p4-a082,election,1214,inferred,"returned unopposed at the nomination, Tuesday = 17 May 1921"
+st-19221125-p4-a064,election,1215,read,majority 625
+st-19221125-p4-a065,election,1215,read,"Hamilton 4814, Smith 4189 (OCR 1189)"
+st-19231215-p4-a078,election,1216,read,majority 811
+st-19231215-p4-a078,election,1215,read,majority 625
+st-19231215-p4-a082,election,1216,read,Hamilton 5129
+st-19241025-p4-a061,election,1217,inferred,"returned at the nomination, Saturday of last week = 18 Oct 1924"
+st-19290608-p4-a073,election,1218,read,8256 v 5404
+st-19311024-p5-a082,election,1219,inferred,"returned at the nomination, Friday of last week = 16 Oct 1931"
+st-19351102-p4-a077,election,1216,read,"1923 given as 4,315 and 814 (Dec 1923 has majority 811)"
+st-19351102-p4-a077,election,1217,read,unopposed
+st-19351102-p4-a077,election,1218,read,"8,256 v 5404, majority 2852"
+st-19351123-p4-a075,election,1220,read,8406 v 6180
+st-19450727-p2-a036,election,1222,read,"6304, 5975, 5208"
+st-19450727-p2-a037,election,1220,read,8406 (Hamilton 6180 misread)
+st-19500303-p5-a064,election,1222,read,majority 329
+st-19500303-p5-a067,election,1223,read,candidates
+st-19500303-p5-a068,election,1223,read,"Grimond 9237, Neven-Spence 6281, Leslie 4198"
+st-19511102-p5-a063,election,1224,read,"11,745, 5,354; Labour candidate Magnus Fairnie 3,335"
+st-19511102-p5-a065,election,1224,read,"20,434 voted of 29,603"
+st-19511102-p5-a065,election,1223,read,"Leslie 4198; 19,716 voted"
+st-19550520-p2-a023,election,1224,read,"11745, 5354, 3335"
+st-19550513-p1-a147,election,1225,read,Labour candidate Edgar Ramsay
+st-19550603-p5-a078,election,1225,read,"11,753, 3760, 2914"
+st-19550603-p5-a090,election,1225,read,"18,479 voted of 28,298"
+st-19550603-p5-a083,election,1222,read,"6304, 5975, 5208"
+st-19550603-p5-a083,election,1223,read,"9237, 6281, 4198"
+st-19591016-p5-a061,election,1226,read,"12,099, 3,487, 3,275"
+st-19591023-p6-a067,election,1224,read,Fairnie 3335
+st-19591023-p6-a067,election,1225,read,E. Ramsay 2914
+st-19641023-p5-a065,election,1227,read,"11,604, 3,704, 3,232"
+st-19660311-p4-a096,election,1228,read,Labour candidate Hugh Lynch
+st-19660408-p4-a082,election,1228,read,"9605, 3630, 3021"
+st-19700626-p1-a006,election,1229,read,"7896, 5364, 3552"
+st-19740308-p1-a006,election,1230,read,"11491, 4186, 2865"
+st-19740308-p1-a006,election,1229,read,"7896, 5364, 3552"
+st-19741018-p1-a002,election,1231,read,"Grimond 9877, Wills 2175"

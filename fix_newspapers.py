@@ -463,6 +463,35 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    employee (24 Sep 1971). The August by-election is added, her win is in data/not_seated.csv, and
    the November poll becomes a '[voided election re-run]' rather than replacing Campbell again.
    Evidence: research/bna/zcc-1960-1974.md.
+60. Orkney and Shetland (Westminster) polling days, 1874-1931. The baseline had the year only
+   (the 1st of January) or, for unopposed returns, the national polling day. Until 1910 the
+   constituency polled over two days, set here to the first: Mon 26 Apr 1880 ("the election on
+   the 26th and 27th", ST 24 Apr 1880); Mon 14 Dec 1885 ("The polling took place in Lerwick on
+   Monday", 19 Dec 1885); Mon 26 Jul 1886 ("on Monday and Tuesday last", 31 Jul 1886); Mon 25
+   Jul 1892 ("Polling commenced ... on Monday morning", 30 Jul 1892); Tue 6 Aug 1895 ("on Tuesday
+   and Wednesday", Shetland News 10 Aug 1895); Tue 23 Oct 1900 ("polls on Tuesday and Wednesday
+   next", 20 Oct 1900); Tue 6 Feb 1906 (the Returning Officer's notice, 27 Jan 1906); Tue 8 Feb
+   1910 ("on Tuesday and Wednesday", 5 Feb 1910). Unopposed returns are dated to the nomination,
+   when the member was declared: Fri 20 Feb 1874 (23 Feb 1874), Wed 14 Dec 1910 (17 Dec 1910),
+   Wed 4 Dec 1918 (7 Dec 1918), Sat 18 Oct 1924 (25 Oct 1924) and Fri 16 Oct 1931 (24 Oct 1931).
+61. 1880: Laing's opponent was George Roy Badenoch, not H. B. Riddell (Riddell stood in 1868), and
+   he had 518, not 578: "the total this week was 1414, giving Liberal majority 378" (ST 1 May
+   1880), and "G. R. Badenoch (C.) 518" in the table of past contests (17 Aug 1895). The wiki's
+   turnout, 1161, was the 1868 total. Electorate 1703.
+62. 1886: "Lyell 2353, Hoare 1382, majority for Lyell 971" (ST 31 Jul 1886). The wiki repeated the
+   1885 figures (3352, 1940).
+63. 1895: Lyell 2361, Ralph Wardlaw McLeod Fullarton, Q.C. (C.) 1580, majority 781 (ST 17 Aug
+   1895, 3 Nov 1900, 29 Nov 1902). The wiki repeated the 1892 result, W. Younger included.
+64. Labour candidates 1950-1966: in 1950 H. R. Leslie had 4198, not 3335 (ST 3 Mar 1950); 3335
+   was Magnus Fairnie's vote in 1951 (2 Nov 1951), and the 1955 candidate was Edgar Ramsay (3 Jun
+   1955), not Leslie. In 1966 it was Hugh Lynch (8 Apr 1966), not Ian MacInnes, who stood in 1964.
+   Also "Hon. C. T. Dundas" (1885), not "Dundass" (19 Dec 1885).
+65. Westminster turnouts the wiki copied from another election: 1895, 1900 (both 1892's 4241),
+   1959 and 1964 (both 1955's 18427), and 1935 (14226): set to the candidates' total, 1895 3941,
+   1900 4074, 1935 14586, 1959 18861, 1964 18540. 1880 is in #61.
+66. Westminster electorates from the Shetland Times: 1873 1537, 1874 1618, 1880 1703, 1885 7394
+   (ST 17 Aug 1895), 1951 29,603 (2 Nov 1951), 1955 28,298 (3 Jun 1955).
+   Evidence for 60-66: research/bna/westminster-1873-1974.md.
 """
 
 import os
@@ -739,6 +768,59 @@ FISHER_1971 = ('Dunrossness North County Council By-Election August 1971', 'Dunr
                "by-election. As a council employee she could not take her seat, and resigned; a second "
                "by-election followed in November. From the Shetland Times, 13 August and 10 and 24 September 1971.")
 FISHER_RERUN_1971 = ('Dunrossness North County Council By-Election October 1971', 'Iain Campbell', '[voided election re-run]')
+WESTMINSTER_POLLING_DAYS = [
+    ('1874 UK General Election, Orkney and Shetland Result', '1874-01-01', '1874-02-20'),
+    ('1880 UK General Election, Orkney and Shetland Result', '1880-01-01', '1880-04-26'),
+    ('1885 UK General Election, Orkney and Shetland Result', '1885-01-01', '1885-12-14'),
+    ('1886 UK General Election, Orkney and Shetland Result', '1886-01-01', '1886-07-26'),
+    ('1892 UK General Election, Orkney and Shetland Result', '1892-01-01', '1892-07-25'),
+    ('1895 UK General Election, Orkney and Shetland Result', '1895-01-01', '1895-08-06'),
+    ('1900 UK General Election, Orkney and Shetland Result', '1900-01-01', '1900-10-23'),
+    ('1906 UK General Election, Orkney and Shetland Result', '1906-01-01', '1906-02-06'),
+    ('1910 January UK General Election, Orkney and Shetland Result', '1910-01-01', '1910-02-08'),
+    ('1910 December UK General Election, Orkney and Shetland Result', '1910-01-01', '1910-12-14'),
+    ('1918 UK General Election, Orkney and Shetland Result', '1918-12-14', '1918-12-04'),
+    ('1924 UK General Election, Orkney and Shetland Result', '1924-10-29', '1924-10-18'),
+    ('1931 UK General Election, Orkney and Shetland Result', '1931-10-27', '1931-10-16'),
+]
+# (title, (name, votes, party) in the baseline, (name, votes, party) from the paper)
+WESTMINSTER_CANDIDACIES = [
+    ('1880 UK General Election, Orkney and Shetland Result', ('H. B. Riddell', 578, 'Conservative'),
+     ('George Roy Badenoch', 518, 'Conservative')),
+    ('1885 UK General Election, Orkney and Shetland Result', ('Hon. C T Dundass', 1940, 'Conservative'),
+     ('Hon. C. T. Dundas', 1940, 'Conservative')),
+    ('1886 UK General Election, Orkney and Shetland Result', ('Leonard Lyell', 3352, 'Liberal'),
+     ('Leonard Lyell', 2353, 'Liberal')),
+    ('1886 UK General Election, Orkney and Shetland Result', ('H. Hoare', 1940, 'Liberal Unionist'),
+     ('H. Hoare', 1382, 'Liberal Unionist')),
+    ('1895 UK General Election, Orkney and Shetland Result', ('Leonard Lyell', 2624, 'Liberal'),
+     ('Leonard Lyell', 2361, 'Liberal')),
+    ('1895 UK General Election, Orkney and Shetland Result', ('W. Younger', 1617, 'Liberal Unionist'),
+     ('Ralph Wardlaw McLeod Fullarton', 1580, 'Conservative')),
+    ('1950 UK General Election, Orkney and Shetland Result', ('Harald Robert Leslie', 3335, 'Labour'),
+     ('Harald Robert Leslie', 4198, 'Labour')),
+    ('1951 UK General Election, Orkney and Shetland Result', ('Harald Robert Leslie', 3335, 'Labour'),
+     ('Magnus Fairnie', 3335, 'Labour')),
+    ('1955 UK General Election, Orkney and Shetland Result', ('Harald Robert Leslie', 2914, 'Labour'),
+     ('Edgar Ramsay', 2914, 'Labour')),
+    ('1966 UK General Election, Orkney and Shetland Result', ('Ian MacInnes', 3021, 'Labour'),
+     ('Hugh Lynch', 3021, 'Labour')),
+]
+# (title, column, baseline value, value from the paper)
+WESTMINSTER_FIGURES = [
+    ('1880 UK General Election, Orkney and Shetland Result', 'turnout', 1161, 1414),
+    ('1895 UK General Election, Orkney and Shetland Result', 'turnout', 4241, 3941),
+    ('1900 UK General Election, Orkney and Shetland Result', 'turnout', 4241, 4074),
+    ('1935 UK General Election, Orkney and Shetland Result', 'turnout', 14226, 14586),
+    ('1959 UK General Election, Orkney and Shetland Result', 'turnout', 18427, 18861),
+    ('1964 UK General Election, Orkney and Shetland Result', 'turnout', 18427, 18540),
+    ('Orkney and Shetland by-election, 1873', 'electorate', None, 1537),
+    ('1874 UK General Election, Orkney and Shetland Result', 'electorate', None, 1618),
+    ('1880 UK General Election, Orkney and Shetland Result', 'electorate', None, 1703),
+    ('1885 UK General Election, Orkney and Shetland Result', 'electorate', None, 7394),
+    ('1951 UK General Election, Orkney and Shetland Result', 'electorate', None, 29603),
+    ('1955 UK General Election, Orkney and Shetland Result', 'electorate', None, 28298),
+]
 AITHSTING_1932 = ('Aithsting County Council By-Election May 1932', [
     ('Andrew D. Clark', 102, 'Petition of 102; 10 Council votes, then 10'),
     ('[https://www.bayanne.info/Shetland/getperson.php?personID=I56157&tree=ID1 Creighton G. Williamson]', 99,
@@ -1477,6 +1559,35 @@ def main():
         print(f"  election {row['id']}: replaced {wrong} -> {right}")
     elif (row['replaced_person'], row['replaced_person_id']) != (right, None):
         raise SystemExit(f"election {row['id']}: unexpected replaced_person {row['replaced_person']!r}")
+
+    print("=== 60. Orkney and Shetland polling days 1874-1931 ===")
+    for args in WESTMINSTER_POLLING_DAYS:
+        set_date(c, *args)
+
+    print("=== 61-64. Orkney and Shetland results ===")
+    for title, wrong, right in WESTMINSTER_CANDIDACIES:
+        cand = one(c, """SELECT ca.id, ca.candidate_name, ca.votes, ca.party FROM candidacies ca
+                        JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = ? AND ca.candidate_name IN (?, ?)""", (title, wrong[0], right[0]))
+        got = (cand['candidate_name'], cand['votes'], cand['party'])
+        if got == right:
+            print(f"  candidacy {cand['id']}: already {right}")
+        elif got == wrong:
+            c.execute("UPDATE candidacies SET candidate_name = ?, votes = ?, party = ? WHERE id = ?", (*right, cand['id']))
+            print(f"  candidacy {cand['id']}: {wrong} -> {right}")
+        else:
+            raise SystemExit(f"candidacy {cand['id']}: unexpected {got}")
+
+    print("=== 65-66. Orkney and Shetland turnouts and electorates ===")
+    for title, column, wrong, right in WESTMINSTER_FIGURES:
+        row = one(c, f"SELECT id, {column} AS v FROM elections WHERE wiki_page_title = ?", (title,))
+        if row['v'] == right:
+            print(f"  election {row['id']}: {column} already {right}")
+        elif row['v'] == wrong:
+            c.execute(f"UPDATE elections SET {column} = ? WHERE id = ?", (right, row['id']))
+            print(f"  election {row['id']}: {column} {wrong} -> {right}")
+        else:
+            raise SystemExit(f"election {row['id']}: unexpected {column} {row['v']!r}")
 
     db.commit()
     db.close()

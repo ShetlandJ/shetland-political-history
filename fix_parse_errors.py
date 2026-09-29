@@ -91,6 +91,16 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    Cunningsburgh 1940's petitions (86 and 72) are from the Shetland Times, 20 Apr 1940; Yell South
    1940 and Unst South 1942 as in the wiki (ST 14 Dec 1940, 26 Dec 1942 confirm the co-options).
    Evidence: research/bna/zcc-1940-1959.md.
+17. Orkney and Shetland by-election, 1902: the navigation template links the redirect "1902 Orkney
+   and Shetland by-election", so the parser found no results table and the baseline has the
+   election hidden, with no candidates. The page it redirects to has them: "contested on 18-19
+   November 1902", Wason (Independent Liberal) 2,412, Thomas McKinnon Wood (Liberal) 2,001,
+   Theodore Angier (Liberal Unionist) 740; turnout 5,153. The Shetland Times confirms the polling
+   days (22 Nov 1902) and Wason's and Wood's votes (29 Nov 1902); Angier's figure is illegible
+   there. Evidence: research/bna/westminster-1873-1974.md.
+18. Westminster polling days the parser dropped, from the wiki's first sentence: the 1873
+   by-election "was contested on 6-7 January 1873" (the Shetland Times of 30 Dec 1872 has the
+   poll in "the first week of January"); 1922 "15 November 1922"; 1923 "6 December 1923".
 """
 
 import os
@@ -178,7 +188,18 @@ WIKI_BY_ELECTION_DAYS = [
     ('Dunrossness South County Council By-Election April 1937', '1937-04-01', '1937-04-20'),
     ('Burra County Council By-Election July 1959', '1959-07-01', '1959-07-21'),
 ]
-DELTING_NORTH_1890 = ('Delting North County Council By-Election May 1890', '1890-05-01', '1890-05-22')
+BY_ELECTION_1902 = ('1902 Orkney and Shetland by-election', ('1902-01-01', '1902-11-18'), 5153, [
+    # (candidate_name, person slug, party, votes, elected)
+    ('John Cathcart Wason', 'cathcart-wason', 'Independent Liberal', 2412, 1),
+    ('Thomas McKinnon Wood', None, 'Liberal', 2001, 0),
+    ('Theodore Angier', None, 'Liberal Unionist', 740, 0),
+])
+WIKI_WESTMINSTER_DAYS = [
+    ('Orkney and Shetland by-election, 1873', '1873-01-01', '1873-01-06'),
+    ('1922 UK General Election, Orkney and Shetland Result', '1922-01-01', '1922-11-15'),
+    ('1923 UK General Election, Orkney and Shetland Result', '1923-01-01', '1923-12-06'),
+]
+DELTING_NORTH_1890 =('Delting North County Council By-Election May 1890', '1890-05-01', '1890-05-22')
 SANDSTING_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting',
                   ('robert-sutherland', 'Robert A. Sutherland'))
 SUTHERLAND_INTRO = ('robert-sutherland', 'Sandsting between 1919 and 1922', 'Sandsting between 1919 and 1925')
@@ -357,7 +378,22 @@ def main():
     elif date != d_right:
         raise SystemExit(f"election {eid}: unexpected date {date}")
 
-    for title, wrong, right in WIKI_BY_ELECTION_DAYS:
+    title, (d_wrong, d_right), turnout, rows = BY_ELECTION_1902
+    eid, date, hidden, old_turnout = c.execute(
+        "SELECT id, election_date, hidden, turnout FROM elections WHERE wiki_page_title = ?", (title,)).fetchone()
+    if (date, hidden, old_turnout) == (d_wrong, 1, None):
+        c.execute("UPDATE elections SET election_date = ?, hidden = 0, turnout = ? WHERE id = ?", (d_right, turnout, eid))
+        print(f"election {eid} ({title}): shown, {d_right}, turnout {turnout}")
+    elif (date, hidden, old_turnout) != (d_right, 0, turnout):
+        raise SystemExit(f"election {eid}: unexpected {date}/{hidden}/{old_turnout}")
+    if c.execute("SELECT COUNT(*) FROM candidacies WHERE election_id = ?", (eid,)).fetchone()[0] == 0:
+        for position, (name, slug, party, votes, elected) in enumerate(rows, 1):
+            pid = c.execute("SELECT id FROM people WHERE slug = ?", (slug,)).fetchone()[0] if slug else None
+            c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, party, votes, elected, position)
+                         VALUES (?, ?, ?, ?, ?, ?, ?)""", (eid, pid, name, party, votes, elected, position))
+            print(f"election {eid}: {name} {votes} added")
+
+    for title, wrong, right in WIKI_BY_ELECTION_DAYS + WIKI_WESTMINSTER_DAYS:
         eid, date = c.execute("SELECT id, election_date FROM elections WHERE wiki_page_title = ?", (title,)).fetchone()
         if date == wrong:
             c.execute("UPDATE elections SET election_date = ? WHERE id = ?", (right, eid))

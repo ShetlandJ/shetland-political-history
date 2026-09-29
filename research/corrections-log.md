@@ -9,6 +9,19 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-29: Westminster 1873–1974 (`research/bna/westminster-1873-1974.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | 1880: Laing 896 v **H. B. Riddell** 578, turnout 1161 | The opponent was **George Roy Badenoch**, 518; 1414 polled, majority 378 (ST 24 Apr, 1 May 1880; 17 Aug 1895). Riddell and 1161 are 1868's | Fixed (`fix_newspapers.py` #61) |
+| 2 | wiki | 1886: Lyell 3352, Hoare 1940 (the 1885 figures) | **Lyell 2353, Hoare 1382**, majority 971 (ST 31 Jul 1886) | Fixed (#62) |
+| 3 | wiki | 1895: Lyell 2624 v **W. Younger** 1617 (the 1892 result) | **Lyell 2361 v R. W. McLeod Fullarton, Q.C.** 1580, majority 781 (ST 17 Aug 1895, 3 Nov 1900) | Fixed (#63) |
+| 4 | wiki | 1950 Labour (Leslie) 3335 | **4198** (ST 3 Mar 1950) | Fixed (#64) |
+| 5 | wiki | Harald Leslie Labour candidate in 1951 and 1955; Ian MacInnes in 1966 | **Magnus Fairnie** 1951, **Edgar Ramsay** 1955, **Hugh Lynch** 1966 (ST 2 Nov 1951, 3 Jun 1955, 8 Apr 1966) | Fixed (#64) |
+| 6 | wiki (parse) | 1902 by-election not on the site | Wason 2412, McKinnon Wood 2001, Angier 740, polled 18–19 Nov (wiki page behind the redirect; ST 22 and 29 Nov 1902) | Fixed (`fix_parse_errors.py` #17) |
+| 7 | wiki | Turnouts 1895 and 1900 = 4241, 1959 and 1964 = 18427, 1935 = 14226 | Copied from other elections; the candidates' totals are 3941, 4074, 18861, 18540, 14586 | Fixed (#65) |
+| 8 | wiki | Unopposed returns 1918, 1924, 1931 dated to the national polling day | Returned at the nomination: Wed 4 Dec 1918, Sat 18 Oct 1924, Fri 16 Oct 1931 | Fixed (#60) |
+
 ## 2026-09-29: ZCC 1960–1974 (`research/bna/zcc-1960-1974.md`)
 
 | # | Where | We had | Sources show | Status |
