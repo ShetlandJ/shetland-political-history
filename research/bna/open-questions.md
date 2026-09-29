@@ -8,6 +8,15 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-29: When did the 1928 ZCC councillors' terms end: Dec 1929 or May 1930?** The Dec
+  1929 general elected the re-constituted Council under the Local Government (Scotland) Act 1929,
+  which "only takes over full duty after 15th May next"; "The present County Council will
+  continue to function till May" (ST 23 Nov 1929). The DB ends all 27 terms from Dec 1928 at the
+  3 Dec 1929 poll, and starts the new ones then. The 12 Lerwick Town Councillors who also sat on
+  the new County Council for the burgh aren't in the DB at all. Options: leave it (the poll date
+  as the changeover), or end the old terms and start the new ones on 15/16 May 1930 (a build.py
+  rule for this one general). Evidence: `zcc-1920-1939.md`.
+
 - **2026-09-28: Day of the Jan 1911 ZCC by-elections (Dunrossness South, Sandwick, Unst North).**
   Nominations closed Tue 10 Jan 1911, one each, "no contests" (ST 14 Jan 1911). The wiki and DB
   have Thu 12 Jan, which the paper neither confirms nor contradicts (probably the day fixed for
