@@ -313,6 +313,17 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    electors voted" (Shetland Times, 8 Dec 1928). The wiki gives Walls the same 192 as Sandness,
    whose figure the paper confirms. Turnout 99, so 25.4%, not 51.6%.
    Evidence: research/bna/zcc-1920-1939.md.
+
+41. Two ZCC by-elections of February 1933 that the wiki doesn't have. At the December 1932 general
+   "Sandwick from which no nomination was lodged" (Shetland Times, 19 Nov 1932), and James A.
+   Jamieson, returned unopposed for Sandness, "was not eligible to sit owing to his holding a minor
+   appointment under the Council" (ST 28 Jan 1933). The Scottish Office ordered new elections in
+   both divisions, nominations by Tue 24 Jan, "The elections take place on Tuesday, 14th February"
+   (ST 14 Jan 1933). One nomination each, "there will be no poll": William Jamieson, the former
+   member, for Sandwick, and James A. Jamieson, who had resigned the appointment, for Sandness
+   (ST 28 Jan 1933). Both are dated to the fixed day, as in #30. His 1932 Sandness win is in
+   data/not_seated.csv.
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -470,6 +481,20 @@ POLLING_DAY_ZCC_1925 = ('County Council Election December 1925', '1925-12-05', '
 
 POLLING_DAY_ZCC_1928 = ('County Council Election December 1928', '1928-12-05', '1928-12-04')
 WALLS_1928 = ('County Council Election December 1928', 'Walls', (192, 51.6), (389, 25.4))
+
+ZCC_BY_ELECTIONS_1933 = [
+    # (title, ward, replaced_person, (slug, candidate name), note)
+    ('Sandwick County Council By-Election February 1933', 'Sandwick', '[unfilled seat]',
+     ('william-jamieson', 'William Jamieson'),
+     'No nomination was lodged for Sandwick at the December 1932 election. The Scottish Office ordered '
+     'a new election for 14 February 1933, and William Jamieson, the former member, was the only nomination.'),
+    ('Sandness County Council By-Election February 1933', 'Sandness', '[voided election re-run]',
+     ('james-jamieson-ii', 'James A. Jamieson'),
+     'James A. Jamieson was returned unopposed for Sandness in December 1932, but was not eligible to sit '
+     'because he held a minor appointment under the Council. He resigned it, and was the only nomination '
+     'at the new election ordered for 14 February 1933.'),
+]
+ZCC_1933_DATE = '1933-02-14'
 
 
 def one(c, sql, args):
@@ -912,6 +937,31 @@ def main():
         print(f"  election {row['id']}: electorate {wrong} -> {right}")
     else:
         raise SystemExit(f"election {row['id']}: unexpected electorate {row['electorate']}/{row['turnout_pct']}")
+
+    print("=== 41. ZCC by-elections February 1933 (Sandwick, Sandness) ===")
+    zcc = one(c, "SELECT id FROM councils WHERE name = 'Zetland County Council'", ())['id']
+    for title, ward, replaced, (slug, name), note in ZCC_BY_ELECTIONS_1933:
+        ward_id = one(c, """SELECT DISTINCT k.id FROM constituencies k JOIN elections e ON e.constituency_id = k.id
+                           WHERE k.name = ? AND e.council_id = ?""", (ward, zcc))['id']
+        pid = one(c, "SELECT id FROM people WHERE slug = ?", (slug,))['id']
+        c.execute("SELECT id FROM elections WHERE wiki_page_title = ?", (title,))
+        row = c.fetchone()
+        if row:
+            eid = row['id']
+            print(f"  {title}: exists (id {eid})")
+        else:
+            c.execute("""INSERT INTO elections (council_id, constituency_id, election_date, election_type,
+                                               wiki_page_title, replaced_person, notes)
+                         VALUES (?, ?, ?, 'by-election', ?, ?, ?)""", (zcc, ward_id, ZCC_1933_DATE, title, replaced, note))
+            eid = c.lastrowid
+            print(f"  {title}: created (id {eid})")
+        c.execute("SELECT id FROM candidacies WHERE election_id = ?", (eid,))
+        if c.fetchall():
+            print("    candidacy exists")
+        else:
+            c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, votes_text, elected, position)
+                         VALUES (?, ?, ?, 'Unopposed', 1, 1)""", (eid, pid, name))
+            print(f"    {name} unopposed")
 
     db.commit()
     db.close()

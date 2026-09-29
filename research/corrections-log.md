@@ -18,6 +18,8 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 3 | wiki | Dec 1925 general on Sat 5 Dec | Polled **Tue 1 Dec 1925** (ST 14 and 28 Nov 1925) | Fixed (`fix_newspapers.py` #38) |
 | 4 | wiki | Dec 1928 general on "Tuesday 5 December" (a Wednesday) | Polled **Tue 4 Dec 1928** (ST 24 Nov, 8 Dec 1928) | Fixed (`fix_newspapers.py` #39) |
 | 5 | wiki | Walls electorate 1928: 192 | **389** (ST 8 Dec 1928); 192 was Sandness | Fixed (`fix_newspapers.py` #40) |
+| 6 | wiki | Sandwick "was incorporated into Cunningsburgh and Dunrossness North" in 1932; no member 1932–35 | **No nomination** in 1932; **William Jamieson** returned at a new election fixed for **14 Feb 1933** (ST 19 Nov 1932, 14 and 28 Jan 1933). He sat to 1935 | Fixed (`fix_newspapers.py` #41). The wiki Sandwick page and his intro ("1919 and 1932") not yet changed |
+| 7 | wiki | Sandness 1932: James A. Jamieson unopposed, sat from Dec 1932 | **Not eligible** (a minor Council appointment); re-elected unopposed **14 Feb 1933** after resigning it (ST 28 Jan 1933) | Fixed (#41, `not_seated.csv`) |
 
 ## 2026-09-28: ZCC 1900–1919 (`research/bna/zcc-1900-1919.md`)
 
