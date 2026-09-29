@@ -1619,3 +1619,57 @@ st-19251121-p4-a077,election,522,read,listed as unopposed
 st-19251114-p4-a092,election,523,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
 st-19251121-p4-a077,election,523,read,listed as unopposed
 st-19251128-p4-a108,election,514,read,poll on Tuesday 1 Dec
+st-19281117-p5-a135,election,526,read,candidates nominated
+st-19281208-p4-a049,election,526,read,"107 to 83, electorate 349, 194 voted, as in the DB; polled Tue 4 Dec (fix_newspapers.py #39)"
+st-19281117-p5-a135,election,527,read,candidates nominated
+st-19281124-p4-a069,election,527,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,528,read,candidates nominated
+st-19281124-p4-a069,election,528,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,529,read,candidates nominated
+st-19281124-p4-a069,election,529,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,530,read,candidates nominated
+st-19281124-p4-a069,election,530,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,531,read,candidates nominated
+st-19281124-p4-a069,election,531,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,532,read,candidates nominated
+st-19281124-p4-a069,election,532,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,533,read,candidates nominated
+st-19281124-p4-a069,election,533,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,534,read,candidates nominated
+st-19281124-p4-a069,election,534,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,535,read,candidates nominated
+st-19281124-p4-a069,election,535,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,536,read,candidates nominated
+st-19281124-p4-a069,election,536,read,left unopposed by a withdrawal
+st-19281117-p5-a135,election,537,read,candidates nominated
+st-19281124-p4-a069,election,537,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,538,read,candidates nominated
+st-19281124-p4-a069,election,538,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,539,read,candidates nominated
+st-19281124-p4-a069,election,539,read,left unopposed by a withdrawal
+st-19281117-p5-a135,election,540,read,candidates nominated
+st-19281124-p4-a069,election,540,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,541,read,candidates nominated
+st-19281124-p4-a069,election,541,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,542,read,candidates nominated
+st-19281208-p4-a049,election,542,read,"48 to 39, electorate 192, 87 voted, as in the DB"
+st-19281117-p5-a135,election,543,read,candidates nominated
+st-19281124-p4-a069,election,543,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,544,read,candidates nominated
+st-19281124-p4-a069,election,544,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,545,read,candidates nominated
+st-19281124-p4-a069,election,545,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,546,read,candidates nominated
+st-19281124-p4-a069,election,546,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,547,read,candidates nominated
+st-19281124-p4-a069,election,547,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,548,read,candidates nominated
+st-19281208-p4-a049,election,548,read,"86 to 12; electorate 389, not 192 (fix_newspapers.py #40)"
+st-19281117-p5-a135,election,549,read,candidates nominated
+st-19281124-p4-a069,election,549,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,550,read,candidates nominated
+st-19281124-p4-a069,election,550,read,left unopposed by a withdrawal
+st-19281117-p5-a135,election,551,read,candidates nominated
+st-19281124-p4-a069,election,551,inferred,"only nomination, and not among the three contests, so returned unopposed"
+st-19281117-p5-a135,election,552,read,candidates nominated
+st-19281124-p4-a069,election,552,inferred,"only nomination, and not among the three contests, so returned unopposed"

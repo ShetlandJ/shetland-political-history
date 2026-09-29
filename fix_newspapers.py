@@ -302,6 +302,17 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    December" (ST 28 Nov 1925). The results report says polling "took place on Monday" (ST 5 Dec
    1925), taken as a slip.
    Evidence: research/bna/zcc-1920-1939.md.
+
+39. ZCC polling day, December 1928: Tuesday 4 December, not Wednesday 5th. "The polls in these
+   constituencies take place on Tuesday, 4th December" (Shetland Times, 24 Nov 1928); they "took
+   place on Tuesday" and the count on Wednesday (ST 8 Dec 1928). The wiki's "Tuesday 5 December"
+   has the wrong day of the month.
+   Evidence: research/bna/zcc-1920-1939.md.
+
+40. Walls electorate, December 1928: 389, not 192. "In Walls, with an electorate of 389, 99
+   electors voted" (Shetland Times, 8 Dec 1928). The wiki gives Walls the same 192 as Sandness,
+   whose figure the paper confirms. Turnout 99, so 25.4%, not 51.6%.
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -456,6 +467,9 @@ DUNROSSNESS_NORTH_1922 = ('County Council Election December 1922', 'Dunrossness 
                           ('James Robert White', 60), ('A. Irvine, jun.', 36))
 
 POLLING_DAY_ZCC_1925 = ('County Council Election December 1925', '1925-12-05', '1925-12-01')
+
+POLLING_DAY_ZCC_1928 = ('County Council Election December 1928', '1928-12-05', '1928-12-04')
+WALLS_1928 = ('County Council Election December 1928', 'Walls', (192, 51.6), (389, 25.4))
 
 
 def one(c, sql, args):
@@ -883,6 +897,21 @@ def main():
 
     print("=== 38. ZCC polling day Dec 1925 ===")
     set_date_all(c, *POLLING_DAY_ZCC_1925)
+
+    print("=== 39. ZCC polling day Dec 1928 ===")
+    set_date_all(c, *POLLING_DAY_ZCC_1928)
+
+    print("=== 40. Walls electorate 1928 ===")
+    title, ward, wrong, right = WALLS_1928
+    row = one(c, """SELECT e.id, e.electorate, e.turnout_pct FROM elections e JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+    if (row['electorate'], row['turnout_pct']) == right:
+        print(f"  election {row['id']}: already {right}")
+    elif (row['electorate'], row['turnout_pct']) == wrong:
+        c.execute("UPDATE elections SET electorate = ?, turnout_pct = ? WHERE id = ?", (*right, row['id']))
+        print(f"  election {row['id']}: electorate {wrong} -> {right}")
+    else:
+        raise SystemExit(f"election {row['id']}: unexpected electorate {row['electorate']}/{row['turnout_pct']}")
 
     db.commit()
     db.close()
