@@ -8,6 +8,25 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-29: Walls, May 1930: day, and was Halcrow unopposed?** Rev. T. Andrew resigned (ST 3
+  May 1930). The re-constituted Council's first meeting filled the seat (ST 24 May 1930 p5 art.
+  088), but the OCR is garbled; it mentions a petition "in favour of Mr William Hales, Spurries,
+  Walls" (17 signatures?). The DB has Halcrow alone, dated 1 May (the wiki's "Thursday 20 May"
+  was a Tuesday). Options: set Tue 20 May 1930 (the Council met on Tuesdays from then) and leave
+  Halcrow unopposed; or zoom on the page (images don't render) or check the Shetland News.
+  Election 577. Evidence: `zcc-1920-1939.md`.
+
+- **2026-09-29: Day of the Unst South by-election, 1936.** Two nominations; withdrawals closed Tue
+  28 Jan 1936; Manson withdrew and Clark "is therefore returned" (ST 25 Jan, 1 Feb 1936). No poll
+  day printed. The DB has 1 Feb (the paper's date, a Saturday). Options: 28 Jan (the close of
+  withdrawals, when the return was settled), leave 1 Feb, or look for the Order fixing the day.
+  Same question as Jan 1911. Election 632. Evidence: `zcc-1920-1939.md`.
+
+- **2026-09-29: Gulberwick, October 1936: when was Rev. George Smith appointed?** Johnston resigned
+  by letter (ST 26 Sep 1936). Two searches found no appointment (`data/searches.csv`). The DB has
+  1 Oct (the wiki says only "October"). Options: leave, or search the October and November
+  Council reports by the meeting day (Tuesdays). Election 633. Evidence: `zcc-1920-1939.md`.
+
 - **2026-09-29: When did the 1928 ZCC councillors' terms end: Dec 1929 or May 1930?** The Dec
   1929 general elected the re-constituted Council under the Local Government (Scotland) Act 1929,
   which "only takes over full duty after 15th May next"; "The present County Council will

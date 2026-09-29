@@ -181,7 +181,16 @@ citations, 801 links). Gaps:
     unopposed (parse #13). Petitions and Council ballots 1914–19 no longer shown as votes (parse
     #12; the rest queued). Feb 1902, Jun 1907 and Jan 1911 days in open-questions. 0 issues (7).
     `zcc-1900-1919.md`)
-  - [ ] **ZCC 1920–1939**: generals Dec 1922, 1925, 1928, 1929, 1932, 1935, 1938; 28 by-elections.
+  - [x] **ZCC 1920–1939** (done: 7 generals and 28 by-elections cited, 57 citations, 1,070 links.
+    Polling days: Dec 1925 was Tue 1 Dec, not Sat 5th (#38); Dec 1928 Tue 4 Dec, not Wed 5th (#39).
+    Wrong results: Dunrossness North 1922 and Yell South 1938 were contests (#37, #45); Walls 1935
+    and Whalsay 1938 losers had 4 and 32, the wiki took the majority (#42, #44); Walls 1928
+    electorate 389 (#40); Sandsting 1922 was its own ward, R. A. Sutherland (#8 rewritten). Two
+    by-elections added: Sandwick and Sandness, 14 Feb 1933 (#41, `not_seated.csv`). 19
+    by-election dates moved (#46, parse #15); petitions and ballots no longer votes (parse #14);
+    Unst South 1936 an unopposed return (#47); Aithsting 1932 ballots (#48). Walls 1930, Unst South
+    1936's day, Gulberwick 1936 and the May 1930 changeover in open-questions. 0 issues (7).
+    `zcc-1920-1939.md`)
   - [ ] **ZCC 1940–1959**: generals Dec 1945, May 1949, 1952, 1955, 1958 (polling days already
     fixed, #12: cite and check votes only); 17 by-elections.
   - [ ] **ZCC 1960–1973**: generals May 1961, 1964, 1967, 1970, 1973 (1961 and 1964 days fixed);
@@ -201,13 +210,11 @@ citations, 801 links). Gaps:
 
 - [ ] **ZCC by-elections whose tables hold petitions or Council ballots, not poll votes** (found in
   the ZCC 1900–1919 run): the parser took the first number as votes. 1914–1919 and Burra 1898 are
-  fixed (`fix_parse_errors.py` #10, #12). The rest, from the wiki text ("council vote", "petition
-  of", "Local petition"): Aithsting Feb 1921, May 1932; Bressay Sep 1933; Cunningsburgh Feb 1927,
-  Apr 1940; Dunrossness North Sep 1963; Fetlar Oct 1937; Gulberwick Jun 1924, Oct 1958; Lerwick
-  Central May 1921; Northmavine South Feb 1924; Sandsting Sep 1930; Unst South Dec 1942; Whalsay
-  Feb 1937, May 1947; Yell North Aug 1932; Yell South Dec 1940 (and Northmavine North Dec 1897,
-  Whalsay Jul 1910: check). Extend #12's list from the wiki source; cite the paper when each
-  decade's run reaches it.
+  fixed (`fix_parse_errors.py` #10, #12), and 1921–1937 (#14, `zcc-1920-1939.md`). The rest,
+  from the wiki text ("council vote", "petition of", "Local petition"): Cunningsburgh Apr 1940;
+  Dunrossness North Sep 1963; Gulberwick Oct 1958; Unst South Dec 1942; Whalsay May 1947; Yell
+  South Dec 1940 (and Northmavine North Dec 1897, Whalsay Jul 1910: check). Extend #14's list
+  from the wiki source; cite the paper when each decade's run reaches it.
 
 - [x] **ZCC Delting North 1919** (done, `fix_parse_errors.py` #7): the wiki marks Joseph Peterson (i) as losing (15 votes, cross),
   but the baseline has him elected there as well as in Delting South. His profile says he sat for

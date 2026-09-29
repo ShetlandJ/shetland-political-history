@@ -1802,3 +1802,35 @@ st-19381210-p4-a087,election,661,read,"104 to 54 as in the DB; electorate 257 an
 st-19381126-p4-a111,election,662,read,contested
 st-19381210-p4-a087,election,662,read,"a contest: Manson 166, Leask 145 (fix_newspapers.py #45)"
 st-19381210-p1-a012,election,642,read,polled Tuesday 6 Dec 1938
+st-19200221-p4-a071,election,460,read,"Mouat appointed at the meeting ""on Thursday"", 19 Feb 1920 (fix_newspapers.py #46)"
+st-19200327-p5-a100,election,460,read,"Mouat thanked the Council for electing him, at the 18 Mar meeting"
+st-19201120-p4-a071,election,462,read,"Robert Hunter co-opted at the meeting ""on Thursday"", 18 Nov 1920, as in the DB"
+st-19210226-p5-a091,election,463,read,"petitions 120 (Leslie) and 58 in the OCR (wiki 88); meeting Thursday 17 Feb, as in the DB; the paper names the winner William Clark"
+st-19211029-p5-a102,election,463,read,"A. D. Clark present in Oct 1921, so the winner was Andrew D. Clark"
+st-19210917-p4-a065,election,465,read,"Harrison appointed at the meeting ""on Thursday"", 15 Sep 1921 (fix_newspapers.py #46)"
+st-19210917-p4-a065,election,466,read,"Coutts appointed at the meeting ""on Thursday"", 15 Sep 1921 (fix_newspapers.py #46)"
+st-19211029-p5-a102,election,465,read,acceptance of the seat announced 20 Oct 1921
+st-19211029-p5-a102,election,466,read,acceptance of the seat announced 20 Oct 1921
+st-19211029-p5-a102,election,467,read,Fordyce's death announced at the 20 Oct 1921 meeting
+st-19240126-p5-a099,election,493,read,"Shearer appointed at the meeting ""Thursday of last week"", 17 Jan 1924 (fix_newspapers.py #46)"
+st-19240301-p5-a103,election,494,inferred,"meeting ""Thursday of last week"", 21 Feb 1924, as in the DB; the Hay sub-article not opened"
+st-19240628-p5-a060,election,495,read,Anderson elected 8 to 2 on Thursday 19 Jun 1924 (fix_newspapers.py #46); petitions 16 and 34 in the OCR (wiki 54)
+st-19250829-p5-a099,election,496,read,"Mainland appointed at the meeting ""Thursday of last week"", 20 Aug 1925 (fix_newspapers.py #46)"
+st-19270219-p4-a057,election,524,read,"petition of 61 submitted ""on Thursday"", 17 Feb 1927 (fix_newspapers.py #46)"
+st-19270723-p5-a127,election,525,read,"Irvine co-opted at the meeting ""held on Thursday"", 21 Jul 1927 (fix_newspapers.py #46)"
+st-19300503-p7-a151,election,577,read,Rev. T. Andrew's resignation read
+st-19300524-p5-a088,election,577,inferred,the vacancy filled at the new Council's first meeting; a petition for William Hales too; OCR garbled (open question)
+st-19300920-p5-a100,election,578,read,"White appointed 14 to 7 at the meeting ""on Tuesday"", 16 Sep 1930 (fix_newspapers.py #46); petitions 164 and 80 in the OCR (wiki 89)"
+st-19310620-p5-a102,election,579,read,"Robertson appointed on a petition of 125 at the meeting ""on Tuesday"", 16 Jun 1931 (fix_newspapers.py #46)"
+sn-19320519-p5-a066,election,580,read,"petitions 82, 102; ballots 10-9-3 then 10-9 (fix_newspapers.py #48); statutory meeting Tuesday 17 May 1932, as in the DB"
+st-19320820-p5-a055,election,581,read,"Smith appointed at the meeting ""on Tuesday"", 16 Aug 1932 (fix_newspapers.py #46); petitions 48 and 77"
+st-19330923-p8-a140,election,605,read,"Smith elected 19 to 9 at the meeting ""on Tuesday"", 19 Sep 1933 (fix_newspapers.py #46); petitions 54 and 52"
+st-19341222-p5-a090,election,606,read,"Cameron co-opted at the meeting ""held on Tuesday"", 18 Dec 1934 (fix_newspapers.py #46)"
+st-19341222-p5-a090,election,607,read,"Goudie co-opted at the meeting ""held on Tuesday"", 18 Dec 1934 (fix_newspapers.py #46)"
+st-19360125-p4-a091,election,632,read,"two nominations; an election, not an appointment (fix_newspapers.py #47)"
+st-19360201-p4-a056,election,632,read,"Manson withdrew, Clark returned unopposed (fix_newspapers.py #47)"
+st-19360926-p5-a076,election,633,read,Johnston resigned (September 1936); the appointment of his successor not found
+st-19370220-p5-a176,election,634,inferred,"reported in the 20 Feb paper, so the Tuesday meeting of 16 Feb 1937 (fix_newspapers.py #46); petition of 142"
+st-19371030-p5-a108,election,636,inferred,"reported in the 30 Oct paper, so the Tuesday meeting of 26 Oct 1937 (fix_newspapers.py #46); petition of 42 for Manson"
+st-19371218-p5-a092,election,637,inferred,"reported in the 18 Dec paper, so the Tuesday meeting of 14 Dec 1937 (fix_newspapers.py #46)"
+st-19380226-p5-a107,election,638,inferred,"reported in the 26 Feb paper, so the Tuesday meeting of 22 Feb 1938 (fix_newspapers.py #46)"

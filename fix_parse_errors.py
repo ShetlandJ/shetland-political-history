@@ -70,6 +70,19 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    Hay unopposed" (Shetland Times, 22 Nov 1919). The wiki's "Hay 29, Peterson 15" looks borrowed
    from 1913 (Hay 29, Smith 26, Henderson 15). Peterson's row is removed and Hay's votes become
    "Unopposed". Evidence: research/bna/zcc-1900-1919.md.
+14. ZCC by-elections 1921-1937 filled by the Council, as in #12: the wiki gives "8 council votes
+   (petition of 88)" and the like, and the parser kept the first number as votes. None was a poll.
+   Votes cleared; the wiki's text kept, tidied to the #12 form. Checked against the Shetland Times
+   where the report was read (research/bna/zcc-1920-1939.md).
+15. By-election days the parser dropped, from the wiki's first sentence, where the weekday fits
+   the Council's meeting day and the Shetland Times report wasn't found or couldn't be read:
+   - Lerwick Central, May 1921: "took place on Thursday 19 May". J. T. J. Sinclair for J. J.
+     Pottinger, resigned (the report is ST 28 May 1921, not read in this run).
+   - Gulberwick, December 1921: "took place on 15 December" (a Thursday). Goodlad for Samuel
+     Fordyce, whose death was announced at the 20 Oct 1921 meeting.
+   - Dunrossness South, April 1937: "took place on 20 April" (a Tuesday), after W. L. McDougall's
+     death. The ST 24 Apr 1937 report is garbled in the OCR.
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -121,6 +134,32 @@ COUNCIL_APPOINTMENTS_1914_1919 = [  # (wiki title, candidate, wrong votes, text)
     ('Fetlar County Council By-Election July 1917', 'Sir Arthur J. Nicolson', 29, 'Petition of 29 ratepayers'),
     ('Cunningsburgh_County_Council_By-Election_February_1919', 'Laurence Anderson', 5, 'Petitions of 18; 5 Council votes'),
     ('Cunningsburgh_County_Council_By-Election_February_1919', 'James Laing', 3, 'Petition of 70; 3 Council votes'),
+]
+COUNCIL_APPOINTMENTS_1921_1937 = [  # (wiki title, candidate, wrong votes, text)
+    ('Aithsting County Council By-Election February 1921', 'Andrew Clark', 8, 'Petition of 88; 8 Council votes'),
+    ('Aithsting County Council By-Election February 1921', 'John Leslie', 4, 'Petition of 120; 4 Council votes'),
+    ('Lerwick Central County Council By-Election May 1921', 'John T. J. Sinclair', 8, '8 Council votes'),
+    ('Lerwick Central County Council By-Election May 1921', 'George Duffin', 3, '3 Council votes'),
+    ('Northmavine_South_County_Council_By-Election_February_1924', 'James Hay', 10, 'Petition of 57; 10 Council votes'),
+    ('Northmavine_South_County_Council_By-Election_February_1924', 'Arthur White', 8, 'Petition of 165; 8 Council votes'),
+    ('Gulberwick County Council By-Election June 1924', 'Thomas J. Anderson', 8, 'Petition of 54; 8 Council votes'),
+    ('Gulberwick County Council By-Election June 1924', 'Robert Nicolson', 2, 'Petition of 16; 2 Council votes'),
+    ('Cunningsburgh County Council By-Election February 1927', 'William Sinclair', 13, 'Petition of 61; 13 Council votes'),
+    ('Cunningsburgh County Council By-Election February 1927', 'James Hay', 3, 'Petition of 16; 3 Council votes'),
+    ('Sandsting County Council By-Election September 1930', 'James Robert White', 14, 'Petition of 89; 14 Council votes'),
+    ('Sandsting County Council By-Election September 1930', 'Lewis Garriock', 7, 'Petition of 164; 7 Council votes'),
+    ('Yell North County Council By-Election August 1932', 'Charles Nicolson', 77, 'Petition of 77'),
+    ('Bressay County Council By-Election September 1933', 'James A. Smith', 19, 'Petition of 54; 19 Council votes'),
+    ('Bressay County Council By-Election September 1933', 'Norman Cameron', 9, 'Petition of 52; 9 Council votes'),
+    ('Whalsay And Skerries County Council By-Election February 1937', 'James Hay', 16, 'Petition of 79; 16 Council votes'),
+    ('Whalsay And Skerries County Council By-Election February 1937', 'Robert Ollason', 5, 'Petition of 142; 5 Council votes'),
+    ('Fetlar County Council By-Election October 1937', 'John A. Campbell', 18, 'Petition of 71; 18 Council votes'),
+    ('Fetlar County Council By-Election October 1937', 'Magnus Manson', 4, 'Petition of 42; 4 Council votes'),
+]
+WIKI_BY_ELECTION_DAYS = [
+    ('Lerwick Central County Council By-Election May 1921', '1921-05-01', '1921-05-19'),
+    ('Gulberwick County Council By-Election December 1921', '1921-12-01', '1921-12-15'),
+    ('Dunrossness South County Council By-Election April 1937', '1937-04-01', '1937-04-20'),
 ]
 DELTING_NORTH_1890 = ('Delting North County Council By-Election May 1890', '1890-05-01', '1890-05-22')
 SANDSTING_1922 = ('County Council Election December 1922', 'Aithsting', 'Sandsting', 'Aithsting & Sandsting',
@@ -301,7 +340,15 @@ def main():
     elif date != d_right:
         raise SystemExit(f"election {eid}: unexpected date {date}")
 
-    for title, name, wrong_votes, text in COUNCIL_APPOINTMENTS_1914_1919:
+    for title, wrong, right in WIKI_BY_ELECTION_DAYS:
+        eid, date = c.execute("SELECT id, election_date FROM elections WHERE wiki_page_title = ?", (title,)).fetchone()
+        if date == wrong:
+            c.execute("UPDATE elections SET election_date = ? WHERE id = ?", (right, eid))
+            print(f"election {eid}: date {wrong} -> {right}")
+        elif date != right:
+            raise SystemExit(f"election {eid}: unexpected date {date}")
+
+    for title, name, wrong_votes, text in COUNCIL_APPOINTMENTS_1914_1919 + COUNCIL_APPOINTMENTS_1921_1937:
         cid, votes, votes_text = c.execute(
             """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
                WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name)).fetchone()

@@ -139,6 +139,11 @@ for 1953–64).
   **appointments by the Council on a ratepayers' petition** at that meeting, not polls; figures in
   the wiki can be petition signatures (Burra 1898). The report is headed with the ward
   ("Appointment of a representative for ...") under "Zetland County Council".
+- **From the re-constituted Council of May 1930 it met on Tuesdays** (checked 1930–38); before
+  that Thursdays (1920–29). The day is in the report's first line ("held ... on Tuesday"), often a
+  separate sub-article from the appointment ("NEW MEMBER FOR ...", "VACANCIES FILLED").
+- Wiki by-election days are often a later meeting (the one where the new member thanked the
+  Council or "accepted" his seat), so date to the meeting that appointed him.
 - When a poll was needed, the Secretary for Scotland fixed the day ("has fixed Tuesday the 24th
   ..."), announced in the local news column a few weeks before.
 

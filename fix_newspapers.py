@@ -350,6 +350,56 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Yell North the Yell South figures (471, with 331 for 311). Leask is added, Manson gets his
    votes, and each ward gets its own electorate and turnout.
    Evidence: research/bna/zcc-1920-1939.md.
+
+46. Zetland County Council by-elections 1920-1938, dated by the rule in #30. All were
+   appointments by the Council at a meeting, usually on a petition. The Council met on Thursdays
+   until the 1929 Act and on Tuesdays after it (from May 1930).
+   - Lerwick North, March 1920: requisitions for Henry Mouat were submitted at the meeting "on
+     Thursday" and he was appointed (ST 21 Feb 1920), 19 Feb, for W. J. Greig, dead. He thanked
+     the Council at the 18 March meeting (ST 27 Mar 1920), the wiki's date.
+   - Sandness and Walls, October 1921: at the monthly meeting "on Thursday" Coutts was appointed
+     for Walls and John Harrison for Sandness (ST 17 Sep 1921), 15 Sep. Their acceptance was
+     announced on 20 Oct (ST 29 Oct 1921), the wiki's date.
+   - Whalsay and Skerries, January 1924: Shearer appointed on a petition at the meeting "on
+     Thursday of last week" (ST 26 Jan 1924), 17 Jan.
+   - Gulberwick, June 1924: T. J. Anderson elected 8 to 2 at the meeting "on Thursday of last
+     week" (ST 28 Jun 1924), 19 Jun.
+   - Yell North, August 1925: Mainland appointed at the meeting "on Thursday of last week" (ST 29
+     Aug 1925), 20 Aug.
+   - Cunningsburgh, February 1927: the petition for William Sinclair "was submitted to the Zetland
+     County Council on Thursday" (ST 19 Feb 1927), 17 Feb. The wiki's "Thursday 15 February" was a
+     Tuesday.
+   - Northmavine South, July 1927: Arthur Irvine co-opted at the meeting "held on Thursday" (ST 23
+     Jul 1927), 21 Jul, not Tuesday 19th.
+   - Sandsting, September 1930: White appointed 14 votes to 7 at the meeting "on Tuesday" (ST 20
+     Sep 1930), 16 Sep. The wiki has "Thursday 18 September".
+   - Dunrossness North, June 1931: J. W. Robertson appointed on a petition of 125 at the meeting
+     "on Tuesday" (ST 20 Jun 1931), 16 Jun.
+   - Yell North, August 1932: Robert Smith appointed at the meeting "on Tuesday" (ST 20 Aug 1932),
+     16 Aug.
+   - Bressay, September 1933: J. A. Smith elected 19 to 9 by ballot at the monthly meeting "on
+     Tuesday" (ST 23 Sep 1933), 19 Sep.
+   - Bressay and Dunrossness North, December 1934: Cameron and Goudie co-opted at the monthly
+     meeting "held on Tuesday" (ST 22 Dec 1934), 18 Dec.
+   - Whalsay and Skerries, February 1937; Fetlar, October 1937; Unst North, December 1937;
+     Sandsting, February 1938: reported in the Saturday papers of 20 Feb, 30 Oct and 18 Dec 1937
+     and 26 Feb 1938, so the meetings of Tuesday 16 Feb, 26 Oct and 14 Dec 1937 and 22 Feb 1938,
+     the days the wiki gives (it calls the first "Thursday 16 February", and the last "Tuesday 22
+     December"). The report's first line, with the day, wasn't read for these four.
+   Evidence: research/bna/zcc-1920-1939.md.
+
+47. Unst South, February 1936: an election, not an appointment. W. Fordyce Clark and Magnus L.
+   Manson were nominated (ST 25 Jan 1936), and "Mr Manson has withdrawn his candidature, and Mr
+   Fordyce Clark is therefore returned" (ST 1 Feb 1936). The wiki has "Unanimously appointed" and
+   "Rejected". The day is left at 1 Feb (open question).
+   Evidence: research/bna/zcc-1920-1939.md.
+
+48. Aithsting, May 1932: petitions for Leslie (82), Clark (102) and Williamson; "A vote by ballot
+   was taken resulted as follows:—Clark, 10 votes; Williamson, 9; Leslie, 3. A vote was then
+   taken between the two highest ... Clark, 10; Williamson, 9" (Shetland News, 19 May 1932; the
+   Shetland Times isn't digitised then). The wiki has the petitions as a "First Council vote" and a
+   ballot of 8, 8 and 3 before the 10 to 9; the parser kept the petitions as votes.
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -530,6 +580,35 @@ YELL_1938 = ('County Council Election December 1938',
              ('Yell North', (471, 331, 66.0), (257, 158, 61.5)),
              ('Yell South', (None, None, None), (471, 311, 66.0)),
              ('Thomas R. Manson', 166), ('William Leask', 145))
+
+ZCC_BY_ELECTIONS_1920S_1930S = [
+    ('Lerwick North County Council By-Election March 1920', '1920-03-01', '1920-02-19'),
+    ('Sandness_County_Council_By-Election_October_1921', '1921-10-01', '1921-09-15'),
+    ('Walls_County_Council_By-Election_October_1921', '1921-10-01', '1921-09-15'),
+    ('Whalsay_And_Skerries_County_Council_By-Election_January_1924', '1924-01-01', '1924-01-17'),
+    ('Gulberwick County Council By-Election June 1924', '1924-06-01', '1924-06-19'),
+    ('Yell North County Council By-Election August 1925', '1925-08-01', '1925-08-20'),
+    ('Cunningsburgh County Council By-Election February 1927', '1927-02-01', '1927-02-17'),
+    ('Northmavine South County Council By-Election July 1927', '1927-07-19', '1927-07-21'),
+    ('Sandsting County Council By-Election September 1930', '1930-09-01', '1930-09-16'),
+    ('Dunrossness North County Council By-Election June 1931', '1931-06-01', '1931-06-16'),
+    ('Yell North County Council By-Election August 1932', '1932-08-01', '1932-08-16'),
+    ('Bressay County Council By-Election September 1933', '1933-09-01', '1933-09-19'),
+    ('Bressay County Council By-Election December 1934', '1934-12-01', '1934-12-18'),
+    ('Dunrossness North County Council By-Election December 1934', '1934-12-01', '1934-12-18'),
+    ('Whalsay And Skerries County Council By-Election February 1937', '1937-02-01', '1937-02-16'),
+    ('Fetlar County Council By-Election October 1937', '1937-10-01', '1937-10-26'),
+    ('Unst North County Council By-Election December 1937', '1937-12-01', '1937-12-14'),
+    ('Sandsting County Council By-Election February 1938', '1938-02-01', '1938-02-22'),
+]
+UNST_SOUTH_1936 = ('Unst South County Council By-Election February 1936',
+                   [('William Fordyce Clark', 'Unanimously appointed', 'Unopposed'), ('Magnus Manson', 'Rejected', 'Withdrew')])
+AITHSTING_1932 = ('Aithsting County Council By-Election May 1932', [
+    ('Andrew D. Clark', 102, 'Petition of 102; 10 Council votes, then 10'),
+    ('[https://www.bayanne.info/Shetland/getperson.php?personID=I56157&tree=ID1 Creighton G. Williamson]', 99,
+     'Petition of 99; 9 Council votes, then 9'),
+    ('John Leslie', 82, 'Petition of 82; 3 Council votes'),
+])
 
 
 def one(c, sql, args):
@@ -1064,6 +1143,32 @@ def main():
         c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
                      VALUES (?, ?, ?, 0, 2)""", (eid, loser, loser_votes))
         print(f"  election {eid}: {loser} added, {loser_votes} votes")
+
+    print("=== 46. ZCC by-elections 1920-1938 ===")
+    for args in ZCC_BY_ELECTIONS_1920S_1930S:
+        set_date(c, *args)
+
+    print("=== 47. Unst South 1936: Clark unopposed ===")
+    title, rows = UNST_SOUTH_1936
+    for name, wrong, right in rows:
+        cand = one(c, """SELECT ca.id, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name))
+        if cand['votes_text'] == wrong:
+            c.execute("UPDATE candidacies SET votes_text = ? WHERE id = ?", (right, cand['id']))
+            print(f"  candidacy {cand['id']} ({name}): {wrong!r} -> {right!r}")
+        elif cand['votes_text'] != right:
+            raise SystemExit(f"candidacy {cand['id']}: unexpected votes_text {cand['votes_text']!r}")
+
+    print("=== 48. Aithsting 1932: petitions and ballots ===")
+    title, rows = AITHSTING_1932
+    for name, wrong, text in rows:
+        cand = one(c, """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name))
+        if (cand['votes'], cand['votes_text']) == (wrong, None):
+            c.execute("UPDATE candidacies SET votes = NULL, votes_text = ? WHERE id = ?", (text, cand['id']))
+            print(f"  candidacy {cand['id']}: {wrong} votes -> {text!r}")
+        elif (cand['votes'], cand['votes_text']) != (None, text):
+            raise SystemExit(f"candidacy {cand['id']}: unexpected votes {cand['votes']!r}/{cand['votes_text']!r}")
 
     db.commit()
     db.close()

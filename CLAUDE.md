@@ -339,6 +339,8 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - **Before trusting a `confirmed` flag, check it against later corrections.** The April 1874 rows were "confirmed" but double-counted both groups.
 - **Constituency slugs aren't unique across councils** (10 pairs: `bressay`, `delting-north`, `lerwick-central`, `lerwick-north`, `lerwick-south`, `yell-south`, … — ZCC and SIC wards with the same name). `/constituency/[slug]` renders only one of each pair (the build warns "conflicts with higher priority route"), so the other ward's page is missing and links to it land on the wrong council's ward.
 - **SIC by-elections are matched to the ward in their title.** `fix_sic_by_elections.py` fixed ten that had no ward or an out-of-date one. ZCC "Northmavine South County Council By-Election February 1951" is correctly on Northmavine North (David Walker's seat, which Joseph Peterson then held): the wiki title is wrong, not the data.
+- **ZCC result tables in the wiki**: check the loser's votes against the majority. Twice (Walls 1935, Whalsay 1938) the wiki gave the loser the majority figure (85, 121) instead of his vote (4, 32). A wiki "unopposed" can hide a contest (Dunrossness North 1922, Yell South 1938), and a whole ward's figures can be another ward's (Walls 1928, Yell North 1938).
+- **An elected member who couldn't sit** (ineligible, e.g. James A. Jamieson, Sandness 1932, who held a Council post) goes in `data/not_seated.csv`, with the re-run as a `[voided election re-run]` by-election.
 - **Council end dates:** terms use 1975-05-15 for LTC/ZCC abolition, but `history.astro` says the councils ran "until August 1975". Unresolved.
 
 ### Site

@@ -23,6 +23,9 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 8 | wiki | Walls 1935: Williamson 89, Halcrow 85 | **Halcrow 4** ("majority 85", 93 votes cast, ST 7 Dec 1935) | Fixed (`fix_newspapers.py` #42) |
 | 9 | wiki | Whalsay 1938: Ollason 153, Hay 121 | **Hay 32** ("majority 121", 185 votes, ST 10 Dec 1938) | Fixed (`fix_newspapers.py` #44) |
 | 10 | wiki | Yell South 1938: Manson unopposed; Yell North electorate 471, turnout 331 | Yell South a **contest, Manson 166, William Leask 145** (471 electors, 311 votes); Yell North 257 electors, 158 votes (ST 26 Nov, 10 Dec 1938) | Fixed (`fix_newspapers.py` #45) |
+| 11 | wiki | By-election days: Lerwick North 1920 "18 March"; Sandness and Walls 1921 "20 October"; Cunningsburgh 1927 "Thursday 15 February"; Northmavine South 1927 19 Jul; Sandsting 1930 "Thursday 18 September" | **19 Feb 1920**, **15 Sep 1921**, **17 Feb 1927**, **21 Jul 1927**, **16 Sep 1930**: the meetings that appointed them (the wiki's dates were a later meeting, or the wrong day) | Fixed (`fix_newspapers.py` #46) |
+| 12 | wiki | Unst South 1936: Clark "Unanimously appointed", Manson "Rejected" | An **election**: Manson withdrew, Clark returned unopposed (ST 25 Jan, 1 Feb 1936) | Fixed (#47) |
+| 13 | wiki | Aithsting 1932: ballots 8–8–3, then 10–9 | **10–9–3, then 10–9** (Shetland News 19 May 1932) | Fixed (#48) |
 
 ## 2026-09-28: ZCC 1900–1919 (`research/bna/zcc-1900-1919.md`)
 
