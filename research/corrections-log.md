@@ -15,6 +15,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 |---|---|---|---|---|
 | 1 | wiki, DB | Dec 1922 "recombined the Aithsting & Sandsting parishes": one result, and `fix_parse_errors.py` #8 hid the Sandsting row | **Two wards.** Sandsting: **R. A. Sutherland unopposed** (ST 25 Nov 1922), present at the new Council (ST 30 Dec 1922). His seat ran 1922–25, not 1919–22 | Fixed (#8 rewritten; Sutherland intro) |
 | 2 | wiki | Dunrossness North Dec 1922: J. R. White unopposed | **Contest**: White 60, A. Irvine jun. 36 (ST 16 Dec 1922) | Fixed (`fix_newspapers.py` #37) |
+| 3 | wiki | Dec 1925 general on Sat 5 Dec | Polled **Tue 1 Dec 1925** (ST 14 and 28 Nov 1925) | Fixed (`fix_newspapers.py` #38) |
 
 ## 2026-09-28: ZCC 1900–1919 (`research/bna/zcc-1900-1919.md`)
 

@@ -295,6 +295,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    receiving 36", two spoiled (ST 16 Dec 1922; the OCR heads it "Dunrossness (South)", but William
    Leslie was the only South nomination). The wiki has White unopposed.
    Evidence: research/bna/zcc-1920-1939.md.
+
+38. ZCC polling day, December 1925: Tuesday 1 December, not Saturday 5th (the paper's date). The
+   nominations are for the election "which takes place on Tuesday, 1st December" (Shetland Times,
+   14 Nov 1925), and candidates' adverts ask for votes at the poll "on TUESDAY FIRST, 1st
+   December" (ST 28 Nov 1925). The results report says polling "took place on Monday" (ST 5 Dec
+   1925), taken as a slip.
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -447,6 +454,8 @@ HAY_NOTE = (
 
 DUNROSSNESS_NORTH_1922 = ('County Council Election December 1922', 'Dunrossness North',
                           ('James Robert White', 60), ('A. Irvine, jun.', 36))
+
+POLLING_DAY_ZCC_1925 = ('County Council Election December 1925', '1925-12-05', '1925-12-01')
 
 
 def one(c, sql, args):
@@ -871,6 +880,9 @@ def main():
         c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
                      VALUES (?, ?, ?, 0, 2)""", (eid, loser, loser_votes))
         print(f"  election {eid}: {loser} added, {loser_votes} votes")
+
+    print("=== 38. ZCC polling day Dec 1925 ===")
+    set_date_all(c, *POLLING_DAY_ZCC_1925)
 
     db.commit()
     db.close()

@@ -1564,3 +1564,58 @@ st-19221125-p5-a096,election,1242,read,candidates nominated; election on 5 Dec
 st-19221216-p4-a087,election,1242,read,"110 to 89, as in the DB"
 st-19221125-p5-a096,election,1243,inferred,"only nomination, and not among the eight contests, so returned unopposed"
 st-19221230-p5-a084,election,1243,read,"R. A. Sutherland present at the new Council, so Sandsting was a separate ward (fix_parse_errors.py #8)"
+st-19251114-p4-a092,election,497,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,497,read,"Clark withdrew, a contest between Leslie and C. F. Irvine; the result is not in the OCR"
+st-19251114-p4-a092,election,498,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,498,read,listed as unopposed
+st-19251114-p4-a092,election,499,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,499,read,listed as unopposed
+st-19251114-p4-a092,election,500,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,500,read,listed as unopposed
+st-19251114-p4-a092,election,501,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,501,read,listed as unopposed
+st-19251114-p4-a092,election,502,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,502,read,listed as unopposed
+st-19251114-p4-a092,election,503,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251212-p5-a085,election,503,read,"74 to 51, as in the DB"
+st-19251114-p4-a092,election,504,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,504,read,listed as unopposed
+st-19251114-p4-a092,election,505,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,505,read,listed as unopposed
+st-19251114-p4-a092,election,506,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251205-p4-a106,election,506,read,"201 to 116, as in the DB"
+st-19251114-p4-a092,election,507,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,507,read,listed as unopposed
+st-19251114-p4-a092,election,508,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251205-p4-a106,election,508,read,"366 to 138, as in the DB"
+st-19251114-p4-a092,election,509,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,509,read,listed as unopposed
+st-19251114-p4-a092,election,510,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251205-p4-a106,election,510,read,"115 to 50, as in the DB"
+st-19251114-p4-a092,election,511,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251212-p5-a085,election,511,read,"Garriock 23, majority 10 (Tulloch 33), as in the DB"
+st-19251114-p4-a092,election,512,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,512,read,listed as unopposed
+st-19251114-p4-a092,election,513,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,513,read,listed as unopposed
+st-19251114-p4-a092,election,514,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251212-p5-a085,election,514,read,"Bowie 145, Hobbin 67 as in the DB; Anderson 13 in the OCR (DB 18), not checked"
+st-19251114-p4-a092,election,515,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251205-p4-a106,election,515,read,"115 to 64, as in the DB"
+st-19251114-p4-a092,election,516,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,516,read,listed as unopposed
+st-19251114-p4-a092,election,517,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,517,read,listed as unopposed
+st-19251114-p4-a092,election,518,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,518,read,listed as unopposed
+st-19251114-p4-a092,election,519,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251212-p5-a085,election,519,read,"44, 37 and 36, as in the DB"
+st-19251114-p4-a092,election,520,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,520,read,listed as unopposed
+st-19251114-p4-a092,election,521,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251205-p4-a106,election,521,read,"79 to 51, as in the DB"
+st-19251114-p4-a092,election,522,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,522,read,listed as unopposed
+st-19251114-p4-a092,election,523,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
+st-19251121-p4-a077,election,523,read,listed as unopposed
+st-19251128-p4-a108,election,514,read,poll on Tuesday 1 Dec
