@@ -8,6 +8,39 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-09-29: Unst South (County Council), 1942: when did Andrew Irvine (i)'s seat end?** His
+  resignation letter ("owing to the scarcity of labour") was read at the meeting of Tue 18 Aug
+  1942 (ST 22 Aug 1942 p3 art. 064) and he was asked to reconsider. On Tue 27 Oct 1942 he declined
+  and asked that it take effect "as from the date of his last letter, viz., 8th August" (SN 29 Oct
+  1942 p2 art. 031). `council_terms` ends his seat at Hunter's co-option on 22 Dec 1942 (derived
+  from by-election 665). Options: end on 8 Aug 1942 (his own date), 27 Oct 1942 (accepted), or
+  keep 22 Dec. ZCC terms are derived, so a change needs a correction, not a ledger edit. The same
+  report gives an earlier petition for John Sutherland, Bixter, as "signed by 323 ratepayers in
+  South Unst" (OCR). `zcc-1940-1959.md` has petitions of 55 (Hunter) and 19 (Sutherland) from ST
+  26 Dec 1942. Is 323 a misreading, or an October petition separate from the December ones? Needs
+  the page image. Evidence: WW2 sweep notes (fork B); election 665.
+
+- **2026-09-29: The Police Act special meeting, May 1940: Thursday 23 or Friday 24?**
+  `ltc-1940-1945.md` §2 reads "last evening" in ST Sat 25 May 1940 (p4 art. 077) as Fri 24 May.
+  But ST 1 Jun 1940 p5 art. 099 says the Town Council "met on Thursday evening", and Scarth refers
+  to "the following day's meeting of the County Council", which was fixed for "to-day (Friday)"
+  (ST 25 May p5 art. 101). So the 25 May paper was written on the Friday, and the meeting was
+  **Thu 23 May**. No ledger row depends on it (W. Sinclair's end is 4 Jun). Option: correct the
+  day in `ltc-1940-1945.md`. Evidence: `ww2-councils.md` (sweep), `ltc-1940-1945.md`.
+
+- **2026-09-29: The Shetland Times moved from Saturday to Friday on 21 May 1943.** The last
+  Saturday issue was 15 May 1943 and the first Friday issue 21 May 1943; every week to Aug 1945 is
+  digitised. CLAUDE.md and the `/bna` skill say "Saturday ... to at least Feb 1943; Friday by Oct
+  1944". `build.py` (line 575) also only accepts Saturdays for 1943, so citing a Friday issue from
+  21 May 1943 on would fail the build. Option: update all three to "Friday from 21 May 1943". No
+  data affected yet.
+
+- **2026-09-29: Arthur Johnson or Johnston?** The Shetland Times prints both for the councillor
+  co-opted on 1 Jul 1941: "Arthur Johnston" in the co-option report (5 Jul 1941) and most 1942
+  lists, "Arthur Johnson" in Aug, Oct, Nov 1941 and Mar 1942; "A. E. Johnston" once (Oct 1942).
+  The ledger slug is `arthur-johnson`. Options: keep, or check the 1945 nomination papers or his
+  obituary for the spelling. Row: `arthur-johnson` 1941-07-01.
+
 - **2026-09-29: Whalsay and Skerries, May 1947: Shearer's petition 207 or 307?** The wiki has
   "Petition of 307"; the Shetland Times OCR (23 May 1947 p7 art. 145) has "signed by 207
   persons". The page image wouldn't render in the viewer, so the digit isn't checked. The DB now
@@ -132,14 +165,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   early. The cause and day aren't in the paper. Options: end at the 2 Nov 1886 general (the seven
   vacancies were to be filled then), keep 1 Oct, or check the minute book. Row: `john-harrison-i`
   1884-11-04. Evidence: `ltc-1886-duncan-harrison.md`.
-
-- **2026-09-28: End of Provost James Smith (i)'s seat, June 1941.** His letter resigning as
-  Councillor and Provost "three weeks from this date" was read and accepted at the meeting of Tue
-  3 Jun 1941; the letter's date isn't printed, but Shearer had learnt of it the night before
-  (ST 7 Jun 1941). Johnson was co-opted Tue 1 Jul (ST 5 Jul 1941). The confirmed row ends 1 Jul.
-  Options: 3 Jun (acceptance, the Hunter 1887 convention), about 23 Jun (three weeks from a
-  2 Jun letter; the Linklater 1941 convention), or keep 1 Jul. No issue depends on it.
-  Row: `james-smith-i` 1934-11-06. Evidence: `ltc-1940-1945.md`.
 
 - **2026-09-28: Day of J. J. Pottinger's retiral from the Town Council, 1921.** Last seen
   present at a meeting reported 23 Apr 1921; absent 3 May and 7 Jun. His County Council seat was

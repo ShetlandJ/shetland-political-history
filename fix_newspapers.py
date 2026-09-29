@@ -492,6 +492,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 66. Westminster electorates from the Shetland Times: 1873 1537, 1874 1618, 1880 1703, 1885 7394
    (ST 17 Aug 1895), 1951 29,603 (2 Nov 1951), 1955 28,298 (3 Jun 1955).
    Evidence for 60-66: research/bna/westminster-1873-1974.md.
+
+67. Henry Mouat (ex-County Convener) died on Saturday 20 May 1944, not 20 March. Shetland News,
+   Thursday 25 May 1944: "Mr Henry Mouat died early on Saturday morning at his residence,
+   Hamarslea, Lerwick, in his 69th year"; funeral on the Wednesday. The Shetland Times obituary
+   is 26 May 1944, and the Town Council's tribute came at its meeting of 6 Jun 1944.
+   Evidence: research/bna/ww2-councils.md.
 """
 
 import os
@@ -593,6 +599,7 @@ CO_OPTION_1899 = ('Lerwick Town Council By-Election May 1899', '1899-05-02', '18
 CO_OPTION_1924 = ('Lerwick Town Council By-Election May 1924', '1924-05-05', '1924-05-06')
 CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '1946-04-02')
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
+MOUAT_DEATH = ('henry-mouat', '1944-03-20', '1944-05-20')
 ZCC_BY_ELECTIONS_1890S = [  # (wiki title, baseline date, date from the Shetland Times)
     ('Fetlar County Council By-Election March 1890', '1890-03-01', '1890-03-29'),
     ('Walls County Council By-Election March 1890', '1890-03-01', '1890-03-29'),
@@ -1588,6 +1595,17 @@ def main():
             print(f"  election {row['id']}: {column} {wrong} -> {right}")
         else:
             raise SystemExit(f"election {row['id']}: unexpected {column} {row['v']!r}")
+
+    print("=== 67. Henry Mouat's death ===")
+    slug, wrong, right = MOUAT_DEATH
+    row = one(c, "SELECT id, died_date FROM people WHERE slug = ?", (slug,))
+    if row['died_date'] == right:
+        print(f"  {slug} died_date: already {right}")
+    elif row['died_date'] == wrong:
+        c.execute("UPDATE people SET died_date = ? WHERE id = ?", (right, row['id']))
+        print(f"  {slug} died_date: {wrong} -> {right}")
+    else:
+        raise SystemExit(f"people.{slug} died_date is {row['died_date']}, expected {wrong}")
 
     db.commit()
     db.close()

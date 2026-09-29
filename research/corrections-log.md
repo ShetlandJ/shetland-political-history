@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-29: WW2 council sweep follow-ups (`research/bna/ww2-councils.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Henry Mouat died **20 March 1944** | He died **Saturday 20 May 1944** (Shetland News 25 May 1944; ST obituary 26 May) | Fixed (`fix_newspapers.py` #67) |
+| 2 | notes | Provost James Smith (i)'s seat ended at Johnson's co-option, **1 Jul 1941** | His letter took effect three weeks from its date; read 3 Jun, so about **23 Jun 1941** (ST 7 Jun 1941). It was his second resignation: the first, in Oct 1939, was withdrawn | Ledger fixed |
+| 3 | notes | (sweep flag) Gear may have resigned in Jul 1942 | The Jul 1942 report is only a farewell on his move to Lyness; the resignation letter was read **2 Feb 1943** | No change |
+
 ## 2026-09-29: Westminster 1873–1974 (`research/bna/westminster-1873-1974.md`)
 
 | # | Where | We had | Sources show | Status |
