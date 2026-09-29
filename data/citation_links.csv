@@ -1735,10 +1735,10 @@ st-19321119-p4-a028,election,603,read,contested; polling Tue 6 Dec
 st-19321217-p7-a040,election,603,read,"93 to 40, as in the DB"
 st-19321119-p4-a028,election,604,read,contested; polling Tue 6 Dec
 st-19321217-p7-a040,election,604,read,"153 to 131, as in the DB"
-st-19330114-p4-a055,election,1276,read,"new election ordered, no nomination at the 1932 general; fixed for Tue 14 Feb 1933"
-st-19330128-p4-a092,election,1276,read,"William Jamieson the only nomination, no poll"
-st-19330114-p4-a055,election,1277,read,"new election ordered, the unopposed 1932 candidate not eligible; fixed for Tue 14 Feb 1933"
-st-19330128-p4-a092,election,1277,read,"James A. Jamieson the only nomination, having resigned his appointment; no poll"
+st-19330114-p4-a055,election,Sandwick County Council By-Election February 1933,read,"new election ordered, no nomination at the 1932 general; fixed for Tue 14 Feb 1933"
+st-19330128-p4-a092,election,Sandwick County Council By-Election February 1933,read,"William Jamieson the only nomination, no poll"
+st-19330114-p4-a055,election,Sandness County Council By-Election February 1933,read,"new election ordered, the unopposed 1932 candidate not eligible; fixed for Tue 14 Feb 1933"
+st-19330128-p4-a092,election,Sandness County Council By-Election February 1933,read,"James A. Jamieson the only nomination, having resigned his appointment; no poll"
 st-19330128-p4-a092,election,595,read,Jamieson not eligible to sit after his 1932 return
 st-19351116-p5-a108,election,608,read,listed as returned unopposed
 st-19351116-p5-a108,election,609,read,listed as returned unopposed

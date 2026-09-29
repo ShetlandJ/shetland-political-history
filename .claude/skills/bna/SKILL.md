@@ -64,7 +64,8 @@ The order of work is set by cost. Always try the cheaper step first:
      publication day. Before searching, check here and in `data/searches.csv`: the article may
      already be on file.
    - `data/citation_links.csv`: one row per fact the article supports. `target_type` is `term`
-     (`person_slug@start_date` of the ledger row), `election` (the election id) or `person`
+     (`person_slug@start_date` of the ledger row), `election` (the election id, or its exact
+     `wiki_page_title` for an election a correction script creates, whose id is set at build time) or `person`
      (`slug:field`, e.g. `robert-anderson-i:died_date`). `basis` is `read` when the paper states
      the fact, `inferred` when it's worked out from it (a meeting day taken from "Tuesday
      night", a co-option dated by the only meeting that week), with a `note` saying how.

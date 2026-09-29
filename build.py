@@ -579,6 +579,11 @@ def load_citations(db):
             LEFT JOIN people p ON p.id = t.person_id WHERE t.council_id = ?""", (ltc,)):
         terms.setdefault(f"{slug or name}@{start}", []).append(tid)
     elections = {eid for (eid,) in db.execute("SELECT id FROM elections")}
+    # Elections created by a correction script get their id at build time, so links to them use
+    # the title instead (it must name exactly one row).
+    by_title = {}
+    for eid, title in db.execute("SELECT id, wiki_page_title FROM elections"):
+        by_title.setdefault(title, []).append(eid)
     people = {slug: pid for pid, slug in db.execute("SELECT id, slug FROM people")}
     seen = set()
     for i, r in enumerate(read_csv('citation_links.csv'), start=2):
@@ -594,9 +599,15 @@ def load_citations(db):
                 sys.exit(f"{where}: term {r['target']} matches {len(found)} LTC ledger rows (want slug@start_date)")
             term_id = found[0]
         elif r['target_type'] == 'election':
-            election_id = int(r['target'])
-            if election_id not in elections:
-                sys.exit(f"{where}: unknown election {election_id}")
+            if r['target'].isdigit():
+                election_id = int(r['target'])
+                if election_id not in elections:
+                    sys.exit(f"{where}: unknown election {election_id}")
+            else:
+                found = by_title.get(r['target'], [])
+                if len(found) != 1:
+                    sys.exit(f"{where}: election title '{r['target']}' matches {len(found)} rows (want exactly one)")
+                election_id = found[0]
         elif r['target_type'] == 'person':
             slug, _, field = r['target'].partition(':')
             person_id = people.get(slug)
