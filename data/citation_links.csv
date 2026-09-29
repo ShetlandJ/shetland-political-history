@@ -1740,3 +1740,34 @@ st-19330128-p4-a092,election,1276,read,"William Jamieson the only nomination, no
 st-19330114-p4-a055,election,1277,read,"new election ordered, the unopposed 1932 candidate not eligible; fixed for Tue 14 Feb 1933"
 st-19330128-p4-a092,election,1277,read,"James A. Jamieson the only nomination, having resigned his appointment; no poll"
 st-19330128-p4-a092,election,595,read,Jamieson not eligible to sit after his 1932 return
+st-19351116-p5-a108,election,608,read,listed as returned unopposed
+st-19351116-p5-a108,election,609,read,listed as returned unopposed
+st-19351116-p5-a108,election,610,read,Henderson and John Sutherland nominated
+st-19351207-p4-a061,election,610,inferred,"not among the five contests, so Sutherland withdrew and Henderson was unopposed"
+st-19351116-p5-a108,election,611,read,listed as returned unopposed
+st-19351116-p5-a108,election,612,read,listed as returned unopposed
+st-19351116-p5-a108,election,613,read,listed as returned unopposed
+st-19351116-p5-a108,election,614,read,listed as returned unopposed
+st-19351116-p5-a108,election,615,read,listed as returned unopposed
+st-19351116-p5-a108,election,616,read,listed as returned unopposed
+st-19351116-p5-a108,election,617,read,listed as returned unopposed
+st-19351116-p5-a108,election,618,read,contest at nominations
+st-19351207-p4-a061,election,618,read,"111, majority 62 (Anderson 49), and 13, as in the DB; polled Tuesday 3 Dec"
+st-19351116-p5-a108,election,619,read,contest at nominations
+st-19351207-p4-a061,election,619,read,"85, majority 39 (Tulloch 46), 131 votes, as in the DB; polled Tuesday 3 Dec"
+st-19351116-p5-a108,election,620,read,listed as returned unopposed
+st-19351116-p5-a108,election,621,read,listed as returned unopposed
+st-19351116-p5-a108,election,622,read,listed as returned unopposed
+st-19351116-p5-a108,election,623,read,contest at nominations
+st-19351207-p4-a061,election,623,read,"138 to 127, 265 votes, as in the DB; polled Tuesday 3 Dec"
+st-19351116-p5-a108,election,624,read,contest at nominations
+st-19351207-p4-a061,election,624,read,"228 to 107, 336 votes, as in the DB; polled Tuesday 3 Dec"
+st-19351116-p5-a108,election,625,read,listed as returned unopposed
+st-19351207-p4-a061,election,626,read,no nomination received from Unst South
+st-19351116-p5-a108,election,627,read,contest at nominations
+st-19351207-p4-a061,election,627,read,"89 to 4, not 85 (fix_newspapers.py #42); electorate 328, 93 votes; polled Tuesday 3 Dec"
+st-19351116-p5-a108,election,628,read,listed as returned unopposed
+st-19351116-p5-a108,election,629,read,listed as returned unopposed
+st-19351116-p5-a108,election,630,read,listed as returned unopposed
+st-19351116-p5-a108,election,631,read,listed as returned unopposed
+st-19351116-p5-a108,person,william-jamieson:intro,read,"sitting member for Sandwick in Nov 1935, retired (fix_newspapers.py #43)"

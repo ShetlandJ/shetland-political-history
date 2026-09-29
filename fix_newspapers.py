@@ -324,6 +324,18 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    (ST 28 Jan 1933). Both are dated to the fixed day, as in #30. His 1932 Sandness win is in
    data/not_seated.csv.
    Evidence: research/bna/zcc-1920-1939.md.
+
+42. Walls, December 1935: Andrew Halcrow had 4 votes, not 85. "John G. Williamson ... 89; *Andrew
+   Halcrow ... 4—majority 85, Total electorate 328, total votes cast 93, or 28.3 per cent"
+   (Shetland Times, 7 Dec 1935). The wiki took the majority for Halcrow's vote; 89 + 4 = 93, which
+   is 28.3% of 328. The electorate and turnout are added.
+   Evidence: research/bna/zcc-1920-1939.md.
+
+43. William Jamieson sat for Sandwick until 1935, not 1932. He was re-elected unopposed in February
+   1933 (#41), and in November 1935 "the sitting member, Mr William Jamieson, Central House,
+   Sandwick, has definitely retired from the Council and has not sought nomination" (Shetland
+   Times, 16 Nov 1935). His intro's "between 1919 and 1932" becomes "between 1919 and 1935".
+   Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -495,6 +507,9 @@ ZCC_BY_ELECTIONS_1933 = [
      'at the new election ordered for 14 February 1933.'),
 ]
 ZCC_1933_DATE = '1933-02-14'
+
+WALLS_1935 = ('County Council Election December 1935', 'Walls', 'Andrew Halcrow', 85, 4, (328, 93, 28.3))
+JAMIESON_INTRO = ('william-jamieson', 'Sandwick between 1919 and 1932', 'Sandwick between 1919 and 1935')
 
 
 def one(c, sql, args):
@@ -962,6 +977,34 @@ def main():
             c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, votes_text, elected, position)
                          VALUES (?, ?, ?, 'Unopposed', 1, 1)""", (eid, pid, name))
             print(f"    {name} unopposed")
+
+    print("=== 42. Walls 1935: Halcrow 4 votes ===")
+    title, ward, name, wrong, right, (electorate, turnout, pct) = WALLS_1935
+    row = one(c, """SELECT e.id, e.electorate, e.turnout, e.turnout_pct FROM elections e
+                   JOIN constituencies k ON k.id = e.constituency_id WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))
+    cand = one(c, "SELECT id, votes FROM candidacies WHERE election_id = ? AND candidate_name = ?", (row['id'], name))
+    if cand['votes'] == wrong:
+        c.execute("UPDATE candidacies SET votes = ? WHERE id = ?", (right, cand['id']))
+        print(f"  candidacy {cand['id']} ({name}): {wrong} -> {right}")
+    elif cand['votes'] != right:
+        raise SystemExit(f"candidacy {cand['id']}: unexpected votes {cand['votes']!r}")
+    if (row['electorate'], row['turnout'], row['turnout_pct']) == (None, None, None):
+        c.execute("UPDATE elections SET electorate = ?, turnout = ?, turnout_pct = ? WHERE id = ?",
+                  (electorate, turnout, pct, row['id']))
+        print(f"  election {row['id']}: electorate {electorate}, turnout {turnout}")
+    elif (row['electorate'], row['turnout'], row['turnout_pct']) != (electorate, turnout, pct):
+        raise SystemExit(f"election {row['id']}: unexpected electorate/turnout")
+
+    print("=== 43. William Jamieson sat to 1935 ===")
+    slug, wrong, right = JAMIESON_INTRO
+    intro = one(c, "SELECT intro FROM people WHERE slug = ?", (slug,))['intro']
+    if right in intro:
+        print("  intro: already 1935")
+    elif wrong in intro:
+        c.execute("UPDATE people SET intro = ? WHERE slug = ?", (intro.replace(wrong, right), slug))
+        print("  intro: 1932 -> 1935")
+    else:
+        raise SystemExit(f"{slug} intro: expected text not found")
 
     db.commit()
     db.close()
