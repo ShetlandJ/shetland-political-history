@@ -239,7 +239,14 @@ A label row in `data/candidacy_labels.csv` that contradicts the DB fails the bui
   1912 p4 a061); it is the Sunday Closing Committee of 1913, but isn't named in 1912. Stout and
   J. Smith also favoured Sunday closing but weren't its candidates. Options: (a) "Sunday
   Closing", `inferred`; (b) leave blank. Election 67.
-
+- **2026-09-30: The 1921 LTC slates: label them Social Democrat and Moderate?** ST 5 Nov 1921 p4
+  a083: "the Moderates and Social Democrats" issued circulars, but neither slate is listed. On the
+  nominations (Laing and M. L. Manson nominated W. Pottinger; Bruce and Murray were 1920's Labour
+  candidates) the Social Democrats were probably Bruce, Murray, A. S. Manson and W. Pottinger, and
+  the Moderates J. T. J. Sinclair, Ollason, Goodlad, J. Smith, Ramsay and John Manson. Options:
+  (a) label them `inferred`, "Social Democrat" and "Moderate"; (b) leave blank unless the
+  circulars turn up (Shetland News for 3–10 Nov 1921 not yet checked). Election 78. Evidence:
+  `party-labels-ltc-1914-1924.md`.
 
 ## Answered
 

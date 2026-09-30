@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-30: Party labels, LTC 1914–1924 (`research/bna/party-labels-ltc-1914-1924.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | No party labels on any LTC candidacy 1914–1924 | Labour candidates in 1919 (Laing, M. L. Manson, Pottinger, Morrison) and 1920 (Sinclair, Murray, Bruce); Moderates v Social Democrats in 1921, slates not listed | Labelled 1919–20; 1921 in open-questions |
+
 ## 2026-09-30: Party labels, LTC 1890–1913 (`research/bna/party-labels-ltc-1890-1913.md`)
 
 | # | Where | We had | Sources show | Status |
