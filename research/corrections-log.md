@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-30: Party labels, LTC 1925–1938 (`research/bna/party-labels-ltc-1925-1938.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | 1925: only the three retiring Labour members labelled | Sandison was Labour's fourth candidate; Campbell, Duffin, Cogle and Inkster stood as **Constitutional** | Labelled |
+| 2 | wiki | 1932: Bruce, A. S. Manson, Morrison, Sandison **Socialist** | The paper and their address give no party | Open question |
+| 3 | wiki | 1937 Mouat and 1938 Ganson, Irvine, Shearer, Mouat: no label | All stood as **independent** candidates | Labelled |
+
 ## 2026-09-30: Party labels, LTC 1914–1924 (`research/bna/party-labels-ltc-1914-1924.md`)
 
 | # | Where | We had | Sources show | Status |

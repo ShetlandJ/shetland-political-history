@@ -247,6 +247,21 @@ A label row in `data/candidacy_labels.csv` that contradicts the DB fails the bui
   (a) label them `inferred`, "Social Democrat" and "Moderate"; (b) leave blank unless the
   circulars turn up (Shetland News for 3–10 Nov 1921 not yet checked). Election 78. Evidence:
   `party-labels-ltc-1914-1924.md`.
+- **2026-09-30: The four retiring LTC councillors of Nov 1932: keep "Socialist"?** Bruce, A. S.
+  Manson, Morrison and Sandison are "Socialist" in the DB. The paper calls them only "the four
+  retiring Councillors" against the Ratepayers' nominees and Johnston, and their joint address
+  (ST 29 Oct 1932 p4 a026) gives no party. They stood as Labour in 1925–29. Options: (a) keep;
+  (b) clear (a `fix_parse_errors.py` entry, since an empty label row isn't allowed); (c) look in
+  the Shetland News of 3 Nov 1932. Election 91. Evidence: `party-labels-ltc-1925-1938.md`.
+- **2026-09-30: "Constitutional/Moderate" (LTC 1926) v "Constitutional" (1925, 1929).** The same
+  side: in 1926 the paper says "the 'Constitutional' or 'Moderate' party". Options: (a) keep the
+  DB's combined label (the chart shows it as its own band); (b) override the 1926 four to
+  "Constitutional". Election 84.
+- **2026-09-30: Unconfirmed LTC labels 1935–38.** Not in the paper for that year, and not
+  contradicted: Ganson, Duffin, Nicol (Ratepayers Association) and T. A. Sinclair (Labour) in Nov
+  1935; Halcrow (Ratepayers) and T. A. Sinclair (Labour) in the unopposed Nov 1936; the co-options
+  of T. A. Sinclair (Jul 1936) and Williamson (Aug 1938), both Labour. Options: (a) keep (my
+  default: all are consistent with the years either side); (b) clear the ones on co-options.
 
 ## Answered
 

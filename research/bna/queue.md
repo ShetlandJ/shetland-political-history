@@ -264,7 +264,7 @@ result issues, plus the p1 adverts. Rebuild and commit after each batch. Evidenc
 
 - [x] **Labels 1: LTC 1890–1913** (done: 11 rows, 6 labels new (Ratter WMA 1905, Loggie Independent 1909, the Sunday Closing four 1913), 5 confirmed; 7 open questions (Sinclair 1905, the 1907 and 1908 Ratepayers labels, Groat 1910, J. Laing 1906, Robertson 1903, the 1912 Sunday-closing pair). 1890–1904 unlabelled. `party-labels-ltc-1890-1913.md`)
 - [x] **Labels 2: LTC 1914–1924** (done: 7 rows, all new: Labour 1919 (four, inferred from the meeting notice) and 1920 (three, read). 1921 Moderates v Social Democrats in open-questions; 1914, 1922–24 unopposed and unlabelled. `party-labels-ltc-1914-1924.md`)
-- [ ] **Labels 3: LTC 1925–1938** (Labour, Constitutional/Moderate, the 1930s Ratepayers' Association; check existing labels)
+- [x] **Labels 3: LTC 1925–1938** (done: 57 rows, 10 new (Sandison Labour and the four Constitutionals 1925; Independents Mouat 1937, Ganson, Irvine, Shearer, Mouat 1938), 47 confirmed. Open: the 1932 "Socialist" four, 1926 "Constitutional/Moderate", unconfirmed 1935–38 labels. `party-labels-ltc-1925-1938.md`)
 - [ ] **Labels 4: LTC 1945–1975** (Labour and Moderate slates; the Workers Party 1946; when the labels stop)
 - [ ] **Labels 5: ZCC 1890–1929** (mostly unlabelled; Labour or Socialist 1919–29: J. J. Pottinger, W. Sinclair, Laing, Sutherland)
 - [ ] **Labels 6: ZCC 1930–1975** (the 1949 Labour group, Prophet Smith (Socialist) 1951, the Shetland Democratic Group 1973)
