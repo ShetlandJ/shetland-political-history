@@ -230,7 +230,10 @@ A label row in `data/candidacy_labels.csv` that contradicts the DB fails the bui
 - **2026-09-30: James Laing, LTC Nov 1906: Socialist?** "The Socialist section was well
   represented" with a circular (ST 10 Nov 1906 p4 a073), but no candidate is named. Laing was
   nominated by Pottinger and M. L. Manson, and the paper called him the Socialists' nominee in
-  1909. Options: (a) label him Socialist, basis `inferred`; (b) leave blank. Election 60.
+  1909. ST 10 Nov 1906 p4 a059 adds that he "has been returned [as a] 'working man'
+  candidate". Options: (a) label him Socialist, basis `inferred`; (b) "Working Men's
+  Association", `inferred` (the WMA, affiliated to the SDF, ran the 1905 pair); (c) leave blank.
+  Election 60.
 - **2026-09-30: James Robertson, LTC Nov 1903: Social-Democrat?** He spoke as a Social-Democrat in
   1901, but the 1903 reports (ST 7 Nov 1903 p4 a058) give no label. Options: (a) Social-Democrat,
   `inferred`; (b) leave blank. Election 56.
@@ -286,6 +289,11 @@ A label row in `data/candidacy_labels.csv` that contradicts the DB fails the bui
   Georgeson (1967); and every candidate in the unopposed years 1956, 1957, 1965, 1966, 1971–73.
   Options: (a) keep (my default: each was on the non-Labour side, and most were labelled
   Independent in the years either side); (b) clear the ones never labelled in any year.
+- **2026-09-30: Pottinger and W. Sinclair, ZCC Dec 1919: keep "Labour"?** The DB has both as
+  Labour (Lerwick Central, Whiteness and Weisdale). They were Labour for the Town Council in Nov
+  1919, but the County Council nominations and result give no label (ST 22 Nov–6 Dec 1919; search
+  "labour county" found nothing). Options: (a) keep; (b) clear; (c) check the Shetland News of
+  4 Dec 1919. Elections 443, 457. Evidence: `party-labels-zcc-1890-1929.md`.
 
 ## Answered
 
