@@ -114,6 +114,9 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    with no group name (Shetland Times, 9 Nov 1907, p1), and the Lerwick Ratepayers' Association was
    formed only in October 1908 (ST 24 Oct 1908). Cleared on James's answer (2026-09-30).
    Evidence: research/bna/party-labels-ltc-1890-1913.md.
+21. William Murdoch Shand (william-shand): Find a Grave memorial 291320870, given by James on
+   2026-09-30 (https://www.findagrave.com/memorial/291320870/william-murdoch-shand). It postdates
+   the findagrave_ids.csv run that went into the baseline.
 """
 
 import os
@@ -434,6 +437,16 @@ def main():
     for (cid,) in rows:
         c.execute("UPDATE candidacies SET party = NULL WHERE id = ?", (cid,))
     print(f"  cleared {len(rows)}")
+
+    print("=== 21. William Shand: Find a Grave memorial ===")
+    fg = c.execute("SELECT findagrave_id FROM people WHERE slug = 'william-shand'").fetchone()
+    if fg is None:
+        raise SystemExit("william-shand not found")
+    if fg[0] is None:
+        c.execute("UPDATE people SET findagrave_id = 291320870 WHERE slug = 'william-shand'")
+        print("  set 291320870")
+    elif fg[0] != 291320870:
+        raise SystemExit(f"william-shand findagrave_id is {fg[0]}, expected NULL")
 
     db.commit()
     db.close()
