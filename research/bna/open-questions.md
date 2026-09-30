@@ -201,6 +201,46 @@ Format: date raised, the question, the options, the evidence file, the row it af
   Tue 3 May 1932 (the first Tuesday), unconfirmed. Options: accept 3 May and confirm, or zoom
   on the SN page. Evidence: `ltc-1884-1935-citations.md`.
 
+### Party labels (added 2026-09-30; evidence `party-labels-ltc-*.md`)
+
+A label row in `data/candidacy_labels.csv` that contradicts the DB fails the build unless it sets
+`override=1`, so each of these needs your call before anything changes.
+
+- **2026-09-30: William Sinclair, LTC Nov 1905: "Labour" or "Working Men's Association"?** The DB
+  (from the wiki) has Labour. ST 11 Nov 1905 p4 a071 says the Working Men's Association "were
+  running two candidates", and he and Ratter thanked the electors "as Working-Class
+  Representatives" (p1 a007). Ratter now has "Working Men's Association". Options: (a) override
+  Sinclair to "Working Men's Association", so the pair match; (b) keep Labour. Election 59.
+  Evidence: `party-labels-ltc-1890-1913.md`.
+- **2026-09-30: The four winners of LTC Nov 1907: keep "Ratepayers Association (unofficial)"?**
+  Irvine, A. Smith, W. S. Smith and J. Smith signed a joint thanks notice (ST 9 Nov 1907 p1 a016)
+  with no group name, and the Lerwick Ratepayers' Association wasn't formed until Oct 1908.
+  Nothing in the paper supports the label. Options: (a) clear it (an override row with an empty
+  label isn't allowed, so this would be a `fix_parse_errors.py` entry); (b) keep it if the wiki
+  had another source. Election 61.
+- **2026-09-30: Ratter and Sinclair, LTC Nov 1908: "Ratepayers Association" or "Socialist"?** The
+  new Ratepayers' Association heard every candidate at its 2 Nov meeting (ST 7 Nov 1908 p5 a161):
+  a hustings, not a slate. The count report says a voter "signed for the Socialists" (p4 a148) and
+  letters call the Association a Socialist caucus. Options: (a) keep "Ratepayers Association";
+  (b) override to "Socialist" (the paper's word, not their own); (c) clear both. Election 62.
+- **2026-09-30: Robert John Groat, LTC Nov 1910: alias "Socialist/Democrat" to "Social-Democrat"?**
+  ST 5 Nov 1910 p4 a077: "the nominee of the local Social-Democrat Party". Options: (a) add a
+  `party_aliases.csv` row, treating the wiki's form as a spelling variant; (b) override the one
+  row; (c) keep. Election 65.
+- **2026-09-30: James Laing, LTC Nov 1906: Socialist?** "The Socialist section was well
+  represented" with a circular (ST 10 Nov 1906 p4 a073), but no candidate is named. Laing was
+  nominated by Pottinger and M. L. Manson, and the paper called him the Socialists' nominee in
+  1909. Options: (a) label him Socialist, basis `inferred`; (b) leave blank. Election 60.
+- **2026-09-30: James Robertson, LTC Nov 1903: Social-Democrat?** He spoke as a Social-Democrat in
+  1901, but the 1903 reports (ST 7 Nov 1903 p4 a058) give no label. Options: (a) Social-Democrat,
+  `inferred`; (b) leave blank. Election 56.
+- **2026-09-30: Grierson and Ramsay, LTC Nov 1912: "Sunday Closing"?** A ratepayers' committee of
+  clergymen "brought forward" them and H. J. Robertson, pledged against Sunday opening (ST 2 Nov
+  1912 p4 a061); it is the Sunday Closing Committee of 1913, but isn't named in 1912. Stout and
+  J. Smith also favoured Sunday closing but weren't its candidates. Options: (a) "Sunday
+  Closing", `inferred`; (b) leave blank. Election 67.
+
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)

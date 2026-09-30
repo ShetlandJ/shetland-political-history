@@ -9,6 +9,16 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-30: Party labels, LTC 1890–1913 (`research/bna/party-labels-ltc-1890-1913.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | 1905: Sinclair **Labour**, Ratter no label | Both ran for the **Working Men's Association** and thanked the electors "as Working-Class Representatives" (ST 11 Nov 1905) | Ratter labelled; Sinclair in open-questions |
+| 2 | wiki | 1907: Irvine, A. Smith, W. S. Smith, J. Smith **Ratepayers Association (unofficial)** | A joint thanks notice with no name; the Ratepayers' Association was formed in Oct 1908 | Open question |
+| 3 | wiki | 1908: Ratter and Sinclair **Ratepayers Association** | The Association heard all the candidates; the paper calls the pair "the Socialists" (ST 7 Nov 1908) | Open question |
+| 4 | wiki | 1910: Groat **Socialist/Democrat** | "the nominee of the local Social-Democrat Party" (ST 5 Nov 1910) | Open question |
+| 5 | wiki | 1909 Loggie and the 1913 Sunday-closing four: no label | Loggie "stood as an independent candidate"; the four were the Sunday Closing Committee's candidates | Labelled |
+
 ## 2026-09-29: WW2 council sweep follow-ups (`research/bna/ww2-councils.md`)
 
 | # | Where | We had | Sources show | Status |

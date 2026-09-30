@@ -247,3 +247,25 @@ citations, 801 links). Gaps:
 
 - **LTC size-short rows (25)**: mostly the gap between a death or resignation and the co-option, so probably genuine vacancies. Re-check after the overlaps are cleared, since the counts will shift.
 - **ZCC overlaps on the same day** (Peterson (i) and Sinclair 1919, Leslie (ii) 1922): someone starting two terms at the same general looks like a data problem (two wards, or a duplicate row). Check the wiki first.
+
+## Party labels (added 2026-09-30)
+
+Every LTC and ZCC candidacy 1890–1975 where the candidate stood under a declared label gets it in
+`data/candidacy_labels.csv` (applied by `build.py` after the baseline; fails on an unknown election
+or candidate, or on a label that contradicts the DB without `override=1`). Declared = the
+candidate's own address or advert, a slate or meeting notice naming them under a label, or the
+paper saying who stood together under a name. Use the source's name, not a modern party. A joint
+circular with no name is noted in the evidence file, not labelled; inferred slates go in
+open-questions. Conflicts with existing labels: corrections-log + open-questions, never silently
+overwritten. Citations with `target_type` election; contests with no label found in
+`data/searches.csv`. Method per batch: a manifest sweep of each general's preview, nominations and
+result issues, plus the p1 adverts. Rebuild and commit after each batch. Evidence:
+`party-labels-<council>-<years>.md`.
+
+- [x] **Labels 1: LTC 1890–1913** (done: 11 rows, 6 labels new (Ratter WMA 1905, Loggie Independent 1909, the Sunday Closing four 1913), 5 confirmed; 7 open questions (Sinclair 1905, the 1907 and 1908 Ratepayers labels, Groat 1910, J. Laing 1906, Robertson 1903, the 1912 Sunday-closing pair). 1890–1904 unlabelled. `party-labels-ltc-1890-1913.md`)
+- [ ] **Labels 2: LTC 1914–1924** (1919–21 done in the same file; check 1922–24)
+- [ ] **Labels 3: LTC 1925–1938** (Labour, Constitutional/Moderate, the 1930s Ratepayers' Association; check existing labels)
+- [ ] **Labels 4: LTC 1945–1975** (Labour and Moderate slates; the Workers Party 1946; when the labels stop)
+- [ ] **Labels 5: ZCC 1890–1929** (mostly unlabelled; Labour or Socialist 1919–29: J. J. Pottinger, W. Sinclair, Laing, Sutherland)
+- [ ] **Labels 6: ZCC 1930–1975** (the 1949 Labour group, Prophet Smith (Socialist) 1951, the Shetland Democratic Group 1973)
+- [ ] **Labels 7: SIC 1974–2003** (check the wiki labels against the ST where cheap; lowest priority)

@@ -19,6 +19,7 @@ new-site/
 │   ├── baseline.sql        # Frozen extraction (wiki parse + every script fix to 2026-09-25). Text, diffable.
 │   ├── ltc_terms.csv       # LTC membership ledger — source of truth for who sat when (hand-edited)
 │   ├── party_aliases.csv   # Party label spelling/markup variants
+│   ├── candidacy_labels.csv # Declared party/slate labels per candidacy, cited (fails on a conflict without override=1)
 │   ├── not_seated.csv      # Elected but never took a seat (declined office, invalid 1874 group, office elections, ZCC double returns)
 │   ├── council_size.csv    # Researched exceptions to LTC's 12 seats (empty for now)
 │   ├── citations.csv       # Sources: newspaper articles/issues and minute-book pages (hand-edited)
@@ -333,7 +334,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - **Ward seat counts** = winners at the last general + seats filled since via `[unfilled seat]` by-elections. Multi-member SIC wards (2007+) need `replaced_person` on every by-election, or the ward shows over-full.
 - **`replaced_person_id` can point at a namesake from another era** (the parser matched names across centuries: a 1914-born GP for a councillor who died in 1920). `build.py` only matches by name for unlinked terms, so a wrong link shows up as "replaced member ... is not sitting" on /data-review. Fix the link in `fix_parse_errors.py`, not the check.
 - **Office elections are not seats.** A sitting councillor elected Bailie at a by-election (Joseph Leask, May 1844) takes no new term. Detected by `candidacies.role` not being NULL or `councillor`.
-- **Party is per candidacy** (the label they won under). A mid-term change of party can't be represented yet; if one turns up, it needs a column on `council_terms`.
+- **Party is per candidacy** (the label they won under). Declared labels from the papers go in `data/candidacy_labels.csv` (election, person_slug or candidate display name, label, citation, basis); a row that contradicts the DB fails the build unless `override=1`. An unnamed joint circular is not a label. A mid-term change of party can't be represented yet; if one turns up, it needs a column on `council_terms`.
 - **Party aliases are for spelling and markup only.** Don't merge genuinely different labels (Labour vs Independent Labour vs Socialist, Liberal Democrats vs Scottish Liberal Democrats): they're historical record.
 - **Month-precision dates:** when a date can't be found, use the 1st of the month and start the ledger `source` with "Month precision only" (e.g. James Daniel's July 1962 resignation). Leave the row `confirmed=0`.
 - **Before trusting a `confirmed` flag, check it against later corrections.** The April 1874 rows were "confirmed" but double-counted both groups.

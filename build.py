@@ -12,6 +12,9 @@ Steps:
   2. Correction scripts       fix_minute_book.py, fix_newspapers.py. Idempotent, source-cited.
                               New corrections go here (or in a new script added to CORRECTIONS).
   3. data/party_aliases.csv   Spelling and markup variants of party labels.
+     data/candidacy_labels.csv  Declared labels per candidacy, from cited sources. Fails on an
+                              unknown election or candidate, or on a label that contradicts the
+                              one already there unless the row sets override=1.
   4. council_terms            LTC from the hand-kept ledger data/ltc_terms.csv. ZCC and SIC are
                               ward-based, so their terms are derived from election results.
   5. term_issues              Checks over council_terms: the research to-do list, shown on
@@ -184,6 +187,67 @@ def apply_party_aliases(db):
         cur = db.execute("UPDATE candidacies SET party = ? WHERE party = ?", (a['to'] or None, a['from']))
         n += cur.rowcount
     return n
+
+
+def apply_candidacy_labels(db):
+    """data/candidacy_labels.csv: the label a candidate declared (their address or advert, a slate
+    or meeting notice, or the paper saying who stood together under a name), per candidacy, from a
+    cited source. A row that agrees with the label already there just confirms it. A row that
+    disagrees fails the build unless `override` is 1 (the note says why the source wins)."""
+    aliases = {a['from']: a['to'] for a in read_csv('party_aliases.csv')}
+    citations = {r['id'] for r in read_csv('citations.csv')}
+    by_title = {}
+    for eid, title in db.execute("SELECT id, wiki_page_title FROM elections"):
+        by_title.setdefault(title, []).append(eid)
+    people = {slug: pid for pid, slug in db.execute("SELECT id, slug FROM people")}
+    seen, changed = set(), 0
+    for i, r in enumerate(read_csv('candidacy_labels.csv'), start=2):
+        where = f"data/candidacy_labels.csv line {i}"
+        key = r['election_id']
+        if key.isdigit():
+            eid = int(key)
+            if not db.execute("SELECT 1 FROM elections WHERE id = ?", (eid,)).fetchone():
+                sys.exit(f"{where}: unknown election {eid}")
+        else:
+            found = by_title.get(key, [])
+            if len(found) != 1:
+                sys.exit(f"{where}: election '{key}' matches {len(found)} elections")
+            eid = found[0]
+        if bool(r['person_slug']) == bool(r['candidate_name']):
+            sys.exit(f"{where}: give person_slug or candidate_name, not both")
+        if r['person_slug']:
+            if r['person_slug'] not in people:
+                sys.exit(f"{where}: unknown person_slug {r['person_slug']}")
+            found = db.execute("SELECT id, party FROM candidacies WHERE election_id = ? AND person_id = ?",
+                               (eid, people[r['person_slug']])).fetchall()
+        else:
+            # Unlinked candidates may carry a Bayanne link ('[url Name]'): match the display name.
+            found = [(cid, party) for cid, name, party in db.execute(
+                "SELECT id, candidate_name, party FROM candidacies WHERE election_id = ? AND person_id IS NULL", (eid,))
+                if display_name(name) == r['candidate_name']]
+        who = r['person_slug'] or r['candidate_name']
+        if len(found) != 1:
+            sys.exit(f"{where}: {who} has {len(found)} candidacies in election {eid}")
+        cand_id, party = found[0]
+        label = aliases.get(r['label'], r['label'])
+        if not label:
+            sys.exit(f"{where}: label is empty (an unnamed group goes in the evidence file, not here)")
+        if r['citation_id'] not in citations:
+            sys.exit(f"{where}: unknown citation {r['citation_id']}")
+        if r['basis'] not in ('read', 'inferred'):
+            sys.exit(f"{where}: basis must be read or inferred")
+        if r['override'] not in ('', '1'):
+            sys.exit(f"{where}: override must be 1 or empty")
+        if cand_id in seen:
+            sys.exit(f"{where}: second row for candidacy {cand_id}")
+        seen.add(cand_id)
+        if party and party != label and r['override'] != '1':
+            sys.exit(f"{where}: {who} is '{party}' in the DB, this row says '{label}'. "
+                     f"Set override=1 (and say why in the note) only once the conflict is settled")
+        if party != label:
+            db.execute("UPDATE candidacies SET party = ? WHERE id = ?", (label, cand_id))
+            changed += 1
+    return len(seen), changed
 
 
 # ---------------------------------------------------------------------------
@@ -666,6 +730,7 @@ def build(db_path):
 
     db = sqlite3.connect(db_path)
     aliased = apply_party_aliases(db)
+    T_labels = apply_candidacy_labels(db)
     db.executescript(TERMS_DDL)
     db.execute("CREATE TEMP TABLE not_seated (election_id, person_slug)")
     db.executemany("INSERT INTO temp.not_seated VALUES (?, ?)", not_seated_rows(db))
@@ -680,6 +745,7 @@ def build(db_path):
     db.executemany("""INSERT INTO term_issues (council_id, kind, date_from, date_to, person_id, person_name,
                       election_id, detail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", T.issues)
     T.citations = load_citations(db)
+    T.labels = T_labels
     db.commit()
     db.execute("VACUUM")
     db.close()
@@ -708,6 +774,7 @@ def main():
     for i in T.issues:
         kinds[i[1]] += 1
     print(f"party labels normalised: {aliased}")
+    print(f"candidacy labels: {T.labels[0]} rows, {T.labels[1]} changed")
     print(f"council_terms: {dict(counts)} (by council_id)")
     print(f"term_issues: {len(T.issues)} {dict(kinds)}")
     print(f"citations: {T.citations[0]}, links: {T.citations[1]}")
