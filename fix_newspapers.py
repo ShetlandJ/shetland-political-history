@@ -498,6 +498,16 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Hamarslea, Lerwick, in his 69th year"; funeral on the Wednesday. The Shetland Times obituary
    is 26 May 1944, and the Town Council's tribute came at its meeting of 6 Jun 1944.
    Evidence: research/bna/ww2-councils.md.
+
+68. James Robertson, the Social-Democrat candidate for Lerwick Town Council in 1901 and 1903 and
+   for Lerwick North on the County Council in December 1901, is Dr James Robertson, M.B., Ch.B.
+   (Bayanne I28791). The 1901 burgh notice gives his address as Northness, and the County
+   nominations call him "Jas. Robertson, auctioneer" (Shetland Times, 2 and 23 Nov 1901). His
+   death notice (Shetland Times, 4 Feb 1911) is for "JAMES ROBERTSON, M.B., Ch.B., eldest
+   surviving son of Thomas and Grace Robertson, North Ness, Lerwick", and the obituary in the
+   same issue gives his career as house painter, then auctioneer and fish salesman, then doctor.
+   He has no person page (he never sat), so the three candidacies link to Bayanne.
+   Evidence: research/bna/early-socialists-1901-1913.md.
 """
 
 import os
@@ -600,6 +610,12 @@ CO_OPTION_1924 = ('Lerwick Town Council By-Election May 1924', '1924-05-05', '19
 CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '1946-04-02')
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MOUAT_DEATH = ('henry-mouat', '1944-03-20', '1944-05-20')
+ROBERTSON_BAYANNE = '[https://www.bayanne.info/Shetland/getperson.php?personID=I28791&tree=ID1 James Robertson]'
+ROBERTSON_CANDIDACIES = [  # (wiki title, votes): his three unlinked 'James Robertson' candidacies
+    ('Lerwick Town Council Election November 1901', 130),
+    ('Lerwick Town Council Election November 1903', 163),
+    ('County Council Election December 1901', 38),
+]
 ZCC_BY_ELECTIONS_1890S = [  # (wiki title, baseline date, date from the Shetland Times)
     ('Fetlar County Council By-Election March 1890', '1890-03-01', '1890-03-29'),
     ('Walls County Council By-Election March 1890', '1890-03-01', '1890-03-29'),
@@ -1606,6 +1622,20 @@ def main():
         print(f"  {slug} died_date: {wrong} -> {right}")
     else:
         raise SystemExit(f"people.{slug} died_date is {row['died_date']}, expected {wrong}")
+
+    print("=== 68. James Robertson (Social-Democrat) links to Bayanne ===")
+    for title, votes in ROBERTSON_CANDIDACIES:
+        cand = one(c, """SELECT ca.id, ca.candidate_name, ca.person_id FROM candidacies ca
+                        JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = ? AND ca.votes = ?
+                          AND ca.candidate_name IN ('James Robertson', ?)""", (title, votes, ROBERTSON_BAYANNE))
+        if cand['person_id'] is not None:
+            raise SystemExit(f"candidacy {cand['id']}: linked to person {cand['person_id']}")
+        if cand['candidate_name'] == ROBERTSON_BAYANNE:
+            print(f"  candidacy {cand['id']}: already linked")
+        else:
+            c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (ROBERTSON_BAYANNE, cand['id']))
+            print(f"  candidacy {cand['id']}: James Robertson -> Bayanne I28791")
 
     db.commit()
     db.close()
