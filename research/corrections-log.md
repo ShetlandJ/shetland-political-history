@@ -9,6 +9,16 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-30: Party labels, LTC 1945–1975 (`research/bna/party-labels-ltc-1945-1975.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | 1945: Lamont and Paton unlabelled, Mouat unlabelled | Lamont and Paton were two of the six "Lerwick Labour Party nominees"; Mouat "an independent member" | Labelled |
+| 2 | wiki | 1952: W. Anderson, Conochie, Peterson, A. H. Robertson **Independent** | "nominated as Moderate candidates" (their own address, ST 2 May 1952) | Open question |
+| 3 | wiki | 1966: John Smith (ii) **Independent** | "Labour men, as is ... Mr John R. Smith" (ST 15 Apr 1966) | Open question |
+| 4 | wiki | 1946: Edward Reid **Workers Party** | "(Workers)", "a Workers' candidate" | Open question |
+| 5 | notes | (none) | 148 existing labels 1945–70 confirmed from the named sides | Confirmed |
+
 ## 2026-09-30: Party labels, LTC 1925–1938 (`research/bna/party-labels-ltc-1925-1938.md`)
 
 | # | Where | We had | Sources show | Status |

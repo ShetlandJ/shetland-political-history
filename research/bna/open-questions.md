@@ -262,6 +262,30 @@ A label row in `data/candidacy_labels.csv` that contradicts the DB fails the bui
   1935; Halcrow (Ratepayers) and T. A. Sinclair (Labour) in the unopposed Nov 1936; the co-options
   of T. A. Sinclair (Jul 1936) and Williamson (Aug 1938), both Labour. Options: (a) keep (my
   default: all are consistent with the years either side); (b) clear the ones on co-options.
+- **2026-09-30: Edward Reid, LTC Nov 1946: "Workers Party" or "Workers'"?** The result table tags
+  him "(Workers)" and his notice says he "stood as a WORKERS' CANDIDATE" (ST 8 and 15 Nov 1946).
+  No party of that name is mentioned. Options: (a) override to "Workers'"; (b) keep "Workers
+  Party". Election 113. Evidence: `party-labels-ltc-1945-1975.md`.
+- **2026-09-30: Inkster and Ollason, LTC May 1951: "Moderate" or "Independent"?** Their joint
+  address has no party name; the paper calls them Independents (ST 13 Apr 1951 p4 a047) and then
+  "Moderates" in quotes (4 May p4 a039). Options: (a) keep "Moderate"; (b) override to
+  "Independent"; (c) clear. Election 119.
+- **2026-09-30: The four non-Labour candidates of LTC May 1952: "Moderate", not "Independent"?**
+  W. Anderson, Conochie, Peterson and A. H. Robertson were "nominated as Moderate candidates"
+  in their own joint address (ST 2 May 1952 p5 a077); the paper says "four Moderate and four
+  Socialist aspirants". The DB has all four as Independent. Options: (a) override to
+  "Moderate" (my recommendation: it's their own word); (b) keep. Election 120.
+- **2026-09-30: John R. Smith, LTC May 1966: Labour, not Independent?** "Messrs Adair and
+  Morrison are Labour men, as is the fifth candidate to enter the fray, Mr John R. Smith" (ST 15
+  Apr 1966 p5 a079). The DB has John Smith (ii) as Independent in 1966 and Labour in 1969
+  (confirmed, "The Labour Group"). Options: (a) override 1966 to Labour; (b) keep. Election 139.
+- **2026-09-30: Unconfirmed LTC "Independent" labels, 1953–73.** The paper gives no label for
+  these candidates in that year (only a council count, or "contesting the election
+  independently"): H. Gray, Burgess, J. D. Williamson (1953); Conochie, H. Gray, Bennet (1959);
+  E. Gray, Shearer, A. Peterson (1963); G. Blance, Taylor, P. Robertson, Halcrow, Cumming,
+  Georgeson (1967); and every candidate in the unopposed years 1956, 1957, 1965, 1966, 1971–73.
+  Options: (a) keep (my default: each was on the non-Labour side, and most were labelled
+  Independent in the years either side); (b) clear the ones never labelled in any year.
 
 ## Answered
 
