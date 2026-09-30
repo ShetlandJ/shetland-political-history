@@ -109,6 +109,11 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    2026-09-29 and are already right (Dunrossness North Sep 1963, Northmavine North Dec 1897 and
    Sep 1903, Whalsay Jul 1910, Cunningsburgh Jun 1896, Gulberwick Oct 1958: text, no votes;
    Aithsting Jan 1896, Apr 1890 and Walls Feb 1960 were polls).
+20. Lerwick Town Council Election November 1907: the wiki gives the four winners (Irvine, A. Smith,
+   W. S. Smith, J. Smith) "Ratepayers Association (unofficial)". They issued a joint thanks notice
+   with no group name (Shetland Times, 9 Nov 1907, p1), and the Lerwick Ratepayers' Association was
+   formed only in October 1908 (ST 24 Oct 1908). Cleared on James's answer (2026-09-30).
+   Evidence: research/bna/party-labels-ltc-1890-1913.md.
 """
 
 import os
@@ -419,6 +424,16 @@ def main():
             print(f"candidacy {cid} ({name}): {wrong_votes} votes -> {text!r}")
         elif (votes, votes_text) != (None, text):
             raise SystemExit(f"candidacy {cid}: unexpected votes {votes!r}/{votes_text!r}")
+
+    print("=== 20. LTC Nov 1907: no Ratepayers Association label ===")
+    rows = c.execute("""SELECT ca.id FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = 'Lerwick Town Council Election November 1907'
+                          AND ca.party = 'Ratepayers Association (unofficial)'""").fetchall()
+    if len(rows) not in (0, 4):
+        raise SystemExit(f"1907: expected 4 'Ratepayers Association (unofficial)' candidacies, found {len(rows)}")
+    for (cid,) in rows:
+        c.execute("UPDATE candidacies SET party = NULL WHERE id = ?", (cid,))
+    print(f"  cleared {len(rows)}")
 
     db.commit()
     db.close()

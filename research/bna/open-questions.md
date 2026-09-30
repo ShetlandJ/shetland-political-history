@@ -206,100 +206,16 @@ Format: date raised, the question, the options, the evidence file, the row it af
 A label row in `data/candidacy_labels.csv` that contradicts the DB fails the build unless it sets
 `override=1`, so each of these needs your call before anything changes.
 
-- **2026-09-30: William Sinclair, LTC Nov 1905: "Labour" or "Working Men's Association"?** The DB
-  (from the wiki) has Labour. ST 11 Nov 1905 p4 a071 says the Working Men's Association "were
-  running two candidates", and he and Ratter thanked the electors "as Working-Class
-  Representatives" (p1 a007). Ratter now has "Working Men's Association". Options: (a) override
-  Sinclair to "Working Men's Association", so the pair match; (b) keep Labour. Election 59.
-  Evidence: `party-labels-ltc-1890-1913.md`.
-- **2026-09-30: The four winners of LTC Nov 1907: keep "Ratepayers Association (unofficial)"?**
-  Irvine, A. Smith, W. S. Smith and J. Smith signed a joint thanks notice (ST 9 Nov 1907 p1 a016)
-  with no group name, and the Lerwick Ratepayers' Association wasn't formed until Oct 1908.
-  Nothing in the paper supports the label. Options: (a) clear it (an override row with an empty
-  label isn't allowed, so this would be a `fix_parse_errors.py` entry); (b) keep it if the wiki
-  had another source. Election 61.
-- **2026-09-30: Ratter and Sinclair, LTC Nov 1908: "Ratepayers Association" or "Socialist"?** The
-  new Ratepayers' Association heard every candidate at its 2 Nov meeting (ST 7 Nov 1908 p5 a161):
-  a hustings, not a slate. The count report says a voter "signed for the Socialists" (p4 a148) and
-  letters call the Association a Socialist caucus. Options: (a) keep "Ratepayers Association";
-  (b) override to "Socialist" (the paper's word, not their own); (c) clear both. Election 62.
-- **2026-09-30: Robert John Groat, LTC Nov 1910: alias "Socialist/Democrat" to "Social-Democrat"?**
-  ST 5 Nov 1910 p4 a077: "the nominee of the local Social-Democrat Party". Options: (a) add a
-  `party_aliases.csv` row, treating the wiki's form as a spelling variant; (b) override the one
-  row; (c) keep. Election 65.
-- **2026-09-30: James Laing, LTC Nov 1906: Socialist?** "The Socialist section was well
-  represented" with a circular (ST 10 Nov 1906 p4 a073), but no candidate is named. Laing was
-  nominated by Pottinger and M. L. Manson, and the paper called him the Socialists' nominee in
-  1909. ST 10 Nov 1906 p4 a059 adds that he "has been returned [as a] 'working man'
-  candidate". Options: (a) label him Socialist, basis `inferred`; (b) "Working Men's
-  Association", `inferred` (the WMA, affiliated to the SDF, ran the 1905 pair); (c) leave blank.
-  Election 60.
-- **2026-09-30: James Robertson, LTC Nov 1903: Social-Democrat?** He spoke as a Social-Democrat in
-  1901, but the 1903 reports (ST 7 Nov 1903 p4 a058) give no label. Options: (a) Social-Democrat,
-  `inferred`; (b) leave blank. Election 56.
 - **2026-09-30: Grierson and Ramsay, LTC Nov 1912: "Sunday Closing"?** A ratepayers' committee of
   clergymen "brought forward" them and H. J. Robertson, pledged against Sunday opening (ST 2 Nov
   1912 p4 a061); it is the Sunday Closing Committee of 1913, but isn't named in 1912. Stout and
   J. Smith also favoured Sunday closing but weren't its candidates. Options: (a) "Sunday
-  Closing", `inferred`; (b) leave blank. Election 67.
-- **2026-09-30: The 1921 LTC slates: label them Social Democrat and Moderate?** ST 5 Nov 1921 p4
-  a083: "the Moderates and Social Democrats" issued circulars, but neither slate is listed. On the
-  nominations (Laing and M. L. Manson nominated W. Pottinger; Bruce and Murray were 1920's Labour
-  candidates) the Social Democrats were probably Bruce, Murray, A. S. Manson and W. Pottinger, and
-  the Moderates J. T. J. Sinclair, Ollason, Goodlad, J. Smith, Ramsay and John Manson. Options:
-  (a) label them `inferred`, "Social Democrat" and "Moderate"; (b) leave blank unless the
-  circulars turn up (Shetland News for 3–10 Nov 1921 not yet checked). Election 78. Evidence:
-  `party-labels-ltc-1914-1924.md`.
-- **2026-09-30: The four retiring LTC councillors of Nov 1932: keep "Socialist"?** Bruce, A. S.
-  Manson, Morrison and Sandison are "Socialist" in the DB. The paper calls them only "the four
-  retiring Councillors" against the Ratepayers' nominees and Johnston, and their joint address
-  (ST 29 Oct 1932 p4 a026) gives no party. They stood as Labour in 1925–29. Options: (a) keep;
-  (b) clear (a `fix_parse_errors.py` entry, since an empty label row isn't allowed); (c) look in
-  the Shetland News of 3 Nov 1932. Election 91. Evidence: `party-labels-ltc-1925-1938.md`.
+  Closing", `inferred`; (b) leave blank. Election 67. James (2026-09-30): "Sunday closing
+  might be their primary views but not party?" Advice sent in chat; awaiting a choice.
 - **2026-09-30: "Constitutional/Moderate" (LTC 1926) v "Constitutional" (1925, 1929).** The same
   side: in 1926 the paper says "the 'Constitutional' or 'Moderate' party". Options: (a) keep the
   DB's combined label (the chart shows it as its own band); (b) override the 1926 four to
   "Constitutional". Election 84.
-- **2026-09-30: Unconfirmed LTC labels 1935–38.** Not in the paper for that year, and not
-  contradicted: Ganson, Duffin, Nicol (Ratepayers Association) and T. A. Sinclair (Labour) in Nov
-  1935; Halcrow (Ratepayers) and T. A. Sinclair (Labour) in the unopposed Nov 1936; the co-options
-  of T. A. Sinclair (Jul 1936) and Williamson (Aug 1938), both Labour. Options: (a) keep (my
-  default: all are consistent with the years either side); (b) clear the ones on co-options.
-- **2026-09-30: Edward Reid, LTC Nov 1946: "Workers Party" or "Workers'"?** The result table tags
-  him "(Workers)" and his notice says he "stood as a WORKERS' CANDIDATE" (ST 8 and 15 Nov 1946).
-  No party of that name is mentioned. Options: (a) override to "Workers'"; (b) keep "Workers
-  Party". Election 113. Evidence: `party-labels-ltc-1945-1975.md`.
-- **2026-09-30: Inkster and Ollason, LTC May 1951: "Moderate" or "Independent"?** Their joint
-  address has no party name; the paper calls them Independents (ST 13 Apr 1951 p4 a047) and then
-  "Moderates" in quotes (4 May p4 a039). Options: (a) keep "Moderate"; (b) override to
-  "Independent"; (c) clear. Election 119.
-- **2026-09-30: The four non-Labour candidates of LTC May 1952: "Moderate", not "Independent"?**
-  W. Anderson, Conochie, Peterson and A. H. Robertson were "nominated as Moderate candidates"
-  in their own joint address (ST 2 May 1952 p5 a077); the paper says "four Moderate and four
-  Socialist aspirants". The DB has all four as Independent. Options: (a) override to
-  "Moderate" (my recommendation: it's their own word); (b) keep. Election 120.
-- **2026-09-30: John R. Smith, LTC May 1966: Labour, not Independent?** "Messrs Adair and
-  Morrison are Labour men, as is the fifth candidate to enter the fray, Mr John R. Smith" (ST 15
-  Apr 1966 p5 a079). The DB has John Smith (ii) as Independent in 1966 and Labour in 1969
-  (confirmed, "The Labour Group"). Options: (a) override 1966 to Labour; (b) keep. Election 139.
-- **2026-09-30: Unconfirmed LTC "Independent" labels, 1953–73.** The paper gives no label for
-  these candidates in that year (only a council count, or "contesting the election
-  independently"): H. Gray, Burgess, J. D. Williamson (1953); Conochie, H. Gray, Bennet (1959);
-  E. Gray, Shearer, A. Peterson (1963); G. Blance, Taylor, P. Robertson, Halcrow, Cumming,
-  Georgeson (1967); and every candidate in the unopposed years 1956, 1957, 1965, 1966, 1971–73.
-  Options: (a) keep (my default: each was on the non-Labour side, and most were labelled
-  Independent in the years either side); (b) clear the ones never labelled in any year.
-- **2026-09-30: Pottinger and W. Sinclair, ZCC Dec 1919: keep "Labour"?** The DB has both as
-  Labour (Lerwick Central, Whiteness and Weisdale). They were Labour for the Town Council in Nov
-  1919, but the County Council nominations and result give no label (ST 22 Nov–6 Dec 1919; search
-  "labour county" found nothing). Options: (a) keep; (b) clear; (c) check the Shetland News of
-  4 Dec 1919. Elections 443, 457. Evidence: `party-labels-zcc-1890-1929.md`.
-- **2026-09-30: The seven ZCC "Labour" candidates of May 1949.** Only James Anderson (Walls) is
-  labelled in the paper, as "a Socialist-sponsored candidate" (ST 29 Apr 1949 p7 a100). The other
-  six (Smith, Halcrow, Gilbertson, Williamson, Charleson, Bruce) have no label in the County
-  Council reports. Options: (a) keep all seven as Labour (the wiki's; Shetland News not checked);
-  (b) keep Anderson only; (c) override Anderson to "Socialist" as the paper's word. Elections
-  696–714. Evidence: `party-labels-zcc-1930-1975.md`.
 
 ## Answered
 

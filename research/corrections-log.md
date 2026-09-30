@@ -14,8 +14,8 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki | 1973: nine Shetland Democratic Group members | Ten: William Thomson (Unst North) signed the group's pre-election statement (ST 4 May 1973) | Labelled |
-| 2 | wiki | 1949: seven Labour candidates | Only Anderson (Walls) labelled, as "Socialist-sponsored" | Open question |
-| 3 | wiki | 1919: Pottinger and W. Sinclair Labour | No label in the County Council reports | Open question |
+| 2 | wiki | 1949: seven Labour candidates | Only Anderson (Walls) labelled, as "Socialist-sponsored" | Anderson overridden to Socialist; the other six kept |
+| 3 | wiki | 1919: Pottinger and W. Sinclair Labour | No label in the County Council reports | Kept on James's answer |
 | 4 | wiki | 1901 Leslie, 1945 Hamilton, 1951 Prophet Smith: no label | "entirely independent", "the Independent Candidate", "his Socialist opponent" | Labelled |
 
 ## 2026-09-30: Party labels, LTC 1945–1975 (`research/bna/party-labels-ltc-1945-1975.md`)
@@ -23,9 +23,9 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki | 1945: Lamont and Paton unlabelled, Mouat unlabelled | Lamont and Paton were two of the six "Lerwick Labour Party nominees"; Mouat "an independent member" | Labelled |
-| 2 | wiki | 1952: W. Anderson, Conochie, Peterson, A. H. Robertson **Independent** | "nominated as Moderate candidates" (their own address, ST 2 May 1952) | Open question |
-| 3 | wiki | 1966: John Smith (ii) **Independent** | "Labour men, as is ... Mr John R. Smith" (ST 15 Apr 1966) | Open question |
-| 4 | wiki | 1946: Edward Reid **Workers Party** | "(Workers)", "a Workers' candidate" | Open question |
+| 2 | wiki | 1952: W. Anderson, Conochie, Peterson, A. H. Robertson **Independent** | "nominated as Moderate candidates" (their own address, ST 2 May 1952) | Overridden to Moderate |
+| 3 | wiki | 1966: John Smith (ii) **Independent** | "Labour men, as is ... Mr John R. Smith" (ST 15 Apr 1966) | Overridden to Labour |
+| 4 | wiki | 1946: Edward Reid **Workers Party** | "(Workers)", "a Workers' candidate" | Overridden to Workers' |
 | 5 | notes | (none) | 148 existing labels 1945–70 confirmed from the named sides | Confirmed |
 
 ## 2026-09-30: Party labels, LTC 1925–1938 (`research/bna/party-labels-ltc-1925-1938.md`)
@@ -33,23 +33,23 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki | 1925: only the three retiring Labour members labelled | Sandison was Labour's fourth candidate; Campbell, Duffin, Cogle and Inkster stood as **Constitutional** | Labelled |
-| 2 | wiki | 1932: Bruce, A. S. Manson, Morrison, Sandison **Socialist** | The paper and their address give no party | Open question |
+| 2 | wiki | 1932: Bruce, A. S. Manson, Morrison, Sandison **Socialist** | The paper and their address give no party | Kept on James's answer |
 | 3 | wiki | 1937 Mouat and 1938 Ganson, Irvine, Shearer, Mouat: no label | All stood as **independent** candidates | Labelled |
 
 ## 2026-09-30: Party labels, LTC 1914–1924 (`research/bna/party-labels-ltc-1914-1924.md`)
 
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
-| 1 | wiki | No party labels on any LTC candidacy 1914–1924 | Labour candidates in 1919 (Laing, M. L. Manson, Pottinger, Morrison) and 1920 (Sinclair, Murray, Bruce); Moderates v Social Democrats in 1921, slates not listed | Labelled 1919–20; 1921 in open-questions |
+| 1 | wiki | No party labels on any LTC candidacy 1914–1924 | Labour candidates in 1919 (Laing, M. L. Manson, Pottinger, Morrison) and 1920 (Sinclair, Murray, Bruce); Moderates v Social Democrats in 1921, slates not listed | Labelled 1919–20; 1921 labelled `inferred` on James's answer |
 
 ## 2026-09-30: Party labels, LTC 1890–1913 (`research/bna/party-labels-ltc-1890-1913.md`)
 
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
-| 1 | wiki | 1905: Sinclair **Labour**, Ratter no label | Both ran for the **Working Men's Association** and thanked the electors "as Working-Class Representatives" (ST 11 Nov 1905) | Ratter labelled; Sinclair in open-questions |
-| 2 | wiki | 1907: Irvine, A. Smith, W. S. Smith, J. Smith **Ratepayers Association (unofficial)** | A joint thanks notice with no name; the Ratepayers' Association was formed in Oct 1908 | Open question |
-| 3 | wiki | 1908: Ratter and Sinclair **Ratepayers Association** | The Association heard all the candidates; the paper calls the pair "the Socialists" (ST 7 Nov 1908) | Open question |
-| 4 | wiki | 1910: Groat **Socialist/Democrat** | "the nominee of the local Social-Democrat Party" (ST 5 Nov 1910) | Open question |
+| 1 | wiki | 1905: Sinclair **Labour**, Ratter no label | Both ran for the **Working Men's Association** and thanked the electors "as Working-Class Representatives" (ST 11 Nov 1905) | Both labelled (Sinclair overridden on James's answer) |
+| 2 | wiki | 1907: Irvine, A. Smith, W. S. Smith, J. Smith **Ratepayers Association (unofficial)** | A joint thanks notice with no name; the Ratepayers' Association was formed in Oct 1908 | Cleared (`fix_parse_errors.py` #20) |
+| 3 | wiki | 1908: Ratter and Sinclair **Ratepayers Association** | The Association heard all the candidates; the paper calls the pair "the Socialists" (ST 7 Nov 1908) | Kept on James's answer |
+| 4 | wiki | 1910: Groat **Socialist/Democrat** | "the nominee of the local Social-Democrat Party" (ST 5 Nov 1910) | Overridden to Social-Democrat |
 | 5 | wiki | 1909 Loggie and the 1913 Sunday-closing four: no label | Loggie "stood as an independent candidate"; the four were the Sunday Closing Committee's candidates | Labelled |
 
 ## 2026-09-29: WW2 council sweep follow-ups (`research/bna/ww2-councils.md`)
