@@ -47,8 +47,11 @@ const partyCharts: Record<string, { from: string; groups: PartyGroup[]; note?: s
       { label: 'Independent', parties: ['Independent'], ...BLUE },
       { label: 'Other', ...YELLOW },
       { label: 'Ratepayers Association', parties: ['Ratepayers Association'], ...AQUA },
+      // The paper's own names for the anti-Labour side: "Constitutional" 1925–29 ("Constitutional
+      // or Moderate" in 1926), "Moderate" 1950–51. Grouped for the chart only; the labels stay distinct.
+      { label: 'Constitutional / Moderate', parties: ['Constitutional', 'Constitutional/Moderate', 'Moderate'], ...ORANGE },
     ],
-    note: 'Labels were rarely recorded before the 1930s.',
+    note: 'Labels are the ones candidates declared or the Shetland Times gave them; before 1919 most members stood without one.',
   },
   'shetland-islands-council': {
     from: '1974-05-07',
