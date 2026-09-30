@@ -34,6 +34,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 |---|---|---|---|---|
 | 1 | wiki | 1925: only the three retiring Labour members labelled | Sandison was Labour's fourth candidate; Campbell, Duffin, Cogle and Inkster stood as **Constitutional** | Labelled |
 | 2 | wiki | 1932: Bruce, A. S. Manson, Morrison, Sandison **Socialist** | The paper and their address give no party | Kept on James's answer |
+| 3a | wiki | 1926: Ganson, Ratter, J. W. Irvine, John Manson **Constitutional/Moderate** | "the Constitutional or Moderate party", the side called Constitutional in 1925 and 1929 | Overridden to Constitutional on James's answer |
 | 3 | wiki | 1937 Mouat and 1938 Ganson, Irvine, Shearer, Mouat: no label | All stood as **independent** candidates | Labelled |
 
 ## 2026-09-30: Party labels, LTC 1914–1924 (`research/bna/party-labels-ltc-1914-1924.md`)

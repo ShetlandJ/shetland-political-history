@@ -201,22 +201,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   Tue 3 May 1932 (the first Tuesday), unconfirmed. Options: accept 3 May and confirm, or zoom
   on the SN page. Evidence: `ltc-1884-1935-citations.md`.
 
-### Party labels (added 2026-09-30; evidence `party-labels-ltc-*.md`)
-
-A label row in `data/candidacy_labels.csv` that contradicts the DB fails the build unless it sets
-`override=1`, so each of these needs your call before anything changes.
-
-- **2026-09-30: Grierson and Ramsay, LTC Nov 1912: "Sunday Closing"?** A ratepayers' committee of
-  clergymen "brought forward" them and H. J. Robertson, pledged against Sunday opening (ST 2 Nov
-  1912 p4 a061); it is the Sunday Closing Committee of 1913, but isn't named in 1912. Stout and
-  J. Smith also favoured Sunday closing but weren't its candidates. Options: (a) "Sunday
-  Closing", `inferred`; (b) leave blank. Election 67. James (2026-09-30): "Sunday closing
-  might be their primary views but not party?" Advice sent in chat; awaiting a choice.
-- **2026-09-30: "Constitutional/Moderate" (LTC 1926) v "Constitutional" (1925, 1929).** The same
-  side: in 1926 the paper says "the 'Constitutional' or 'Moderate' party". Options: (a) keep the
-  DB's combined label (the chart shows it as its own band); (b) override the 1926 four to
-  "Constitutional". Election 84.
-
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
