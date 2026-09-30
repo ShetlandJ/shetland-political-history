@@ -9,6 +9,15 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-09-30: Party labels, ZCC 1890–1975 (`research/bna/party-labels-zcc-1890-1929.md`, `party-labels-zcc-1930-1975.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | 1973: nine Shetland Democratic Group members | Ten: William Thomson (Unst North) signed the group's pre-election statement (ST 4 May 1973) | Labelled |
+| 2 | wiki | 1949: seven Labour candidates | Only Anderson (Walls) labelled, as "Socialist-sponsored" | Open question |
+| 3 | wiki | 1919: Pottinger and W. Sinclair Labour | No label in the County Council reports | Open question |
+| 4 | wiki | 1901 Leslie, 1945 Hamilton, 1951 Prophet Smith: no label | "entirely independent", "the Independent Candidate", "his Socialist opponent" | Labelled |
+
 ## 2026-09-30: Party labels, LTC 1945–1975 (`research/bna/party-labels-ltc-1945-1975.md`)
 
 | # | Where | We had | Sources show | Status |

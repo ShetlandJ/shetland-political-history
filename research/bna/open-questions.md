@@ -294,6 +294,12 @@ A label row in `data/candidacy_labels.csv` that contradicts the DB fails the bui
   1919, but the County Council nominations and result give no label (ST 22 Nov–6 Dec 1919; search
   "labour county" found nothing). Options: (a) keep; (b) clear; (c) check the Shetland News of
   4 Dec 1919. Elections 443, 457. Evidence: `party-labels-zcc-1890-1929.md`.
+- **2026-09-30: The seven ZCC "Labour" candidates of May 1949.** Only James Anderson (Walls) is
+  labelled in the paper, as "a Socialist-sponsored candidate" (ST 29 Apr 1949 p7 a100). The other
+  six (Smith, Halcrow, Gilbertson, Williamson, Charleson, Bruce) have no label in the County
+  Council reports. Options: (a) keep all seven as Labour (the wiki's; Shetland News not checked);
+  (b) keep Anderson only; (c) override Anderson to "Socialist" as the paper's word. Elections
+  696–714. Evidence: `party-labels-zcc-1930-1975.md`.
 
 ## Answered
 
