@@ -127,3 +127,14 @@ Researched 2026-09-30 in the British Newspaper Archive (Shetland Times) for a na
 - **Correction to the notes above:** "JAMES ROBERTSON, Auctioneer" adverts to Jun 1912 and the fish salesman listed in 1913 postdate his death; they are another James Robertson (or the business trading on under the name). Not him.
 - **Bayanne** gives death 21 Jan 1911; the ST notice and obituary give Sunday 29 Jan 1911.
 - Shetland Archives: Series D1/524, Diaries of James Robertson [1873-1911].
+
+## Who was Rev. A. J. Campbell? (looked up 2026-09-30)
+The Very Rev. **Andrew James Campbell** D.D. (c.1875–1 May 1950), parish minister of Lerwick Mar 1902–autumn 1909, later Moderator of the General Assembly (1945). Not related to the ZCC Campbells (Rev. James Archibald Campbell, Fetlar, and his son Capt. John A. Campbell). No person row: he never stood for the Town or County Council, only the School Board.
+- ST 30 Nov 1901 p4 a055: "Rev. A. J. Campbell, B.A., of East Church, Aberdeen", first on the short leet, to preach at Lerwick Parish Church.
+- ST 1 Feb 1902 p4 a062: Lerwick Presbytery fixes his ordination for Fri 14 Mar 1902.
+- ST 1 Mar 1902 p4 a051: presentation at St Mary's Chapel, Aberdeen, after 19 months as East Parish assistant.
+- ST 11 Sep 1909 p4 a118: elected assistant and successor to Dr David Millar, St John's Parish Church, Glasgow (234 for, 16 against); "Parish Minister at Lerwick since March, 1902".
+- Aberdeen Press and Journal 2 May 1950 p6 a082 (BL/0000578): died in Edinburgh "yesterday", in his 75th year; son of John Campbell, Ardallie; Fettes and Cambridge; St John's Glasgow 20 years; Clerk to Glasgow Presbytery from 1929 for seven years; then Evie, Orkney; Moderator 1945.
+- Shetland News 4 May 1950 p5 a079 (BL/0003210) obituary "THE LATE DR. A. J. CAMPBELL": born Crathie, schoolmaster's son; St John's College, Cambridge (Classics); chaplain 52nd Division, Gallipoli and Egypt; author of *Two Centuries of the Church of Scotland*; DD Glasgow 1933; on the Union Committee to 1929; retired from Evie May 1948. In Lerwick: helped build St Clement's; a leading member of the School Board, often opposed to F. H. Pottinger; a member of the Lerwick Debating Society. Second wife Anna Mary Robertson M.A., daughter of William Robertson, Commercial Road, Lerwick.
+- ST 5 May 1950 p4 a062: "parish minister in Lerwick from 1902-1909", died in Edinburgh on Monday.
+- Discrepancies between the obituaries: SN says St John's came "eight years later" and Evie in "1926" (OCR, probably 1936); P&J says seven years in Lerwick. The ST of 1909 settles the Lerwick dates.

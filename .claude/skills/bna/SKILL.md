@@ -12,8 +12,11 @@ citations. You **propose** ledger/correction edits; you don't make them unless J
 The order of work is set by cost. Always try the cheaper step first:
 
 1. **Search-result snippets**: text only, cheap. Often enough on their own.
-2. **Article OCR** from the viewer's Articles panel: text, medium.
+2. **Article OCR** from the OCR endpoint (section 3), or the viewer's Articles panel: text, medium.
 3. **Zoomed screenshot** of the article: images, expensive. Last resort.
+
+For "what did the council do across these months" questions, skip search: list each issue's
+articles from its manifest and read the council report's OCR directly (section 3).
 
 ## Setup
 
@@ -95,7 +98,7 @@ Search URL (all parameters matter):
 https://www.britishnewspaperarchive.com/search-newspapers/results?keywords=<kw>&newspaper=shetland%20times&startdate=YYYY-MM-DD&enddate=YYYY-MM-DD&exactdate=true&o=date&d=asc
 ```
 
-`o=date&d=asc` gives oldest first. The Shetland Times has gaps (nothing 24 Apr–12 Jun 1915, or mid-May–June 1932). If a
+`o=date&d=asc` gives oldest first. The Shetland Times has gaps (nothing 24 Apr–12 Jun 1915, 9 Feb 1918, or mid-May–June 1932; the Shetland News covers the 1915 gap, with Town and County reports on p4 or p8). If a
 week returns 0 results, try `newspaper=shetland%20news` (viewer code `0003210` instead of `0000666`). For a single issue, set startdate = enddate = the publication
 day (**Monday to 15 Mar 1875**, Saturday from 20 Mar 1875 to at least Feb 1943; **Friday by Oct 1944**).
 
@@ -130,6 +133,9 @@ for 1953–64).
 - A Provost due to retire stayed on, and someone else retired in his place (the Clerk,
   October 1937: "as the Provost was not retiring at this time, Mrs Nicol, after two years, had
   to retire").
+- **WWI (1914–18)**: the same Tuesday monthly meeting, but it moved to a Friday when the Tuesday
+  was New Year's Day (Fri 4 Jan 1918), and the Nov 1917 statutory meeting was "on Friday at
+  noon". No generals were held; vacancies were filled by appointment at a monthly meeting.
 
 ### Zetland County Council timing (learned from 1890–1899)
 
@@ -140,6 +146,11 @@ for 1953–64).
   **appointments by the Council on a ratepayers' petition** at that meeting, not polls; figures in
   the wiki can be petition signatures (Burra 1898). The report is headed with the ward
   ("Appointment of a representative for ...") under "Zetland County Council".
+- **1914–18**: monthly on the third Thursday or so; in April it met a week late because of the Fast
+  Day (Sutherland queried whether that was legal, Apr 1916). From about Nov 1916 the Saturday
+  paper says "on Thursday (yesterday)": the copy was written on Friday, and the meeting is still
+  the Thursday before. The report runs straight on into the **County Road Board** and the
+  **Mainland District Committee**, which sat afterwards the same day; read those too.
 - **From the re-constituted Council of May 1930 it met on Tuesdays** (checked 1930–38); before
   that Thursdays (1920–29). The day is in the report's first line ("held ... on Tuesday"), often a
   separate sub-article from the appointment ("NEW MEMBER FOR ...", "VACANCIES FILLED").
@@ -194,6 +205,47 @@ Each result gives: headline, the first ~300 characters of OCR, date, page. If a 
 the question (it did for the Jan 1941 Williamson co-option), stop here and cite it.
 
 ## 3. Read the article OCR
+
+### Fastest: the viewer's own endpoints (no clicking)
+
+From any britishnewspaperarchive.com tab (the fetches use James's session), two same-origin
+endpoints give you the text directly. `code` is `0000666` for the Shetland Times, `0003210` for
+the Shetland News.
+
+- **Issue manifest**: `/titan/marshal/obscura/api/manifest/{code}/YYYYMMDD` lists every article
+  in the issue: `structures[]` with `@id` ending `artNNNN`, `label` (the OCR headline) and
+  `canvases[0]`, whose `_NNNN.jp2` is the page. **A 404 means the issue isn't digitised**, which
+  proves a gap. Use it to find a council report without searching, and to see all its sub-headings.
+- **Article OCR**: `/titan/marshal/obscura/api/ocr/lines/BL/{code}/YYYYMMDD/NNN/PPPP` (3-digit
+  article, 4-digit page) returns JSON lines; join `LineText`.
+
+```js
+window._ocr = async (ds, art, page, code='0000666') => { const r = await fetch(`/titan/marshal/obscura/api/ocr/lines/BL/${code}/${ds}/${String(art).padStart(3,'0')}/${String(page).padStart(4,'0')}`); if(!r.ok) return '[ocr '+r.status+']'; return (await r.json()).map(x=>x.LineText).join('').replace(/-\s+(?=[a-z])/g,'').replace(/\s+/g,' ').trim(); };
+window._arts = async (ds, code='0000666') => { const r = await fetch(`/titan/marshal/obscura/api/manifest/${code}/${ds}`); if(!r.ok) return null; return (await r.json()).structures.map(s=>({a:+(s['@id'].match(/art(\d+)/)||[])[1], l:String(s.label||'').trim(), p:+((s.canvases||[''])[0].match(/_(\d{4})\.jp2/)||[])[1]})); };
+```
+
+The search results page can't be fetched this way (it's built in the browser); search still
+needs navigate + wait.
+
+**Finding council reports in a manifest.** A report is a heading article followed by sub-heading
+articles with consecutive ids on the same page (ALL-CAPS labels: "FINANCIAL", "CHIEF CONSTABLE'S
+REPORT"). It ends at a village heading (WHALSAY, SANDWICK), a church or school report, casualty
+news or shipping news. Headline OCR is poor: match loosely, e.g.
+`/(town|county)\s*c\S{0,3}n\S{0,2}l|[lz]etland count/i` (seen: "Ceuncil", "Couneil", "Gouneil",
+"Co;mcil", "Connc", "Letland County"), and exclude other burghs ("Leith", "Wick", "Finchley") and
+p1 notices. In 1915 the County report is headed "Meeting of County Council". Now and then the
+heading is merged into the article before it ("Local and District News ... Zetland County
+Council"): `search(/monthly meeting/i)` in that article's text.
+
+**Getting long text out.** Tool output is capped at about 1,000 characters per call, but each
+`browser_batch` item gets its own cap. Keep the text in `window`, and read it with a batch of
+10–15 `javascript_tool` calls that each return the next 950-character slice. Any script that runs
+over about 45 seconds times out the call: start long loops without awaiting them, write results
+to `window` or `localStorage` (which survives navigation), and check back. Don't try other ways
+out: posting to a local server brings up a Chrome local-network prompt, and clipboard copies made
+with simulated key presses never reach the Mac.
+
+### Through the viewer (when you need to see the page)
 
 Links can't be read via JavaScript (hrefs with query strings are blocked), so:
 
@@ -253,6 +305,9 @@ James a summary at the end, not a running commentary.
 
 - Targeted lookups at a normal reading pace, in James's session, for his research. No bulk
   downloading, no scraping loops over hundreds of pages.
+- A manifest sweep (contents lists only) is fine for a question that covers a date range, such as
+  every meeting in 1914–18 (227 issues). Keep it to that range, pace it at about one request a
+  second, and fetch OCR only for the articles you need.
 - Keep quotes short in anything you write back to the repo or the chat.
 - After 2–3 searches that turn up nothing, report what you tried (keywords, date ranges) and
   suggest where to look next, rather than widening endlessly.
