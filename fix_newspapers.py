@@ -564,7 +564,8 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    unanimous verdict for Greig, £300 (Caledonian Mercury 10 Jun, Inverness Courier 14 Jun,
    Chronicle 20 Jun and 20 Sep 1826). Edmondston gets a biography (he had none; his intro already
    calls him "notoriously litigious") and Greig's gains a paragraph. Ogilvy chaired the 1836
-   Lerwick meeting on the Peterhead mail packet (Shetland Journal, 10 Sep 1836). Evidence:
+   Lerwick meeting on the Peterhead mail packet (Shetland Journal, 10 Sep 1836) and led the
+   coronation procession of 1838 (Orkney and Shetland Journal, 1 Jun and 1 Aug 1838). Evidence:
    research/bna/ltc-pre-1872-press.md.
 """
 
@@ -1013,7 +1014,12 @@ BIO_ADDITIONS = [  # (slug, text the addition follows, addition) (#72)
      "Peterhead packet had been kept a week at Peterhead loading cargo for its contractors, and "
      "asked for the contract to be opened to public competition. [person:arthur-anderson:Arthur "
      "Anderson]'s Shetland Journal printed the resolutions while saying it did not entirely "
-     "agree: Anderson wanted the Government to pay a steamer to carry the mail."),
+     "agree: Anderson wanted the Government to pay a steamer to carry the mail. Anderson got his way "
+     "in 1838, when the Sovereign was taken up to carry the mail weekly, and the Bailies agreed "
+     "to the burgesses' request that the town be illuminated for her first arrival in April. On "
+     "Queen Victoria's coronation day, 28 June 1838, Ogilvy as Chief Magistrate and "
+     "[person:gilbert-duncan:Gilbert Duncan] as Junior Bailie led the town's procession round "
+     "the flagstaff at Fort Charlotte."),
 ]
 YORSTON_DEATH_PLACE = ('james-yorston', 'Lerwick', 'Leith')  # (#71)
 PATERSON_DEATH = ('gilbert-paterson', '1828-04-05', '1828-04-08')  # (#71)

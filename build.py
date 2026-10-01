@@ -121,6 +121,7 @@ PUBLICATIONS = {
     # Older titles, for councillors who died before the Shetland Times began (1872)
     'orkney-zetland-chronicle': ('Orkney & Zetland Chronicle', 'ozc', '0006124'),
     'shetland-journal': ('Orkney and Shetland Journal', 'osj', '0005738'),
+    'orkney-shetland-journal': ('Orkney and Shetland Journal', 'osj', '0005737'),  # 1838-39, a separate BNA run
     'john-o-groat-journal': ("John o' Groat Journal", 'jogj', '0000459'),
     'northern-ensign': ('Northern Ensign', 'ne', '0002561'),
     'scotsman': ('The Scotsman', 'scot', '0000540'),

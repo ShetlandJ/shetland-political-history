@@ -132,3 +132,30 @@ other way round.
 Supports: no ledger row changes. The proclamation is the only council act found in the 1837–38
 gap; it could go in the open-questions file if James wants it on the site (e.g. a sentence in
 Charles Ogilvy (ii)'s biography).
+
+## 3. Orkney and Shetland Journal (`0005737`, Jan 1838 – Aug 1839), swept whole 2026-10-01
+
+Anderson's paper renamed, now covering Orkney too: 20 monthly issues, the 1st of each month
+(the other days of Dec 1837 – Jun 1840 probed: none), 786 articles read. Less Shetland news
+than in 1836–37, and still no council meeting or election, not even the 6 Sep 1838 general.
+Two items fall in the minute book's silence of 22 May 1837 – 6 Sep 1838:
+
+**Orkney and Shetland Journal, 1 Jun 1838, p6 (art. 031): "Celebration at Lerwick of the
+establishment of a steam packet communication"**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0005737%2F18380601&page=0006&article=031
+The Sovereign, "taken up by Government for the weekly conveyance of the Shetland Mail", was
+expected on 25 April 1838. "The Burgesses of this town presented a requisition to the Baillies,
+that the town might be illuminated", which they "immediately sanctioned"; on the Tuesday night
+(24 Apr) the bellman was sent round. The end of the 1836–37 mail quarrel, Anderson's way.
+
+**Orkney and Shetland Journal, 1 Aug 1838, p6 (art. 025): "The Coronation Day at Lerwick"**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0005737%2F18380801&page=0006&article=025
+At the last minute "Notices were accordingly issued by the Magistrates, calling a general
+meeting of the burgesses"; it chose a procession and a half-holiday. At seven the procession,
+headed by "Charles Ogilvy, Esq., Chief Magistrate, and Gilbert Duncan, Esq. Junior Bailie",
+went round the flagstaff in Fort Charlotte to a salute of cannon, then to the Subscription Rooms
+to drink the Queen's health. Coronation day was Thursday 28 June 1838 (`inferred`; the article
+gives no date).
+
+Supports: the 1835 rows for `charles-ogilvy-ii` and `gilbert-duncan` (both Bailies, still sitting
+in June 1838; `read`), and the Ogilvy biography addition (#72).

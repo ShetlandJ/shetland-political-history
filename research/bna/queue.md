@@ -278,7 +278,7 @@ these titles that report Lerwick (codes for the OCR/manifest endpoints):
 | Title | Code | Run in the BNA | Notes |
 |---|---|---|---|
 | Orkney & Zetland Chronicle | `0006124` | Jan 1825–Sep 1826, monthly, 13 issues | Printed in Edinburgh (John Moir). Issues found: 1825-01-31, 02-28, 03-31, 04-30, 05-31, 06-30, 08-24, 09-30, 10-31, 11-30, 12-31; 1826-06-20, 09-20 (probed the last day, 20th and 24th of each month 1824–27) |
-| Orkney and Shetland Journal | `0005738` / `0005737` | Jun 1836–Sep 1837 / Jan 1838–Aug 1839, ~30 issues | 1836–37 is Arthur Anderson's Shetland Journal (Lerwick). Issues found: 1836-06-11, 09-10, 11-12 (not probed: other days in 1836); 1837-01-02, then the 1st of Feb–Sep 1837 and Jan 1838–Aug 1839 (probed the 1st, 10th, 11th) |
+| Orkney and Shetland Journal | `0005738` / `0005737` | Jun 1836–Nov 1837 / Jan 1838–Aug 1839, 34 issues | 1836–37 is Arthur Anderson's Shetland Journal (Lerwick). Issues found: 1836-06-11, 09-10, 11-12 (not probed: other days in 1836); 1837-01-02, then the 1st of Feb–Sep 1837 and Jan 1838–Aug 1839 (probed the 1st, 10th, 11th) |
 | John o' Groat Journal | `0000459` | 1836 on, weekly (Fri) | Wick. "Zetland"/"Lerwick" letters, deaths, notices |
 | Northern Ensign | `0002561` | 1850s on, weekly (Thu) | Wick. Lerwick correspondent's letters |
 | Orkney Herald | (find code) | 1860 on | Kirkwall |
@@ -290,6 +290,6 @@ so filter snippets in JS for the surname/place. Snippet text is sometimes better
 OCR (Courant 24 Apr 1828). The two small runs (Chronicle, Journal) can be swept whole: list each
 manifest, read every article's OCR, keep those matching the patterns below.
 
-- [ ] **Sweep the Chronicle and the Shetland Journal whole** for town council business: `town council|magistrat|bailie|provost|burgh|council|commissioners of police|feuars|police|election`, plus `lerwick`. Record each item (meeting, election, dispute, office-bearers) in `research/bna/ltc-pre-1872-press.md`, and check it against the 1818–1871 ledger rows and `ltc-1818-1871-minute-book.md`.
+- [x] **Sweep the Chronicle and the Shetland Journal whole** (done 2026-10-01: all 13 Chronicle issues, the 14 Shetland Journal issues of 1836–37 incl. 4 Mar, 31 Oct and 30 Nov 1837, and the 20 of 1838–39, ~2,000 articles. No council meeting or election reported in any. What they add: Greig v Edmondston (libel, Jury Court 7 Jun 1826, £300), Ogilvy's 1836 mail meeting, the 1837 proclamation and 1838 illumination and coronation, the last three in the book's 1837–38 gap. #72; two 1835 rows sourced. 0 issues (7). `ltc-pre-1872-press.md`)
 - [ ] **John o' Groat Journal 1836–1871 and Northern Ensign**: search, not sweep (weekly for 35 years). Keywords `lerwick` + `council`, `magistrates`, `bailie`, `provost`, `municipal`, `burgh`, one year at a time; September (the annual election, first Tuesday) and November first. Also `police commissioners` after the 1833 Burgh Police Act.
 - [ ] **Scottish dailies** (Caledonian Mercury `0000045`, Scotsman `0000540`, Edinburgh Evening Courant `0001060`, Aberdeen Journal `0000031`, Inverness Courier `0000446`): `lerwick` + `magistrates`/`council` for disputes, court cases and the 1818 and 1833 burgh reforms.
