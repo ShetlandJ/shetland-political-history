@@ -587,6 +587,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    date the fire 23 May, which the letter of 15 May rules out. Not in FreeCEN's 1841 census of
    Shetland. Nothing in Chronicling America's Louisiana papers 1830-50 or on Find a Grave.
    Bayanne's link to Jane Nicolson is left out. Evidence: research/bna/biographies-ltc-1818-1850.md.
+75. Sandsting, December 1945: Simon Garriock, not William Henry. Henry resigned in May 1945 and
+   agreed to stay on "till the elections in December this year" (Shetland Times, 25 May and 24 Aug
+   1945). The Sandsting nominees were Simon Garriock, John Sutherland and John T. Henry (16 Nov
+   1945); Sutherland won Aithsting, and Garriock sat from the first meeting (21 Dec 1945). The
+   wiki's William Henry is probably the district council poll ("William Henry, 75", 7 Dec 1945).
+   Both intros already had Henry to 1945 and Garriock from 1945. Evidence:
+   research/bna/zcc-1940-1959.md.
 """
 
 import os
@@ -1212,6 +1219,8 @@ AITHSTING_1973 = ('County Council Election May 1973', 'Aithsting', ('Peter F. M.
 NORTHMAVINE_SOUTH_1970 = ('County Council Election May 1970', 'Northmavine South', 'Hugh Sutherland', 'hugh-sutherland',
                           'Robert Balfour', 'robert-balfour')
 NORTHMAVINE_SOUTH_1972 = ('Northmavine South County Council By-Election June 1972', 'Hugh Sutherland', 'Robert Balfour')
+SANDSTING_1945 = ('County Council Election December 1945', 'Sandsting', 'William Henry', 'william-henry',
+                  'Simon Garriock', 'simon-garriock')
 ZCC_INTROS_1970 = [
     ('robert-balfour', 'Northmavine South between 1955 and 1967', 'Northmavine South between 1955 and 1972'),
     ('hugh-sutherland', 'then for Delting South, and finally for Northmavine South.', 'then for Delting South.'),
@@ -2180,6 +2189,21 @@ def main():
             print(f"  {slug}: uncle -> cousin")
         else:
             raise SystemExit(f"people.{slug} intro doesn't contain {wrong!r} once")
+
+    print("=== 75. Sandsting 1945: Garriock, not William Henry ===")
+    title, ward, wrong_name, wrong_slug, right_name, right_slug = SANDSTING_1945
+    eid = one(c, """SELECT e.id FROM elections e JOIN constituencies k ON k.id = e.constituency_id
+                   WHERE e.wiki_page_title = ? AND k.name = ?""", (title, ward))['id']
+    wrong_pid = one(c, "SELECT id FROM people WHERE slug = ?", (wrong_slug,))['id']
+    right_pid = one(c, "SELECT id FROM people WHERE slug = ?", (right_slug,))['id']
+    cand = one(c, "SELECT id, person_id, candidate_name FROM candidacies WHERE election_id = ?", (eid,))
+    if (cand['person_id'], cand['candidate_name']) == (wrong_pid, wrong_name):
+        c.execute("UPDATE candidacies SET person_id = ?, candidate_name = ? WHERE id = ?", (right_pid, right_name, cand['id']))
+        print(f"  candidacy {cand['id']}: {wrong_name} -> {right_name}")
+    elif (cand['person_id'], cand['candidate_name']) == (right_pid, right_name):
+        print(f"  candidacy {cand['id']}: already {right_name}")
+    else:
+        raise SystemExit(f"candidacy {cand['id']}: unexpected {cand['candidate_name']!r}")
 
     db.commit()
     db.close()

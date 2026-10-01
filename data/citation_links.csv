@@ -1876,7 +1876,7 @@ st-19451123-p2-a034,election,679,read,contests
 st-19451116-p2-a048,election,680,read,nominations
 st-19451207-p2-a049,election,680,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
 st-19451123-p2-a034,election,680,read,contests
-st-19451116-p2-a048,election,681,read,nominations
+st-19451116-p2-a048,election,681,read,"Sandsting nominees Garriock, Sutherland, John T. Henry; not William Henry (fix_newspapers.py #75)"
 st-19451207-p2-a049,election,681,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
 st-19451123-p2-a034,election,681,read,contests
 st-19451116-p2-a048,election,682,read,nominations
@@ -2914,3 +2914,8 @@ cm-18240603-p3-a011,person,james-ogilvy:biography,read,"fire of May 1824: house,
 ic-18240610-p4-a014,person,james-ogilvy:biography,read,"fire on 12 May 1824 (the Mercury's OCR of the day is unreadable)"
 ne-18640526-p4-a071,term,andrew-grierson-ii@1862-09-04,read,Bailie Grierson in the chair 17 and 21 May 1864
 apj-18640514-p3-a078,term,joseph-leask@1862-09-04,inferred,the magistrates censured in May 1864 were the 1862 Bailies Leask and Grierson
+st-19450525-p3-a059,person,william-henry:intro,read,resigned May 1945; asked to stay until the December election
+st-19450824-p3-a059,person,william-henry:intro,read,agreed to continue until the election
+st-19451221-p3-a052,person,simon-garriock:intro,read,Garriock sitting at the first meeting of the new Council
+st-19460125-p3-a044,person,simon-garriock:intro,read,Garriock sitting
+st-19451221-p3-a052,election,681,inferred,"Garriock sat and no Henry did, so Garriock was the Sandsting member (fix_newspapers.py #75)"

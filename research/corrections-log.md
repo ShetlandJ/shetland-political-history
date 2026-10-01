@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-01: ZCC Sandsting, December 1945 (`research/bna/zcc-1940-1959.md` §1)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | **William Henry** returned for Sandsting in Dec 1945 | Henry resigned in May 1945 and agreed to stay "till the elections in December" (ST 25 May, 24 Aug 1945). The nominees were Garriock, Sutherland and **John T. Henry** (ST 16 Nov 1945); **Simon Garriock** sat from 21 Dec 1945. The "William Henry, 75" on 7 Dec is the district council poll | Fixed (`fix_newspapers.py` #75). The two intros already had it right |
+
 ## 2026-10-01: Pre-1872 press sweep (`research/bna/ltc-pre-1872-press.md`)
 
 | # | Where | We had | Sources show | Status |
