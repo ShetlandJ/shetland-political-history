@@ -240,3 +240,86 @@ Nov 1867 burgesses' meeting making the magistrates and council the police commis
 
 Supports: citations for elections 9, 11–20 (`data/citations.csv`, `citation_links.csv`), and
 Hunter's 1844 row. No ledger row changes.
+
+## 5. Scottish dailies, searched 2026-10-01
+
+The Scotsman (`0000540`), Caledonian Mercury (`0000045`), Edinburgh Evening Courant (`0001060`),
+Inverness Courier (`0000446`) and Aberdeen Journal (`0000031`), for disputes, court cases and the
+1818 and 1833 burgh changes. Method: the phrases `"magistrates of lerwick"` (46 hits, all
+titles), `"town council of lerwick"` (7) and `"bailies of lerwick"` (5), 1800–1871; `lerwick
+"burgh of barony"` 1815–40 (25); `lerwick magistrates` over the whole Scotsman (69) and Courant
+(88) runs 1818–71, and `lerwick bailies` over the Mercury (107); with the OCR of every hit read
+round each "Lerwick" for the council. The BNA doesn't hold quoted phrases strictly (it stems
+and matches words apart), so most hits were shipping lists and reprints.
+
+**What they don't have.** Nothing on the 1818 charter or the first election (searched
+Oct 1817 – Dec 1818), nor on the election-procedure dispute with Mr Erskine in the minute book
+(p17–19). Nothing on Lerwick adopting the 1833 Police Act (3 & 4 Will. IV c. 46); the
+council's 1867 requisition shows parts of it in force by then. No court case with the
+magistrates or council as a party. The one lawsuit between councillors is Greig v Edmondston
+(1826, §1), which the Mercury and the Courier reported. So the dailies add nothing to the
+ledger.
+
+**What they add (council acts and colour):**
+
+**The Scotsman, Sat 1 Mar 1823, p4 (art. 025)**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000540%2F18230301&page=0004&article=025
+An Edinburgh hosier's advert for Zetland hose mentions the pair "presented to his Majesty when
+in Edinburgh, by the Magistrates of Lerwick" (George IV's visit, August 1822). The minute book
+has the council's loyal address of 12 Aug 1822, sent through Sir Walter Scott (p25–26), but no
+gift. Council at the time: the 1820 council (Bailies Edmondston and G. Duncan).
+
+**The Scotsman, Wed 8 Jun 1836, p2 (art. 040); also Caledonian Mercury Sat 18 Jun 1836 p4
+art. 013; John o' Groat Journal Fri 1 Jul 1836 p5 art. 010**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000540%2F18360608&page=0002&article=040
+Sir Andrew Leith Hay's Burghs of Barony Bill: Lerwick in the "Second Class", to have a Provost,
+two Bailies, a Treasurer and nine Councillors. Later prints (Aug 1836, Apr 1837) give Lerwick two
+Bailies, a Treasurer and eight or six Councillors. The Lerwick council stayed at two Bailies and
+nine councillors to 1871 (minute book), so the bill didn't change it. Context only.
+
+**Inverness Courier, Wed 20 Jan 1847, p2 (art. 011)** (the same paragraph in the Scotsman
+23 Jan, Mercury 25 Jan 1847 and a dozen other papers)
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000446%2F18470120&page=0002&article=011
+"Joseph Leask, Esq., senior magistrate of Lerwick", has heard from Arthur Anderson, who will put
+up to £3,000 towards stimulating the winter fishing in the famine. Leask was elected Junior
+Bailie in 1844 (p105) and Gifford of Busta, elected Bailie, didn't accept (p107), so Leask was
+the senior magistrate by Jan 1847. Supports `joseph-leask@1844-09-05` (`read`: sitting, as
+senior magistrate).
+
+**Edinburgh Evening Courant, Tue 27 Jan 1857, p3 (art. 054)** (from the John o' Groat Journal)
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0001060%2F18570127&page=0003&article=054
+The King of the Netherlands has made "Charles G. Duncan, Esq., chief magistrate of Lerwick" a
+Knight of the Order of the Oaken Crown, for his services as Consul and his attention to the
+Prince of Orange on his visit to Lerwick in the autumn of 1856. Supports the knighthood in
+`charles-duncan`'s biography (`read`). The Edinburgh Evening Post (31 Jan 1857) dates the visit
+to August. The Belgian flag was saluted for him as Belgian consul when the Channel Fleet called
+in July 1861 (Inverness Courier and others, 19 Jul 1861).
+
+**The Scotsman, Thu 7 Oct 1869, p2 (art. 054): "Lerwick—News Notes"**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000540%2F18691007&page=0002&article=054
+The town trust: the trust deed of 1817 bound the heritors' trustees to denude in favour of the
+Magistrates and Town Council if Lerwick became a burgh of barony and the heritors at large asked.
+A meeting the week before voted on a motion to that effect, and it "was lost by a majority of
+one", the trustees' friends having collected mandates from absent and women proprietors. The
+John o' Groat Journal (2 Sep 1869 p3 art. 018) has the committee set up to take counsel's
+opinion. The minute book describes the trust (p174). Colour; no ledger row.
+
+**The Scotsman, Mon 11 Sep 1871, p7 (art. 143): "Lerwick—Town Council"**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000540%2F18710911&page=0007&article=143
+The triennial election "took place on Thursday": C. G. Duncan re-elected Chief Magistrate, John
+Robertson Junior Bailie; councillors Laurenson, J. Robertson jun., C. Robertson, Linklater,
+Stout, Merrylees, Tait, Anderson and L. G. Stove. All nine as in the minute book (p237–239) and
+the JoGJ (§4). Supports election 20 (`read`).
+
+Not cited (outside the five titles): the 1820 London Gazette notice of "a loyal Address from the
+Burgesses and other Inhabitants of the Burgh of Barony of Lerwick, voted before his Majesty's
+Accession" (London papers `0002408`, `0002631`, 23–24 Feb 1820), which agrees with the minute
+book's 19 Jan 1820 meeting (p19–20); and a Lerwick paragraph of 14 May 1864 (`0000772` p3 art.
+078) saying the Commissioners of Police and Town Council had passed "a vote of censure on their
+magistrates" for keeping the Zetland Road Bill from them until it was through the Commons, and
+would oppose it in the Lords. Neither "censure" nor "Road Bill" appears in the minute-book
+transcripts; worth a look at the book's pages for spring 1864.
+
+Not done: the Inverness Courier (`lerwick bailies`, 102 hits) past the first page, and the
+Aberdeen Journal (the `newspaper=aberdeen%20journal` filter returned nothing; the title's filter
+name needs finding).
