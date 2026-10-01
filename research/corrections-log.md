@@ -24,7 +24,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 1 | wiki | James Yorston died at Lerwick | At Leith, 10 Feb 1849, of typhus; his wife two days before (Hampshire Telegraph 17 Feb, Dover Telegraph 24 Feb 1849) | Fixed (#71) |
 | 2 | wiki | Gilbert Paterson died 5 Apr 1828 | 8 Apr (Edinburgh Evening Courant 24 Apr, Perthshire Courier 1 May 1828) | Fixed (#71) |
 | 3 | wiki | Archibald Greig died 11 Oct 1852 | 12 Oct (Edinburgh Evening Post 27 Oct, Morning Chronicle and Londonderry Standard 28 Oct 1852) | Fixed (#71) |
-| 4 | wiki | James Ogilvy is the uncle of Charles (ii) and John | His own intro makes him their cousin (nephew of Charles (i)) | Open question |
+| 4 | wiki | James Ogilvy is the uncle of Charles (ii) and John | Their first cousin: his father Thomas (1762-1819) was Charles (i)'s brother (Bayanne I18310, I18309, F2643) | Fixed (#73) |
 
 ## 2026-10-01: Biographies for ten more councillors (`research/bna/biographies-1950s-1980s.md`)
 

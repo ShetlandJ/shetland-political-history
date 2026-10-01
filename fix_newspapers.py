@@ -568,6 +568,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Lerwick meeting on the Peterhead mail packet (Shetland Journal, 10 Sep 1836) and led the
    coronation procession of 1838 (Orkney and Shetland Journal, 1 Jun and 1 Aug 1838). Evidence:
    research/bna/ltc-pre-1872-press.md.
+
+73. James Ogilvy was a first cousin of Charles Ogilvy (ii) and John Ogilvy, not their uncle. The
+   intros of Charles (ii) and John called him their uncle; his own intro called Charles (i) his
+   uncle. Bayanne settles it: James (I18310, b. 29 Nov 1794) was a son of Thomas Ogilvy (I18309,
+   1762-1819) and Andrina Malcolmson, and Thomas and Charles (i) (I7816, b. 1761) were both sons
+   of Thomas Ogilvy and Charlotte Willamina Neven (family F2643). Checked 2026-10-01. The two
+   intros now say "cousin". Raised in research/bna/open-questions.md.
 """
 
 import os
@@ -1021,6 +1028,10 @@ BIO_ADDITIONS = [  # (slug, text the addition follows, addition) (#72)
      "Queen Victoria's coronation day, 28 June 1838, Ogilvy as Chief Magistrate and "
      "[person:gilbert-duncan:Gilbert Duncan] as Junior Bailie led the town's procession round "
      "the flagstaff at Fort Charlotte."),
+]
+OGILVY_COUSIN = [  # (slug, wrong, right) (#73)
+    ('charles-ogilvy-ii', 'his uncle [person:james-ogilvy:James]', 'his cousin [person:james-ogilvy:James]'),
+    ('john-ogilvy', 'his uncle [person:james-ogilvy:James]', 'his cousin [person:james-ogilvy:James]'),
 ]
 YORSTON_DEATH_PLACE = ('james-yorston', 'Lerwick', 'Leith')  # (#71)
 PATERSON_DEATH = ('gilbert-paterson', '1828-04-05', '1828-04-08')  # (#71)
@@ -2128,6 +2139,17 @@ def main():
             print(f"  {slug}: biography extended")
         else:
             raise SystemExit(f"people.{slug} biography doesn't contain the expected text once")
+
+    print("=== 73. James Ogilvy was the cousin, not the uncle, of Charles (ii) and John ===")
+    for slug, wrong, right in OGILVY_COUSIN:
+        row = one(c, "SELECT id, intro FROM people WHERE slug = ?", (slug,))
+        if right in row['intro']:
+            print(f"  {slug}: already cousin")
+        elif row['intro'].count(wrong) == 1:
+            c.execute("UPDATE people SET intro = ? WHERE id = ?", (row['intro'].replace(wrong, right), row['id']))
+            print(f"  {slug}: uncle -> cousin")
+        else:
+            raise SystemExit(f"people.{slug} intro doesn't contain {wrong!r} once")
 
     db.commit()
     db.close()
