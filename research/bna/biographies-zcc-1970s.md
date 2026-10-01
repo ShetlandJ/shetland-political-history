@@ -14,7 +14,8 @@ Findings:
 - **Arthur Irvine (ii) died on 26 April 1995, not the 25th** (death notice, ST 12 May 1995). The
   notice doesn't print the year; it's the only April before the issue. `died_date` fixed (#69).
 - **Robert Balfour's age at death doesn't fit his birth date.** The notice says "aged 73"; born
-  28 Jan 1901 he'd have been 74. Not changed. In open-questions.
+  28 Jan 1901 he'd have been 74. Closed 2026-10-01: James's call is to trust Bayanne (I91291),
+  the source of the wiki's date, so 1901-01-28 stays and the notice's age is taken as wrong.
 - **Iain Caldwell was managing director of the Nordport Company Ltd** in 1973, which planned an oil
   complex based mainly at Graven, Sullom Voe. The wiki only has the knitwear firm.
 - **John Laurenson, member for Fetlar, lived in Scalloway** and was a GPO engineer (1973
