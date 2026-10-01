@@ -135,6 +135,7 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    poet was. Evidence: research/bna/james-inkster-delting.md. That leaves the poet a candidate-only
    person, so (James, 2026-10-01) his page stays but the 1903 candidacy is unlinked from it and
    its name becomes a link to his Bayanne entry (I89755).
+   James T. A. Inkster's Find a Grave memorial is 284881134 (given by James, 2026-10-01).
 """
 
 import os
@@ -488,8 +489,8 @@ def main():
         print(f"  exists: james-t-a-inkster (id {merchant})")
     else:
         c.execute("""INSERT INTO people (name, slug, born_date, died_date, birth_place, death_place, intro,
-                     biography, bayanne_id, categories, born_in_shetland, died_in_shetland)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)""",
+                     biography, bayanne_id, categories, born_in_shetland, died_in_shetland, findagrave_id)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, 284881134)""",
                   ('James T. A. Inkster', 'james-t-a-inkster', '1854-12-23', '1907-03-30', 'Brae', 'Brae',
                    "James Thomas Anderson Inkster was a merchant at Brae and County Councillor for Delting "
                    "North.",
