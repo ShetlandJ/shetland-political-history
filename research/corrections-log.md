@@ -399,3 +399,10 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 2 | notes | The council sat at **11 from 1912 until 1919** | **12 throughout.** The retiring lists and attendance for 1912, 1913 and 1914 add up to 12 | Fixed |
 | 3 | notes | At the Nov 1912 election **all 5 got full terms**, with no short-term re-standing | John Smith (i)'s 1912 seat was a **two-year** one (retired and re-elected in 1914), and **Goodlad retired a year early** in 1913. The papers don't say why | Ledger fixed |
 | 4 | draft | Provost Arthur Laing's seat ended Nov 1912, and Loggie sat until Nov 1913 | Laing **stayed on as Provost until Nov 1913**. Loggie retired in his place in Nov 1912. The same "Provost stays on" rule as 1932 and 1937 | Ledger fixed. The wiki profiles were already right |
+
+## 2026-10-01: LTC generals 1841–1871 in the Wick papers (`research/bna/ltc-pre-1872-press.md` §4)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | ledger (from the minute book) | Sept 1850 general on **Fri 6 Sep 1850** (mb p123: "the sixth day") | John o' Groat Journal 13 Sep 1850: "On Thursday the 5th instant"; every other general was a Thursday | Open (open-questions); not changed |
+| 2 | ledger (from the minute book) | 1856 councillor **John Robertson (i)** (mb p145: "Senior") | John o' Groat Journal 12 Sep 1856: "John Robertson, jun., fishcurer" | Open (open-questions); not changed |

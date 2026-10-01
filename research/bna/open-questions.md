@@ -228,6 +228,21 @@ Format: date raised, the question, the options, the evidence file, the row it af
   `bef 1790`. Nothing found in the papers. Options: keep, or take the wiki's "abt 1776". Evidence:
   `biographies-ltc-1818-1850.md`.
 
+- **2026-10-01: The Sept 1850 general: Thursday 5th or Friday 6th?** The minute book dates it
+  "the sixth day of September" 1850 (p123), a Friday; the ledger and election 13 follow it. The
+  John o' Groat Journal (Fri 13 Sep 1850 p3 art. 013) has "On Thursday the 5th instant", and
+  every other general 1826–1871 was on a Thursday. The Northern Ensign's report (12 Sep 1850)
+  loses the day in the OCR. Options: keep the 6th (the book is the record), or check the book's
+  page image for the date and the 2 Sep notice. Evidence: `ltc-pre-1872-press.md` §4. Rows:
+  election 13 and its 11 ledger rows (1850-09-06).
+
+- **2026-10-01: 1856: which John Robertson?** The minute book's 1856 councillors include "Mr
+  John Robertson (Senior)" (p145), so the ledger has `john-robertson-i@1856-09-04`. The John
+  o' Groat Journal (12 Sep 1856 p3 art. 023) lists "John Robertson, jun., fishcurer" instead.
+  Robertson (ii) first sits in 1859 in the ledger, when both were elected. Options: keep (i),
+  the book is explicit, or check which of them was a fishcurer. Evidence:
+  `ltc-pre-1872-press.md` §4. Row: `john-robertson-i` 1856-09-04.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)

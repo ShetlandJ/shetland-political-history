@@ -159,3 +159,65 @@ gives no date).
 
 Supports: the 1835 rows for `charles-ogilvy-ii` and `gilbert-duncan` (both Bailies, still sitting
 in June 1838; `read`), and the Ogilvy biography addition (#72).
+
+## 4. John o' Groat Journal (`0000459`) and Northern Ensign (`0002561`), searched 2026-10-01
+
+Wick weeklies with a Lerwick correspondent ("ZETLAND" or "SHETLAND" in the JoGJ, "LERWICK" in
+the Ensign). The JoGJ came out on Fridays to the 1850s and on Thursdays by 1859; the Ensign (in
+the BNA as "Northern Ensign and Weekly Gazette", from 1850) on Thursdays. Method: (a) the
+manifest of every issue from 1 Sep to 31 Oct of each general year, 1838–1871 (Ensign 1850–71),
+with the OCR of each Zetland/Lerwick/local-news article read for the council; for 1838, 1841
+and 1859, where that found nothing, every article from p2 on to mid-October; (b) the search
+`lerwick council` over the Ensign 1850–71 (165 hits) and over the JoGJ in the minute book's
+long silences (Sep 1847–Aug 1850, 1857–58, Oct 1859–Mar 1862, Feb 1863–Apr 1864, Feb 1840–Aug
+1841: 132 hits), with the OCR of every hit that mentions Shetland read for the council.
+
+**Elections.** Ten of the twelve generals 1838–1871 are reported, and every list of names
+agrees with the minute book (`ltc-1818-1871-minute-book.md`), apart from the 1850 date and one
+"junior" (below). None for 1838 in either paper. The 1841 general appears only through
+Edmondston's freedom of the burgh. Each supports its election (`read`), not the separate rows,
+which already cite the book page.
+
+| Election | Report | What it says |
+|---|---|---|
+| 2 Sep 1841 | JoGJ Fri 17 Sep 1841 p3 art. 012 | Shetland, 6 Sep: Charles Edmondston of Charleston, S.C., "presented with the freedom of his native town" at a meeting of "the Magistrates, Town Council, and Burgesses". The book has it at the election meeting (p97) |
+| 5 Sep 1844 | JoGJ Fri 13 Sep 1844 p3 art. 020 | Gifford of Busta proposed as Bailie and Joseph Leask Junior Bailie; eight of the nine councillors named (Ross Smith, Burns, Greig, Nicolson, Hunter, G. Tait, Sievwright, Mowatt; not Nicoll). The day is garbled in the OCR ("Wednesday, the iiist"); the book has "the fifth day of September" (p105), a Thursday |
+| 2 Sep 1847 | JoGJ Fri 10 Sep 1847 p3 art. 021 | "On Thursday last, the election of our Town Council and Magistrates"; Greig in the chair; Leask Junior Bailie; the nine councillors as in the book |
+| 6 Sep 1850 | JoGJ Fri 13 Sep 1850 p3 art. 013; NE Thu 12 Sep 1850 p3 art. 054 | JoGJ: "On Thursday the 5th instant the burgesses of Lerwick proceeded to the Court-room"; Sievwright Senior Bailie, Duncan Junior Bailie by ballot; the nine as in the book. NE: the same, day lost in the OCR. **The book has "the sixth day of September" (p123), a Friday**: open-questions |
+| 1 Sep 1853 | JoGJ Fri 9 Sep 1853 p3 art. 023 | "on Thursday, the 1st inst., at noon"; Sievwright and Duncan re-elected, "with a few changes in the council"; no list |
+| 4 Sep 1856 | JoGJ Fri 12 Sep 1856 p3 art. 023 | "on Thursday the 4th inst."; Sievwright retiring; Duncan and Hay of Walsetter Bailies "upon a show of hands"; nine councillors named, among them "John Robertson, jun., fishcurer". **The book has "Mr John Robertson (Senior)"** (p145): open-questions |
+| 1 Sep 1859 | JoGJ Thu 8 Sep 1859 p2 art. 005 | Duncan and Hay "again unanimously" Bailies; the nine as in the book, both John Robertsons among them |
+| 4 Sep 1862 | JoGJ Thu 11 Sep 1862 p2 art. 017; NE Thu 11 Sep 1862 p5 art. 063 | "on Thursday the 4th current"; Duncan retiring after twelve years in office; Leask Senior and Grierson of Quendale Junior Bailie; vote of thanks to Duncan from Hicks |
+| 7 Sep 1865 | JoGJ Thu 14 Sep 1865 p2 art. 012 | "on Thursday last at noon"; Duncan Senior Bailie by "a majority of four" over Leask (the book: 19 to 14); John Robertson Junior Bailie; George Smith topped the council poll |
+| 3 Sep 1868 | JoGJ Thu 10 Sep 1868 p3 art. 010; NE Thu 17 Sep 1868 p6 art. 067; NE Thu 24 Sep 1868 p6 art. 080 | Duncan re-elected Senior Bailie on a requisition from "a great majority of the burgesses", John Robertson sen. Junior; John Manson town clerk; the council now the commissioners under the Lindsay Act. The JoGJ's "here yesterday" is the Lerwick letter's date, not the paper's |
+| 7 Sep 1871 | JoGJ Thu 14 Sep 1871 p2 art. 008 | Lerwick, 11 Sep: "on Thursday, the 7th inst."; Duncan chief magistrate on a requisition, John Robertson sen. second magistrate; councillors chosen by slips of paper |
+
+**The minute book's silences.** Nothing in either paper fills a vacancy. The council left the
+seats of the councillors who died in office empty (Nicol and Burns 1848, Nicolson 1849, S. Hunter
+and Williamson 1858, Merrylees 1859, G. Tait 1860, Hicks 1863), and the searches turned up no
+co-option, by-election or new councillor in any of these gaps, which fits the ledger. What they do
+have from the gaps:
+
+- **JoGJ Fri 12 Nov 1847 p3 art. 019** (silence Sep 1847–Oct 1848): "At the last meeting of
+  the Town Council, that body recorded" in its minutes the loss of Mr James Hunter. Supports
+  `james-hunter-i@1844-09-05` ending in death (`inferred`: he died 2 Aug 1847, a month before
+  the general). The same column has the burgesses electing three Commissioners of Police "on
+  Monday", Bailie Sievwright in the chair.
+- **JoGJ Fri 30 Sep 1853 p3 art. 023** (silence after 6 Sep 1853): with cholera in the south,
+  "the magistrates called a meeting of the council and commissioners on the 23d inst."
+  (Fri 23 Sep 1853); committees to inspect the town.
+- **JoGJ Thu 11 Jul 1861 p2 art. 010** (silence Oct 1859–Mar 1862): on a requisition of over
+  forty merchants, "the Magistrates and Town Council" advertised a holiday for the Queen's
+  birthday and the Rifle Corps competition.
+- **JoGJ Thu 12 Mar 1863 p2 art. 012** (silence Feb 1863–Apr 1864): a public meeting, Bailie
+  Leask (OCR "Levack") in the chair, agreed a procession for the royal wedding of 10 Mar 1863,
+  with the Commissioners of Police and the Town Council walking.
+
+Colour only, not cited in the data: the Ensign's Lerwick letters of 1851–52 attack the
+magistrates and council ("a very hot-bed of private spite", 15 May 1851) over licensing and
+the town's order; the 1864 Zetland Roads Bill quarrel (NE 19 May, 26 May, 2 Jun 1864); the
+Nov 1867 burgesses' meeting making the magistrates and council the police commissioners
+(NE 31 Oct and 21 Nov 1867, in the book).
+
+Supports: citations for elections 9, 11–20 (`data/citations.csv`, `citation_links.csv`), and
+Hunter's 1844 row. No ledger row changes.
