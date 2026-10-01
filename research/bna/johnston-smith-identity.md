@@ -23,8 +23,9 @@ seats to the solicitor, and Tammy no Cunningsburgh seat at all.
   many meetings". (The OCR gives his retirement as "November, 1931", a misprint or OCR slip for 1934.)
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19361107&page=0004&article=073
 - The same obituary says he stayed with Hay & Co. at Lerwick "until early in 1925" and qualified
-  as a solicitor in April 1925. The wiki biography's "He stayed with the shipbuilders until 1925"
-  is a misreading: he was with Duthie's in Aberdeen about five years, well before the war.
+  as a solicitor in April 1925. That agrees with the wiki biography's "He stayed with the
+  shipbuilders until 1925" on the date; it only differs if "the shipbuilders" means Duthie's of
+  Aberdeen rather than Hay & Co. Not a correction.
 - **Shetland Times, Sat 14 Nov 1936, p5 (art. 146)**: pulpit reference to "Mr Thomas Johnston,
   solicitor": broken health for three years.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19361114&page=0005&article=146
