@@ -314,12 +314,64 @@ the JoGJ (§4). Supports election 20 (`read`).
 Not cited (outside the five titles): the 1820 London Gazette notice of "a loyal Address from the
 Burgesses and other Inhabitants of the Burgh of Barony of Lerwick, voted before his Majesty's
 Accession" (London papers `0002408`, `0002631`, 23–24 Feb 1820), which agrees with the minute
-book's 19 Jan 1820 meeting (p19–20); and a Lerwick paragraph of 14 May 1864 (`0000772` p3 art.
-078) saying the Commissioners of Police and Town Council had passed "a vote of censure on their
-magistrates" for keeping the Zetland Road Bill from them until it was through the Commons, and
-would oppose it in the Lords. Neither "censure" nor "Road Bill" appears in the minute-book
-transcripts; worth a look at the book's pages for spring 1864.
+book's 19 Jan 1820 meeting (p19–20); and the 1864 vote of censure on the magistrates (§6).
 
 Not done: the Inverness Courier (`lerwick bailies`, 102 hits) past the first page, and the
 Aberdeen Journal (the `newspaper=aberdeen%20journal` filter returned nothing; the title's filter
 name needs finding).
+
+## 6. The 1864 vote of censure on the magistrates (Zetland Roads Bill), searched 2026-10-01
+
+The Zetland Roads Bill (a county road trust, rated partly on Lerwick) went through the Commons in
+spring 1864 without the town being told. The Commissioners of Police and Town Council censured
+their magistrates for it; a public meeting then censured the bill's promoters and the county's
+MP, Frederick Dundas. Method: `lerwick road bill`, all titles, Apr–Jun 1864 (75 hits, OCR of
+each read for censure, magistrates and council), and the Zetland/Lerwick columns of the John o'
+Groat Journal (5, 12, 19 May) and Northern Ensign (5, 12, 26 May 1864) from their manifests.
+
+**The minute book doesn't record it.** The council met on 7 Apr 1864 and on 5 May 1864 (p180–181,
+Bailie Leask the only Bailie present; foreshores, Ross Smith's enclosure), then adjourned to
+2 June; the next minute is 14 Jul 1864, electing two trustees under "The Zetland Road Act
+1864" (p182). No censure and no Road Bill before July. The papers say "Commissioners of Police
+and Town Council", so the vote was probably minuted by the Commissioners, whose own book isn't
+transcribed. Its day isn't found: before 14 May 1864.
+
+**Aberdeen People's Journal, Sat 14 May 1864, p3 (art. 078): "Lerwick. The Road Bill"**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000772%2F18640514&page=0003&article=078
+The Commissioners of Police and Town Council "have passed a vote of censure on their
+magistrates" for withholding all information on the bill until it was through the Commons, and
+have resolved to oppose it in the Lords.
+
+**Northern Ensign, Thu 19 May 1864, p6 (art. 092): "Lerwick Jottings" (Beta)**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0002561%2F18640519&page=0006&article=092
+"At the last Council meeting" a censure on "our magistrates" was passed, for not bringing the bill
+before the public at the proper time. The opponents' case: they will pay part of the rate, so they
+should be represented.
+
+**Northern Ensign, Thu 26 May 1864, p4 (art. 071): "Zetland Roads' Bill—Meetings in Lerwick"**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0002561%2F18640526&page=0004&article=071
+Public meeting in the Subscription Rooms on Tue 17 May 1864, **Bailie Grierson** in the chair.
+John Walker of Bressay, convener of the committee of a public meeting in March, reported on the
+failed attempts to have the bill's sixth clause modified (it let Commissioners of Supply vote by
+proxy but made the Lerwick magistrates and other representative members attend in person), and
+the meeting voted want of confidence in Dundas. At the close "Mr Grierson expressed regret for not
+having acquainted the Commissioners of Police and Town Council"; Walker moved that his apology
+be accepted, carried unanimously. Dundas's friends then got the magistrates to call a second
+meeting, Sat 21 May at noon, Grierson again in the chair: G. H. B. Hay moved against the vote,
+and Walker's motion confirming it was carried by a large majority (figure garbled; "to 11").
+
+**Orkney Herald, Tue 31 May 1864, p2 (arts. 075, 077)**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000463%2F18640531&page=0002&article=077
+Art. 077: the meeting "on the evening of Tuesday, the 17th inst." and the second "on Saturday at
+noon", the vote confirmed with "not a dozen hands" against. Art. 075 (leader): takes Dundas's
+side against Walker, and quotes Grierson's apology. The Aberdeen People's Journal of 28 May
+1864 (p3 art. 066) and 4 Jun 1864 (p3 art. 065) have short versions.
+
+Which magistrates: the Bailies elected in Sep 1862, Joseph Leask and Andrew J. Grierson of
+Quendale (p166–167). Grierson, a landed proprietor and so probably a Commissioner of Supply
+himself, is the one who apologised; the Ensign's 2 Jun 1864 letter (p5 art. 079) says both
+Bailies "are proprietors and Commissioners of Supply". The bill passed: by 14 Jul 1864 the council
+was electing trustees under the Act.
+
+Supports: `andrew-grierson-ii@1862-09-04` and `joseph-leask@1862-09-04` (`read`: Bailies sitting in
+May 1864). No ledger change; nothing contradicts the book or the wiki.

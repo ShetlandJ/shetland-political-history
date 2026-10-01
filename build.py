@@ -124,6 +124,8 @@ PUBLICATIONS = {
     'orkney-shetland-journal': ('Orkney and Shetland Journal', 'osj', '0005737'),  # 1838-39, a separate BNA run
     'john-o-groat-journal': ("John o' Groat Journal", 'jogj', '0000459'),
     'northern-ensign': ('Northern Ensign', 'ne', '0002561'),
+    'orkney-herald': ('Orkney Herald', 'oh', '0000463'),
+    'aberdeen-peoples-journal': ("Aberdeen People's Journal", 'apj', '0000772'),
     'scotsman': ('The Scotsman', 'scot', '0000540'),
     'caledonian-mercury': ('Caledonian Mercury', 'cm', '0000045'),
     'edinburgh-evening-courant': ('Edinburgh Evening Courant', 'eec', '0001060'),
