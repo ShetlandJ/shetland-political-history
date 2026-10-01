@@ -8,6 +8,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-10-01: Robert Balfour's birth date.** The DB (from the wiki) has 28 Jan 1901, which would
+  make him 74 at his death on 17 Feb 1975. His death notice (ST 28 Feb 1975 p14 art. 169) says
+  "aged 73". Options: keep 1901-01-28 (the notice is wrong), or check Bayanne I91291 / the 1902
+  Northmavine birth register. His new biography gives no age. Evidence:
+  `biographies-zcc-1970s.md`. Row: `people.robert-balfour` born_date.
+
 - **2026-09-29: Unst South (County Council), 1942: when did Andrew Irvine (i)'s seat end?** His
   resignation letter ("owing to the scarcity of labour") was read at the meeting of Tue 18 Aug
   1942 (ST 22 Aug 1942 p3 art. 064) and he was asked to reconsider. On Tue 27 Oct 1942 he declined

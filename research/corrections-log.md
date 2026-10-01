@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-01: Biographies for five 1970s County Councillors (`research/bna/biographies-zcc-1970s.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Arthur Irvine (ii) died 25 April 1995 | 26 April (death notice, ST 12 May 1995) | Fixed (#69) |
+| 2 | wiki | Iain Caldwell: knitwear firm owner only | Also managing director of the Nordport Company, which planned an oil complex at Graven, Sullom Voe (his letter, ST 27 Apr 1973) | In the new biography |
+| 3 | wiki | Robert Balfour born 28 Jan 1901 | Death notice gives "aged 73" in Feb 1975, which means born after Feb 1901 | Open question |
+
 ## 2026-09-30: Party labels, ZCC 1890–1975 (`research/bna/party-labels-zcc-1890-1929.md`, `party-labels-zcc-1930-1975.md`)
 
 | # | Where | We had | Sources show | Status |

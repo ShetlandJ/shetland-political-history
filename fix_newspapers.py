@@ -508,6 +508,17 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    same issue gives his career as house painter, then auctioneer and fish salesman, then doctor.
    He has no person page (he never sat), so the three candidacies link to Bayanne.
    Evidence: research/bna/early-socialists-1901-1913.md.
+
+69. Biographies for five County Councillors of the 1970s who had none: Fraser Peterson (obituary
+   and death notice, Shetland Times, 25 Jun 1982), Arthur Irvine (ii) (nominations, 11 Sep 1970;
+   result, 2 Oct 1970; death notice, 12 May 1995), John Laurenson (1973 nominations, 20 Apr 1973;
+   death notice, 17 Jan 1992), Robert Balfour (resignation, 24 Mar 1972; advert, 20 Apr 1973;
+   death notice, 28 Feb 1975) and Iain Caldwell (Aith Knitwear Factory adverts, Aug and 6 Sep
+   1968; his letter as managing director of the Nordport Company, 27 Apr 1973). Irvine and
+   Laurenson signed the retiring landward members' statement on oil policy, Peterson and Balfour
+   the Democratic Group's (4 May 1973, p2 and p8). Arthur Irvine died on
+   26 April 1995, not the 25th: "Peacefully at Fernlea Care Centre, Whalsay, on 26th April".
+   Evidence: research/bna/biographies-zcc-1970s.md.
 """
 
 import os
@@ -610,6 +621,77 @@ CO_OPTION_1924 = ('Lerwick Town Council By-Election May 1924', '1924-05-05', '19
 CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '1946-04-02')
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MOUAT_DEATH = ('henry-mouat', '1944-03-20', '1944-05-20')
+IRVINE_DEATH = ('arthur-irvine-ii', '1995-04-25', '1995-04-26')
+BIOGRAPHIES = {  # slug -> biography, for people who had none (#69)
+    'fraser-peterson': (
+        "Fraser Peterson was the elder son of Barron and Maggie Peterson of North House, Burravoe, "
+        "Brae. He married Ina Johnson, and they had three daughters. He was a crofter and ran a "
+        "transport business, and was a leading member of the Brae community.\n\n"
+        "He joined Zetland County Council in 1970, and in March 1973 he was one of the seven "
+        "councillors who formed the Shetland Democratic Group. On Shetland Islands Council he sat "
+        "for Delting, and from the 1978 boundary changes for Delting North. He chaired the "
+        "council's ports and harbours committee and its pilotage committee, and was closely "
+        "involved in the developments at the Sullom Voe terminal while still finding time for his "
+        "constituents.\n\n"
+        "He had been in hospital for some time, but resumed his council duties. He went back into "
+        "hospital after the first meeting of the new ports and harbours committee on 7 June 1982, "
+        "and died at the Royal Infirmary, Aberdeen, on 18 June 1982, aged 45."
+    ),
+    'arthur-irvine-ii': (
+        "Arthur \"Ertie\" Irvine was a retired schoolteacher living at Crapp, Gulberwick, when "
+        "[person:robert-johnson-i:Robert Johnson], the member for Gulberwick and Quarff, died in "
+        "1970. Johnson's widow, Christine, also stood at the by-election, and Irvine won on Tuesday "
+        "29 September 1970 with 55 votes to her 22.\n\n"
+        "Before the 1973 election he was one of the twelve retiring landward members who signed a "
+        "statement supporting the County Council's policy on North Sea oil, published the same week "
+        "as the Shetland Democratic Group's. He held the seat with 45 votes to Alistair Leask's 43.\n\n"
+        "His wife died before him. He died at Fernlea Care Centre, Whalsay, on 26 April 1995, "
+        "aged 89."
+    ),
+    'john-laurenson': (
+        "John Morrison \"Jackie\" Laurenson was the elder son of George and Catherine Laurenson, "
+        "formerly of Bonniview, Bigton, and married Flora Isbister.\n\n"
+        "He was first elected for Fetlar in 1970. At the 1973 election he was a GPO engineer "
+        "living at Westing, Ladysmith Road, Scalloway, and was returned for Fetlar unopposed. "
+        "Before that election he was one of the twelve retiring landward members who signed a "
+        "statement supporting the County Council's policy on North Sea oil.\n\n"
+        "He died at Glamis Hospital, Dunedin, New Zealand, on 8 January 1992, aged 67."
+    ),
+    'robert-balfour': (
+        "Robert Balfour, of Lunnister, Sullom, was the last of the family of Thomas and Catherine "
+        "Balfour. He married Nessie Hall.\n\n"
+        "He won Northmavine South in 1955 and held it for seventeen years. He chaired the Roads "
+        "Committee for some years and was its vice-chairman when he retired. He also sat on the "
+        "Policy, General Purposes and Education Committees, represented the Council on the "
+        "Licensing Court of Appeal, and was a member of the Zetland Executive Council and a "
+        "governor of the North of Scotland College of Agriculture. He resigned because of "
+        "ill-health in March 1972, when he was perhaps the oldest member of the Council. The "
+        "convener, [person:edward-thomason:Edward Thomason], spoke of his deep respect for the "
+        "principles of democracy and for the rights of voters. "
+        "[person:john-jamieson:John Jamieson] took the seat.\n\n"
+        "In 1973 he came back for Northmavine North. In his advert he associated himself with the "
+        "Shetland Democratic Group and offered voters a choice between \"a Democratic Council and "
+        "what now appears to be a Bureaucratic assembly\". He unseated "
+        "[person:andrew-cromarty:Andrew Cromarty] by 46 votes to 37.\n\n"
+        "He died suddenly at the Gilbert Bain Hospital on 17 February 1975, and his funeral was at "
+        "Aith Kirk."
+    ),
+    'iain-caldwell': (
+        "By August 1968 Iain Caldwell was running the Aith Knitwear Factory at Aith, Bixter, which "
+        "he advertised as \"Shetland's newest knitwear firm\". It took on machinists and plain and "
+        "Fair Isle finishers across the West Side and Central Mainland, with the work delivered "
+        "and collected.\n\n"
+        "He first visited Shetland in 1962. By 1973 he was managing director of the Nordport "
+        "Company Ltd, which planned an oil complex based mainly at Graven, Sullom Voe, and which "
+        "was critical of the County Council's Private Bill.\n\n"
+        "He stood for Aithsting in 1970 and lost to [person:robert-garrick:Robert Garrick] by 161 "
+        "votes to 124. In 1973 he stood again, \"in broad agreement\" with the aims of the Shetland "
+        "Democratic Group, and promised to declare an interest and withdraw from any issue bearing "
+        "on his business interests. He won with 151 votes, to Garrick's 124 and Peter F. M. "
+        "Tulloch's 46.\n\n"
+        "He died at Blairgowrie on 4 July 2007."
+    ),
+}
 ROBERTSON_BAYANNE = '[https://www.bayanne.info/Shetland/getperson.php?personID=I28791&tree=ID1 James Robertson]'
 ROBERTSON_CANDIDACIES = [  # (wiki title, votes): his three unlinked 'James Robertson' candidacies
     ('Lerwick Town Council Election November 1901', 130),
@@ -1636,6 +1718,26 @@ def main():
         else:
             c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (ROBERTSON_BAYANNE, cand['id']))
             print(f"  candidacy {cand['id']}: James Robertson -> Bayanne I28791")
+
+    print("=== 69. Biographies for five 1970s County Councillors; Arthur Irvine's death ===")
+    slug, wrong, right = IRVINE_DEATH
+    row = one(c, "SELECT id, died_date FROM people WHERE slug = ?", (slug,))
+    if row['died_date'] == right:
+        print(f"  {slug} died_date: already {right}")
+    elif row['died_date'] == wrong:
+        c.execute("UPDATE people SET died_date = ? WHERE id = ?", (right, row['id']))
+        print(f"  {slug} died_date: {wrong} -> {right}")
+    else:
+        raise SystemExit(f"people.{slug} died_date is {row['died_date']}, expected {wrong}")
+    for slug, bio in BIOGRAPHIES.items():
+        row = one(c, "SELECT id, biography FROM people WHERE slug = ?", (slug,))
+        if row['biography'] == bio:
+            print(f"  {slug}: biography already set")
+        elif not (row['biography'] or '').strip():
+            c.execute("UPDATE people SET biography = ? WHERE id = ?", (bio, row['id']))
+            print(f"  {slug}: biography added")
+        else:
+            raise SystemExit(f"people.{slug} already has a different biography")
 
     db.commit()
     db.close()
