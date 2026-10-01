@@ -12,13 +12,13 @@ Meeting days are inferred from the report's wording unless stated. Nothing here 
 ledger, the DB or a correction script.
 
 
-## 1890
 
+## 1890
 
 ### county Thu 13 Feb 1890 — ST 15 Feb 1890 p3 a070–076
 type: first
 headline: The first meeting of the County Council
-note: Date inferred (the report gives no day; first meeting in the week after the poll of Tue 4 Feb)
+note: "held on Thursday, the 13th February current, in the County Hall at noon" (ST 15 Feb 1890 p3 a069)
 - Present: John Bruce (Convener of the County), A. S. Stove, J. J. Meiklejohn, J. McCullie, R. Henderson, T. Anderson, J. Robertson, T. Gifford, S. T. Duncan, Alex. Sandison, Z. M. Hamilton, Ar. Laurenson, John Robertson jun., John Anderson, A. C. Hay, J. Anderson, Revs G. Clark, J. Love and D. Gray; J. C. Grierson ex officio. Grierson unanimously elected chairman.
 - [hurdle] PROTESTS AGAINST TWO RETURNS: the Deputy Returning Officer reported protests: George H. Bruce against S. T. Duncan's return for Sandwick as disqualified, and A. J. Garriock against the declaration of the poll for the southern division of Sandsting and Aithsting. Both sent to the Secretary for Scotland.
 - [hurdle] LIEUT. BRUCE AT THE TABLE: Lieut. Bruce appeared and protested that Duncan was "an undischarged bankrupt" and that he himself was the only qualified councillor for Sandwick. Long wrangle whether he had any standing; Robertson: no locus standi. Minute written without naming him; he left the meeting.
@@ -40,6 +40,15 @@ note: "on Thursday at noon"; nominations for the Walls and Fetlar vacancies clos
 - [hurdle] MR HOSEASON'S RESIGNATION: Whitehall (26 Feb): the Delting North vacancy is for the County Council to fill, but the Provisional Council isn't the County Council until 15 May, so the seat "must continue" vacant till then.
 - THE SANDWICH ELECTION: Lothian returns the protest against S. T. Duncan; not a case he is called on to adjudge.
 - MR BRUCE AND THE CONVENERSHIP: the Secretary for Scotland holds Bruce's election valid. The Clerk wrote again pointing out Bruce was actually Convener, not "late convener", at the election; no reply yet. Bruce: "I don't claim two votes, you know."
+
+### county Thu 1 May 1890 — ST 3 May 1890 p2 a054
+type: special
+headline: Adjourned meeting of the Provisional Council: two claimants for Sandsting
+note: Printed at the end of the Road Trustees' report (p2 a054), with no day; Thu 1 May inferred (the Commissioners of Supply met "on Wednesday" the same week). Found 2026-10-01 while checking the chapter; the first sweep missed it.
+- Present: Convener John Bruce (presiding), A. C. Hay, J. B. Anderson, John Robertson jun., Arthur Laurenson, A. S. Stove, Z. M. Hamilton, John Robertson, J. McCullie, A. J. Garriock, P. Georgeson, J. C. Grierson, J. J. R. Meiklejohn, Revs Love, Clark and Gray.
+- THE NEW ELECTIONS: the Secretary for Scotland's order for new elections in the two Sandsting and Aithsting divisions read, with the Deputy Returning Officer's word that James Anderson, Aithsness, was elected for the northern division and Archibald J. Garriock for the southern.
+- [hurdle] McCULLIE'S PROTESTS: McCullie, elected for the southern division in February, asks whether the Secretary of State means to give Aithsting (southern) two councillors. His letter of 20 Mar protests against "any new election" because he is "the legally-elected Councillor"; a second protest (14 Apr) objects to any declaration of Garriock's election, the roll not being "properly made up". The Secretary's office had only referred him to section 108; his supporters had sent a memorial.
+- [hurdle] WHO SITS FOR SANDSTING: Anderson moves that McCullie isn't entitled to sit and his name be struck from the sederunt; Grierson moves instead that Garriock be excluded. Four votes each; the Convener's casting vote carries Anderson's motion. Clark's motion to lay "all the peculiar circumstances" before the Secretary for Scotland agreed. McCullie withdrew.
 
 ### county Thu 22 May 1890 — ST 24 May 1890 p3 a041–048
 type: appointed
@@ -260,8 +269,8 @@ note: "on Tuesday noon"; the District Committee "on [Tuesday] afternoon"
 - The County Local Authority (contagious diseases) meetings before 15 May (e.g. ST 3 May p3 a063) are the old authority, not included.
 - The March 1890 by-elections (Walls South, Fetlar) are elections, not meetings; not included.
 
-## 1891
 
+## 1891
 
 ### county Thu 22 Jan 1891 — ST 24 Jan 1891 p2 a88
 type: ordinary
@@ -508,8 +517,8 @@ note: Date inferred ("on Tuesday at noon")
 - The outcome of Meiklejohn's technical education motion (21 May) is cut off in the OCR.
 - The headings were found from manifest labels; meetings printed under a heading the regex missed could have been passed over.
 
-## 1892
 
+## 1892
 
 Manifests for every Saturday issue 2 Jan – 31 Dec 1892 fetched (53 issues, none 404).
 
@@ -578,7 +587,7 @@ note: Headed "ZETLAND COUNTY COUNCIL", but it is "the usual monthly meeting of t
 type: committee
 note: "Meeting of District Committee ... on Thursday at noon in the County Hall". Date inferred (Thu 5 May).
 - Present: Convener John Bruce, Vice-Convener J. C. Grierson, A. J. Hay, J. B. Anderson, John Robertson, J. M. Goudie, Thomas Gifford, F. Georgeson, J. Robertson (Weisdale), Z. M. Hamilton, J. J. R. Meiklejohn, A. J. Garriock, A. S. Stove (13).
-- REPRESENTATIVE MEMBER: James Sutherland, Hoversta, Bressay, appointed representative member by the Bressay Parochial Board (the notice of 14 May shows he then resigned from the Council).
+- REPRESENTATIVE MEMBER: James Sutherland, Hoversta, Bressay, appointed representative member by the Bressay Parochial Board (a parochial board member sitting on the District Committee, not a councillor). Not to be confused with James H. Sutherland, Unst North, whose resignation from the Council the 14 May notice reports.
 - Measles: Nesting school closed; Skerries school reopened.
 - [hurdle] SANITARY OFFICER'S REPORT: Scalloway (Blacksness) residents complain of Hay & Co.'s liver-boiling a few yards from houses. In Walls "in great number of cases no attempt had been made" to carry out the April 1891 orders to close byre-house communications and give houses their own doors; defaulters named. Manure six feet from doors at Scalloway (Nicolson & Co.). Notices to be served.
 
