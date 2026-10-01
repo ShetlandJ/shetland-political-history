@@ -556,6 +556,16 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    current", Courant; "the 8th ultimo", Courier); Archibald Greig died on 12 Oct 1852, not the 11th
    (Evening Post, Morning Chronicle and Londonderry Standard). Evidence:
    research/bna/biographies-ltc-1818-1850.md.
+
+72. Greig v Edmondston, and Charles Ogilvy (ii)'s mail meeting, from the pre-1872 sweep of the
+   Orkney & Zetland Chronicle and the Shetland Journal. James Greig, Procurator Fiscal, sued Dr
+   Arthur Edmondston for libel in a letter Edmondston printed in 1823, addressed to the Lord
+   Advocate. Tried before the Jury Court on Wednesday 7 June 1826; damages laid at £2,000;
+   unanimous verdict for Greig, £300 (Caledonian Mercury 10 Jun, Inverness Courier 14 Jun,
+   Chronicle 20 Jun and 20 Sep 1826). Edmondston gets a biography (he had none; his intro already
+   calls him "notoriously litigious") and Greig's gains a paragraph. Ogilvy chaired the 1836
+   Lerwick meeting on the Peterhead mail packet (Shetland Journal, 10 Sep 1836). Evidence:
+   research/bna/ltc-pre-1872-press.md.
 """
 
 import os
@@ -975,7 +985,36 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71)
         "David Nicolson lived at Annsbrae in Lerwick, where he died on 4 June 1849 in his "
         "sixty-first year."
     ),
+    # Greig v Edmondston (#72)
+    'arthur-edmondston': (
+        "Edmondston and [person:james-greig:James Greig], the Procurator Fiscal, both sat on the "
+        "first Town Council, elected in 1818. In August 1821 Edmondston wrote officially to the "
+        "Lord Advocate about Greig's conduct as fiscal, and in 1823 he printed and published a "
+        "letter to the Lord Advocate, Sir William Rae, saying so again. It accused Greig of acting "
+        "both for the Crown and for his brother-in-law Francis Heddell in the same cause, over a "
+        "pier built below high-water mark at Lerwick, and of taking fees from each. In an earlier "
+        "action in the Sheriff Court Edmondston had already been found liable to Greig in "
+        "damages.\n\n"
+        "Greig sued him for libel, claiming £2,000. The case was tried before a jury in Edinburgh "
+        "on Wednesday 7 June 1826, with Francis Jeffrey and Henry Cockburn for Greig. The jury "
+        "found unanimously for Greig and awarded him £300. The Orkney & Zetland Chronicle printed "
+        "the trial at length."
+    ),
 }
+BIO_ADDITIONS = [  # (slug, text the addition follows, addition) (#72)
+    ('james-greig', "James was a baillie of Lerwick.",
+     "\n\nIn 1826 he won £300 damages for libel from [person:arthur-edmondston:Dr Arthur "
+     "Edmondston], a fellow member of the first Town Council. In a letter printed in 1823 and "
+     "addressed to the Lord Advocate, Edmondston had accused him of acting on both sides of a "
+     "case while Procurator Fiscal. A jury in Edinburgh found for Greig unanimously on 7 June "
+     "1826."),
+    ('charles-ogilvy-ii', "Thomas Fea, collector of customs at Lerwick, on 14 May 1825.",
+     "\n\nIn 1836 he chaired a public meeting at Lerwick on the mail. It complained that the "
+     "Peterhead packet had been kept a week at Peterhead loading cargo for its contractors, and "
+     "asked for the contract to be opened to public competition. [person:arthur-anderson:Arthur "
+     "Anderson]'s Shetland Journal printed the resolutions while saying it did not entirely "
+     "agree: Anderson wanted the Government to pay a steamer to carry the mail."),
+]
 YORSTON_DEATH_PLACE = ('james-yorston', 'Lerwick', 'Leith')  # (#71)
 PATERSON_DEATH = ('gilbert-paterson', '1828-04-05', '1828-04-08')  # (#71)
 GREIG_DEATH = ('archibald-greig', '1852-10-11', '1852-10-12')  # (#71)
@@ -2069,6 +2108,19 @@ def main():
             print(f"  {slug} {field}: {wrong} -> {right}")
         else:
             raise SystemExit(f"people.{slug} {field} is {row[field]}, expected {wrong}")
+
+    print("=== 72. Greig v Edmondston; Ogilvy's mail meeting ===")
+    for slug, before, addition in BIO_ADDITIONS:
+        row = one(c, "SELECT id, biography FROM people WHERE slug = ?", (slug,))
+        bio = row['biography'] or ''
+        if before + addition in bio:
+            print(f"  {slug}: addition already in")
+        elif bio.count(before) == 1:
+            c.execute("UPDATE people SET biography = ? WHERE id = ?",
+                      (bio.replace(before, before + addition), row['id']))
+            print(f"  {slug}: biography extended")
+        else:
+            raise SystemExit(f"people.{slug} biography doesn't contain the expected text once")
 
     db.commit()
     db.close()

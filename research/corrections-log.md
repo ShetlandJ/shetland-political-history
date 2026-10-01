@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-01: Pre-1872 press sweep (`research/bna/ltc-pre-1872-press.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | ledger | Gilbert Paterson's 1826 term ended 5 Apr 1828; Archibald Greig's 1850 term 11 Oct 1852 | Their deaths were corrected to 8 Apr and 12 Oct in #71, but the ledger rows weren't moved | Fixed (`data/ltc_terms.csv`) |
+| 2 | notes | The Orkney & Zetland Chronicle was a Kirkwall paper (queue) | Printed in Edinburgh by John Moir (imprint, 20 Sep 1826) | Fixed (queue) |
+| 3 | wiki | Arthur Edmondston "notoriously litigious", no case named | Greig v Edmondston, libel, Jury Court 7 Jun 1826: £300 to Greig, a fellow councillor | Added (#72) |
+
 ## 2026-10-01: Biographies for thirteen councillors of 1818–1850 (`research/bna/biographies-ltc-1818-1850.md`)
 
 | # | Where | We had | Sources show | Status |

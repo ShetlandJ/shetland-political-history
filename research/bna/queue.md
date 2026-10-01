@@ -277,7 +277,7 @@ these titles that report Lerwick (codes for the OCR/manifest endpoints):
 
 | Title | Code | Run in the BNA | Notes |
 |---|---|---|---|
-| Orkney & Zetland Chronicle | `0006124` | Jan 1825–Sep 1826, monthly, 13 issues | Kirkwall. Issues found: 1825-01-31, 02-28, 03-31, 04-30, 05-31, 06-30, 08-24, 09-30, 10-31, 11-30, 12-31; 1826-06-20, 09-20 (probed the last day, 20th and 24th of each month 1824–27) |
+| Orkney & Zetland Chronicle | `0006124` | Jan 1825–Sep 1826, monthly, 13 issues | Printed in Edinburgh (John Moir). Issues found: 1825-01-31, 02-28, 03-31, 04-30, 05-31, 06-30, 08-24, 09-30, 10-31, 11-30, 12-31; 1826-06-20, 09-20 (probed the last day, 20th and 24th of each month 1824–27) |
 | Orkney and Shetland Journal | `0005738` / `0005737` | Jun 1836–Sep 1837 / Jan 1838–Aug 1839, ~30 issues | 1836–37 is Arthur Anderson's Shetland Journal (Lerwick). Issues found: 1836-06-11, 09-10, 11-12 (not probed: other days in 1836); 1837-01-02, then the 1st of Feb–Sep 1837 and Jan 1838–Aug 1839 (probed the 1st, 10th, 11th) |
 | John o' Groat Journal | `0000459` | 1836 on, weekly (Fri) | Wick. "Zetland"/"Lerwick" letters, deaths, notices |
 | Northern Ensign | `0002561` | 1850s on, weekly (Thu) | Wick. Lerwick correspondent's letters |
