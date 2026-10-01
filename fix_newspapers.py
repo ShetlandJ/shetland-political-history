@@ -987,8 +987,9 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #7
         "fire, or lightning. The building stood unroofed for half a century. He sold the site in "
         "1830 to Gilbert Tait, merchant and fishcurer, and it was rebuilt in 1906 as 80 and 82 "
         "Commercial Street.\n\n"
-        "He does not appear in the 1841 census of Shetland. He died at New Orleans in 1848; when "
-        "and why he went to America is not known."
+        "He does not appear in the 1841 census of Shetland. According to Grant's County Families "
+        "of the Zetland Islands (1893), he died at New Orleans in 1848. No other record of his "
+        "death has been found, and when and why he went to America is not known."
     ),
     'gilbert-duncan': (
         "Gilbert Duncan was a purser in the Royal Navy as well as a writer (solicitor) in Lerwick. "
