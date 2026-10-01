@@ -242,15 +242,6 @@ citations, 801 links). Gaps:
 
 ## Not for BNA yet
 
-- **Lerwick's burgh members on the County Council, 1930–75** (found 2026-10-01): the Town Council
-  appointed all twelve of its members to the reconstituted County Council (statutory meeting of
-  8 Nov 1929, ST 16 Nov 1929 p4 art. 096), and in 1961 the County Council was 24 landward members
-  plus the Town Council, 36 in all (ST 12 May 1961). `council_terms` has no ZCC rows for them, so
-  ZCC composition and person pages show only the landward members after 1930. Options: derive ZCC
-  burgh rows from the LTC ledger in `build.py` (no constituency, start 15 May 1930), or note it on
-  the ZCC pages. James's call; check whether any later year (e.g. 1930s co-options) appointed
-  fewer than twelve. Evidence: `biographies-1950s-1980s.md`.
-
 - **By-election days from the wiki text**: the parser kept only the month for by-elections, but many wiki pages give the day in their first sentence ("took place on 17 May"). Seven were set in `fix_parse_errors.py` #5; the rest of the ~100 dated the 1st could be done the same way, checking the weekday. No BNA needed.
 - **James Hunter (iii)'s birth date**: DB 1872-02-06, but his wiki page says 6 January 1872. Check which is right.
 

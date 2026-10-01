@@ -30,8 +30,8 @@ Findings:
   all, with the Town Council's two newcomers counted as new County members. So Paton sat on the
   County Council whenever he sat on the Town Council (1960–68, 1969–75). The 1960 statutory
   meeting (ST 13 May 1960 p6 art. 102) made no separate appointment, so it seems to have followed
-  from Town Council membership. `council_terms` has no ZCC rows for these burgh members (ZCC
-  shows 24 landward seats after 1930); see the queue.
+  from Town Council membership. Not modelled, by James's decision (2026-10-01): the two bodies
+  stay separate, and `council_terms` ZCC rows are for elected (landward) members only.
 - 1961 Aithsting: the paper's "Mrs Janet C. Anderson" is our Catherine Janet Anderson.
 
 ### John Butler

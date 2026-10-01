@@ -728,10 +728,11 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70)
     ),
     'james-paton-i': (
         "Jimmy Paton was a lifelong trade unionist and a stalwart of the Labour Party. He first "
-        "won a seat on Lerwick Town Council in 1960. From 1930 the whole Town Council also sat on "
-        "Zetland County Council as the burgh's twelve members, so he served on both councils "
-        "until local government reorganisation, and was elected to eight committees of the "
-        "County Council. He then sat for four years on Shetland Islands Council. After he left the council he stayed on the "
+        "won a seat on Lerwick Town Council in 1960. From 1930 the Town Council's members also "
+        "sat on Zetland County Council as the burgh's representatives, so although he was never "
+        "elected to it, he sat on the County Council until local government reorganisation, and "
+        "was elected to eight of its committees. He then sat for four years on Shetland Islands "
+        "Council. After he left the council he stayed on the "
         "social work committee as the pensioners' representative.\n\n"
         "He helped to found the Shetland branch of the Scottish Old Age Pensioners' Association "
         "and chaired it until shortly before his death, and was the old folks' champion in many "
