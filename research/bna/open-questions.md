@@ -254,3 +254,4 @@ Format: date raised, the question, the options, the evidence file, the row it af
   it to him, such as the 1830 tally or a probate record; or say "1848 (Grant)" in the biography
   and leave the date alone. Affects `people.james-ogilvy` died_date. Evidence:
   `biographies-ltc-1818-1850.md` (James Ogilvy).
+  **Answered 2026-10-01 (James):** probably a different man. Keep 1848 from Grant; no change.

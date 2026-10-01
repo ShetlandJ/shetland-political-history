@@ -223,6 +223,8 @@ The same letter, with a clean date: "the morning of the 12th instant".
     total of 6, which fits his 2 whites. But other rows don't agree across the two pages
     (Remel, row 10, has 6 whites on 225 and a total of 1 on 226), so the alignment isn't proven.
     Not confirmed; worth reading by eye.
+  James's call (2026-10-01): the New Orleans James Ogilvie of 1830-62 is probably a different
+  man. The biography keeps Grant's 1848 and doesn't mention him.
   - Bureau of Land Management tract books, Louisiana, 9 Feb 1837 (1:1:624P-NF8B).
   - Gardner's New Orleans directory, 1861 (1:1:6867-VLXK).
   - Louisiana State Museum cemetery records: died New Orleans 20 May 1862, aged 71, born
