@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-01: Biographies for ten more councillors (`research/bna/biographies-1950s-1980s.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | James Paton (i) on the SIC 1978–82 | 1974–78; he lost Lerwick Twageos in 1978 (the wiki's succession box; Convener's tribute, ST 11 Sep 1981) | Fixed (#70) |
+| 2 | wiki | Harry Gray: no birth place | Born in Orkney (ST 11 Apr 1980) | Fixed (#70) |
+| 3 | wiki | Charles Brown born Dec 1888 | "now over eighty" in Apr 1967 (ST 21 Apr 1967) | Open question |
+
 ## 2026-10-01: Biographies for five 1970s County Councillors (`research/bna/biographies-zcc-1970s.md`)
 
 | # | Where | We had | Sources show | Status |

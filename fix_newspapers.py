@@ -519,6 +519,18 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    the Democratic Group's (4 May 1973, p2 and p8). Arthur Irvine died on
    26 April 1995, not the 25th: "Peacefully at Fernlea Care Centre, Whalsay, on 26th April".
    Evidence: research/bna/biographies-zcc-1970s.md.
+
+70. Biographies for ten more councillors who had none, from their obituaries and death notices
+   in the Shetland Times: John Butler (18 May 1984), James Paton (i) (28 Aug, 4, 11 and 18 Sep
+   1981), Harry Gray (11 Apr 1980), Hugh Williamson (31 May 1991; piano-tuning advert 13 Sep 1963,
+   nominations 21 Apr 1967, his letter 25 Feb 1972, 20 Apr 1973), Robert Garrick (12 and 19 May
+   1961, 22 Oct 1993), James Pottinger (ii) (29 Feb and 7 Mar 1980), Charles Brown (21 Apr 1967,
+   12 Aug 1977), William Marshall (16 Sep 1960, 21 Apr 1961, 7 Jun 1963), Peter Henry (16 May
+   1952, 23 Oct 1959, 16 Feb 1979) and Robert Ollason (27 Jan 1961). Paton's intro had him on
+   the SIC "between 1978 and 1982"; he sat 1974-78 and lost Lerwick Twageos in 1978 (the wiki's
+   own succession box, and the Convener's tribute, ST 11 Sep 1981), and the parser had cut the
+   start of the sentence listing his defeats. Harry Gray was born in Orkney (ST 11 Apr 1980).
+   Evidence: research/bna/biographies-1950s-1980s.md.
 """
 
 import os
@@ -622,7 +634,7 @@ CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '19
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MOUAT_DEATH = ('henry-mouat', '1944-03-20', '1944-05-20')
 IRVINE_DEATH = ('arthur-irvine-ii', '1995-04-25', '1995-04-26')
-BIOGRAPHIES = {  # slug -> biography, for people who had none (#69)
+BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70)
     'fraser-peterson': (
         "Fraser Peterson was the elder son of Barron and Maggie Peterson of North House, Burravoe, "
         "Brae. He married Ina Johnson, and they had three daughters. He was a crofter and ran a "
@@ -691,7 +703,170 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69)
         "Tulloch's 46.\n\n"
         "He died at Blairgowrie on 4 July 2007."
     ),
+    # 70
+    'john-butler': (
+        "John Butler, a customs officer, first came to Shetland in 1948, and a year later married "
+        "Christina Smith. They lived in London, the south of Scotland and Barnsley before coming "
+        "back to Shetland in 1959.\n\n"
+        "He stood for Lerwick Town Council as a Labour candidate in 1970 and was not elected, but "
+        "was returned unopposed in 1971. On Shetland Islands Council he sat for Lerwick Breiwick, "
+        "beating [person:harry-gray:Harry Gray] and [person:ronald-cumming:Ronald Cumming] in 1974 "
+        "and Gray again in 1978. He chaired the resources committee, the joint consultative "
+        "committees for staff and manual workers, and the investment group, and was on the "
+        "fisheries working group and the Licensing Board. He was vice-convener from May 1978 "
+        "until 1982, working closely with the convener, "
+        "[person:alexander-tulloch:Alexander Tulloch], who praised his courage and his "
+        "understanding of finance. He stood down in May 1982 because of ill-health.\n\n"
+        "He was involved with the Shetland Council of Social Service in the 1960s, wrote for the "
+        "\"Da Wadder Eye\" column in The New Shetlander, and was active in the Althing Debating "
+        "Group. He had multiple sclerosis for a number of years, and died in the Gilbert Bain "
+        "Hospital on 12 May 1984, aged 58."
+    ),
+    'james-paton-i': (
+        "Jimmy Paton was a lifelong trade unionist and a stalwart of the Labour Party. He first "
+        "won a seat on Lerwick Town Council in 1960, and in the Convener's words served \"on both "
+        "Lerwick Town Council and the Zetland County Council\" until local government "
+        "reorganisation, when he sat for four years on Shetland Islands Council. He was elected to "
+        "eight committees of the County Council. After he left the council he stayed on the "
+        "social work committee as the pensioners' representative.\n\n"
+        "He helped to found the Shetland branch of the Scottish Old Age Pensioners' Association "
+        "and chaired it until shortly before his death, and was the old folks' champion in many "
+        "campaigns. He sat on the executive committee of the Shetland Council of Social Service "
+        "from 1978. He was known for his heckling at political meetings, and the Convener, "
+        "[person:alexander-tulloch:Alexander Tulloch], remembered him as \"a formidable "
+        "opponent\" in council.\n\n"
+        "He died at the Gilbert Bain Hospital on 26 August 1981, aged 81."
+    ),
+    'harry-gray': (
+        "Harry Gray was born in Orkney, of a Shetland family; his father was at one time connected "
+        "with the Bressay lighthouse. He lived and worked in the Edinburgh area until after the "
+        "Second World War, in the fish trade, and was active in the Boys' Brigade there. He then "
+        "settled in Lerwick, where he worked for Shetland Fish, then Hay & Co., and latterly as "
+        "local representative for Richard Irvin's. He was secretary of the Shetland Fish "
+        "Merchants' Association.\n\n"
+        "On Lerwick Town Council he was Honorary Treasurer and then Bailie, and Provost from 1962 "
+        "for three years. He chaired the Northern Burghs Association. He sat on the bench of "
+        "Lerwick Burgh Court and was an honorary sheriff. He stood for Lerwick Breiwick at the "
+        "first Shetland Islands Council election in 1974 and again in 1978, and lost both times "
+        "to [person:john-butler:John Butler].\n\n"
+        "He was commandant of the Army Cadet Force in Shetland until 1974, reaching the rank of "
+        "lieutenant-colonel, chaired the local committee of the RSPCA, and was a member of the "
+        "Shetland-Norwegian Friendship Society. He married Ruth Bethune Scott and lived at 20 "
+        "St Olaf Street. He collapsed and died suddenly on 4 April 1980, aged 70, at the "
+        "Methodist Schoolroom in Lerwick, where he had come to take part in an \"Any Questions\" "
+        "evening. Flags flew at half-mast on public buildings for his funeral at St Columba's."
+    ),
+    'hugh-williamson': (
+        "Hugh Robert Williamson was the son of William and Clara Williamson of West Sandwick, Yell. "
+        "He served his time as a piano tuner in Aberdeen and worked in Aberdeenshire and "
+        "Kincardineshire, coming to Shetland on visits to tune pianos from 1957; in 1963 he was "
+        "still living at Ballogie, Aberdeenshire. He came home to Shetland in 1965, and from "
+        "1964 tuned the school pianos twice a year, travelling by motor cycle from Virkie to "
+        "Haroldswick, until his health stopped him in 1969.\n\n"
+        "In 1967, living at Bayanne House, Sellafirth, he was nominated for Yell North when "
+        "[person:hugh-sutherland:Hugh Sutherland] stood down there, and was one of only two "
+        "newcomers to the County Council that year. He was returned again in 1970, and did not "
+        "stand in 1973.\n\n"
+        "He married Ann Jane Jamieson, who died before him. He died at Montfield Hospital, "
+        "Lerwick, on 24 May 1991, aged 81."
+    ),
+    'robert-garrick': (
+        "Robbie Garrick, of Bixter, won Aithsting from the sitting member, "
+        "[person:catherine-anderson:Catherine Anderson], in 1961 by 206 votes to 99, one of four "
+        "retiring members defeated that year; turnout in Aithsting was the highest in the county. "
+        "He held the seat unopposed in 1964 and 1967, and beat "
+        "[person:iain-caldwell:Iain Caldwell] in 1970. Before the 1973 election he was one of the "
+        "twelve retiring landward members who signed a statement supporting the County Council's "
+        "North Sea oil policy. Caldwell, standing in broad agreement with the Shetland Democratic "
+        "Group, took the seat. In 1974 he stood for Shetland Islands Council and lost to "
+        "[person:alexander-tulloch:Alexander Tulloch].\n\n"
+        "He married Josephine, and latterly lived at King Erik House, Lerwick. He died in the "
+        "Gletness Ward, Montfield, on 15 October 1993, aged 76."
+    ),
+    'james-pottinger-ii': (
+        "James Pottinger, of St Catherine's, Hamnavoe, served in the First World War with the 2nd "
+        "Battalion, Gordon Highlanders. He was connected with fishing all his life. In 1939 he "
+        "became secretary of the Shetland branch of the Scottish Herring Producers' Association, "
+        "and when the Shetland Fishermen's Association was formed in 1943 he became its secretary, "
+        "retiring only in 1975. As spokesman for Shetland fishermen he was known in fishing and "
+        "government circles throughout Scotland. He was also Shetland's representative of the "
+        "Royal Humane Society.\n\n"
+        "On the County Council he sat for Burra from 1938 until 1955, when "
+        "[person:robert-strachan:Robert Strachan] beat him by 215 votes to 165. Two months later "
+        "he won a by-election in Sandwick, which he held until 1958. He came back for Whalsay and "
+        "Skerries at a by-election in 1964 and sat until 1973. He was vice-convener of the county "
+        "from 1947 to 1955, and became a Justice of the Peace in 1956.\n\n"
+        "He died on 27 February 1980, aged 82, and was buried at Papil. The flag on Lerwick Town "
+        "Hall flew at half-mast on the day of his funeral."
+    ),
+    'charles-brown': (
+        "Charles Brown, of North Dale, Fetlar, won the Fetlar seat in December 1945 by 64 votes "
+        "to 22 against [person:edward-sinclair:Edward Sinclair], and was returned unopposed at "
+        "every election from 1949 to 1964. No nomination came from Fetlar in 1967, when the "
+        "Shetland Times described him as \"a faithful councillor for many years\" and the oldest member of the "
+        "council, and wished \"that seasoned traveller\" well on his retiral.\n\n"
+        "He later lived in Edinburgh, at West Pilton Gardens, and died at Leith Hospital on 28 "
+        "July 1977."
+    ),
+    'william-marshall': (
+        "William Marshall came to Delting from his first charge, Inch, in the Presbytery of "
+        "Stranraer. He preached at Voe, Mossbank and Brae in August 1960 and was unanimously "
+        "elected, and in September the Shetland Presbytery sustained the call, although he had "
+        "completed only two years at Inch. He lived at the Manse, Brae.\n\n"
+        "In May 1961, when he had been minister at Brae for only a few months, he was returned "
+        "unopposed to the County Council for Delting North.\n\n"
+        "In June 1963 the Presbytery gave him leave to demit his charge from the end of July. He "
+        "had been appointed secretary-treasurer of a 600-bed teaching hospital at a mission "
+        "station in the Northern Transvaal, and he and his family sailed for South Africa on 4 "
+        "July. He planned to keep in touch with the Delting elders by sending them a monthly "
+        "tape. His seat was filled at a by-election that September.\n\n"
+        "He died at Bathgate, West Lothian, on 18 August 1995."
+    ),
+    'peter-henry': (
+        "Peter John Henry won Walls in 1952, beating "
+        "[person:james-anderson-iv:James Anderson] by 93 votes to 45, and was returned unopposed "
+        "in 1955 and 1958. He resigned in October 1959, and the County Council accepted his "
+        "resignation with regret at its meeting on Tuesday 20 October.\n\n"
+        "He married Margaret Ann Reid, who died before him, and latterly lived at 1 Burgh Road, "
+        "Lerwick. He died at the Gilbert Bain Hospital on 5 February 1979, aged 78."
+    ),
+    'robert-ollason': (
+        "Robert Ollason was born at Hay's Dock, Lerwick, where his father was a sailmaker. He left "
+        "school to be an apprentice in a Lerwick law office, but six years later went into "
+        "business. After a spell with Goodlad & Goodlad he became a partner in J. & R. Groat in "
+        "1907, and in 1915 he bought the newsagent and stationery business that he ran for the "
+        "rest of his life. Until the early 1920s he had financial interests in fishing boats, and "
+        "fishermen sought his advice long after. He was the first secretary of the Shetland "
+        "branch of the Scottish Herring Producers' Association, formed in 1932.\n\n"
+        "He entered the Town Council in 1919. He chaired its housing committee through the "
+        "interwar years, when municipal housing changed the face of the town, and was Provost "
+        "from 1933 to 1936. Between his spells on the Town Council he sat on the County Council "
+        "for Whalsay. He chaired the Health Committee for twenty years, and the Education "
+        "Committee for the last seven.\n\n"
+        "From 1948 he chaired the Board of Management for Shetland Hospitals, and he was a "
+        "member, and for a time vice-chairman, of the North East Regional Hospitals Board. He was "
+        "made an OBE in 1957, and had campaigned for the new Gilbert Bain Hospital, whose "
+        "foundation stone had been laid but which he did not live to see opened. He was also an "
+        "honorary sheriff-substitute and senior member of the bench, chairman of the trustees of "
+        "the Feuars and Heritors of Lerwick and of the local Rent Tribunal, founder chairman of "
+        "the Shetland Chamber of Commerce, and an elder of St Columba's for over twenty years.\n\n"
+        "He was taken ill in his shop at lunch-time on Saturday 21 January 1961 and died in the "
+        "night in the Gilbert Bain Hospital, aged 73. He was survived by his wife, Joan White, who had hoped to "
+        "celebrate their golden wedding the next month, and by three daughters and two sons."
+    ),
 }
+PATON_INTRO = (  # (old, new) for james-paton-i (#70)
+    "James John Paton was a Lerwick Town Councillor between 1960 and 1975 and a Shetland Islands "
+    "Councillor for Lerwick Twageos between 1978 and 1982. He was the grandfather of former "
+    "Shetland Islands Councillor for the same area, [person:james-paton-ii:James]. as well as the "
+    "Lerwick Twageos seat at the 1978 Shetland Islands Council election.",
+    "James John Paton was a Lerwick Town Councillor between 1960 and 1975 and a Shetland Islands "
+    "Councillor for Lerwick Twageos between 1974 and 1978. He was the grandfather of former "
+    "Shetland Islands Councillor for the same area, [person:james-paton-ii:James]. He "
+    "unsuccessfully contested the 1945, 1947, 1958 and 1968 Lerwick Town Council elections, as "
+    "well as the Lerwick Twageos seat at the 1978 Shetland Islands Council election.",
+)
+GRAY_BIRTH_PLACE = ('harry-gray', 'Orkney')  # was empty (#70)
 ROBERTSON_BAYANNE = '[https://www.bayanne.info/Shetland/getperson.php?personID=I28791&tree=ID1 James Robertson]'
 ROBERTSON_CANDIDACIES = [  # (wiki title, votes): his three unlinked 'James Robertson' candidacies
     ('Lerwick Town Council Election November 1901', 130),
@@ -1719,7 +1894,7 @@ def main():
             c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (ROBERTSON_BAYANNE, cand['id']))
             print(f"  candidacy {cand['id']}: James Robertson -> Bayanne I28791")
 
-    print("=== 69. Biographies for five 1970s County Councillors; Arthur Irvine's death ===")
+    print("=== 69-70. Biographies for people who had none; Arthur Irvine's death ===")
     slug, wrong, right = IRVINE_DEATH
     row = one(c, "SELECT id, died_date FROM people WHERE slug = ?", (slug,))
     if row['died_date'] == right:
@@ -1738,6 +1913,26 @@ def main():
             print(f"  {slug}: biography added")
         else:
             raise SystemExit(f"people.{slug} already has a different biography")
+
+    print("=== 70. James Paton (i)'s intro; Harry Gray's birth place ===")
+    old, new = PATON_INTRO
+    row = one(c, "SELECT id, intro FROM people WHERE slug = ?", ('james-paton-i',))
+    if row['intro'] == new:
+        print("  james-paton-i intro: already fixed")
+    elif row['intro'] == old:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (new, row['id']))
+        print("  james-paton-i intro: SIC 1978-82 -> 1974-78, defeats sentence restored")
+    else:
+        raise SystemExit("people.james-paton-i intro is not the expected text")
+    slug, place = GRAY_BIRTH_PLACE
+    row = one(c, "SELECT id, birth_place FROM people WHERE slug = ?", (slug,))
+    if row['birth_place'] == place:
+        print(f"  {slug} birth_place: already {place}")
+    elif not row['birth_place']:
+        c.execute("UPDATE people SET birth_place = ? WHERE id = ?", (place, row['id']))
+        print(f"  {slug} birth_place: -> {place}")
+    else:
+        raise SystemExit(f"people.{slug} birth_place is {row['birth_place']}")
 
     db.commit()
     db.close()

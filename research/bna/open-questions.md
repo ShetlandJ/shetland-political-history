@@ -8,6 +8,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-10-01: Charles Brown's birth date.** The DB (from the wiki) has 19 Dec 1888, which makes
+  him 78 when he retired in 1967. The 1967 nominations report calls him "now over eighty years of
+  age" (ST 21 Apr 1967 p5 art. 076). His death notice gives no age. Options: keep 1888 (the paper
+  guessed), or check Bayanne I153461. Evidence: `biographies-1950s-1980s.md`. Row:
+  `people.charles-brown` born_date.
+
 - **2026-10-01: Robert Balfour's birth date.** The DB (from the wiki) has 28 Jan 1901, which would
   make him 74 at his death on 17 Feb 1975. His death notice (ST 28 Feb 1975 p14 art. 169) says
   "aged 73". Options: keep 1901-01-28 (the notice is wrong), or check Bayanne I91291 / the 1902
