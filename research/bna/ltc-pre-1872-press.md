@@ -192,6 +192,25 @@ which already cite the book page.
 | 3 Sep 1868 | JoGJ Thu 10 Sep 1868 p3 art. 010; NE Thu 17 Sep 1868 p6 art. 067; NE Thu 24 Sep 1868 p6 art. 080 | Duncan re-elected Senior Bailie on a requisition from "a great majority of the burgesses", John Robertson sen. Junior; John Manson town clerk; the council now the commissioners under the Lindsay Act. The JoGJ's "here yesterday" is the Lerwick letter's date, not the paper's |
 | 7 Sep 1871 | JoGJ Thu 14 Sep 1871 p2 art. 008 | Lerwick, 11 Sep: "on Thursday, the 7th inst."; Duncan chief magistrate on a requisition, John Robertson sen. second magistrate; councillors chosen by slips of paper |
 
+**Votes (read 2026-10-01).** Only 1868 and 1871 print the council poll; the other reports
+give winners only.
+
+- **1868** (JoGJ 10 Sep 1868 p3 art. 010; NE 17 Sep 1868 p6 art. 067 garbled): "Nine
+  councillors were then chosen by ballot": Harrison 57, Laurenson 56, J. Robertson jun. 56,
+  G. Smith 55, Garriock 52, Ross Smith 48, Linklater 47, C. Robertson 40, Dalziel 29. All nine
+  match the DB (election 19). "The only change in the Council was the substitution of Mr C.
+  Robertson for Mr R. Goudie."
+- **1871** (JoGJ 14 Sep 1871 p2 art. 008): readable figures J. Robertson jun. 52,
+  C. Robertson 51, John Tait 49, C. Merrylees 47, R. Anderson 41 match the DB (election 20);
+  Laurenson's, Linklater's, Garriock's and Stout's figures are lost in the OCR (DB: 56, 50, 50,
+  46). Garriock sent a note that "if elected, he declined to act", and George L. Stove was taken
+  instead "after giving his consent", as the DB has it (Garriock elected=0, Stove seated).
+- **1865** (JoGJ 14 Sep 1865 p2 art. 012): Duncan beat Leask for Senior Bailie by "a majority
+  of four"; the minute book has the ballot at 19 to 14 (p189), a majority of five. The book is
+  the record; the paper's figure isn't used. George Smith had "far the largest number" of
+  council votes; no figures. The DB had lost Duncan's 19 (the wiki's "19 (Appointed as Senior
+  Bailie)" was kept as text): `fix_parse_errors.py` #22.
+
 **The minute book's silences.** Nothing in either paper fills a vacancy. The council left the
 seats of the councillors who died in office empty (Nicol and Burns 1848, Nicolson 1849, S. Hunter
 and Williamson 1858, Merrylees 1859, G. Tait 1860, Hicks 1863), and the searches turned up no

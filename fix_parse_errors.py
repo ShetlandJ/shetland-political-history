@@ -117,6 +117,10 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
 21. William Murdoch Shand (william-shand): Find a Grave memorial 291320870, given by James on
    2026-09-30 (https://www.findagrave.com/memorial/291320870/william-murdoch-shand). It postdates
    the findagrave_ids.csv run that went into the baseline.
+22. Lerwick Town Council Election September 1865: the wiki gives Charles Gilbert Duncan "19
+   (Appointed as Senior Bailie)", and the parser kept it all as text (votes empty, role
+   "Senior Bailie)"), so the page showed Leask's 14 but not Duncan's 19. The minute book has the
+   same ballot, 19 to 14 (p189). Sets votes 19 and role "Senior Bailie".
 """
 
 import os
@@ -447,6 +451,19 @@ def main():
         print("  set 291320870")
     elif fg[0] != 291320870:
         raise SystemExit(f"william-shand findagrave_id is {fg[0]}, expected NULL")
+
+    print("=== 22. LTC Sep 1865: Duncan's 19 votes ===")
+    row = c.execute("""SELECT ca.id, ca.votes, ca.votes_text, ca.role FROM candidacies ca
+                       JOIN elections e ON e.id = ca.election_id
+                       WHERE e.wiki_page_title = 'Lerwick Town Council Election September 1865'
+                         AND ca.candidate_name = 'Charles Gilbert Duncan'""").fetchone()
+    if row is None:
+        raise SystemExit("1865: Duncan candidacy not found")
+    if tuple(row[1:]) == (None, '19 (Appointed as Senior Bailie)', 'Senior Bailie)'):
+        c.execute("UPDATE candidacies SET votes = 19, votes_text = NULL, role = 'Senior Bailie' WHERE id = ?", (row[0],))
+        print(f"  candidacy {row[0]}: votes 19")
+    elif tuple(row[1:]) != (19, None, 'Senior Bailie'):
+        raise SystemExit(f"1865 Duncan: unexpected {row[1:]}")
 
     db.commit()
     db.close()
