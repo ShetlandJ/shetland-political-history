@@ -216,7 +216,13 @@ The same letter, with a clean date: "the morning of the 12th instant".
 - FamilySearch, signed in (2026-10-01). No death for any Ogilvy or Ogilvie in Louisiana 1846-50,
   and no Scottish-born James Ogilvie in the 1850 or 1860 censuses. A James Ogilvie who may be him:
   - US census 1830, Upper Suburbs of New Orleans, p113 (NARA M19), head of household
-    (ark:/61903/1:1:XHP1-VP7). Ages are tallies only; the image hasn't been read.
+    (ark:/61903/1:1:XHP1-VP7). Image 225 of 560, read 2026-10-01: he is the 13th household on the
+    page. Free white persons: one male 30-40 and one male 50-60, no females. Our James was 35;
+    the 1862 man would have been about 39. On the facing page (image 226, the same p113) the
+    13th row has 4 enslaved people (males under 10, 10-24 and 24-36; a female 24-36) and a
+    total of 6, which fits his 2 whites. But other rows don't agree across the two pages
+    (Remel, row 10, has 6 whites on 225 and a total of 1 on 226), so the alignment isn't proven.
+    Not confirmed; worth reading by eye.
   - Bureau of Land Management tract books, Louisiana, 9 Feb 1837 (1:1:624P-NF8B).
   - Gardner's New Orleans directory, 1861 (1:1:6867-VLXK).
   - Louisiana State Museum cemetery records: died New Orleans 20 May 1862, aged 71, born
