@@ -26,7 +26,8 @@ Open points:
 Fixed 2026-10-01 (`fix_parse_errors.py` #23): new person `james-t-a-inkster`, the six Delting North
 candidacies moved to him, and "County Councillor" taken out of the poet's intro, biography and
 categories. The poet now has only the 1903 candidacy, so he is a candidate-only person with a
-page; whether he keeps it is James's call.
+page. James's call (2026-10-01): the page stays, and the 1903 candidacy is unlinked from it and
+linked to Bayanne I89755 instead.
 
 ## Evidence
 

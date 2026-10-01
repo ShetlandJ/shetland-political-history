@@ -132,7 +132,9 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    181, 188, 218, 251, 279, 312), and takes "County Councillor" out of the poet's intro,
    biography and categories. The poet keeps the Lerwick Town Council candidacy of Nov 1903: the
    paper calls that candidate a member of the Lerwick School Board (ST 31 Oct 1903, p4), as the
-   poet was. Evidence: research/bna/james-inkster-delting.md.
+   poet was. Evidence: research/bna/james-inkster-delting.md. That leaves the poet a candidate-only
+   person, so (James, 2026-10-01) his page stays but the 1903 candidacy is unlinked from it and
+   its name becomes a link to his Bayanne entry (I89755).
 """
 
 import os
@@ -525,6 +527,21 @@ def main():
             print(f"  james-inkster {col}: fixed")
         elif new and new not in text:
             raise SystemExit(f"james-inkster {col} is not the expected text")
+    poet_bayanne = '[https://www.bayanne.info/Shetland/getperson.php?personID=I89755&tree=ID1 James Inkster]'
+    cand = c.execute("""SELECT ca.id, ca.person_id, ca.candidate_name FROM candidacies ca
+                        JOIN elections e ON e.id = ca.election_id
+                        WHERE e.wiki_page_title = 'Lerwick Town Council Election November 1903'
+                          AND ca.candidate_name IN ('James Inkster', ?)""", (poet_bayanne,)).fetchall()
+    if len(cand) != 1:
+        raise SystemExit(f"Inkster 1903: expected 1 candidacy, found {len(cand)}")
+    cid, pid, name = cand[0]
+    if (pid, name) == (None, poet_bayanne):
+        print(f"  1903 candidacy {cid}: already a Bayanne link")
+    elif pid == poet and name == 'James Inkster':
+        c.execute("UPDATE candidacies SET person_id = NULL, candidate_name = ? WHERE id = ?", (poet_bayanne, cid))
+        print(f"  1903 candidacy {cid}: unlinked, Bayanne I89755")
+    else:
+        raise SystemExit(f"Inkster 1903 candidacy {cid}: unexpected {pid}, {name}")
     cats = c.execute("SELECT categories FROM people WHERE id = ?", (poet,)).fetchone()[0]
     keep = '["1850 Births", "1927 Deaths"]'
     if cats != keep:
