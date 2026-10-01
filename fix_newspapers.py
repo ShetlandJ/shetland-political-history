@@ -562,8 +562,9 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Arthur Edmondston for libel in a letter Edmondston printed in 1823, addressed to the Lord
    Advocate. Tried before the Jury Court on Wednesday 7 June 1826; damages laid at £2,000;
    unanimous verdict for Greig, £300 (Caledonian Mercury 10 Jun, Inverness Courier 14 Jun,
-   Chronicle 20 Jun and 20 Sep 1826). Edmondston gets a biography (he had none; his intro already
-   calls him "notoriously litigious") and Greig's gains a paragraph. Ogilvy chaired the 1836
+   Chronicle 20 Jun and 20 Sep 1826). Edmondston's page has a full intro (his career, books and
+   family, and "notoriously litigious") but an empty biography section, which now holds the case;
+   Greig's biography gains a paragraph. Ogilvy chaired the 1836
    Lerwick meeting on the Peterhead mail packet (Shetland Journal, 10 Sep 1836) and led the
    coronation procession of 1838 (Orkney and Shetland Journal, 1 Jun and 1 Aug 1838). Evidence:
    research/bna/ltc-pre-1872-press.md.
@@ -986,7 +987,7 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71)
         "David Nicolson lived at Annsbrae in Lerwick, where he died on 4 June 1849 in his "
         "sixty-first year."
     ),
-    # Greig v Edmondston (#72)
+    # Greig v Edmondston (#72): Edmondston's intro covers his life; this fills his empty biography field
     'arthur-edmondston': (
         "Edmondston and [person:james-greig:James Greig], the Procurator Fiscal, both sat on the "
         "first Town Council, elected in 1818. In August 1821 Edmondston wrote officially to the "
