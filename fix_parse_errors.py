@@ -123,19 +123,17 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    same ballot, 19 to 14 (p189). Sets votes 19 and role "Senior Bailie".
 
 23. The Delting North County Councillor of 1890-1904 was James T. A. Inkster, merchant, Brae
-   (1854-1907, Bayanne I90168), not the poet James Inkster (1850-1927, I89755), to whom the
-   parser linked all six Delting North candidacies by name. Every nominations list that gives an
-   address has "James Inkster, Brae" (ST 24 May 1890, 26 Nov 1892), "merchant, Brae" in 1904
-   (ST 26 Nov 1904); his obituary records his County Council service (ST 6 Apr 1907, p5); the
-   poet was manager at Greenbank, North Yell, until 1896 and his obituary doesn't mention the
-   Council (ST 15 Jan 1927, p4). Creates james-t-a-inkster, moves the six candidacies (elections
-   181, 188, 218, 251, 279, 312), and takes "County Councillor" out of the poet's intro,
-   biography and categories. The poet keeps the Lerwick Town Council candidacy of Nov 1903: the
-   paper calls that candidate a member of the Lerwick School Board (ST 31 Oct 1903, p4), as the
-   poet was. Evidence: research/bna/james-inkster-delting.md. That leaves the poet a candidate-only
-   person, so (James, 2026-10-01) his page stays but the 1903 candidacy is unlinked from it and
-   its name becomes a link to his Bayanne entry (I89755).
-   James T. A. Inkster's Find a Grave memorial is 284881134 (given by James, 2026-10-01).
+   (1854-1907, Bayanne I90168), not the poet James Inkster (1850-1927, I89755), whose page the
+   wiki made for him and to whom the parser linked all six Delting North candidacies. Every
+   nominations list that gives an address has "James Inkster, Brae" (ST 24 May 1890, 26 Nov 1892),
+   "merchant, Brae" in 1904 (ST 26 Nov 1904); his obituary records his County Council service (ST 6
+   Apr 1907, p5); the poet was manager at Greenbank, North Yell, until 1896 and his obituary doesn't
+   mention the Council (ST 15 Jan 1927, p4). The poet then only stood once, for the Town Council in
+   Nov 1903 (the paper calls that candidate a Lerwick School Board member, ST 31 Oct 1903, p4, as
+   the poet was), so by James's rule (2026-10-01) he needs no page: james-inkster becomes the Brae
+   merchant (dates, places, intro, biography, Bayanne, categories, Find a Grave 284881134, given by
+   James), the six candidacies stay on it, and the 1903 candidacy is unlinked and its name made a
+   link to the poet's Bayanne entry. Evidence: research/bna/james-inkster-delting.md.
 """
 
 import os
@@ -481,53 +479,35 @@ def main():
         raise SystemExit(f"1865 Duncan: unexpected {row[1:]}")
 
     print("=== 23. James Inkster of Delting North: the Brae merchant, not the poet ===")
-    INKSTER_ELECTIONS = (181, 188, 218, 251, 279, 312)
-    poet = c.execute("SELECT id FROM people WHERE slug = 'james-inkster'").fetchone()[0]
-    row = c.execute("SELECT id FROM people WHERE slug = 'james-t-a-inkster'").fetchone()
-    if row:
-        merchant = row[0]
-        print(f"  exists: james-t-a-inkster (id {merchant})")
-    else:
-        c.execute("""INSERT INTO people (name, slug, born_date, died_date, birth_place, death_place, intro,
-                     biography, bayanne_id, categories, born_in_shetland, died_in_shetland, findagrave_id)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, 284881134)""",
-                  ('James T. A. Inkster', 'james-t-a-inkster', '1854-12-23', '1907-03-30', 'Brae', 'Brae',
-                   "James Thomas Anderson Inkster was a merchant at Brae and County Councillor for Delting "
-                   "North.",
-                   "James Inkster was the son of James Inkster and Willa Morrison Anderson of Brae, and was "
-                   "a merchant there. The County Council appointed him for North Delting in May 1890, when "
-                   "Charles Hoseason resigned the seat, and he was returned at each election until 1904, "
-                   "when William Pole of Mossbank beat him. He also sat on the Road Board and the Mainland "
-                   "District Committee, and was \"a very regular attender\" at their meetings.\n\n"
+    person = c.execute("SELECT id, bayanne_id FROM people WHERE slug = 'james-inkster'").fetchone()
+    if person is None:
+        raise SystemExit("james-inkster not found")
+    pid, bayanne = person
+    if bayanne == 'I89755':
+        c.execute("""UPDATE people SET name = 'James Inkster', born_date = '1854-12-23', died_date = '1907-03-30',
+                     birth_place = 'Brae', death_place = 'Brae', intro = ?, biography = ?, bayanne_id = 'I90168',
+                     categories = ?, born_in_shetland = 1, died_in_shetland = 1, findagrave_id = 284881134,
+                     image_ref = NULL, headshot_ref = NULL WHERE id = ?""",
+                  ("James Thomas Anderson Inkster was a merchant at Brae and County Councillor for Delting North.",
+                   "James Inkster was the son of James Inkster and Willa Morrison Anderson of Brae, and was a "
+                   "merchant there. The County Council appointed him for North Delting in May 1890, when "
+                   "Charles Hoseason resigned the seat, and he was returned at each election until 1904, when "
+                   "William Pole of Mossbank beat him. He also sat on the Road Board and the Mainland District "
+                   "Committee, and was \"a very regular attender\" at their meetings.\n\n"
                    "In Delting he was on the Parish Council, and he was chairman of the School Board when he "
-                   "died. He had pressed for higher salaries for the Board's teachers, to keep good teachers "
-                   "in the parish. He died at his home at Brae on 30 March 1907, aged 52, after an illness "
-                   "since the previous December.",
-                   'I90168', '["Zetland County Councillors", "1854 Births", "1907 Deaths"]'))
-        merchant = c.lastrowid
-        print(f"  created: james-t-a-inkster (id {merchant})")
+                   "died. He had pressed for higher salaries for the Board's teachers, to keep good teachers in "
+                   "the parish. He died at his home at Brae on 30 March 1907, aged 52, after an illness since the "
+                   "previous December.",
+                   '["Zetland County Councillors", "1854 Births", "1907 Deaths"]', pid))
+        print("  james-inkster: now the Brae merchant (Bayanne I90168)")
+    elif bayanne != 'I90168':
+        raise SystemExit(f"james-inkster has Bayanne {bayanne}, expected I89755 or I90168")
+    INKSTER_ELECTIONS = (181, 188, 218, 251, 279, 312)
     marks = ','.join('?' * len(INKSTER_ELECTIONS))
-    rows = c.execute(f"""SELECT id, person_id FROM candidacies WHERE election_id IN ({marks})
-                         AND candidate_name = 'James Inkster'""", INKSTER_ELECTIONS).fetchall()
-    if len(rows) != len(INKSTER_ELECTIONS):
-        raise SystemExit(f"Inkster: expected {len(INKSTER_ELECTIONS)} candidacies, found {len(rows)}")
-    moved = 0
-    for cid, pid in rows:
-        if pid == poet:
-            c.execute("UPDATE candidacies SET person_id = ? WHERE id = ?", (merchant, cid))
-            moved += 1
-        elif pid != merchant:
-            raise SystemExit(f"Inkster candidacy {cid} is linked to person {pid}")
-    print(f"  candidacies moved: {moved}")
-    for col, old, new in (
-            ('intro', 'James Inkster was a poet and County Councillor.', 'James Inkster was a poet.'),
-            ('biography', ' Inkster also served as a County Councillor for Delting North between 1890 and 1904.', '')):
-        text = c.execute(f"SELECT {col} FROM people WHERE id = ?", (poet,)).fetchone()[0]
-        if old in text:
-            c.execute(f"UPDATE people SET {col} = ? WHERE id = ?", (text.replace(old, new), poet))
-            print(f"  james-inkster {col}: fixed")
-        elif new and new not in text:
-            raise SystemExit(f"james-inkster {col} is not the expected text")
+    n = c.execute(f"""SELECT count(*) FROM candidacies WHERE election_id IN ({marks})
+                      AND candidate_name = 'James Inkster' AND person_id = ?""", INKSTER_ELECTIONS + (pid,)).fetchone()[0]
+    if n != len(INKSTER_ELECTIONS):
+        raise SystemExit(f"Inkster: expected {len(INKSTER_ELECTIONS)} Delting North candidacies on james-inkster, found {n}")
     poet_bayanne = '[https://www.bayanne.info/Shetland/getperson.php?personID=I89755&tree=ID1 James Inkster]'
     cand = c.execute("""SELECT ca.id, ca.person_id, ca.candidate_name FROM candidacies ca
                         JOIN elections e ON e.id = ca.election_id
@@ -535,22 +515,14 @@ def main():
                           AND ca.candidate_name IN ('James Inkster', ?)""", (poet_bayanne,)).fetchall()
     if len(cand) != 1:
         raise SystemExit(f"Inkster 1903: expected 1 candidacy, found {len(cand)}")
-    cid, pid, name = cand[0]
-    if (pid, name) == (None, poet_bayanne):
+    cid, cpid, name = cand[0]
+    if (cpid, name) == (None, poet_bayanne):
         print(f"  1903 candidacy {cid}: already a Bayanne link")
-    elif pid == poet and name == 'James Inkster':
+    elif cpid == pid and name == 'James Inkster':
         c.execute("UPDATE candidacies SET person_id = NULL, candidate_name = ? WHERE id = ?", (poet_bayanne, cid))
-        print(f"  1903 candidacy {cid}: unlinked, Bayanne I89755")
+        print(f"  1903 candidacy {cid}: unlinked, Bayanne I89755 (the poet)")
     else:
-        raise SystemExit(f"Inkster 1903 candidacy {cid}: unexpected {pid}, {name}")
-    cats = c.execute("SELECT categories FROM people WHERE id = ?", (poet,)).fetchone()[0]
-    keep = '["1850 Births", "1927 Deaths"]'
-    if cats != keep:
-        if 'Zetland County Councillors' not in cats:
-            raise SystemExit(f"james-inkster categories unexpected: {cats}")
-        c.execute("UPDATE people SET categories = ? WHERE id = ?", (keep, poet))
-        print("  james-inkster categories: councillor categories removed")
-
+        raise SystemExit(f"Inkster 1903 candidacy {cid}: unexpected {cpid}, {name}")
     db.commit()
     db.close()
 

@@ -23,11 +23,10 @@ Open points:
   candidate a member of the Lerwick School Board (ST 31 Oct 1903, p4 art. 061), as the poet's
   obituary says he was. The nominations give no address.
 
-Fixed 2026-10-01 (`fix_parse_errors.py` #23): new person `james-t-a-inkster`, the six Delting North
-candidacies moved to him, and "County Councillor" taken out of the poet's intro, biography and
-categories. The poet now has only the 1903 candidacy, so he is a candidate-only person with a
-page. James's call (2026-10-01): the page stays, and the 1903 candidacy is unlinked from it and
-linked to Bayanne I89755 instead.
+Fixed 2026-10-01 (`fix_parse_errors.py` #23). The poet only stood once (Town Council, Nov 1903, lost),
+so by James's rule he needs no page: `james-inkster` (same URL) is now the Brae merchant, with his
+dates, places, biography, Bayanne I90168 and Find a Grave 284881134; the six Delting North
+candidacies stay on it; the 1903 candidacy links to the poet's Bayanne entry (I89755) instead.
 
 ## Evidence
 

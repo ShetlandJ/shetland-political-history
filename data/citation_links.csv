@@ -2919,8 +2919,7 @@ st-19450824-p3-a059,person,william-henry:intro,read,agreed to continue until the
 st-19451221-p3-a052,person,simon-garriock:intro,read,Garriock sitting at the first meeting of the new Council
 st-19460125-p3-a044,person,simon-garriock:intro,read,Garriock sitting
 st-19451221-p3-a052,election,681,inferred,"Garriock sat and no Henry did, so Garriock was the Sandsting member (fix_newspapers.py #75)"
-st-19070406-p4-a070,person,james-t-a-inkster:died_date,read,30 March 1907
-st-19070406-p4-a070,person,james-t-a-inkster:death_place,read,At Brae
-st-19070406-p5-a099,person,james-t-a-inkster:biography,read,"County Council, Road Board, District Committee, School Board, Parish Council; aged 52"
-st-19270115-p4-a087,person,james-inkster:biography,read,"Greenbank, North Yell, until 1896; no County Council"
+st-19070406-p4-a070,person,james-inkster:died_date,read,30 March 1907
+st-19070406-p4-a070,person,james-inkster:death_place,read,At Brae
+st-19070406-p5-a099,person,james-inkster:biography,read,"County Council, Road Board, District Committee, School Board, Parish Council; aged 52"
 st-19031031-p4-a061,election,56,inferred,"the 1903 candidate was on the Lerwick School Board, as the poet was (ST 15 Jan 1927)"
