@@ -213,6 +213,19 @@ The same letter, with a clean date: "the morning of the 12th instant".
   only a few collections because we weren't signed in, so it isn't really searched yet. The New
   Orleans Directory for 1842 lists "Connelly & Ogilvie, painters and glaziers, 8 Canal street":
   no first name, and probably not him.
+- FamilySearch, signed in (2026-10-01). No death for any Ogilvy or Ogilvie in Louisiana 1846-50,
+  and no Scottish-born James Ogilvie in the 1850 or 1860 censuses. A James Ogilvie who may be him:
+  - US census 1830, Upper Suburbs of New Orleans, p113 (NARA M19), head of household
+    (ark:/61903/1:1:XHP1-VP7). Ages are tallies only; the image hasn't been read.
+  - Bureau of Land Management tract books, Louisiana, 9 Feb 1837 (1:1:624P-NF8B).
+  - Gardner's New Orleans directory, 1861 (1:1:6867-VLXK).
+  - Louisiana State Museum cemetery records: died New Orleans 20 May 1862, aged 71, born
+    Scotland about 1791 (1:1:6ZL6-XNFJ). Our James would have been 67.
+  If the 1862 man is ours, Grant's 1848 is wrong. Open question.
+- BNA, for a UK notice of the 1862 death: "ogilvie orleans" (Jun 1862-Mar 1863, 150 hits) and
+  "ogilvy orleans" (the same, 150 hits), every hit's OCR scanned for the surname; "james ogilvie"
+  orleans (9 hits). No death notice under either spelling. (The 1862 notices that do turn up: Jane
+  Charlotte Ogilvy, John Ogilvy of Quarff's daughter, married at Lerwick on 1 Jul 1862.)
 
 ## Gilbert Duncan and Alexander Irvine
 

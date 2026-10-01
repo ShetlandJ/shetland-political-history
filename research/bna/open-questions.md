@@ -245,3 +245,12 @@ Format: date raised, the question, the options, the evidence file, the row it af
   Bayanne). James (I18310) was a son of Thomas Ogilvy (I18309, 1762-1819), and Thomas and Charles (i)
   (I7816) were brothers, both sons of Thomas Ogilvy and Charlotte Willamina Neven (F2643). The two
   intros now say "cousin" (`fix_newspapers.py` #73).
+
+- **2026-10-01: Did James Ogilvy die at New Orleans in 1848, or in 1862?** Grant (1893, p210)
+  says 1848, but FamilySearch has no Louisiana death for an Ogilvy or Ogilvie in 1846-50. A James
+  Ogilvie was a householder in the Upper Suburbs of New Orleans in 1830, is in the 1861 New Orleans
+  directory, and died there on 20 May 1862, "aged 71, born Scotland" (ours would have been 67).
+  Options: keep 1848 (Grant); change to 1862 (the cemetery record), which would need more to tie
+  it to him, such as the 1830 tally or a probate record; or say "1848 (Grant)" in the biography
+  and leave the date alone. Affects `people.james-ogilvy` died_date. Evidence:
+  `biographies-ltc-1818-1850.md` (James Ogilvy).
