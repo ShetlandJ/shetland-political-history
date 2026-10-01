@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-01: Samuel Laing 1832, Lerwick Twageos 1988 (wiki source; no BNA)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | The losing 1832 Orkney and Shetland candidate (Tory, 96) linked to **Samuel Laing the MP** (b. 1812) | He was 20 at the poll and at Cambridge; the candidate was his father, **Samuel Laing of Papdale (1780–1868)**, who lost to Traill by 11 (Wikipedia, Samuel Laing (travel writer); DNB) | Fixed (`fix_parse_errors.py` #24): unlinked, candidate-only; Bayanne ID for the father not found yet (Bayanne blocked the fetch). The "Tory" label is the wiki's, unchecked |
+| 2 | wiki | The MP's biography: "born on 12 December 1810" | 12 December 1812 (his intro, DNB) | Fixed (#24) |
+| 3 | wiki | Lerwick Twageos By-Election Sep 1988 filed under the **UK Parliament**, no ward; third candidate shown as `Image:cross.gif`; no parties | SIC by-election for Lerwick Twageos after James Paton (ii) resigned; Ian Selbie 39; Johnston Independent, Adair Labour (all in the wiki page) | Fixed (#25) |
+
 ## 2026-10-01: James Inkster of Delting North (`research/bna/james-inkster-delting.md`)
 
 | # | Where | We had | Sources show | Status |

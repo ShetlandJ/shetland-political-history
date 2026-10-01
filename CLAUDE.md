@@ -364,7 +364,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - [ ] SIC by-elections Sep 1993 (Jonathan Wills, Whiteness Weisdale & Tingwall) and Mar 2002 (Joseph G. Simpson, Whalsay & Skerries): wards now set from the titles, and the replaced member is inferred as the sitting member. Confirm who it was.
 - [ ] Make constituency slugs unique across councils (see Learnings); needs redirects for any existing URLs that change
 - [ ] Set the Cloudflare Pages build command (see Deployment) and switch off GitHub Pages
-- [ ] Junk candidacy rows from parsing: `Image:cross.gif` (Lerwick Twageos 1988 by-election), `Unknown` (1722 election, with "James Moodie" in the party column). Fix with a correction script.
+- [ ] Junk candidacy rows from parsing: `Unknown` (1722 election, with "James Moodie" in the party column). Fix with a correction script.
 - [ ] 420 candidacies unlinked — mostly SIC candidates without person pages (deliberate)
 - [ ] 32 person photos missing from MW images directory
 - [ ] 11 people with zero candidacies are pre-1707 politicians whose elections aren't in the dataset

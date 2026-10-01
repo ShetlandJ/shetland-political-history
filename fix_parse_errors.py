@@ -134,6 +134,20 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    merchant (dates, places, intro, biography, Bayanne, categories, Find a Grave 284881134, given by
    James), the six candidacies stay on it, and the 1903 candidacy is unlinked and its name made a
    link to the poet's Bayanne entry. Evidence: research/bna/james-inkster-delting.md.
+24. 1832 UK General Election, Orkney and Shetland: the wiki links the losing candidate (Tory, 96
+   votes) to [[Samuel Laing]], the railwayman MP of 1873-1885. He was born on 12 December 1812, so
+   was 20 at the Dec 1832-Jan 1833 poll, under the age to sit, and was then at Cambridge. The
+   candidate was his father, Samuel Laing of Papdale (1780-1868), whom his page names, and who
+   "unsuccessfully contested the Orkney and Shetland parliamentary constituency in 1832 against
+   incumbent MP George Traill" (Wikipedia, Samuel Laing (travel writer); also DNB 1885-1900). He
+   never sat, so the candidacy is unlinked (candidate-only). The son's biography also says "born
+   on 12 December 1810"; his intro and the DNB have 1812.
+25. Lerwick Twageos By-Election September 1988: the page is only in the generic {{ElectionResults}}
+   template, so the parser filed it under the Parliament of the UK with no ward. It's a Shetland
+   Islands Council by-election ([[Category:Shetland Islands Council]]) for Lerwick Twageos, "the
+   result of the resignation of [[James Paton (ii)|James Paton]]". Ian Selbie's party cell is
+   empty ("Ian Selbie || || 39 ||"), and the parser shifted the row: 39 as his party and the
+   cross image as his name. Johnston's and Adair's parties (Independent, Labour) were dropped.
 """
 
 import os
@@ -523,6 +537,61 @@ def main():
         print(f"  1903 candidacy {cid}: unlinked, Bayanne I89755 (the poet)")
     else:
         raise SystemExit(f"Inkster 1903 candidacy {cid}: unexpected {cpid}, {name}")
+
+    print("=== 24. Samuel Laing, 1832: the father, not the MP ===")
+    laing = c.execute("SELECT id FROM people WHERE slug = 'samuel-laing'").fetchone()[0]
+    row = c.execute("""SELECT ca.id, ca.person_id FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                       WHERE e.wiki_page_title = '1832 UK General Election, Orkney and Shetland Result'
+                         AND ca.candidate_name = 'Samuel Laing'""").fetchone()
+    if row is None:
+        raise SystemExit("Laing 1832 candidacy not found")
+    if row[1] == laing:
+        c.execute("UPDATE candidacies SET person_id = NULL WHERE id = ?", (row[0],))
+        print(f"  candidacy {row[0]}: unlinked")
+    elif row[1] is not None:
+        raise SystemExit(f"Laing 1832 candidacy {row[0]}: unexpected person {row[1]}")
+    bio = c.execute("SELECT biography FROM people WHERE id = ?", (laing,)).fetchone()[0]
+    old, new = 'was born on 12 December 1810', 'was born on 12 December 1812'
+    if bio.count(old) == 1:
+        c.execute("UPDATE people SET biography = ? WHERE id = ?", (bio.replace(old, new), laing))
+        print("  biography: born 1812")
+    elif new not in bio:
+        raise SystemExit("Laing biography: birth sentence not found")
+
+    print("=== 25. Lerwick Twageos By-Election September 1988: SIC, not Parliament ===")
+    TWAGEOS = 'Lerwick Twageos By-Election September 1988'
+    ward = c.execute("SELECT id FROM constituencies WHERE slug = 'lerwick-twageos' AND council_id = 3").fetchone()[0]
+    paton = c.execute("SELECT id FROM people WHERE slug = 'james-paton-ii'").fetchone()[0]
+    e = c.execute("SELECT id, council_id, constituency_id, replaced_person, replaced_person_id FROM elections WHERE wiki_page_title = ?",
+                  (TWAGEOS,)).fetchone()
+    if e is None:
+        raise SystemExit("Twageos 1988 election not found")
+    if tuple(e[1:]) == (5, None, None, None):
+        c.execute("""UPDATE elections SET council_id = 3, constituency_id = ?, replaced_person = 'James Paton',
+                     replaced_person_id = ? WHERE id = ?""", (ward, paton, e[0]))
+        print(f"  election {e[0]}: SIC, Lerwick Twageos, replaced James Paton (ii)")
+    elif tuple(e[1:]) != (3, ward, 'James Paton', paton):
+        raise SystemExit(f"Twageos 1988 election: unexpected {e[1:]}")
+    for name, before, after in [
+        ('Michael Johnston', (None, 246), ('Independent', 246)),
+        ('Robert Adair', (None, 66), ('Labour', 66)),
+    ]:
+        cid, party, votes = c.execute("SELECT id, party, votes FROM candidacies WHERE election_id = ? AND candidate_name = ?",
+                                      (e[0], name)).fetchone()
+        if (party, votes) == before:
+            c.execute("UPDATE candidacies SET party = ? WHERE id = ?", (after[0], cid))
+            print(f"  {name}: {after[0]}")
+        elif (party, votes) != after:
+            raise SystemExit(f"Twageos 1988 {name}: unexpected {party!r}, {votes!r}")
+    row = c.execute("""SELECT id, candidate_name, party, votes FROM candidacies WHERE election_id = ?
+                       AND candidate_name IN ('Image:cross.gif', 'Ian Selbie')""", (e[0],)).fetchone()
+    if row is None:
+        raise SystemExit("Twageos 1988: Selbie row not found")
+    if tuple(row[1:]) == ('Image:cross.gif', '39', None):
+        c.execute("UPDATE candidacies SET candidate_name = 'Ian Selbie', party = NULL, votes = 39 WHERE id = ?", (row[0],))
+        print(f"  candidacy {row[0]}: Ian Selbie, 39 votes")
+    elif tuple(row[1:]) != ('Ian Selbie', None, 39):
+        raise SystemExit(f"Twageos 1988 Selbie: unexpected {row[1:]}")
     db.commit()
     db.close()
 
