@@ -213,6 +213,21 @@ Format: date raised, the question, the options, the evidence file, the row it af
   Tue 3 May 1932 (the first Tuesday), unconfirmed. Options: accept 3 May and confirm, or zoom
   on the SN page. Evidence: `ltc-1884-1935-citations.md`.
 
+- **2026-10-01: James Ogilvy: uncle or cousin of Charles (ii) and John Ogilvy?** The intros of
+  `charles-ogilvy-ii` and `john-ogilvy` call James their uncle. James's own intro calls Charles
+  Ogilvy (i) his uncle, which makes him their cousin, and he was born in 1794, only six years
+  before John. Options: change the two intros to "cousin", or check Bayanne (I18310). Evidence:
+  `biographies-ltc-1818-1850.md`.
+
+- **2026-10-01: William Angus's death place.** The wiki says "d. 1848, Edinburgh", but the DB's
+  `death_place` is empty, so the parser seems to have dropped it. No notice found in 1847–49
+  ("angus lerwick"). Options: set Edinburgh from the wiki text (`fix_parse_errors.py`), or leave it.
+  Evidence: `biographies-ltc-1818-1850.md`.
+
+- **2026-10-01: James Pottinger (i)'s birth.** The wiki says "b. abt 1776" and the DB says
+  `bef 1790`. Nothing found in the papers. Options: keep, or take the wiki's "abt 1776". Evidence:
+  `biographies-ltc-1818-1850.md`.
+
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)

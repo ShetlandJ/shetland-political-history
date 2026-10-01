@@ -269,3 +269,27 @@ result issues, plus the p1 adverts. Rebuild and commit after each batch. Evidenc
 - [x] **Labels 5: ZCC 1890–1929** (done: 1 row, new: George Leslie, Tingwall 1901, "an entirely independent Candidate". County Council elections had no labels; the 1919 "Labour" for Pottinger and W. Sinclair is unconfirmed (open question). `party-labels-zcc-1890-1929.md`)
 - [x] **Labels 6: ZCC 1930–1975** (done: 12 rows, 3 new: Hamilton Independent (Tingwall 1945), Prophet Smith Socialist (Gulberwick 1951), William Thomson Shetland Democratic Group (Unst North 1973); 9 SDG confirmed. Unlabelled otherwise; the 1949 "Labour" seven unconfirmed except Anderson, "Socialist-sponsored" (open question). `party-labels-zcc-1930-1975.md`)
 - [ ] **Labels 7: SIC 1974–2003** (check the wiki labels against the ST where cheap; lowest priority) Not started: the SIC result issues (ST 1974–99) are digitised, but the browser extension disconnected mid-sweep on 2026-09-30. The Friday after each poll has the results.
+
+## Pre-1872 town council sweep (added 2026-10-01)
+
+Before the Shetland Times (1872) there was no Lerwick paper running for long, but the BNA has
+these titles that report Lerwick (codes for the OCR/manifest endpoints):
+
+| Title | Code | Run in the BNA | Notes |
+|---|---|---|---|
+| Orkney & Zetland Chronicle | `0006124` | Jan 1825–Sep 1826, monthly, 13 issues | Kirkwall. Issues found: 1825-01-31, 02-28, 03-31, 04-30, 05-31, 06-30, 08-24, 09-30, 10-31, 11-30, 12-31; 1826-06-20, 09-20 (probed the last day, 20th and 24th of each month 1824–27) |
+| Orkney and Shetland Journal | `0005738` / `0005737` | Jun 1836–Sep 1837 / Jan 1838–Aug 1839, ~30 issues | 1836–37 is Arthur Anderson's Shetland Journal (Lerwick). Issues found: 1836-06-11, 09-10, 11-12 (not probed: other days in 1836); 1837-01-02, then the 1st of Feb–Sep 1837 and Jan 1838–Aug 1839 (probed the 1st, 10th, 11th) |
+| John o' Groat Journal | `0000459` | 1836 on, weekly (Fri) | Wick. "Zetland"/"Lerwick" letters, deaths, notices |
+| Northern Ensign | `0002561` | 1850s on, weekly (Thu) | Wick. Lerwick correspondent's letters |
+| Orkney Herald | (find code) | 1860 on | Kirkwall |
+| Shetland Advertiser / Shetland Times predecessors | check | | `newspaper=` filter typed "shetland" found only the O&S Journal |
+
+Search tips learned on 2026-10-01: filter with `newspaper=john%20o%27%20groat%20journal` etc.;
+`exactdate=true` with start/end dates works across all titles; keywords aren't strict (OCR fuzzy),
+so filter snippets in JS for the surname/place. Snippet text is sometimes better than the endpoint
+OCR (Courant 24 Apr 1828). The two small runs (Chronicle, Journal) can be swept whole: list each
+manifest, read every article's OCR, keep those matching the patterns below.
+
+- [ ] **Sweep the Chronicle and the Shetland Journal whole** for town council business: `town council|magistrat|bailie|provost|burgh|council|commissioners of police|feuars|police|election`, plus `lerwick`. Record each item (meeting, election, dispute, office-bearers) in `research/bna/ltc-pre-1872-press.md`, and check it against the 1818–1871 ledger rows and `ltc-1818-1871-minute-book.md`.
+- [ ] **John o' Groat Journal 1836–1871 and Northern Ensign**: search, not sweep (weekly for 35 years). Keywords `lerwick` + `council`, `magistrates`, `bailie`, `provost`, `municipal`, `burgh`, one year at a time; September (the annual election, first Tuesday) and November first. Also `police commissioners` after the 1833 Burgh Police Act.
+- [ ] **Scottish dailies** (Caledonian Mercury `0000045`, Scotsman `0000540`, Edinburgh Evening Courant `0001060`, Aberdeen Journal `0000031`, Inverness Courier `0000446`): `lerwick` + `magistrates`/`council` for disputes, court cases and the 1818 and 1833 burgh reforms.

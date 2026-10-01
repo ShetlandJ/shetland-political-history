@@ -118,6 +118,26 @@ CREATE TABLE searches (
 PUBLICATIONS = {
     'shetland-times': ('Shetland Times', 'st', '0000666'),
     'shetland-news': ('Shetland News', 'sn', '0003210'),
+    # Older titles, for councillors who died before the Shetland Times began (1872)
+    'orkney-zetland-chronicle': ('Orkney & Zetland Chronicle', 'ozc', '0006124'),
+    'shetland-journal': ('Orkney and Shetland Journal', 'osj', '0005738'),
+    'john-o-groat-journal': ("John o' Groat Journal", 'jogj', '0000459'),
+    'northern-ensign': ('Northern Ensign', 'ne', '0002561'),
+    'scotsman': ('The Scotsman', 'scot', '0000540'),
+    'caledonian-mercury': ('Caledonian Mercury', 'cm', '0000045'),
+    'edinburgh-evening-courant': ('Edinburgh Evening Courant', 'eec', '0001060'),
+    'edinburgh-evening-post': ('Edinburgh Evening Post', 'eep', '0001177'),
+    'perthshire-courier': ('Perthshire Courier', 'pc', '0001174'),
+    'perthshire-advertiser': ('Perthshire Advertiser', 'pa', '0000458'),
+    'inverness-courier': ('Inverness Courier', 'ic', '0000446'),
+    'aberdeen-journal': ('Aberdeen Journal', 'aj', '0000031'),
+    'glasgow-courier': ('Glasgow Courier', 'gc', '0003089'),
+    'hampshire-telegraph': ('Hampshire Telegraph', 'ht', '0000069'),
+    'dover-telegraph': ('Dover Telegraph', 'dt', '0002044'),
+    'the-news-london': ('The News (London)', 'news', '0002258'),
+    'naval-military-gazette': ('Naval & Military Gazette', 'nmg', '0001681'),
+    'pilot-london': ('Pilot (London)', 'pil', '0002775'),
+    'bna-all-titles': ('BNA, all titles', 'bna', None),  # searches.csv only
     'ltc-minute-book': ('LTC minute book', 'mb', None),
 }
 PERSON_FIELDS = {'born_date', 'died_date', 'birth_place', 'death_place', 'intro', 'biography'}

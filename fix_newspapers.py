@@ -535,6 +535,27 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    reconstituted County Council (ST 16 Nov 1929, p4, art. 096), and in 1961 the County Council
    was 24 landward members plus the Town Council, 36 in all (ST 12 May 1961, p5, art. 065).
    Evidence: research/bna/biographies-1950s-1980s.md.
+
+71. Biographies for thirteen Town Councillors of 1818-1850 who had none. They died before the
+   Shetland Times began, so the sources are the Orkney & Zetland Chronicle (1825), the Shetland
+   Journal (1836-37, in the BNA as the Orkney and Shetland Journal), the John o' Groat Journal,
+   the Northern Ensign and the Scottish and naval papers' notices: William Copland (Shetland
+   Journal, 1836-37), James Yorston (Pilot 26 May 1813; births, Scotsman 20 Aug 1825 and
+   Caledonian Mercury 14 Apr 1827; Shetland Journal 1837; death, Hampshire Telegraph 17 Feb and
+   Dover Telegraph 24 Feb 1849), Robert Goudie (Northern Ensign and John o' Groat Journal, 2 Dec
+   1869), Archibald Greig (Edinburgh Evening Post 27 Oct, Northern Ensign 28 Oct 1852), Charles
+   Ogilvy (ii) (Chronicle 31 May 1825; Inverness Courier 12 Jun, John o' Groat Journal 21 Jun
+   1844), John Ogilvy (Caledonian Mercury 10 Dec 1840; Inverness Courier 28 May 1845; Aberdeen
+   Journal 14 Apr 1847), Gilbert Duncan (Glasgow Courier 9 Mar 1844), Alexander Irvine
+   (Chronicle 28 Feb 1825), Gilbert Paterson (Edinburgh Evening Courant 24 Apr, Perthshire
+   Courier 1 May 1828), James Pottinger (i) (The News 17 Jul 1836), William Clark (i) (John o'
+   Groat Journal 7 Apr 1854), James Hunter (i) (Inverness Courier 17 Aug 1847) and David
+   Nicolson (Perthshire Advertiser 14 Jun 1849). Three facts corrected from the notices: James
+   Yorston died at Leith, not Lerwick ("At Leith, James Yorston, Esq., Paymaster and Purser,
+   R.N.", on the 10th, our date); Gilbert Paterson died on 8 Apr 1828, not the 5th ("on the 8th
+   current", Courant; "the 8th ultimo", Courier); Archibald Greig died on 12 Oct 1852, not the 11th
+   (Evening Post, Morning Chronicle and Londonderry Standard). Evidence:
+   research/bna/biographies-ltc-1818-1850.md.
 """
 
 import os
@@ -638,7 +659,7 @@ CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '19
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MOUAT_DEATH = ('henry-mouat', '1944-03-20', '1944-05-20')
 IRVINE_DEATH = ('arthur-irvine-ii', '1995-04-25', '1995-04-26')
-BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70)
+BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71)
     'fraser-peterson': (
         "Fraser Peterson was the elder son of Barron and Maggie Peterson of North House, Burravoe, "
         "Brae. He married Ina Johnson, and they had three daughters. He was a crofter and ran a "
@@ -859,7 +880,105 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70)
         "night in the Gilbert Bain Hospital, aged 73. He was survived by his wife, Joan White, who had hoped to "
         "celebrate their golden wedding the next month, and by three daughters and two sons."
     ),
+    # 1818-1850 (#71)
+    'william-copland': (
+        "William Copland was a merchant and linen-draper in Lerwick in the 1830s. In October 1836 "
+        "he advertised a new stock of woollen and silk goods, bought on a visit to the chief "
+        "markets in England and Scotland. He was also the Lerwick agent for the Peninsular Steam "
+        "Navigation Company of Willcox and [person:arthur-anderson:Anderson], and agent for "
+        "Shetland for several other firms.\n\n"
+        "When [person:arthur-anderson:Arthur Anderson] started the Shetland Journal in 1836, "
+        "Copland was its man in Lerwick. Letters to \"the originators of the Shetland Journal\" "
+        "were left with him, and each number was \"sold by William Copland, Lerwick\". Through "
+        "him Anderson offered Shetlandmen a passage south to look for work in the merchant "
+        "service. In 1837, when 20,000 people in Shetland were said to be starving, he and "
+        "[person:james-yorston:James Yorston] took applications from men wanting a free passage "
+        "to a new settlement overseas. Later that year they took applications from parents for "
+        "Anderson's scheme to place Shetland boys in the merchant service."
+    ),
+    'james-yorston': (
+        "James Yorston was a purser in the Royal Navy, with seniority from 1813. In May of that "
+        "year a J. Yorston, purser of the Pert, was moved to the Leven. By the 1820s he was "
+        "living at Sound, near Lerwick, where a daughter was born to him and his wife in July "
+        "1825 and a son in February 1827.\n\n"
+        "In 1837 he and [person:william-copland:William Copland] were "
+        "[person:arthur-anderson:Arthur Anderson]'s contacts in Lerwick. They took applications "
+        "from men wanting a passage to a new settlement overseas, and from parents of boys "
+        "wanting a place in the merchant service.\n\n"
+        "He and his wife died of typhus fever at Leith in February 1849, within two days of each "
+        "other: she first, and he on 10 February. The naval obituaries listed him as Paymaster "
+        "and Purser."
+    ),
+    'robert-goudie': (
+        "Robert Goudie came to Lerwick around 1810. He served his apprenticeship with his "
+        "relatives the Messrs Sinclair, then extensive merchants in the town, and afterwards set "
+        "up in business for himself. The son of pious parents, he took a deep interest in "
+        "religious and church affairs. From the Disruption of 1843 he was a devoted member of the "
+        "Free Church, but he gave to other churches as well.\n\n"
+        "He died at Lerwick on the evening of Saturday 20 November 1869, aged 71, after a long "
+        "illness, leaving a widow and family. The Northern Ensign called him \"one of our oldest "
+        "and most worthy townsmen\"."
+    ),
+    'archibald-greig': (
+        "Archibald Greig, of Sandsound, was Procurator Fiscal of Zetland, the county's public "
+        "prosecutor, as his father had been. He had an apoplectic stroke the year before he died "
+        "and never fully recovered. He died suddenly at his house in Lerwick on 12 October 1852. "
+        "The Northern Ensign's Lerwick correspondent noted that he was the third fiscal to die "
+        "within six months."
+    ),
+    'charles-ogilvy-ii': (
+        "Charles Ogilvy, junior, merchant in Lerwick, married Martha Fea, youngest daughter of "
+        "Thomas Fea, collector of customs at Lerwick, on 14 May 1825.\n\n"
+        "In 1844 he was taken ill on a visit to Edinburgh, and died at 16 Albany Street on 5 June. "
+        "His body was brought home to Lerwick on the steamer Sovereign. The John o' Groat "
+        "Journal's Zetland correspondent wrote that his death had cast a deep gloom over Zetland. "
+        "He was esteemed for his frankness, humility and quiet generosity, and was \"a general "
+        "favourite with all classes\". During the week of the funeral the streets of Lerwick "
+        "looked as they did on a Sunday, and little business was done."
+    ),
+    'john-ogilvy': (
+        "John Ogilvy of Quarff was a merchant and banker in Lerwick. He died in London on 31 "
+        "October 1840. His affairs were not settled at his death. In May 1845 his estate was "
+        "sequestrated as that of the \"sometime merchant and banker in Lerwick, now deceased\", "
+        "and his creditors were still meeting in Lerwick in 1847."
+    ),
+    'gilbert-duncan': (
+        "Gilbert Duncan was a purser in the Royal Navy as well as a writer (solicitor) in Lerwick. "
+        "In February 1825 he was at the Lerwick meeting of Shetland landholders that set out to "
+        "make up a valuation roll for Zetland and to claim their right to vote for the county's "
+        "Member of Parliament. He acted there under mandates for absent proprietors. He died at "
+        "Lerwick on 19 February 1844."
+    ),
+    'alexander-irvine': (
+        "Alexander Cumming Irvine was a merchant in Lerwick. In February 1825 he attended the "
+        "Lerwick meeting of Shetland landholders on behalf of his father, Andrew Irvine. The "
+        "meeting had been called to make up a valuation roll for Zetland and to claim the "
+        "landholders' right to vote for the county's Member of Parliament."
+    ),
+    'gilbert-paterson': (
+        "Gilbert Paterson died at Lerwick on 8 April 1828 after a short illness. The Edinburgh "
+        "Evening Courant called him a most active, industrious and enterprising man."
+    ),
+    'james-pottinger-i': (
+        "James Pottinger died at Edinburgh in June 1836. That autumn the quarterly naval "
+        "obituary listed him among the pursers who had died."
+    ),
+    'william-clark-i': (
+        "William Clark's premises were at No. 40 Commercial Street, Lerwick, where he died in "
+        "March 1854 at the advanced age of 72."
+    ),
+    'james-hunter-i': (
+        "James Hunter's business was the firm of James Hunter and Son, merchants, in Lerwick. He "
+        "died at Lerwick on 2 August 1847."
+    ),
+    'david-nicolson': (
+        "David Nicolson lived at Annsbrae in Lerwick, where he died on 4 June 1849 in his "
+        "sixty-first year."
+    ),
 }
+YORSTON_DEATH_PLACE = ('james-yorston', 'Lerwick', 'Leith')  # (#71)
+PATERSON_DEATH = ('gilbert-paterson', '1828-04-05', '1828-04-08')  # (#71)
+GREIG_DEATH = ('archibald-greig', '1852-10-11', '1852-10-12')  # (#71)
 PATON_INTRO = (  # (old, new) for james-paton-i (#70)
     "James John Paton was a Lerwick Town Councillor between 1960 and 1975 and a Shetland Islands "
     "Councillor for Lerwick Twageos between 1978 and 1982. He was the grandfather of former "
@@ -1899,7 +2018,7 @@ def main():
             c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (ROBERTSON_BAYANNE, cand['id']))
             print(f"  candidacy {cand['id']}: James Robertson -> Bayanne I28791")
 
-    print("=== 69-70. Biographies for people who had none; Arthur Irvine's death ===")
+    print("=== 69-71. Biographies for people who had none; Arthur Irvine's death ===")
     slug, wrong, right = IRVINE_DEATH
     row = one(c, "SELECT id, died_date FROM people WHERE slug = ?", (slug,))
     if row['died_date'] == right:
@@ -1938,6 +2057,18 @@ def main():
         print(f"  {slug} birth_place: -> {place}")
     else:
         raise SystemExit(f"people.{slug} birth_place is {row['birth_place']}")
+
+    print("=== 71. Yorston's death place; Paterson's and Greig's death dates ===")
+    for field, (slug, wrong, right) in (('death_place', YORSTON_DEATH_PLACE),
+                                        ('died_date', PATERSON_DEATH), ('died_date', GREIG_DEATH)):
+        row = one(c, f"SELECT id, {field} FROM people WHERE slug = ?", (slug,))
+        if row[field] == right:
+            print(f"  {slug} {field}: already {right}")
+        elif row[field] == wrong:
+            c.execute(f"UPDATE people SET {field} = ? WHERE id = ?", (right, row['id']))
+            print(f"  {slug} {field}: {wrong} -> {right}")
+        else:
+            raise SystemExit(f"people.{slug} {field} is {row[field]}, expected {wrong}")
 
     db.commit()
     db.close()
