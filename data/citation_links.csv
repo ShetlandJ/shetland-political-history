@@ -329,10 +329,10 @@ st-19351102,term,james-morrison@1932-11-01,,
 st-19341006-p4-a037,term,laurence-sandison@1932-11-01,,
 st-19341013-p4-a088,term,laurence-sandison@1932-11-01,,
 st-19351102,term,robert-ganson-ii@1932-11-01,,
-st-19341013-p4-a087,term,thomas-johnston-ii@1932-11-01,,
-st-19341013-p4-a088,term,thomas-johnston-ii@1932-11-01,,
-st-19341103-p4-a045,term,thomas-johnston-ii@1932-11-01,,
-st-19331118-p5-a098,term,thomas-johnston-ii@1932-11-01,,
+st-19341013-p4-a087,term,thomas-johnston-i@1932-11-01,,
+st-19341013-p4-a088,term,thomas-johnston-i@1932-11-01,,
+st-19341103-p4-a045,term,thomas-johnston-i@1932-11-01,,
+st-19331118-p5-a098,term,thomas-johnston-i@1932-11-01,,
 st-19351102,term,charlotte-nicol@1933-11-07,,
 st-19371009,term,james-smith-i@1934-11-06,,
 st-19410607-p2-a070,term,james-smith-i@1934-11-06,inferred,End about 23 Jun 1941: three weeks from a letter the acting chairman had by Mon 2 Jun
@@ -2923,3 +2923,9 @@ st-19070406-p4-a070,person,james-inkster:died_date,read,30 March 1907
 st-19070406-p4-a070,person,james-inkster:death_place,read,At Brae
 st-19070406-p5-a099,person,james-inkster:biography,read,"County Council, Road Board, District Committee, School Board, Parish Council; aged 52"
 st-19031031-p4-a061,election,56,inferred,"the 1903 candidate was on the Lerwick School Board, as the poet was (ST 15 Jan 1927)"
+st-19321105-p4-a025,term,thomas-johnston-i@1932-11-01,read,"""Mr Thomas Johnston, solicitor"""
+st-19361107-p4-a073,term,thomas-johnston-i@1932-11-01,read,"Obituary: elected Nov 1932 ""though not in robust health"""
+st-19361107-p4-a073,election,470,read,"Obituary: elected for Cunningsburgh Dec 1922, one term"
+st-19221202-p4-a095,election,470,read,"Address signed ""Thomas Johnston, Lower Leog"""
+st-19220715-p4-a051,election,470,read,"Lower Leog Thomas Johnston had a student son in 1922, so not Tammy (b. 1894)"
+st-19311128-p4-a068,person,james-smith-i:biography,read,"""James A. Smith, ex-Convener of the County, Hope Villa"", belonged to Mid-Yell"

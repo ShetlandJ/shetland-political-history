@@ -9,6 +9,15 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-01: Thomas Johnston and James A. Smith (`research/bna/johnston-smith-identity.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki, ledger | The 1932 Lerwick Town Council seat (confirmed ledger row) was **Tammy Johnston (ii)**'s | It was **the solicitor, Thomas Johnston (i)**: "Mr Thomas Johnston, solicitor" (ST 5 Nov 1932); his obituary has him elected Nov 1932 "though not in robust health" (ST 7 Nov 1936). The 1933 sick leave and 1934 ill-health resignation are his | Fixed (`fix_parse_errors.py` #26; ledger row, citations and label moved to (i)) |
+| 2 | wiki | Tammy (ii) sat for **Cunningsburgh 1922–25** (his succession box, the disambiguation page) | The Cunningsburgh member was the solicitor, "Thomas Johnston, Lower Leog", who had a student son in 1922; Tammy's first seat was Gulberwick 1925 ("North Roadside") | DB already had (i); (i)'s intro now names the seat. The wiki pages are wrong |
+| 3 | wiki | (i)'s biography: "He stayed with the shipbuilders until 1925" | His obituary: with Hay & Co., Lerwick, "until early in 1925", qualified as solicitor April 1925; Duthie's was earlier | Not changed |
+| 4 | — | (review) James A. Smith of Yell South 1922–32 / Bressay 1933 might be a different man from the Provost | One man: "James A. Smith, Hope Villa, Lerwick" in the 1922 Yell South nominations; "ex-Convener of the County, Hope Villa", from Mid-Yell (ST 28 Nov 1931); same address in 1934 | No change needed |
+
 ## 2026-10-01: Samuel Laing 1832, Lerwick Twageos 1988 (wiki source; no BNA)
 
 | # | Where | We had | Sources show | Status |

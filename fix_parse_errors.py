@@ -148,6 +148,14 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    result of the resignation of [[James Paton (ii)|James Paton]]". Ian Selbie's party cell is
    empty ("Ian Selbie || || 39 ||"), and the parser shifted the row: 39 as his party and the
    cross image as his name. Johnston's and Adair's parties (Independent, Labour) were dropped.
+26. Lerwick Town Council Election November 1932: the wiki links the winner "[[Thomas Johnston (ii) |
+   Thomas Johnston]]", Tammy (1894-1972). It was the solicitor, Thomas Johnston (i) (1873-1936):
+   "Mr Thomas Johnston, solicitor, who stood as an independent candidate" (Shetland Times, 5 Nov
+   1932, p4), and his obituary has him elected in Nov 1932 "though not in robust health" (ST 7 Nov
+   1936, p4). The obituary also has him County Councillor for Cunningsburgh from Dec 1922 for one
+   term (already linked to him), which his intro leaves out. Tammy's first seat was Gulberwick in
+   1925 (ST 14 Nov 1925); his wiki page's Cunningsburgh 1922-25 box is wrong.
+   Evidence: research/bna/johnston-smith-identity.md.
 """
 
 import os
@@ -592,6 +600,27 @@ def main():
         print(f"  candidacy {row[0]}: Ian Selbie, 39 votes")
     elif tuple(row[1:]) != ('Ian Selbie', None, 39):
         raise SystemExit(f"Twageos 1988 Selbie: unexpected {row[1:]}")
+
+    print("=== 26. LTC Nov 1932: Thomas Johnston the solicitor, not Tammy ===")
+    j1 = c.execute("SELECT id FROM people WHERE slug = 'thomas-johnston-i'").fetchone()[0]
+    j2 = c.execute("SELECT id FROM people WHERE slug = 'thomas-johnston-ii'").fetchone()[0]
+    cid, cpid = c.execute("""SELECT ca.id, ca.person_id FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                             WHERE e.wiki_page_title = 'Lerwick Town Council Election November 1932'
+                               AND ca.candidate_name = 'Thomas Johnston'""").fetchone()
+    if cpid == j2:
+        c.execute("UPDATE candidacies SET person_id = ? WHERE id = ?", (j1, cid))
+        print(f"  candidacy {cid}: thomas-johnston-i")
+    elif cpid != j1:
+        raise SystemExit(f"Johnston 1932 candidacy {cid}: unexpected person {cpid}")
+    intro = c.execute("SELECT intro FROM people WHERE id = ?", (j1,)).fetchone()[0]
+    old = 'was a solicitor and Lerwick Town Councillor.'
+    new = ('was a solicitor, County Councillor for Cunningsburgh from 1922 to 1925 and '
+           'Lerwick Town Councillor from 1932 to 1934.')
+    if intro.count(old) == 1:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (intro.replace(old, new), j1))
+        print("  thomas-johnston-i intro: Cunningsburgh and Town Council years")
+    elif new not in intro:
+        raise SystemExit("thomas-johnston-i intro: sentence not found")
     db.commit()
     db.close()
 
