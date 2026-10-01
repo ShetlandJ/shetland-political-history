@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-01: James Inkster of Delting North (`research/bna/james-inkster-delting.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | The poet James Inkster (1850–1927) was County Councillor for Delting North 1890–1904; all six Delting North candidacies linked to him | The councillor was James T. A. Inkster, merchant, Brae (1854–1907): "James Inkster, Brae" in every nominations list (1890, 1892, 1904); his 1907 obituary records his County Council service; the poet was in North Yell until 1896 | Not fixed: needs a new person and the candidacies relinked |
+
 ## 2026-10-01: ZCC Sandsting, December 1945 (`research/bna/zcc-1940-1959.md` §1)
 
 | # | Where | We had | Sources show | Status |
