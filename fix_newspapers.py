@@ -575,6 +575,18 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    1762-1819) and Andrina Malcolmson, and Thomas and Charles (i) (I7816, b. 1761) were both sons
    of Thomas Ogilvy and Charlotte Willamina Neven (family F2643). Checked 2026-10-01. The two
    intros now say "cousin". Raised in research/bna/open-questions.md.
+
+74. A biography for James Ogilvy, who had none. The fire that destroyed his house, shop and
+   warehouses at about 2.30 am on 12 May 1824 is in a letter from Lerwick dated 15 May (Caledonian
+   Mercury 3 Jun, Inverness Courier 10 Jun 1824). He was trustee on William Sinclair's sequestrated
+   estate (Caledonian Mercury 10 Feb 1823; also London Gazette 1 Sep 1823, Edinburgh Gazette 4 Nov
+   1824). His parents, his brother Thomas and his death at New Orleans in 1848 are from Grant, The
+   County Families of the Zetland Islands (1893), p210, the only source found for New Orleans. The
+   1821 purchase, the 1830 sale to Gilbert Tait and the 1906 rebuilding are E. S. Reid Tait's
+   notes, through Bayanne I18310 (Robertson, Sons and Daughters of Shetland, p144); those notes
+   date the fire 23 May, which the letter of 15 May rules out. Not in FreeCEN's 1841 census of
+   Shetland. Nothing in Chronicling America's Louisiana papers 1830-50 or on Find a Grave.
+   Bayanne's link to Jane Nicolson is left out. Evidence: research/bna/biographies-ltc-1818-1850.md.
 """
 
 import os
@@ -678,7 +690,7 @@ CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '19
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MOUAT_DEATH = ('henry-mouat', '1944-03-20', '1944-05-20')
 IRVINE_DEATH = ('arthur-irvine-ii', '1995-04-25', '1995-04-26')
-BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71)
+BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #74)
     'fraser-peterson': (
         "Fraser Peterson was the elder son of Barron and Maggie Peterson of North House, Burravoe, "
         "Brae. He married Ina Johnson, and they had three daughters. He was a crofter and ran a "
@@ -960,6 +972,23 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71)
         "October 1840. His affairs were not settled at his death. In May 1845 his estate was "
         "sequestrated as that of the \"sometime merchant and banker in Lerwick, now deceased\", "
         "and his creditors were still meeting in Lerwick in 1847."
+    ),
+    'james-ogilvy': (  # (#74)
+        "James Ogilvy was a son of Thomas Ogilvy, merchant in Lerwick, and Andrina Malcolmson, "
+        "daughter of the Sheriff Substitute James Malcolmson. His elder brother Thomas, a "
+        "lieutenant in the Royal Navy, died at Moulmein about 1830.\n\n"
+        "In 1823 and 1824 he was the trustee on the sequestrated estate of William Sinclair, "
+        "merchant in Lerwick. In May 1821 he had bought at public roup the building that was "
+        "his house, shop and warehouses. At about half past two on the morning of 12 May 1824 it "
+        "was found to be on fire. The roof fell in and only the walls were left standing. He and his family were staying in "
+        "a small house in the country while repairs were done. His furniture, his stock and all "
+        "his account books and papers were lost, and the report put the loss beyond "
+        "\"all ordinary calculation\". The cause was thought to be a spark from the counting-room "
+        "fire, or lightning. The building stood unroofed for half a century. He sold the site in "
+        "1830 to Gilbert Tait, merchant and fishcurer, and it was rebuilt in 1906 as 80 and 82 "
+        "Commercial Street.\n\n"
+        "He does not appear in the 1841 census of Shetland. He died at New Orleans in 1848; when "
+        "and why he went to America is not known."
     ),
     'gilbert-duncan': (
         "Gilbert Duncan was a purser in the Royal Navy as well as a writer (solicitor) in Lerwick. "

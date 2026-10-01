@@ -32,11 +32,12 @@ Findings:
 - **William Copland was Arthur Anderson's man in Lerwick**: Lerwick seller of the Shetland Journal
   and agent for the Peninsular company. With Yorston, he handled Anderson's 1836–37 schemes for
   passages south and the 1837 famine emigration.
-- Nothing found for John Hughson, William Angus, Thomas Balfour Nicolson, James Ogilvy, Gilbert
+- Nothing found for John Hughson, William Angus, Thomas Balfour Nicolson, Gilbert
   Robertson, David Leask, Alexander Nicol or David Burns (`data/searches.csv`). Isaac Cowie
   (surgeon, d. 11 Jun 1847), James Mouat (ii) (d. 28 Feb 1853, aged 45) and Samuel Hunter (d. Feb
   1858, merchant and fishcurer; the John o' Groat obituary is too garbled to use) had notices that
-  only confirm what we have. Bayanne not consulted (Cloudflare).
+  only confirm what we have. Bayanne not consulted (Cloudflare). James Ogilvy was looked at again
+  later the same day (his own section below).
 
 ## William Copland
 
@@ -171,6 +172,47 @@ deceased".
 **Aberdeen Journal, Wed 14 Apr 1847, p7 (art. 034)**
 https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000031%2F18470414&page=0007&article=034
 His creditors to meet in the Subscription Room, Lerwick.
+
+## James Ogilvy
+
+Added 2026-10-01: how did he come to die at New Orleans? Not found. The biography (#74) is
+what could be found.
+
+**Caledonian Mercury, Mon 10 Feb 1823, p1 (art. 001)**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000045%2F18230210&page=0001&article=001
+Estate of William Sinclair: inquire at "Mr James Ogilvy, merchant in Lerwick, the trustee". He is
+trustee again in the London Gazette (1 Sep 1823, p1461) and Edinburgh Gazette (4 Nov 1824, p200).
+No sequestration of his own in either Gazette.
+
+**Caledonian Mercury, Thu 3 Jun 1824, p3 (art. 011)**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000045%2F18240603&page=0003&article=011
+"Destructive Fire at Lerwick", from a letter dated 15 May. About 2.30 am the dwelling-house, shop and
+warehouses of Mr James Ogilvy, merchant, were found on fire; the roof fell in and the walls were
+left standing. Furniture, stock, account books and papers all lost. The family were at a small
+country house while repairs were done. Cause: a spark from the counting-room fire, or lightning.
+
+**Inverness Courier, Thu 10 Jun 1824, p4 (art. 014)**
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000446%2F18240610&page=0004&article=014
+The same letter, with a clean date: "the morning of the 12th instant".
+
+**Not from the BNA:**
+- Grant, *The County Families of the Zetland Islands* (1893), p210 (archive.org
+  `TheCountyFamiliesOfTheShetlandIslands`): son of Thomas Ogilvy, merchant, and Andrina, daughter
+  of James Malcolmson, Sheriff Substitute; "James, born 29th November, 1794, and died [at] New
+  Orleans, 1848". Brother Thomas, Lieutenant R.N., died at Moulmein about 1830. No wife given.
+  This is the only source found for New Orleans.
+- Bayanne I18310, note from E. S. Reid Tait's notes (Robertson, *Sons and Daughters of
+  Shetland*, p144): bought the property at roup 29 May 1821; burnt "23rd May 1824" (wrong: the
+  letter is dated 15 May); unroofed for half a century; sold 1830 to Gilbert Tait; rebuilt as 80
+  and 82 Commercial Street, opened 26 May 1906. Bayanne gives Jane Nicolson (I93601) and Captain
+  James Ogilvy (b. 1821) as "most likely" his family. They are not in the biography.
+- FreeCEN, 1841 census, Shetland: no James Ogilvy or Ogilvie of about his age. (1851 Shetland
+  isn't transcribed there.)
+- Nothing found: Chronicling America, Louisiana papers 1830–50 ("ogilvy" 0 hits; "ogilvie" 3, all
+  other people); Find a Grave (James Ogilvy/Ogilvie, d. 1848, Louisiana). FamilySearch returned
+  only a few collections because we weren't signed in, so it isn't really searched yet. The New
+  Orleans Directory for 1842 lists "Connelly & Ogilvie, painters and glaziers, 8 Canal street":
+  no first name, and probably not him.
 
 ## Gilbert Duncan and Alexander Irvine
 
