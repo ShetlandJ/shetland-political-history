@@ -530,6 +530,10 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    the SIC "between 1978 and 1982"; he sat 1974-78 and lost Lerwick Twageos in 1978 (the wiki's
    own succession box, and the Convener's tribute, ST 11 Sep 1981), and the parser had cut the
    start of the sentence listing his defeats. Harry Gray was born in Orkney (ST 11 Apr 1980).
+   Paton on the County Council: at its statutory meeting of Fri 8 Nov 1929 the Town Council
+   appointed "the twelve good men and true in the Town Council" to represent the burgh on the
+   reconstituted County Council (ST 16 Nov 1929, p4, art. 096), and in 1961 the County Council
+   was 24 landward members plus the Town Council, 36 in all (ST 12 May 1961, p5, art. 065).
    Evidence: research/bna/biographies-1950s-1980s.md.
 """
 
@@ -724,10 +728,10 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70)
     ),
     'james-paton-i': (
         "Jimmy Paton was a lifelong trade unionist and a stalwart of the Labour Party. He first "
-        "won a seat on Lerwick Town Council in 1960, and in the Convener's words served \"on both "
-        "Lerwick Town Council and the Zetland County Council\" until local government "
-        "reorganisation, when he sat for four years on Shetland Islands Council. He was elected to "
-        "eight committees of the County Council. After he left the council he stayed on the "
+        "won a seat on Lerwick Town Council in 1960. From 1930 the whole Town Council also sat on "
+        "Zetland County Council as the burgh's twelve members, so he served on both councils "
+        "until local government reorganisation, and was elected to eight committees of the "
+        "County Council. He then sat for four years on Shetland Islands Council. After he left the council he stayed on the "
         "social work committee as the pensioners' representative.\n\n"
         "He helped to found the Shetland branch of the Scottish Old Age Pensioners' Association "
         "and chaired it until shortly before his death, and was the old folks' champion in many "

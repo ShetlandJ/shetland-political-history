@@ -22,9 +22,16 @@ Findings:
   him born 19 Dec 1888, which makes 78. A reporter's estimate, so not changed; open question.
 - **Peter Henry resigned in October 1959**, accepted at the County Council on Tue 20 Oct 1959. His
   ZCC term ends at the Feb 1960 by-election (derived), as with other ZCC resignations.
-- **Paton and the County Council.** The Convener says he served "on both Lerwick Town Council and
-  the Zetland County Council" from 1960, i.e. as one of the burgh's members on the County Council.
-  We don't model those seats; the biography quotes it.
+- **Paton and the County Council: every Lerwick town councillor sat on it, 1930–75.** The Convener
+  says he served "on both Lerwick Town Council and the Zetland County Council" from 1960. At its
+  statutory meeting of Fri 8 Nov 1929 the Town Council appointed all twelve of its members to
+  represent the burgh on the County Council reconstituted under the 1929 Act (in office from 15
+  May 1930), and in 1961 the County Council was "24 landward members" plus the Town Council, 36 in
+  all, with the Town Council's two newcomers counted as new County members. So Paton sat on the
+  County Council whenever he sat on the Town Council (1960–68, 1969–75). The 1960 statutory
+  meeting (ST 13 May 1960 p6 art. 102) made no separate appointment, so it seems to have followed
+  from Town Council membership. `council_terms` has no ZCC rows for these burgh members (ZCC
+  shows 24 landward seats after 1930); see the queue.
 - 1961 Aithsting: the paper's "Mrs Janet C. Anderson" is our Catherine Janet Anderson.
 
 ### John Butler
@@ -134,3 +141,15 @@ Findings:
   St Columba's elder; taken ill in his shop on Saturday; aged 73; widow, three daughters, two sons.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19610127&page=0002&article=018
 - **Same issue, p4 (art. 040)**: death notice, Gilbert Bain, 22 Jan 1961, husband of Joan White.
+
+### Lerwick's members on the County Council
+- **ST Sat 16 Nov 1929, p4 (arts. 095–096)**: statutory meeting "on Friday of last week" (8 Nov);
+  under "REPRESENTATIVES ON COUNTY COUNCIL", J. Laing moved that "the twelve good men and true in
+  the Town Council" represent the burgh; seconded by M. L. Manson, adopted unanimously.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19291116&page=0004&article=096
+- **ST Fri 12 May 1961, p5 (art. 065)** (on file): "seven new faces amongst its 24 landward
+  members. As the Town Council contributes two new members too ... nine out of 36".
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19610512&page=0005&article=065
+- **ST Fri 13 May 1960, p6 (art. 102)**: the 1960 statutory meeting (Paton's first) lists
+  representatives to a dozen bodies but not the County Council.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19600513&page=0006&article=102
