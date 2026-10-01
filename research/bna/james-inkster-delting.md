@@ -19,8 +19,14 @@ Open points:
 - The obituary says he "did not seek re-election five years ago", but the 1904 nominations list
   him for Delting North against William Pole, and the DB has him losing in Dec 1904 (13 votes). Not
   checked against the 1904 result.
-- The Lerwick Town Council candidacy of Nov 1903 (140 votes, also linked to id 232) is probably the
-  poet, who lived in Lerwick by then. Not checked.
+- The Lerwick Town Council candidacy of Nov 1903 (140 votes) is the poet's: the paper calls the
+  candidate a member of the Lerwick School Board (ST 31 Oct 1903, p4 art. 061), as the poet's
+  obituary says he was. The nominations give no address.
+
+Fixed 2026-10-01 (`fix_parse_errors.py` #23): new person `james-t-a-inkster`, the six Delting North
+candidacies moved to him, and "County Councillor" taken out of the poet's intro, biography and
+categories. The poet now has only the 1903 candidacy, so he is a candidate-only person with a
+page; whether he keeps it is James's call.
 
 ## Evidence
 
@@ -57,6 +63,9 @@ Inkster was elected member of that body", on the Council, the Road Board and the
 Committee "for a number of years"; a regular attender. Chairman of the School Board at his death;
 on the Parish Council.
 https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19070406&page=0005&article=099
+
+**Shetland Times, Sat 31 Oct 1903, p4 (art. 061)**: leader on the Town Council candidates: "Mr Inkster is a docile member of the party who ... 'plays the game,' at the Lerwick School Board". The nominations (same issue, art. 070): "James Inkster—Proposed by Mr T. J. Anderson", no address.
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19031031&page=0004&article=061
 
 **Shetland Times, Sat 15 Jan 1927, p4 (art. 087)**: "Death of Mr James Inkster" (the poet): born
 at Sandvoe, North Roe; manager of Pole, Hoseason & Co.'s business at Greenbank, North Yell, "until
