@@ -270,6 +270,20 @@ result issues, plus the p1 adverts. Rebuild and commit after each batch. Evidenc
 - [x] **Labels 6: ZCC 1930–1975** (done: 12 rows, 3 new: Hamilton Independent (Tingwall 1945), Prophet Smith Socialist (Gulberwick 1951), William Thomson Shetland Democratic Group (Unst North 1973); 9 SDG confirmed. Unlabelled otherwise; the 1949 "Labour" seven unconfirmed except Anderson, "Socialist-sponsored" (open question). `party-labels-zcc-1930-1975.md`)
 - [ ] **Labels 7: SIC 1974–2003** (check the wiki labels against the ST where cheap; lowest priority) Not started: the SIC result issues (ST 1974–99) are digitised, but the browser extension disconnected mid-sweep on 2026-09-30. The Friday after each poll has the results.
 
+## ZCC leftovers (added 2026-10-03)
+
+What the 2026-09-28/29 ZCC citation sweeps couldn't settle from the OCR. Try the page image
+(viewer zoom) for the figures. Evidence: `zcc-leftovers.md`.
+
+- [x] **Uncited rows** (done: all six cited; Burra 1920 and Dunrossness South 1937 dates confirmed; Burra 1959 date in open-questions): Dec 1910 Dunrossness South, Sandwick, Unst North (376, 387, 389: no
+  nomination, show it from the list's first lines); by-elections Burra Apr 1920 (461), Dunrossness
+  South Apr 1937 (635), Burra Jul 1959 (802).
+- [x] **Vote figures lost in the OCR** (done from the page images: all agree except Grierson's missing 31 in the 1913 Aithsting tie, `fix_newspapers.py` #76; Sandsting 1910's "R. T. C. Scott" in open-questions): Dec 1898 (Burra, Nesting, Sandsting), Dec 1901 contests,
+  Dec 1904 contests (Sandwick's 91–70 may be a copy, like 1907's), Dec 1910 contests, Dec 1913
+  Aithsting Grierson's figure, Dec 1925 Sandsting (Anderson 13 or 18) and Aithsting, Dec 1892
+  Sandwick (Duncan's figure).
+- [x] **Whalsay May 1947 petition** (done: about 300, ST "?07", SN 309; wiki's 307 kept): 207 (OCR) or 307 (wiki) signatures (open question).
+
 ## Pre-1872 town council sweep (added 2026-10-01)
 
 Before the Shetland Times (1872) there was no Lerwick paper running for long, but the BNA has

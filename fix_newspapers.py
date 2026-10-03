@@ -594,6 +594,10 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    wiki's William Henry is probably the district council poll ("William Henry, 75", 7 Dec 1945).
    Both intros already had Henry to 1945 and Garriock from 1945. Evidence:
    research/bna/zcc-1940-1959.md.
+76. Aithsting, December 1913: the tie was 31 each. The DB had Bowie's 31 but no figure for
+   Grierson, who won on the Returning Officer's casting vote. "Mr J. C. Grierson, 31; Dr J. C.
+   Bowie, 31" (Shetland Times, 6 Dec 1913, read from the page image). Evidence:
+   research/bna/zcc-leftovers.md.
 """
 
 import os
@@ -2204,6 +2208,17 @@ def main():
         print(f"  candidacy {cand['id']}: already {right_name}")
     else:
         raise SystemExit(f"candidacy {cand['id']}: unexpected {cand['candidate_name']!r}")
+
+    print("=== 76. Aithsting 1913: Grierson 31 ===")
+    cand = one(c, """SELECT ca.id, ca.votes FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                    JOIN constituencies k ON k.id = e.constituency_id JOIN people p ON p.id = ca.person_id
+                    WHERE e.wiki_page_title = 'County_Council_Election_December_1913' AND k.name = 'Aithsting'
+                    AND p.slug = 'james-grierson'""", ())
+    if cand['votes'] is None:
+        c.execute("UPDATE candidacies SET votes = 31 WHERE id = ?", (cand['id'],))
+        print(f"  candidacy {cand['id']}: votes 31")
+    elif cand['votes'] != 31:
+        raise SystemExit(f"candidacy {cand['id']}: unexpected votes {cand['votes']}")
 
     db.commit()
     db.close()

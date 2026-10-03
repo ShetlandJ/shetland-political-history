@@ -8,6 +8,19 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-10-03: Burra Isle by-election 1959: which date?** The DB has the wiki's Tue 21 Jul 1959.
+  The paper: Strachan left the seat on joining the Town Council; the Council ordered a by-election
+  on Tue 19 May, "probable date ... about 30th June" (ST 22 May 1959); A. D. Bennet was the only
+  nominee when nominations closed on Tue 9 Jun and "will be" the new member (ST 12 Jun 1959). No
+  report of the declaration found. Options: keep 21 Jul; 30 Jun (the probable election day, the
+  usual date for an unopposed return); 9 Jun (close of nominations). Election 802. Evidence:
+  `zcc-leftovers.md`.
+
+- **2026-10-03: Sandsting 1910's third candidate: "R. T. C. Scott" or Bayanne's Robert Scott?** The
+  nominations and the result both print "R. T. C. Scott" (1 vote). The DB's candidate name links
+  Bayanne I45835 as "Robert Scott". R. T. C. Scott of Melby sold Vaila and Melby to Anderton
+  (Shetland News, 2 Dec 1937). Check I45835 is him. Election 386. Evidence: `zcc-leftovers.md`.
+
 - **2026-10-01: Charles Brown's birth date.** The DB (from the wiki) has 19 Dec 1888, which makes
   him 78 when he retired in 1967. The 1967 nominations report calls him "now over eighty years of
   age" (ST 21 Apr 1967 p5 art. 076). His death notice gives no age. Options: keep 1888 (the paper
@@ -46,12 +59,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   lists, "Arthur Johnson" in Aug, Oct, Nov 1941 and Mar 1942; "A. E. Johnston" once (Oct 1942).
   The ledger slug is `arthur-johnson`. Options: keep, or check the 1945 nomination papers or his
   obituary for the spelling. Row: `arthur-johnson` 1941-07-01.
-
-- **2026-09-29: Whalsay and Skerries, May 1947: Shearer's petition 207 or 307?** The wiki has
-  "Petition of 307"; the Shetland Times OCR (23 May 1947 p7 art. 145) has "signed by 207
-  persons". The page image wouldn't render in the viewer, so the digit isn't checked. The DB now
-  shows "Petition of 307" (no votes, `fix_parse_errors.py` #19). Options: keep 307, take 207, or
-  zoom on the page. Election 692. Evidence: `zcc-1940-1959.md`.
 
 - **2026-09-29: Was Balfour Spence elected in Sept 1823?** The minute book never recorded the
   1823 result (p27–28, then blank). Ten of the wiki's eleven sat at meetings from Oct 1823 (p29–31),
@@ -234,6 +241,11 @@ Format: date raised, the question, the options, the evidence file, the row it af
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
+
+- **2026-09-29: Whalsay and Skerries, May 1947: Shearer's petition 207 or 307?** About 300: the
+  Shetland Times page image reads "?07" with a broken first digit shaped like a 3, and the Shetland
+  News (22 May 1947 p6) has "309". The wiki's "Petition of 307" stays; no edit (2026-10-03,
+  `zcc-leftovers.md`).
 
 - **2026-10-01: James Ogilvy: uncle or cousin of Charles (ii) and John Ogilvy?** Cousin (James, from
   Bayanne). James (I18310) was a son of Thomas Ogilvy (I18309, 1762-1819), and Thomas and Charles (i)

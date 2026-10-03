@@ -147,9 +147,22 @@ with simulated key presses never reach the Mac.
 ## 4. Screenshot (last resort)
 
 Only when the OCR is too garbled to trust on the point that matters (a name, a number, a date),
-or when layout matters (a table). Open the page through the viewer (`viewer.md`) and use
-`computer` `zoom` on just the article region, at `scale: 0.5–0.7`. Never screenshot full pages
-to read text.
+or when layout matters (a table). Never screenshot full pages to read text.
+
+**Crop the page image directly** (works where the viewer stays black). The OCR lines endpoint
+gives each line's pixel box (`XTopLeft`, `YTopLeft`, `XBottomRight`, `YBottomRight`), so find the
+lines you need, then navigate the tab to the IIIF image service for just that region and take one
+`screenshot` at `scale: 0.5–0.6`:
+
+```
+https://www.britishnewspaperarchive.com/titan/marshal/obscura/api/image/0000666%2fYYYY%2fMMDD%2f0000666_YYYYMMDD_PPPP.jp2/x,y,w,h/full/0/default.jpg
+```
+
+A region of about 700 × 400–700 pixels holds a results table. For a single damaged digit, ask for a
+small region scaled up (`.../x,y,200,50/800,/0/default.jpg`). The image page is same-origin, so the
+OCR fetches still work from it. Lines in a multi-column article sometimes span columns (1910): find
+the column from the lines that name a candidate. A column that runs into the binding can't be read;
+try the Shetland News for the same week. The viewer (`viewer.md`) is the fallback.
 
 ## Record what you find
 
