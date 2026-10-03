@@ -156,6 +156,18 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    term (already linked to him), which his intro leaves out. Tammy's first seat was Gulberwick in
    1925 (ST 14 Nov 1925); his wiki page's Cunningsburgh 1922-25 box is wrong.
    Evidence: research/bna/johnston-smith-identity.md.
+27. Birth places of three Town Councillors of 1818-1871, aligned with Bayanne on James's call
+   (2026-10-02: "align with Bayanne unless you can find evidence otherwise"). The wiki has James
+   Mouat (i) at Wormadale, Tingwall; Bayanne (I15357) North Hamarsland, Tingwall. Peter Williamson
+   at Burradale, Northmavine; Bayanne (I34841) Burraland, Northmavine (his biography's "native
+   Northmavine" fits either). James Hunter (i) at Tingwall; Bayanne (I18085) Stromfirth,
+   Weisdale, which it marks "?" and gives no source for. No other evidence either way.
+28. The 1973 County Councillor for Sandness was Peter John Garrick, not "Garriock": "Peter John
+   Garrick, crofter, Griesta Cottage" in the nominations (ST 20 Apr 1973), and Garrick throughout
+   the paper. Renamed Peter Garrick at /person/peter-garrick (the old URL redirects in
+   site/public/_redirects), with the dates the wiki lacked from Bayanne I131893: b. 30 Dec 1926,
+   South Shields, d. 7 Dec 2021, Griesta, Tingwall. His mother Ann died at Huxter, Sandness on
+   24 Apr 1962, matching her death notice (ST 4 May 1962). Evidence: research/bna/birth-death-gaps.md.
 """
 
 import os
@@ -621,6 +633,37 @@ def main():
         print("  thomas-johnston-i intro: Cunningsburgh and Town Council years")
     elif new not in intro:
         raise SystemExit("thomas-johnston-i intro: sentence not found")
+
+    print("=== 27. Mouat (i), Williamson and Hunter (i): birth places from Bayanne ===")
+    for slug, wrong, right in (('james-mouat-i', 'Wormadale', 'North Hamarsland, Tingwall'),
+                               ('peter-williamson', 'Burradale', 'Burraland, Northmavine'),
+                               ('james-hunter-i', 'Tingwall', 'Stromfirth, Weisdale')):
+        place = c.execute("SELECT birth_place FROM people WHERE slug = ?", (slug,)).fetchone()[0]
+        if place == wrong:
+            c.execute("UPDATE people SET birth_place = ? WHERE slug = ?", (right, slug))
+            print(f"  {slug} birth_place: {wrong} -> {right}")
+        elif place != right:
+            raise SystemExit(f"people.{slug} birth_place is {place}, expected {wrong}")
+
+    print("=== 28. Peter John Garrick of Sandness, not Garriock ===")
+    row = c.execute("SELECT id, slug FROM people WHERE id = 387").fetchone()
+    if row == (387, 'peter-garriock-ii'):
+        c.execute("""UPDATE people SET name = 'Peter Garrick', slug = 'peter-garrick', born_date = '1926-12-30',
+                     died_date = '2021-12-07', birth_place = 'South Shields', death_place = 'Griesta, Tingwall',
+                     intro = ?, bayanne_id = 'I131893', categories = ?, born_in_shetland = 0, died_in_shetland = 1
+                     WHERE id = 387""",
+                  ("Peter John Garrick was a farmer at Griesta, Tingwall, and the last Zetland County Councillor "
+                   "for Sandness, from 1973 until the council was abolished in 1975.",
+                   '["Zetland County Councillors", "1926 Births", "2021 Deaths", "Biography Missing"]'))
+        print("  peter-garriock-ii -> peter-garrick (Bayanne I131893)")
+    elif row != (387, 'peter-garrick'):
+        raise SystemExit(f"person 387: unexpected {row}")
+    name = c.execute("SELECT candidate_name FROM candidacies WHERE id = 1789").fetchone()[0]
+    if name == 'Peter John Garriock':
+        c.execute("UPDATE candidacies SET candidate_name = 'Peter John Garrick' WHERE id = 1789")
+        print("  candidacy 1789: Peter John Garrick")
+    elif name != 'Peter John Garrick':
+        raise SystemExit(f"candidacy 1789: unexpected {name}")
     db.commit()
     db.close()
 

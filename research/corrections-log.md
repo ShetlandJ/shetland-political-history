@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-02: Birth places of three Town Councillors of 1818–1871 (Bayanne; no BNA)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | James Mouat (i) born at **Wormadale**, Tingwall | **North Hamarsland, Tingwall** (Bayanne I15357) | Fixed (`fix_parse_errors.py` #27) |
+| 2 | wiki | Peter Williamson born at **Burradale**, Northmavine | **Burraland, Northmavine** (Bayanne I34841) | Fixed (#27) |
+| 3 | wiki | James Hunter (i) born in **Tingwall** | **Stromfirth, Weisdale** (Bayanne I18085, marked "?", no birth source) | Fixed (#27) on James's call to follow Bayanne. Still uncertain |
+
 ## 2026-10-01: Thomas Johnston and James A. Smith (`research/bna/johnston-smith-identity.md`)
 
 | # | Where | We had | Sources show | Status |
@@ -435,3 +443,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 |---|---|---|---|---|
 | 1 | ledger (from the minute book) | Sept 1850 general on **Fri 6 Sep 1850** (mb p123: "the sixth day") | John o' Groat Journal 13 Sep 1850: "On Thursday the 5th instant"; every other general was a Thursday | Open (open-questions); not changed |
 | 2 | ledger (from the minute book) | 1856 councillor **John Robertson (i)** (mb p145: "Senior") | John o' Groat Journal 12 Sep 1856: "John Robertson, jun., fishcurer" | Open (open-questions); not changed |
+
+## 2026-10-02: birth and death gaps (`research/bna/birth-death-gaps.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Herbert Anderton "came to Shetland around 1892, where he bought the estates of Melby and Vaila"; b. January 1862 | First came aged 19 (about 1881); bought Vaila about 1883 and Melby in 1890, both from R. T. C. Scott. Born **29 Jan 1862**, Bolton Royd, Manningham, Bradford (Shetland News 25 Nov and 2 Dec 1937) | Open; not changed |
+| 2 | wiki | Rev. Iain T. Campbell demitted "31 April 1969" | Demitted **as from 31 March 1969** to become an accountant with the Highlands and Islands Development Board (ST 7 Mar 1969) | Open; not changed |
+| 3 | wiki | **Peter John Garriock** (ii), Sandness 1973, "b. Unknown" | Nominated as **Peter John Garrick**, crofter, Griesta Cottage (ST 20 Apr 1973); Garrick throughout the paper. Bayanne I131893: b. 30 Dec 1926 South Shields, **d. 7 Dec 2021** Griesta | Fixed 2026-10-02: renamed Peter Garrick, /person/peter-garrick (old URL redirects), dates added (`fix_parse_errors.py` #28) |
+| 4 | wiki | Frederick Dainty "Colonel", "a seaman" | "Retired army officer" (ST 20 Apr 1973); "Lt. Col." (ST 18 Nov 1977) | Open; not changed |
+| 5 | DB | Month-only and approximate dates in the wiki were dropped (Anderton, Williamson, Walker, Adair, Caldwell, Dainty); Walker's "d. June 2006" landed in `birth_place` | Parse slips | Open; not changed |
