@@ -598,6 +598,21 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Grierson, who won on the Returning Officer's casting vote. "Mr J. C. Grierson, 31; Dr J. C.
    Bowie, 31" (Shetland Times, 6 Dec 1913, read from the page image). Evidence:
    research/bna/zcc-leftovers.md.
+77. Walls, May 1930: appointed by a Council vote at the re-constituted Council's first meeting, on
+   Tuesday 20 May, not 1 May. Two petitions: Andrew Halcrow, 1 Carlton Place, Lerwick (17
+   signatures) and William Hales, Spurries, Walls (15); "On the vote being taken Mr Halcrow was
+   elected by a large majority" (Shetland Times, 24 May 1930, read from the page image). The DB had
+   Halcrow "Unanimously appointed" and no Hales. Evidence: research/bna/open-questions-images.md.
+78. Dunrossness North, June 1907: Budge was appointed at the monthly meeting "on Thursday", 20 June,
+   not 1 June (Shetland Times, 22 Jun 1907, page image). Evidence: research/bna/open-questions-images.md.
+79. Lerwick Town Council co-option, November 1884: William Duncan (i) was elected for Bailie Hay on
+   Tuesday 11 November, the baseline's date, which #1 had moved to the paper's 22 Nov. The annual
+   meeting of Mon 10 Nov "adjourned till Tuesday evening for the purpose of filling up the vacancy",
+   and the adjourned meeting elected him (Shetland Times, 15 Nov 1884, page image). Evidence:
+   research/bna/open-questions-images.md.
+80. Hugh T. Sutherland sat for Delting South from 1967 to 1970: he wasn't nominated anywhere in
+   1970, when Delting South went to Rev. W. C. Robb (Shetland Times, 24 Apr 1970, page image).
+   Evidence: research/bna/open-questions-images.md.
 """
 
 import os
@@ -2219,6 +2234,33 @@ def main():
         print(f"  candidacy {cand['id']}: votes 31")
     elif cand['votes'] != 31:
         raise SystemExit(f"candidacy {cand['id']}: unexpected votes {cand['votes']}")
+
+    print("=== 77. Walls 1930: Council vote on 20 May, Halcrow v Hales ===")
+    eid = set_date(c, 'Walls County Council By-Election May 1930', '1930-05-01', '1930-05-20')
+    halcrow = one(c, "SELECT id, votes_text FROM candidacies WHERE election_id = ? AND elected = 1", (eid,))
+    if halcrow['votes_text'] == 'Unanimously appointed':
+        c.execute("UPDATE candidacies SET votes_text = 'Petition of 17; elected on a Council vote' WHERE id = ?", (halcrow['id'],))
+        print(f"  candidacy {halcrow['id']}: petition of 17, Council vote")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = 'William Hales'", (eid,))
+    if not c.fetchall():
+        c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes_text, elected, position)
+                     VALUES (?, 'William Hales', 'Petition of 15', 0, 2)""", (eid,))
+        print("  added William Hales (petition of 15)")
+
+    print("=== 78. Dunrossness North 1907: Budge appointed Thu 20 Jun ===")
+    set_date(c, 'Dunrossness North County Council By-Election June 1907', '1907-06-01', '1907-06-20')
+
+    print("=== 79. LTC co-option Nov 1884: Tue 11 Nov ===")
+    set_date(c, BY_ELECTION, '1884-11-22', '1884-11-11')
+
+    print("=== 80. Hugh Sutherland: Delting South 1967-70 ===")
+    intro = one(c, "SELECT intro FROM people WHERE slug = 'hugh-sutherland'", ())['intro']
+    old, new = 'then for Delting South.', 'then for Delting South between 1967 and 1970.'
+    if old in intro:
+        c.execute("UPDATE people SET intro = ? WHERE slug = 'hugh-sutherland'", (intro.replace(old, new),))
+        print("  hugh-sutherland intro: Delting South 1967-70")
+    elif new not in intro:
+        raise SystemExit("hugh-sutherland intro: sentence not found")
 
     db.commit()
     db.close()

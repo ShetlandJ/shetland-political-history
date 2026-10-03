@@ -942,8 +942,8 @@ st-18831103-p2-a083,term,john-leisk@1883-11-06,read,nominated
 st-18831110-p2-a094,term,john-leisk@1883-11-06,read,declared acceptance
 st-18831103-p2-a083,term,laurence-stove@1883-11-06,read,nominated
 st-18831110-p2-a094,term,laurence-stove@1883-11-06,read,declared acceptance
-st-18841115-p3-a042,election,34,read,Duncan elected for Bailie Hay; meeting between 11 and 14 Nov 1884 (day not found)
-st-18841115-p3-a042,term,william-duncan-i@1884-11-22,read,elected for Hay; the ledger start date is too late
+st-18841115-p3-a042,election,34,read,Duncan elected for Bailie Hay at the adjourned meeting of Tue 11 Nov 1884 (page image)
+st-18841115-p3-a042,term,william-duncan-i@1884-11-11,read,elected for Hay at the adjourned meeting of Tue 11 Nov
 st-18841122-p3-a041,election,34,read,Duncan already sitting on Tue 18 Nov 1884
 st-18871029-p2-a048,election,39,read,five retiring re-nominated unopposed
 st-18871029-p2-a048,term,john-robertson-i@1884-11-04,read,retiring in 1887
@@ -2946,3 +2946,5 @@ st-19590612-p4-a041,election,802,read,sole nominee
 sn-19470522-p6-a095,election,692,read,petition of 309
 st-19101119-p4-a066,election,386,read,R. T. C. Scott of Lerwick nominated
 st-19100723-p4-a046,election,386,inferred,identifies the candidate as Bayanne I45835 (1 Gardie Court in 1911)
+st-19700424-p8-a068,person,hugh-sutherland:intro,read,not nominated in 1970
+sn-19421029-p2-a031,election,665,read,"October petition of 23 for Sutherland, separate from December's"

@@ -31,8 +31,8 @@ Format: date raised, the question, the options, the evidence file, the row it af
   keep 22 Dec. ZCC terms are derived, so a change needs a correction, not a ledger edit. The same
   report gives an earlier petition for John Sutherland, Bixter, as "signed by 323 ratepayers in
   South Unst" (OCR). `zcc-1940-1959.md` has petitions of 55 (Hunter) and 19 (Sutherland) from ST
-  26 Dec 1942. Is 323 a misreading, or an October petition separate from the December ones? Needs
-  the page image. Evidence: WW2 sweep notes (fork B); election 665.
+  26 Dec 1942. Settled 2026-10-03 from the page image: "signed by 23", an October petition separate from
+  December's (`open-questions-images.md`). Evidence: WW2 sweep notes (fork B); election 665.
 
 - **2026-09-29: The Police Act special meeting, May 1940: Thursday 23 or Friday 24?**
   `ltc-1940-1945.md` §2 reads "last evening" in ST Sat 25 May 1940 (p4 art. 077) as Fri 24 May.
@@ -73,27 +73,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   wiki's 2624 and 1617. Options: keep, or take the night's 1616. Election 1206. Evidence:
   `westminster-1873-1974.md`.
 
-- **2026-09-29: Dunrossness North, November 1971: day and votes.** "Fixed for Tuesday, [..]th
-  November" (ST 29 Oct 1971; the day is lost in the OCR). Set to Tue 9 Nov (the wiki's Wed 10 Nov
-  is probably the count). The result report wasn't found in three searches, so Leask 55, Fisher 15
-  is still the wiki's. Options: accept, or zoom on the 12 Nov 1971 front page. Election 913.
-  Evidence: `zcc-1960-1974.md`.
-
-- **2026-09-29: Where did Hugh T. Sutherland sit from 1970?** The wiki gives him Northmavine South
-  in May 1970, but that was Balfour's seat until March 1972 (now fixed, `fix_newspapers.py` #55),
-  and Delting South went to Rev. W. C. Robb. So he probably didn't stand in 1970 (nine members
-  retired); his intro now ends "then for Delting South." Options: leave, or check the 1970
-  nominations list (ST 24 Apr 1970 p8 art. 068, OCR unreadable; needs a zoom). Evidence:
-  `zcc-1960-1974.md`.
-
-- **2026-09-29: Walls, May 1930: day, and was Halcrow unopposed?** Rev. T. Andrew resigned (ST 3
-  May 1930). The re-constituted Council's first meeting filled the seat (ST 24 May 1930 p5 art.
-  088), but the OCR is garbled; it mentions a petition "in favour of Mr William Hales, Spurries,
-  Walls" (17 signatures?). The DB has Halcrow alone, dated 1 May (the wiki's "Thursday 20 May"
-  was a Tuesday). Options: set Tue 20 May 1930 (the Council met on Tuesdays from then) and leave
-  Halcrow unopposed; or zoom on the page (images don't render) or check the Shetland News.
-  Election 577. Evidence: `zcc-1920-1939.md`.
-
 - **2026-09-29: Day of the Unst South by-election, 1936.** Two nominations; withdrawals closed Tue
   28 Jan 1936; Manson withdrew and Clark "is therefore returned" (ST 25 Jan, 1 Feb 1936). No poll
   day printed. The DB has 1 Feb (the paper's date, a Saturday). Options: 28 Jan (the close of
@@ -120,12 +99,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   the election). Options: keep 12 Jan, or date them 10 Jan (the close of nominations, when the
   returns were settled). Elections 396–398. Evidence: `zcc-1900-1919.md`.
 
-- **2026-09-28: Day of James Budge's appointment for Dunrossness North, June 1907.** Reported in
-  ST 22 Jun 1907 (p8 art. 131), but the report's opening, with the day, is garbled. The DB has
-  1 Jun (month only); the wiki's "Thursday 16th June" was a Sunday. The Council met on
-  Thursdays, so probably Thu 20 Jun (or 13 Jun). Options: set 20 Jun (inferred), or leave 1 Jun.
-  Election 337. Evidence: `zcc-1900-1919.md`.
-
 - **2026-09-28: Day of the Feb 1902 ZCC by-elections (Unst South, Fetlar, Yell South).** An Order
   read on Thu 2 Jan fixed a day "instant" (January; the date is lost in the OCR); the three were
   the only nominations, "no poll" (ST 18 Jan), and were reported elected at the meeting of Thu
@@ -146,8 +119,8 @@ Format: date raised, the question, the options, the evidence file, the row it af
   Evidence: `ltc-wartime-1941.md`, `ltc-1945-1953.md`.
 
 - **2026-09-28: Day of Alexander Mitchell's resignation, October 1889.** ST Sat 19 Oct 1889 (p2,
-  art. 051) reports it accepted "At a meeting of the Town Council, held last ..."; the scan loses
-  the word after "last". The item just above says the Commissioners met "last night" (Fri 18 Oct).
+  art. 051) reports it accepted "At a meeting of the Town Council, held last ..."; the word after
+  "last" was never printed (checked on the page image, 2026-10-03), so the paper can't settle it. The item just above says the Commissioners met "last night" (Fri 18 Oct).
   The ledger now ends his 1888 seat on 1889-10-18, unconfirmed. Options: accept 18 Oct and
   confirm, or check the minute book or the 26 Oct report for the meeting date.
   Evidence: `ltc-1885-1889.md`. Row: `alexander-mitchell-i` 1888-11-08.
@@ -194,21 +167,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   Dec). The DB's Thu 25 Nov 1880 is unchecked. Options: keep, or check the minute book.
   Election 29; row `william-duncan-i` 1880-11-25. Evidence: `ltc-1874-1883.md`.
 
-- **2026-09-28: Day of William Duncan (i)'s co-option for Bailie Hay, Nov 1884.** Election 34
-  and his ledger row have 22 Nov, the paper's date. ST 15 Nov 1884 reports his election at a
-  meeting after the annual meeting of Mon 10 Nov (C. G. Duncan, who died that night, died
-  "since last meeting"), and he sat at the adjourned meeting of Tue 18 Nov (ST 22 Nov). The
-  meeting's own day isn't in the OCR. Options: Fri 14 Nov (the council met on Friday evenings
-  in the 1880s), check the minute book, or zoom on the ST 15 Nov p3 heading. It also shortens the
-  4–22 Nov 1884 size-short row. Row `william-duncan-i` 1884-11-22. Evidence:
-  `ltc-1884-1935-citations.md`.
-
-- **2026-09-28: Day of Bailie John Campbell's resignation, May 1932.** His letter was read at the
-  monthly meeting reported in the Shetland News of Thu 5 May 1932; the day is lost in the OCR
-  and the Shetland Times isn't digitised for May–June 1932. The ledger now ends his 1931 row on
-  Tue 3 May 1932 (the first Tuesday), unconfirmed. Options: accept 3 May and confirm, or zoom
-  on the SN page. Evidence: `ltc-1884-1935-citations.md`.
-
 - **2026-10-01: William Angus's death place.** The wiki says "d. 1848, Edinburgh", but the DB's
   `death_place` is empty, so the parser seems to have dropped it. No notice found in 1847–49
   ("angus lerwick"). Options: set Edinburgh from the wiki text (`fix_parse_errors.py`), or leave it.
@@ -236,6 +194,18 @@ Format: date raised, the question, the options, the evidence file, the row it af
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
+
+- **2026-09-29: Dunrossness North, November 1971: day and votes.** Day confirmed: "fixed for Tuesday, 9th November" (ST 29 Oct 1971 p1, page image). The result isn't in the 12 or 19 Nov issues, so Leask 55, Fisher 15 stays the wiki's. (2026-10-03, `open-questions-images.md`)
+
+- **2026-09-29: Where did Hugh T. Sutherland sit from 1970?** He didn't stand in 1970: not in the full nominations list (ST 24 Apr 1970 p8, page image); Delting South went to Robb. Intro now "Delting South between 1967 and 1970" (`fix_newspapers.py` #80). (2026-10-03, `open-questions-images.md`)
+
+- **2026-09-29: Walls, May 1930: day, and was Halcrow unopposed?** Tue 20 May 1930, the new Council's first meeting. Two petitions, Halcrow 17 and William Hales 15; Halcrow "elected by a large majority" on a Council vote (ST 24 May 1930 p5, page image). Date moved, Hales added (`fix_newspapers.py` #77). (2026-10-03, `open-questions-images.md`)
+
+- **2026-09-28: Day of James Budge's appointment for Dunrossness North, June 1907.** Thu 20 Jun 1907: the monthly meeting "on Thursday" (ST 22 Jun 1907 p8, page image). `fix_newspapers.py` #78. (2026-10-03, `open-questions-images.md`)
+
+- **2026-09-28: Day of William Duncan (i)'s co-option for Bailie Hay, Nov 1884.** Tue 11 Nov 1884: the annual meeting of Mon 10 Nov "adjourned till Tuesday evening for the purpose of filling up the vacancy", and the adjourned meeting elected him (ST 15 Nov 1884 p3, page image). Election 34 back to 11 Nov (`fix_newspapers.py` #79) and the ledger row confirmed. (2026-10-03, `open-questions-images.md`)
+
+- **2026-09-28: Day of Bailie John Campbell's resignation, May 1932.** Tue 3 May 1932, as the ledger has it: the monthly meeting "was held ... on Tuesday evening" (SN 5 May 1932 p5, page image). The row stays unconfirmed until its 1931 start is sourced. (2026-10-03, `open-questions-images.md`)
 
 - **2026-10-03: Sandsting 1910's third candidate: "R. T. C. Scott" or Bayanne's Robert Scott?** The
   same man; the link is right. The candidate was "R. T. C. Scott, Lerwick" (ST 19 Nov 1910 p4 art. 066).
