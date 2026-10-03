@@ -16,11 +16,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   usual date for an unopposed return); 9 Jun (close of nominations). Election 802. Evidence:
   `zcc-leftovers.md`.
 
-- **2026-10-03: Sandsting 1910's third candidate: "R. T. C. Scott" or Bayanne's Robert Scott?** The
-  nominations and the result both print "R. T. C. Scott" (1 vote). The DB's candidate name links
-  Bayanne I45835 as "Robert Scott". R. T. C. Scott of Melby sold Vaila and Melby to Anderton
-  (Shetland News, 2 Dec 1937). Check I45835 is him. Election 386. Evidence: `zcc-leftovers.md`.
-
 - **2026-10-01: Charles Brown's birth date.** The DB (from the wiki) has 19 Dec 1888, which makes
   him 78 when he retired in 1967. The 1967 nominations report calls him "now over eighty years of
   age" (ST 21 Apr 1967 p5 art. 076). His death notice gives no age. Options: keep 1888 (the paper
@@ -241,6 +236,13 @@ Format: date raised, the question, the options, the evidence file, the row it af
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
+
+- **2026-10-03: Sandsting 1910's third candidate: "R. T. C. Scott" or Bayanne's Robert Scott?** The
+  same man; the link is right. The candidate was "R. T. C. Scott, Lerwick" (ST 19 Nov 1910 p4 art. 066).
+  His silver-wedding notice (ST 23 Jul 1910 p4 art. 046) names R. T. C. Scott of Melby, only son of
+  the late R. T. C. Scott of Melby, married Agnes Georgeson at Melby House 1885, "Present address—1
+  Gardie Court, Lerwick". Bayanne I45835, Robert Thomas Charles Scott (1864–1935, d. Whanganui), is
+  at 1 Gardie Court in the 1911 census. James's 2021 wiki edit stands; no change (`zcc-leftovers.md`).
 
 - **2026-09-29: Whalsay and Skerries, May 1947: Shearer's petition 207 or 307?** About 300: the
   Shetland Times page image reads "?07" with a broken first digit shaped like a 3, and the Shetland

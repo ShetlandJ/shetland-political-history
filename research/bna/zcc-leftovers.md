@@ -7,7 +7,7 @@ of the page through the BNA image service, located by the OCR line coordinates.
 
 **Result.** Every unchecked figure agrees with the DB except one gap: Grierson's 31 in the 1913
 Aithsting tie, now added (`fix_newspapers.py` #76). The six rows are cited. The Whalsay petition
-was about 300, not 207. Burra 1959's date is an open question.
+was about 300, not 207. Burra 1959's date is an open question. Sandsting 1910's R. T. C. Scott is correctly linked to Bayanne I45835.
 
 ## Vote figures (page images)
 
@@ -31,8 +31,14 @@ was about 300, not 207. Burra 1959's date is an open question.
   Scott** 1; Nesting J. A. Loggie 69, W. L. MacDougall 30, J. Small 4. Agrees.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19101210&page=0004&article=046
   The Sandsting third candidate is "Mr R. T. C. Scott" in the nominations too (ST 19 Nov 1910). The
-  DB's candidate name links Bayanne I45835 as "Robert Scott": not checked that it's the same man
-  (open question).
+  DB's candidate name links Bayanne I45835 as "Robert Scott" (James's wiki edit of 26 Jul 2021,
+  replacing the plain "R. T. C. Scott"). Checked: the same man. The nominations preview gives "R. T.
+  C. Scott, Lerwick" (ST 19 Nov 1910, p4, art. 066). His silver-wedding notice (ST 23 Jul 1910, p4,
+  art. 046) names R. T. C. Scott of Melby, only son of the late R. T. C. Scott of Melby (Deputy
+  Inspector-General of Hospitals and Fleets), married at Melby House on 23 Jul 1885 to Agnes, daughter
+  of Laurence Georgeson, Norby, "Present address—1 Gardie Court, Lerwick". Bayanne I45835 is Robert
+  Thomas Charles Scott, b. 16 Jul 1864 Sheerness, d. 21 Mar 1935 Whanganui, son of R. T. C. Scott of
+  Melby (1812–75), at 1 Gardie Court in the 1911 census. No change.
 - **Dec 1913**: ST Sat 6 Dec 1913, p4 (art. 094). Bressay T. J. Anderson 48, James Laing 26; Burra and
   Quarff A. J. Jamieson 36, W. Sinclair 26; **Aithsting "Mr J. C. Grierson, 31; Dr J. C. Bowie, 31"**;
   Walls Thomason 53, Rev. A. W. Groundwater 30; Delting North Hay 29, Arthur Smith 26, J. P.
