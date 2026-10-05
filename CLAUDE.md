@@ -51,6 +51,7 @@ new-site/
     │       ├── referenda.astro       # All 6 referenda with results
     │       ├── data-review.astro     # Data quality checks, incl. council membership checks (term_issues)
     │       ├── council-terms.astro   # "Who served when": pick council + date → members, party tally, party over time
+    │       ├── name-finder.astro     # Research tool: surname + year → who it could be (sitting, standing, or alive then)
     │       ├── council-composition.astro  # LTC election-by-election grid (from council_terms)
     │       ├── zcc-composition.astro # ZCC ward-by-election grid (from council_terms)
     │       ├── council/[slug].astro  # Election list for a council

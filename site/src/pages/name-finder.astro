@@ -1,0 +1,375 @@
+---
+import Base from '../layouts/Base.astro';
+import Database from 'better-sqlite3';
+import path from 'path';
+
+const db = new Database(path.join(process.cwd(), '..', 'shetland.db'), { readonly: true });
+
+const councils = db.prepare(`SELECT id, name, slug FROM councils ORDER BY id`).all() as any[];
+
+// Candidate names can be "[url display]" Bayanne links; match and show the display text.
+const plain = (n: string) => n.replace(/^\[\S+\s+(.+)\]$/, '$1').trim();
+
+// The intro usually opens with the full name: "Lewis James Garriock was a County Councillor ..."
+function fullName(intro: string | null): string | null {
+  const m = intro?.match(/^([A-Z][A-Za-z'.\- ]{2,60}?) (?:was|is)\b/);
+  return m ? m[1] : null;
+}
+
+const people = (db.prepare(`
+  SELECT id, slug, name, born_date, died_date, intro FROM people
+`).all() as any[]).map(p => ({
+  id: p.id, s: p.slug, n: p.name, f: fullName(p.intro), b: p.born_date, d: p.died_date,
+}));
+
+const terms = db.prepare(`
+  SELECT ct.person_id as i, ct.person_name as n, ct.council_id as c, k.name as w,
+         ct.start_date as a, ct.end_date as z
+  FROM council_terms ct LEFT JOIN constituencies k ON k.id = ct.constituency_id
+  ORDER BY ct.start_date
+`).all() as any[];
+
+const candidacies = (db.prepare(`
+  SELECT c.person_id as i, c.candidate_name as n, e.id as e, e.council_id as c, e.election_date as t,
+         e.wiki_page_title as title, k.name as w, c.elected as x, c.role as r
+  FROM candidacies c
+  JOIN elections e ON e.id = c.election_id
+  LEFT JOIN constituencies k ON k.id = e.constituency_id
+  WHERE e.hidden = 0 AND e.election_date IS NOT NULL
+  ORDER BY e.election_date
+`).all() as any[]).map(c => ({ ...c, n: plain(c.n), title: c.title.replace(/_/g, ' ') }));
+
+const data = JSON.stringify({ councils, people, terms, candidacies });
+---
+<Base title="Name Finder" description="Find which councillor or candidate a surname in a source could be, given a year.">
+  <div class="breadcrumb">
+    <a href="/">Home</a> &rsaquo; Name Finder
+  </div>
+
+  <h1>Name Finder</h1>
+  <p class="meta">
+    Met a surname in a source and want to know who it was? Enter the name and a year to see
+    everyone with that name who was sitting on a council, standing for election, or alive at
+    the time. Similar spellings (Garriock, Garrick) are matched too.
+  </p>
+
+  <form class="picker" id="picker">
+    <label>
+      <span>Name</span>
+      <input type="search" id="name" placeholder="e.g. Garriock" autocomplete="off" />
+    </label>
+    <label>
+      <span>Year</span>
+      <input type="number" id="year" min="1600" max="2100" placeholder="e.g. 1912" />
+    </label>
+    <label>
+      <span>Give or take</span>
+      <select id="window">
+        <option value="0">exact year</option>
+        <option value="2" selected>2 years</option>
+        <option value="5">5 years</option>
+        <option value="10">10 years</option>
+      </select>
+    </label>
+    <label>
+      <span>Council</span>
+      <select id="council">
+        <option value="">Any</option>
+        {councils.map((c: any) => <option value={c.id}>{c.name}</option>)}
+      </select>
+    </label>
+    <label class="check">
+      <input type="checkbox" id="similar" checked />
+      <span>Similar spellings</span>
+    </label>
+  </form>
+
+  <section id="result" aria-live="polite">
+    <p class="meta" id="result-meta"></p>
+    <div class="table-wrap">
+      <table id="matches" hidden>
+        <thead>
+          <tr><th>Name</th><th>Match</th><th>In those years</th><th>Lived</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <script type="application/json" id="finder-data" set:html={data} />
+</Base>
+
+<script>
+  interface Person { id: number; s: string; n: string; f: string | null; b: string | null; d: string | null; }
+  interface Term { i: number | null; n: string; c: number; w: string | null; a: string; z: string | null; }
+  interface Cand { i: number | null; n: string; e: number; c: number; t: string; title: string; w: string | null; x: number; r: string | null; }
+  interface Council { id: number; name: string; slug: string; }
+
+  const { councils, people, terms, candidacies } = JSON.parse(document.getElementById('finder-data')!.textContent!) as
+    { councils: Council[]; people: Person[]; terms: Term[]; candidacies: Cand[] };
+
+  const nameInput = document.getElementById('name') as HTMLInputElement;
+  const yearInput = document.getElementById('year') as HTMLInputElement;
+  const windowSel = document.getElementById('window') as HTMLSelectElement;
+  const councilSel = document.getElementById('council') as HTMLSelectElement;
+  const similarBox = document.getElementById('similar') as HTMLInputElement;
+  const councilName = new Map(councils.map(c => [c.id, c.name]));
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function fmt(d: string | null): string {
+    if (!d) return '';
+    const [y, m, day] = d.split('-');
+    if (!m) return y;
+    return day ? `${parseInt(day)} ${MONTHS[parseInt(m) - 1]} ${y}` : `${MONTHS[parseInt(m) - 1]} ${y}`;
+  }
+  const year = (d: string | null) => d ? parseInt(d.slice(0, 4)) : null;
+
+  // Consonant skeleton of a word, so spelling variants agree: Garriock, Garrick → grk; Mouat, Mowat → mt.
+  // Tighter than Soundex, which also puts George with Garriock.
+  function skeleton(s: string): string {
+    const w = s.toLowerCase().replace(/^mac/, 'mc').replace(/[^a-z]/g, '')
+      .replace(/ph/g, 'f').replace(/ck|q/g, 'k').replace(/c(?=[aou]|$|[^eiy])/g, 'k');
+    if (!w) return '';
+    return (w[0] + w.slice(1).replace(/[aeiouyhw]/g, '')).replace(/(.)\1+/g, '$1');
+  }
+
+  // Words of a name, without "(i)" suffixes and initials' dots.
+  const words = (n: string) => n.replace(/\([^)]*\)/g, '').toLowerCase().split(/[\s.\-]+/).filter(Boolean);
+
+  // Best match against any of a person's names, strongest first; null for none.
+  // A query of one word is matched against the surname before the other names.
+  type Match = 0 | 1 | 2 | 3;
+  const MATCH_LABEL = ['surname', 'similar surname', 'other name', 'similar other name'];
+  function nameMatch(names: string[], q: string, similar: boolean): Match | null {
+    const ql = q.toLowerCase();
+    const qw = words(q);
+    const qs = qw.filter(w => w.length > 2).map(skeleton);
+    let best: Match | null = null;
+    for (const n of names) {
+      const ws = words(n);
+      const sur = ws[ws.length - 1] || '';
+      const inSurname = qw.length > 1 ? n.toLowerCase().includes(ql) : sur.includes(ql);
+      const sounds = (list: string[]) => similar && qs.length > 0 && qs.every(s => list.map(skeleton).includes(s));
+      const m: Match | null = inSurname ? 0
+        : qw.length === 1 && sounds([sur]) ? 1
+        : n.toLowerCase().includes(ql) ? 2
+        : sounds(ws) ? 3 : null;
+      if (m !== null && (best === null || m < best)) best = m;
+    }
+    return best;
+  }
+
+  function el(tag: string, text?: string, cls?: string): HTMLElement {
+    const e = document.createElement(tag);
+    if (text !== undefined) e.textContent = text;
+    if (cls) e.className = cls;
+    return e;
+  }
+
+  function link(text: string, href: string): HTMLElement {
+    const a = el('a', text) as HTMLAnchorElement;
+    a.href = href;
+    return a;
+  }
+
+  interface Row {
+    key: string; name: string; full: string | null; slug: string | null; match: Match;
+    rank: number; sat: Term[]; stood: Cand[]; born: string | null; died: string | null; span: string;
+  }
+
+  const termsBy = new Map<number, Term[]>();
+  const candsBy = new Map<number, Cand[]>();
+  for (const t of terms) if (t.i) termsBy.set(t.i, [...(termsBy.get(t.i) || []), t]);
+  for (const c of candidacies) if (c.i) candsBy.set(c.i, [...(candsBy.get(c.i) || []), c]);
+
+  function careerSpan(ts: Term[], cs: Cand[]): string {
+    const ys = [...ts.flatMap(t => [year(t.a), year(t.z)]), ...cs.map(c => year(c.t))].filter((y): y is number => !!y);
+    if (!ys.length) return '';
+    const lo = Math.min(...ys), hi = Math.max(...ys);
+    return lo === hi ? `active ${lo}` : `active ${lo}–${hi}`;
+  }
+
+  function search(): Row[] {
+    const q = nameInput.value.trim();
+    const y = parseInt(yearInput.value);
+    if (q.length < 2) return [];
+    const win = parseInt(windowSel.value);
+    const from = isNaN(y) ? -Infinity : y - win, to = isNaN(y) ? Infinity : y + win;
+    const fromD = isNaN(y) ? '' : `${from}-01-01`, toD = isNaN(y) ? '9999' : `${to + 1}-01-01`;
+    const council = councilSel.value ? parseInt(councilSel.value) : null;
+    const similar = similarBox.checked;
+    const inCouncil = (c: number) => council === null || c === council;
+    const satIn = (t: Term) => inCouncil(t.c) && t.a < toD && (t.z === null || t.z > fromD);
+    const stoodIn = (c: Cand) => inCouncil(c.c) && c.t >= fromD && c.t < toD;
+
+    const rows: Row[] = [];
+    for (const p of people) {
+      const match = nameMatch([p.n, ...(p.f ? [p.f] : [])], q, similar);
+      if (match === null) continue;
+      const ts = termsBy.get(p.id) || [], cs = candsBy.get(p.id) || [];
+      if (council !== null && !ts.some(t => t.c === council) && !cs.some(c => c.c === council)) continue;
+      const sat = ts.filter(satIn), stood = cs.filter(stoodIn);
+      const by = year(p.b), dy = year(p.d);
+      const alive = (by === null || by <= to) && (dy === null || dy >= from);
+      if (!sat.length && !stood.length && !alive) continue;
+      // Neither date known: only show when their career is near the year.
+      if (!sat.length && !stood.length && by === null && dy === null) {
+        const ys = [...ts.map(t => year(t.a)!), ...cs.map(c => year(c.t)!)];
+        if (!ys.length || Math.min(...ys) - 60 > to || Math.max(...ys) + 40 < from) continue;
+      }
+      rows.push({
+        key: p.s, name: p.n, full: p.f && p.f !== p.n ? p.f : null, slug: p.s, match,
+        rank: sat.length ? 0 : stood.length ? 1 : 2, sat, stood, born: p.b, died: p.d, span: careerSpan(ts, cs),
+      });
+    }
+
+    // Candidates and members with no person page.
+    const loose = new Map<string, Row>();
+    const add = (n: string, f: (r: Row) => void) => {
+      const match = nameMatch([n], q, similar);
+      if (match === null) return;
+      const key = n.toLowerCase();
+      if (!loose.has(key)) loose.set(key, { key, name: n, full: null, slug: null, match, rank: 3, sat: [], stood: [], born: null, died: null, span: 'no person page' });
+      f(loose.get(key)!);
+    };
+    for (const t of terms) if (!t.i && satIn(t)) add(t.n, r => { r.sat.push(t); r.rank = 0; });
+    for (const c of candidacies) if (!c.i && stoodIn(c)) add(c.n, r => { r.stood.push(c); r.rank = Math.min(r.rank, 1); });
+    rows.push(...loose.values());
+
+    return rows.sort((a, b) => (a.match >> 1) - (b.match >> 1) || a.rank - b.rank || a.match - b.match || a.name.localeCompare(b.name));
+  }
+
+  function lived(r: Row): string {
+    if (!r.born && !r.died) return r.span;
+    const parts = [r.born ? `b. ${fmt(r.born)}` : '', r.died ? `d. ${fmt(r.died)}` : ''].filter(Boolean);
+    return parts.join(', ');
+  }
+
+  function render() {
+    const tbody = document.querySelector('#matches tbody')!;
+    const table = document.getElementById('matches')!;
+    const meta = document.getElementById('result-meta')!;
+    tbody.replaceChildren();
+    const q = nameInput.value.trim();
+    if (q.length < 2) { table.hidden = true; meta.textContent = 'Enter at least two letters of a name.'; return; }
+    const rows = search();
+    table.hidden = !rows.length;
+    const y = yearInput.value ? ` around ${yearInput.value}` : '';
+    meta.textContent = rows.length ? `${rows.length} possible match${rows.length === 1 ? '' : 'es'}${y}, most likely first.` : `No one matching “${q}”${y}.`;
+
+    for (const r of rows) {
+      const tr = el('tr', undefined, r.rank === 0 ? 'sitting' : '');
+      const nameTd = el('td');
+      nameTd.appendChild(r.slug ? link(r.name, `/person/${r.slug}`) : el('span', r.name));
+      if (r.full) nameTd.appendChild(el('div', r.full, 'sub'));
+      tr.appendChild(nameTd);
+      tr.appendChild(el('td', MATCH_LABEL[r.match]));
+
+      const what = el('td');
+      const seen = new Set<string>();
+      for (const t of r.sat) {
+        const label = `Sat on ${councilName.get(t.c)}${t.w ? ` for ${t.w}` : ''}`;
+        const k = `${t.c}|${t.w}`;
+        if (seen.has(k)) continue;
+        seen.add(k);
+        const span = r.sat.filter(s => `${s.c}|${s.w}` === k);
+        const a = span[0].a, z = span[span.length - 1].z;
+        what.appendChild(el('div', `${label}, ${fmt(a)} – ${z ? fmt(z) : 'present'}`));
+      }
+      for (const c of r.stood) {
+        const d = el('div');
+        d.append(`${c.x ? (c.r && c.r !== 'councillor' ? `Elected ${c.r}` : 'Elected') : 'Stood'}${c.w ? ` in ${c.w}` : ''}: `);
+        d.appendChild(link(c.title, `/election/${c.e}`));
+        what.appendChild(d);
+      }
+      if (!r.sat.length && !r.stood.length) what.appendChild(el('span', `Alive, not standing (${r.span})`, 'muted'));
+      tr.appendChild(what);
+      tr.appendChild(el('td', lived(r)));
+      tbody.appendChild(tr);
+    }
+  }
+
+  function syncUrl() {
+    const q = new URLSearchParams();
+    if (nameInput.value.trim()) q.set('name', nameInput.value.trim());
+    if (yearInput.value) q.set('year', yearInput.value);
+    if (windowSel.value !== '2') q.set('window', windowSel.value);
+    if (councilSel.value) q.set('council', councilSel.value);
+    if (!similarBox.checked) q.set('similar', '0');
+    history.replaceState(null, '', `${location.pathname}${q.size ? `?${q}` : ''}`);
+  }
+
+  const params = new URLSearchParams(location.search);
+  nameInput.value = params.get('name') || '';
+  yearInput.value = params.get('year') || '';
+  if (params.get('window')) windowSel.value = params.get('window')!;
+  if (params.get('council')) councilSel.value = params.get('council')!;
+  similarBox.checked = params.get('similar') !== '0';
+
+  document.getElementById('picker')!.addEventListener('submit', e => e.preventDefault());
+  for (const input of [nameInput, yearInput]) input.addEventListener('input', () => { render(); syncUrl(); });
+  for (const input of [windowSel, councilSel, similarBox]) input.addEventListener('change', () => { render(); syncUrl(); });
+  render();
+</script>
+
+<style>
+  .picker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .picker label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .picker label.check {
+    flex-direction: row;
+    align-items: center;
+    font-weight: 400;
+    padding-bottom: 0.45rem;
+  }
+
+  .picker select,
+  .picker input:not([type=checkbox]) {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-weight: 400;
+    font-size: 0.95rem;
+  }
+
+  #year { width: 7rem; }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  #matches td {
+    vertical-align: top;
+  }
+
+  :global(#matches tr.sitting td:first-child) {
+    font-weight: 600;
+  }
+
+  :global(#matches .sub),
+  :global(#matches .muted) {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+</style>
