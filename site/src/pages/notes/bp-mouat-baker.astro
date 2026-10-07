@@ -1,0 +1,205 @@
+---
+import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+
+// Research note on Basil Pole Mouat's bakery, 75 Commercial Street, Lerwick.
+// Sources: Shetland Times (British Newspaper Archive) and Bayanne, checked 2026-10-07.
+const st = (ymd: string, page: number, article: number) =>
+  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
+const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
+// Inline link for HTML strings (rendered with set:html).
+const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
+
+type Src = { label: string; href: string };
+const timeline: { date: string; text: string; sources: Src[] }[] = [
+  { date: '2 Apr 1855', text: `Basil Pole Mouat born, Park Lane, Lerwick, son of ${b('I93398', 'Magnus Mouat')} and ${b('I7619', 'Barbara Ninian')}.`,
+    sources: [{ label: 'Bayanne I85322', href: bayanne('I85322') }] },
+  { date: 'c. 1868 on', text: `After leaving school, he works for ${b('I86837', 'George Laurence')}, grocer and baker, and stays with him “all his early life”.`,
+    sources: [{ label: 'ST 4 May 1929', href: st('19290504', 5, 107) }] },
+  { date: '2 Sep 1885', text: 'George Laurence dies at 69a Commercial Street. In October his creditors are called in as “the late George Laurence, Baker and Grocer”.',
+    sources: [{ label: 'Bayanne I86837', href: bayanne('I86837') }, { label: 'ST 3 Oct 1885', href: st('18851003', 1, 3) }] },
+  { date: 'after 1885', text: 'Mouat and Thomas Smith, Sound, take over Laurence’s grocery. Mrs Laurence keeps the bakery at 75 Commercial Street going.',
+    sources: [{ label: 'ST 4 May 1929', href: st('19290504', 5, 107) }] },
+  { date: '3 Mar 1887', text: `Mouat marries ${b('I85323', 'Ann Davidson Veitch')} in Glasgow. She is a niece of Mrs Laurence (${b('I85538', 'Ann Davidson')}).`,
+    sources: [{ label: 'Bayanne I85323', href: bayanne('I85323') }] },
+  { date: '1891', text: 'The paper calls Mouat Laurence’s “successor” at the shop.',
+    sources: [{ label: 'ST 28 Nov 1891', href: st('18911128', 3, 37) }] },
+  { date: 'by 1893', text: `Mrs Laurence gives up the bakery and Mouat & Smith take it over. She remarries in Aberdeen on 14 Sep 1893, to ${b('I85276', 'Rev. Alexander Gray Yeats')}. The partnership is later dissolved and Mouat keeps the bakery.`,
+    sources: [{ label: 'ST 4 May 1929', href: st('19290504', 5, 107) }, { label: 'Bayanne I85538', href: bayanne('I85538') }] },
+  { date: 'Mar–Apr 1906', text: 'Jas. Cruickshank’s men from Edinburgh build two new ovens. The paper calls the business “the oldest established bakery business in Shetland”.',
+    sources: [{ label: 'ST 7 Apr 1906', href: st('19060407', 4, 103) }] },
+  { date: 'Oct 1906', text: 'A fire in the house above the shop damages his stock.',
+    sources: [{ label: 'ST 20 Oct 1906', href: st('19061020', 4, 115) }] },
+  { date: 'Mar 1907', text: 'The block’s owner gets approval to raise the walls 4 ft and enlarge the shop windows.',
+    sources: [{ label: 'ST 9 Mar 1907', href: st('19070309', 5, 74) }] },
+  { date: '1 Apr 1908', text: 'His Admiralty contract to supply bread to warships at Lerwick begins, “the first direct contract” given to a Lerwick baker.',
+    sources: [{ label: 'ST 28 Mar 1908', href: st('19080328', 4, 58) }] },
+  { date: 'Sep 1917', text: 'A fire badly damages his house in Commercial Street.',
+    sources: [{ label: 'ST 8 Sep 1917', href: st('19170908', 4, 101) }] },
+  { date: '21 Nov 1927', text: 'He announces his retirement. The bake-shop “has been condemned”, so the business can’t be transferred.',
+    sources: [{ label: 'ST 26 Nov 1927', href: st('19271126', 1, 208) }] },
+  { date: '10 Dec 1927', text: 'Last day of bread supply. The shop at No. 75 is advertised to let.',
+    sources: [{ label: 'ST 26 Nov 1927', href: st('19271126', 1, 41) }] },
+  { date: '25 Apr 1928', text: 'Bakery plant and utensils are auctioned at the bakeshop by Wm. J. Mackay.',
+    sources: [{ label: 'ST 14 Apr 1928', href: st('19280414', 1, 201) }] },
+  { date: '15 Dec 1928', text: `The Thule Bakery (Gilbert Hunter, ${b('I106672', 'John T. Irvine')}, David Tait), working from the repaired bakehouse at 69 Commercial Street, opens a shop at No. 45 because it can’t get his old shop.`,
+    sources: [{ label: 'ST 1 Dec 1928', href: st('19281201', 5, 114) }] },
+  { date: '1 May 1929', text: 'Mouat dies at 69a Commercial Street, aged 74.',
+    sources: [{ label: 'ST 4 May 1929', href: st('19290504', 5, 107) }, { label: 'Bayanne I85322', href: bayanne('I85322') }] },
+];
+
+const family: { name: string; href?: string; dates: string; link: string }[] = [
+  { name: 'George Laurence', href: bayanne('I86837'), dates: '1810 – 2 Sep 1885', link: 'Grocer and baker, Commercial Street. Mouat’s employer.' },
+  { name: 'Ann Davidson (Mrs Laurence)', href: bayanne('I85538'), dates: '1832 – 15 Aug 1901', link: `Ran the bakery after 1885. Married ${b('I85276', 'Rev. Alexander Gray Yeats')} in 1893 and died at Skipton.` },
+  { name: 'Basil Pole Mouat', href: bayanne('I85322'), dates: '2 Apr 1855 – 1 May 1929', link: 'Master baker. Buried in Lerwick New Cemetery.' },
+  { name: 'Ann Davidson Veitch (Mrs Mouat)', href: bayanne('I85323'), dates: '29 Jul 1857 – 18 Apr 1934', link: 'His wife, Mrs Laurence’s niece. Born at Balerno; married in Glasgow, 3 Mar 1887.' },
+  { name: 'Jessie Ann Davidson Mouat (Mrs Laurenson)', href: bayanne('I124117'), dates: '9 Dec 1887 – 28 Oct 1939', link: `Married ${b('I30055', 'Laurence Dempster Laurenson')}, son of W. Laurenson of Benston, South Nesting, at Woolwich on 25 Apr 1914. Widowed, she died in Auckland.` },
+  { name: 'Basilina Ninian (“Lena”) Mouat', href: bayanne('I124116'), dates: 'b. 19 Jan 1889', link: 'Commercial teacher at the Central School. MBE for war service.' },
+  { name: 'Dr Stephen James Veitch Mouat', href: bayanne('I85321'), dates: '1 Apr 1896 – 14 Mar 1975', link: 'Gordon Highlanders, wounded 1916 and 1918. Qualified in medicine 1926. Medical officer at Hillswick, later South Ronaldsay.' },
+];
+---
+<Base
+  title="B. P. Mouat, Baker, 75 Commercial Street"
+  description="Basil Pole Mouat's bakery at 75 Commercial Street, Lerwick, c. 1885–1927: a timeline from the Shetland Times and Bayanne."
+>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Lerwick notes</div>
+
+  <h1>B. P. Mouat, Baker, 75 Commercial Street, Lerwick</h1>
+
+  <div class="essay">
+    <figure>
+      <img src="/images/notes/bp-mouat-shop.jpg" width="1400" height="1027" alt="Staff outside the shop under the sign 'B. P. Mouat, Baker', No. 75 Commercial Street, Lerwick" />
+    </figure>
+
+    <p>Basil Pole Mouat (1855–1929) ran a bakery at 75 Commercial Street, Lerwick, from some time after 1885 until <strong>10 December 1927</strong>. It closed because the bake-shop had been condemned. He had worked for George Laurence, baker and grocer, from his schooldays, and in 1887 married Laurence’s wife’s niece. In 1906 the Shetland Times called it “the oldest established bakery business in Shetland”.</p>
+
+    <p class="note">A side note on a Lerwick business and family, separate from the political history on the rest of this site.</p>
+
+    <p>Unless marked otherwise, what follows comes from the Shetland Times (through the British Newspaper Archive) and from Bayanne.</p>
+
+    <h2>Timeline</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
+      <tbody>
+        {timeline.map((row) => (
+          <tr>
+            <td class="nowrap">{row.date}</td>
+            <td set:html={row.text} />
+            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <h2>The shop and the building</h2>
+
+    <p>The shop was at the south end of Commercial Street. The family lived above and next door, at 69a, and the bakehouse was at No. 69.</p>
+
+    <ul>
+      <li><strong>An old house.</strong> In 1891 the paper said <ExternalLink href={bayanne('I17406')} label="Barbara Pitcairn" />, of the Busta story, once lived here, in her mother’s house. It gave the address as <strong>97</strong> Commercial Street, so the street numbers have probably changed since.</li>
+      <li><strong>Numbering.</strong> Mouat’s daughter Jessie was born at “73 Commercial Street” in 1887 (Bayanne). The 1927 notices and the photo both say <strong>75</strong>, and a 1932 note says <strong>73</strong>. It looks like one shop under shifting numbers, but that isn’t confirmed.</li>
+      <li><strong>Owner.</strong> Dr J. F. Robertson owned the block. Mouat’s shop and Alex. Sutherland’s grocery were on the ground floor, with houses above.</li>
+      <li><strong>1907 alterations.</strong> The walls were raised 4 ft, the shop ceilings heightened and the windows enlarged. This may help date the photo.</li>
+      <li><strong>After Mouat.</strong> The Thule Bakery repaired and reopened the bakehouse in December 1928. By 1932 Malcolmson &amp; Co., bakers, had the shop.</li>
+    </ul>
+
+    <h2>The business and its people</h2>
+
+    <ul>
+      <li><strong>Bread for the fleet.</strong> In 1905 he shared the bread order for the visiting Fleet with J. Groat and Black &amp; Son. From 1908 he held the Admiralty contract on his own.</li>
+      <li><strong>Outside catering.</strong> From about 1903 to 1924 he was Lerwick’s usual caterer: Territorial and RNR dances and sports, the Up-Helly-Aa halls, the county show marquees, regattas and church parades. The reports kept saying he “purveyed in his usual first-class style”.</li>
+      <li><strong>Staff named in the papers.</strong> Mr Johnston was his foreman for many years and died in 1921. <ExternalLink href={bayanne('I107327')} label="Robert S. Garriock" /> baked for him before moving to the Steamers Store, and died in 1945. A man who died in 1949 had served his apprenticeship with him before becoming a docker. In 1899 the bakers’ association sent him three long-service cards for his workers. He advertised for lads and message boys between 1902 and 1923.</li>
+      <li><strong>The man.</strong> His obituary calls him quiet and unassuming, with “a fund of quiet humour”, taking no active part in public life. He was Steward of Morton Lodge (89) of Freemasons for 35–40 years, and passed through all the offices of the Lord Clyde Lodge of Oddfellows, which he joined in about 1877.</li>
+    </ul>
+
+    <h2>Family</h2>
+
+    <p>The bakery stayed in one extended family. George Laurence’s second wife, Ann Davidson, was the sister of <ExternalLink href={bayanne('I85534')} label="Janet Davidson" />, whose daughter married Mouat.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Person</th><th>Dates</th><th>Link to the bakery</th></tr></thead>
+      <tbody>
+        {family.map((p) => (
+          <tr>
+            <td>{p.href ? <ExternalLink href={p.href} label={p.name} /> : p.name}</td>
+            <td class="nowrap">{p.dates}</td>
+            <td set:html={p.link} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <p>The obituary of Mrs Laughton (<ExternalLink href={bayanne('I132735')} label="Mary Cheyne Spence Mouat" />), who died at Hokitika, New Zealand, in 1937, calls her a sister of “the late Mr B. P. Mouat, baker and confectioner” (<ExternalLink href={st('19370925', 4, 76)} label="ST 25 Sep 1937" />).</p>
+
+    <h2>Sources</h2>
+
+    <p>The Shetland Times issues are linked in the timeline. Also used:</p>
+    <ul>
+      <li><ExternalLink href={st('19290504', 5, 107)} label="Obituary, “Mr Basil P. Mouat”" />, Shetland Times, 4 May 1929, p5</li>
+      <li><ExternalLink href={st('18911128', 3, 37)} label="Barbara Pitcairn and the house" />, Shetland Times, 28 Nov 1891, p3</li>
+      <li><ExternalLink href={st('19320430', 4, 23)} label="1932 note on No. 73" />, Shetland Times, 30 Apr 1932, p4</li>
+      <li><ExternalLink href={st('19210716', 4, 81)} label="Mouat’s foreman Johnston" />, Shetland Times, 16 Jul 1921, p4</li>
+      <li><ExternalLink href={st('19451019', 2, 53)} label="R. S. Garriock" />, Shetland Times, 19 Oct 1945, p2</li>
+      <li>Bayanne (Shetland Family History): the family pages linked above. They also note the 1929 inventory of his estate (SC12/36/19, p107) and two Sheriff Court actions in which he is a “bread and biscuit baker, Commercial Street” (1902, 1918).</li>
+    </ul>
+    <p class="note">The Shetland Times links need a British Newspaper Archive subscription.</p>
+  </div>
+</Base>
+
+<style>
+  .essay {
+    max-width: 680px;
+    line-height: 1.85;
+    font-size: 0.95rem;
+  }
+
+  .essay h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .essay p,
+  .essay li {
+    color: var(--text-secondary);
+  }
+
+  .essay p {
+    margin-bottom: 1.15rem;
+  }
+
+  .essay ul {
+    margin: 0 0 1.15rem 1.25rem;
+  }
+
+  .essay li {
+    margin-bottom: 0.6rem;
+  }
+
+  .essay figure {
+    margin: 0 0 1.5rem;
+  }
+
+  .essay img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .note {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+</style>
