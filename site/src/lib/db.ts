@@ -577,9 +577,47 @@ export function getLeadershipSuccessionForPerson(personId: number): LeadershipSu
 }
 
 /**
- * Get all elected members for a constituency, in date order.
+ * Get all members for a constituency, in date order. Council wards use council_terms, so a
+ * winner who never sat (data/not_seated.csv) is left out and end years are when they left.
+ * Back-to-back terms of one member are merged. Constituencies with no terms (Westminster) fall
+ * back to the election winners.
  */
 export function getConstituencyMembers(constituencyId: number): { name: string; slug: string | null; start_year: string; end_year: string }[] {
+  const terms = db.prepare(`
+    SELECT t.person_id, COALESCE(p.name, t.person_name) as name, p.slug, t.start_date, t.end_date
+    FROM council_terms t
+    LEFT JOIN people p ON t.person_id = p.id
+    WHERE t.constituency_id = ?
+    ORDER BY t.start_date
+  `).all(constituencyId) as any[];
+
+  if (terms.length > 0) {
+    // Merge each member's consecutive terms, keyed by person (or name when unlinked). A gap is
+    // bridged when nobody else came in during it: a ward left empty at a general for lack of
+    // nominations and filled by the same member at a by-election weeks later.
+    const spans: { key: string; name: string; slug: string | null; start: string; end: string | null }[] = [];
+    const lastSpan = new Map<string, (typeof spans)[number]>();
+    for (const t of terms) {
+      const key = t.person_id != null ? `p${t.person_id}` : `n${t.name}`;
+      const prev = lastSpan.get(key);
+      const bridged = prev && prev.end != null && prev.end <= t.start_date &&
+        !spans.some((s) => s !== prev && s.start >= prev.end! && s.start < t.start_date);
+      if (prev && bridged) {
+        prev.end = t.end_date;
+      } else {
+        const span = { key, name: t.name || 'Unknown', slug: t.slug, start: t.start_date, end: t.end_date };
+        spans.push(span);
+        lastSpan.set(key, span);
+      }
+    }
+    return spans.map((s) => ({
+      name: s.name,
+      slug: s.slug,
+      start_year: s.start.substring(0, 4),
+      end_year: s.end ? s.end.substring(0, 4) : 'present',
+    }));
+  }
+
   const winners = db.prepare(`
     SELECT c.person_id, p.name as person_name, p.slug as person_slug,
            e.election_date, e.election_type
