@@ -167,6 +167,10 @@ FIXES = [
     # Written while he was alive; people.died_date is 2019-10-01 (Bayanne).
     ('people', 358, 'intro', "Leslie 'Gussie' Angus is a former Shetland Islands Councillor.",
      "Leslie 'Gussie' Angus was a Shetland Islands Councillor."),
+    # Scots "outwith" (outside of), split in two.
+    ('people', 198, 'biography', 'employment out with the Church', 'employment outwith the Church'),
+    # No 31 April; James's call (2026-10-08) that it was the 30th.
+    ('people', 198, 'biography', 'the Church 31 April 1969', 'the Church 30 April 1969'),
     ('elections', 21, 'notes', 'interpretation of the the procedures', 'interpretation of the procedures'),
     ('elections', 22, 'notes', 'interpretation of the the procedures', 'interpretation of the procedures'),
     ('elections', 22, 'notes', '2st Council Group', '2nd Council Group'),
