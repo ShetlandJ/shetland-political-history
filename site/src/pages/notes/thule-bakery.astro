@@ -1,0 +1,165 @@
+---
+import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+
+// Research note on the Thule Bakery, 45 Commercial Street, Lerwick, 1928–1934.
+// Sources: Shetland Times and Shetland News (British Newspaper Archive), checked 2026-10-08.
+const st = (ymd: string, page: number, article: number) =>
+  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
+const sn = (ymd: string, page: number, article: number) =>
+  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0003210%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
+const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
+// Inline link for HTML strings (rendered with set:html).
+const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
+
+type Src = { label: string; href: string };
+const timeline: { date: string; text: string; sources: Src[] }[] = [
+  { date: '10 Dec 1927', text: '<a href="/notes/bp-mouat-baker/">B. P. Mouat</a> stops baking at 75 Commercial Street. His bake-shop has been condemned, so the business can’t be sold on.',
+    sources: [{ label: 'ST 26 Nov 1927', href: st('19271126', 1, 208) }] },
+  { date: 'Nov 1928', text: `Three working bakers, ${b('I29457', 'Gilbert Hunter')}, ${b('I106672', 'John T. Irvine')} and ${b('I92126', 'David Tait')}, take Mouat’s old bakehouse at 69 Commercial Street and repair it “to the satisfaction of the Local Authority”. They can’t get his shop, so they take one at 45 Commercial Street, “south past Queen’s Hotel”.`,
+    sources: [{ label: 'ST 1 Dec 1928', href: st('19281201', 5, 114) }, { label: 'SN 6 Dec 1928', href: sn('19281206', 8, 85) }] },
+  { date: 'Sat 1 Dec 1928', text: 'The Thule Bakery opens. Its own advert a year later gives the same date.',
+    sources: [{ label: 'ST 1 Dec 1928', href: st('19281201', 5, 114) }, { label: 'SN 26 Dec 1929', href: sn('19291226', 1, 154) }] },
+  { date: 'Dec 1928', text: 'A “bread war”. The 4lb loaf had been 9½d in Lerwick; the Thule sells it at 9d, and by the Wednesday it can be had for 7d.',
+    sources: [{ label: 'ST 8 Dec 1928', href: st('19281208', 4, 48) }] },
+  { date: 'Dec 1929', text: 'The proprietors thank their customers “in Town and Country” for support “during strenuous times”.',
+    sources: [{ label: 'ST 21 Dec 1929', href: st('19291221', 5, 116) }, { label: 'SN 26 Dec 1929', href: sn('19291226', 1, 154) }] },
+  { date: 'Jul 1930', text: 'Caters the Nesting Parish Church outing.',
+    sources: [{ label: 'SN 17 Jul 1930', href: sn('19300717', 5, 61) }] },
+  { date: 'Sun 8 Nov 1931', text: 'Gilbert Hunter dies at 69 Commercial Street, the bakehouse address. He had been unable to work for six or seven months. He is buried in Nesting.',
+    sources: [{ label: 'SN 12 Nov 1931', href: sn('19311112', 4, 50) }, { label: 'ST 21 Nov 1931', href: st('19311121', 1, 191) }] },
+  { date: 'Dec 1931', text: 'William J. Paton and James W. P. Angus announce they have taken over the Thule Bakery, South Commercial Street. The original partnership is at an end: Tait retired when it ceased.',
+    sources: [{ label: 'SN 10 Dec 1931', href: sn('19311210', 8, 169) }, { label: 'ST 12 Dec 1931', href: st('19311212', 1, 202) }, { label: 'SN 21 Sep 1939', href: sn('19390921', 4, 31) }] },
+  { date: '1932–33', text: 'Cut-price adverts: “Shop here and save money”, old-fashioned biscuits at 6d a lb, iced Christmas cakes at 2/3 and 3/6.',
+    sources: [{ label: 'ST 22 Oct 1932', href: st('19321022', 1, 97) }, { label: 'ST 17 Dec 1932', href: st('19321217', 4, 85) }, { label: 'ST 7 Jan 1933', href: st('19330107', 7, 298) }] },
+  { date: '9 May 1934', text: 'Angus and Paton grant a trust deed for their creditors to Peter Goodlad, solicitor. That is the end of the business.',
+    sources: [{ label: 'SN 10 May 1934', href: sn('19340510', 1, 129) }, { label: 'ST 12 May 1934', href: st('19340512', 1, 158) }] },
+  { date: 'Jun 1934', text: 'The Alexandra Bakery, Commercial Road, opens a branch in the South Commercial Street shop “lately occupied by Thule Bakery”.',
+    sources: [{ label: 'SN 7 Jun 1934', href: sn('19340607', 1, 149) }, { label: 'ST 9 Jun 1934', href: st('19340609', 1, 19) }] },
+  { date: 'Mar 1935', text: 'The old bakehouse and cellar “lately occupied by Thule Bakery”, behind 71, 73 and 75 Commercial Street, are advertised to let.',
+    sources: [{ label: 'ST 9 Mar 1935', href: st('19350309', 1, 274) }] },
+  { date: 'Sun 17 Sep 1939', text: 'David Tait dies at 3 Queen’s Place, Lerwick. The obituary gives his age as 74; Bayanne’s birth date makes him 75.',
+    sources: [{ label: 'SN 21 Sep 1939', href: sn('19390921', 4, 31) }, { label: 'Bayanne I92126', href: bayanne('I92126') }] },
+];
+
+const people: { name: string; href?: string; dates: string; role: string }[] = [
+  { name: 'Gilbert Hunter', href: bayanne('I29457'), dates: '17 Dec 1871 – 8 Nov 1931', role: 'Founding partner, 1928–31. Born at Billister, Nesting. Came to Lerwick as a lad to work in Mrs George Laurence’s bakery (later Mouat’s). Had his own shops in Easter Road, Edinburgh, and at the north end of Lerwick, went to sea as a steamer steward for his health, then baked at Sandwick, J. Black &amp; Sons, the Hygienic Bakery, Voe and Mid Yell. Known for his girdle scones. Died at 69a Commercial Street, leaving a widow.' },
+  { name: 'David Tait', href: bayanne('I92126'), dates: '25 Aug 1864 – 17 Sep 1939', role: 'Founding partner, 1928–31. Born at Brettoe, Tingwall; a baker’s apprentice in Lerwick by 1881. A baker all his life: with Malcolmson &amp; Co., then with B. P. Mouat “for a great many years”. Retired when the partnership ended. An Oddfellow and a member of St Columba’s. Survived by his wife, three daughters and a son.' },
+  { name: 'John Thomas Williamson Irvine', href: bayanne('I106672'), dates: '12 Jul 1877 – 4 Jul 1942', role: 'Founding partner, 1928–31. Born in Hangcliff Lane, Lerwick; a master baker. Died at 11 Union Street, Lerwick.' },
+  { name: 'William Jamieson Paton', dates: '', role: 'Proprietor with Angus, Dec 1931 – May 1934.' },
+  { name: 'James William Peter Angus', dates: '', role: 'Proprietor with Paton, Dec 1931 – May 1934.' },
+];
+---
+<Base
+  title="The Thule Bakery, 45 Commercial Street"
+  description="The Thule Bakery, 45 Commercial Street, Lerwick, 1928–1934: who ran it, when it opened and closed, from the Shetland Times and Shetland News."
+>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Lerwick notes</div>
+
+  <h1>The Thule Bakery, 45 Commercial Street, Lerwick</h1>
+
+  <div class="essay">
+    <p>The Thule Bakery opened on <strong>Saturday 1 December 1928</strong>. Its owners were three working bakers, Gilbert Hunter, John T. Irvine and David Tait (Hunter and Tait had both worked in that bakery before), and it baked in B. P. Mouat’s old bakehouse at 69 Commercial Street. The shop was at 45 Commercial Street, at the south end of the town. After Hunter died in November 1931, William J. Paton and James W. P. Angus took the business over. They gave it up in <strong>May 1934</strong> with a trust deed for their creditors, and in June the Alexandra Bakery took the shop as a branch.</p>
+
+    <p class="note">A side note on a Lerwick business, separate from the political history on the rest of this site. A companion to the note on <a href="/notes/bp-mouat-baker/">B. P. Mouat, Baker</a>, whose bakehouse the Thule took over.</p>
+
+    <p>Unless marked otherwise, what follows comes from the Shetland Times (ST) and the Shetland News (SN), through the British Newspaper Archive, and from Bayanne for the partners’ dates.</p>
+
+    <h2>Timeline</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
+      <tbody>
+        {timeline.map((row) => (
+          <tr>
+            <td class="nowrap">{row.date}</td>
+            <td set:html={row.text} />
+            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <h2>The people</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Person</th><th>Dates</th><th>Part in the bakery</th></tr></thead>
+      <tbody>
+        {people.map((p) => (
+          <tr>
+            <td>{p.href ? <ExternalLink href={p.href} label={p.name} /> : p.name}</td>
+            <td class="nowrap">{p.dates}</td>
+            <td set:html={p.role} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <h2>Notes</h2>
+
+    <ul>
+      <li><strong>The opening date.</strong> The OCR of the first advert reads “15 December”, but the page image says “1st December”. The bread-war report of 8 December and the bakery’s own advert of December 1929 agree on 1 December.</li>
+      <li><strong>Two addresses.</strong> The shop was at No. 45, the bakehouse at No. 69, behind the 71–75 block where Mouat’s shop had been. Hunter lived at 69.</li>
+      <li><strong>The partners after 1931.</strong> Tait’s obituary says he retired when “that business ceased”. Nothing in the papers says what Irvine did next; he died in 1942 (Bayanne).</li>
+      <li><strong>A slip in Tait’s obituary.</strong> It puts the start of the Thule “following Mr Mouat’s death”. Mouat died on 1 May 1929, five months after it opened; his retirement in December 1927 is what freed the bakehouse.</li>
+      <li><strong>Photographs.</strong> None turned up in the papers; the adverts are text only.</li>
+    </ul>
+
+    <h2>Sources</h2>
+
+    <p>The newspaper issues are linked in the timeline. Also used:</p>
+    <ul>
+      <li><ExternalLink href={sn('19311112', 4, 50)} label="Obituary, “Mr Gilbert Hunter, Baker”" />, Shetland News, 12 Nov 1931, p4</li>
+      <li><ExternalLink href={sn('19390921', 4, 31)} label="Obituary, “Mr David Tait, Retired Baker”" />, Shetland News, 21 Sep 1939, p4</li>
+      <li><ExternalLink href={st('19281215', 1, 175)} label="Advert naming the three partners" />, Shetland Times, 15 Dec 1928, p1</li>
+    </ul>
+    <p class="note">The newspaper links need a British Newspaper Archive subscription.</p>
+  </div>
+</Base>
+
+<style>
+  .essay {
+    max-width: 680px;
+    line-height: 1.85;
+    font-size: 0.95rem;
+  }
+
+  .essay h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .essay p,
+  .essay li {
+    color: var(--text-secondary);
+  }
+
+  .essay p {
+    margin-bottom: 1.15rem;
+  }
+
+  .essay ul {
+    margin: 0 0 1.15rem 1.25rem;
+  }
+
+  .essay li {
+    margin-bottom: 0.6rem;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .note {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+</style>

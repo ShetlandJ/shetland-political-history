@@ -6,6 +6,8 @@ import ExternalLink from '../../components/ExternalLink.astro';
 // Sources: Shetland Times (British Newspaper Archive) and Bayanne, checked 2026-10-07.
 const st = (ymd: string, page: number, article: number) =>
   `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
+const sn = (ymd: string, page: number, article: number) =>
+  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0003210%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
 const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
 // Inline link for HTML strings (rendered with set:html).
 const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
@@ -42,8 +44,8 @@ const timeline: { date: string; text: string; sources: Src[] }[] = [
     sources: [{ label: 'ST 26 Nov 1927', href: st('19271126', 1, 41) }] },
   { date: '25 Apr 1928', text: 'Bakery plant and utensils are auctioned at the bakeshop by Wm. J. Mackay.',
     sources: [{ label: 'ST 14 Apr 1928', href: st('19280414', 1, 201) }] },
-  { date: '15 Dec 1928', text: `The Thule Bakery (Gilbert Hunter, ${b('I106672', 'John T. Irvine')}, David Tait), working from the repaired bakehouse at 69 Commercial Street, opens a shop at No. 45 because it can’t get his old shop.`,
-    sources: [{ label: 'ST 1 Dec 1928', href: st('19281201', 5, 114) }] },
+  { date: '1 Dec 1928', text: `The <a href="/notes/thule-bakery/">Thule Bakery</a> (${b('I29457', 'Gilbert Hunter')}, ${b('I106672', 'John T. Irvine')}, ${b('I92126', 'David Tait')}), working from the repaired bakehouse at 69 Commercial Street, opens a shop at No. 45 because it can’t get his old shop.`,
+    sources: [{ label: 'ST 1 Dec 1928', href: st('19281201', 5, 114) }, { label: 'ST 15 Dec 1928', href: st('19281215', 1, 175) }] },
   { date: '1 May 1929', text: 'Mouat dies at 69a Commercial Street, aged 74.',
     sources: [{ label: 'ST 4 May 1929', href: st('19290504', 5, 107) }, { label: 'Bayanne I85322', href: bayanne('I85322') }] },
 ];
@@ -113,7 +115,7 @@ const family: { name: string; href?: string; dates: string; link: string }[] = [
     <ul>
       <li><strong>Bread for the fleet.</strong> In 1905 he shared the bread order for the visiting Fleet with J. Groat and Black &amp; Son. From 1908 he held the Admiralty contract on his own.</li>
       <li><strong>Outside catering.</strong> From about 1903 to 1924 he was Lerwick’s usual caterer: Territorial and RNR dances and sports, the Up-Helly-Aa halls, the county show marquees, regattas and church parades. The reports kept saying he “purveyed in his usual first-class style”.</li>
-      <li><strong>Staff named in the papers.</strong> Mr Johnston was his foreman for many years and died in 1921. <ExternalLink href={bayanne('I107327')} label="Robert S. Garriock" /> baked for him before moving to the Steamers Store, and died in 1945. A man who died in 1949 had served his apprenticeship with him before becoming a docker. In 1899 the bakers’ association sent him three long-service cards for his workers. He advertised for lads and message boys between 1902 and 1923.</li>
+      <li><strong>Staff named in the papers.</strong> Mr Johnston was his foreman for many years and died in 1921. <ExternalLink href={bayanne('I107327')} label="Robert S. Garriock" /> baked for him before moving to the Steamers Store, and died in 1945. <ExternalLink href={bayanne('I29457')} label="Gilbert Hunter" /> of Nesting came to the bakery as a lad, under Mrs Laurence, and stayed “for several years”. He later baked in Edinburgh (his own shop in Easter Road), at sea as a steamer steward, at J. Black &amp; Sons, at Voe and at Mid Yell. He was a Thule Bakery partner from 1928, and died at 69 Commercial Street on 8 Nov 1931 (<ExternalLink href={sn('19311112', 4, 50)} label="Shetland News 12 Nov 1931" />). A man who died in 1949 had served his apprenticeship with him before becoming a docker. In 1899 the bakers’ association sent him three long-service cards for his workers. He advertised for lads and message boys between 1902 and 1923.</li>
       <li><strong>The man.</strong> His obituary calls him quiet and unassuming, with “a fund of quiet humour”, taking no active part in public life. He was Steward of Morton Lodge (89) of Freemasons for 35–40 years, and passed through all the offices of the Lord Clyde Lodge of Oddfellows, which he joined in about 1877.</li>
     </ul>
 
