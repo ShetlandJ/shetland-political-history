@@ -9,6 +9,17 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-03: The family chart of the first councillors, checked on Bayanne (`family-connections.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | notes (chart) | James and Ann Hoseason were siblings, and so were James and Jane | James and Ann were **husband and wife** (I3358, I3499); Jane was **Ann's sister** | Fixed in `data/family_links.csv` |
+| 2 | notes (chart) | William Hay was the parent of Mary and Andrew Hay | All three were **siblings**, children of James Hay (I6233) | Fixed in `data/family_links.csv` |
+| 3 | notes (chart) | Lewis Umphray was Louisa Umphray's parent | He was her **grandfather**, through Andrew Umphray b. 1815 (I18404) | Fixed in `data/family_links.csv` |
+| 4 | notes (chart) | Sinclair Goudie 1771–1855; William Goudie 1798–1869 | Sinclair **1812–1900** and William **1809–1886**, brothers of Robert Goudie; the chart has their father's and Robert's dates | Fixed in `data/relatives.csv` |
+| 5 | notes (chart) | Thomas Fea (b. 1767) was Barbara Fea's father | Her father was an older Thomas Fea (I363803) | Open (open-questions) |
+| 6 | wiki | James Mouat (iii) was the **great-nephew** of James Mouat (i) | Great-great-grandson of James (i)'s brother Jerome, so a great-great-great-nephew | Open; not changed |
+
 ## 2026-10-02: Birth places of three Town Councillors of 1818–1871 (Bayanne; no BNA)
 
 | # | Where | We had | Sources show | Status |

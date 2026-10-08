@@ -8,6 +8,35 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-10-03: James Greig 1773–1855 on the councillor chart.** James's chart marks him as a
+  councillor (pink box), and Bayanne has him (I45553: son of Catherine Innes, husband of Ann
+  Deans). Every LTC candidacy for "James Greig" from April 1818 to September 1832 is linked to
+  `james-greig` (1785–1852). Options: some of those terms were the older man (would need the
+  minute book or the papers to tell them apart); or the chart's pink box is wrong. For now he is a
+  relative in `data/relatives.csv`. Evidence: `../family-connections.md`.
+
+- **2026-10-03: Lewis Garriock 1825–1902, a pink box with no candidacy.** The chart marks Lewis
+  Francis Umphray Garriock (Bayanne I18411, died in Dundee) as a councillor. He has no candidacy
+  or person page. Options: he sat on a body we don't cover; there's a missing election; or the
+  pink box is wrong. For now he is a relative. Evidence: `../family-connections.md`.
+
+- **2026-10-03: Thomas Fea and Barbara Fea.** The chart draws Thomas Fea (I4241, b. 14 Dec 1767)
+  as Barbara's father. Bayanne has Barbara (I37427, b. about 1743) as the daughter of an older
+  Thomas Fea (I363803, born before 1716). Options: replace the link with the older Thomas (who
+  isn't on the chart), and find how the younger Thomas fits in; or drop it. The row in
+  `data/family_links.csv` is left unchecked, and /data-review flags it.
+
+- **2026-10-03: two councillors' death days differ from Bayanne.** `archibald-greig`: the DB has
+  12 Oct 1852, Bayanne 11 Oct (I18009). `gilbert-paterson`: the DB has 8 Apr 1828, Bayanne 5 Apr
+  (I18013). Options: keep the wiki's dates, or follow Bayanne (a `fix_parse_errors.py` entry);
+  or check the papers first. Rows: `people` died_date.
+
+- **2026-10-03: Henry Mouat, Provost of Lerwick?** James Mouat (iii)'s page says his brother Henry
+  "became the Provost of Lerwick". The DB has Henry (`henry-mouat`) on the County Council only,
+  Lerwick North 1910–1938, with no Town Council seat. Options: the line is wrong; or Henry sat on
+  the Town Council and is missing from the ledger. Rows: `people.james-mouat-iii` intro, or
+  `data/ltc_terms.csv`.
+
 - **2026-10-03: Burra Isle by-election 1959: which date?** The DB has the wiki's Tue 21 Jul 1959.
   The paper: Strachan left the seat on joining the Town Council; the Council ordered a by-election
   on Tue 19 May, "probable date ... about 30th June" (ST 22 May 1959); A. D. Bennet was the only

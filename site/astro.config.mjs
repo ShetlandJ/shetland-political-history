@@ -7,5 +7,5 @@ export default defineConfig({
   output: 'static',
   site: 'https://shetlandhistory.com',
   // Working pages are reachable but kept out of search engines (they also set noindex).
-  integrations: [sitemap({ filter: (page) => !page.includes('/data-review') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/data-review') && !page.includes('/connections') })],
 });

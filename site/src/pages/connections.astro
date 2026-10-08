@@ -1,0 +1,625 @@
+---
+import Base from '../layouts/Base.astro';
+import { getFamilies, layoutChart, timelineOrder, year, BOX_W, BOX_H, type Family, type FamNode } from '../lib/family';
+
+const families = getFamilies();
+const charts = await Promise.all(families.map(layoutChart));
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const span = (n: FamNode) => (n.born || n.died) ? `${year(n.born) || '?'}–${year(n.died) || '?'}` : 'dates unknown';
+const linkCls = (kind: string, verified: boolean) => `el e ${kind}${verified ? '' : ' unverified'}`;
+const nameEl = (n: FamNode, attrs: string, cls: string) => n.councillor
+  ? `<a href="/person/${n.id}"><text ${attrs} class="${cls} c">${esc(n.name)}</text></a>`
+  : `<text ${attrs} class="${cls}">${esc(n.name)}</text>`;
+
+function chartSvg(f: Family, i: number): string {
+  const c = charts[i];
+  const byId = new Map(f.nodes.map(n => [n.id, n]));
+  const out: string[] = [];
+  for (const e of c.edges) out.push(`<path d="${e.d}" class="${linkCls(e.kind, e.verified)}" data-e="${e.links.join(' ')}"/>`);
+  for (const j of c.joins) out.push(`<circle cx="${j.x}" cy="${j.y}" r="3.5" class="el join ${j.kind}" data-e="${j.links.join(' ')}"/>`);
+  for (const b of c.boxes) {
+    const n = byId.get(b.id)!;
+    out.push(`<g class="el node" data-n="${n.id}" tabindex="0">` +
+      `<rect x="${b.x}" y="${b.y}" width="${BOX_W}" height="${BOX_H}" rx="5" class="box${n.councillor ? ' c' : ''}"/>` +
+      nameEl(n, `x="${b.x + BOX_W / 2}" y="${b.y + 20}" text-anchor="middle"`, 'nm') +
+      `<text x="${b.x + BOX_W / 2}" y="${b.y + 37}" text-anchor="middle" class="yrs">${span(n)}</text></g>`);
+  }
+  return `<svg viewBox="0 0 ${c.width} ${c.height}" data-w="${c.width}" data-h="${c.height}" role="img" aria-label="Family chart: ${esc(f.title)}">${out.join('')}</svg>`;
+}
+
+const svcText = (n: FamNode) => {
+  const names: Record<string, string> = { ltc: 'Town Council', zcc: 'County Council', sic: 'Islands Council' };
+  const by = new Map<string, string[]>();
+  for (const s of n.service) by.set(s.council, [...(by.get(s.council) ?? []), `${year(s.from)}–${s.to ? year(s.to) : ''}`]);
+  return [...by].map(([c, r]) => ({ c, t: `${names[c] ?? c} ${r.join(', ')}` }));
+};
+
+const allNodes = families.flatMap((f, fi) => f.nodes.map(n => ({
+  id: n.id, name: n.name, span: span(n), sex: n.sex, c: n.councillor, f: fi, svc: svcText(n),
+  bayanne: n.bayanne, born: n.born, died: n.died, service: n.service,
+})));
+const orders = families.map(timelineOrder);
+const allLinks = families.flatMap(f => f.links.map(l => ({ id: l.id, a: l.a, b: l.b, kind: l.kind, bayanne: l.bayanne })));
+const councillors = families.flatMap(f => f.nodes.filter(n => n.councillor))
+  .sort((a, b) => a.name.localeCompare(b.name));
+const nCouncillors = councillors.length;
+const nLinks = allLinks.length;
+const nVerified = allLinks.filter(l => l.bayanne).length;
+const data = JSON.stringify({ nodes: allNodes, links: allLinks, orders });
+
+// In words, for each family: every link and whether it has been checked.
+const describe = (f: Family) => {
+  const byId = new Map(f.nodes.map(n => [n.id, n]));
+  return f.links.map(l => {
+    const a = byId.get(l.a)!, b = byId.get(l.b)!;
+    const word = l.kind === 'parent' ? (a.sex === 'f' ? 'mother of' : 'father of')
+      : l.kind === 'spouse' ? (a.sex === 'f' ? 'wife of' : 'husband of') : (a.sex === 'f' ? 'sister of' : 'brother of');
+    return { a, b, word, l };
+  });
+};
+---
+<Base title="Councillor Connections" description="How Shetland's early councillors were related: family links by blood and marriage, with their years on the council." noindex>
+  <div class="breadcrumb">
+    <a href="/">Home</a> &rsaquo; Councillor Connections
+  </div>
+
+  <h1>Councillor Connections</h1>
+  <p class="meta">
+    {nCouncillors} councillors linked by blood or marriage, through {allNodes.length - nCouncillors} relatives
+    who never sat. {nVerified} of {nLinks} links have been checked on
+    <a href="https://www.bayanne.info/Shetland/" target="_blank" rel="noopener">Bayanne</a>; the rest come from an
+    earlier hand-drawn chart and are shown dashed until they're checked.
+  </p>
+
+  <section class="finder" aria-labelledby="finder-h">
+    <h2 id="finder-h">How were they connected?</h2>
+    <form class="pick" id="pick">
+      <select id="from" aria-label="First councillor">
+        {councillors.map(n => <option value={n.id}>{n.name}</option>)}
+      </select>
+      <label for="to">and</label>
+      <select id="to" aria-label="Second councillor">
+        {councillors.map(n => <option value={n.id}>{n.name}</option>)}
+      </select>
+    </form>
+    <div class="chain" id="chain" aria-live="polite"></div>
+    <p class="summary" id="summary"></p>
+  </section>
+
+  <div class="viewbar">
+    <div class="tabs" role="tablist" aria-label="View">
+      <button type="button" role="tab" data-view="timeline" aria-selected="true">Timeline</button>
+      <button type="button" role="tab" data-view="chart" aria-selected="false">Family chart</button>
+    </div>
+    <div class="legend" data-for="timeline">
+      <span><i class="bar ltc"></i>Town Council</span>
+      <span><i class="bar zcc"></i>County Council</span>
+      <span><i class="sw parent"></i>Child born</span>
+      <span><i class="sw spouse"></i>Spouse</span>
+      <span><i class="sw sibling"></i>Sibling</span>
+      <span><i class="sw dash"></i>Not yet checked</span>
+    </div>
+    <div class="legend" data-for="chart" hidden>
+      <span><i class="box-sw c"></i>Councillor</span>
+      <span><i class="box-sw"></i>Relative</span>
+      <span><i class="sw parent"></i>Parent to child</span>
+      <span><i class="sw spouse"></i>Spouse</span>
+      <span><i class="sw sibling"></i>Sibling</span>
+      <span><i class="sw dash"></i>Not yet checked</span>
+    </div>
+  </div>
+
+  {families.map((f, i) => (
+    <section class="family" id={f.id} data-family={i}>
+      <h2>{f.title}</h2>
+      <p class="meta">
+        {f.nodes.filter(n => n.councillor).length} councillors, {f.nodes.filter(n => !n.councillor).length} relatives.
+        Hover over or tab to a person to see their direct relatives.
+      </p>
+      <div class="view" data-view="timeline">
+        <div class="tools" role="group" aria-label="Who to show">
+          <button type="button" data-rows="chain" aria-pressed="true">People on this chain</button>
+          <button type="button" data-rows="all" aria-pressed="false">Everyone ({f.nodes.length})</button>
+        </div>
+        <div class="scroller tl-host"></div>
+      </div>
+      <div class="view" data-view="chart" hidden>
+        <div class="tools" role="group" aria-label="Chart zoom">
+          <button type="button" data-zoom="chain">Fit the chain</button>
+          <button type="button" data-zoom="all">Whole family</button>
+          <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+          <button type="button" data-zoom="out" aria-label="Zoom out">−</button>
+          <span class="tools-hint">Drag to move. Ctrl + scroll to zoom.</span>
+        </div>
+        <div class="map" set:html={chartSvg(f, i)} />
+      </div>
+      <details class="words">
+        <summary>Every link in this family</summary>
+        <ul>
+          {describe(f).map(({ a, b, word, l }) => (
+            <li>
+              {a.councillor ? <a href={`/person/${a.id}`}>{a.name}</a> : a.name} ({span(a)}), {word}{' '}
+              {b.councillor ? <a href={`/person/${b.id}`}>{b.name}</a> : b.name} ({span(b)}).{' '}
+              {l.bayanne
+                ? <span class="src">Checked on <a href={`https://www.bayanne.info/Shetland/getperson.php?personID=${l.bayanne}&tree=ID1`} target="_blank" rel="noopener">Bayanne {l.bayanne}</a>.</span>
+                : <span class="src unchecked">Not yet checked.</span>}
+              {l.note && <span class="src"> {l.note}</span>}
+            </li>
+          ))}
+        </ul>
+      </details>
+    </section>
+  ))}
+
+  <script type="application/json" id="kin-data" set:html={data} />
+</Base>
+
+<script>
+  import { shortestPath, role, type KinLink } from '../lib/kin';
+
+  interface KNode {
+    id: string; name: string; span: string; sex: 'm' | 'f'; c: boolean; f: number; svc: { c: string; t: string }[];
+    bayanne: string | null; born: string | null; died: string | null; service: { council: string; from: string; to: string | null }[];
+  }
+  const { nodes, links, orders } = JSON.parse(document.getElementById('kin-data')!.textContent!) as
+    { nodes: KNode[]; links: KinLink[]; orders: string[][] };
+  const byId = new Map(nodes.map(n => [n.id, n]));
+
+  // ---- Highlighting: a chosen chain stays lit; hover shows a person's direct relatives.
+  type HL = { family: number; nodes: Set<string>; links: Set<number> } | null;
+  let chainHL: HL = null;
+  function apply(hl: HL) {
+    document.querySelectorAll<HTMLElement>('.family').forEach(sec => {
+      const on = !!hl && hl.family === +sec.dataset.family!;
+      sec.querySelectorAll('svg').forEach(svg => {
+        svg.classList.toggle('focus', on);
+        svg.querySelectorAll<SVGElement>('.el').forEach(el => {
+          const n = el.dataset.n;
+          const es = el.dataset.e ? el.dataset.e.split(' ').map(Number) : [];
+          el.classList.toggle('hl', on && ((!!n && hl!.nodes.has(n)) || es.some(e => hl!.links.has(e))));
+        });
+      });
+    });
+  }
+  function around(id: string): HL {
+    const ls = links.filter(l => l.a === id || l.b === id);
+    return { family: byId.get(id)!.f, nodes: new Set([id, ...ls.flatMap(l => [l.a, l.b])]), links: new Set(ls.map(l => l.id)) };
+  }
+  // Delegated, so it also covers timeline rows drawn later.
+  document.querySelectorAll<HTMLElement>('.family').forEach(sec => {
+    const node = (e: Event) => (e.target as Element).closest?.('.node') as SVGGElement | null;
+    sec.addEventListener('mouseover', e => { const g = node(e); if (g) apply(around(g.dataset.n!)); });
+    sec.addEventListener('mouseout', e => { const g = node(e); if (g && !g.contains(e.relatedTarget as Node)) apply(chainHL); });
+    sec.addEventListener('focusin', e => { const g = node(e); if (g) apply(around(g.dataset.n!)); });
+    sec.addEventListener('focusout', () => apply(chainHL));
+  });
+
+  // ---- Timeline, drawn here so it can show just the chain or everyone.
+  const NS = 'http://www.w3.org/2000/svg';
+  function el(tag: string, attrs: Record<string, string | number>, parent?: Element, text?: string): SVGElement {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, String(attrs[k]));
+    if (text !== undefined) n.textContent = text;
+    parent?.appendChild(n);
+    return n;
+  }
+  const yr = (d: string) => {
+    const [y, m, dd] = d.split('-').map(Number);
+    return m ? y + ((m - 1) * 30.4 + dd) / 365 : y + 0.5;
+  };
+  const rowsMode = new Map<number, 'chain' | 'all'>();
+  function drawTimeline(sec: HTMLElement) {
+    const fi = +sec.dataset.family!;
+    const chainHere = chainHL && chainHL.family === fi;
+    const mode = chainHere ? rowsMode.get(fi) ?? 'chain' : 'all';
+    sec.querySelectorAll<HTMLButtonElement>('[data-rows]').forEach(b => {
+      b.setAttribute('aria-pressed', String(b.dataset.rows === mode));
+      if (b.dataset.rows === 'chain') b.disabled = !chainHere;
+    });
+    const ids = orders[fi].filter(id => mode === 'all' || chainHL!.nodes.has(id));
+    const show = new Set(ids);
+    const ls = links.filter(l => show.has(l.a) && show.has(l.b));
+    const years = ids.flatMap(id => [byId.get(id)!.born, byId.get(id)!.died]).filter(Boolean).map(d => +d!.slice(0, 4));
+    const Y0 = Math.floor((Math.min(...years) - 2) / 10) * 10, Y1 = Math.ceil((Math.max(...years) + 2) / 10) * 10;
+    const W = 1000, X0 = 300, X1 = 984, ROW = 28, TOP = 30, GX = 46;
+    const sx = (y: number) => X0 + (y - Y0) / (Y1 - Y0) * (X1 - X0);
+    const rowY = new Map(ids.map((id, i) => [id, TOP + i * ROW + ROW / 2]));
+    const H = TOP + ids.length * ROW + 8;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Timeline of lives and council service' });
+    const step = Y1 - Y0 > 150 ? 50 : Y1 - Y0 > 60 ? 25 : 10;
+    for (let t = Y0; t <= Y1; t += 10) {
+      const major = t % step === 0;
+      el('line', { x1: sx(t), x2: sx(t), y1: 20, y2: H - 4, class: 'grid' + (major ? ' major' : '') }, svg);
+      if (major) el('text', { x: sx(t), y: 13, 'text-anchor': 'middle', class: 'tick' }, svg, String(t));
+    }
+    for (const l of ls.filter(l => l.kind !== 'parent')) {
+      const ya = rowY.get(l.a)!, yb = rowY.get(l.b)!;
+      const d = 8 + Math.min(34, Math.abs(yb - ya) * 0.08);
+      el('path', { d: `M${GX} ${ya} C${GX - d} ${ya} ${GX - d} ${yb} ${GX} ${yb}`,
+                   class: `el e ${l.kind}${l.bayanne ? '' : ' unverified'}`, 'data-e': l.id }, svg);
+    }
+    for (const id of ids) {
+      const n = byId.get(id)!, cy = rowY.get(id)!;
+      const g = el('g', { class: 'el node', 'data-n': id, tabindex: 0 }, svg);
+      el('rect', { x: GX + 4, y: cy - ROW / 2 + 1, width: X1 - GX - 4, height: ROW - 2, rx: 3, class: 'rowhit' }, g);
+      const label = n.c ? el('a', { href: `/person/${id}` }, g) : g;
+      el('text', { x: GX + 12, y: cy + 4.5, class: 'nm' + (n.c ? ' c' : '') }, label, n.name);
+      el('text', { x: X0 - 10, y: cy + 4.5, 'text-anchor': 'end', class: 'yrs' }, g, n.span);
+      if (n.born && n.died) el('line', { x1: sx(yr(n.born)), x2: sx(yr(n.died)), y1: cy, y2: cy, class: 'life' }, g);
+      const both = new Set(n.service.map(s => s.council)).size > 1;
+      for (const s of n.service) {
+        const x = sx(yr(s.from)), x2 = s.to ? sx(yr(s.to)) : sx(Y1);
+        const r = el('rect', { x, y: cy + (both ? (s.council === 'ltc' ? -6 : 1) : -5), width: Math.max(2, x2 - x),
+                               height: both ? 6 : 10, rx: 2, class: `svc ${s.council}` }, g);
+        el('title', {}, r, `${s.council.toUpperCase()} ${s.from.slice(0, 4)}–${s.to ? s.to.slice(0, 4) : 'present'}`);
+      }
+    }
+    for (const l of ls.filter(l => l.kind === 'parent')) {
+      const child = byId.get(l.b)!;
+      if (!child.born) continue;
+      const x = sx(yr(child.born)), ya = rowY.get(l.a)!, yb = rowY.get(l.b)!;
+      const g = el('g', { class: 'el', 'data-e': l.id }, svg);
+      el('path', { d: `M${x} ${ya} V${yb + (yb > ya ? -4 : 4)}`, class: `e parent${l.bayanne ? '' : ' unverified'}` }, g);
+      el('circle', { cx: x, cy: ya, r: 3, class: 'dot' }, g);
+    }
+    sec.querySelector('.tl-host')!.replaceChildren(svg);
+  }
+  document.querySelectorAll<HTMLElement>('.family').forEach(sec => {
+    sec.querySelectorAll<HTMLButtonElement>('[data-rows]').forEach(b => b.addEventListener('click', () => {
+      rowsMode.set(+sec.dataset.family!, b.dataset.rows as 'chain' | 'all');
+      drawTimeline(sec);
+      apply(chainHL);
+    }));
+  });
+
+  // ---- Family chart: a map to drag and zoom; it opens on the chosen chain.
+  type Box = { x: number; y: number; w: number; h: number };
+  const views = new Map<SVGSVGElement, Box>();
+  function setView(svg: SVGSVGElement, v: Box) {
+    views.set(svg, v);
+    svg.setAttribute('viewBox', `${v.x} ${v.y} ${v.w} ${v.h}`);
+  }
+  function fit(svg: SVGSVGElement, b: Box, pad = 40) {
+    const host = svg.parentElement!;
+    const aspect = host.clientWidth / host.clientHeight || 1.6;
+    let w = Math.max(b.w + pad * 2, 640), h = Math.max(b.h + pad * 2, w / aspect);
+    w = Math.max(w, h * aspect);
+    setView(svg, { x: b.x + b.w / 2 - w / 2, y: b.y + b.h / 2 - h / 2, w, h });
+  }
+  function chainBox(svg: SVGSVGElement): Box | null {
+    if (!chainHL) return null;
+    const rects = [...svg.querySelectorAll<SVGGElement>('.node')].filter(g => chainHL!.nodes.has(g.dataset.n!))
+      .map(g => g.querySelector('rect')!);
+    if (!rects.length) return null;
+    const xs = rects.map(r => +r.getAttribute('x')!), ys = rects.map(r => +r.getAttribute('y')!);
+    const x = Math.min(...xs), y = Math.min(...ys);
+    return { x, y, w: Math.max(...xs) + 156 - x, h: Math.max(...ys) + 48 - y };
+  }
+  const whole = (svg: SVGSVGElement): Box => ({ x: 0, y: 0, w: +svg.dataset.w!, h: +svg.dataset.h! });
+  function zoom(svg: SVGSVGElement, k: number, cx?: number, cy?: number) {
+    const v = views.get(svg) ?? whole(svg);
+    const px = cx ?? v.x + v.w / 2, py = cy ?? v.y + v.h / 2;
+    setView(svg, { x: px - (px - v.x) * k, y: py - (py - v.y) * k, w: v.w * k, h: v.h * k });
+  }
+  document.querySelectorAll<HTMLElement>('.family').forEach(sec => {
+    const svg = sec.querySelector<SVGSVGElement>('.map svg')!;
+    sec.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+      const z = b.dataset.zoom;
+      if (z === 'in') zoom(svg, 0.75);
+      else if (z === 'out') zoom(svg, 1 / 0.75);
+      else if (z === 'chain') fit(svg, chainBox(svg) ?? whole(svg));
+      else fit(svg, whole(svg), 0);
+    }));
+    let drag: { x: number; y: number; v: Box } | null = null;
+    svg.addEventListener('pointerdown', e => {
+      if ((e.target as Element).closest('a')) return;
+      drag = { x: e.clientX, y: e.clientY, v: views.get(svg) ?? whole(svg) };
+      svg.setPointerCapture(e.pointerId);
+    });
+    svg.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const k = drag.v.w / svg.clientWidth;
+      setView(svg, { ...drag.v, x: drag.v.x - (e.clientX - drag.x) * k, y: drag.v.y - (e.clientY - drag.y) * k });
+    });
+    const end = () => { drag = null; };
+    svg.addEventListener('pointerup', end);
+    svg.addEventListener('pointercancel', end);
+    svg.addEventListener('wheel', e => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      const v = views.get(svg) ?? whole(svg), r = svg.getBoundingClientRect();
+      zoom(svg, e.deltaY > 0 ? 1.15 : 1 / 1.15, v.x + (e.clientX - r.left) / r.width * v.w, v.y + (e.clientY - r.top) / r.height * v.h);
+    }, { passive: false });
+  });
+  function refreshViews() {
+    document.querySelectorAll<HTMLElement>('.family').forEach(sec => {
+      drawTimeline(sec);
+      const svg = sec.querySelector<SVGSVGElement>('.map svg')!;
+      if (svg.clientWidth) fit(svg, chainBox(svg) ?? whole(svg), chainBox(svg) ? 40 : 0);
+    });
+    apply(chainHL);
+  }
+
+  // ---- Path finder
+  const fromSel = document.getElementById('from') as HTMLSelectElement;
+  const toSel = document.getElementById('to') as HTMLSelectElement;
+  function card(id: string): HTMLElement {
+    const n = byId.get(id)!;
+    const d = document.createElement('div');
+    d.className = 'card' + (n.c ? ' c' : '');
+    const nm = document.createElement(n.c ? 'a' : 'span');
+    nm.className = 'nm';
+    nm.textContent = n.name;
+    if (n.c) (nm as HTMLAnchorElement).href = `/person/${n.id}`;
+    const dt = document.createElement('span');
+    dt.className = 'dt';
+    dt.textContent = n.span;
+    d.append(nm, dt);
+    for (const s of n.svc) {
+      const sv = document.createElement('span');
+      sv.className = `svc ${s.c}`;
+      sv.textContent = s.t;
+      d.append(sv);
+    }
+    return d;
+  }
+  function render() {
+    const chain = document.getElementById('chain')!, summary = document.getElementById('summary')!;
+    chain.replaceChildren();
+    const a = fromSel.value, b = toSel.value;
+    chainHL = null;
+    const q = new URLSearchParams({ from: a, to: b });
+    history.replaceState(null, '', `${location.pathname}?${q}${location.hash}`);
+    if (a === b) { chain.append(card(a)); summary.textContent = 'Pick two different councillors.'; refreshViews(); return; }
+    const steps = shortestPath(links, a, b);
+    if (!steps) { summary.textContent = 'No family connection between them has been recorded.'; refreshViews(); return; }
+    chain.append(card(a));
+    for (const s of steps) {
+      const l = document.createElement('div');
+      l.className = `link ${s.link.kind}${s.link.bayanne ? '' : ' unverified'}`;
+      l.textContent = role(s.from, byId.get(s.from)!.sex, s.link);
+      chain.append(l, card(s.to));
+    }
+    const unchecked = steps.filter(s => !s.link.bayanne).length;
+    const marriage = steps.some(s => s.link.kind === 'spouse');
+    summary.innerHTML = '';
+    const strong = document.createElement('strong');
+    strong.textContent = `Related by ${marriage ? 'marriage' : 'blood'}`;
+    summary.append(strong, ` · ${steps.length} link${steps.length > 1 ? 's' : ''}` +
+      (unchecked ? ` · ${unchecked} not yet checked` : ' · all checked on Bayanne'));
+    chainHL = { family: byId.get(a)!.f, nodes: new Set([a, ...steps.map(s => s.to)]), links: new Set(steps.map(s => s.link.id)) };
+    refreshViews();
+  }
+
+  // Default pair: the two councillors in the largest family who are furthest apart (up to 6 links).
+  const params = new URLSearchParams(location.search);
+  if (byId.get(params.get('from') ?? '')?.c && byId.get(params.get('to') ?? '')?.c) {
+    fromSel.value = params.get('from')!;
+    toSel.value = params.get('to')!;
+  } else {
+    const first = nodes.filter(n => n.c && n.f === 0);
+    let best: [string, string, number] = [first[0]?.id, first[1]?.id ?? first[0]?.id, 0];
+    for (const x of first) for (const y of first) {
+      const p = x.id < y.id ? shortestPath(links, x.id, y.id) : null;
+      if (p && p.length <= 6 && p.length > best[2]) best = [x.id, y.id, p.length];
+    }
+    if (best[0]) { fromSel.value = best[0]; toSel.value = best[1]; }
+  }
+  fromSel.addEventListener('change', render);
+  toSel.addEventListener('change', render);
+  render();
+
+  // ---- View toggle
+  function show(view: string) {
+    document.querySelectorAll<HTMLElement>('.view, .legend').forEach(el => {
+      el.hidden = (el.dataset.view ?? el.dataset.for) !== view;
+    });
+    document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-selected', String((b as HTMLElement).dataset.view === view)));
+    try { localStorage.setItem('connections-view', view); } catch {}
+    if (view === 'chart') refreshViews();
+  }
+  document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach(b => b.addEventListener('click', () => show(b.dataset.view!)));
+  let saved: string | null = null;
+  try { saved = localStorage.getItem('connections-view'); } catch {}
+  show(saved === 'chart' ? 'chart' : 'timeline');
+</script>
+
+<style>
+  :global(:root) {
+    --kin-zcc: #8a4a24;
+    --kin-zcc-light: #f6ebe3;
+    --kin-sic: #4a5a8a;
+    --kin-parent: #3d6b94;
+    --kin-spouse: #3f7d3c;
+    --kin-sibling: #a8701a;
+    --kin-life: #a69c91;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root) {
+      --kin-zcc: #d9915f;
+      --kin-zcc-light: #33261d;
+      --kin-sic: #9aa8d8;
+      --kin-parent: #82acd6;
+      --kin-spouse: #7dbb77;
+      --kin-sibling: #dba850;
+      --kin-life: #6d665f;
+    }
+  }
+
+  .finder {
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.2rem 1.2rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: grid;
+    gap: 0.9rem;
+  }
+  .finder h2 { margin: 0; }
+  .pick { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.75rem; }
+  .pick label { color: var(--text-secondary); }
+  .pick select {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    max-width: 100%;
+  }
+  .chain { display: flex; flex-wrap: wrap; align-items: stretch; row-gap: 0.75rem; }
+  :global(.chain .card) {
+    display: grid;
+    gap: 1px;
+    align-content: start;
+    min-width: 0;
+    padding: 0.45rem 0.75rem;
+    background: var(--bg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+  }
+  :global(.chain .card.c) { border-color: var(--accent); background: var(--accent-light); }
+  :global(.chain .card .nm) { font-family: var(--font-display); font-size: 0.9rem; line-height: 1.3; }
+  :global(.chain .card:not(.c) .nm) { font-family: var(--font-body); font-size: 0.95rem; color: var(--text-secondary); }
+  :global(.chain .card .dt) { font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  :global(.chain .card .svc) { font-size: 0.75rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+  :global(.chain .card .svc.zcc) { color: var(--kin-zcc); }
+  :global(.chain .card .svc.sic) { color: var(--kin-sic); }
+  :global(.chain .link) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 5rem;
+    padding: 0 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--text-secondary);
+    --c: var(--muted);
+  }
+  :global(.chain .link::after) { content: ''; display: block; width: 100%; border-top: 2px solid var(--c); margin-top: 0.3rem; }
+  :global(.chain .link.unverified::after) { border-top-style: dashed; }
+  :global(.chain .link.parent) { --c: var(--kin-parent); }
+  :global(.chain .link.spouse) { --c: var(--kin-spouse); }
+  :global(.chain .link.sibling) { --c: var(--kin-sibling); }
+  .summary { margin: 0; font-size: 0.9rem; color: var(--text-secondary); }
+  :global(.summary strong) { color: var(--text); }
+
+  .viewbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .tabs { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .tabs button {
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border: 0;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .tabs button + button { border-left: 1px solid var(--border); }
+  .tabs button[aria-selected='true'] { background: var(--text); color: var(--bg); }
+  .legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.8rem; color: var(--text-secondary); align-items: center; }
+  .legend[hidden], .view[hidden] { display: none; }
+  .legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .bar { display: inline-block; width: 18px; height: 8px; border-radius: 2px; }
+  .bar.ltc { background: var(--accent); }
+  .bar.zcc { background: var(--kin-zcc); }
+  .sw { display: inline-block; width: 22px; border-top: 2px solid var(--muted); }
+  .sw.parent { border-color: var(--kin-parent); }
+  .sw.spouse { border-color: var(--kin-spouse); }
+  .sw.sibling { border-color: var(--kin-sibling); }
+  .sw.dash { border-top-style: dashed; }
+  .box-sw { display: inline-block; width: 18px; height: 12px; border-radius: 3px; border: 1.5px solid var(--border); background: var(--bg-surface); }
+  .box-sw.c { border-color: var(--accent); background: var(--accent-light); }
+
+  .family { margin-top: 2rem; }
+  .family h2 { margin-bottom: 0.2rem; }
+  .scroller {
+    overflow-x: auto;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: 0.6rem;
+  }
+  .tl-host :global(svg) { display: block; width: 100%; height: auto; min-width: 760px; }
+  .tl-host { max-height: 80vh; overflow-y: auto; }
+  .map {
+    height: min(70vh, 620px);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: 0.6rem;
+    overflow: hidden;
+  }
+  .map :global(svg) { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; user-select: none; }
+  .map :global(svg:active) { cursor: grabbing; }
+  .tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-top: 0.6rem; }
+  .tools button {
+    font: inherit;
+    font-size: 0.82rem;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-surface);
+    color: var(--text);
+    cursor: pointer;
+  }
+  .tools button[aria-pressed='true'] { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .tools button:disabled { opacity: 0.5; cursor: default; }
+  .tools-hint { font-size: 0.8rem; color: var(--muted); margin-left: 0.4rem; }
+
+  .family :global(text) { font-family: var(--font-body); fill: var(--text); }
+  .family :global(.tick) { font-size: 12px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .family :global(.grid) { stroke: var(--border-light); }
+  .family :global(.grid.major) { stroke: var(--border); }
+  .family :global(.nm) { font-size: 14px; fill: var(--text-secondary); }
+  .family :global(.nm.c) { font-family: var(--font-display); font-size: 13px; fill: var(--accent); }
+  .family :global(a:hover .nm.c) { text-decoration: underline; }
+  .family :global(.yrs) { font-size: 12px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .family :global(.life) { stroke: var(--kin-life); stroke-width: 2; }
+  .family :global(.svc.ltc) { fill: var(--accent); }
+  .family :global(.svc.zcc) { fill: var(--kin-zcc); }
+  .family :global(.svc.sic) { fill: var(--kin-sic); }
+  .family :global(.rowhit) { fill: transparent; }
+  .family :global(.node:hover .rowhit), .family :global(.node:focus .rowhit) { fill: var(--bg-surface-alt); }
+  .family :global(.node:focus) { outline: none; }
+  .family :global(.node:focus .box) { stroke-width: 2.5; }
+  .family :global(.e) { fill: none; stroke-width: 1.8; }
+  .family :global(.e.parent) { stroke: var(--kin-parent); }
+  .family :global(.e.spouse) { stroke: var(--kin-spouse); }
+  .family :global(.e.sibling) { stroke: var(--kin-sibling); }
+  .family :global(.e.unverified) { stroke-dasharray: 5 4; }
+  .family :global(.dot) { fill: var(--kin-parent); }
+  .family :global(.join.spouse) { fill: var(--kin-spouse); }
+  .family :global(.join.sibling) { fill: var(--kin-sibling); }
+  .family :global(.box) { fill: var(--bg-surface); stroke: var(--border); stroke-width: 1.2; }
+  .family :global(.box.c) { fill: var(--accent-light); stroke: var(--accent); stroke-width: 1.8; }
+  .family :global(.el) { transition: opacity 0.15s; }
+  .family :global(svg.focus .el:not(.hl)) { opacity: 0.14; }
+  .family :global(svg.focus .e.hl), .family :global(svg.focus .hl .e) { stroke-width: 3; }
+  @media (prefers-reduced-motion: reduce) { .family :global(.el) { transition: none; } }
+
+  .words { margin-top: 0.6rem; font-size: 0.9rem; }
+  .words summary { cursor: pointer; color: var(--text-secondary); }
+  .words ul { margin: 0.5rem 0 0; padding-left: 1.2rem; display: grid; gap: 0.25rem; }
+  .src { color: var(--muted); }
+  .src.unchecked { color: var(--warning-text); }
+
+  @media (max-width: 640px) {
+    .chain { flex-direction: column; }
+    :global(.chain .link) { flex-direction: row; justify-content: flex-start; gap: 0.5rem; min-width: 0; padding: 0.3rem 0 0.3rem 0.9rem; }
+    :global(.chain .link::after) { order: -1; width: 0; height: 1.4rem; border-top: 0; border-left: 2px solid var(--c); margin: 0; }
+    :global(.chain .link.unverified::after) { border-left-style: dashed; }
+  }
+</style>

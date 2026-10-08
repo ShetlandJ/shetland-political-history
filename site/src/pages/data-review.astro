@@ -46,6 +46,17 @@ const issueKinds: Record<string, string> = {
   'bad-dates': 'Term ends before it starts',
 };
 
+// Family connections checks, computed by build.py over data/family_links.csv
+const familyIssues = db.prepare('SELECT kind, detail FROM family_issues ORDER BY kind, id').all() as any[];
+const familyUnverified = familyIssues.filter((i: any) => i.kind === 'unverified').length;
+const familyProblems = familyIssues.filter((i: any) => i.kind !== 'unverified');
+const familyKinds: Record<string, string> = {
+  'parent-age': 'Unlikely parent age',
+  'parent-dead': 'Parent died before birth',
+  'is-councillor': 'Relative is a councillor',
+  'orphan': 'Relative with no links',
+};
+
 const issueCouncils = [...new Set(termIssues.map((i: any) => i.council_name))];
 
 // People with no candidacies
@@ -149,6 +160,7 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Data Review</div>
   <h1>Data Review</h1>
   <p class="meta">Data quality checks and items needing research. This page is a working tool, not a public-facing feature.</p>
+  <p class="meta">Working pages not in the main navigation: <a href="/connections">Councillor connections</a> (family links between councillors, under review).</p>
 
   <p class="meta">{totalPeople} people, {totalCandidacies} candidacies ({linkedCandidacies} linked, {totalCandidacies - linkedCandidacies} unlinked), {totalElections} elections.</p>
 
@@ -161,6 +173,7 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
       {voteAnomalies.length > 0 && <li><a href="#vote-anomalies">Vote anomalies ({voteAnomalies.length})</a></li>}
       <li><a href="#similar-names">Disambiguated names ({similarNames.length})</a></li>
       <li><a href="#composition">Council membership checks ({termIssues.length})</a></li>
+      <li><a href="#family">Family connection checks ({familyProblems.length})</a></li>
       <li><a href="#by-elections">By-election replacements ({genuinelyUnknown.length} unknown)</a></li>
       <li><a href="#unlinked-cands">Unlinked candidacies ({totalUnlinked})</a></li>
       {potentialMatches.length > 0 && <li><a href="#potential-matches">Potential matches ({potentialMatches.length})</a></li>}
@@ -196,6 +209,25 @@ const totalElections = (db.prepare('SELECT COUNT(*) as c FROM elections WHERE hi
         </table>
       </>
     ))}
+  </details>
+
+  <details>
+    <summary><h2 id="family">Family Connection Checks</h2></summary>
+    <p class="meta">
+      Checks over <code>data/relatives.csv</code> and <code>data/family_links.csv</code>, behind the
+      <a href="/connections">councillor connections</a> page. {familyUnverified} links are not yet checked on
+      Bayanne (shown dashed there).
+    </p>
+    {familyProblems.length > 0 && (
+      <table>
+        <thead><tr><th>Check</th><th>Detail</th></tr></thead>
+        <tbody>
+          {familyProblems.map((i: any) => (
+            <tr><td><span class="danger">{familyKinds[i.kind] || i.kind}</span></td><td>{i.detail}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    )}
   </details>
 
   <details>

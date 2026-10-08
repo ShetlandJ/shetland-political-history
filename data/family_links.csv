@@ -1,0 +1,131 @@
+a,kind,b,on_chart,bayanne,note
+john-mouat-1752,parent,margaret-mouat-1779,1,I18050,
+margaret-mouat-1779,parent,thomas-cameron,1,I39747,
+john-mouat-1752,sibling,elizabeth-mouat-1741,1,I12245,Both children of William Mouat and Elizabeth Bruce.
+elizabeth-mouat-1741,parent,elizabeth-hunter-1774,1,I12472,
+elizabeth-hunter-1774,parent,john-bruce-1798,1,I12473,
+john-bruce-1798,parent,john-bruce,1,I12498,
+william-mouat-1714,parent,john-mouat-1752,1,I18051,
+robert-mouat-1689,parent,william-mouat-1714,1,I12245,
+robert-mouat-1689,sibling,margaret-mouat-1702,1,I1194,Both children of Arthur Mowat (I7954) and Ursula Neven (I1195 and I1194 pages).
+margaret-mouat-1702,parent,arthur-hoseason-1724,1,I1197,
+arthur-hoseason-1724,parent,john-hoseason-1745,1,I3332,
+john-hoseason-1745,parent,robert-hoseason-1785,1,I3367,
+robert-hoseason-1785,parent,ann-hoseason-1810,1,I3499,
+james-hoseason-1805,spouse,ann-hoseason-1810,1,I3358,"Chart draws this in orange (sibling). Bayanne: husband and wife, not siblings. They were related: James's father Hosea (I3331) was a son of Arthur Hoseason, Ann's great-grandfather."
+ann-hoseason-1810,sibling,jane-hoseason-1812,1,I3367,"Chart draws an orange (sibling) line from James Hoseason to Jane. Bayanne: Jane is Ann's sister (both daughters of Robert Hoseason), so James's sister-in-law."
+robert-hoseason-1785,parent,jane-hoseason-1812,0,I3413,Added to support the Ann-Jane sibling link.
+jane-hoseason-1812,spouse,robert-spence-1802,1,I3413,
+robert-spence-1802,sibling,jessie-spence-1801,1,I4272,Both children of Basil Spence and Anne Neven.
+jessie-spence-1801,spouse,william-sievwright-i,1,I3500,
+william-sievwright-i,parent,william-sievwright-ii,1,I4317,
+james-hoseason-1805,parent,charles-hoseason,1,I3425,
+charles-hoseason,spouse,barbara-hunter-1849,1,I3425,
+samuel-hunter,parent,barbara-hunter-1849,1,I3426,
+samuel-hunter,parent,james-hunter-ii,1,I18087,
+samuel-hunter,parent,robert-hunter-i,1,I18091,Chart box reads Robert Hunter 1845-1923; Bayanne b. 10 Jul 1856.
+samuel-hunter,parent,margaret-hunter-1852,1,I3427,
+james-hunter-ii,sibling,robert-hunter-i,1,I3427,
+charles-laurenson,spouse,margaret-hunter-1852,1,I18159,
+james-hunter-i,parent,samuel-hunter,1,I3427,
+james-hunter-i,parent,barbara-hunter-1819,1,I45513,
+sinclair-goudie-1812,spouse,barbara-hunter-1819,1,I45514,
+john-hughson,parent,marable-hughson-1817,1,I211692,
+william-goudie-1809,spouse,marable-hughson-1817,1,I211692,
+william-goudie-1809,sibling,robert-goudie,1,I45515,Both sons of Robert Goudie and Margaret Wishart.
+robert-goudie,sibling,sinclair-goudie-1812,1,I45515,Both sons of Robert Goudie and Margaret Wishart.
+robert-goudie,spouse,janet-mouat-1816,1,I68961,
+robert-goudie,parent,james-goudie,1,I68965,
+janet-mouat-1816,parent,james-goudie,1,I68965,
+james-mouat-ii,sibling,janet-mouat-1816,1,I15357,
+james-mouat-i,parent,james-mouat-ii,1,I18286,
+james-mouat-i,parent,janet-mouat-1816,1,I68961,
+james-mouat-i,sibling,jerome-mouat-1751,1,I68943,Both sons of Peter Mouat and Janet Chappie.
+john-mouat-1754,sibling,james-mouat-i,1,I68943,Both sons of Peter Mouat and Janet Chappie.
+john-mouat-1754,parent,mary-mouat-1801,1,I40215,
+mary-mouat-1801,spouse,william-merrylees,1,I40214,
+william-merrylees,parent,charles-merrylees,1,I40213,
+charles-merrylees,spouse,louisa-umphray-1847,1,I40213,
+jerome-mouat-1751,parent,peter-mouat-1774,1,I44993,
+peter-mouat-1774,parent,jeremiah-mouat-1804,1,I44994,
+jeremiah-mouat-1804,parent,henry-mouat-1843,1,I44998,
+henry-mouat-1843,parent,henry-mouat,1,I179100,
+henry-mouat-1843,parent,james-mouat-iii,1,I82425,Chart box reads James Mouat 1879?-1937; Bayanne James Peter Mouat b. 17 Mar 1867.
+lewis-umphray-1771,parent,andrew-umphray-1815,0,I18404,"With the next row, replaces the chart's direct parent line Lewis Umphray -> Louisa Umphray: Lewis was her grandfather."
+andrew-umphray-1815,parent,louisa-umphray-1847,0,I40212,See previous row.
+ann-umphray-1764,sibling,lewis-umphray-1771,1,I46062,Both children of Andrew Umphray and Elizabeth Cumming.
+lewis-umphray-1771,spouse,margaret-greig-1789,1,I18402,Her first husband; she then married James Garriock (I18410).
+ann-umphray-1764,parent,william-hay,1,I6253,
+william-hay,parent,george-hay,1,I6284,"Chart's arrow to George Hay branches off the Ann Umphray -> William Hay line. Bayanne: William is his father, Ann his grandmother."
+william-hay,parent,arthur-hay,1,I6291,
+william-hay,sibling,mary-hay-1786,1,I6233,"Chart draws a blue (parent) line from William Hay. Bayanne: siblings, both children of James Hay and Anne Umphray."
+william-hay,sibling,andrew-hay-1789,1,I6233,"Chart draws a blue (parent) line from William Hay. Bayanne: siblings, both children of James Hay and Anne Umphray."
+andrew-hay-1789,sibling,mary-hay-1786,1,I6233,
+andrew-hay-1789,spouse,joan-mary-nicolson-1823,0,I6254,Not drawn on the chart; Bayanne shows the marriage (she later married Rev. James Mountain).
+david-nicolson,parent,joan-mary-nicolson-1823,1,I4227,
+robert-nicolson-1791,sibling,david-nicolson,1,I28131,Both sons of William Nicolson and Elizabeth Nisbet.
+robert-nicolson-1791,parent,williamina-nicolson-1815,1,I121491,
+williamina-nicolson-1815,spouse,magnus-bruce-1816,1,I121491,
+erasmus-bruce-1778,parent,magnus-bruce-1816,1,I121490,
+erasmus-bruce-1778,sibling,sinclair-bruce-1795,1,I11566,Both children of John Bruce and Catherine Omand.
+sinclair-bruce-1795,spouse,thomas-edmondston-1779,1,I10640,
+thomas-edmondston-1779,sibling,arthur-edmondston,1,I10630,Both sons of Laurence Edmondston and Mary Sanderson.
+david-nicolson,spouse,martha-spence-1785,1,I4222,
+william-spence,sibling,martha-spence-1785,1,I4221,Same parents (Gilbert Spence and Janet Hay) on I4220 and I4221.
+william-spence,spouse,jane-fea-1795,1,I4220,
+thomas-fea-1767,parent,jane-fea-1795,1,I4240,
+thomas-fea-1767,parent,martha-fea-1802,1,I17129,
+thomas-fea-1767,parent,barbara-fea-1743,1,,"NOT VERIFIED, contradicted. Bayanne: Barbara (b. abt 1743) was the daughter of an older Thomas Fea (I363803, b. bef 1716) and Margaret Bolt. Thomas Fea 1767 (son of Magnus Fea I146400, no parents on Bayanne) was born 24 years after her. The chart seems to merge the two Thomas Feas."
+barbara-fea-1743,parent,thomas-leask-1768,1,I37428,
+thomas-leask-1768,parent,joseph-leask,1,I29517,
+charles-ogilvy-ii,spouse,martha-fea-1802,1,I9184,
+charles-ogilvy-ii,sibling,charlotte-ogilvy-1789,1,I7816,
+charlotte-ogilvy-1789,spouse,balfour-spence,1,I18308,
+charlotte-ogilvy-1789,sibling,margaret-ogilvy-1792,1,I7816,
+elizabeth-ogilvy-1791,sibling,margaret-ogilvy-1792,1,I7816,
+charles-ogilvy-i,parent,elizabeth-ogilvy-1791,1,I10512,
+charles-ogilvy-i,parent,margaret-ogilvy-1792,1,I6260,
+charles-ogilvy-i,parent,charlotte-ogilvy-1789,1,I18308,
+charles-ogilvy-i,parent,john-ogilvy,1,I6261,
+charles-ogilvy-i,parent,charles-ogilvy-ii,1,I9184,
+thomas-ogilvy-1762,sibling,charles-ogilvy-i,1,I18309,Same parents (Thomas Ogilvy I5792 and Charlotte Willamina Neven) on I18309 and I7816.
+thomas-ogilvy-1762,parent,james-ogilvy,1,I18310,
+margaret-ogilvy-1792,spouse,william-hay,1,I6260,
+gilbert-duncan,spouse,elizabeth-ogilvy-1791,1,I10512,
+gilbert-duncan,parent,charles-duncan,1,I10511,
+andrew-duncan,sibling,gilbert-duncan,1,I10510,Same parents (Andrew Duncan and Agnes Robertson) on I10506 and I10510.
+andrew-duncan,parent,william-duncan-1805,1,I10530,
+william-duncan-1805,parent,william-duncan-ii,1,I10539,
+margaret-greig-1789,parent,lewis-garriock-1825,1,I18411,Father James Garriock (I18410).
+lewis-garriock-1825,parent,lewis-garriock,1,I68323,
+lewis-garriock,spouse,selina-garriock,1,I68323,Selina Darrell on Bayanne.
+james-greig,sibling,margaret-greig-1789,1,I18401,Same parents (Archibald Greig I17101 and Christian Greig) on I17100 and I18401.
+james-greig,spouse,cecilia-gordon-1794,1,I17100,His second wife; she was the widow of Gilbert Paterson.
+gilbert-paterson,spouse,cecilia-gordon-1794,1,I18013,
+james-greig,spouse,cecilia-heddell-1790,1,I17100,
+robert-hicks,spouse,eliza-greig-1815,1,I18078,His second wife.
+james-greig,parent,eliza-greig-1815,1,I18078,
+james-greig,parent,margaret-greig-1814,1,I45527,
+james-greig,parent,archibald-greig,1,I18009,
+james-greig,parent,julia-greig-1823,1,I17099,
+james-greig,parent,cecilia-greig-1830,1,I68379,
+margaret-greig-1814,sibling,archibald-greig,1,I18011,Both children of James Greig and Cecilia Heddell.
+archibald-greig,sibling,julia-greig-1823,1,I18011,
+julia-greig-1823,sibling,cecilia-greig-1830,1,I18011,
+george-smith-i,spouse,julia-greig-1823,1,I17098,
+cecilia-greig-1830,spouse,james-smith-1830,1,I68379,
+george-smith-i,sibling,james-smith-1830,1,I242471,Same parents (James Smith I94754 and Elizabeth Scott) on I17098 and I242471.
+george-smith-i,parent,georgina-smith-1864,1,I37373,
+georgina-smith-1864,spouse,james-cowie-1853,1,I37373,
+john-cowie,parent,james-cowie-1853,1,I45539,
+john-cowie,spouse,margaret-greig-1814,1,I45528,
+isaac-cowie,sibling,john-cowie,1,I45528,Same parents (Robert Cowie I45541 and Euphemia Sim) on I45542 and I45528.
+isaac-cowie,spouse,anderina-heddell-1800,1,I45542,
+francis-heddell-1762,parent,anderina-heddell-1800,1,I45543,
+francis-heddell-1762,parent,cecilia-heddell-1790,1,I18011,
+francis-heddell-1762,spouse,barbara-innes-1765,1,I18338,
+catherine-innes-1750,sibling,barbara-innes-1765,1,I18340,Same parents (Peter Innes I18341 and Cecilia Kelday) on I45551 and I18340.
+catherine-innes-1750,parent,james-greig-1773,1,I45553,Father William Greig (I45552).
+john-morrison-i,spouse,catherine-innes-1750,1,I45613,Her second husband.
+james-greig-1773,spouse,ann-deans-1790,1,I45553,
+robert-deans,parent,ann-deans-1790,1,I45554,

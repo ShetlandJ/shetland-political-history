@@ -23,6 +23,9 @@ Steps:
                               or a minute-book page), data/citation_links.csv (what each one
                               supports: a term, an election, or a fact on a person page) and
                               data/searches.csv (searches that found nothing, so they aren't re-run).
+  7. family                   data/relatives.csv (non-councillors who connect councillors) and
+                              data/family_links.csv (parent, spouse, sibling links, checked on
+                              Bayanne). Checks go to family_issues, shown on /data-review.
 """
 
 import csv
@@ -744,6 +747,130 @@ def load_citations(db):
 
 
 # ---------------------------------------------------------------------------
+# Step 7: family connections
+# ---------------------------------------------------------------------------
+
+FAMILY_DDL = """
+DROP TABLE IF EXISTS relatives;
+CREATE TABLE relatives (
+    key TEXT PRIMARY KEY,     -- janet-mouat-1816
+    name TEXT NOT NULL,
+    born TEXT, died TEXT,     -- YYYY or YYYY-MM-DD
+    sex TEXT NOT NULL,        -- m / f
+    bayanne_id TEXT,
+    note TEXT
+);
+DROP TABLE IF EXISTS family_links;
+CREATE TABLE family_links (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    a_person_id INTEGER REFERENCES people(id),   -- each end is a councillor (person_id)
+    a_relative TEXT REFERENCES relatives(key),    -- or a relative (key)
+    kind TEXT NOT NULL,       -- parent (a is a parent of b), spouse, sibling
+    b_person_id INTEGER REFERENCES people(id),
+    b_relative TEXT REFERENCES relatives(key),
+    on_chart INTEGER NOT NULL,  -- 1 = drawn on James's chart
+    bayanne TEXT,             -- Bayanne page where the link was seen; NULL = not verified
+    note TEXT
+);
+DROP TABLE IF EXISTS family_issues;
+CREATE TABLE family_issues (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    kind TEXT NOT NULL,
+    link_id INTEGER REFERENCES family_links(id),
+    detail TEXT NOT NULL
+);
+"""
+KINDS = {'parent', 'spouse', 'sibling'}
+RELATIVE_KEY = re.compile(r'^[a-z][a-z-]*-\d{4}$')
+BAYANNE_ID = re.compile(r'^I\d+$')
+PARTIAL_DATE = re.compile(r'^\d{4}(-\d{2}-\d{2})?$')
+
+
+def load_family(db):
+    """data/relatives.csv (non-councillors in the family network) and data/family_links.csv (parent,
+    spouse and sibling links between them and councillors). Checks go to family_issues."""
+    db.executescript(FAMILY_DDL)
+    people = {slug: (pid, name, born, died) for pid, slug, name, born, died in
+              db.execute("SELECT id, slug, name, born_date, died_date FROM people")}
+    by_name_born = {(name, (born or '')[:4]): slug for slug, (_, name, born, _) in people.items()}
+    rel = {}
+    for i, r in enumerate(read_csv('relatives.csv'), start=2):
+        where = f"data/relatives.csv line {i}"
+        if not RELATIVE_KEY.match(r['key']):
+            sys.exit(f"{where}: key {r['key']} must be name-year, e.g. janet-mouat-1816")
+        if r['key'] in rel or r['key'] in people:
+            sys.exit(f"{where}: duplicate key {r['key']}")
+        if r['sex'] not in ('m', 'f'):
+            sys.exit(f"{where}: sex must be m or f")
+        for col in ('born', 'died'):
+            if r[col] and not PARTIAL_DATE.match(r[col]):
+                sys.exit(f"{where}: {col} must be YYYY or YYYY-MM-DD")
+        if r['bayanne_id'] and not BAYANNE_ID.match(r['bayanne_id']):
+            sys.exit(f"{where}: bayanne_id must look like I12345")
+        rel[r['key']] = r
+        db.execute("INSERT INTO relatives VALUES (?, ?, ?, ?, ?, ?, ?)",
+                   (r['key'], r['name'], r['born'] or None, r['died'] or None, r['sex'],
+                    r['bayanne_id'] or None, r['note'] or None))
+
+    def end(ref, where):
+        if ref in people:
+            return people[ref][0], None
+        if ref in rel:
+            return None, ref
+        sys.exit(f"{where}: {ref} is neither a people slug nor a relatives key")
+
+    def life(ref):
+        if ref in people:
+            _, name, born, died = people[ref]
+            return name, born, died
+        return rel[ref]['name'], rel[ref]['born'], rel[ref]['died']
+
+    issues, seen = [], set()
+    for i, r in enumerate(read_csv('family_links.csv'), start=2):
+        where = f"data/family_links.csv line {i}"
+        if r['kind'] not in KINDS:
+            sys.exit(f"{where}: kind must be parent, spouse or sibling")
+        if r['a'] == r['b']:
+            sys.exit(f"{where}: links {r['a']} to itself")
+        if r['on_chart'] not in ('0', '1'):
+            sys.exit(f"{where}: on_chart must be 0 or 1")
+        if r['bayanne'] and not BAYANNE_ID.match(r['bayanne']):
+            sys.exit(f"{where}: bayanne must look like I12345")
+        a_pid, a_rel = end(r['a'], where)
+        b_pid, b_rel = end(r['b'], where)
+        key = (r['kind'],) + ((r['a'], r['b']) if r['kind'] == 'parent' else tuple(sorted((r['a'], r['b']))))
+        if key in seen:
+            sys.exit(f"{where}: duplicate link {key}")
+        seen.add(key)
+        cur = db.execute("""INSERT INTO family_links (a_person_id, a_relative, kind, b_person_id, b_relative,
+                            on_chart, bayanne, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                         (a_pid, a_rel, r['kind'], b_pid, b_rel, int(r['on_chart']), r['bayanne'] or None,
+                          r['note'] or None))
+        link_id = cur.lastrowid
+
+        (an, ab, ad), (bn, bb, bd) = life(r['a']), life(r['b'])
+        if r['kind'] == 'parent' and ab and bb:
+            gap = int(bb[:4]) - int(ab[:4])
+            if not 13 <= gap <= 60:
+                issues.append(('parent-age', link_id, f"{an} (b. {ab[:4]}) is a parent of {bn} (b. {bb[:4]}): "
+                                                      f"{gap} years apart"))
+            if ad and ad[:4] < str(int(bb[:4]) - 1):
+                issues.append(('parent-dead', link_id, f"{an} died {ad} before {bn} was born ({bb})"))
+        if not r['bayanne']:
+            issues.append(('unverified', link_id, f"{an} {r['kind']} {bn}: not yet checked on Bayanne"))
+
+    for key, r in rel.items():
+        slug = by_name_born.get((r['name'], (r['born'] or '')[:4]))
+        if slug:
+            issues.append(('is-councillor', None, f"relative {key} has the same name and birth year as "
+                                                  f"councillor {slug}: link the slug instead"))
+        if not any(key in (l[1], l[2]) for l in seen):
+            issues.append(('orphan', None, f"relative {key} has no links"))
+    db.executemany("INSERT INTO family_issues (kind, link_id, detail) VALUES (?, ?, ?)", issues)
+    return len(rel), len(seen), len(issues)
+
+
+# ---------------------------------------------------------------------------
 
 def build(db_path):
     if os.path.exists(db_path):
@@ -768,6 +895,7 @@ def build(db_path):
     db.executemany("""INSERT INTO term_issues (council_id, kind, date_from, date_to, person_id, person_name,
                       election_id, detail) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", T.issues)
     T.citations = load_citations(db)
+    T.family = load_family(db)
     T.labels = T_labels
     db.commit()
     db.execute("VACUUM")
@@ -801,6 +929,7 @@ def main():
     print(f"council_terms: {dict(counts)} (by council_id)")
     print(f"term_issues: {len(T.issues)} {dict(kinds)}")
     print(f"citations: {T.citations[0]}, links: {T.citations[1]}")
+    print(f"family: {T.family[0]} relatives, {T.family[1]} links, {T.family[2]} issues")
 
     if check:
         same = dump(target) == dump(DB_PATH)

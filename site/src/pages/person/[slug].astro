@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
+import { getConnectionsForPerson } from '../../lib/family';
 import { getAllPeople, getPersonBySlug, getCandidaciesForPerson, getAllElections, getTenuresForPerson, getLeadershipRolesForPerson, getLeadershipSuccessionForPerson, getConstituencyMembers, getConstituencyIdBySlug, getRelatedPeople, getServiceForPerson } from '../../lib/db';
 import fs from 'fs';
 import path from 'path';
@@ -122,6 +123,7 @@ for (const t of tenures) {
 }
 
 const relatedPeople = getRelatedPeople(slug!);
+const connections = getConnectionsForPerson(slug!);
 
 // Build description for SEO
 const descParts: string[] = [];
@@ -425,6 +427,27 @@ function renderLinkedText(text: string): string {
     );
   })}
 
+  {connections.length > 0 && (
+    <div class="family-council">
+      <h2>Family on the Council</h2>
+      <ul>
+        {connections.map(c => (
+          <li>
+            <a href={`/person/${c.slug}`}>{c.name}</a>
+            <span class="family-steps">
+              {c.steps.map((s, i) => (
+                <>{i > 0 && <span class="related-sep"> › </span>}{`${s.role} `}{s.slug ? <a href={`/person/${s.slug}`}>{s.name}</a> : s.name}</>
+              ))}
+            </span>
+            <a class="family-see" href={`/connections?from=${slug}&to=${c.slug}`}>
+              {c.steps.length} link{c.steps.length > 1 ? 's' : ''}{c.unchecked > 0 && `, ${c.unchecked} not yet checked`}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
   {relatedPeople.length > 0 && (
     <div class="related-people">
       <h2>Related People</h2>
@@ -673,5 +696,23 @@ function renderLinkedText(text: string): string {
 
   .related-sep {
     color: var(--muted);
+  }
+
+  .family-council ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .family-steps {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .family-see {
+    font-size: 0.8rem;
   }
 </style>
