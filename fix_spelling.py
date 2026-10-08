@@ -164,6 +164,9 @@ FIXES = [
     # SINCLAIR, FIAR OF ESSENQUOY". fix_parse_errors.py then drops the Category trailer after it.
     ('people', 126, 'biography', 'was succeeded by his son ',
      'was succeeded by his son, Gilbert Sinclair, fiar of Essenquoy.'),
+    # Written while he was alive; people.died_date is 2019-10-01 (Bayanne).
+    ('people', 358, 'intro', "Leslie 'Gussie' Angus is a former Shetland Islands Councillor.",
+     "Leslie 'Gussie' Angus was a Shetland Islands Councillor."),
     ('elections', 21, 'notes', 'interpretation of the the procedures', 'interpretation of the procedures'),
     ('elections', 22, 'notes', 'interpretation of the the procedures', 'interpretation of the procedures'),
     ('elections', 22, 'notes', '2st Council Group', '2nd Council Group'),
