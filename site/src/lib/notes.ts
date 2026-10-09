@@ -9,6 +9,8 @@ const bna = (code: string) => (ymd: string, page: number, article: number) =>
 export const st = bna('0000666');
 /** Shetland News article in the BNA viewer. */
 export const sn = bna('0003210');
+/** Aberdeen Press and Journal article in the BNA viewer. */
+export const pj = bna('0000578');
 
 export const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
 

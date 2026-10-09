@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+import NoteEssay from '../../components/NoteEssay.astro';
+import NoteTable from '../../components/NoteTable.astro';
+import { type Src, st, pj } from '../../lib/notes';
+
+// Research note on 12 Scalloway Road, Lerwick.
+// Sources: Shetland Times and Aberdeen Press and Journal (British Newspaper Archive), the 1911 census,
+// and the Registers of Scotland land register, checked 2026-10-09.
+
+const ros = 'https://scotlis.ros.gov.uk/land-register/titles/OAZ20711';
+
+const timeline: { date: string; text: string; sources: Src[] }[] = [
+  { date: '18 Jan 1864', text: 'The entry date on the land register title (OAZ20711) that covers 12 Scalloway Road. The same title also covers Unit B of the Old Infant School, 31 King Harald Street. No price is recorded.',
+    sources: [{ label: 'Registers of Scotland OAZ20711', href: ros }] },
+  { date: 'Sep 1903', text: 'The Volunteers march “from the Schoolhouse up Scalloway road”.',
+    sources: [{ label: 'ST 19 Sep 1903', href: st('19030919', 4, 98) }] },
+  { date: '1911', text: 'The census lists four households on Scalloway Road, with no house numbers. The first is William R. Durham, 31, a head teacher from Thurso, with his wife Margaret, their daughter Alice and a servant. A neighbour, William Johnson, is clerk to the School Board.',
+    sources: [] },
+  { date: 'Jul 1920', text: 'The town council invites tenders for footpaths, among them “At Scalloway Road … King Harald Street and Union Street (Schoolhouse and Infant and Central Schools)”.',
+    sources: [{ label: 'ST 17 Jul 1920', href: st('19200717', 1, 162) }] },
+  { date: 'Nov 1935', text: 'Edwin Dixon, “Schoolhouse, Scalloway Road”, nominates a candidate in the town council election.',
+    sources: [{ label: 'ST 2 Nov 1935', href: st('19351102', 4, 78) }] },
+  { date: 'Aug 1942', text: 'Edwin Dixon, “Old Schoolhouse, Scalloway Road”, is charged over an unblinded window in the blackout.',
+    sources: [{ label: 'ST 22 Aug 1942', href: st('19420822', 2, 50) }] },
+  { date: 'Sep 1942', text: 'Edwin Dixon junior, son of Mr and Mrs Edwin Dixon, Schoolhouse, Scalloway Road, wins an award.',
+    sources: [{ label: 'ST 5 Sep 1942', href: st('19420905', 2, 40) }] },
+  { date: 'Apr 1948', text: 'Edwin Dixon, Schoolhouse, Scalloway Road, takes a prize for a portrait at the Arts and Crafts Exhibition. A week later the paper prints a letter from C. E. Dixon at the same address. The Schoolhouse doesn’t appear in the paper after this.',
+    sources: [{ label: 'ST 2 Apr 1948', href: st('19480402', 8, 120) }, { label: 'ST 9 Apr 1948', href: st('19480409', 3, 67) }] },
+  { date: 'Autumn 1970', text: 'Cyril Baker is in Lerwick as a newly appointed piano teacher, one of the “newcomers to the staff”.',
+    sources: [{ label: 'ST 23 Oct 1970', href: st('19701023', 12, 118) }, { label: 'ST 11 Dec 1970', href: st('19701211', 8, 72) }] },
+  { date: 'Dec 1972', text: 'The first time the papers give the house its number: “Baker, 12 Scalloway Road” advertises a 1965 Wolseley for sale.',
+    sources: [{ label: 'ST 15 Dec 1972', href: st('19721215', 16, 156) }] },
+  { date: 'Sep 1973', text: '“Mr Cyril Baker, of 12 Scalloway Road” is elected a Fellow of the Royal Society of Arts.',
+    sources: [{ label: 'ST 14 Sep 1973', href: st('19730914', 4, 40) }] },
+  { date: 'Oct 1975', text: 'St Magnus Episcopal Church wants a contralto and a tenor; applicants are to contact C. Baker at this address.',
+    sources: [{ label: 'ST 31 Oct 1975', href: st('19751031', 20, 210) }] },
+  { date: 'Jan 1983', text: 'Baker, organist at St Magnus Church, gives the first broadcast of a new work by the composer William Wordsworth on Radio Scotland.',
+    sources: [{ label: 'P&J 15 Jan 1983', href: pj('19830115', 17, 450) }] },
+  { date: 'May 1983', text: 'Shetland Islands Council invites tenders for “extensive repairs” to the house: new roof sarking, slates and flashings; new wooden windows, cast-iron gutters and downpipes; repairs to the sandstone dressings; woodworm treatment; roof insulation and electric panel radiators.',
+    sources: [{ label: 'ST 13 May 1983', href: st('19830513', 22, 198) }] },
+  { date: 'May 1988', text: 'Baker finds an error in the poll-tax registration forms. The story makes the Shetland Times front page and the Press and Journal.',
+    sources: [{ label: 'ST 20 May 1988, p1', href: st('19880520', 1, 3) }, { label: 'ST 20 May 1988, p9', href: st('19880520', 9, 100) }, { label: 'P&J 17 May 1988', href: pj('19880517', 13, 170) }] },
+  { date: '1988–1990', text: 'More letters to the Shetland Times from Cyril Baker at 12 Scalloway Road, the last of them in May 1990.',
+    sources: [{ label: 'ST 5 Aug 1988', href: st('19880805', 14, 153) }, { label: 'ST 6 Apr 1990', href: st('19900406', 13, 145) }, { label: 'ST 11 May 1990', href: st('19900511', 6, 58) }] },
+];
+---
+<Base
+  title="12 Scalloway Road, Lerwick"
+  description="12 Scalloway Road, Lerwick: a council-owned stone house, probably the old Schoolhouse, and the home of the organist Cyril Baker from the 1970s, from the Shetland Times."
+>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Lerwick notes</div>
+
+  <h1>12 Scalloway Road, Lerwick</h1>
+
+  <NoteEssay>
+    <p>12 Scalloway Road is an old stone house with sandstone dressings and a slate roof. It belongs to the council. From the 1970s to at least 1990 it was the home of <strong>Cyril Baker</strong>, piano teacher and organist at St Magnus Episcopal Church. Before that it was <strong>probably the Schoolhouse</strong>, the head teacher’s house beside the Infant and Central Schools. The papers name the Schoolhouse on Scalloway Road from 1903 to 1948, but they never say it is No. 12, so that identification is not yet proved.</p>
+
+    <p class="note">A side note on a Lerwick house, separate from the political history on the rest of this site.</p>
+
+    <p>Unless marked otherwise, what follows comes from the Shetland Times (ST) and the Aberdeen Press and Journal (P&amp;J), through the British Newspaper Archive.</p>
+
+    <h2>Timeline</h2>
+  </NoteEssay>
+
+  <NoteTable headers={['Date', 'What happened', 'Source']} rows={timeline.map((r) => [{ text: r.date, nowrap: true }, { html: r.text }, { sources: r.sources }])} />
+
+  <NoteEssay>
+    <h2>Notes</h2>
+
+    <ul>
+      <li><strong>Was No. 12 the Schoolhouse?</strong> Four things point that way, but none of them proves it. The land register puts the house on the same title as the Old Infant School. The 1920 footpath tender names the Schoolhouse with the Infant and Central Schools at Scalloway Road. A head teacher was living on Scalloway Road in 1911. And the 1983 repairs describe an old stone house. The OS town plan of Lerwick, a valuation roll with house numbers, or the 1921 census would settle it.</li>
+      <li><strong>The house number.</strong> No paper in the British Newspaper Archive gives “12 Scalloway Road” before December 1972. Earlier addresses on the road used house names, such as the Schoolhouse.</li>
+      <li><strong>1948–1970.</strong> Nothing found yet on who lived here between Dixon and Baker.</li>
+      <li><strong>The 1864 date.</strong> It is the entry date on the land register title, which covers more than one council property. It may record the deed for the school site rather than the building of this house.</li>
+    </ul>
+
+    <h2>Sources</h2>
+
+    <p>The newspaper issues are linked in the timeline. Also used:</p>
+    <ul>
+      <li><ExternalLink href={ros} label="Land register title OAZ20711" />, Registers of Scotland</li>
+      <li>1911 census, Lerwick, enumeration district 5, schedules 51–54</li>
+    </ul>
+    <p class="note">The newspaper links need a British Newspaper Archive subscription.</p>
+  </NoteEssay>
+</Base>
