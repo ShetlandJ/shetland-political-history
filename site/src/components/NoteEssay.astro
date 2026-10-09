@@ -1,0 +1,54 @@
+---
+// Prose block for the Lerwick notes pages. Content is slotted, so the rules are :global under .essay.
+---
+<div class="essay"><slot /></div>
+
+<style>
+  .essay {
+    max-width: 680px;
+    line-height: 1.85;
+    font-size: 0.95rem;
+  }
+
+  .essay :global(h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .essay :global(p),
+  .essay :global(li) {
+    color: var(--text-secondary);
+  }
+
+  .essay :global(p) {
+    margin-bottom: 1.15rem;
+  }
+
+  .essay :global(ul) {
+    margin: 0 0 1.15rem 1.25rem;
+  }
+
+  .essay :global(li) {
+    margin-bottom: 0.6rem;
+  }
+
+  .essay :global(figure) {
+    margin: 0 0 1.5rem;
+  }
+
+  .essay :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .essay :global(.note) {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  /* Long link labels must wrap on phones. */
+  .essay :global(a.ext-link) {
+    white-space: normal;
+  }
+</style>

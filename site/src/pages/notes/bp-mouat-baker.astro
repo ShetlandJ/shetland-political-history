@@ -1,18 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
+import NoteEssay from '../../components/NoteEssay.astro';
+import NoteTable from '../../components/NoteTable.astro';
+import { type Src, st, sn, bayanne, b } from '../../lib/notes';
 
 // Research note on Basil Pole Mouat's bakery, 75 Commercial Street, Lerwick.
 // Sources: Shetland Times (British Newspaper Archive) and Bayanne, checked 2026-10-07.
-const st = (ymd: string, page: number, article: number) =>
-  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
-const sn = (ymd: string, page: number, article: number) =>
-  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0003210%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
-const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
-// Inline link for HTML strings (rendered with set:html).
-const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
 
-type Src = { label: string; href: string };
 const timeline: { date: string; text: string; sources: Src[] }[] = [
   { date: '2 Apr 1855', text: `Basil Pole Mouat born, Park Lane, Lerwick, son of ${b('I93398', 'Magnus Mouat')} and ${b('I7619', 'Barbara Ninian')}.`,
     sources: [{ label: 'Bayanne I85322', href: bayanne('I85322') }] },
@@ -68,7 +63,7 @@ const family: { name: string; href?: string; dates: string; link: string }[] = [
 
   <h1>B. P. Mouat, Baker, 75 Commercial Street, Lerwick</h1>
 
-  <div class="essay">
+  <NoteEssay>
     <figure>
       <img src="/images/notes/bp-mouat-shop.jpg" width="1400" height="1027" alt="Staff outside the shop under the sign 'B. P. Mouat, Baker', No. 75 Commercial Street, Lerwick" />
     </figure>
@@ -80,24 +75,11 @@ const family: { name: string; href?: string; dates: string; link: string }[] = [
     <p>Unless marked otherwise, what follows comes from the Shetland Times (through the British Newspaper Archive) and from Bayanne.</p>
 
     <h2>Timeline</h2>
-  </div>
+  </NoteEssay>
 
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
-      <tbody>
-        {timeline.map((row) => (
-          <tr>
-            <td class="nowrap">{row.date}</td>
-            <td set:html={row.text} />
-            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <NoteTable headers={['Date', 'What happened', 'Source']} rows={timeline.map((r) => [{ text: r.date, nowrap: true }, { html: r.text }, { sources: r.sources }])} />
 
-  <div class="essay">
+  <NoteEssay>
     <h2>The shop and the building</h2>
 
     <p>The shop was at the south end of Commercial Street. The family lived above and next door, at 69a, and the bakehouse was at No. 69.</p>
@@ -122,24 +104,11 @@ const family: { name: string; href?: string; dates: string; link: string }[] = [
     <h2>Family</h2>
 
     <p>The bakery stayed in one extended family. George Laurence’s second wife, Ann Davidson, was the sister of <ExternalLink href={bayanne('I85534')} label="Janet Davidson" />, whose daughter married Mouat.</p>
-  </div>
+  </NoteEssay>
 
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Person</th><th>Dates</th><th>Link to the bakery</th></tr></thead>
-      <tbody>
-        {family.map((p) => (
-          <tr>
-            <td>{p.href ? <ExternalLink href={p.href} label={p.name} /> : p.name}</td>
-            <td class="nowrap">{p.dates}</td>
-            <td set:html={p.link} />
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <NoteTable headers={['Person', 'Dates', 'Link to the bakery']} rows={family.map((p) => [{ text: p.name, href: p.href }, { text: p.dates, nowrap: true }, { html: p.link }])} />
 
-  <div class="essay">
+  <NoteEssay>
     <p>The obituary of Mrs Laughton (<ExternalLink href={bayanne('I132735')} label="Mary Cheyne Spence Mouat" />), who died at Hokitika, New Zealand, in 1937, calls her a sister of “the late Mr B. P. Mouat, baker and confectioner” (<ExternalLink href={st('19370925', 4, 76)} label="ST 25 Sep 1937" />).</p>
 
     <h2>Sources</h2>
@@ -154,54 +123,5 @@ const family: { name: string; href?: string; dates: string; link: string }[] = [
       <li>Bayanne (Shetland Family History): the family pages linked above. They also note the 1929 inventory of his estate (SC12/36/19, p107) and two Sheriff Court actions in which he is a “bread and biscuit baker, Commercial Street” (1902, 1918).</li>
     </ul>
     <p class="note">The Shetland Times links need a British Newspaper Archive subscription.</p>
-  </div>
+  </NoteEssay>
 </Base>
-
-<style>
-  .essay {
-    max-width: 680px;
-    line-height: 1.85;
-    font-size: 0.95rem;
-  }
-
-  .essay h2 {
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .essay p,
-  .essay li {
-    color: var(--text-secondary);
-  }
-
-  .essay p {
-    margin-bottom: 1.15rem;
-  }
-
-  .essay ul {
-    margin: 0 0 1.15rem 1.25rem;
-  }
-
-  .essay li {
-    margin-bottom: 0.6rem;
-  }
-
-  .essay figure {
-    margin: 0 0 1.5rem;
-  }
-
-  .essay img {
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius);
-  }
-
-  .nowrap {
-    white-space: nowrap;
-  }
-
-  .note {
-    font-size: 0.88rem;
-    color: var(--muted);
-  }
-</style>

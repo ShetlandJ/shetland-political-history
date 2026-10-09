@@ -1,0 +1,82 @@
+---
+// Table for the Lerwick notes pages (timelines, people). On phones each row stacks:
+// the first cell as a bold heading, then the rest at full width.
+import ExternalLink from './ExternalLink.astro';
+import type { Src } from '../lib/notes';
+
+/** One cell: plain text (optionally an external link), trusted HTML, or a list of sources. */
+export type Cell = { text?: string; href?: string; html?: string; sources?: Src[]; nowrap?: boolean };
+
+interface Props {
+  headers: string[];
+  rows: Cell[][];
+}
+
+const { headers, rows } = Astro.props;
+---
+<div class="table-wrap note-table">
+  <table>
+    <thead><tr>{headers.map((h) => <th>{h}</th>)}</tr></thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          {row.map((c) =>
+            c.sources ? (
+              <td class="sources">{c.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
+            ) : c.html !== undefined ? (
+              <td class:list={{ nowrap: c.nowrap }} set:html={c.html} />
+            ) : (
+              <td class:list={{ nowrap: c.nowrap }}>{c.href ? <ExternalLink href={c.href} label={c.text ?? ''} /> : c.text}</td>
+            )
+          )}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .note-table table,
+    .note-table tbody,
+    .note-table tr,
+    .note-table td {
+      display: block;
+      width: 100%;
+    }
+
+    .note-table thead {
+      display: none;
+    }
+
+    .note-table tr {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .note-table td {
+      padding: 0;
+      border: none;
+      background: none !important;
+      white-space: normal;
+    }
+
+    .note-table td:first-child {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .note-table td.sources {
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .note-table td :global(a.ext-link) {
+      white-space: normal;
+    }
+  }
+</style>

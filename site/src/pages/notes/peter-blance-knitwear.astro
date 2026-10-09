@@ -1,17 +1,14 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
+import NoteEssay from '../../components/NoteEssay.astro';
+import NoteTable from '../../components/NoteTable.astro';
+import { type Src, st, bayanne, b } from '../../lib/notes';
 
 // Research note on Peter Blance (1874–1951), Peter Blance & Co., and the firm's knitwear factory
 // in the old church at the top of Bank Lane / Hangcliff Lane, Lerwick (1967–1976).
 // Sources: Shetland Times (British Newspaper Archive) and Bayanne, checked 2026-10-09.
-const st = (ymd: string, page: number, article: number) =>
-  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
-const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
-// Inline link for HTML strings (rendered with set:html).
-const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
 
-type Src = { label: string; href: string };
 type Row = { date: string; text: string; sources: Src[] };
 
 const small = { label: 'Small 1904, ii 653–4', href: 'https://archive.org/details/historyofcongre02smaluoft' };
@@ -117,7 +114,7 @@ const factory: Row[] = [
 
   <h1>Peter Blance &amp; Co. and the Bank Lane knitwear factory</h1>
 
-  <div class="essay">
+  <NoteEssay>
     <p><ExternalLink href={bayanne('I153416')} label="Peter Blance" /> (1874–1951) was a merchant at Gluss, Ollaberry, who came to Lerwick around 1919–21 and built up <strong>Peter Blance &amp; Co.</strong>, drapers and Shetland hosiers, at 122 Commercial Street. He retired in 1942. William D. Johnson, who had joined him in 1937, ran the firm under Peter’s name. In <strong>November 1967</strong> the firm took the old church at the top of Bank Lane (the council called it the Hangcliff Lane Hall) and made it the main knitting and finishing department. The Lerwick business closed in <strong>October 1976</strong> and Laurence J. Smith Ltd carried the name on at Scalloway.</p>
 
     <p>The building was the Secession congregation’s church, opened in <strong>1839</strong>. In 1886 the congregation, by then United Presbyterian, moved to St Ringan’s and sold it to a cabinetmaker. From 1894 it was <strong>David Shearer</strong>’s cabinetmaking workshop and furniture store, and it kept his name until 1957. After Blance’s it was Grants’ furniture store, and from 1983 a church again, the Emmanuel Pentecostal Church.</p>
@@ -127,62 +124,23 @@ const factory: Row[] = [
     <p>Unless marked otherwise, what follows comes from the Shetland Times (ST), through the British Newspaper Archive, from Bayanne for family dates, and from Robert Small’s <em>History of the Congregations of the United Presbyterian Church</em> (1904) for the congregation.</p>
 
     <h2>The church and the Shearers</h2>
-  </div>
+  </NoteEssay>
 
-  <div class="table-wrap timeline">
-    <table>
-      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
-      <tbody>
-        {church.map((row) => (
-          <tr>
-            <td class="nowrap">{row.date}</td>
-            <td set:html={row.text} />
-            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <NoteTable headers={['Date', 'What happened', 'Source']} rows={church.map((r) => [{ text: r.date, nowrap: true }, { html: r.text }, { sources: r.sources }])} />
 
-  <div class="essay">
+  <NoteEssay>
     <h2>Peter Blance</h2>
-  </div>
+  </NoteEssay>
 
-  <div class="table-wrap timeline">
-    <table>
-      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
-      <tbody>
-        {peter.map((row) => (
-          <tr>
-            <td class="nowrap">{row.date}</td>
-            <td set:html={row.text} />
-            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <NoteTable headers={['Date', 'What happened', 'Source']} rows={peter.map((r) => [{ text: r.date, nowrap: true }, { html: r.text }, { sources: r.sources }])} />
 
-  <div class="essay">
+  <NoteEssay>
     <h2>The factory in the old church</h2>
-  </div>
+  </NoteEssay>
 
-  <div class="table-wrap timeline">
-    <table>
-      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
-      <tbody>
-        {factory.map((row) => (
-          <tr>
-            <td class="nowrap">{row.date}</td>
-            <td set:html={row.text} />
-            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <NoteTable headers={['Date', 'What happened', 'Source']} rows={factory.map((r) => [{ text: r.date, nowrap: true }, { html: r.text }, { sources: r.sources }])} />
 
-  <div class="essay">
+  <NoteEssay>
     <h2>The building</h2>
 
     <p>The papers call it by both lanes: the old U.P. Church, Hangcliff Lane (Peace, 1886), the “Hangcliff Lane Hall” (the council, 1967), Blance’s “Bank Lane Factory” (1972), and “the building in Hangcliff Lane now entered from Bank Lane” (1983). It is now <strong>26 Hangcliff Lane</strong>, reached by stone steps from Hangcliff Lane, with a patterned-glass arched double door looking over the harbour. A recent sale listing describes it as “previously used as a Church, furniture retail business and knitwear factory” (<ExternalLink href="https://www.shetnews.co.uk/property/ag-26-hangcliff-lane-lerwick/" label="Shetland News property listing" />).</p>
@@ -216,85 +174,5 @@ const factory: Row[] = [
       <li><ExternalLink href={bayanne('I153416')} label="Peter Blance" />, <ExternalLink href={bayanne('I152797')} label="Magnus Blance" />, <ExternalLink href={bayanne('I19561')} label="William David Johnson" /> and <ExternalLink href={bayanne('I31831')} label="Joseph Anderson" /> on Bayanne</li>
     </ul>
     <p class="note">The newspaper links need a British Newspaper Archive subscription.</p>
-  </div>
+  </NoteEssay>
 </Base>
-
-<style>
-  .essay {
-    max-width: 680px;
-    line-height: 1.85;
-    font-size: 0.95rem;
-  }
-
-  .essay h2 {
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .essay p,
-  .essay li {
-    color: var(--text-secondary);
-  }
-
-  .essay p {
-    margin-bottom: 1.15rem;
-  }
-
-  .essay ul {
-    margin: 0 0 1.15rem 1.25rem;
-  }
-
-  /* Long link labels in the essay must wrap on phones. */
-  .essay :global(a.ext-link) {
-    white-space: normal;
-  }
-
-  .essay li {
-    margin-bottom: 0.6rem;
-  }
-
-  .nowrap {
-    white-space: nowrap;
-  }
-
-  .note {
-    font-size: 0.88rem;
-    color: var(--muted);
-  }
-
-  /* On phones each row becomes a block: date, then the text, then the sources. */
-  @media (max-width: 640px) {
-    .timeline table,
-    .timeline tbody,
-    .timeline tr,
-    .timeline td {
-      display: block;
-      width: 100%;
-    }
-
-    .timeline thead {
-      display: none;
-    }
-
-    .timeline tr {
-      padding: 0.75rem 0.85rem;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .timeline td {
-      padding: 0;
-      border: none;
-      background: none !important;
-    }
-
-    .timeline td.nowrap {
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-    }
-
-    .timeline td.sources {
-      margin-top: 0.4rem;
-      font-size: 0.85rem;
-    }
-  }
-</style>

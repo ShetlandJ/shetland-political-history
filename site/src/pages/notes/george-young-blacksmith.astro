@@ -1,16 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
+import NoteEssay from '../../components/NoteEssay.astro';
+import NoteTable from '../../components/NoteTable.astro';
+import { type Src, st, bayanne, b } from '../../lib/notes';
 
 // Research note on George Thomas "Dodo" Young (1923–1995), blacksmith in Lerwick, emigrated to New Zealand 1958.
 // Asked for by his son. Sources: Shetland Times (British Newspaper Archive), checked 2026-10-09, and Bayanne.
-const st = (ymd: string, page: number, article: number) =>
-  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
-const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
-// Inline link for HTML strings (rendered with set:html).
-const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
 
-type Src = { label: string; href: string };
 const timeline: { date: string; text: string; sources: Src[] }[] = [
   { date: '19 Nov 1923', text: `George Thomas Young born at 90a Maberly Street, Aberdeen, son of ${b('I159700', 'John George Young')} (from Turriff) and ${b('I131214', 'Danielina Leask')} (from Lerwick).`,
     sources: [{ label: 'Bayanne I159715', href: bayanne('I159715') }] },
@@ -58,7 +55,7 @@ const smiths: { name: string; text: string; sources: Src[] }[] = [
 
   <h1>George “Dodo” Young, Blacksmith</h1>
 
-  <div class="essay">
+  <NoteEssay>
     <p><ExternalLink href={bayanne('I159715')} label="George Thomas Young" /> (19 November 1923 – 2 June 1995), known as Dodo, grew up at 21 North Road, Lerwick, and worked there as a blacksmith. He served in the war as a private in the Royal Electrical and Mechanical Engineers (REME). He married Marjory Gray in 1948, and they had two sons in Lerwick. He was one of Shetland’s best anglers in the 1950s. In <strong>October 1958</strong> he and his brother Leonard took their families to New Zealand on the emigrant ship <i>Captain Cook</i>. He died at Masterton in 1995.</p>
 
     <p>His son remembers that George served his apprenticeship at a Lerwick smithy from the age of 13, went to war at 19, and worked at the smithy again after the war before joining Malakoff on a pier project. He also remembers meeting a character called Pinkie Toonie, who drove a fancy Volvo, when they visited in 1975. The newspapers confirm the war service, the family and the emigration, but they don’t name the smithy. A reader has since identified Pinky as Jeemie Wiseman (see Notes).</p>
@@ -68,45 +65,19 @@ const smiths: { name: string; text: string; sources: Src[] }[] = [
     <p>Unless marked otherwise, what follows comes from the Shetland Times (ST), through the British Newspaper Archive, and from Bayanne for the family’s dates.</p>
 
     <h2>Timeline</h2>
-  </div>
+  </NoteEssay>
 
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
-      <tbody>
-        {timeline.map((row) => (
-          <tr>
-            <td class="nowrap">{row.date}</td>
-            <td set:html={row.text} />
-            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <NoteTable headers={['Date', 'What happened', 'Source']} rows={timeline.map((r) => [{ text: r.date, nowrap: true }, { html: r.text }, { sources: r.sources }])} />
 
-  <div class="essay">
+  <NoteEssay>
     <h2>The smithy</h2>
 
     <p>No article names George as a blacksmith or says where he trained. These Lerwick smiths were in the paper in the late 1930s:</p>
-  </div>
+  </NoteEssay>
 
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Smith</th><th>What the paper says</th><th>Source</th></tr></thead>
-      <tbody>
-        {smiths.map((s) => (
-          <tr>
-            <td class="nowrap">{s.name}</td>
-            <td>{s.text}</td>
-            <td class="sources">{s.sources.map((x, i) => <>{i > 0 && '; '}<ExternalLink href={x.href} label={x.label} /></>)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <NoteTable headers={['Smith', 'What the paper says', 'Source']} rows={smiths.map((s) => [{ text: s.name, nowrap: true }, { text: s.text }, { sources: s.sources }])} />
 
-  <div class="essay">
+  <NoteEssay>
     <p>George turned 13 in November 1936. Children could then leave school at 14, so he most likely started in 1937 or 1938. The papers don’t say which smith took him on. Malakoff had a smithy of its own, so his work there after the war may have been as a blacksmith too.</p>
 
     <h2>Notes</h2>
@@ -120,44 +91,5 @@ const smiths: { name: string; text: string; sources: Src[] }[] = [
     </ul>
 
     <p class="note">The newspaper links need a British Newspaper Archive subscription.</p>
-  </div>
+  </NoteEssay>
 </Base>
-
-<style>
-  .essay {
-    max-width: 680px;
-    line-height: 1.85;
-    font-size: 0.95rem;
-  }
-
-  .essay h2 {
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .essay p,
-  .essay li {
-    color: var(--text-secondary);
-  }
-
-  .essay p {
-    margin-bottom: 1.15rem;
-  }
-
-  .essay ul {
-    margin: 0 0 1.15rem 1.25rem;
-  }
-
-  .essay li {
-    margin-bottom: 0.6rem;
-  }
-
-  .nowrap {
-    white-space: nowrap;
-  }
-
-  .note {
-    font-size: 0.88rem;
-    color: var(--muted);
-  }
-</style>
