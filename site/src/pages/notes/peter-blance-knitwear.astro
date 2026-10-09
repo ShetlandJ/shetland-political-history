@@ -1,0 +1,257 @@
+---
+import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+
+// Research note on Peter Blance (1874–1951), Peter Blance & Co., and the firm's knitwear factory
+// in the old church at the top of Bank Lane / Hangcliff Lane, Lerwick (1967–1976).
+// Sources: Shetland Times (British Newspaper Archive) and Bayanne, checked 2026-10-09.
+const st = (ymd: string, page: number, article: number) =>
+  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
+const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
+// Inline link for HTML strings (rendered with set:html).
+const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
+
+type Src = { label: string; href: string };
+type Row = { date: string; text: string; sources: Src[] };
+
+const small = { label: 'Small 1904, ii 653–4', href: 'https://archive.org/details/historyofcongre02smaluoft' };
+
+const church: Row[] = [
+  { date: '1837–38', text: 'Secession ministers preach in Lerwick from 1836. In August 1837, 41 Lerwick people petition for regular sermon, and the Secession Synod takes Lerwick on as a permanent station. On 7 Nov 1838, 54 people are formed into a congregation. They first meet in a lower room of the Auld Kirk (later the Masonic Hall).',
+    sources: [small, { label: 'John o’ Groat Journal 13 Oct 1837', href: 'https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000459%2F18371013&page=0003&article=007' }, { label: 'ST 14 Dec 1907', href: st('19071214', 4, 65) }] },
+  { date: 'Midsummer 1839', text: '“Mr Buchan of Holm opened the new church about midsummer of 1839, with sittings for 500”. This is the church in Hangcliff Lane. The £70 still owed on it was cleared in 1845. The 1886 sale notice says vents were put in when it was built so that it could be turned into a house.',
+    sources: [small, { label: 'ST 23 Jan 1886', href: st('18860123', 1, 15) }] },
+  { date: '1841–1882', text: 'Ministers: Peter M’Guffie, inducted 9 Aug 1841 (died 1849); Andrew M’Farlane, ordained 30 Jun 1851, retired 1882. In 1855 M’Farlane’s appeal from this pulpit led six young men to start the Lerwick Instruction Society, a free night school. The congregation was Secession until the 1847 union, then United Presbyterian.',
+    sources: [small, { label: 'ST 23 Oct 1970', href: st('19701023', 12, 122) }] },
+  { date: '1882–1886', text: 'John Willcock is ordained on 6 Dec 1882 and raises the money for a new church. Its foundation stone is laid in June 1885, and St Ringan’s on Lower Hillhead opens on 11 Jul 1886. In March 1885 private offers are invited for the old church; it is re-offered at a reduced upset price in January 1886.',
+    sources: [small, { label: 'ST 28 Mar 1885', href: st('18850328', 2, 57) }, { label: 'ST 23 Jan 1886', href: st('18860123', 1, 15) }] },
+  { date: 'May 1886', text: 'The church is sold by private bargain for £300 to D. B. Peace, cabinetmaker, Kirkwall, who “purposes starting cabinetmaking in this town”.',
+    sources: [{ label: 'ST 8 May 1886', href: st('18860508', 2, 45) }] },
+  { date: 'Oct 1886', text: 'David B. Peace, cabinetmaker and upholsterer, opens in the building, his adverts headed “(Old U.P. Church), Hangcliff Lane”.',
+    sources: [{ label: 'ST 2 Oct 1886', href: st('18861002', 1, 16) }, { label: 'ST 1 Jan 1887', href: st('18870101', 1, 30) }] },
+  { date: 'c. 1890–1894', text: 'David Shearer, from Wilderness, Holm, Orkney, who had served his apprenticeship with Peace in Kirkwall, is sent to the Lerwick business “about 1890” and soon made manager. <strong>In 1894 he buys the business</strong>.',
+    sources: [{ label: 'ST 1 Jul 1933', href: st('19330701', 4, 109) }] },
+  { date: '1894–1957', text: '“David Shearer, Cabinetmaker and Upholsterer, Hangcliff Lane” for the next sixty years. He trains apprentices: Robert Tait, who starts on his own in 1896, served his time “in the shop of Mr D. Shearer, Hangcliff Lane”. Shearer is an elder of St Ringan’s UF Church, the congregation that had left the building, and after the 1929 union an elder of the UF Church (Continuing).',
+    sources: [{ label: 'ST 3 Oct 1896', href: st('18961003', 1, 5) }, { label: 'ST 3 Jan 1925', href: st('19250103', 6, 252) }, { label: 'ST 1 Jul 1933', href: st('19330701', 4, 109) }] },
+  { date: 'Mon 26 Jun 1933', text: 'David Shearer dies at Stainsby Cottage, Hillhead, aged 69, after an illness that began on New Year’s Eve. He had married the eldest daughter of George Irvine, Lerwick, and left his wife and three daughters. The firm keeps his name.',
+    sources: [{ label: 'ST 1 Jul 1933', href: st('19330701', 4, 109) }] },
+  { date: 'Sep 1957', text: 'The firm of David Shearer buys 28 Commercial Road (formerly M. P. Morrison’s) for “more commodious premises”. Hangcliff Lane becomes “Shearer’s former store”.',
+    sources: [{ label: 'ST 13 Sep 1957', href: st('19570913', 1, 138) }, { label: 'ST 21 May 1965', href: st('19650521', 3, 35) }] },
+  { date: '1965–66', text: 'The Guides and Scouts ask Lerwick Town Council for “the building in Hangcliff Lane known as Shearer’s store”. The council buys it from Messrs D. Shearer (see the factory timeline below).',
+    sources: [{ label: 'ST 21 May 1965', href: st('19650521', 3, 37) }, { label: 'ST 17 Mar 1967', href: st('19670317', 6, 92) }] },
+];
+
+const peter: Row[] = [
+  { date: '10 Oct 1874', text: 'Peter Blance is born at the School House, North Roe, son of Alexander Blance (1833–1905) and Agnes Irvine (1847–1938), whose home was Gluss, Northmavine. Baptised in the Methodist Chapel, North Roe, 26 Mar 1875.',
+    sources: [{ label: 'Bayanne I153416', href: bayanne('I153416') }] },
+  { date: 'Jan 1910', text: '“Mr Peter Blance, Merchant, Gluss, Ollaberry” is one of the Shetland agents named in a woollen manufacturer’s advert. Wool and woollens were already part of his trade.',
+    sources: [{ label: 'ST 8 Jan 1910', href: st('19100108', 2, 47) }] },
+  { date: '2 Mar 1915', text: 'Marries Margaret Smith (b. 4 Jan 1876, Waterside, Northmavine) at Gluss.',
+    sources: [{ label: 'Bayanne I153416', href: bayanne('I153416') }] },
+  { date: 'Fri 20 Dec 1918', text: 'Displenishing sale at Gluss for “Messrs P. &amp; M. Blance”: cattle, ponies, sheep, a gig and cart, “a lot of shop stock, shop fittings”, meal and counter scales, and egg cases. That was the end of the country shop. The M. is probably his brother Magnus (1876–1966), who also moved to Lerwick.',
+    sources: [{ label: 'ST 14 Dec 1918', href: st('19181214', 1, 211) }] },
+  { date: 'Nov 1919', text: 'P. &amp; M. Blance, Bellevue, Lerwick, want “a large quantity” of Shetland spencers (all sizes) and haps, at best cash prices.',
+    sources: [{ label: 'ST 29 Nov 1919', href: st('19191129', 1, 2) }] },
+  { date: 'Feb 1921', text: 'The earliest advert found for <strong>Peter Blance &amp; Co.</strong>: men’s shirts, underwear, socks and slippers. By the summer the firm is also asking knitters for white spencers.',
+    sources: [{ label: 'ST 5 Feb 1921', href: st('19210205', 1, 215) }, { label: 'ST 23 Jul 1921', href: st('19210723', 1, 164) }] },
+  { date: 'Oct 1928', text: 'Peter Blance and Arthur Johnson buy the bakery of Russell &amp; Co. at 111 Commercial Street (the Hygienic Bakery premises, built 1901) from 1 October and reopen it on Tuesday 9 October.',
+    sources: [{ label: 'ST 6 Oct 1928, p1', href: st('19281006', 1, 8) }, { label: 'p5', href: st('19281006', 5, 131) }] },
+  { date: '10 Mar 1930', text: 'The partnership is dissolved when Arthur Johnson retires. The notice describes Peter Blance &amp; Co. as “Drapers, Clothiers, Outfitters and Shetland Hosiers” at 115 and 122 Commercial Street, and bakers, grocers and confectioners at 111. Peter carries it on alone under the same name.',
+    sources: [{ label: 'ST 15 Mar 1930', href: st('19300315', 1, 214) }] },
+  { date: 'Aug 1931', text: 'With James R. White &amp; Co., James A. Smith and John Leslie he writes to deny opening on a Sunday to sell hosiery to passengers off the <em>Viceroy of India</em>.',
+    sources: [{ label: 'ST 15 Aug 1931', href: st('19310815', 5, 117) }] },
+  { date: 'Feb 1932', text: 'Buys Montfield, the late James Goudie’s house, at the north end of the town.',
+    sources: [{ label: 'ST 20 Feb 1932', href: st('19320220', 4, 25) }] },
+  { date: 'May 1934', text: 'Peter gives a chair to the Lerwick United Free Church (Continuing), the congregation that stayed out of the 1929 union. Magnus Blance and Arthur Johnson give another. The same report mentions the communion-plate chest begun by the late David Shearer, a member, and finished by his daughter.',
+    sources: [{ label: 'ST 5 May 1934', href: st('19340505', 4, 86) }] },
+  { date: '1937', text: `${b('I19561', 'William D. Johnson')}, a Mid Yell man who had his own knitwear business, comes to Lerwick to join Peter in the hosiery business on Commercial Street.`,
+    sources: [{ label: 'ST 29 Mar 1968', href: st('19680329', 6, 95) }] },
+  { date: '1940', text: 'Weekly adverts from Peter Blance &amp; Co., 122 Commercial Street, buying Shetland wool “of good quality, all colours” and Fair Isle-bordered jumpers.',
+    sources: [{ label: 'ST 27 Jan 1940', href: st('19400127', 1, 9) }] },
+  { date: 'Aug 1941', text: 'At a mass meeting of the hosiery trade in the Masonic Hall about clothes rationing coupons, Peter moves the vote of thanks to Mr Shearer and Mr Adie for going to the Board of Trade for the industry.',
+    sources: [{ label: 'ST 23 Aug 1941', href: st('19410823', 2, 70) }] },
+  { date: '1942', text: 'Peter retires and William D. Johnson takes the business over, keeping the name.',
+    sources: [{ label: 'ST 29 Mar 1968', href: st('19680329', 6, 95) }] },
+  { date: 'Wed 24 Oct 1951', text: 'Peter Blance, “draper and hosiery merchant”, dies at Montfield aged 77. The paper says he came from Gluss to Lerwick “30 years ago to start business, and retired a few years ago”. His widow Margaret died at Bellevue on 19 Jul 1952.',
+    sources: [{ label: 'ST 2 Nov 1951', href: st('19511102', 5, 67) }, { label: 'ST 9 Nov 1951 (deaths)', href: st('19511109', 4, 46) }, { label: 'Bayanne', href: bayanne('I153416') }] },
+];
+
+const factory: Row[] = [
+  { date: '1960s', text: 'Peter Blance &amp; Co., still at 122 Commercial Street, are the local agents for Oswald Donner knitting machines. The trade is moving from hand-knitting to machines.',
+    sources: [{ label: 'ST 20 Dec 1963', href: st('19631220', 8, 108) }] },
+  { date: '1966', text: 'Lerwick Town Council buys “the building in Hangcliff Lane” from Messrs D. Shearer. In its review of 1966 the paper reports the council’s plan to convert “the old Kirk in Hangcliff Lane” for the uniformed youth movements.',
+    sources: [{ label: 'ST 6 Jan 1967', href: st('19670106', 6, 74) }, { label: 'ST 17 Mar 1967', href: st('19670317', 6, 92) }] },
+  { date: 'May 1967', text: 'The Scouts and Guides turn the council’s offer down: their share of the conversion cost was too much for them.',
+    sources: [{ label: 'ST 19 May 1967', href: st('19670519', 3, 38) }] },
+  { date: 'Oct 1967', text: 'The council advertises the “Hall in Hangcliff Lane”, “the old furniture store”, to let for light industry. The Up-Helly-Aa Committee had asked for it. Councillor Harry Gray wonders whether it could be used “for business purposes, such as a knitwear factory”.',
+    sources: [{ label: 'ST 13 Oct 1967, p5', href: st('19671013', 5, 87) }, { label: 'p5', href: st('19671013', 5, 90) }, { label: 'notice, p8', href: st('19671013', 8, 179) }] },
+  { date: 'Nov 1967', text: 'Four applications come in. The council grants the tenancy to <strong>Messrs Peter Blance &amp; Co.</strong>, “who wished the building to expand their knitwear business”.',
+    sources: [{ label: 'ST 17 Nov 1967', href: st('19671117', 6, 108) }] },
+  { date: '20 Mar 1968', text: 'William D. Johnson dies suddenly, aged 76. He was still working in the business and is survived by his son Bobby and his daughter, Mrs Magnus Flaws.',
+    sources: [{ label: 'ST 29 Mar 1968', href: st('19680329', 6, 95) }] },
+  { date: '1969', text: 'In its review of the textile trade the paper reports that Peter Blance &amp; Co. are “renovating an old building in the lanes of Lerwick as a main knitting and finishing department”.',
+    sources: [{ label: 'ST 16 Jan 1970', href: st('19700116', 12, 78) }] },
+  { date: 'Oct 1970', text: 'In an address on Lerwick’s schools, the paper recalls the Rev. Andrew Macfarlane’s 1855 appeal “from the pulpit of the United Presbyterian Church in Hangcliff Lane (now Peter Blance &amp; Co.’s woollens factory)”, which founded the Lerwick Instruction Society.',
+    sources: [{ label: 'ST 23 Oct 1970', href: st('19701023', 12, 122) }] },
+  { date: 'Nov 1972', text: 'Peter Blance &amp; Co. want machine knitters “for Bank Lane Factory”: “excellent working conditions in the centre of Lerwick”, training for beginners.',
+    sources: [{ label: 'ST 17 Nov 1972', href: st('19721117', 2, 247) }] },
+  { date: 'Oct 1976', text: '“Closing down sale — including used jumper boards, etc. — Peter Blance &amp; Co., Lerwick.”',
+    sources: [{ label: 'ST 8 Oct 1976', href: st('19761008', 20, 215) }] },
+  { date: 'Mon 1 Nov 1976', text: 'Laurence J. Smith Ltd, Sandwick, take over “the knitwear business of Peter Blance &amp; Co., Lerwick” and run it from their premises at Main Street, Scalloway. The old firm thanks its knitters and finishers “for the happy business relationship … over many years”.',
+    sources: [{ label: 'ST 29 Oct 1976', href: st('19761029', 4, 45) }, { label: 'thanks', href: st('19761029', 4, 36) }] },
+  { date: '1977–80', text: 'The name lives on: “Peter Blance &amp; Co., Scalloway” appears in Laurence J. Smith’s adverts alongside the Shetland Woollen Manufacturing Co. In April 1978 Alex P. Frame &amp; Co. move their offices to 122 Commercial Street, the old shop.',
+    sources: [{ label: 'ST 29 Jul 1977', href: st('19770729', 3, 235) }, { label: 'ST 18 Jul 1980', href: st('19800718', 18, 266) }, { label: 'ST 21 Apr 1978', href: st('19780421', 2, 315) }] },
+  { date: 'Mar 1977', text: 'James Grant &amp; Co. Ltd are refused permission to change “the knitwear factory at the top of Hangcliffe Lane” to a TV workshop and furniture store: commercial vehicles of any size would be unsafe in the lane. It became Grants’ furniture store all the same.',
+    sources: [{ label: 'ST 18 Mar 1977', href: st('19770318', 4, 35) }, { label: 'ST 8 Apr 1983', href: st('19830408', 12, 95) }] },
+  { date: '1982–83', text: 'The Emmanuel Pentecostal Church gets planning consent to change the “store” in Bank Lane to a church. It moves in from Commercial Road early in 1983, taking out partitions and putting a proper door in place of the garage door. The paper calls it a former Methodist church. In April <a href="/person/thomas-manson-ii/">T. M. Y. Manson</a> corrects that: it was the United Presbyterian church, then “for many years the workshop of the late David Shearer, cabinetmaker, and his successors, then a furniture store for the firm of Grants”, and now “again taken into use for religious purposes”.',
+    sources: [{ label: 'ST 5 Nov 1982', href: st('19821105', 2, 14) }, { label: 'ST 18 Feb 1983', href: st('19830218', 2, 14) }, { label: 'ST 8 Apr 1983', href: st('19830408', 12, 95) }] },
+];
+---
+<Base
+  title="Peter Blance & Co. and the Bank Lane Knitwear Factory"
+  description="The old Secession / U.P. church at the top of Bank Lane, Lerwick (1839): David Shearer's cabinetmaking workshop from 1894, then Peter Blance & Co.'s knitwear factory (1967–1976). With Peter Blance (1874–1951), from the Shetland Times, Small's UP congregations and Bayanne."
+>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Lerwick notes</div>
+
+  <h1>Peter Blance &amp; Co. and the Bank Lane knitwear factory</h1>
+
+  <div class="essay">
+    <p><ExternalLink href={bayanne('I153416')} label="Peter Blance" /> (1874–1951) was a merchant at Gluss, Ollaberry, who came to Lerwick around 1919–21 and built up <strong>Peter Blance &amp; Co.</strong>, drapers and Shetland hosiers, at 122 Commercial Street. He retired in 1942. William D. Johnson, who had joined him in 1937, ran the firm under Peter’s name. In <strong>November 1967</strong> the firm took the old church at the top of Bank Lane (the council called it the Hangcliff Lane Hall) and made it the main knitting and finishing department. The Lerwick business closed in <strong>October 1976</strong> and Laurence J. Smith Ltd carried the name on at Scalloway.</p>
+
+    <p>The building was the Secession congregation’s church, opened in <strong>1839</strong>. In 1886 the congregation, by then United Presbyterian, moved to St Ringan’s and sold it to a cabinetmaker. From 1894 it was <strong>David Shearer</strong>’s cabinetmaking workshop and furniture store, and it kept his name until 1957. After Blance’s it was Grants’ furniture store, and from 1983 a church again, the Emmanuel Pentecostal Church.</p>
+
+    <p class="note">A side note on a Lerwick building and business, separate from the political history on the rest of this site.</p>
+
+    <p>Unless marked otherwise, what follows comes from the Shetland Times (ST), through the British Newspaper Archive, from Bayanne for family dates, and from Robert Small’s <em>History of the Congregations of the United Presbyterian Church</em> (1904) for the congregation.</p>
+
+    <h2>The church and the Shearers</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
+      <tbody>
+        {church.map((row) => (
+          <tr>
+            <td class="nowrap">{row.date}</td>
+            <td set:html={row.text} />
+            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <h2>Peter Blance</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
+      <tbody>
+        {peter.map((row) => (
+          <tr>
+            <td class="nowrap">{row.date}</td>
+            <td set:html={row.text} />
+            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <h2>The factory in the old church</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
+      <tbody>
+        {factory.map((row) => (
+          <tr>
+            <td class="nowrap">{row.date}</td>
+            <td set:html={row.text} />
+            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <h2>The building</h2>
+
+    <p>The papers call it by both lanes: the old U.P. Church, Hangcliff Lane (Peace, 1886), the “Hangcliff Lane Hall” (the council, 1967), Blance’s “Bank Lane Factory” (1972), and “the building in Hangcliff Lane now entered from Bank Lane” (1983). It is now <strong>26 Hangcliff Lane</strong>, reached by stone steps from Hangcliff Lane, with a patterned-glass arched double door looking over the harbour. A recent sale listing describes it as “previously used as a Church, furniture retail business and knitwear factory” (<ExternalLink href="https://www.shetnews.co.uk/property/ag-26-hangcliff-lane-lerwick/" label="Shetland News property listing" />).</p>
+
+    <p>The builder was Joseph Anderson (<ExternalLink href={bayanne('I31831')} label="Bayanne I31831" />, 1806–1891), a mason and building contractor who learned the trade from his father and carried on the business himself. His yard was where the Universal Stores later stood, and he built his own house at Anderson Place. His obituary (<ExternalLink href={st('18910221', 2, 67)} label="ST 21 Feb 1891" />) names none of his buildings. It says he belonged to no church but his sympathies were with “Morisonianism”, from the visit of James Morison as a young Secession preacher, the same Dr Morison whom J. B. Anderson listed in 1907 among the first preachers to the Hangcliff Lane congregation. J. B. Anderson, solicitor, who made the 1907 speech, was Joseph’s son. Two other sons, Robert and Thomas, were Anderson &amp; Co., the drapers and Shetland hosiers.</p>
+
+    <h2>Notes</h2>
+
+    <ul>
+      <li><strong>“UF Church”.</strong> The congregation left this building in 1886, fourteen years before the United Free Church was formed in 1900, so the building itself was never a UF church. Its congregation became one: St Ringan’s was St Ringan’s UF Church from 1900, and the building is still called St Ringan’s United Free Church. David Shearer, who owned the old church, was an elder of St Ringan’s UF and then of the UF Church (Continuing), and Peter and Magnus Blance belonged to that congregation too.</li>
+      <li><strong>1836 or 1839.</strong> The modern sale listing says 1836. Small (opened midsummer 1839) and the listed-building record (“the old church of 1839”) agree on 1839, and the congregation was only formed in Nov 1838. J. B. Anderson’s guess in 1907, “in the 40’s”, was too late.</li>
+      <li><strong>Joseph Anderson as builder.</strong> Not in any source found so far: his obituary, the opening (in Small) and J. B. Anderson’s 1907 speech don’t name the builder. The Orkney and Shetland Journal ran to 1839 and might report the opening.</li>
+      <li><strong>Peace’s Lerwick business.</strong> Shearer’s obituary says Peace took over a Lerwick business “formerly known by the firm name of Messrs Peace and K…” (the OCR is garbled). Peace’s first adverts, in Oct 1886, read as a new opening.</li>
+      <li><strong>Who owned the building.</strong> Peace bought it in 1886. Shearer’s obituary says he “acquired the business” in 1894; the council bought the building from Messrs D. Shearer in 1965–66. In 1967 the council let it to Peter Blance &amp; Co.; no sale to the firm has turned up. By 1982 it was in private hands again.</li>
+      <li><strong>Who ran the firm 1968–76.</strong> Not found. William D. Johnson’s son Bobby is the obvious candidate, but no source names him in the business.</li>
+      <li><strong>William D. Johnson’s death.</strong> Bayanne has 17 Mar 1967. The Shetland Times of 29 Mar 1968 reports it as “on 20th March” that year, and says his wife had died two years before.</li>
+      <li><strong>Peter’s family in 1951.</strong> The obituary says he was survived by one brother (Magnus, d. 1966) and one sister. Bayanne has both his sisters, Agnes Hawick and Mary Ann Blance, dying before him (1947 and 1945). Mrs Blance’s return-thanks notice is signed with Miss Smith and Mr Hawick, a nephew.</li>
+      <li><strong>The label.</strong> Bayanne notes that Peter Blance’s name “is still used as a label to sell knitwear to Japan from Shetland”.</li>
+    </ul>
+
+    <h2>Sources</h2>
+
+    <p>The newspaper issues are linked in the tables. Also used:</p>
+    <ul>
+      <li><ExternalLink href={st('19511102', 5, 67)} label="Death notice, “Died.—Mr Peter Blance, draper and hosiery merchant”" />, Shetland Times, 2 Nov 1951, p5</li>
+      <li><ExternalLink href={st('19680329', 6, 95)} label="Obituary, Mr William D. Johnson, Lerwick" />, Shetland Times, 29 Mar 1968, p6</li>
+      <li><ExternalLink href={st('19330701', 4, 109)} label="Obituary, Mr David Shearer, Lerwick" />, Shetland Times, 1 Jul 1933, p4</li>
+      <li><ExternalLink href={st('18910221', 2, 67)} label="Death of Joseph Anderson" />, Shetland Times, 21 Feb 1891, p2</li>
+      <li><ExternalLink href={st('19830408', 12, 95)} label="Letter from T. M. Y. Manson" />, Shetland Times, 8 Apr 1983, p12</li>
+      <li>Robert Small, <ExternalLink href="https://archive.org/details/historyofcongre02smaluoft" label="History of the Congregations of the United Presbyterian Church, 1733–1900" />, vol. ii (1904), pp. 653–4, “Lerwick (United Secession)”</li>
+      <li><ExternalLink href={bayanne('I153416')} label="Peter Blance" />, <ExternalLink href={bayanne('I152797')} label="Magnus Blance" />, <ExternalLink href={bayanne('I19561')} label="William David Johnson" /> and <ExternalLink href={bayanne('I31831')} label="Joseph Anderson" /> on Bayanne</li>
+    </ul>
+    <p class="note">The newspaper links need a British Newspaper Archive subscription.</p>
+  </div>
+</Base>
+
+<style>
+  .essay {
+    max-width: 680px;
+    line-height: 1.85;
+    font-size: 0.95rem;
+  }
+
+  .essay h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .essay p,
+  .essay li {
+    color: var(--text-secondary);
+  }
+
+  .essay p {
+    margin-bottom: 1.15rem;
+  }
+
+  .essay ul {
+    margin: 0 0 1.15rem 1.25rem;
+  }
+
+  .essay li {
+    margin-bottom: 0.6rem;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .note {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+</style>
