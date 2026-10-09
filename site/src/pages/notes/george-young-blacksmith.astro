@@ -1,0 +1,163 @@
+---
+import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+
+// Research note on George Thomas "Dodo" Young (1923–1995), blacksmith in Lerwick, emigrated to New Zealand 1958.
+// Asked for by his son. Sources: Shetland Times (British Newspaper Archive), checked 2026-10-09, and Bayanne.
+const st = (ymd: string, page: number, article: number) =>
+  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
+const bayanne = (id: string) => `https://www.bayanne.info/Shetland/getperson.php?personID=${id}&tree=ID1`;
+// Inline link for HTML strings (rendered with set:html).
+const b = (id: string, name: string) => `<a href="${bayanne(id)}" target="_blank" rel="noopener">${name}</a>`;
+
+type Src = { label: string; href: string };
+const timeline: { date: string; text: string; sources: Src[] }[] = [
+  { date: '19 Nov 1923', text: `George Thomas Young born at 90a Maberly Street, Aberdeen, son of ${b('I159700', 'John George Young')} (from Turriff) and ${b('I131214', 'Danielina Leask')} (from Lerwick).`,
+    sources: [{ label: 'Bayanne I159715', href: bayanne('I159715') }] },
+  { date: 'Jan 1942', text: 'His brother Harold, 15, son of Mr and Mrs John Young, 21 North Road, is hurt in a sledging accident.',
+    sources: [{ label: 'ST 7 Feb 1942', href: st('19420207', 2, 24) }] },
+  { date: '1943', text: 'Pte. George Young, REME, “son of Mr and Mrs John Young, 21 North Road”, is photographed with Lord Woolton, Minister of Food, while helping soldiers bring in the harvest in Kent. Woolton asks him about the food situation in Shetland. The paper runs it among its Christmas war stories, with the photograph.',
+    sources: [{ label: 'ST 31 Dec 1943', href: st('19431231', 3, 63) }] },
+  { date: 'Tue 8 Aug 1944', text: 'His father, John George Young (Jock), “son of the late W. Young, Turriff”, dies suddenly at 21 North Road. The notice is from his wife and family “at home and away”.',
+    sources: [{ label: 'ST 11 Aug 1944', href: st('19440811', 2, 32) }] },
+  { date: 'May 1947', text: 'Harold, “third son of Mrs Lena Young and the late Mr John Young, 21 North Road”, marries Mary Dunster at Newmills, Fife, on 16 May.',
+    sources: [{ label: 'ST 11 Jul 1947', href: st('19470711', 4, 56) }] },
+  { date: '21 Jul 1948', text: `George marries ${b('I159716', 'Marjory Gray')} at St Columba’s Church, Lerwick. The witnesses were John Young and Barbara Gray. No notice or report of it is in the Shetland Times.`,
+    sources: [{ label: 'Bayanne F118341', href: bayanne('I159715') }] },
+  { date: 'Sep 1948', text: 'His eldest brother John marries Jane Johnson of West Quarff.',
+    sources: [{ label: 'ST 22 Oct 1948', href: st('19481022', 4, 69) }] },
+  { date: '26 Nov 1949', text: 'A son, Robert, born at the Gilbert Bain Maternity Annexe to Mr and Mrs George Young (née Marjorie Gray), 11 Union Street.',
+    sources: [{ label: 'ST 2 Dec 1949', href: st('19491202', 4, 64) }] },
+  { date: '1952–56', text: 'George Young fishes for Shetland in the inter-county angling contests against Orkney.',
+    sources: [{ label: 'ST 6 Jun 1952', href: st('19520606', 5, 64) }, { label: 'ST 3 Jul 1953', href: st('19530703', 5, 68) }, { label: 'ST 11 May 1956', href: st('19560511', 3, 66) }] },
+  { date: '29 Jul 1957', text: 'A son, George, born to Mr and Mrs George Young, 82 North Lochside.',
+    sources: [{ label: 'ST 9 Aug 1957', href: st('19570809', 4, 48) }] },
+  { date: 'Aug 1958', text: 'He captains Shetland against Orkney and beats the whole Orkney team on his own, with two fish weighing 5 lb 1 oz, one of them a sea trout of 4 lb 12 oz. The report says he and his family leave Lerwick that weekend on the first stage of emigration to New Zealand.',
+    sources: [{ label: 'ST 5 Sep 1958', href: st('19580905', 7, 115) }] },
+  { date: 'Sep 1958', text: 'Shetland Anglers’ Association gives him a farewell dinner in the Grand Hotel and a camera “in recognition of his valuable services”.',
+    sources: [{ label: 'ST 3 Oct 1958', href: st('19581003', 4, 52) }] },
+  { date: 'Tue 7 Oct 1958', text: 'George and his brother Leonard, each with his wife and two children, sail from the Clyde on the emigrant ship <i>Captain Cook</i>, among at least fourteen Shetlanders bound for New Zealand.',
+    sources: [{ label: 'ST 10 Oct 1958', href: st('19581010', 7, 109) }] },
+  { date: '2 Jun 1995', text: 'Dies suddenly at Masterton, New Zealand. Two death notices: one from his brother Harald (Harold), Mary and family, for “George T., ‘Dodo’”; one from his sisters Iris, Pearl and Sylvia, for “Do-Do”.',
+    sources: [{ label: 'ST 9 Jun 1995', href: st('19950609', 4, 31) }, { label: 'ST 16 Jun 1995', href: st('19950616', 4, 33) }] },
+];
+
+const smiths: { name: string; text: string; sources: Src[] }[] = [
+  { name: 'William Isbister', text: 'Horseshoer and general blacksmith, Market Street. Advertised for “a boy, 16 years” as apprentice blacksmith in July 1938.',
+    sources: [{ label: 'ST 20 Feb 1937', href: st('19370220', 1, 69) }, { label: 'ST 16 Jul 1938', href: st('19380716', 1, 14) }] },
+  { name: 'Charles Stove Williamson', text: 'Blacksmith, 1 Market Street, named in a court report.', sources: [] },
+  { name: 'Malakoff Ltd', text: 'North Ness. Advertised for an apprentice blacksmith in April 1939.',
+    sources: [{ label: 'ST 1 Apr 1939', href: st('19390401', 1, 10) }] },
+];
+---
+<Base
+  title="George “Dodo” Young, Blacksmith"
+  description="George Thomas “Dodo” Young (1923–1995), blacksmith in Lerwick: war service, family, angling and emigration to New Zealand in 1958, from the Shetland Times."
+>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Lerwick notes</div>
+
+  <h1>George “Dodo” Young, Blacksmith</h1>
+
+  <div class="essay">
+    <p><ExternalLink href={bayanne('I159715')} label="George Thomas Young" /> (19 November 1923 – 2 June 1995), known as Dodo, grew up at 21 North Road, Lerwick, and worked there as a blacksmith. He served in the war as a private in the Royal Electrical and Mechanical Engineers (REME). He married Marjory Gray in 1948, and they had two sons in Lerwick. He was one of Shetland’s best anglers in the 1950s. In <strong>October 1958</strong> he and his brother Leonard took their families to New Zealand on the emigrant ship <i>Captain Cook</i>. He died at Masterton in 1995.</p>
+
+    <p>His son remembers that George served his apprenticeship at a Lerwick smithy from the age of 13, went to war at 19, and worked at the smithy again after the war before joining Malakoff on a pier project. He also remembers meeting a character called Pinkie Toonie, who drove a fancy Volvo, when they visited in 1975. The newspapers confirm the war service, the family and the emigration, but they don’t name the smithy or Pinkie Toonie.</p>
+
+    <p class="note">A side note on a Lerwick family, separate from the political history on the rest of this site.</p>
+
+    <p>Unless marked otherwise, what follows comes from the Shetland Times (ST), through the British Newspaper Archive, and from Bayanne for the family’s dates.</p>
+
+    <h2>Timeline</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>What happened</th><th>Source</th></tr></thead>
+      <tbody>
+        {timeline.map((row) => (
+          <tr>
+            <td class="nowrap">{row.date}</td>
+            <td set:html={row.text} />
+            <td class="sources">{row.sources.map((s, i) => <>{i > 0 && '; '}<ExternalLink href={s.href} label={s.label} /></>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <h2>The smithy</h2>
+
+    <p>No article names George as a blacksmith or says where he trained. These Lerwick smiths were in the paper in the late 1930s:</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Smith</th><th>What the paper says</th><th>Source</th></tr></thead>
+      <tbody>
+        {smiths.map((s) => (
+          <tr>
+            <td class="nowrap">{s.name}</td>
+            <td>{s.text}</td>
+            <td class="sources">{s.sources.map((x, i) => <>{i > 0 && '; '}<ExternalLink href={x.href} label={x.label} /></>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="essay">
+    <p>George turned 13 in November 1936. Children could then leave school at 14, so he most likely started in 1937 or 1938. The papers don’t say which smith took him on. Malakoff had a smithy of its own, so his work there after the war may have been as a blacksmith too.</p>
+
+    <h2>Notes</h2>
+
+    <ul>
+      <li><strong>Pinkie Toonie.</strong> No one of that name appears in the Shetland Times. “Toonie” is Shetland for someone from Lerwick, a townie, and the paper uses the word that way, so “Pinkie” is probably the nickname. He could have been the smith running the place in 1975.</li>
+      <li><strong>The family.</strong> The notices name four sons of John and Lena Young: John (the eldest), George, Harold (the third son) and Leonard. Three sisters, Iris, Pearl and Sylvia, were living in 1995.</li>
+      <li><strong>The father’s age.</strong> The first anniversary notice for John George Young gives his age as 53 (<ExternalLink href={st('19450810', 2, 29)} label="ST 10 Aug 1945" />). Bayanne’s birth date, 26 November 1891, makes him 52 when he died.</li>
+      <li><strong>Not found.</strong> The apprenticeship, his employers, the Malakoff and pier work, any notice of the 1948 wedding, the 1975 visit, and an obituary in 1995 (there are only the two death notices).</li>
+      <li><strong>Where else to look.</strong> Shetland Museum and Archives (Malakoff records, the valuation rolls for the smithies, the photo library), and the New Zealand arrival list for the <i>Captain Cook</i>’s October 1958 sailing, which should give his occupation.</li>
+    </ul>
+
+    <p class="note">The newspaper links need a British Newspaper Archive subscription.</p>
+  </div>
+</Base>
+
+<style>
+  .essay {
+    max-width: 680px;
+    line-height: 1.85;
+    font-size: 0.95rem;
+  }
+
+  .essay h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .essay p,
+  .essay li {
+    color: var(--text-secondary);
+  }
+
+  .essay p {
+    margin-bottom: 1.15rem;
+  }
+
+  .essay ul {
+    margin: 0 0 1.15rem 1.25rem;
+  }
+
+  .essay li {
+    margin-bottom: 0.6rem;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .note {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+</style>
