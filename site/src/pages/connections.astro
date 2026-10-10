@@ -400,9 +400,24 @@ const describe = (f: Family) => {
   } else {
     const first = nodes.filter(n => n.c && n.f === 0);
     let best: [string, string, number] = [first[0]?.id, first[1]?.id ?? first[0]?.id, 0];
-    for (const x of first) for (const y of first) {
-      const p = x.id < y.id ? shortestPath(links, x.id, y.id) : null;
-      if (p && p.length <= 6 && p.length > best[2]) best = [x.id, y.id, p.length];
+    // One breadth-first pass per councillor (the family is too big to path-find every pair).
+    const adj = new Map<string, string[]>();
+    for (const l of links) {
+      adj.set(l.a, [...(adj.get(l.a) ?? []), l.b]);
+      adj.set(l.b, [...(adj.get(l.b) ?? []), l.a]);
+    }
+    for (const x of first) {
+      const dist = new Map([[x.id, 0]]);
+      const queue = [x.id];
+      for (let i = 0; i < queue.length; i++) {
+        const d = dist.get(queue[i])!;
+        if (d === 6) continue;
+        for (const m of adj.get(queue[i]) ?? []) if (!dist.has(m)) { dist.set(m, d + 1); queue.push(m); }
+      }
+      for (const y of first) {
+        const d = dist.get(y.id);
+        if (x.id < y.id && d !== undefined && d > best[2]) best = [x.id, y.id, d];
+      }
     }
     if (best[0]) { fromSel.value = best[0]; toSel.value = best[1]; }
   }

@@ -792,6 +792,15 @@ def load_family(db):
     db.executescript(FAMILY_DDL)
     people = {slug: (pid, name, born, died) for pid, slug, name, born, died in
               db.execute("SELECT id, slug, name, born_date, died_date FROM people")}
+    # Councillors' sex, from Bayanne, for "son of" / "daughter of" wording.
+    db.execute("ALTER TABLE people ADD COLUMN sex TEXT")
+    for i, r in enumerate(read_csv('people_sex.csv'), start=2):
+        if r['slug'] not in people:
+            sys.exit(f"data/people_sex.csv line {i}: {r['slug']} is not a people slug")
+        if r['sex'] not in ('m', 'f'):
+            sys.exit(f"data/people_sex.csv line {i}: sex must be m or f")
+        db.execute("UPDATE people SET sex = ? WHERE slug = ?", (r['sex'], r['slug']))
+    sexed = {s for (s,) in db.execute("SELECT slug FROM people WHERE sex IS NOT NULL")}
     by_name_born = {(name, (born or '')[:4]): slug for slug, (_, name, born, _) in people.items()}
     rel = {}
     for i, r in enumerate(read_csv('relatives.csv'), start=2):
@@ -838,6 +847,9 @@ def load_family(db):
             sys.exit(f"{where}: bayanne must look like I12345")
         a_pid, a_rel = end(r['a'], where)
         b_pid, b_rel = end(r['b'], where)
+        for ref, pid in ((r['a'], a_pid), (r['b'], b_pid)):
+            if pid and ref not in sexed:
+                sys.exit(f"{where}: councillor {ref} needs a row in data/people_sex.csv")
         key = (r['kind'],) + ((r['a'], r['b']) if r['kind'] == 'parent' else tuple(sorted((r['a'], r['b']))))
         if key in seen:
             sys.exit(f"{where}: duplicate link {key}")
@@ -849,12 +861,15 @@ def load_family(db):
         link_id = cur.lastrowid
 
         (an, ab, ad), (bn, bb, bd) = life(r['a']), life(r['b'])
+        # People dates can be approximate ("bef 1790"); compare the year.
+        ab, ad, bb = (re.search(r'\d{4}', x).group(0) if x and re.search(r'\d{4}', x) else None
+                      for x in (ab, ad, bb))
         if r['kind'] == 'parent' and ab and bb:
-            gap = int(bb[:4]) - int(ab[:4])
+            gap = int(bb) - int(ab)
             if not 13 <= gap <= 60:
-                issues.append(('parent-age', link_id, f"{an} (b. {ab[:4]}) is a parent of {bn} (b. {bb[:4]}): "
+                issues.append(('parent-age', link_id, f"{an} (b. {ab}) is a parent of {bn} (b. {bb}): "
                                                       f"{gap} years apart"))
-            if ad and ad[:4] < str(int(bb[:4]) - 1):
+            if ad and int(ad) < int(bb) - 1:
                 issues.append(('parent-dead', link_id, f"{an} died {ad} before {bn} was born ({bb})"))
         if not r['bayanne']:
             issues.append(('unverified', link_id, f"{an} {r['kind']} {bn}: not yet checked on Bayanne"))

@@ -26,7 +26,8 @@ new-site/
 │   ├── citation_links.csv  # What each citation supports: a ledger term, an election, a person fact
 │   ├── searches.csv        # Searches that found nothing
 │   ├── relatives.csv       # Non-councillors who connect councillors by family (Bayanne IDs)
-│   └── family_links.csv    # Parent/spouse/sibling links between councillors and relatives, checked on Bayanne
+│   ├── family_links.csv    # Parent/spouse/sibling links between councillors and relatives, checked on Bayanne
+│   └── people_sex.csv      # Councillors' sex from Bayanne (m/f), for "son of"/"daughter of"; required for every linked councillor
 ├── fix_minute_book.py  # Correction script: LTC minute book (run by build.py)
 ├── fix_newspapers.py   # Correction script: newspaper evidence (run by build.py)
 ├── fix_sic_by_elections.py  # Correction script: who the modern SIC by-elections replaced (run by build.py)
@@ -93,7 +94,7 @@ Three MediaWiki MySQL dumps exist locally. We use **shetland_history2** (prefix 
 - **citations** — one row per source: a newspaper article (`st-19640508-p4-a055`), a whole issue (`st-19381029`) or a minute-book page (`mb-p258`). From `data/citations.csv`; `build.py` makes the `citation` text and the BNA `url` from the parts. Backfilled 2026-09-28 from the `research/bna/` links and the ledger's `source` strings (`tools/backfill_citations.py`, provenance only).
 - **citation_links** — what each citation supports: a `term_id`, an `election_id`, or a `person_id` + `field` (e.g. `died_date`). `basis` is `read`, `inferred` or empty (the backfilled links aren't reviewed yet). From `data/citation_links.csv`.
 - **searches** — searches that found nothing, from `data/searches.csv`, so they aren't re-run.
-- **relatives** / **family_links** — the family network behind /connections and "Family on the Council" on person pages. Built from `data/relatives.csv` (key = `name-year`, e.g. `janet-mouat-1816`; never a councillor) and `data/family_links.csv` (`a,kind,b,on_chart,bayanne,note`; `parent` means a is a parent of b; a/b are people slugs or relatives keys). `on_chart` = drawn on James's hand-made chart of the first councillors; `bayanne` = the Bayanne page where the link was seen (empty = unchecked, shown dashed). Transcribed and checked on Bayanne 2026-10-03 (`research/family-connections.md`).
+- **relatives** / **family_links** — the family network behind /connections and "Family on the Council" on person pages. Built from `data/relatives.csv` (key = `name-year`, e.g. `janet-mouat-1816`; never a councillor) and `data/family_links.csv` (`a,kind,b,on_chart,bayanne,note`; `parent` means a is a parent of b; a/b are people slugs or relatives keys). `on_chart` = drawn on James's hand-made chart of the first councillors; `bayanne` = the Bayanne page where the link was seen (empty = unchecked, shown dashed). Transcribed and checked on Bayanne 2026-10-03 (`research/family-connections.md`). Extended 2026-10-10 by a Bayanne crawl (every councillor's parents, spouses and children; councillor pairs within four steps): 248 pairs added as `on_chart=0` rows; 31 held back for James's call (living relatives in the chain, parents 63–70 years older than the child, step-families), recorded in `research/family-candidates.md` with verdicts in the Kin Review artifact.
 - **family_issues** — checks over the family links (unlikely parent age, parent dead before birth, relative who is really a councillor, relative with no links, unchecked links). Shown on /data-review.
 - **term_issues** — checks over council_terms (oversize/short council, overlapping terms, over-filled wards, unplaceable by-elections, serving after death, elected with no term). The research to-do list; shown on /data-review.
 
@@ -357,7 +358,8 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - **The site is served at the domain root**, so plain `/path` hrefs are fine. Some pages still prefix `import.meta.env.BASE_URL` (now always `/`); harmless.
 - **Working pages** (`/data-review`, and any future review pages) pass `noindex` to `Base` and are filtered out of the sitemap in `astro.config.mjs`.
 - **Party chart colours** are validated as a set, in stack order, for colour-blind separation in light and dark mode (dataviz skill validator). Labour sits at the base so its seats read directly. To add a party, re-run the validator on the new order rather than picking a colour by eye.
-- **Family chart layout** runs ELK (layered, layers by birth year) at build time; the whole chart is one 116-person family about 7,000px wide, so the page shows it as a map that opens on the chosen chain. Councillors are assumed male in the "son of"/"husband of" wording (`people` has no sex column); add one before linking a woman councillor.
+- **Family chart layout** runs ELK (layered, layers by birth year) at build time; the largest family (148 councillors since the 2026-10-10 crawl) is far wider than the screen, so the page shows it as a map that opens on the chosen chain. Councillors' sex comes from `data/people_sex.csv` (build.py adds `people.sex`). Don't path-find every pair of councillors in the browser: the default pair uses one breadth-first pass per councillor.
+- **Living people:** Bayanne shows living people only to logged-in users. Don't add a living non-councillor to `relatives.csv` without James's say-so.
 - **Elements created at runtime don't get Astro's scoped styles.** Style them with `:global(...)`.
 
 ### Process

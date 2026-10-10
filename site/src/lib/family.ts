@@ -63,7 +63,7 @@ function loadAll(): { nodes: Map<string, FamNode>; links: FamLink[] } {
                        bayanne: r.bayanne_id, service: [] });
   }
   const slugs = [...new Set(links.flatMap(l => [l.a, l.b]))].filter(s => !nodes.has(s));
-  const person = db.prepare('SELECT id, slug, name, born_date, died_date, bayanne_id FROM people WHERE slug = ?');
+  const person = db.prepare('SELECT id, slug, name, born_date, died_date, bayanne_id, sex FROM people WHERE slug = ?');
   const terms = db.prepare(`
     SELECT co.slug AS council, ct.start_date AS a, ct.end_date AS b
     FROM council_terms ct JOIN councils co ON co.id = ct.council_id
@@ -82,8 +82,8 @@ function loadAll(): { nodes: Map<string, FamNode>; links: FamLink[] } {
         service.push({ council, from: t.a, to: t.b });
       }
     }
-    // people has no sex column; every councillor on the chart so far is a man.
-    nodes.set(slug, { id: slug, name: p.name, born: p.born_date, died: p.died_date, sex: 'm', councillor: true,
+    // sex comes from data/people_sex.csv; build.py requires it for every linked councillor.
+    nodes.set(slug, { id: slug, name: p.name, born: p.born_date, died: p.died_date, sex: p.sex, councillor: true,
                       bayanne: p.bayanne_id, service });
   }
   return { nodes, links };
