@@ -289,7 +289,7 @@ The redistribution heuristic (`pop()` = lowest votes) doesn't always match the c
 
 Rows after Nov 1883 are the generator's draft (`confirmed=0`). Two generator bugs were fixed while drafting: death dates were looked up by name (an unlinked 1951 "James Inkster" inherited a 1927 death), and `MANUAL_DEPARTURES` applied to every later term of the same person (William Sinclair's 1921 retirement also ended his 1929 and 1938 terms — this was the cause of the "1929–1931 shows 11" anomaly).
 
-The open research list is `term_issues` on /data-review. For LTC: short periods (1884, 1886–87 and 1889, all dated vacancies; 1961, which waits on James Daniel's unconfirmed 1962 resignation row); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
+The open research list is `term_issues` on /data-review. For LTC: short periods (1884, Jul–Oct 1886 and 1889, all dated vacancies held open by open questions; 1961, which waits on James Daniel's unconfirmed 1962 resignation row); no oversize rows left; and no overlapping terms left (1922 settled). For ZCC: no overlaps left (Peterson's and Leslie's were parse errors, `fix_parse_errors.py` #7–8; Sinclair's 1919 double return is in `not_seated.csv`, #9); the by-election issues were cleared on 2026-09-28 (`research/bna/zcc-by-elections.md`).
 
 **1915–1916 settled (2026-09-28)**: three dated wartime vacancies (Stout died 10 Apr 1915, Sinclair elected 27 Apr; Grierson died 3 Jul, C. B. Stout 3 Aug 1915; Laurenson died 14 Jul, Henderson 1 Aug 1916). W. S. Smith resigned 7 Nov 1916, not 5 Dec. The Shetland Times for 24 Apr–12 Jun 1915 isn't digitised; the Shetland News (`BL/0003210`) filled the gap. Evidence: `research/bna/ltc-1915-1916.md`.
 
@@ -369,7 +369,7 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 - Whenever research contradicts the wiki, the notes or a confirmed ledger row, add an entry to `research/corrections-log.md` (what we had, what the sources show, whether the site text is fixed). James uses it to update his own understanding. Flag it in the reply too.
 
 ## Known Issues / TODO
-- [ ] Work through the 7 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
+- [ ] Work through the 5 `term_issues` on /data-review (planned: a private review page where James records a verdict per issue, keyed by council + kind + date + person, for Claude to turn into ledger edits)
 - [ ] SIC by-elections Sep 1993 (Jonathan Wills, Whiteness Weisdale & Tingwall) and Mar 2002 (Joseph G. Simpson, Whalsay & Skerries): wards now set from the titles, and the replaced member is inferred as the sitting member. Confirm who it was.
 - [ ] Make constituency slugs unique across councils (see Learnings); needs redirects for any existing URLs that change
 - [ ] Set the Cloudflare Pages build command (see Deployment) and switch off GitHub Pages

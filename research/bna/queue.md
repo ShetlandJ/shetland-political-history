@@ -123,8 +123,10 @@ sitting through each size-short window (listed per sub-item).
   - [x] 14 Apr–8 May 1970: William Smith (iv) 1969-05-06→1975-05-15 (start: the May 1969
     result; end is abolition).
 
-Not batched: 1884–1889 (6 issues) waits on the open questions (Harrison, Mitchell, the 1888
-date); the two John Robertsons' 1884 and 1887 rows sit through all of them. 1961 is James
+- [x] **1884–1891 row sources (added 2026-10-10)** (done: 7 → 5, the 1 Oct–19 Nov 1886 and 4 Jan–18 Mar 1887 vacancies now fully confirmed. Nov 1884 polled Tue 4 Nov, votes match (ST 8 Nov 1884); both John Robertson rows confirmed, Harrison's start sourced. 1891 retiring list (ST 24 Oct 1891): Anderson, Leisk, Goudie, Laing, Anderson not re-standing; Leisk 1889 confirmed, the 1888 rows' ends sourced but still waiting on the 1888 date. `ltc-1884-1891-sources.md`)
+
+Not batched: 1884–1889 (4 issues) waits on the open questions only: Harrison (1884, Jul–Oct 1886),
+Duncan 1885 (Jul–Oct 1886), Mitchell and the 1888 date (1889). 1961 is James
 Daniel's resignation, not in the paper (minute book).
 
 ## Citations (added 2026-09-28)

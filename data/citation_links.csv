@@ -2957,3 +2957,12 @@ st-18970522-p4-a062,person,william-duncan-i:died_date,inferred,"""on the 19th in
 st-18970522-p4-a062,person,william-duncan-i:death_place,read,"Marguerite Villa, Richmond Wood Road, Bournemouth"
 st-18970522-p4-a062,person,william-duncan-i:biography,read,place of death and age
 sn-18970522-p4-a050,person,william-duncan-i:biography,read,lately grocer in Lerwick; several years in Bournemouth; ill-health
+st-18841108-p3-a043,election,33,read,result and polling day (Tue 4 Nov 1884)
+st-18841108-p3-a043,term,john-robertson-i@1884-11-04,read,"elected as ""Bailie Robertson"", 71"
+st-18841108-p3-a043,term,john-robertson-ii@1884-11-04,read,"elected as ""John Robertson, jr."", 74"
+st-18841108-p3-a043,term,john-harrison-i@1884-11-04,read,"elected, 71"
+st-18911024-p2-a038,term,arthur-laing@1888-11-08,read,retiring in 1891 (end of his 1888 seat)
+st-18911024-p2-a038,term,james-goudie@1888-11-08,read,retiring in 1891 (end of his 1888 seat)
+st-18911024-p2-a038,term,john-anderson@1888-11-08,read,retiring in 1891 and not re-standing
+st-18911024-p2-a038,term,john-leisk@1889-11-05,inferred,retiring in 1891: his 1889 seat was Mitchell's two-year one
+st-18891109-p2-a052,term,john-leisk@1889-11-05,read,returned at the Nov 1889 general
