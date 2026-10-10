@@ -1065,6 +1065,17 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #7
         "found unanimously for Greig and awarded him £300. The Orkney & Zetland Chronicle printed "
         "the trial at length."
     ),
+    'william-duncan-i': (
+        "In 1872 William Duncan advertised as a grocer and provision merchant in Commercial "
+        "Street, Lerwick. When he was nominated for the council in 1881 he lived in Queen's Lane, "
+        "and in 1884 the council approved his plans for a tenant house in Quendale Lane.\n\n"
+        "He was Convener of Lighting and Cleansing when he wrote in July 1886 that he meant to "
+        "withdraw from the council. A deputation was sent to ask him to reconsider, and in "
+        "October it reported that he had definitely refused to continue in office.\n\n"
+        "He later moved to Bournemouth, where he lived for several years and had been in poor "
+        "health for some time. He died at Marguerite Villa, Richmond Wood Road, Bournemouth, on "
+        "19 May 1897, in his 77th year."
+    ),
 }
 BIO_ADDITIONS = [  # (slug, text the addition follows, addition) (#72)
     ('james-greig', "James was a baillie of Lerwick.",
