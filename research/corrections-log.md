@@ -464,3 +464,9 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 3 | wiki | **Peter John Garriock** (ii), Sandness 1973, "b. Unknown" | Nominated as **Peter John Garrick**, crofter, Griesta Cottage (ST 20 Apr 1973); Garrick throughout the paper. Bayanne I131893: b. 30 Dec 1926 South Shields, **d. 7 Dec 2021** Griesta | Fixed 2026-10-02: renamed Peter Garrick, /person/peter-garrick (old URL redirects), dates added (`fix_parse_errors.py` #28) |
 | 4 | wiki | Frederick Dainty "Colonel", "a seaman" | "Retired army officer" (ST 20 Apr 1973); "Lt. Col." (ST 18 Nov 1977) | Open; not changed |
 | 5 | DB | Month-only and approximate dates in the wiki were dropped (Anderton, Williamson, Walker, Adair, Caldwell, Dainty); Walker's "d. June 2006" landed in `birth_place` | Parse slips | Open; not changed |
+
+## 2026-10-11: Fea family link
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | hand-made chart of the first councillors | Barbara Fea (b. abt 1743, wife of Joseph Leask of Lee, mother of Capt. Thomas Leask) a **daughter of Thomas Fea** (1767–1841, Collector of Customs) | Bayanne I4241: Thomas Fea 1767 had six children by Jane Green; no Barbara. Bayanne I37427: Barbara was the daughter of an **older Thomas Fea** (I363803, b. bef 1716) and Margaret Bolt. Thomas 1767's father Magnus Fea (I146400) has no parents on Bayanne, so no tie between the two Feas is shown | Fixed: link removed from `data/family_links.csv`. The chart's Leask–Fea connection no longer exists |
