@@ -428,8 +428,8 @@ function renderLinkedText(text: string): string {
   })}
 
   {connections.length > 0 && (
-    <div class="family-council">
-      <h2>Family on the Council</h2>
+    <details class="family-council">
+      <summary><h2>Family on the Council <span class="family-count">({connections.length})</span></h2></summary>
       <ul>
         {connections.map(c => (
           <li>
@@ -445,7 +445,7 @@ function renderLinkedText(text: string): string {
           </li>
         ))}
       </ul>
-    </div>
+    </details>
   )}
 
   {relatedPeople.length > 0 && (
@@ -696,6 +696,32 @@ function renderLinkedText(text: string): string {
 
   .related-sep {
     color: var(--muted);
+  }
+
+  .family-council > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .family-council > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .family-council > summary h2::before {
+    content: "\25B8";
+    display: inline-block;
+    width: 1em;
+    color: var(--accent);
+  }
+
+  .family-council[open] > summary h2::before {
+    content: "\25BE";
+  }
+
+  .family-count {
+    color: var(--muted);
+    font-weight: normal;
+    font-size: 0.8em;
   }
 
   .family-council ul {
