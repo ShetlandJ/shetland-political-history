@@ -82,6 +82,24 @@ from text that already existed. James: salvaged from **Shetlopedia** when that s
 Next link in the chain: the Wayback Machine captures of shetlopedia.com (the 1823 election page and
 Balfour Spence's page, and who wrote them). The Internet Archive was offline on 2026-10-12.
 
+## Shetlopedia versions (screenshots from James, 2026-10-12)
+
+| Version | Bailies | Councillors |
+|---|---|---|
+| 2009/10 | **James** Ogilvy Senior, Gilbert Duncan Junior | **Balfour Spence**, Hay, Deans, Greig, Gauden, Paterson, Angus, **Charles** Ogilvy (8) |
+| 2012 | James Ogilvy Senior, Gilbert Duncan Junior | **William Spence**, Balfour Spence, Hay, Deans, Greig, Gauden, Paterson, Angus, Charles Ogilvy (9) |
+| 2016 (our wiki) | **Charles** Ogilvy Senior, Gilbert Duncan Junior | William Spence, Balfour Spence, Hay, Deans, Greig, Gauden, Paterson, Angus, **James** Ogilvy (9) |
+
+The 2009/10 list is the ten members seen in the minute book in 1823–24, with the one Spence identified
+as **Balfour**. In 2012 William Spence was added (the minute book's "W. Spence", p29) without taking
+Balfour out, which made eleven. So Balfour's 1823 seat looks like the original identification of
+the minute book's Spence, kept when William was added. This is not a separate record of him.
+
+The Ogilvys were swapped between 2012 and 2016. The minute book has the Bailie as Charles: he
+signs "Charles Ogilvy" at the head of the signatures (p30, p31), and "Chas Ogilvy Bailie" (p31,
+p33). The councillor Ogilvy seen 1823–24 (p31) is never given a first name in the book; the
+ledger has him as James.
+
 ## Not done
 
 - No Lerwick council centenary or history piece naming the 1823 council turned up. A printed
