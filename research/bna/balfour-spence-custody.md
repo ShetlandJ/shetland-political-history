@@ -68,8 +68,8 @@ Other searches with nothing: "lerwick councillors" 1823-08 to 1824-06 (all title
 - **Charles Spence** (ZCC Yell South 1958–64, d. 22 Sep 1996): his site bio's "great grandfather
   ... an early Lerwick Town Councillor" is the wiki's own claim, not a source. His obituary (ST
   4 Oct 1996 p15 a145, "Death leaves void in Yell") is where the rest of his bio comes from, and
-  it doesn't mention Balfour Spence or his ancestry. The two pages also disagree on the generation
-  (great-grandfather on Charles's page, great-great-grandson on Balfour's).
+  it doesn't mention Balfour Spence or his ancestry. Charles's page said "great grandfather"; he was the
+  great-great-grandson (James), fixed in `fix_parse_errors.py` #31.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19961004&page=0015&article=145
 - **William Spence** (1782–1849): a distant cousin who sat with the 1823 council. He died before
   the Shetland Times began, and nothing about him would be expected to name Balfour as a

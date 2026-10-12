@@ -176,6 +176,8 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
 30. Two details the parser dropped from the wiki's opening line, applied on James's answer
    (2026-10-12): William Angus "d. 1848, Edinburgh" (the death place was lost), and James
    Pottinger (i) "b. abt 1776" (the DB had "bef 1790").
+31. Charles Spence (ZCC Yell South 1958-64) was Balfour Spence's great-great-grandson, as
+   Balfour's page has it; Charles's page said "great grandfather" (James, 2026-10-12).
 """
 
 import os
@@ -697,6 +699,15 @@ def main():
             print(f"  candidacy {row[0]}: thomas-anderson-i")
         elif row[1] != a1:
             raise SystemExit(f"candidacy {row[0]}: unexpected person {row[1]}")
+
+    print("=== 31. Charles Spence: Balfour Spence was his great-great-grandfather ===")
+    bio = c.execute("SELECT biography FROM people WHERE slug = 'charles-spence'").fetchone()[0]
+    wrong, right = 'His great grandfather, [person:balfour-spence', 'His great-great-grandfather, [person:balfour-spence'
+    if bio.count(wrong) == 1:
+        c.execute("UPDATE people SET biography = ? WHERE slug = 'charles-spence'", (bio.replace(wrong, right),))
+        print("  charles-spence: great-great-grandfather")
+    elif right not in bio:
+        raise SystemExit("people.charles-spence biography doesn't contain the expected text")
     db.commit()
     db.close()
 
