@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-10-12: ZCC roll call (`research/bna/zcc-roll-call.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Dec 1907: T. J. Sandison won Unst South and J. P. Sandison Yell North, each moving back in 1910 | Neither moved: J. P. Sandison sat for Unst South 1902–29 and T. J. Sandison for Yell North 1906–10 (ST 14 Dec 1907, 19 Nov 1910) | Fixed (`fix_newspapers.py` #81), intros too. Wiki election page and both person pages still have it |
+| 2 | wiki | Northmavine South 1892 and 1895 linked to Thomas Anderson (iii), the Aithsting sheep farmer | Thomas Anderson (i) of Hillswick (ST 26 Nov 1892); the wiki's link was the bare "Thomas Anderson" | Fixed (`fix_parse_errors.py` #29) |
+| 3 | draft | LTC: John Tulloch (i) sat from Nov 1891 to the Nov 1894 general | He resigned on going abroad, accepted Tue 7 Aug 1894; seat left empty until November (ST 11 Aug 1894) | Fixed in `data/ltc_terms.csv` |
+
 ## 2026-10-03: The family chart of the first councillors, checked on Bayanne (`family-connections.md`)
 
 | # | Where | We had | Sources show | Status |

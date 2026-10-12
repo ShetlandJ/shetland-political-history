@@ -168,6 +168,11 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    site/public/_redirects), with the dates the wiki lacked from Bayanne I131893: b. 30 Dec 1926,
    South Shields, d. 7 Dec 2021, Griesta, Tingwall. His mother Ann died at Huxter, Sandness on
    24 Apr 1962, matching her death notice (ST 4 May 1962). Evidence: research/bna/birth-death-gaps.md.
+29. Northmavine South, Dec 1892 and Dec 1895: the wiki links the bare "[[Thomas Anderson]]" and
+   the parser picked Thomas Anderson (iii), the Aithsting sheep farmer. It was Thomas Anderson (i),
+   the Hillswick merchant, who won the ward in 1890 and 1898 and whose intro has him there from
+   1890 to 1901: "Northmavine, south Thomas Anderson, Hillswick" (Shetland Times, 26 Nov 1892).
+   Evidence: research/bna/zcc-roll-call.md.
 """
 
 import os
@@ -664,6 +669,22 @@ def main():
         print("  candidacy 1789: Peter John Garrick")
     elif name != 'Peter John Garrick':
         raise SystemExit(f"candidacy 1789: unexpected {name}")
+
+    print("=== 29. Northmavine South 1892 and 1895: Thomas Anderson (i) of Hillswick ===")
+    a1 = c.execute("SELECT id FROM people WHERE slug = 'thomas-anderson-i'").fetchone()[0]
+    a3 = c.execute("SELECT id FROM people WHERE slug = 'thomas-anderson-iii'").fetchone()[0]
+    for title in ('County Council Election December 1892', 'County Council Election December 1895'):
+        row = c.execute("""SELECT ca.id, ca.person_id FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                           JOIN constituencies k ON k.id = e.constituency_id
+                           WHERE e.wiki_page_title = ? AND k.name = 'Northmavine South'
+                             AND ca.candidate_name = 'Thomas Anderson'""", (title,)).fetchone()
+        if row is None:
+            raise SystemExit(f"{title}: Northmavine South candidacy not found")
+        if row[1] == a3:
+            c.execute("UPDATE candidacies SET person_id = ? WHERE id = ?", (a1, row[0]))
+            print(f"  candidacy {row[0]}: thomas-anderson-i")
+        elif row[1] != a1:
+            raise SystemExit(f"candidacy {row[0]}: unexpected person {row[1]}")
     db.commit()
     db.close()
 

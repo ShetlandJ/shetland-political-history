@@ -613,6 +613,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 80. Hugh T. Sutherland sat for Delting South from 1967 to 1970: he wasn't nominated anywhere in
    1970, when Delting South went to Rev. W. C. Robb (Shetland Times, 24 Apr 1970, page image).
    Evidence: research/bna/open-questions-images.md.
+81. County Council Election December 1907: the wiki has Thomas J. Sandison winning Unst South and
+   John Peter Sandison Yell North, each moving back in 1910. Neither moved: the list of the new
+   Council has "Unst South J. P. Sandison" and "Yell North Mr T. J. Sandison" (Shetland Times,
+   14 Dec 1907, p8), and in 1910 Mouat was nominated for Yell North "in place of Mr Thomas J.
+   Sandison" (ST 19 Nov 1910, p4). The 1907 nominations table (ST 23 Nov 1907) has them the other
+   way round, probably the wiki's source. The two winners are swapped and both intros corrected;
+   John Peter's also gains Unst South 1902-07. Evidence: research/bna/zcc-roll-call.md.
 """
 
 import os
@@ -2272,6 +2279,35 @@ def main():
         print("  hugh-sutherland intro: Delting South 1967-70")
     elif new not in intro:
         raise SystemExit("hugh-sutherland intro: sentence not found")
+
+    print("=== 81. Dec 1907: J. P. Sandison Unst South, T. J. Sandison Yell North ===")
+    for ward, wrong_slug, right_slug in (('Unst South', 'thomas-sandison', 'john-sandison'),
+                                         ('Yell North', 'john-sandison', 'thomas-sandison')):
+        wrong_pid = one(c, "SELECT id, name FROM people WHERE slug = ?", (wrong_slug,))['id']
+        right = one(c, "SELECT id, name FROM people WHERE slug = ?", (right_slug,))
+        right_name = {'john-sandison': 'John Peter Sandison', 'thomas-sandison': 'Thomas J. Sandison'}[right_slug]
+        cand = one(c, """SELECT ca.id, ca.person_id FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                        JOIN constituencies k ON k.id = e.constituency_id
+                        WHERE e.wiki_page_title = 'County Council Election December 1907' AND k.name = ?
+                        AND ca.elected = 1""", (ward,))
+        if cand['person_id'] == wrong_pid:
+            c.execute("UPDATE candidacies SET person_id = ?, candidate_name = ? WHERE id = ?",
+                      (right['id'], right_name, cand['id']))
+            print(f"  candidacy {cand['id']} ({ward}): {wrong_slug} -> {right_slug}")
+        elif cand['person_id'] != right['id']:
+            raise SystemExit(f"candidacy {cand['id']} ({ward}): unexpected person {cand['person_id']}")
+    for slug, old, new in (
+        ('john-sandison', 'was a County Councillor first for Yell North between 1907 and 1910 then for Unst South between 1910 and 1929.',
+         'was a County Councillor for Unst South between 1902 and 1929.'),
+        ('thomas-sandison', 'Yell North between 1906 and 1907, before finally returning to Unst South, serving from 1907 until 1910.',
+         'Yell North between 1906 and 1910.'),
+    ):
+        intro = one(c, "SELECT intro FROM people WHERE slug = ?", (slug,))['intro']
+        if intro.count(old) == 1:
+            c.execute("UPDATE people SET intro = ? WHERE slug = ?", (intro.replace(old, new), slug))
+            print(f"  {slug} intro corrected")
+        elif new not in intro:
+            raise SystemExit(f"{slug} intro: sentence not found")
 
     db.commit()
     db.close()
