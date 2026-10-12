@@ -1026,7 +1026,7 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #7
     'james-ogilvy': (  # (#74)
         "James Ogilvy was a son of Thomas Ogilvy, merchant in Lerwick, and Andrina Malcolmson, "
         "daughter of the Sheriff Substitute James Malcolmson. His elder brother Thomas, a "
-        "lieutenant in the Royal Navy, died at Moulmein about 1830.\n\n"
+        "lieutenant in the Royal Navy, died at Moulmein in Burma on 26 October 1848.\n\n"
         "In 1823 and 1824 he was the trustee on the sequestrated estate of William Sinclair, "
         "merchant in Lerwick. In May 1821 he had bought at public roup the building that was "
         "his house, shop and warehouses. At about half past two on the morning of 12 May 1824 it "

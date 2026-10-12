@@ -484,5 +484,6 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | our note (answers 2026-10-12, open questions, ledger source) | Balfour Spence absent from every council meeting after 1 Oct 1821 | Present 12 Aug 1822 ("B. Spence", minute book p25) and, as the only Spence on the 1820 council, 2 Sep 1823 ("Councillors Spence", p27) | Fixed: ledger source, answers file and open-questions entry corrected; row stays confirmed=0 |
+| 4 | our biography (from Grant 1893) | James Ogilvy's brother Lt Thomas Ogilvy RN died at Moulmein "about 1830" | Died at Moulmein, Burma, 26 Oct 1848; he had children born at Lerwick in 1836 and 1841 (Bayanne I70823) | Fixed: `fix_newspapers.py` biography (#74) |
 | 3 | wiki | Charles Spence's page: Balfour Spence his "great grandfather" | Great-great-grandfather (James, 2026-10-12), as Balfour's page has it | Fixed: `fix_parse_errors.py` #31 |
 | 2 | wiki | Balfour Spence elected councillor Sept 1823 | Claim first appears when the 1823 page was created (17 May 2016); the minute book records no result, and no newspaper calls him a councillor | Open; still provisional on the site |

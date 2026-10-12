@@ -200,6 +200,9 @@ The same letter, with a clean date: "the morning of the 12th instant".
   `TheCountyFamiliesOfTheShetlandIslands`): son of Thomas Ogilvy, merchant, and Andrina, daughter
   of James Malcolmson, Sheriff Substitute; "James, born 29th November, 1794, and died [at] New
   Orleans, 1848". Brother Thomas, Lieutenant R.N., died at Moulmein about 1830. No wife given.
+  **Corrected 2026-10-12:** Bayanne I70823 has Thomas died at Moulmein, Burma, **26 Oct 1848**
+  (b. 4 Sep 1793; wife Sarah Lee; children born in Liverpool 1828–34 and Lerwick 1836 and 1841), so
+  Grant's "about 1830" is wrong. Biography updated.
   This is the only source found for New Orleans.
 - Bayanne I18310, note from E. S. Reid Tait's notes (Robertson, *Sons and Daughters of
   Shetland*, p144): bought the property at roup 29 May 1821; burnt "23rd May 1824" (wrong: the
