@@ -44,8 +44,8 @@ st-18891026-p2-a014,term,laurence-stove@1886-11-02,,
 st-18861120-p2-a032,term,charles-robertson@1886-11-19,,
 st-18861120-p2-a032,term,john-anderson@1886-11-19,,
 st-18870319-p2-a054,term,arthur-porteous@1887-03-18,,
-st-18881103-p2-a044,term,alexander-mitchell-i@1888-11-08,,
-st-18891019-p2-a051,term,alexander-mitchell-i@1888-11-08,,
+st-18881103-p2-a044,term,alexander-mitchell-i@1888-11-01,,
+st-18891019-p2-a051,term,alexander-mitchell-i@1888-11-01,,
 st-18891102-p3-a097,term,francis-halcrow@1889-11-05,,
 st-18891102-p3-a097,term,george-kay@1889-11-05,,
 st-18891102-p3-a097,term,gilbert-harrison@1889-11-05,,
@@ -2856,7 +2856,7 @@ osj-18370901-p3-a029,person,william-copland:biography,read,Shetland boys in the 
 ne-18691202-p5-a064,person,robert-goudie:biography,read,obituary
 jogj-18691202-p2-a013,person,robert-goudie:biography,read,"""pious parents"""
 jogj-18691202-p3-a059,person,robert-goudie:died_date,read,20th ult.
-eep-18521027-p3-a027,person,archibald-greig:died_date,read,12th inst.
+eep-18521027-p3-a027,person,archibald-greig:died_date,read,"12th inst.; the DB keeps Bayanne's 11 Oct (James, 2026-10-12)"
 eep-18521027-p3-a027,person,archibald-greig:biography,read,"of Sandsound, Procurator Fiscal of Zetland"
 ne-18521028-p3-a041,person,archibald-greig:biography,read,stroke last season; third fiscal in six months
 ic-18440612-p3-a039,person,charles-ogilvy-ii:biography,read,"16 Albany Street, Edinburgh, 5 June"
@@ -2866,16 +2866,16 @@ ic-18450528-p4-a023,person,john-ogilvy:biography,read,"sequestration, May 1845"
 aj-18470414-p7-a034,person,john-ogilvy:biography,read,"creditors meet in Lerwick, 1847"
 gc-18440309-p3-a035,person,gilbert-duncan:died_date,read,19th ultimo
 gc-18440309-p3-a035,person,gilbert-duncan:biography,read,"purser, R.N., and writer"
-eec-18280424-p2-a025,person,gilbert-paterson:died_date,read,8th current
+eec-18280424-p2-a025,person,gilbert-paterson:died_date,read,"8th current; the DB keeps Bayanne's 5 Apr (James, 2026-10-12)"
 eec-18280424-p2-a025,person,gilbert-paterson:biography,read,"active, industrious, enterprising"
-pc-18280501-p2-a036,person,gilbert-paterson:died_date,read,"the 8th ultimo (OCR ""Bih"")"
+pc-18280501-p2-a036,person,gilbert-paterson:died_date,read,"the 8th ultimo (OCR ""Bih""); the DB keeps Bayanne's 5 Apr (James, 2026-10-12)"
 news-18360717-p8-a047,person,james-pottinger-i:biography,read,"purser RN, at Edinburgh"
 nmg-18361001-p14-a051,person,james-pottinger-i:biography,read,quarterly naval obituary
 jogj-18540407-p3-a050,person,william-clark-i:biography,read,"No. 40 Commercial Street, aged 72"
 ic-18470817-p3-a047,person,james-hunter-i:biography,read,James Hunter and Son
 ic-18470817-p3-a047,person,james-hunter-i:died_date,read,2d inst.
 pa-18490614-p4-a055,person,david-nicolson:biography,read,Annsbrae
-jogj-18521029-p3-a045,person,archibald-greig:died_date,read,12th instant
+jogj-18521029-p3-a045,person,archibald-greig:died_date,read,"12th instant; the DB keeps Bayanne's 11 Oct (James, 2026-10-12)"
 ozc-18251231-p5-a014,person,arthur-edmondston:biography,read,
 ozc-18260620-p2-a004,person,arthur-edmondston:biography,read,the 1823 letter and the charges
 ozc-18260620-p7-a013,person,arthur-edmondston:biography,read,£300
@@ -2911,7 +2911,7 @@ eec-18570127-p3-a054,person,charles-duncan:biography,read,knighted by the King o
 scot-18710911-p7-a143,election,20,read,
 cm-18230210-p1-a001,person,james-ogilvy:biography,read,trustee on William Sinclair's sequestrated estate
 cm-18240603-p3-a011,person,james-ogilvy:biography,read,"fire of May 1824: house, shop and warehouses, stock and books lost"
-ic-18240610-p4-a014,person,james-ogilvy:biography,read,"fire on 12 May 1824 (the Mercury's OCR of the day is unreadable)"
+ic-18240610-p4-a014,person,james-ogilvy:biography,read,fire on 12 May 1824 (the Mercury's OCR of the day is unreadable)
 ne-18640526-p4-a071,term,andrew-grierson-ii@1862-09-04,read,Bailie Grierson in the chair 17 and 21 May 1864
 apj-18640514-p3-a078,term,joseph-leask@1862-09-04,inferred,the magistrates censured in May 1864 were the 1862 Bailies Leask and Grierson
 st-19450525-p3-a059,person,william-henry:intro,read,resigned May 1945; asked to stay until the December election
@@ -2961,9 +2961,9 @@ st-18841108-p3-a043,election,33,read,result and polling day (Tue 4 Nov 1884)
 st-18841108-p3-a043,term,john-robertson-i@1884-11-04,read,"elected as ""Bailie Robertson"", 71"
 st-18841108-p3-a043,term,john-robertson-ii@1884-11-04,read,"elected as ""John Robertson, jr."", 74"
 st-18841108-p3-a043,term,john-harrison-i@1884-11-04,read,"elected, 71"
-st-18911024-p2-a038,term,arthur-laing@1888-11-08,read,retiring in 1891 (end of his 1888 seat)
-st-18911024-p2-a038,term,james-goudie@1888-11-08,read,retiring in 1891 (end of his 1888 seat)
-st-18911024-p2-a038,term,john-anderson@1888-11-08,read,retiring in 1891 and not re-standing
+st-18911024-p2-a038,term,arthur-laing@1888-11-01,read,retiring in 1891 (end of his 1888 seat)
+st-18911024-p2-a038,term,james-goudie@1888-11-01,read,retiring in 1891 (end of his 1888 seat)
+st-18911024-p2-a038,term,john-anderson@1888-11-01,read,retiring in 1891 and not re-standing
 st-18911024-p2-a038,term,john-leisk@1889-11-05,inferred,retiring in 1891: his 1889 seat was Mitchell's two-year one
 st-18891109-p2-a052,term,john-leisk@1889-11-05,read,returned at the Nov 1889 general
 st-19071214-p8-a125,election,360,read,winner: J. P. Sandison for Unst South

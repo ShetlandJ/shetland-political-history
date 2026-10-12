@@ -53,7 +53,7 @@ relatives and nothing is missing. Both were checked against `people` and `candid
 
 - **James Greig, 1773–1855** (I45553, son of Catherine Innes, husband of Ann Deans). Every LTC
   candidacy for "James Greig", April 1818 to September 1832, is linked to `james-greig`
-  (1785–1852). Settled: he was a relative, not a councillor.
+  (1785–1852). Settled: he was a relative, not a councillor. The minute book agrees (checked 2026-10-12): the councillor is always the writer, "James Greig Esquire Writer" (p35, 1826), and each burgess roll has one James Greig, "Mr Greig Wr." (p28 1823, p34 1826, p64 1832), so every candidacy is `james-greig` (1785–1852, procurator fiscal).
 - **Lewis Garriock, 1825–1902** (I18411, Lewis Francis Umphray Garriock, died in Dundee). He has
   no candidacy anywhere.
 

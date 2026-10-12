@@ -83,8 +83,8 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
      Fordyce, whose death was announced at the 20 Oct 1921 meeting.
    - Dunrossness South, April 1937: "took place on 20 April" (a Tuesday), after W. L. McDougall's
      death. The ST 24 Apr 1937 report is garbled in the OCR.
-   - Burra, July 1959: "took place on 21 July" (a Tuesday). Alexander Bennet for Robert Strachan;
-     three searches of the ST for Jul-Aug 1959 found no report (data/searches.csv).
+   - Burra, July 1959: "took place on 21 July" (a Tuesday). Superseded: James chose 30 Jun 1959,
+     the paper's probable date (fix_newspapers.py #82).
    Evidence: research/bna/zcc-1920-1939.md, research/bna/zcc-1940-1959.md.
 16. ZCC by-elections 1940-1942 filled by the Council, as in #12 and #14: the wiki gives "18 council
    votes" and "11 council votes (petition of 55)", and the parser kept the first number as votes.
@@ -173,6 +173,9 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    the Hillswick merchant, who won the ward in 1890 and 1898 and whose intro has him there from
    1890 to 1901: "Northmavine, south Thomas Anderson, Hillswick" (Shetland Times, 26 Nov 1892).
    Evidence: research/bna/zcc-roll-call.md.
+30. Two details the parser dropped from the wiki's opening line, applied on James's answer
+   (2026-10-12): William Angus "d. 1848, Edinburgh" (the death place was lost), and James
+   Pottinger (i) "b. abt 1776" (the DB had "bef 1790").
 """
 
 import os
@@ -259,7 +262,6 @@ WIKI_BY_ELECTION_DAYS = [
     ('Lerwick Central County Council By-Election May 1921', '1921-05-01', '1921-05-19'),
     ('Gulberwick County Council By-Election December 1921', '1921-12-01', '1921-12-15'),
     ('Dunrossness South County Council By-Election April 1937', '1937-04-01', '1937-04-20'),
-    ('Burra County Council By-Election July 1959', '1959-07-01', '1959-07-21'),
 ]
 BY_ELECTION_1902 = ('1902 Orkney and Shetland by-election', ('1902-01-01', '1902-11-18'), 5153, [
     # (candidate_name, person slug, party, votes, elected)
@@ -669,6 +671,16 @@ def main():
         print("  candidacy 1789: Peter John Garrick")
     elif name != 'Peter John Garrick':
         raise SystemExit(f"candidacy 1789: unexpected {name}")
+
+    print("=== 30. William Angus's death place; James Pottinger (i)'s birth ===")
+    for slug, field, wrong, right in (('william-angus', 'death_place', None, 'Edinburgh'),
+                                      ('james-pottinger-i', 'born_date', 'bef 1790', 'abt 1776')):
+        cur = c.execute(f"SELECT {field} FROM people WHERE slug = ?", (slug,)).fetchone()[0]
+        if cur == wrong or (wrong is None and cur == ''):
+            c.execute(f"UPDATE people SET {field} = ? WHERE slug = ?", (right, slug))
+            print(f"  {slug} {field}: {cur!r} -> {right}")
+        elif cur != right:
+            raise SystemExit(f"people.{slug} {field} is {cur!r}, expected {wrong!r}")
 
     print("=== 29. Northmavine South 1892 and 1895: Thomas Anderson (i) of Hillswick ===")
     a1 = c.execute("SELECT id FROM people WHERE slug = 'thomas-anderson-i'").fetchone()[0]

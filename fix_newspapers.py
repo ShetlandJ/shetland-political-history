@@ -552,9 +552,10 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Groat Journal 7 Apr 1854), James Hunter (i) (Inverness Courier 17 Aug 1847) and David
    Nicolson (Perthshire Advertiser 14 Jun 1849). Three facts corrected from the notices: James
    Yorston died at Leith, not Lerwick ("At Leith, James Yorston, Esq., Paymaster and Purser,
-   R.N.", on the 10th, our date); Gilbert Paterson died on 8 Apr 1828, not the 5th ("on the 8th
-   current", Courant; "the 8th ultimo", Courier); Archibald Greig died on 12 Oct 1852, not the 11th
-   (Evening Post, Morning Chronicle and Londonderry Standard). Evidence:
+   R.N.", on the 10th, our date). The notices give Gilbert Paterson's death as 8 Apr 1828 ("on the
+   8th current", Courant) and Archibald Greig's as 12 Oct 1852 (Evening Post), against the 5th and
+   11th on the wiki and Bayanne (I18013, I18009); James chose Bayanne (2026-10-12), so those two
+   are left as they were. Evidence:
    research/bna/biographies-ltc-1818-1850.md.
 
 72. Greig v Edmondston, and Charles Ogilvy (ii)'s mail meeting, from the pre-1872 sweep of the
@@ -620,6 +621,18 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Sandison" (ST 19 Nov 1910, p4). The 1907 nominations table (ST 23 Nov 1907) has them the other
    way round, probably the wiki's source. The two winners are swapped and both intros corrected;
    John Peter's also gains Unst South 1902-07. Evidence: research/bna/zcc-roll-call.md.
+82. Open questions answered by James on 2026-10-12:
+   - Burra Isle by-election 1959: dated Tue 30 Jun 1959, the "probable date" given when the
+     Council ordered it (ST 22 May 1959); Bennet was the only nominee at the close on 9 Jun (ST 12
+     Jun 1959). The wiki had 21 Jul. Evidence: research/bna/zcc-leftovers.md.
+   - Lerwick Town Council general, November 1888: Thu 1 Nov 1888, the paper's "fell upon Thursday"
+     (four nominations for four vacancies, ST 3 Nov 1888), not the 8th. The ledger moves with it.
+     Evidence: research/bna/ltc-general-dates-1885-1891.md.
+   - Arthur Laurenson, November 1879: he "would not allow himself to be re-nominated" (ST 1 Nov
+     1879), so he was never a candidate. His 1879 candidacy is removed (with its not_seated row).
+     Evidence: research/bna/ltc-1874-1883.md.
+   - Henry Mouat was Convener of the County, not Provost of Lerwick (James): James Mouat (iii)'s
+     intro is corrected.
 """
 
 import os
@@ -1108,8 +1121,6 @@ OGILVY_COUSIN = [  # (slug, wrong, right) (#73)
     ('john-ogilvy', 'his uncle [person:james-ogilvy:James]', 'his cousin [person:james-ogilvy:James]'),
 ]
 YORSTON_DEATH_PLACE = ('james-yorston', 'Lerwick', 'Leith')  # (#71)
-PATERSON_DEATH = ('gilbert-paterson', '1828-04-05', '1828-04-08')  # (#71)
-GREIG_DEATH = ('archibald-greig', '1852-10-11', '1852-10-12')  # (#71)
 PATON_INTRO = (  # (old, new) for james-paton-i (#70)
     "James John Paton was a Lerwick Town Councillor between 1960 and 1975 and a Shetland Islands "
     "Councillor for Lerwick Twageos between 1978 and 1982. He was the grandfather of former "
@@ -2191,9 +2202,8 @@ def main():
     else:
         raise SystemExit(f"people.{slug} birth_place is {row['birth_place']}")
 
-    print("=== 71. Yorston's death place; Paterson's and Greig's death dates ===")
-    for field, (slug, wrong, right) in (('death_place', YORSTON_DEATH_PLACE),
-                                        ('died_date', PATERSON_DEATH), ('died_date', GREIG_DEATH)):
+    print("=== 71. Yorston's death place ===")
+    for field, (slug, wrong, right) in (('death_place', YORSTON_DEATH_PLACE),):
         row = one(c, f"SELECT id, {field} FROM people WHERE slug = ?", (slug,))
         if row[field] == right:
             print(f"  {slug} {field}: already {right}")
@@ -2308,6 +2318,22 @@ def main():
             print(f"  {slug} intro corrected")
         elif new not in intro:
             raise SystemExit(f"{slug} intro: sentence not found")
+
+    print("=== 82. Answers of 2026-10-12: Burra 1959, LTC Nov 1888, Laurenson 1879, Henry Mouat ===")
+    set_date(c, 'Burra County Council By-Election July 1959', '1959-07-01', '1959-06-30')
+    set_date(c, 'Lerwick Town Council Election November 1888', '1888-11-08', '1888-11-01')
+    c.execute("""DELETE FROM candidacies WHERE election_id = (SELECT id FROM elections
+                 WHERE wiki_page_title = 'Lerwick Town Council Election November 1879')
+                 AND candidate_name = 'Arthur Laurenson' AND elected = 0""")
+    if c.rowcount:
+        print(f"  Laurenson 1879 candidacy removed")
+    intro = one(c, "SELECT intro FROM people WHERE slug = 'james-mouat-iii'", ())['intro']
+    old, new = 'became the Provost of Lerwick.', 'became Convener of the County.'
+    if old in intro:
+        c.execute("UPDATE people SET intro = ? WHERE slug = 'james-mouat-iii'", (intro.replace(old, new),))
+        print("  james-mouat-iii intro: Henry Convener of the County")
+    elif new not in intro:
+        raise SystemExit("james-mouat-iii intro: sentence not found")
 
     db.commit()
     db.close()

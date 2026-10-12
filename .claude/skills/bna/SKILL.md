@@ -69,7 +69,7 @@ gap, with Town and County reports on p4 or p8. If a week returns 0 results, try
 `newspaper=shetland%20news` (viewer code `0003210` instead of `0000666`).
 
 **Publication day.** For a single issue, set startdate = enddate = the publication day:
-**Monday to 15 Mar 1875**, Saturday from 20 Mar 1875 to at least Feb 1943, **Friday by Oct 1944**.
+**Monday to 15 Mar 1875**, Saturday from 20 Mar 1875 to 15 May 1943, **Friday from 21 May 1943**.
 
 Keywords are ANDed, and a long phrase often returns nothing ("town council election tuesday"
 found 0 in a week that had the answer). Use one or two words and filter the snippets in JS
