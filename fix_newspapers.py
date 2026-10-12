@@ -633,6 +633,10 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
      Evidence: research/bna/ltc-1874-1883.md.
    - Henry Mouat was Convener of the County, not Provost of Lerwick (James): James Mouat (iii)'s
      intro is corrected.
+83. Gulberwick County Council by-election, October 1936: Rev. George Smith was co-opted on a
+   petition, "in succession to Mr Thomas Johnston", at the statutory meeting "on Tuesday", 20 Oct
+   1936 (Shetland News, 22 Oct 1936 p5, arts. 079 and 088). The DB had the wiki's month only (1 Oct).
+   Evidence: research/bna/answers-2026-10-12.md.
 """
 
 import os
@@ -2334,6 +2338,9 @@ def main():
         print("  james-mouat-iii intro: Henry Convener of the County")
     elif new not in intro:
         raise SystemExit("james-mouat-iii intro: sentence not found")
+
+    print("=== 83. Gulberwick 1936: Rev. George Smith co-opted Tue 20 Oct ===")
+    set_date(c, 'Gulberwick County Council By-Election October 1936', '1936-10-01', '1936-10-20')
 
     db.commit()
     db.close()

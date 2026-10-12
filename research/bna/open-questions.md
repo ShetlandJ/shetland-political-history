@@ -18,41 +18,19 @@ Format: date raised, the question, the options, the evidence file, the row it af
   `build.py` like a death would show the vacancies on /council-terms, but needs a build change.
   Options: (a) add resignation dates as a data file; (b) keep ward terms ending at the by-election. Evidence: `zcc-roll-call.md`.
 
-- **2026-10-01: Charles Brown's birth date.** The DB (from the wiki) has 19 Dec 1888, which makes
-  him 78 when he retired in 1967. The 1967 nominations report calls him "now over eighty years of
-  age" (ST 21 Apr 1967 p5 art. 076). His death notice gives no age. Options: (a) keep 1888, the paper guessed; (b) check Bayanne I153461. Evidence: `biographies-1950s-1980s.md`. Row:
-  `people.charles-brown` born_date.
-  **Your answer (b), 2026-10-12: waiting.** Bayanne held me at its bot check ("Please wait while your request is being verified"), which I can't get past. Paste I153461's birth line here, or I'll try again next run.
+- **2026-09-29: Was Balfour Spence elected in Sept 1823?** New evidence (2026-10-12): "Balfour Spence, merchant in Lerwick" was **sequestrated (bankrupt) in August 1821**, creditors meeting in Edinburgh on 26 Sep 1821. The minute book has him at meetings to 1 Oct 1821 (p25), then never again: not in Aug 1822 or Sep 1823, and not once from the 1823 election to 1826; he is only on the burgess rolls (p28, p34). The 1823 "Councillor Spence" is always William (Bailie from 1826). No printed list of the 1823 council was found in the BNA. The wiki's entry is probably William read as Balfour. Options: (a) remove his 1823 term and candidacy; (b) keep him; (c) set the row confirmed=0 and leave it open. Row `balfour-spence` 1823-09-04, election 3. Evidence: `answers-2026-10-12.md`.
 
-- **2026-09-29: Was Balfour Spence elected in Sept 1823?** Checked the transcribed minute book
-  (`~/projects/town_council_minutes`, 2026-10-12). He sat 1820–23 (p22–25). From the first meeting
-  after the 4 Sep 1823 election (29 Oct, p29) the only Spence present is "Councillor W. Spence"
-  (William, Bailie from 1826), and in three years of sederunts (p29–34) Balfour appears only on the
-  burgess rolls of voters (p28, 1823; p34, 1826). The book never records the 1823 result. The
-  ledger's 1823 council is eleven with him, ten without. Options: (a) remove his 1823 term and
-  candidacy, the wiki's mistake for William; (b) keep him, elected but never attending; (c) set
-  his row confirmed=0 and leave it open. Row `balfour-spence` 1823-09-04, election 3.
-
-- **2026-09-29: Day of the Unst South by-election, 1936.** Two nominations; withdrawals closed Tue
-  28 Jan 1936; Manson withdrew and Clark "is therefore returned" (ST 25 Jan, 1 Feb 1936). No poll
-  day printed. The DB has 1 Feb (the paper's date, a Saturday). Options: (a) 28 Jan, close of withdrawals; (b) leave 1 Feb; (c) look for the Order fixing the day.
-  Same question as Jan 1911. Election 632. Evidence: `zcc-1920-1939.md`.
-  **Your answer (c), 2026-10-12: queued.** The BNA started refusing article text partway through (403 on every OCR request), so the Order's day isn't read yet. ST 11 Jan 1936 p4 a66 is the lead: "New elections have been ordered for Unst South".
-
-- **2026-09-29: Gulberwick, October 1936: when was Rev. George Smith appointed?** Johnston resigned
-  by letter (ST 26 Sep 1936). Two searches found no appointment (`data/searches.csv`). The DB has
-  1 Oct (the wiki says only "October"). Options: (a) leave 1 Oct; (b) search the Oct and Nov Council reports. Election 633. Evidence: `zcc-1920-1939.md`.
-  **Your answer (b), 2026-10-12: queued** for when the BNA lets article text through again.
-
-- **2026-09-28: Aithsting, Dec 1892: a contest the DB shows as unopposed.** Grierson and McCullie
-  were both nominated; McCullie "had practically a walk over" (ST 26 Nov, 10 Dec 1892). No
-  figures were printed, and the wiki page says "Unopposed". Options: (a) add Grierson as a candidate with no votes; (b) leave it.
-  Election 184. Evidence: `zcc-1890-1899.md`.
-  **Your answer, 2026-10-12:** needs more newspaper evidence; if there was no poll, leave the election as unopposed. **Queued** for when the BNA lets article text through again.
+- **2026-09-29: Day of the Unst South by-election, 1936.** The Order (ST 11 Jan 1936 p4 a66): nominations by 21 Jan, withdrawals by 28 Jan, "in the event of polls being necessary" voting on Tue 11 Feb 1936. Manson withdrew and Clark was returned unopposed (ST 1 Feb 1936). The 1960s by-elections were dated to the fixed day even when unopposed. Options: (a) 11 Feb, the day fixed for the election; (b) 28 Jan, the close of withdrawals; (c) leave 1 Feb. Election 632. Evidence: `answers-2026-10-12.md`.
 
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
+
+- **2026-10-01: Charles Brown's birth date.** Answered 2026-10-12: (b) checked Bayanne I153461: b. 19 Dec 1888, North Dale, Fetlar, as in the DB. No change.
+
+- **2026-09-29: Gulberwick, October 1936: when was Rev. George Smith appointed?** Answered 2026-10-12: (b) co-opted on a petition at the statutory meeting of Tue 20 Oct 1936 (Shetland News 22 Oct 1936 p5 a088). Election 633 now 20 Oct (`fix_newspapers.py` #83). Evidence: `answers-2026-10-12.md`.
+
+- **2026-09-28: Aithsting, Dec 1892: a contest the DB shows as unopposed.** Answered 2026-10-12: no contest. Grierson "was not aware of any intention" to nominate him, and the seat reverted to McCullie (ST 3 Dec 1892 p2 a038). The DB's unopposed return stands. Evidence: `answers-2026-10-12.md`.
 
 - **2026-10-03: two councillors' death days differ from Bayanne.** Answered 2026-10-12: (b) follow Bayanne: 11 Oct 1852 and 5 Apr 1828; `fix_newspapers.py` #71 no longer changes them, ledger ends moved.
 
