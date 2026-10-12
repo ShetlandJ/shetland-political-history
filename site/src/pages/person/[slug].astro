@@ -47,6 +47,9 @@ function formatDate(d: string | null): string {
   }
   if (/^\d{4}$/.test(d)) return d; // year only
   const parts = d.split('-');
+  if (parts.length === 2) { // month only, e.g. "1922-09"
+    return new Date(`${d}-01`).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', timeZone: 'UTC' });
+  }
   if (parts.length === 3) {
     const date = new Date(d);
     return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
