@@ -24,7 +24,7 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
 
-- **2026-09-29: Was Balfour Spence elected in Sept 1823?** Answered 2026-10-12: (c) his 1823 row set to confirmed=0, with the evidence in its source (bankrupt Aug 1821, absent from every meeting after Oct 1821, ten other members seen 1823-24; not a councillor in Sons and Daughters of Shetland or the Lerwick book). He still shows on the site, marked provisional. Next: the Edinburgh Almanac for 1824-26.
+- **2026-09-29: Was Balfour Spence elected in Sept 1823?** Answered 2026-10-12: (c) his 1823 row set to confirmed=0, with the evidence in its source (bankrupt Aug 1821, sat to the end of the 1820 council but absent from every meeting after the 1823 election (corrected 2026-10-12: he attended 12 Aug 1822 and 2 Sep 1823), ten other members seen 1823-24; not a councillor in Sons and Daughters of Shetland or the Lerwick book). He still shows on the site, marked provisional. Almanacs checked (no Lerwick list). Custody traced 2026-10-12: the claim starts with the wiki page created 17 May 2016 and no earlier source names him (`balfour-spence-custody.md`).
 
 - **2026-10-01: Charles Brown's birth date.** Answered 2026-10-12: (b) checked Bayanne I153461: b. 19 Dec 1888, North Dale, Fetlar, as in the DB. No change.
 

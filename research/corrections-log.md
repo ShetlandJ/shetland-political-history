@@ -478,3 +478,10 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | hand-made chart of the first councillors | Barbara Fea (b. abt 1743, wife of Joseph Leask of Lee, mother of Capt. Thomas Leask) a **daughter of Thomas Fea** (1767–1841, Collector of Customs) | Bayanne I4241: Thomas Fea 1767 had six children by Jane Green; no Barbara. Bayanne I37427: Barbara was the daughter of an **older Thomas Fea** (I363803, b. bef 1716) and Margaret Bolt. Thomas 1767's father Magnus Fea (I146400) has no parents on Bayanne, so no tie between the two Feas is shown | Fixed: link removed from `data/family_links.csv`. The chart's Leask–Fea connection no longer exists |
+
+## 2026-10-12: Balfour Spence attendance (`research/bna/balfour-spence-custody.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | our note (answers 2026-10-12, open questions, ledger source) | Balfour Spence absent from every council meeting after 1 Oct 1821 | Present 12 Aug 1822 ("B. Spence", minute book p25) and, as the only Spence on the 1820 council, 2 Sep 1823 ("Councillors Spence", p27) | Fixed: ledger source, answers file and open-questions entry corrected; row stays confirmed=0 |
+| 2 | wiki | Balfour Spence elected councillor Sept 1823 | Claim first appears when the 1823 page was created (17 May 2016); the minute book records no result, and no newspaper calls him a councillor | Open; still provisional on the site |
