@@ -18,11 +18,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   `build.py` like a death would show the vacancies on /council-terms, but needs a build change.
   Options: (a) add resignation dates as a data file; (b) keep ward terms ending at the by-election. Evidence: `zcc-roll-call.md`.
 
-- **2026-10-03: Thomas Fea and Barbara Fea.** The chart draws Thomas Fea (I4241, b. 14 Dec 1767)
-  as Barbara's father. Bayanne has Barbara (I37427, b. about 1743) as the daughter of an older
-  Thomas Fea (I363803, born before 1716). Options: (a) link Barbara to the older Thomas (not on the chart) and place the younger one; (b) drop the link. The row in
-  `data/family_links.csv` is left unchecked, and /data-review flags it.
-
 - **2026-10-03: two councillors' death days differ from Bayanne.** `archibald-greig`: the DB has
   12 Oct 1852, Bayanne 11 Oct (I18009). `gilbert-paterson`: the DB has 8 Apr 1828, Bayanne 5 Apr
   (I18013). Options: (a) keep the wiki's dates; (b) follow Bayanne; (c) check the papers first. Rows: `people` died_date.
@@ -202,6 +197,8 @@ Format: date raised, the question, the options, the evidence file, the row it af
 (Move entries here with the answer and the edit made, or delete them once applied.)
 
 - **2026-10-03: James Greig 1773–1855 and Lewis Garriock 1825–1902, pink boxes on the chart.** Pink on James's chart marks relatives and links, not councillors (James, 2026-10-12). Both stay relatives in `data/relatives.csv`; no edit.
+
+- **2026-10-03: Thomas Fea and Barbara Fea.** Barbara (I37427) is not a daughter of Thomas Fea b. 1767 (I4241, six children by Jane Green, none Barbara); she was the daughter of an older Thomas Fea (I363803) and Margaret Bolt. The link was removed on 2026-10-11 (commit d3e8d0d); James confirmed 2026-10-12. The older Thomas isn't added.
 
 - **2026-09-29: Dunrossness North, November 1971: day and votes.** Day confirmed: "fixed for Tuesday, 9th November" (ST 29 Oct 1971 p1, page image). The result isn't in the 12 or 19 Nov issues, so Leask 55, Fisher 15 stays the wiki's. (2026-10-03, `open-questions-images.md`)
 
