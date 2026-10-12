@@ -18,13 +18,13 @@ Format: date raised, the question, the options, the evidence file, the row it af
   `build.py` like a death would show the vacancies on /council-terms, but needs a build change.
   Options: (a) add resignation dates as a data file; (b) keep ward terms ending at the by-election. Evidence: `zcc-roll-call.md`.
 
-- **2026-09-29: Was Balfour Spence elected in Sept 1823?** New evidence (2026-10-12): "Balfour Spence, merchant in Lerwick" was **sequestrated (bankrupt) in August 1821**, creditors meeting in Edinburgh on 26 Sep 1821. The minute book has him at meetings to 1 Oct 1821 (p25), then never again: not in Aug 1822 or Sep 1823, and not once from the 1823 election to 1826; he is only on the burgess rolls (p28, p34). The 1823 "Councillor Spence" is always William (Bailie from 1826). No printed list of the 1823 council was found in the BNA. The wiki's entry is probably William read as Balfour. Options: (a) remove his 1823 term and candidacy; (b) keep him; (c) set the row confirmed=0 and leave it open. Row `balfour-spence` 1823-09-04, election 3. Evidence: `answers-2026-10-12.md`.
-
 - **2026-09-29: Day of the Unst South by-election, 1936.** The Order (ST 11 Jan 1936 p4 a66): nominations by 21 Jan, withdrawals by 28 Jan, "in the event of polls being necessary" voting on Tue 11 Feb 1936. Manson withdrew and Clark was returned unopposed (ST 1 Feb 1936). The 1960s by-elections were dated to the fixed day even when unopposed. Options: (a) 11 Feb, the day fixed for the election; (b) 28 Jan, the close of withdrawals; (c) leave 1 Feb. Election 632. Evidence: `answers-2026-10-12.md`.
 
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
+
+- **2026-09-29: Was Balfour Spence elected in Sept 1823?** Answered 2026-10-12: (c) his 1823 row set to confirmed=0, with the evidence in its source (bankrupt Aug 1821, absent from every meeting after Oct 1821, ten other members seen 1823-24; not a councillor in Sons and Daughters of Shetland or the Lerwick book). He still shows on the site, marked provisional. Next: the Edinburgh Almanac for 1824-26.
 
 - **2026-10-01: Charles Brown's birth date.** Answered 2026-10-12: (b) checked Bayanne I153461: b. 19 Dec 1888, North Dale, Fetlar, as in the DB. No change.
 
