@@ -14,12 +14,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   first identification of the minute book's Spence, not a separate record. Options: (a) remove his
   1823 row; (b) keep it at confirmed=0; (c) keep it and look further. Row: `balfour-spence`
   1823-09-04. Evidence: `balfour-spence-custody.md`.
-- **2026-10-12: Which Ogilvy was the 1823–26 councillor?** The Bailie signs as Charles Ogilvy (p30,
-  p31, p33; Senior Bailie in the 30 Aug 1826 notice, p34). The councillor "Ogilvy" (p31, 22 Oct 1824)
-  has no first name in the book. Shetlopedia 2009–12 had Charles as councillor and James as Senior
-  Bailie; the 2016 wiki swapped them. The ledger has James. Options: (a) James, as the ledger has it;
-  (b) Charles Ogilvy junior; (c) unknown, set confirmed=0. Row: `james-ogilvy` 1823-09-04. Evidence:
-  `balfour-spence-custody.md`.
 - **2026-10-12: ZCC resignation dates.** A ward term ends only at the by-election that fills the
   seat, so a member who resigned is shown sitting until his successor came in. Two found in the
   roll call: Andrew W. Peterson (Yell North) resigned "with effect from 19th June" 1962 (ST 22 Jun
@@ -34,6 +28,7 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Answered
 
+- **2026-10-12: Which Ogilvy was the 1823–26 councillor?** Answered 2026-10-12: (a) James Ogilvy, councillor since 1820 (p22) and present as "Jas Ogilvy" on 2 Sep 1823 (p27). Charles Ogilvy (i) was the Senior Bailie. Ledger source updated.
 (Move entries here with the answer and the edit made, or delete them once applied.)
 
 - **2026-09-29: Was Balfour Spence elected in Sept 1823?** Answered 2026-10-12: (c) his 1823 row set to confirmed=0, with the evidence in its source (bankrupt Aug 1821, sat to the end of the 1820 council but absent from every meeting after the 1823 election (corrected 2026-10-12: he attended 12 Aug 1822 and 2 Sep 1823), ten other members seen 1823-24; not a councillor in Sons and Daughters of Shetland or the Lerwick book). He still shows on the site, marked provisional. Almanacs checked (no Lerwick list). Custody traced 2026-10-12: the claim starts with the wiki page created 17 May 2016 and no earlier source names him (`balfour-spence-custody.md`).
