@@ -495,3 +495,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 4 | our biography (from Grant 1893) | James Ogilvy's brother Lt Thomas Ogilvy RN died at Moulmein "about 1830" | Died at Moulmein, Burma, 26 Oct 1848; he had children born at Lerwick in 1836 and 1841 (Bayanne I70823) | Fixed: `fix_newspapers.py` biography (#74) |
 | 3 | wiki | Charles Spence's page: Balfour Spence his "great grandfather" | Great-great-grandfather (James, 2026-10-12), as Balfour's page has it | Fixed: `fix_parse_errors.py` #31 |
 | 2 | wiki | Balfour Spence elected councillor Sept 1823 | Claim first appears when the 1823 page was created (17 May 2016); the minute book records no result, and no newspaper calls him a councillor | Open; still provisional on the site |
+
+## 2026-10-12: SIC party labels 1974–1999 (`research/bna/party-labels-sic-1974-1999.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki / DB | SIC generals polled 4 May 1982, 4 May 1986 (a Sunday), 8 May 1990, 8 May 1994, 1 May 1999 (a Saturday) | Thursday 6 May 1982, Thursday 8 May 1986, 3 May 1990, 5 May 1994, 6 May 1999 (notices of poll and previews) | Fixed: `fix_newspapers.py` #84 |
+| 2 | wiki / DB | Lerwick Twageos by-election 21 Sep 1988 | 22 Sep 1988 (notice of poll) | Fixed: #84 |
+| 3 | wiki / DB | Leonard Groat stood in both Lerwick North and Lerwick North Central in 1999 (50 votes in North Central) | North Central's third candidate was James (Jimmy) Wiseman, 50 votes; Groat stood only in Lerwick North | Fixed: #85 |
+| 4 | wiki / DB | "Brenda Wilcox" (Northmavine 1999), "Olive Watson" (Walls 1994) | Brenda Wilcock; Mary Olive Walterson | Fixed: #85 |
+| 5 | wiki / DB | No labels for 1974, 1978 or 1980 apart from three | Labour in Lerwick from 1974 (Morrison, Smith, Butler, Paton), a 1978 Labour Group (with Christie and Gair), a 1978 "Shetland Group" (Cluness, Playfair, Manson); Groat Labour in 1982 | Fixed: 18 labels added |
+| 6 | wiki / DB | Groat "Independent Labour" 1990; Scott "Socialist/Anti-Poll Tax" 1990; Black and Whitehead Lib Dem 1999; Graham Shetland Movement 1982 | "Labour Party"; "Anti-Poll Tax"; no description; not on his nomination | Open (open-questions) |

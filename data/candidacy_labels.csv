@@ -259,3 +259,113 @@ election_id,person_slug,candidate_name,label,citation_id,basis,override,note
 120,,Alexander H. Robertson,Moderate,st-19520502-p5-a077,read,1,"override Independent (James's answer, 2026-09-30, q14): their joint address, ""nominated as Moderate candidates"""
 139,john-smith-ii,,Labour,st-19660415-p5-a079,read,1,"override Independent (James's answer, 2026-09-30, q15): ""Labour men, as is the fifth candidate to enter the fray, Mr John R. Smith"""
 714,james-anderson-iii,,Socialist,st-19490429-p7-a100,read,1,"override Labour (James's answer, 2026-09-30, q18): ""a Socialist-sponsored candidate"""
+949,alexander-morrison,,Labour,st-19740503-p12-a305,read,,"advert: ""Lerwick needs LABOUR representation to join Alex Morrison and William Smith""; one of the four with ""an official Labour tag"" (ST 10 May 1974 p1)"
+952,william-smith-iv,,Labour,st-19740503-p12-a305,read,,"advert: ""to join Alex Morrison and William Smith""; one of the four Labour (ST 10 May 1974 p1)"
+947,john-butler,,Labour,st-19740503-p12-a305,read,,"advert: ""Vote Butler for Breiwick"""
+951,james-paton-i,,Labour,st-19740503-p12-a305,read,,"advert: ""Paton for Twageos"""
+947,ronald-cumming,,Independent,st-19740503-p12-a307,read,,"""I stand as an Independent as I feel that party politics have no relevance"""
+948,eric-gray,,Independent,st-19740503-p12-a303,inferred,,"Lerwick Central address ""always stood as an Independent Candidate"", sixteen years on the Town and County Councils; the name is lost in the OCR, and Wishart was a newcomer"
+973,john-butler,,Shetland Labour Party,st-19780421-p12-a124,read,,notice of poll description; also in the Labour Group advert (ST 28 Apr p17 a374)
+974,william-smith-iv,,Labour,st-19780421-p12-a123,read,,notice of poll description; also in the Labour Group advert
+978,donald-sutherland,,Independent/Progressive,st-19780421-p12-a123,read,,notice of poll description
+977,alexander-morrison,,Shetland Labour Party,st-19780421-p13-a385,read,,"unopposed; nomination description ""Member, Shetland Labour Party"""
+976,,William C. Christie,Labour,st-19780428-p17-a374,read,,"advert ""Vote for the LABOUR GROUP"": Christie, Harbour Ward (page image)"
+979,james-paton-i,,Labour,st-19780428-p17-a374,read,,"advert ""Vote for the LABOUR GROUP"": Paton, Twageos Ward (page image)"
+978,,James Gair,Labour,st-19780428-p17-a371,read,,"""a member of a strong Labour Group ... VOTE GAIR, VOTE LABOUR""; in the Labour Group advert"
+987,,Alexander Arthur,Independent,st-19780428-p17-a376,read,,"""Candidate, ALEX D. ARTHUR Party: INDEPENDENT."""
+979,alexander-cluness,,Shetland Group,st-19780505-p1-a005,read,,"""one of three members of the Shetland Group to stand"", the all-party group for more autonomy"
+985,william-playfair,,Shetland Group,st-19780505-p1-a005,read,,"""The second Shetland Group member to succeed"""
+983,thomas-manson-ii,,Shetland Group,st-19780505-p1-a005,read,,"""The third group member, Dr T. M. Y. Manson"""
+990,robert-tulloch,,Shetland Ratepayers' Association,st-19801212-p8-a213,read,1,"advert: ""the candidate nominated [by] Shetland Ratepayer's Association ... VOTE TULLOCH"". Same association as the DB's ""Ratepayers Association""; the source's full name"
+990,,John Groat,Independent,st-19801212-p9-a079,read,,"letter of support: ""standing as an independent candidate"""
+1000,william-smith-iv,,Labour,st-19820416-p1-a005,read,,"""Only sitting members Mr W. A. Smith and Mr Chris Dowle have declared themselves as Labour candidates"""
+1007,christopher-dowle,,Labour,st-19820416-p1-a005,read,,"declared Labour; also ""VOTE LABOUR, Vote DOWLE and GROAT"" (ST 30 Apr p7 a048)"
+1003,,Robert Rae Tulloch,Shetland Ratepayers' Association,st-19820416-p1-a005,read,,"""declared himself as standing on behalf of Shetland Ratepayers' Association"""
+1003,leonard-groat,,Labour,st-19820430-p7-a048,read,,"advert (page image): ""VOTE LABOUR, Vote DOWLE and GROAT"", Groat for Lerwick North Ward. Not on his nomination paper (ST 16 Apr p1)"
+1016,,Paul Thorn,Labour,st-19831118-p9-a114,read,,"his statement: ""fight on their behalf as a Labour councillor"""
+1030,john-graham,,Shetland Movement,st-19860418-p3-a264,read,,nomination description
+1027,thomas-manson-ii,,Shetland Movement,st-19860418-p3-a264,read,,nomination description
+1031,alexander-cluness,,Shetland Movement,st-19860418-p3-a264,read,,nomination description
+1037,,Tom Ellis,Shetland Movement,st-19860418-p3-a264,read,,nomination description
+1034,gordon-walterson,,Shetland Movement,st-19860418-p3-a264,read,,nomination description
+1019,william-cumming,,Shetland Movement,st-19860418-p3-a264,read,,nomination description
+1035,malcolm-bray,,Shetland Movement,st-19860418-p3-a264,read,,nomination description
+1028,edward-thomason,,Shetland Movement,st-19860418-p3-a264,read,,"description ""Member, Shetland Movement""; the paper (p1 a001) says he described himself ""only as a member of the movement, not a movement candidate"""
+1029,leonard-groat,,Labour,st-19860418-p3-a264,read,,"nomination description ""Labour Party"""
+1026,william-smith-iv,,Labour,st-19860418-p3-a264,read,,"nomination description ""Labour Party"""
+1031,james-paton-ii,,Labour,st-19860418-p3-a264,read,,"nomination description ""Labour Party"""
+1033,christopher-dowle,,Labour,st-19860418-p3-a264,read,,"nomination description ""Labour Party"""
+1020,,Fred Amphlett,Labour,st-19860418-p3-a264,read,,"nomination description ""Labour Party"""
+1029,,Michael Thomson,Independent,st-19860418-p3-a264,read,,nomination description
+1041,,Robert Johnson,Independent,st-19860418-p3-a264,read,,nomination description
+1041,,Daniel Spence,Independent,st-19860418-p3-a264,read,,nomination description
+1033,,William J. Beattie,Independent,st-19860418-p3-a264,read,,nomination description
+1020,andrea-manson,,Independent,st-19860418-p3-a264,read,,nomination description
+1017,,Harold Leask,Independent,st-19860418-p3-a264,read,,nomination description
+1034,,Chris Young,Independent,st-19860418-p3-a264,read,,nomination description
+1035,peter-watts,,Independent,st-19860418-p3-a264,read,,nomination description
+1025,,Dorothy Stables,Independent,st-19860418-p3-a264,read,,"nomination description ""Independent, under 40, progressive"""
+1018,,Roy Whitehead,Independent Liberal,st-19860418-p3-a264,read,,nomination description
+1042,james-smith-iii,,Independent,st-19870522-p1-a016,read,,"""all standing as Independents"""
+1042,,Eddie Barclay,Independent,st-19870522-p1-a016,read,,"""all standing as Independents"""
+1042,,Graham Jamieson,Independent,st-19870522-p1-a016,read,,"""all standing as Independents"""
+1241,michael-johnston,,Independent,st-19880916-p3-a030,read,,"""Michael Johnston, Independent candidate"""
+1241,,Ian Selbie,Independent,st-19880916-p3-a030,read,,"""Ian Robert Selbie, Independent candidate"""
+1241,robert-adair,,Labour,st-19880916-p3-a031,read,,"""Bob Adair, the Labour Party candidate"""
+1056,john-graham,,Shetland Movement,st-19900413-p3-a026,read,,nominations report; notice of poll description too
+1052,william-smith-iv,,Labour,st-19900413-p3-a026,read,,"nominations report; notice of poll description ""Labour"""
+1057,michael-johnston,,Independent,st-19900413-p3-a026,read,,nominations report; notice of poll description
+1063,elizabeth-nicolson,,Independent,st-19900413-p3-a026,read,,nominations report; notice of poll description
+1062,william-anderson-ii,,Shetland Movement,st-19900413-p3-a026,read,,nominations report
+1049,magnus-flaws-ii,,Shetland Movement,st-19900413-p3-a026,read,,nominations report; notice of poll description
+1054,edward-thomason,,Shetland Movement,st-19900413-p3-a026,read,,nominations report; uncontested list description
+1067,robert-gray,,Shetland Movement,st-19900413-p3-a026,read,,"nominations report (""Stuart Gray""); uncontested list description"
+1065,alex-arthur,,Independent,st-19900413-p3-a026,read,,nominations report; uncontested list description
+1064,henry-stewart,,Independent,st-19900413-p3-a026,read,,nominations report; uncontested list description
+1061,james-smith-iii,,Shetland Movement,st-19900413-p3-a026,read,,nominations report; uncontested list description
+1066,andrew-williamson,,Shetland Movement,st-19900413-p3-a026,read,,"""standing for the Shetland Movement""; notice of poll ""Member, Shetland Movement"""
+1066,,Derick Walker Tulloch,Scottish National Party,st-19900413-p3-a026,read,,"""standing as SNP candidate""; notice of poll ""Scottish National"""
+1071,jonathan-wills,,Independent,st-19930917-p11-a128,read,,"""JONATHAN WILLS (Independent candidate)"""
+1071,,J. W. Johnson,Independent,st-19930917-p11-a128,read,,"""JIM JOHNSON (Independent candidate)"""
+1097,peter-guy,,Shetland Movement,st-19940415-p1-a007,read,,one of the seven Shetland Movement candidates (an independent member 1990-94)
+1093,joan-easten,,Shetland Movement,st-19940415-p1-a007,read,,one of the seven Shetland Movement candidates (an independent member 1990-94)
+1087,robert-johnson-ii,,Shetland Movement,st-19940415-p1-a007,read,,one of the seven Shetland Movement candidates; notice of poll description too
+1081,william-stove,,Shetland Movement,st-19940415-p1-a007,read,,one of the seven Shetland Movement candidates; notice of poll description too
+1092,william-anderson-ii,,Shetland Movement,st-19940415-p1-a007,read,,one of the seven Shetland Movement candidates; notice of poll description too
+1091,james-smith-iii,,Shetland Movement,st-19940415-p1-a007,read,,one of the seven Shetland Movement candidates
+1077,magnus-flaws-ii,,Shetland Movement,st-19940415-p1-a007,read,,one of the seven Shetland Movement candidates; notice of poll description too
+1082,tavish-scott,,Liberal Democrats,st-19940415-p1-a007,read,,"""representing the Liberal Democrats""; notice of poll ""Liberal Democrat"""
+1084,peter-malcolmson,,Liberal Democrats,st-19940422-p24-a453,read,,"notice of poll description ""Liberal Democrat"""
+1080,william-smith-iv,,Labour,st-19940415-p1-a007,read,,"""Labour candidate Bill Smith""; notice of poll ""Labour"""
+1092,ian-scott,,"For a living, working Scalloway",st-19940422-p23-a445,read,,"notice of poll description; the report: ""representing a living, working Scalloway"""
+1090,james-gear,,Independent,st-19940422-p24-a447,read,,notice of poll description
+1102,mary-colligan,,Independent,st-19990430-p18-a175,read,,candidate profile
+1117,james-ritch,,Scottish Liberal Democrats,st-19990430-p18-a176,read,,"candidate profile ""Scottish Liberal Democrat"""
+1102,joan-easten,,Independent,st-19990430-p18-a178,read,,candidate profile
+1102,,Andrew J. Fraser,Independent,st-19990430-p18-a179,read,,candidate profile
+1117,brian-gregson,,Independent,st-19990430-p18-a174,read,,candidate profile
+1114,william-manson,,Independent,st-19990430-p19-a182,read,,candidate profile
+1114,,Brenda Wilcock,Independent,st-19990430-p19-a183,read,,candidate profile
+1116,,John M. Burgess,Independent,st-19990430-p19-a185,read,,candidate profile
+1116,iris-hawkins,,Independent,st-19990430-p19-a186,read,,candidate profile
+1116,ian-scott,,"For a living, vibrant, prosperous Scalloway",st-19990430-p20-a187,read,,candidate profile
+1118,james-gear,,Independent,st-19990430-p20-a189,read,,candidate profile
+1118,frank-robertson,,Scottish Liberal Democrats,st-19990430-p20-a190,read,,candidate profile
+1108,robert-anderson-iii,,Scottish Liberal Democrats,st-19990430-p20-a192,read,,candidate profile
+1108,leonard-groat,,Independent Labour,st-19990430-p20-a193,read,,candidate profile; notice of poll description too
+1101,thomas-stove,,Independent,st-19990430-p21-a196,read,,candidate profile
+1109,alexander-cluness,,Scottish Liberal Democrats,st-19990430-p21-a198,read,,candidate profile
+1109,greta-mcelvogue,,Independent,st-19990430-p21-a199,read,,candidate profile
+1109,,James Wiseman,Independent,st-19990430-p21-a199,read,,candidate profile (the DB had Leonard Groat here)
+1101,,Charles H. Simpson,Independent,st-19990430-p21-a201,read,,candidate profile
+1101,james-smith-iii,,Independent,st-19990430-p21-a202,read,,"candidate profile (""Jeemie Smith"")"
+1107,caroline-miller,,Scottish Liberal Democrats,st-19990430-p22-a205,read,,candidate profile
+1115,,Cecil M. J. Hughson,Scottish Liberal Democrats,st-19990430-p23-a208,read,,candidate profile
+1115,,Rosemary Inkster,Independent,st-19990430-p23-a209,read,,candidate profile
+1115,william-tait,,Independent Liberal Democrat,st-19990430-p23-a210,read,,candidate profile
+1115,peter-watts,,Independent,st-19990430-p23-a211,read,,candidate profile
+1105,cecil-eunson-i,,Independent,st-19990430-p24-a215,read,,candidate profile
+1105,lewis-smith,,Independent,st-19990430-p24-a216,read,,candidate profile
+1100,,John Allen Halcrow,Scottish Liberal Democrats,st-19990430-p24-a219,read,,candidate profile
+1104,gordon-mitchell,,Independent,st-19990430-p24-a220,read,,candidate profile
+1120,john-nicolson,,Scottish Liberal Democrats,st-19990423-p35-a380,read,,"unopposed; nomination description ""Scottish Liberal Democrat"""

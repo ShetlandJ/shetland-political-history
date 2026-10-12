@@ -637,6 +637,27 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    petition, "in succession to Mr Thomas Johnston", at the statutory meeting "on Tuesday", 20 Oct
    1936 (Shetland News, 22 Oct 1936 p5, arts. 079 and 088). The DB had the wiki's month only (1 Oct).
    Evidence: research/bna/answers-2026-10-12.md.
+84. Shetland Islands Council polling days. Five generals and one by-election had the wrong day:
+   - May 1982: Thursday 6 May, not Tuesday 4th ("elections on 6th May", ST 16 Apr 1982 p1 a005;
+     "polls closed last night", ST Fri 7 May 1982 p1 a011);
+   - May 1986: Thursday 8 May, not Sunday 4th ("an election on Thursday, 8th May", ST 18 Apr 1986
+     p1 a001);
+   - May 1990: 3 May, not 8th (notice of poll, ST 20 Apr 1990 p16 a464);
+   - May 1994: 5 May, not 8th (notice of poll, ST 22 Apr 1994 p23 a438);
+   - May 1999: 6 May, not Saturday 1st, the day of the first Scottish Parliament election (notice
+     of poll, ST 23 Apr 1999 p34 a277);
+   - Lerwick Twageos by-election, September 1988: Thursday 22 Sep, not the 21st (notice of poll,
+     ST 9 Sep 1988 p27 a339).
+   Evidence: research/bna/party-labels-sic-1974-1999.md.
+85. Shetland Islands Council candidates the wiki misnamed:
+   - May 1999, Lerwick North Central: the third candidate was James (Jimmy) Wiseman, Independent,
+     50 votes, not Leonard Groat, who stood only in Lerwick North (ST 16 Apr 1999 p11 a114; profile
+     ST 30 Apr 1999 p21 a199; result ST 14 May 1999 p5 a056: "Jimmy Wiseman polled 50 votes");
+   - May 1999, Northmavine: Brenda Wilcock, not Wilcox (profile ST 30 Apr 1999 p19 a183);
+   - May 1994, Walls and Sandness: Mary O. Walterson, not Olive Watson ("WALTERSON Mary Olive",
+     Schoolhouse, West Burrafirth, notice of poll ST 22 Apr 1994 p24 a447; "Mary Walterson",
+     ST 15 Apr 1994 p1 a007).
+   Evidence: research/bna/party-labels-sic-1974-1999.md.
 """
 
 import os
@@ -2341,6 +2362,38 @@ def main():
 
     print("=== 83. Gulberwick 1936: Rev. George Smith co-opted Tue 20 Oct ===")
     set_date(c, 'Gulberwick County Council By-Election October 1936', '1936-10-01', '1936-10-20')
+
+    print("=== 84. SIC polling days 1982-1999 ===")
+    for title, wrong, right in (
+        ('Shetland Islands Council Election May 1982', '1982-05-04', '1982-05-06'),
+        ('Shetland Islands Council Election May 1986', '1986-05-04', '1986-05-08'),
+        ('Shetland Islands Council Election May 1990', '1990-05-08', '1990-05-03'),
+        ('Shetland Islands Council Election May 1994', '1994-05-08', '1994-05-05'),
+        ('Shetland Islands Council Election May 1999', '1999-05-01', '1999-05-06'),
+    ):
+        set_date_all(c, title, wrong, right)
+    set_date(c, 'Lerwick Twageos By-Election September 1988', '1988-09-21', '1988-09-22')
+
+    print("=== 85. SIC candidates misnamed: Wiseman 1999, Wilcock 1999, Walterson 1994 ===")
+    groat = one(c, "SELECT id FROM people WHERE slug = 'leonard-groat'", ())['id']
+    for title, ward, old, old_pid, new in (
+        ('Shetland Islands Council Election May 1999', 'Lerwick North Central', 'Leonard Groat', groat, 'James Wiseman'),
+        ('Shetland Islands Council Election May 1999', 'Northmavine', 'Brenda Wilcox', None, 'Brenda Wilcock'),
+        ('Shetland Islands Council Election May 1994', 'Sandness And Walls', 'Olive Watson', None, 'Mary O. Walterson'),
+    ):
+        c.execute("""SELECT ca.id, ca.candidate_name FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                     JOIN constituencies k ON k.id = e.constituency_id
+                     WHERE e.wiki_page_title = ? AND k.name = ? AND ca.candidate_name IN (?, ?)""",
+                  (title, ward, old, new))
+        rows = c.fetchall()
+        if len(rows) != 1:
+            raise SystemExit(f"{ward} {title}: expected 1 of {old}/{new}, got {len(rows)}")
+        if rows[0]['candidate_name'] == old:
+            c.execute("UPDATE candidacies SET candidate_name = ?, person_id = NULL WHERE id = ? AND person_id IS ?",
+                      (new, rows[0]['id'], old_pid))
+            if c.rowcount != 1:
+                raise SystemExit(f"candidacy {rows[0]['id']}: unexpected person link")
+            print(f"  candidacy {rows[0]['id']} ({ward}): {old} -> {new}")
 
     db.commit()
     db.close()
