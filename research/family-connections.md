@@ -48,11 +48,12 @@ The data is `data/relatives.csv` and `data/family_links.csv`; the page is /conne
 
 ## Pink boxes with no DB match
 
-Both were checked against `people` and `candidacies`.
+Pink on the chart marks relatives and links, not councillors (James, 2026-10-12), so these two are
+relatives and nothing is missing. Both were checked against `people` and `candidacies`.
 
 - **James Greig, 1773–1855** (I45553, son of Catherine Innes, husband of Ann Deans). Every LTC
   candidacy for "James Greig", April 1818 to September 1832, is linked to `james-greig`
-  (1785–1852). Some of them may be the older man (open question).
+  (1785–1852). Settled: he was a relative, not a councillor.
 - **Lewis Garriock, 1825–1902** (I18411, Lewis Francis Umphray Garriock, died in Dundee). He has
   no candidacy anywhere.
 

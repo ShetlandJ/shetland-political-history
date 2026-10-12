@@ -18,16 +18,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
   `build.py` like a death would show the vacancies on /council-terms, but needs a build change.
   Options: (a) add resignation dates as a data file; (b) keep ward terms ending at the by-election. Evidence: `zcc-roll-call.md`.
 
-- **2026-10-03: James Greig 1773–1855 on the councillor chart.** James's chart marks him as a
-  councillor (pink box), and Bayanne has him (I45553: son of Catherine Innes, husband of Ann
-  Deans). Every LTC candidacy for "James Greig" from April 1818 to September 1832 is linked to
-  `james-greig` (1785–1852). Options: (a) some of those terms were the older man (needs the minute book or the papers); (b) the chart's pink box is wrong. For now he is a
-  relative in `data/relatives.csv`. Evidence: `../family-connections.md`.
-
-- **2026-10-03: Lewis Garriock 1825–1902, a pink box with no candidacy.** The chart marks Lewis
-  Francis Umphray Garriock (Bayanne I18411, died in Dundee) as a councillor. He has no candidacy
-  or person page. Options: (a) he sat on a body we don't cover; (b) there's a missing election; (c) the pink box is wrong. For now he is a relative. Evidence: `../family-connections.md`.
-
 - **2026-10-03: Thomas Fea and Barbara Fea.** The chart draws Thomas Fea (I4241, b. 14 Dec 1767)
   as Barbara's father. Bayanne has Barbara (I37427, b. about 1743) as the daughter of an older
   Thomas Fea (I363803, born before 1716). Options: (a) link Barbara to the older Thomas (not on the chart) and place the younger one; (b) drop the link. The row in
@@ -210,6 +200,8 @@ Format: date raised, the question, the options, the evidence file, the row it af
 ## Answered
 
 (Move entries here with the answer and the edit made, or delete them once applied.)
+
+- **2026-10-03: James Greig 1773–1855 and Lewis Garriock 1825–1902, pink boxes on the chart.** Pink on James's chart marks relatives and links, not councillors (James, 2026-10-12). Both stay relatives in `data/relatives.csv`; no edit.
 
 - **2026-09-29: Dunrossness North, November 1971: day and votes.** Day confirmed: "fixed for Tuesday, 9th November" (ST 29 Oct 1971 p1, page image). The result isn't in the 12 or 19 Nov issues, so Leask 55, Fisher 15 stays the wiki's. (2026-10-03, `open-questions-images.md`)
 
