@@ -75,6 +75,13 @@ Other searches with nothing: "lerwick councillors" 1823-08 to 1824-06 (all title
   the Shetland Times began, and nothing about him would be expected to name Balfour as a
   councillor. Not searched.
 
+## Before the wiki (2026-10-12)
+
+The early election pages were all created on 17 May 2016, 30–70 seconds apart, so they were pasted
+from text that already existed. James: salvaged from **Shetlopedia** when that site went down.
+Next link in the chain: the Wayback Machine captures of shetlopedia.com (the 1823 election page and
+Balfour Spence's page, and who wrote them). The Internet Archive was offline on 2026-10-12.
+
 ## Not done
 
 - No Lerwick council centenary or history piece naming the 1823 council turned up. A printed
