@@ -130,3 +130,8 @@ Format: date raised, the question, the options, the evidence file, the row it af
   and leave the date alone. Affects `people.james-ogilvy` died_date. Evidence:
   `biographies-ltc-1818-1850.md` (James Ogilvy).
   **Answered 2026-10-01 (James):** probably a different man. Keep 1848 from Grant; no change.
+
+- **2026-10-13: William Tulloch born 2 or 21 September 1858?** The DB (from the wiki) has
+  1858-09-02; his obituary says "Born on 21st September, 1858" (ST 9 Jul 1943 p4 a094). Options:
+  keep 2 Sept; change to 21 Sept on the obituary; or check the birth record (Lerwick, 1858) first.
+  Affects `people.william-tulloch` born_date. Evidence: `tulloch-german-vice-consul.md`.

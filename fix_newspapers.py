@@ -667,6 +667,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
      Democrats". The notice of poll gives neither a description (ST 23 Apr 1999 p35 a380), and the
      preview gives the Lib Dem label to Caroline Miller only (ST 16 Apr 1999 p11 a114).
    Evidence: research/bna/party-labels-sic-1974-1999.md.
+87. William Tulloch's biography gains his German vice-consulship and Harbour Trust career. First
+   commissioned on Christmas Day 1905 (ST 3 Dec 1938 p4 a089; his obituary says 1904), to 4 Aug
+   1914; re-appointed (ST 6 Dec 1924 p4 a057); the German Eagle, Grade III, notified by the German
+   Ambassador (ST 3 Dec 1938); the July 1936 funeral of a German fisherman (ST 11 Jul 1936 p4 a096);
+   the Trust offices, School Board and Widows' Homes from the obituary (ST 9 Jul 1943 p4 a094).
+   Evidence: research/bna/tulloch-german-vice-consul.md.
 """
 
 import os
@@ -1131,7 +1137,23 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #7
         "19 May 1897, in his 77th year."
     ),
 }
-BIO_ADDITIONS = [  # (slug, text the addition follows, addition) (#72)
+BIO_ADDITIONS = [  # (slug, text the addition follows, addition) (#72, #87)
+    ('william-tulloch', "In 1887, he became the sole partner to the business.",
+     "\n\nFor many years he was the Lerwick agent for the Dutch, German and Belgian fishing vessels "
+     "using the port. He was German Vice-Consul for Shetland from 1905, under a commission signed "
+     "by Kaiser Wilhelm at Potsdam on Christmas Day (his obituary gives 1904), until diplomatic "
+     "relations were broken off on 4 August 1914. He was re-appointed in December 1924. Through "
+     "the 1930s the commanders of visiting German fishery cruisers paid official calls on him, and "
+     "in July 1936 he attended the funeral at Lerwick of Hermann Sikkes, a German fisherman, whose "
+     "coffin was covered with the Nazi flag. In December 1938 the German Ambassador in London "
+     "notified him that Hitler had conferred on him the Cross of the Distinguished Service Order "
+     "of the German Eagle, Grade III, for his services as Vice-Consul. The Shetland Times reported "
+     "it as the first time the decoration had been given to a Vice-Consul."
+     "\n\nHe served the Lerwick Harbour Trust from 1903 until his death: as a member to 1915, "
+     "clerk and treasurer from 1915 to 1927, a member again to 1936, deputy chairman from 1936 to "
+     "1938, and chairman from 1938. He was also a member of the School Board from 1897 to 1906, "
+     "and factor and clerk to the Anderson Widows' Homes for 38 years until 1938. He died at his "
+     "home, Leog, in Lerwick on 2 July 1943, survived by his sister Kate."),
     ('james-greig', "James was a baillie of Lerwick.",
      "\n\nIn 1826 he won £300 damages for libel from [person:arthur-edmondston:Dr Arthur "
      "Edmondston], a fellow member of the first Town Council. In a letter printed in 1823 and "
@@ -2247,7 +2269,7 @@ def main():
         else:
             raise SystemExit(f"people.{slug} {field} is {row[field]}, expected {wrong}")
 
-    print("=== 72. Greig v Edmondston; Ogilvy's mail meeting ===")
+    print("=== 72, 87. Greig v Edmondston; Ogilvy's mail meeting; Tulloch's vice-consulship ===")
     for slug, before, addition in BIO_ADDITIONS:
         row = one(c, "SELECT id, biography FROM people WHERE slug = ?", (slug,))
         bio = row['biography'] or ''
