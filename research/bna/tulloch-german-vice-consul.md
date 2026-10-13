@@ -16,7 +16,7 @@ Findings:
 - **Not found**: anything on the consulate at the outbreak of war in Sept 1939. Searched
   `german consulate` (ST 1939–40) and `tulloch consul` (SN Jun 1938–1943).
 - **Open question:** the obituary gives his birth as 21 Sept 1858; the DB has 2 Sept 1858
-  (from the wiki). Not changed.
+  (from the wiki). James: trust Bayanne, so 2 Sept stays.
 
 ### Articles
 - **Shetland Times, Sat 6 Dec 1924, p4 (art. 057)**: Local and District News: appointed German

@@ -135,3 +135,4 @@ Format: date raised, the question, the options, the evidence file, the row it af
   1858-09-02; his obituary says "Born on 21st September, 1858" (ST 9 Jul 1943 p4 a094). Options:
   keep 2 Sept; change to 21 Sept on the obituary; or check the birth record (Lerwick, 1858) first.
   Affects `people.william-tulloch` born_date. Evidence: `tulloch-german-vice-consul.md`.
+  **Answered 2026-10-13 (James):** trust Bayanne. Keep 1858-09-02; the obituary's 21st is taken as wrong.
