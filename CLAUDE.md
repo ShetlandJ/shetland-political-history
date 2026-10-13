@@ -27,7 +27,8 @@ new-site/
 │   ├── searches.csv        # Searches that found nothing
 │   ├── relatives.csv       # Non-councillors who connect councillors by family (Bayanne IDs)
 │   ├── family_links.csv    # Parent/spouse/sibling links between councillors and relatives, checked on Bayanne
-│   └── people_sex.csv      # Councillors' sex from Bayanne (m/f), for "son of"/"daughter of"; required for every linked councillor
+│   ├── people_sex.csv      # Councillors' sex from Bayanne (m/f), for "son of"/"daughter of"; required for every linked councillor
+│   └── wiki_redirects.csv  # The old wiki's redirects (from, to), frozen; site/wiki-redirects.mjs turns old wiki URLs into _redirects rules at site build
 ├── fix_minute_book.py  # Correction script: LTC minute book (run by build.py)
 ├── fix_newspapers.py   # Correction script: newspaper evidence (run by build.py)
 ├── fix_sic_by_elections.py  # Correction script: who the modern SIC by-elections replaced (run by build.py)
