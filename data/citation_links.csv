@@ -3078,12 +3078,13 @@ st-19820416-p1-a005,election,991,read,election on 6 May; declared labels
 st-19860418-p1-a001,election,1017,read,polled Thursday 8 May 1986; seven Shetland Movement candidates
 st-19880909-p27-a339,election,1241,read,polled 22 Sep 1988
 st-19900420-p16-a464,election,1043,read,polled 3 May 1990
-st-19900420-p17-a205,election,1055,read,"Groat described ""Labour Party"" (DB Independent Labour; open question)"
-st-19900420-p17-a475,election,1062,read,"Ian Scott described ""Anti-Poll Tax"" (DB Socialist/Anti-Poll Tax; open question)"
+st-19900420-p17-a205,election,1055,read,"Groat described ""Labour Party"" (was Independent Labour; James 2026-10-13: trust the paper)"
+st-19900420-p17-a475,election,1062,read,"Ian Scott described ""Anti-Poll Tax"" (was Socialist/Anti-Poll Tax; James 2026-10-13: trust the paper)"
 st-19940422-p23-a438,election,1072,read,polled 5 May 1994
 st-19940422-p24-a447,election,1090,read,party label (Gear); Walls: Mary O. Walterson (DB had Olive Watson)
 st-19990416-p11-a114,election,1109,read,"Lerwick North Central: Cluness, McElvogue, James Wiseman"
 st-19990423-p34-a277,election,1099,read,polled 6 May 1999
-st-19990423-p35-a380,election,1107,read,Black and Whitehead with no description (DB Scottish Liberal Democrats; open question)
+st-19990423-p35-a380,election,1107,read,Black and Whitehead with no description: Scottish Liberal Democrats label cleared (fix_newspapers.py #86)
 st-19990514-p5-a056,election,1109,read,"result: Cluness 276, McElvogue 97, Wiseman 50"
 st-19990430-p19-a183,election,1114,read,party label; Brenda Wilcock (DB had Wilcox)
+st-19820416-p1-a005,election,1004,read,"no candidate stated Shetland Movement on his nomination papers; Graham's label cleared (fix_newspapers.py #86)"

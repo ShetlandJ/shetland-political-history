@@ -67,7 +67,7 @@ paper: about 30 candidates gave no description (listed under each year).
 - ST 23 Apr 1982 p12 a229, notice of poll: no party descriptions.
 - ST 30 Apr 1982 p7 a048 (page image), advert: "VOTE LABOUR — Vote DOWLE and GROAT" ("Don't vote
   for yet another Shetland Movement sympathiser"). **Groat, Lerwick North: Labour (new).**
-- Not settled: Graham's DB label "Shetland Movement" (open question); Delting South Hunter,
+- Graham's DB label "Shetland Movement": cleared, James 2026-10-13 "trust the paper" (#86). Delting South Hunter,
   Nesting Hunter, Yell North Johnson "Independent" and Scalloway Anderson "None" are the wiki's.
   Robert Rae Tulloch's 1982 candidacy is unlinked, though the 1980 one is linked to
   `robert-tulloch`.
@@ -116,10 +116,10 @@ paper: about 30 candidates gave no description (listed under each year).
   fragments a465–a485 (p16–18) agree: Playfair SM, Crossan "Liberal/Democrat", Tulloch "Scottish
   National", Williamson "Member — Shetland Movement".
 - ST 20 Apr 1990 p17 a205, uncontested list: Groat, 10 Voder View, **"Labour Party"**. The DB
-  (wiki) has "Independent Labour" for 1990; he was "Independent Labour" in 1994 and 1999. Open
-  question.
-- ST 20 Apr 1990 p17 a475: "SCOTT Ian Anti-Poll Tax". The DB has "Socialist/Anti-Poll Tax". Open
-  question.
+  (wiki) has "Independent Labour" for 1990; he was "Independent Labour" in 1994 and 1999.
+  **Labour** (override; James 2026-10-13: trust the paper).
+- ST 20 Apr 1990 p17 a475: "SCOTT Ian Anti-Poll Tax". The DB had "Socialist/Anti-Poll Tax".
+  **Anti-Poll Tax** (override; James 2026-10-13: trust the paper).
 - Crossan: "Liberal Democrat" / "Liberal/Democrat" against the DB's "Scottish Liberal Democrats":
   the same party, left as it is.
 - No description: Selbie, L. S. Smith, Henderson, C. B. Eunson, Adair (DB Labour), Easten, Cumming
@@ -176,4 +176,4 @@ paper: about 30 candidates gave no description (listed under each year).
   Wiseman polled 50 votes." The DB had **Leonard Groat** as the third candidate with 50, so Groat
   stood twice. Candidacy 2095 is now James Wiseman, unlinked (#85).
 - Black and Whitehead: the DB (wiki) has both as Scottish Liberal Democrats; the paper and the
-  notice give them no label. Open question.
+  notice give them no label. Cleared, James 2026-10-13: trust the paper (#86).

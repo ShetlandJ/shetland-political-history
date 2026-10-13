@@ -658,6 +658,15 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
      Schoolhouse, West Burrafirth, notice of poll ST 22 Apr 1994 p24 a447; "Mary Walterson",
      ST 15 Apr 1994 p1 a007).
    Evidence: research/bna/party-labels-sic-1974-1999.md.
+86. Shetland Islands Council labels the paper doesn't give (James's answers, 2026-10-13: trust the
+   paper). The wiki's label is cleared:
+   - May 1982, Lerwick Sound: John Graham, not "Shetland Movement". "No candidate has stated on his
+     nomination papers that he is standing as a member of the Shetland Movement" (ST 16 Apr 1982
+     p1 a005), though Graham was a leading member;
+   - May 1999, Lerwick Harbour and Bressay: Bertie Black and Roy Whitehead, not "Scottish Liberal
+     Democrats". The notice of poll gives neither a description (ST 23 Apr 1999 p35 a380), and the
+     preview gives the Lib Dem label to Caroline Miller only (ST 16 Apr 1999 p11 a114).
+   Evidence: research/bna/party-labels-sic-1974-1999.md.
 """
 
 import os
@@ -2394,6 +2403,25 @@ def main():
             if c.rowcount != 1:
                 raise SystemExit(f"candidacy {rows[0]['id']}: unexpected person link")
             print(f"  candidacy {rows[0]['id']} ({ward}): {old} -> {new}")
+
+    print("=== 86. SIC labels the paper doesn't give: Graham 1982, Black and Whitehead 1999 ===")
+    for title, ward, name, old in (
+        ('Shetland Islands Council Election May 1982', 'Lerwick Sound', 'John Graham', 'Shetland Movement'),
+        ('Shetland Islands Council Election May 1999', 'Lerwick Harbour And Bressay', 'Robert Black', 'Scottish Liberal Democrats'),
+        ('Shetland Islands Council Election May 1999', 'Lerwick Harbour And Bressay', 'Roy C. Whitehead', 'Scottish Liberal Democrats'),
+    ):
+        c.execute("""SELECT ca.id, ca.party FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                     JOIN constituencies k ON k.id = e.constituency_id
+                     WHERE e.wiki_page_title = ? AND k.name = ? AND ca.candidate_name = ?""",
+                  (title, ward, name))
+        rows = c.fetchall()
+        if len(rows) != 1:
+            raise SystemExit(f"{ward} {title}: expected 1 {name}, got {len(rows)}")
+        if rows[0]['party'] == old:
+            c.execute("UPDATE candidacies SET party = NULL WHERE id = ?", (rows[0]['id'],))
+            print(f"  candidacy {rows[0]['id']} ({name}): label {old} cleared")
+        elif rows[0]['party'] is not None:
+            raise SystemExit(f"candidacy {rows[0]['id']} ({name}): unexpected label {rows[0]['party']}")
 
     db.commit()
     db.close()

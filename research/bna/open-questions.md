@@ -24,31 +24,11 @@ Format: date raised, the question, the options, the evidence file, the row it af
   `build.py` like a death would show the vacancies on /council-terms, but needs a build change.
   Options: (a) add resignation dates as a data file; (b) keep ward terms ending at the by-election. Evidence: `zcc-roll-call.md`.
 
-- **2026-10-12: Leonard Groat's label, SIC May 1990.** The DB (wiki) has "Independent Labour",
-  his label in 1994 and 1999. The uncontested nominations list gives his description as "Labour
-  Party" (ST 20 Apr 1990 p17 a205), and the nominations report calls him "Leonard Groat (Labour)"
-  (ST 13 Apr 1990 p3 a026). Options: (a) Labour, from the nomination; (b) keep Independent Labour.
-  Election 1055. Evidence: `party-labels-sic-1974-1999.md`.
-- **2026-10-12: Ian Scott's label, Scalloway 1990.** The DB (wiki) has "Socialist/Anti-Poll Tax";
-  the notice of poll gives "Anti-Poll Tax" (ST 20 Apr 1990 p17 a475), as does the nominations
-  report. Options: (a) Anti-Poll Tax, from the notice; (b) keep Socialist/Anti-Poll Tax. Election
-  1062. Evidence: `party-labels-sic-1974-1999.md`.
-- **2026-10-12: Bertie Black and Roy Whitehead, Lerwick Harbour and Bressay 1999.** The DB (wiki)
-  has both as Scottish Liberal Democrats. The notice of poll gives neither a description (ST 23 Apr
-  1999 p35 a380), and the preview lists only Caroline Miller as a Liberal Democrat (ST 16 Apr 1999
-  p11 a114), so they are probably two of the "three candidates" with no tag. Options: (a) clear
-  both labels; (b) keep Scottish Liberal Democrats. Election 1107. Evidence:
-  `party-labels-sic-1974-1999.md`.
-- **2026-10-12: John Graham's label, Lerwick Sound 1982.** The DB (wiki) has "Shetland
-  Movement". The paper: "no candidate has stated on his nomination papers that he is standing as a
-  member of the Shetland Movement", though Graham was "a leading member" (ST 16 Apr 1982 p1 a005).
-  Options: (a) clear the label; (b) keep Shetland Movement. Election 1004. Evidence:
-  `party-labels-sic-1974-1999.md`.
-
 - **2026-09-29: Day of the Unst South by-election, 1936.** The Order (ST 11 Jan 1936 p4 a66): nominations by 21 Jan, withdrawals by 28 Jan, "in the event of polls being necessary" voting on Tue 11 Feb 1936. Manson withdrew and Clark was returned unopposed (ST 1 Feb 1936). The 1960s by-elections were dated to the fixed day even when unopposed. Options: (a) 11 Feb, the day fixed for the election; (b) 28 Jan, the close of withdrawals; (c) leave 1 Feb. Election 632. Evidence: `answers-2026-10-12.md`.
 
 ## Answered
 
+- **2026-10-12: SIC labels where the paper and the wiki differ.** Answered 2026-10-13: trust the paper. Groat 1990 Labour and Ian Scott 1990 Anti-Poll Tax (`candidacy_labels.csv` overrides); John Graham 1982 and Bertie Black and Roy Whitehead 1999 have no label (`fix_newspapers.py` #86). Evidence: `party-labels-sic-1974-1999.md`.
 - **2026-10-12: Which Ogilvy was the 1823–26 councillor?** Answered 2026-10-12: (a) James Ogilvy, councillor since 1820 (p22) and present as "Jas Ogilvy" on 2 Sep 1823 (p27). Charles Ogilvy (i) was the Senior Bailie. Ledger source updated.
 (Move entries here with the answer and the edit made, or delete them once applied.)
 
