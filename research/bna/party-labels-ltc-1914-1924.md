@@ -37,7 +37,14 @@ Manson 2 in 1916) or unanimous appointments. No one stood under a label.
   Town Council".
 - ST 6 Nov 1920 p4 a095: "The three Labour candidates" addressed that meeting; "The other three
   candidates — Messrs Ganson, Ratter and Duffin — issued a circular" (no name).
-- **Label: Labour** for Sinclair, Murray and Bruce (read).
+- SN 4 Nov 1920 p4 a028, post-poll leader (checked by James on the page image, 19 Oct 2026): "The
+  result of the Town Council election has been the return of the three candidates put forward by
+  the Moderate Party, viz., Mr Alex. Ratter, Mr R. D. Ganson and Mr G. H. Duffin, and one of the
+  three candidates run by the Socialists, viz., Mr William [Sinclair]". Viewer:
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0003210%2F19201104&page=0004&article=028
+- **Label: Labour** for Sinclair, Murray and Bruce (read). **Label: Moderate** for Ratter, Ganson
+  and Duffin (read, SN 4 Nov 1920): the ST left their circular unnamed, but the SN names them. This
+  makes Nov 1920 the earliest "Moderate" label, not Nov 1921.
 
 ## 1921 (election 78)
 
@@ -57,9 +64,10 @@ J. M. Goodlad v Bruce, 5 votes each, a Council vote decided by the Provost: not 
 Nomination and result reports (ST 14 Oct and 4 Nov 1922, 13 Oct and 3 Nov 1923, 25 Oct and 1 Nov
 1924) and searches for "labour" found no label. The 1924 by-election (Reid Tait) was unopposed.
 
-## Rows added (7)
+## Rows added (10)
 
 | Election | Candidates | Label | Basis | DB before |
 |---|---|---|---|---|
 | 1919 (75) | James Laing, M. L. Manson, J. J. Pottinger, James Morrison | Labour | inferred | blank |
 | 1920 (76) | William Sinclair, David Murray, William Bruce | Labour | read | blank |
+| 1920 (76) | Alexander Ratter, R. D. Ganson, G. H. Duffin | Moderate | read | blank |
