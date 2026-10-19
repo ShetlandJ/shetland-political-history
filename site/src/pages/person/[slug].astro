@@ -57,6 +57,25 @@ function formatDate(d: string | null): string {
   return d;
 }
 
+// Age at death from ISO dates of any precision (YYYY, YYYY-MM, YYYY-MM-DD).
+// Partial dates give a range: "43", or "42 or 43" when the dates can't settle it.
+// Qualified dates ("abt 1776") give nothing.
+function ageAtDeath(born: string | null, died: string | null): string {
+  if (!born || !died) return '';
+  const parse = (d: string) => /^\d{4}(-\d{2}){0,2}$/.test(d) ? d.split('-').map(Number) : null;
+  const b = parse(born), d = parse(died);
+  if (!b || !d) return '';
+  // Earliest and latest possible [month, day] for each date
+  const lo = (p: number[]) => [p[1] ?? 1, p[2] ?? 1];
+  const hi = (p: number[]) => [p[1] ?? 12, p[2] ?? 31];
+  const age = (by: number, bmd: number[], dy: number, dmd: number[]) =>
+    dy - by - (dmd[0] < bmd[0] || (dmd[0] === bmd[0] && dmd[1] < bmd[1]) ? 1 : 0);
+  const min = age(b[0], hi(b), d[0], lo(d));
+  const max = age(b[0], lo(b), d[0], hi(d));
+  if (min < 0) return '';
+  return min === max ? `${min}` : `${min} or ${max}`;
+}
+
 function formatYear(d: string | null): string {
   if (!d) return '?';
   return d.substring(0, 4);
@@ -186,7 +205,7 @@ function renderLinkedText(text: string): string {
         {person.died_date && (
           <tr>
             <th scope="row">Died</th>
-            <td>{formatDate(person.died_date)}{person.death_place ? `, ${person.death_place}` : ''}</td>
+            <td>{formatDate(person.died_date)}{person.death_place ? `, ${person.death_place}` : ''}{ageAtDeath(person.born_date, person.died_date) && ` (aged ${ageAtDeath(person.born_date, person.died_date)})`}</td>
           </tr>
         )}
         {leadershipRoles.length > 0 && leadershipRoles.map(r => (
