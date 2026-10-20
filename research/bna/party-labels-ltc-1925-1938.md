@@ -126,3 +126,32 @@ both Labour) come from the wiki and weren't checked.
 | 1935 (94) | Ratepayers Association | John Sutherland | - |
 | 1937 (99) | Labour / Ratepayers Association / Independent | 6 + 4 + Mouat | Mouat |
 | 1938 (101) | Labour / Independent | 5 + 4 | the four Independents |
+
+## Carried-forward labels (2026-10-20)
+
+Uncontested re-elections and co-options carry the member's last labelled candidacy on the same
+council, basis `inferred`, citing that candidacy's source (the papers give no label for them; see
+searches.csv). Not carried: labels before 1914, "None" and "Shetland Group", and labels from the
+wiki with no citation on file (W. Sinclair ZCC 1922–28, T. A. Sinclair 1942/46, J. Smith, A. Halcrow and
+C. Charleson ZCC 1952, Harry Gray 1959, Grace Halcrow and R. Cumming 1967, I. Byrne SIC 1978).
+
+| Election | Member | Label | From |
+|---|---|---|---|
+| Lerwick Town Council Election November 1927 (85) | james-laing | Labour | 1922-11, `sn-19241211-p4-a050` |
+| Lerwick Town Council Election November 1927 (85) | john-sinclair | Moderate | 1924-11, `sn-19211103-p4-a053` |
+| Lerwick Town Council Election November 1927 (85) | robert-ollason | Moderate | 1924-11, `sn-19211103-p4-a053` |
+| Lerwick Town Council Election November 1927 (85) | william-bruce-ii | Labour | 1924-11, `sn-19211027-p4-a062` |
+| Lerwick Town Council Election November 1928 (86) | john-campbell-i | Constitutional | 1925-11, `st-19251107-p4-a080` |
+| Lerwick Town Council Election November 1928 (86) | laurence-cogle | Constitutional | 1925-11, `st-19251107-p4-a080` |
+| Lerwick Town Council Election November 1928 (86) | george-duffin | Constitutional | 1925-11, `st-19251107-p4-a080` |
+| Lerwick Town Council Election November 1928 (86) | magnus-manson | Labour | 1925-11, `st-19251031-p1-a193` |
+| Lerwick Town Council Election November 1930 (88) | james-laing | Labour | 1922-11, `sn-19241211-p4-a050` |
+| Lerwick Town Council Election November 1930 (88) | john-sinclair | Moderate | 1924-11, `sn-19211103-p4-a053` |
+| Lerwick Town Council Election November 1930 (88) | robert-ollason | Moderate | 1924-11, `sn-19211103-p4-a053` |
+| Lerwick Town Council Election November 1930 (88) | william-bruce-ii | Labour | 1924-11, `sn-19211027-p4-a062` |
+| Lerwick Town Council Election November 1931 (89) | john-campbell-i | Constitutional | 1925-11, `st-19251107-p4-a080` |
+| Lerwick Town Council Election November 1931 (89) | laurence-cogle | Constitutional | 1925-11, `st-19251107-p4-a080` |
+| Lerwick Town Council Election November 1931 (89) | george-duffin | Constitutional | 1925-11, `st-19251107-p4-a080` |
+| Lerwick Town Council Election November 1931 (89) | magnus-manson | Labour | 1925-11, `st-19251031-p1-a193` |
+| Lerwick Town Council By-Election June 1932 (90) | james-morrison | Labour | 1925-11, `st-19251031-p1-a193` |
+| Lerwick Town Council By-Election February 1938 (100) | peter-dalziel | Ratepayers Association | 1937-11, `st-19371106-p4-a066` |

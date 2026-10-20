@@ -62,3 +62,17 @@ addresses name no party. (The Liberal candidate's visit in Dec 1938 is Westminst
   letter: neither labelled.
 - **Labels:** Shetland Democratic Group for the ten: nine confirmed, **William Thomson (ii), Unst
   North** new.
+
+## Carried-forward labels (2026-10-20)
+
+Uncontested re-elections and co-options carry the member's last labelled candidacy on the same
+council, basis `inferred`, citing that candidacy's source (the papers give no label for them; see
+searches.csv). Not carried: labels before 1914, "None" and "Shetland Group", and labels from the
+wiki with no citation on file (W. Sinclair ZCC 1922–28, T. A. Sinclair 1942/46, J. Smith, A. Halcrow and
+C. Charleson ZCC 1952, Harry Gray 1959, Grace Halcrow and R. Cumming 1967, I. Byrne SIC 1978).
+
+| Election | Member | Label | From |
+|---|---|---|---|
+| County Council Election May 1952 (734) | prophet-smith | Socialist | 1951-05, `st-19510511-p4-a038` |
+| County Council Election May 1955 (750) | prophet-smith | Socialist | 1951-05, `st-19510511-p4-a038` |
+| County Council Election May 1958 (777) | prophet-smith | Socialist | 1951-05, `st-19510511-p4-a038` |

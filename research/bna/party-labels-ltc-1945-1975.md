@@ -169,3 +169,26 @@ with the DB; no rows added.
 
 ST 14 Apr 1972 p1 a001: Laurenson "has three times previously stood ... under the Labour ticket";
 the council stays "six Labour, six Independent". No rows added; the DB labels are consistent.
+
+## Carried-forward labels (2026-10-20)
+
+Uncontested re-elections and co-options carry the member's last labelled candidacy on the same
+council, basis `inferred`, citing that candidacy's source (the papers give no label for them; see
+searches.csv). Not carried: labels before 1914, "None" and "Shetland Group", and labels from the
+wiki with no citation on file (W. Sinclair ZCC 1922–28, T. A. Sinclair 1942/46, J. Smith, A. Halcrow and
+C. Charleson ZCC 1952, Harry Gray 1959, Grace Halcrow and R. Cumming 1967, I. Byrne SIC 1978).
+
+| Election | Member | Label | From |
+|---|---|---|---|
+| Lerwick Town Council By-Election August 1940 (102) | andrew-mouat | Independent | 1938-11, `st-19381029-p4-a083` |
+| Lerwick Town Council By-Election January 1941 (103) | john-williamson-iii | Labour | 1938-11, `st-19381029-p4-a083` |
+| Lerwick Town Council By-Election July 1941 (104) | arthur-johnson | Labour | 1938-11, `st-19381029-p4-a083` |
+| Lerwick Town Council By-Election December 1945 (111) | arthur-johnson | Labour | 1945-11, `st-19451102-p2-a034` |
+| Lerwick Town Council By-Election May 1946 (112) | thomas-sinclair | Labour | 1945-11, `st-19451102-p2-a034` |
+| Lerwick Town Council By-Election September 1949 (116) | arthur-johnson | Labour | 1949-05, `st-19490401-p3-a039` |
+| Lerwick Town Council By-Election September 1950 (118) | robert-blance | Labour | 1950-05, `st-19500512-p1-a023` |
+| Lerwick Town Council By-Election May 1955 (124) | arthur-johnson | Labour | 1955-05, `st-19550429-p5-a090` |
+| Lerwick Town Council By-Election June 1958 (128) | arthur-johnson | Labour | 1958-05, `st-19580502-p5-a080` |
+| Lerwick Town Council By-Election May 1961 (133) | robert-strachan | Labour | 1961-05, `st-19610428-p1-a125` |
+| Lerwick Town Council By-Election August 1962 (135) | magnus-shearer-ii | Independent | 1962-05, `st-19620504-p4-a086` |
+| Lerwick Town Council By-Election May 1970 (146) | robert-adair | Labour | 1970-05, `st-19700417-p1-a002` |
