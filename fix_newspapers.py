@@ -673,6 +673,11 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Ambassador (ST 3 Dec 1938); the July 1936 funeral of a German fisherman (ST 11 Jul 1936 p4 a096);
    the Trust offices, School Board and Widows' Homes from the obituary (ST 9 Jul 1943 p4 a094).
    Evidence: research/bna/tulloch-german-vice-consul.md.
+88. November 1921 Lerwick Town Council election: the papers disagree on the poll. The Shetland Times
+   gives 985 of an electorate of "over 1800" (ST 5 Nov 1921 p4 a083); the Shetland News 993 of
+   "almost 1700" (SN 3 Nov 1921 p4 a044). Both read on the page images (James, 2026-10-19). The
+   turnout stays at the Times's 985; the disagreement is an election note.
+   Evidence: research/bna/early-socialists-1901-1913.md.
 """
 
 import os
@@ -763,6 +768,11 @@ WARTIME_DATES = [  # (wiki title, baseline date, date from the Shetland Times)
     ('Lerwick Town Council By-Election February 1945', '1945-02-05', '1945-02-06'),
     ('Lerwick Town Council Election November 1945', '1945-11-05', '1945-11-06'),
 ]
+LTC_1921 = 'Lerwick Town Council Election November 1921'
+LTC_1921_NOTE = ("The papers differ on the poll. The Shetland Times (5 November 1921) gives 985 votes "
+                 "from an electorate of \"over 1800\"; the Shetland News (3 November 1921) gives 993 "
+                 "from \"almost 1700\".")
+
 CO_OPTION_1921 = ('Lerwick Town Council By-Election June 1921', '1921-06-11', '1921-06-07')
 POLLING_DAY_1901 = ('Lerwick Town Council Election November 1901', '1901-11-01', '1901-11-05')
 CO_OPTION_1910 = ('Lerwick Town Council By-Election January 1910', '1910-01-01', '1910-01-04')
@@ -2444,6 +2454,18 @@ def main():
             print(f"  candidacy {rows[0]['id']} ({name}): label {old} cleared")
         elif rows[0]['party'] is not None:
             raise SystemExit(f"candidacy {rows[0]['id']} ({name}): unexpected label {rows[0]['party']}")
+
+    print("=== 88. LTC Nov 1921: the papers' poll figures differ ===")
+    row = one(c, "SELECT id, turnout, notes FROM elections WHERE wiki_page_title = ?", (LTC_1921,))
+    if row['turnout'] != 985:
+        raise SystemExit(f"{LTC_1921}: expected turnout 985, got {row['turnout']}")
+    if row['notes'] == LTC_1921_NOTE:
+        print("  note: already set")
+    elif not row['notes']:
+        c.execute("UPDATE elections SET notes = ? WHERE id = ?", (LTC_1921_NOTE, row['id']))
+        print("  note: added")
+    else:
+        raise SystemExit(f"{LTC_1921} already has notes, not overwriting: {row['notes']}")
 
     db.commit()
     db.close()

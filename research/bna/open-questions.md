@@ -136,3 +136,11 @@ Format: date raised, the question, the options, the evidence file, the row it af
   keep 2 Sept; change to 21 Sept on the obituary; or check the birth record (Lerwick, 1858) first.
   Affects `people.william-tulloch` born_date. Evidence: `tulloch-german-vice-consul.md`.
   **Answered 2026-10-13 (James):** trust Bayanne. Keep 1858-09-02; the obituary's 21st is taken as wrong.
+
+- **2026-10-19: When did William Sinclair leave the council in Oct 1921?** His resignation letter
+  was read on Tue 4 Oct 1921, but he sat as Bailie at the special meeting of Mon 17 Oct (ST 22 Oct
+  1921 p4 a093), and at the statutory meeting he was "ex-Bailie Sinclair, who resigned before the
+  election" (ST 12 Nov 1921 p5 a074). The ledger now ends him on 1921-10-18, unconfirmed. To
+  settle: any council or committee meeting between 18 Oct and 1 Nov 1921, or a report of the
+  resignation being accepted. Affects `ltc_terms.csv` `william-sinclair` 1920-11-02. Evidence:
+  `ltc-1919-1921.md` §4.

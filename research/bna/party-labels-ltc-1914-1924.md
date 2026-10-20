@@ -52,8 +52,18 @@ Manson 2 in 1916) or unanimous appointments. No one stood under a label.
   two new candidates, while the 'Ratepayers' also have prospective candidates in view".
 - ST 5 Nov 1921 p4 a083: "both 'parties' — the Moderates and Social Democrats — issued circulars
   on Monday morning". Neither slate is listed, and no p1 address names a label.
-- Not labelled. The likely slates (Bruce, Murray, A. S. Manson, W. Pottinger as Social Democrats)
-  are in open-questions, as the brief says.
+- First labelled `inferred` on James's answer of 2026-09-30 (q08): Bruce, Murray, A. S. Manson and
+  W. Pottinger as Social Democrats, the other six as Moderates.
+- SN Thu 27 Oct 1921 p4 a062, "Town Council Election. Ten candidates for six seats. Four Labour
+  representatives forward." (checked by James on the page image, 19 Oct 2026): all the retiring
+  councillors except W. Sinclair renominated (J. T. J. Sinclair, Ollason, Goodlad, J. Smith,
+  Ramsay), with the new man John Manson, Burgh Road; "The remaining four are Labour candidates,
+  viz., Messrs David Murray, Wm. Bruce, Alex. S. Manson, and Wm. Pottinger".
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0003210%2F19211027&page=0004&article=062
+- SN Thu 3 Nov 1921 p4 a053: the fight lay "between the Moderates and the Socialists".
+- **Label: Labour** for Bruce, Murray, A. S. Manson and W. Pottinger (read, SN 27 Oct; James,
+  19 Oct 2026: Labour, not Social Democrat). **Label: Moderate** for J. T. J. Sinclair, Ollason,
+  Goodlad, J. Smith, Ramsay and John Manson (read, SN 3 Nov). The slates are stated, not inferred.
 
 ## 1921 by-election (election 77)
 
@@ -71,3 +81,10 @@ Nomination and result reports (ST 14 Oct and 4 Nov 1922, 13 Oct and 3 Nov 1923, 
 | 1919 (75) | James Laing, M. L. Manson, J. J. Pottinger, James Morrison | Labour | inferred | blank |
 | 1920 (76) | William Sinclair, David Murray, William Bruce | Labour | read | blank |
 | 1920 (76) | Alexander Ratter, R. D. Ganson, G. H. Duffin | Moderate | read | blank |
+
+Later, on James's answer (2026-09-30) and the SN reports (2026-10-19):
+
+| Election | Candidates | Label | Basis | Before |
+|---|---|---|---|---|
+| 1921 (78) | William Bruce, David Murray, A. S. Manson, William Pottinger | Labour | read | Social Democrat, inferred |
+| 1921 (78) | J. T. J. Sinclair, Robert Ollason, J. M. Goodlad, John Smith, R. H. Ramsay, John Manson | Moderate | read | Moderate, inferred |

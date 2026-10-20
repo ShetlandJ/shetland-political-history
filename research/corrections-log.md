@@ -506,3 +506,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 4 | wiki / DB | "Brenda Wilcox" (Northmavine 1999), "Olive Watson" (Walls 1994) | Brenda Wilcock; Mary Olive Walterson | Fixed: #85 |
 | 5 | wiki / DB | No labels for 1974, 1978 or 1980 apart from three | Labour in Lerwick from 1974 (Morrison, Smith, Butler, Paton), a 1978 Labour Group (with Christie and Gair), a 1978 "Shetland Group" (Cluness, Playfair, Manson); Groat Labour in 1982 | Fixed: 18 labels added |
 | 6 | wiki / DB | Groat "Independent Labour" 1990; Scott "Socialist/Anti-Poll Tax" 1990; Black and Whitehead Lib Dem 1999; Graham Shetland Movement 1982 | "Labour Party"; "Anti-Poll Tax"; no description; not on his nomination | Fixed 2026-10-13 (James: trust the paper): Groat Labour and Scott Anti-Poll Tax (label overrides); Graham, Black and Whitehead labels cleared (#86) |
+
+## 2026-10-19: Labour Surge corrections, LTC 1919–1921 (book workspace; evidence in `research/bna/ltc-1919-1921.md`, `party-labels-ltc-1914-1924.md`, `early-socialists-1901-1913.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | confirmed ledger row | William Sinclair left the council on 4 Oct 1921, when his resignation was read | Still sitting as Bailie on Mon 17 Oct 1921 (ST 22 Oct 1921 p4 a093); "resigned before the election" (ST 12 Nov 1921 p5 a074) | Fixed: ends 1921-10-18, `confirmed=0`; exact day open |
+| 2 | our labels (inferred) | 1921: Bruce, Murray, A. S. Manson, W. Pottinger "Social Democrat", slates inferred | The SN names the four as "Labour candidates" (SN 27 Oct 1921 p4 a062) | Fixed: Labour, `read` (James's call); the six others Moderate, `read` |
+| 3 | DB | Nov 1921 poll 985 | The ST says 985 of "over 1800"; the SN 993 of "almost 1700" | Kept 985; election note added (`fix_newspapers.py` #88) |
+| 4 | our notes | The 1919 Labour slate had four names | The union branch put forward five; the fifth, printed "Wm. Murray, jun." (ST) and "David"/"James" (SN), was David Murray, who was in Fair Isle at nomination | Notes only; no DB change |
