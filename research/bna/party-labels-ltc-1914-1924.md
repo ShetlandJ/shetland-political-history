@@ -74,6 +74,22 @@ J. M. Goodlad v Bruce, 5 votes each, a Council vote decided by the Provost: not 
 Nomination and result reports (ST 14 Oct and 4 Nov 1922, 13 Oct and 3 Nov 1923, 25 Oct and 1 Nov
 1924) and searches for "labour" found no label. The 1924 by-election (Reid Tait) was unopposed.
 
+**Revisited 2026-10-20.** The Shetland News issues of 12 Oct–16 Nov 1922, 11 Oct–15 Nov 1923 and
+9 Oct–13 Nov 1924 (a manifest sweep, with the OCR of every town council or election article
+searched for labour, socialist, moderate and ratepayer) give no label either. ST 4 Nov 1922 p5
+a283 ("No Poll"): three would-be challengers withdrew, blaming the "lackadaisical" committee behind them.
+Contemporary evidence that the sitting members kept their colours:
+- SN Thu 11 Dec 1924 p4 a050, special meeting of Tue 9 Dec 1924: "For the first time a Labour
+  Provost now occupies the chair" (Laing), and the new Junior Bailie, M. L. Manson, "is also a
+  Labour member".
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0003210%2F19241211&page=0004&article=050
+
+So the 1922–24 re-elections carry each member's last contested label, basis `inferred` (11 rows):
+Laing, M. L. Manson and Morrison Labour, Duffin Moderate (1922); A. S. Manson and Murray Labour,
+Ratter and Ganson Moderate (1923); Bruce Labour, J. T. J. Sinclair and Ollason Moderate (1924).
+Reid Tait, new in 1924, stays unlabelled. The council reads 6–6 from Nov 1921 to Nov 1924, then
+6 Labour, 5 Moderate and 1 unlabelled.
+
 ## Rows added (10)
 
 | Election | Candidates | Label | Basis | DB before |
