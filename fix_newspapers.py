@@ -681,6 +681,10 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
 89. James Laing's biography said he became the first Labour Provost in 1924 "and served until 1945",
    which reads as Provost to 1945. He was Provost 1924-27 (intro); 1945 is when he retired from the
    Council (his letter of retiral in force from 29 Nov 1945, ST 16 Nov 1945). He first sat in 1906.
+90. A biography for James J. Aitken, Provost of Lerwick 1946-50, who had none. From the death
+   notice (ST 3 Aug 1956 p4 a058), the obituary and funeral (ST 10 Aug 1956 p6 a075) and Provost
+   Conochie's tribute at the special meeting of Thu 2 Aug 1956 (ST 10 Aug 1956 p6 a076-a077).
+   Evidence: research/bna/biographies-ltc-provosts.md.
 """
 
 import os
@@ -789,7 +793,7 @@ CO_OPTION_1946 = ('Lerwick Town Council By-Election May 1946', '1946-05-22', '19
 ANDERSON_DEATH = ('robert-anderson-i', '1967-06-26', '1967-06-25')
 MOUAT_DEATH = ('henry-mouat', '1944-03-20', '1944-05-20')
 IRVINE_DEATH = ('arthur-irvine-ii', '1995-04-25', '1995-04-26')
-BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #74)
+BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #74, #90)
     'fraser-peterson': (
         "Fraser Peterson was the elder son of Barron and Maggie Peterson of North House, Burravoe, "
         "Brae. He married Ina Johnson, and they had three daughters. He was a crofter and ran a "
@@ -1148,6 +1152,30 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #7
         "He later moved to Bournemouth, where he lived for several years and had been in poor "
         "health for some time. He died at Marguerite Villa, Richmond Wood Road, Bournemouth, on "
         "19 May 1897, in his 77th year."
+    ),
+    'james-aitken': (
+        "James Aitken was the only son of John Aitken of Dunrossness. He was brought to Lerwick as "
+        "an invalid when his father found work in the town, and a long illness in his youth left "
+        "him crippled. He found part-time work with his father's employer, T. J. Anderson, and "
+        "towards the end of the First World War became an agent for the Pearl Assurance Company. "
+        "He built up its Shetland business between the wars and was manager of the district "
+        "office from 1938 until ill health forced him to retire in November 1955.\n\n"
+        "He was elected to the Town Council as a Labour candidate in November 1937, became a "
+        "Bailie in March 1942, and was Provost from November 1946 to May 1950. He chaired the "
+        "General Purposes and Housing Committees while the post-war housing programme was at its "
+        "height: 178 council houses were built and occupied during his time as Provost, and 80 "
+        "more were planned with the Scottish Special Housing Association. He stayed on the "
+        "council until May 1953, when failing health kept him from standing again. On the County "
+        "Council he chaired the Welfare Committee, and took part in the negotiations to buy "
+        "Viewforth; he also sat on the Education Committee and the Board of Management of the "
+        "Shetland hospitals.\n\n"
+        "A Socialist, a total abstainer and a Rechabite, he was known as an outspoken champion of "
+        "the working classes and old age pensioners. Though his disability kept him from sport, he "
+        "was a keen football supporter and a president of the Shetland Football Association, and "
+        "president of the Shetland County Scout Council, and he supported the Boys' Brigade.\n\n"
+        "He died in the Gilbert Bain Hospital on 2 August 1956 after a long and painful illness, "
+        "survived by his sister Mary. The Town Council adjourned its meeting that day in his "
+        "memory, and he was buried in Dunrossness Churchyard."
     ),
 }
 BIO_ADDITIONS = [  # (slug, text the addition follows, addition) (#72, #87)
