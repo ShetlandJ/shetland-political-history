@@ -1156,7 +1156,7 @@ BIOGRAPHIES = {  # slug -> biography, for people who had none (#69, #70, #71, #7
     'james-aitken': (
         "James Aitken was the only son of John Aitken of Dunrossness. He was brought to Lerwick as "
         "an invalid when his father found work in the town, and a long illness in his youth left "
-        "him crippled. He found part-time work with his father's employer, T. J. Anderson, and "
+        "him disabled. He found part-time work with his father's employer, T. J. Anderson, and "
         "towards the end of the First World War became an agent for the Pearl Assurance Company. "
         "He built up its Shetland business between the wars and was manager of the district "
         "office from 1938 until ill health forced him to retire in November 1955.\n\n"
