@@ -319,6 +319,8 @@ The open research list is `term_issues` on /data-review. For LTC: short periods 
 
 **1920–1923 settled (2026-09-28)**: Duffin's 1920 seat ended in 1922 (he retired by rotation a year early, reason not stated) and A. S. Manson's 1921 seat ran to 1923. 1922 was unopposed. This cleared the 1922 overlap. Evidence: `research/bna/ltc-1920-1923.md`.
 
+**1921–1931 settled (2026-10-21)**: every row from the Nov 1921 to Nov 1928 generals confirmed from the retiring lists. Provost Laing stayed on 1925–27 (A. S. Manson retired a year early in his place), Reid Tait retired a year early in 1926 without re-standing, and Goodlad's resignation was accepted Tue 1 Apr 1924. Evidence: `research/bna/ltc-1921-1931.md`.
+
 **1912–1914 settled (2026-09-27)**: the council had 12 members throughout, from the Shetland Times retiring lists. Evidence with BNA links: `research/bna/ltc-1912-1914.md`.
 
 **1941 settled (2026-09-27)**: Irvine (ii) and Linklater resigned in Aug 1941 and were replaced by co-option on 7 Oct; this removed the wartime 13-member rows. Evidence: `research/bna/ltc-wartime-1941.md`.
