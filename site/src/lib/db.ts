@@ -382,12 +382,116 @@ export interface Tenure {
   successor_image: string | null;
 }
 
+interface TermSpan {
+  key: string;
+  person_id: number | null;
+  name: string;
+  slug: string | null;
+  start: string;
+  end: string | null;
+  replaced_person_id: number | null;  // who the first term's by-election replaced
+}
+
+/**
+ * Merge a ward's council_terms (ordered by start_date) into one span per stint, keyed by person
+ * (or name when unlinked). A gap is bridged when nobody else came in during it: a ward left empty
+ * at a general for lack of nominations and filled by the same member at a by-election weeks later.
+ */
+function mergeTermSpans(terms: any[]): TermSpan[] {
+  const spans: TermSpan[] = [];
+  const lastSpan = new Map<string, TermSpan>();
+  for (const t of terms) {
+    const key = t.person_id != null ? `p${t.person_id}` : `n${t.name}`;
+    const prev = lastSpan.get(key);
+    const bridged = prev && prev.end != null && prev.end <= t.start_date &&
+      !spans.some((s) => s !== prev && s.start >= prev.end! && s.start < t.start_date);
+    if (prev && bridged) {
+      prev.end = t.end_date;
+    } else {
+      const span: TermSpan = {
+        key, person_id: t.person_id ?? null, name: t.name || 'Unknown', slug: t.slug,
+        start: t.start_date, end: t.end_date, replaced_person_id: t.replaced_person_id ?? null,
+      };
+      spans.push(span);
+      lastSpan.set(key, span);
+    }
+  }
+  return spans;
+}
+
 /**
  * For a given person, compute their tenures in each constituency,
- * along with who preceded and succeeded them.
+ * along with who preceded and succeeded them. Council wards use council_terms, so a winner who
+ * never sat (data/not_seated.csv) gets no tenure and end years are when the member left, as on
+ * the ward pages (getConstituencyMembers). Constituencies with no terms (Westminster) fall back
+ * to the election winners.
  */
 export function getTenuresForPerson(personId: number): Tenure[] {
-  // Get all constituencies this person won elections in
+  const tenures: Tenure[] = [];
+
+  const termConstituencies = db.prepare(`
+    SELECT DISTINCT t.constituency_id, t.council_id, con.name as constituency_name, con.slug as constituency_slug,
+           co.name as council_name, co.slug as council_slug
+    FROM council_terms t
+    JOIN councils co ON t.council_id = co.id
+    JOIN constituencies con ON t.constituency_id = con.id
+    WHERE t.person_id = ?
+  `).all(personId) as any[];
+
+  for (const con of termConstituencies) {
+    const spans = mergeTermSpans(db.prepare(`
+      SELECT t.person_id, COALESCE(p.name, t.person_name) as name, p.slug, t.start_date, t.end_date,
+             e.replaced_person_id
+      FROM council_terms t
+      LEFT JOIN people p ON t.person_id = p.id
+      LEFT JOIN candidacies c ON t.candidacy_id = c.id
+      LEFT JOIN elections e ON c.election_id = e.id
+      WHERE t.constituency_id = ? AND t.council_id = ?
+      ORDER BY t.start_date
+    `).all(con.constituency_id, con.council_id) as any[]);
+
+    const own = `p${personId}`;
+    for (const s of spans) {
+      if (s.key !== own) continue;
+      const others = spans.filter((o) => o.key !== own);
+
+      // Predecessor: the last other member to leave before this stint began. In a multi-member
+      // ward several leave together; prefer the one this stint's by-election named.
+      const before = others.filter((o) => o.end != null && o.end <= s.start);
+      let pred: TermSpan | null = null;
+      if (before.length > 0) {
+        const lastEnd = before.reduce((m, o) => (o.end! > m ? o.end! : m), before[0].end!);
+        const leavers = before.filter((o) => o.end === lastEnd);
+        pred = leavers.find((o) => o.person_id != null && o.person_id === s.replaced_person_id) ?? leavers[0];
+      }
+
+      // Successor: the first other member to come in once this stint ended, preferring the one
+      // whose by-election named this member. None while still serving.
+      let succ: TermSpan | null = null;
+      if (s.end != null) {
+        const after = others.filter((o) => o.start >= s.end!);
+        const joiners = after.filter((o) => o.start === after[0]?.start);
+        succ = joiners.find((o) => o.replaced_person_id === personId) ?? joiners[0] ?? null;
+      }
+
+      tenures.push({
+        constituency_name: con.constituency_name,
+        constituency_slug: con.constituency_slug,
+        council_name: con.council_name,
+        council_slug: con.council_slug,
+        start_year: s.start.substring(0, 4),
+        end_year: s.end ? s.end.substring(0, 4) : 'present',
+        predecessor_name: pred?.name ?? null,
+        predecessor_slug: pred?.slug ?? null,
+        predecessor_image: null,
+        successor_name: succ?.name ?? null,
+        successor_slug: succ?.slug ?? null,
+        successor_image: null,
+      });
+    }
+  }
+
+  // Constituencies this person won elections in that have no council_terms (Westminster)
   const constituencies = db.prepare(`
     SELECT DISTINCT e.constituency_id, con.name as constituency_name, con.slug as constituency_slug,
            co.name as council_name, co.slug as council_slug
@@ -396,10 +500,9 @@ export function getTenuresForPerson(personId: number): Tenure[] {
     JOIN councils co ON e.council_id = co.id
     LEFT JOIN constituencies con ON e.constituency_id = con.id
     WHERE c.person_id = ? AND c.elected = 1 AND e.constituency_id IS NOT NULL AND e.hidden = 0
+      AND NOT EXISTS (SELECT 1 FROM council_terms t WHERE t.constituency_id = e.constituency_id)
     GROUP BY e.constituency_id
   `).all(personId) as any[];
-
-  const tenures: Tenure[] = [];
 
   for (const con of constituencies) {
     if (!con.constituency_id) continue;
@@ -592,25 +695,7 @@ export function getConstituencyMembers(constituencyId: number): { name: string; 
   `).all(constituencyId) as any[];
 
   if (terms.length > 0) {
-    // Merge each member's consecutive terms, keyed by person (or name when unlinked). A gap is
-    // bridged when nobody else came in during it: a ward left empty at a general for lack of
-    // nominations and filled by the same member at a by-election weeks later.
-    const spans: { key: string; name: string; slug: string | null; start: string; end: string | null }[] = [];
-    const lastSpan = new Map<string, (typeof spans)[number]>();
-    for (const t of terms) {
-      const key = t.person_id != null ? `p${t.person_id}` : `n${t.name}`;
-      const prev = lastSpan.get(key);
-      const bridged = prev && prev.end != null && prev.end <= t.start_date &&
-        !spans.some((s) => s !== prev && s.start >= prev.end! && s.start < t.start_date);
-      if (prev && bridged) {
-        prev.end = t.end_date;
-      } else {
-        const span = { key, name: t.name || 'Unknown', slug: t.slug, start: t.start_date, end: t.end_date };
-        spans.push(span);
-        lastSpan.set(key, span);
-      }
-    }
-    return spans.map((s) => ({
+    return mergeTermSpans(terms).map((s) => ({
       name: s.name,
       slug: s.slug,
       start_year: s.start.substring(0, 4),
