@@ -678,6 +678,9 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    "almost 1700" (SN 3 Nov 1921 p4 a044). Both read on the page images (James, 2026-10-19). The
    turnout stays at the Times's 985; the disagreement is an election note.
    Evidence: research/bna/early-socialists-1901-1913.md.
+89. James Laing's biography said he became the first Labour Provost in 1924 "and served until 1945",
+   which reads as Provost to 1945. He was Provost 1924-27 (intro); 1945 is when he retired from the
+   Council (his letter of retiral in force from 29 Nov 1945, ST 16 Nov 1945). He first sat in 1906.
 """
 
 import os
@@ -1247,6 +1250,9 @@ LERWICK_SOUTH_1919 = ('County_Council_Election_December_1919', 'Lerwick South', 
                      ('James Laing', 'james-laing'))
 SANDWICK_1907 = ('County Council Election December 1907', 'Sandwick', (276, 161), ('William Smith', 91), ('James Thomson', 70))
 WHITENESS_1890 = ('County Council Election February 1890', 'Whiteness And Weisdale', (126, 52.9), (116, 56.9))
+LAING_BIO = ('james-laing', 'He became the first Labour Provost of Lerwick in 1924 and served until 1945.',
+             'He became the first Labour Provost of Lerwick in 1924, and served on the Town Council '
+             'between 1906 and his retirement in 1945.')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 
 HAY_NOTE = (
@@ -2466,6 +2472,17 @@ def main():
         print("  note: added")
     else:
         raise SystemExit(f"{LTC_1921} already has notes, not overwriting: {row['notes']}")
+
+    print("=== 89. James Laing: Provost from 1924, on the Council to 1945 ===")
+    slug, old, new = LAING_BIO
+    bio = one(c, "SELECT biography FROM people WHERE slug = ?", (slug,))['biography']
+    if new in bio:
+        print("  biography: already set")
+    elif old in bio:
+        c.execute("UPDATE people SET biography = ? WHERE slug = ?", (bio.replace(old, new), slug))
+        print("  biography: fixed")
+    else:
+        raise SystemExit("james-laing biography: expected text not found")
 
     db.commit()
     db.close()
