@@ -685,6 +685,7 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    notice (ST 3 Aug 1956 p4 a058), the obituary and funeral (ST 10 Aug 1956 p6 a075) and Provost
    Conochie's tribute at the special meeting of Thu 2 Aug 1956 (ST 10 Aug 1956 p6 a076-a077).
    Evidence: research/bna/biographies-ltc-provosts.md.
+91. James John Pottinger (iii) died on 18 April 1961, not the 12th (James, 2026-10-22).
 """
 
 import os
@@ -1282,6 +1283,7 @@ LAING_BIO = ('james-laing', 'He became the first Labour Provost of Lerwick in 19
              'He became the first Labour Provost of Lerwick in 1924, and served on the Town Council '
              'between 1906 and his retirement in 1945.')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
+POTTINGER_DEATH = ('james-pottinger-iii', '1961-04-12', '1961-04-18')
 
 HAY_NOTE = (
     "Arthur J. Hay topped the poll but declined to take office (letter, 8 November 1884). "
@@ -2511,6 +2513,17 @@ def main():
         print("  biography: fixed")
     else:
         raise SystemExit("james-laing biography: expected text not found")
+
+    print("=== 91. James Pottinger (iii)'s death ===")
+    slug, wrong, right = POTTINGER_DEATH
+    row = one(c, "SELECT id, died_date FROM people WHERE slug = ?", (slug,))
+    if row['died_date'] == right:
+        print(f"  {slug} died_date: already {right}")
+    elif row['died_date'] == wrong:
+        c.execute("UPDATE people SET died_date = ? WHERE id = ?", (right, row['id']))
+        print(f"  {slug} died_date: {wrong} -> {right}")
+    else:
+        raise SystemExit(f"people.{slug} died_date is {row['died_date']}, expected {wrong}")
 
     db.commit()
     db.close()
