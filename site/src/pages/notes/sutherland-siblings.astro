@@ -4,6 +4,9 @@ import NoteEssay from '../../components/NoteEssay.astro';
 import NoteTable from '../../components/NoteTable.astro';
 import { type Src, st, pj, bayanne } from '../../lib/notes';
 
+const scotsman = (ymd: string, page: number, article: number) =>
+  `https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000540%2F${ymd}&page=${String(page).padStart(4, '0')}&article=${String(article).padStart(3, '0')}`;
+
 // Research note on the deaf Sutherland siblings of Fox Lane, Lerwick.
 // Sources: Shetland Times and Press and Journal (British Newspaper Archive), Bayanne, and the
 // ScotlandsPeople birth and death indexes,
@@ -65,9 +68,9 @@ const timeline: { date: string; text: string; sources: Src[] }[] = [
           <li>Latheron, Caithness, 2007, aged 88. No death notice found in the British Newspaper Archive.</li>
         </ul>
         If he was formally adopted after 1930, he would be under another surname.</li>
-      <li><strong>When did the three move to Craigholme?</strong> Not found. “Craigholme” doesn’t appear in the Shetland Times between 1930 and 1995.</li>
+      <li><strong>When did the three move to Craigholme?</strong> Not found. “Craigholme” doesn’t appear in the Shetland Times between 1930 and 1995. The home was already open by 1960. That September the Lord Provost of Glasgow opened an extension to the Eventide Home of the Mission to the Adult Deaf and Dumb for Glasgow and West of Scotland, at 16 Roman Road, Bearsden (<a href={scotsman('19600922', 5, 138)} target="_blank" rel="noopener">Scotsman 22 Sep 1960</a>).</li>
       <li><strong>When and where did they die?</strong> The ScotlandsPeople death index gives Thomas William in 1975, aged 84 (Glasgow, Park Circus, 619/775); Ursula in 1978, aged 80 (New Kilpatrick, 507/67); and Georgina in 1980, aged 84 (New Kilpatrick, 507/175). Bearsden is in New Kilpatrick. Georgina and Ursula each have only one entry, under Sutherland, so neither married.</li>
-      <li><strong>Were their deaths noticed at home?</strong> No. Every death, In Memoriam and Return Thanks column from January 1975 to June 1981 was checked, and none of the three appears.</li>
+      <li><strong>Were their deaths noticed at home?</strong> No. Every death, In Memoriam and Return Thanks column from January 1975 to June 1981 was checked, and none of the three appears. Nor do they appear in the family notices of the Milngavie and Bearsden Herald. Only 36 of its 1975 and 1978 issues are in the British Newspaper Archive, and none from 1980. A search of every paper in the archive for “ursula sutherland” (1977–79), “georgina sutherland” (1979–81), and “sutherland” with “craigholme” or “roman road” found nothing either.</li>
       <li><strong>What became of Alexander?</strong> Nothing found after 1898. Of the 102 mentions of an Alexander Sutherland in the paper from 1898 to 1925, none is tied to this family. The ones that name a parent or an address belong to other families. The Scottish death index has no Alexander Sutherland of the right age whose mother’s maiden name was Andrew, so he probably died outside Scotland or at sea.</li>
       <li><strong>What were they like?</strong> There are two glimpses. At seven, before he was sent away, Thomas was “going about the streets”, and his mother was reluctant to part with him. In 1920 he was working as a cooper, was in trouble with the burgh court like plenty of young men, paid for the damage himself, and answered the court in writing.</li>
     </ul>
