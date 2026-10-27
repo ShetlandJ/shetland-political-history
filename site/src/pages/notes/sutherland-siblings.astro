@@ -1,0 +1,89 @@
+---
+import Base from '../../layouts/Base.astro';
+import NoteEssay from '../../components/NoteEssay.astro';
+import NoteTable from '../../components/NoteTable.astro';
+import { type Src, st } from '../../lib/notes';
+
+// Research note on the deaf Sutherland siblings of Fox Lane, Lerwick, for Sarah Wilkins's
+// project on deaf Orcadians and Shetlanders. Sources: Shetland Times (British Newspaper Archive),
+// searched 2026-10-27.
+
+const timeline: { date: string; text: string; sources: Src[] }[] = [
+  { date: 'Jun 1898', text: 'An explosion in Lerwick. Standing by was Alexander, “son of Thomas Sutherland, North Roadside”. His face was partly blistered but he was not badly hurt.',
+    sources: [{ label: 'ST 4 Jun 1898', href: st('18980604', 4, 57) }] },
+  { date: 'Jul 1898', text: 'Alexander, son of Thomas Sutherland, North Roadside, is charged with stealing a foghorn and other items from boats in April.',
+    sources: [{ label: 'ST 2 Jul 1898', href: st('18980702', 5, 58) }] },
+  { date: 'Apr 1899', text: 'The Lerwick School Board reads a letter from Mrs Mary Sutherland, Fox Lane. She has a son of seven who is dumb, and asks that he be educated. The Clerk is to find the best institution.',
+    sources: [{ label: 'ST 15 Apr 1899', href: st('18990415', 8, 131) }] },
+  { date: 'Sep 1899', text: 'A Board member says the boy is “still going about the streets”. The Clerk has spoken to his mother: she isn’t keen for him to go, but will make him ready. He is to start at the Edinburgh Institution in October.',
+    sources: [{ label: 'ST 16 Sep 1899', href: st('18990916', 5, 128) }] },
+  { date: 'Jul 1902', text: 'The School Board officer reports two deaf and dumb girls in Fox Lane. The children are thought to have been deserted by their father. Their brother at Edinburgh costs £15 a year, and all three would cost £45 a year on the rates.',
+    sources: [{ label: 'ST 12 Jul 1902', href: st('19020712', 5, 128) }] },
+  { date: 'Dec 1903', text: 'The Nesting Parish Council accepts liability for the teaching of “T. W. Sutherland, deaf mute” in Edinburgh. Until then the Lerwick Parish Council had paid.',
+    sources: [{ label: 'ST 12 Dec 1903', href: st('19031212', 5, 88) }] },
+  { date: 'Jan 1905', text: 'The Nesting and Whalsay Parish Council agrees to pay £15 a year each, plus about 30s travelling, for the two girls. The Edinburgh Institution raises its fee to £20 a pupil from 1 January. The chairman says this is hard on Whalsay, with three children of one family now there.',
+    sources: [{ label: 'ST 14 Jan 1905', href: st('19050114', 5, 132) }] },
+  { date: 'Nov 1919', text: 'Thomas Sutherland, “beloved husband of Mary Andrew”, dies at 25 Fox Lane on the 25th.',
+    sources: [{ label: 'ST 29 Nov 1919', href: st('19191129', 4, 46) }] },
+  { date: 'Apr 1920', text: 'Thomas William Sutherland, cooper, Fox Lane, is charged at the Burgh Police Court with breaking a glass panel in the north door of the Town Hall. “Accused is dumb, and the case had to be carried on in writing.” He pleads guilty, has already paid for the damage, and sentence is deferred for six months.',
+    sources: [{ label: 'ST 1 May 1920', href: st('19200501', 4, 104) }] },
+  { date: 'May 1921', text: 'Mary Andrew, widow of Thomas Sutherland, dies at 25 Fox Lane on the 26th, aged 57. The notice is inserted by “her sorrowing family”.',
+    sources: [{ label: 'ST 4 Jun 1921', href: st('19210604', 4, 72) }] },
+  { date: 'Jan 1931', text: 'Barbara Andrew, the children’s aunt, dies at Mountalt Place (as printed), Lerwick, on the 31st, aged 79, “late of Kirkhouse, Voe”.',
+    sources: [{ label: 'ST 7 Feb 1931', href: st('19310207', 4, 85) }] },
+];
+---
+<Base
+  title="The Sutherland Siblings of Fox Lane"
+  description="Thomas William, Georgina and Ursula Sutherland, deaf children of a Lerwick seaman, sent to the Edinburgh Institution for the Deaf and Dumb from 1899: what the Shetland Times records."
+>
+  <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Lerwick notes</div>
+
+  <h1>The Sutherland siblings of Fox Lane</h1>
+
+  <NoteEssay>
+    <p>Thomas Sutherland, a seaman, married Mary Andrew in 1885. They lived in Fox Lane, Lerwick, and had five children. Alexander (b. 1885) and Mary (b. 1887) could hear. The three youngest were deaf: <strong>Thomas William</strong> (b. 1891), <strong>Georgina</strong> (b. 1894) and <strong>Ursula</strong> (b. 1897). All three went to the Edinburgh Institution for the Deaf and Dumb. All three died in the 1970s at Craigholme, a residential home for deaf people in Bearsden, near Glasgow.</p>
+
+    <p>Sarah Wilkins is researching deaf Orcadians and Shetlanders of the 1800s and early 1900s. She found the family through the Institution’s admission papers, and worked out its outline from census and civil records and Bayanne. This page adds what the Shetland Times records, and answers what it can of her questions.</p>
+
+    <p class="note">A side note on a Lerwick family, separate from the political history on the rest of this site.</p>
+
+    <h2>Timeline</h2>
+  </NoteEssay>
+
+  <NoteTable headers={['Date', 'What happened', 'Source']} rows={timeline.map((r) => [{ text: r.date, nowrap: true }, { html: r.text }, { sources: r.sources }])} />
+
+  <NoteEssay>
+    <h2>Questions and answers</h2>
+
+    <ul>
+      <li><strong>Where did the siblings live after their mother died?</strong> Not settled. Mary died at 25 Fox Lane, and Thomas gave Fox Lane as his address in 1920. No later item in the paper places the siblings. By 1931 their aunt Barbara was at Mountalt Place and described as “late of Kirkhouse, Voe”, so the household may have moved to Voe for a time.</li>
+      <li><strong>What happened to Georgina’s son George, born in December 1919?</strong> Not found. The paper never mentions him. If he was formally adopted after 1930, that would not be reported.</li>
+      <li><strong>When did the three move to Craigholme?</strong> Not found. “Craigholme” doesn’t appear in the Shetland Times between 1930 and 1995.</li>
+      <li><strong>Were their deaths noticed at home?</strong> No. Every death, In Memoriam and Return Thanks column from January 1975 to June 1981 was checked, and none of the three appears.</li>
+      <li><strong>What became of Alexander?</strong> Nothing found after 1898. Of the 102 mentions of an Alexander Sutherland in the paper from 1898 to 1925, none is tied to this family. The ones that name a parent or an address belong to other families.</li>
+      <li><strong>What were they like?</strong> There are two glimpses. At seven, before he was sent away, Thomas was “going about the streets”, and his mother was reluctant to part with him. In 1920 he was working as a cooper, was in trouble with the burgh court like plenty of young men, paid for the damage himself, and answered the court in writing.</li>
+    </ul>
+
+    <h2>Notes</h2>
+
+    <ul>
+      <li><strong>Mary died before the 1921 census, not after it.</strong> Her death was on 26 May 1921, and the census was taken on 19 June. That explains why she is missing from it.</li>
+      <li><strong>The school fees were paid by Nesting.</strong> From 1903 for Thomas, and from 1905 for the girls, the Edinburgh fees were paid by the Nesting Parish Council, which covered Nesting, Lunnasting and Whalsay. Until then Lerwick had paid. This suggests the family’s parish of settlement for poor relief was Nesting, probably through the father. If so, the Nesting poor-relief records at the Shetland Archives may say more about the family after 1919 than Lerwick’s do.</li>
+      <li><strong>Another Sutherland family in Fox Lane.</strong> In 1914–16 William Sutherland, labourer, and his wife Agnes Ann Irvine lived at 15 Fox Lane (<a href={st('19140620', 5, 138)} target="_blank" rel="noopener">ST 20 Jun 1914</a>, <a href={st('19160930', 4, 71)} target="_blank" rel="noopener">ST 30 Sep 1916</a>). Their records can be mixed up with this family’s. This family’s death notices of 1919 and 1921 both give 25 Fox Lane.</li>
+      <li><strong>Alexander in 1898.</strong> Both reports give the family’s address as North Roadside, not Fox Lane.</li>
+      <li><strong>Searched with nothing found.</strong> The phrases “ursula sutherland” and “georgina sutherland”, 1895–1990. “dumb sutherland” and “deaf sutherland”, 1899–1960, with every result read. “craigholme”, and “sutherland bearsden”. Return Thanks notices after the 1919 and 1921 deaths. A Georgina Sutherland on the Lerwick school prize lists in 1905–06 can’t be her, because she was in Edinburgh from November 1904.</li>
+    </ul>
+
+    <h2>Where next</h2>
+
+    <ul>
+      <li>The Nesting Parish Council poor-relief records, at the Shetland Archives.</li>
+      <li>Valuation rolls for 1925, 1930 and 1935 (ScotlandsPeople), for 25 Fox Lane and Kirkhouse, Voe.</li>
+      <li>For George: the Register of Corrected Entries against his 1919 birth, and the Adopted Children Register from 1930.</li>
+      <li>The Edinburgh Institution’s own records (later Donaldson’s), for when each child left.</li>
+    </ul>
+
+    <p class="note">The newspaper links need a British Newspaper Archive subscription.</p>
+  </NoteEssay>
+</Base>
