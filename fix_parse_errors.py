@@ -188,6 +188,16 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    alone, and Charlotte Nicol's birthplace stays empty as parse_wiki.py set it. Approximate dates
    ("circa 1703", "~1954") are not included: the site reads a year from the first four
    characters of a date.
+33. Three SIC wards the parser also created under the County Council: Aithsting And Sandsting,
+   "Gulberwick, Quarff And Cunningsburgh" and "Whiteness, Weisdale And Tingwall". The wiki pages
+   (shetland_history2) describe the SIC wards of 1974-99, and the County Council rows have no
+   elections or terms. They took the ward's URL, so /constituency/<slug> showed an empty County
+   Council ward. Deleted, and their wiki titles (which the old-URL redirects use) moved to the SIC
+   rows.
+34. Constituency slugs unique across councils: the twelve SIC wards that share a name with a
+   County Council ward get "-sic" (delting-north-sic). Only one page was built per slug, and it was
+   the County Council's, so the SIC ward pages were missing and their links went to the wrong
+   ward. The County Council URLs don't change.
 """
 
 import os
@@ -522,6 +532,10 @@ WIKI_OPENING_LINES = [  # (#32) (slug, field, value the parser left, value from 
     ('william-thomson-iii', 'died_date', '2016', '2016-07-06'),
     ('williamina-tait', 'birth_place', 'Baridster', 'Baridster, Walls'),
 ]
+
+
+SIC_WARDS_UNDER_ZCC = ('Aithsting And Sandsting', 'Gulberwick, Quarff And Cunningsburgh',
+                       'Whiteness, Weisdale And Tingwall')
 
 
 def main():
@@ -956,6 +970,35 @@ def main():
         elif cur[0] != new:
             raise SystemExit(f"people.{slug} {field} is {cur[0]!r}, expected {old!r}")
     print(f"  {n} of {len(WIKI_OPENING_LINES)} set")
+
+    print("=== 33. SIC wards duplicated under the County Council ===")
+    for name in SIC_WARDS_UNDER_ZCC:
+        rows = c.execute("SELECT id, council_id, wiki_page_title FROM constituencies WHERE name = ?", (name,)).fetchall()
+        zcc = [r for r in rows if r[1] == 2]
+        sic = [r for r in rows if r[1] == 3]
+        if len(sic) != 1:
+            raise SystemExit(f"constituency {name}: expected one SIC row, got {len(sic)}")
+        if not zcc:
+            print(f"  {name}: already done")
+            continue
+        (zid, _, title), = zcc
+        if c.execute("SELECT count(*) FROM elections WHERE constituency_id = ?", (zid,)).fetchone()[0]:
+            raise SystemExit(f"constituency {zid} ({name}) has elections")
+        if sic[0][2] not in (None, title):
+            raise SystemExit(f"constituency {sic[0][0]}: unexpected wiki_page_title {sic[0][2]!r}")
+        c.execute("DELETE FROM constituencies WHERE id = ?", (zid,))
+        c.execute("UPDATE constituencies SET wiki_page_title = ? WHERE id = ?", (title, sic[0][0]))
+        print(f"  {name}: County Council row {zid} deleted, {title} -> SIC row {sic[0][0]}")
+
+    print("=== 34. SIC ward slugs that clash with County Council wards ===")
+    clashes = c.execute("""SELECT s.id, s.slug FROM constituencies s JOIN constituencies z
+                           ON z.slug = s.slug AND z.council_id = 2 WHERE s.council_id = 3""").fetchall()
+    for cid, slug in clashes:
+        c.execute("UPDATE constituencies SET slug = ? WHERE id = ?", (f"{slug}-sic", cid))
+    print(f"  {len(clashes)} slugs suffixed -sic")
+    dupes = c.execute("SELECT slug FROM constituencies GROUP BY slug HAVING count(*) > 1").fetchall()
+    if dupes:
+        raise SystemExit(f"constituency slugs still not unique: {dupes}")
     db.commit()
     db.close()
 
