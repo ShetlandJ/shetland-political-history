@@ -177,3 +177,45 @@ paper: about 30 candidates gave no description (listed under each year).
   stood twice. Candidacy 2095 is now James Wiseman, unlinked (#85).
 - Black and Whitehead: the DB (wiki) has both as Scottish Liberal Democrats; the paper and the
   notice give them no label. Cleared, James 2026-10-13: trust the paper (#86).
+
+## Follow-ups (2026-10-30): days of three unopposed by-elections, Tulloch 1982
+
+**Dunrossness, July 1977: a contest, not unopposed.** The DB (wiki) had Prophet Smith unopposed on
+Mon 25 Jul 1977.
+
+- ST 8 Jul 1977 p5 a259, Williamina Flaws's address: "There are three others ... please vote on
+  12th July". [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19770708&page=0005&article=259)
+- ST 8 Jul 1977 p5 a260, Prophet Smith's address: "ON TUESDAY, 12th JULY VOTE". [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19770708&page=0005&article=260)
+- ST 15 Jul 1977 p10 a115 "Smith is the councillor": won "in Tuesday's by-election in a
+  four-cornered contest", 49 per cent turnout; Prophet Smith 143, Raymond Bentley 123, Alan
+  Whitfield 93, Williamina Flaws 55, no spoiled papers (figures checked on the page image).
+  [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19770715&page=0010&article=115)
+- ST 15 Jul 1977 p2 a235, Smith's thanks "to all those who voted for me on the 12th".
+- **Edit (#92):** date 1977-07-12; Smith 143; three losers added (unlinked); turnout 414, 49%.
+  No electorate given. No label for any candidate.
+
+**Delting North, 1982.** The DB had Sun 1 Aug 1982 and a turnout of 439 (47%).
+
+- ST 16 Jul 1982 p16 a148 / p17 a151: obituary of Fraser Peterson (died 18 Jun 1982).
+- ST 13 Aug 1982 p16 a233 (repeated 20 and 27 Aug): "Local Government By-Election Electoral
+  Division No. 12 (North Delting) 16th September, 1982". [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19820813&page=0016&article=233)
+- ST 27 Aug 1982 p2 a014 "New councillor": Mrs Clubb's "was the only nomination" for Fraser
+  Peterson's seat; the Labour group "now four strong". [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19820827&page=0002&article=014)
+- **Edit (#92):** date 1982-09-16, the day fixed for the by-election (an unopposed candidate was
+  declared on that day, as the 1993 notice states); votes_text Unopposed. The 439 is the Nov 1983
+  Delting North poll (Manson 337 + Thorn 102) copied onto 1982: cleared.
+
+**Whalsay and Skerries, 1993.** The DB had Fri 19 Mar 1993, the day the paper reported the
+single nomination.
+
+- ST 26 Feb 1993 p29 a258, notice: polling "on Thursday, 8th April, 1993, unless the election is
+  uncontested"; nominations by 16 Mar, withdrawals by 18 Mar. [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19930226&page=0029&article=258)
+- ST 19 Mar 1993 p1 a002: Hazel Simpson's "was the only nomination" for Henry Stewart's seat. [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19930319&page=0001&article=002)
+- ST 26 Mar 1993 p31 a459, notice of no poll: "Day of Election — 8th April, 1993"; the candidate
+  to be declared elected not later than 11 am that day. [viewer](https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19930326&page=0031&article=459)
+- **Edit (#92):** date 1993-04-08.
+
+**Robert Rae Tulloch, 1982.** ST 16 Apr 1982 p1 a005 (above): "Mr R. R. Tulloch" stood for the
+Shetland Ratepayers' Association, the label `robert-tulloch` won Lerwick North under in Dec 1980;
+same ward. **Edit (#93):** candidacy 1909 linked to `robert-tulloch` (inferred); the label row in
+`candidacy_labels.csv` now names him by slug.

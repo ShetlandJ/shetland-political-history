@@ -515,3 +515,11 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 2 | our labels (inferred) | 1921: Bruce, Murray, A. S. Manson, W. Pottinger "Social Democrat", slates inferred | The SN names the four as "Labour candidates" (SN 27 Oct 1921 p4 a062) | Fixed: Labour, `read` (James's call); the six others Moderate, `read` |
 | 3 | DB | Nov 1921 poll 985 | The ST says 985 of "over 1800"; the SN 993 of "almost 1700" | Kept 985; election note added (`fix_newspapers.py` #88) |
 | 4 | our notes | The 1919 Labour slate had four names | The union branch put forward five; the fifth, printed "Wm. Murray, jun." (ST) and "David"/"James" (SN), was David Murray, who was in Fair Isle at nomination | Notes only; no DB change |
+
+## 2026-10-30: SIC by-elections 1977–1993 (evidence in `research/bna/party-labels-sic-1974-1999.md`, Follow-ups)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki / DB | Dunrossness by-election Jul 1977: Prophet Smith unopposed, Mon 25 Jul | A four-cornered contest on Tue 12 Jul 1977: Smith 143, Raymond Bentley 123, Alan Whitfield 93, Williamina Flaws 55; 49% turnout (ST 15 Jul 1977) | Fixed: #92 |
+| 2 | wiki / DB | Delting North by-election Sun 1 Aug 1982, turnout 439 (47%) | Clubb the only nomination; by-election day Thu 16 Sep 1982. The 439 is the Nov 1983 poll copied | Fixed: #92 (turnout cleared). Page title still says "August 1982" |
+| 3 | wiki / DB | Whalsay and Skerries by-election Fri 19 Mar 1993 | Day of election Thu 8 Apr 1993 (no poll; Simpson declared that day) | Fixed: #92. Page title still says "March 1993" |

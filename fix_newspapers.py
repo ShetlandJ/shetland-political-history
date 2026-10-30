@@ -686,6 +686,24 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
    Conochie's tribute at the special meeting of Thu 2 Aug 1956 (ST 10 Aug 1956 p6 a076-a077).
    Evidence: research/bna/biographies-ltc-provosts.md.
 91. James John Pottinger (iii) died on 18 April 1961, not the 12th (James, 2026-10-22).
+
+92. Three SIC by-elections the wiki dated wrongly:
+    - Dunrossness, July 1977 was a contest, not unopposed, polled on Tuesday 12 July (not
+      Monday 25th): Prophet Smith 143, Raymond Bentley 123, Alan Whitfield 93, Williamina Flaws
+      55, "only 49 per cent of the electorate" voting (ST 15 Jul 1977 p10 a115, figures checked
+      on the page image; Flaws's and Smith's addresses, ST 8 Jul 1977 p5 a259-260).
+    - Delting North, 1982: Roberta Clubb's was the only nomination for Fraser Peterson's seat
+      (ST 27 Aug 1982 p2 a014); the day of the by-election was Thursday 16 September 1982
+      (notice, ST 13 Aug 1982 p16 a233), not Sunday 1 August. The wiki's turnout (439, 47%) is
+      the November 1983 Delting North poll (337 + 102), so it is cleared.
+    - Whalsay and Skerries, 1993: the notice (ST 26 Feb 1993 p29 a258) fixed Thursday 8 April
+      1993; Hazel Simpson alone was nominated, and the notice of no poll (ST 26 Mar 1993 p31
+      a459) declares her elected on "Day of Election - 8th April, 1993", not Friday 19 March (the
+      day the paper reported her nomination).
+
+93. Robert Rae Tulloch's May 1982 candidacy (Lerwick North, Shetland Ratepayers' Association) is
+    the Robert Tulloch who won Lerwick North for the Ratepayers in December 1980 (ST 16 Apr 1982
+    p1 a005: "Mr R. R. Tulloch ... on behalf of Shetland Ratepayers' Association").
 """
 
 import os
@@ -1284,6 +1302,11 @@ LAING_BIO = ('james-laing', 'He became the first Labour Provost of Lerwick in 19
              'between 1906 and his retirement in 1945.')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 POTTINGER_DEATH = ('james-pottinger-iii', '1961-04-12', '1961-04-18')
+DUNROSSNESS_1977 = ('Dunrossness By-Election July 1977', '1977-07-25', '1977-07-12', ('Prophet Smith', 143),
+                    [('Raymond Bentley', 123), ('Alan Whitfield', 93), ('Williamina Flaws', 55)], (414, 49.0))
+DELTING_NORTH_1982 = ('Delting North By-Election August 1982', '1982-08-01', '1982-09-16', 'Roberta Clubb', (439, 47.0))
+WHALSAY_1993 = ('Whalsay and Skerries By-Election March 1993', '1993-03-19', '1993-04-08')
+TULLOCH_1982 = ('Shetland Islands Council Election May 1982', 'Robert Rae Tulloch', 'robert-tulloch')
 
 HAY_NOTE = (
     "Arthur J. Hay topped the poll but declined to take office (letter, 8 November 1884). "
@@ -2524,6 +2547,60 @@ def main():
         print(f"  {slug} died_date: {wrong} -> {right}")
     else:
         raise SystemExit(f"people.{slug} died_date is {row['died_date']}, expected {wrong}")
+
+    print("=== 92. SIC by-elections: Dunrossness 1977, Delting North 1982, Whalsay 1993 ===")
+    title, wrong, right, (winner, winner_votes), losers, (turnout, pct) = DUNROSSNESS_1977
+    eid = set_date(c, title, wrong, right)
+    w = one(c, "SELECT id, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, winner))
+    if (w['votes'], w['votes_text']) == (None, 'Unopposed'):
+        c.execute("UPDATE candidacies SET votes = ?, votes_text = NULL WHERE id = ?", (winner_votes, w['id']))
+        print(f"  candidacy {w['id']} ({winner}): Unopposed -> {winner_votes}")
+    elif (w['votes'], w['votes_text']) != (winner_votes, None):
+        raise SystemExit(f"candidacy {w['id']}: unexpected votes {w['votes']!r}/{w['votes_text']!r}")
+    for pos, (name, votes) in enumerate(losers, start=2):
+        c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, name))
+        if c.fetchall():
+            print(f"  {name}: already added")
+        else:
+            c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
+                         VALUES (?, ?, ?, 0, ?)""", (eid, name, votes, pos))
+            print(f"  election {eid}: {name} added, {votes} votes")
+    row = one(c, "SELECT turnout, turnout_pct FROM elections WHERE id = ?", (eid,))
+    if (row['turnout'], row['turnout_pct']) == (None, None):
+        c.execute("UPDATE elections SET turnout = ?, turnout_pct = ? WHERE id = ?", (turnout, pct, eid))
+        print(f"  election {eid}: turnout {turnout} ({pct}%)")
+    elif (row['turnout'], row['turnout_pct']) != (turnout, pct):
+        raise SystemExit(f"election {eid}: unexpected turnout {row['turnout']}/{row['turnout_pct']}")
+
+    title, wrong, right, name, copied = DELTING_NORTH_1982
+    eid = set_date(c, title, wrong, right)
+    row = one(c, "SELECT turnout, turnout_pct FROM elections WHERE id = ?", (eid,))
+    if (row['turnout'], row['turnout_pct']) == copied:
+        c.execute("UPDATE elections SET turnout = NULL, turnout_pct = NULL WHERE id = ?", (eid,))
+        print(f"  election {eid}: copied turnout {copied} cleared")
+    elif (row['turnout'], row['turnout_pct']) != (None, None):
+        raise SystemExit(f"election {eid}: unexpected turnout {row['turnout']}/{row['turnout_pct']}")
+    cand = one(c, "SELECT id, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, name))
+    if cand['votes_text'] == 'Elected as councillor':
+        c.execute("UPDATE candidacies SET votes_text = 'Unopposed' WHERE id = ?", (cand['id'],))
+        print(f"  candidacy {cand['id']} ({name}): Unopposed")
+    elif cand['votes_text'] != 'Unopposed':
+        raise SystemExit(f"candidacy {cand['id']}: unexpected votes_text {cand['votes_text']!r}")
+
+    set_date(c, *WHALSAY_1993)
+
+    print("=== 93. Robert Rae Tulloch, 1982 ===")
+    title, name, slug = TULLOCH_1982
+    pid = one(c, "SELECT id FROM people WHERE slug = ?", (slug,))['id']
+    cand = one(c, """SELECT c.id, c.person_id FROM candidacies c JOIN elections e ON e.id = c.election_id
+                    WHERE e.wiki_page_title = ? AND c.candidate_name = ?""", (title, name))
+    if cand['person_id'] == pid:
+        print(f"  candidacy {cand['id']}: already {slug}")
+    elif cand['person_id'] is None:
+        c.execute("UPDATE candidacies SET person_id = ? WHERE id = ?", (pid, cand['id']))
+        print(f"  candidacy {cand['id']} ({name}) -> {slug}")
+    else:
+        raise SystemExit(f"candidacy {cand['id']}: linked to person {cand['person_id']}, expected NULL")
 
     db.commit()
     db.close()
