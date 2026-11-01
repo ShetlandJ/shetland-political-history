@@ -711,6 +711,15 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     a062), where his children were born in 1911 and 1916 (Bayanne); "labourer" in the SN preview
     (27 Oct 1921 p4 a056), where Bayanne has "stationer's shopman". Nominated by James Laing and
     M. L. Manson, his brother's 1919 running mates. He never sat, so no person row.
+
+95. John Manson, Moderate candidate for the Town Council in November 1921 and November 1926,
+    linked to Bayanne I104877 (b. Uyea 1881, d. Lerwick 3 Sep 1963), the Lerwick draper. In 1921
+    he was "John Manson, 57 Burgh Road", a draper and new candidate (SN 27 Oct 1921 p4 a062,
+    a056); his mother died at 57 Burgh Road in 1931 (Bayanne). In 1926 he "has contested one
+    previous election" (ST 30 Oct 1926 p4 a068). Obituary, "Death of retired Lerwick draper": born
+    Uyea, worked for R. D. Ganson and Peter Anderson, then his own shop (ST 6 Sep 1963 p4 a054);
+    death notice ST 13 Sep 1963 p4 a064. The other John Manson tied to 57 Burgh Road (I124327, b.
+    1856) was a labourer and seaman. Never sat, so no person row.
 """
 
 import os
@@ -1314,6 +1323,9 @@ DUNROSSNESS_1977 = ('Dunrossness By-Election July 1977', '1977-07-25', '1977-07-
 DELTING_NORTH_1982 = ('Delting North By-Election August 1982', '1982-08-01', '1982-09-16', 'Roberta Clubb', (439, 47.0))
 WHALSAY_1993 = ('Whalsay and Skerries By-Election March 1993', '1993-03-19', '1993-04-08')
 TULLOCH_1982 = ('Shetland Islands Council Election May 1982', 'Robert Rae Tulloch', 'robert-tulloch')
+MANSON_BAYANNE = ('John Manson',
+                  '[https://www.bayanne.info/Shetland/getperson.php?personID=I104877&tree=ID1 John Manson]',
+                  ['Lerwick Town Council Election November 1921', 'Lerwick Town Council Election November 1926'])
 POTTINGER_1921 = ('Lerwick Town Council Election November 1921', 'William Pottinger',
                   '[https://www.bayanne.info/Shetland/getperson.php?personID=I28935&tree=ID1 William Pottinger]')
 
@@ -2621,6 +2633,18 @@ def main():
     else:
         c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
         print(f"  candidacy {cand['id']} ({wrong}) -> Bayanne I28935")
+
+    print("=== 95. John Manson, 1921 and 1926 ===")
+    wrong, right, titles = MANSON_BAYANNE
+    for title in titles:
+        cand = one(c, """SELECT c.id, c.candidate_name FROM candidacies c JOIN elections e ON e.id = c.election_id
+                        WHERE e.wiki_page_title = ? AND c.candidate_name IN (?, ?) AND c.person_id IS NULL""",
+                   (title, wrong, right))
+        if cand['candidate_name'] == right:
+            print(f"  candidacy {cand['id']}: already linked to Bayanne")
+        else:
+            c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
+            print(f"  candidacy {cand['id']} ({title}) -> Bayanne I104877")
 
     db.commit()
     db.close()

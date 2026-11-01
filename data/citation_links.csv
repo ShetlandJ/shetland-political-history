@@ -3087,7 +3087,7 @@ st-19990423-p34-a277,election,1099,read,polled 6 May 1999
 st-19990423-p35-a380,election,1107,read,Black and Whitehead with no description: Scottish Liberal Democrats label cleared (fix_newspapers.py #86)
 st-19990514-p5-a056,election,1109,read,"result: Cluness 276, McElvogue 97, Wiseman 50"
 st-19990430-p19-a183,election,1114,read,party label; Brenda Wilcock (DB had Wilcox)
-st-19820416-p1-a005,election,1004,read,"no candidate stated Shetland Movement on his nomination papers; Graham's label cleared (fix_newspapers.py #86)"
+st-19820416-p1-a005,election,1004,read,no candidate stated Shetland Movement on his nomination papers; Graham's label cleared (fix_newspapers.py #86)
 st-19241206-p4-a057,person,william-tulloch:biography,read,re-appointed German Vice-Consul (fix_newspapers.py #87)
 st-19330624-p4-a072,person,william-tulloch:biography,read,official calls by German fishery cruisers
 st-19360711-p4-a096,person,william-tulloch:biography,read,Sikkes funeral July 1936
@@ -3098,39 +3098,39 @@ st-19430709-p4-a094,person,william-tulloch:biography,read,"Harbour Trust, School
 st-19430716-p2-a026,person,william-tulloch:died_date,read,
 st-19430716-p2-a026,person,william-tulloch:death_place,read,Leog
 sn-19211103-p4-a044,election,78,read,poll 993 of almost 1700; differs from ST 985 of over 1800
-sn-19211027-p4-a062,election,78,read,the four Labour candidates named
+sn-19211027-p4-a062,election,78,read,"the four Labour candidates named; John Manson, 57 Burgh Road: identified as Bayanne I104877 (his mother died at 57 Burgh Road)"
 sn-19211103-p4-a053,election,78,read,Moderates v Socialists
 st-19211022-p4-a093,term,william-sinclair@1920-11-02,read,still sitting as Bailie on 17 Oct 1921
 st-19211112-p5-a074,term,william-sinclair@1920-11-02,read,resigned before the election
-st-19240405-p4-a089,term,james-goodlad@1921-11-01,read,"resignation accepted 1 Apr 1924"
-st-19241101-p4-a091,term,john-sinclair@1921-11-01,read,"retiring in 1924"
-st-19241101-p4-a091,term,robert-ollason@1921-11-01,read,"retiring in 1924"
-st-19241101-p4-a091,term,william-bruce-ii@1921-11-01,read,"retiring in 1924"
-st-19251024-p4-a073,term,george-duffin@1922-11-07,read,"retiring in 1925"
-st-19251024-p4-a073,term,james-morrison@1922-11-07,read,"retiring in 1925"
-st-19251024-p4-a073,term,magnus-manson@1922-11-07,read,"retiring in 1925"
+st-19240405-p4-a089,term,james-goodlad@1921-11-01,read,resignation accepted 1 Apr 1924
+st-19241101-p4-a091,term,john-sinclair@1921-11-01,read,retiring in 1924
+st-19241101-p4-a091,term,robert-ollason@1921-11-01,read,retiring in 1924
+st-19241101-p4-a091,term,william-bruce-ii@1921-11-01,read,retiring in 1924
+st-19251024-p4-a073,term,george-duffin@1922-11-07,read,retiring in 1925
+st-19251024-p4-a073,term,james-morrison@1922-11-07,read,retiring in 1925
+st-19251024-p4-a073,term,magnus-manson@1922-11-07,read,retiring in 1925
 st-19251024-p4-a073,term,alexander-manson@1923-11-06,read,"retiring in 1925, a year early"
-st-19251024-p4-a073,term,james-laing@1922-11-07,inferred,"not retiring in 1925 while Provost"
-st-19271029-p4-a073,term,james-laing@1922-11-07,read,"retiring in 1927"
-st-19261030-p4-a068,term,alexander-ratter@1923-11-06,read,"retiring in 1926"
-st-19261030-p4-a068,term,david-murray@1923-11-06,read,"retiring in 1926"
-st-19261030-p4-a068,term,robert-ganson-i@1923-11-06,read,"retiring in 1926"
+st-19251024-p4-a073,term,james-laing@1922-11-07,inferred,not retiring in 1925 while Provost
+st-19271029-p4-a073,term,james-laing@1922-11-07,read,retiring in 1927
+st-19261030-p4-a068,term,alexander-ratter@1923-11-06,read,retiring in 1926
+st-19261030-p4-a068,term,david-murray@1923-11-06,read,retiring in 1926
+st-19261030-p4-a068,term,robert-ganson-i@1923-11-06,read,retiring in 1926
 st-19261030-p4-a068,term,edwyn-tait@1924-11-04,read,"retiring in 1926, not standing"
-st-19271029-p4-a073,term,john-sinclair@1924-11-04,read,"retiring in 1927"
-st-19271029-p4-a073,term,robert-ollason@1924-11-04,read,"retiring in 1927"
-st-19271029-p4-a073,term,william-bruce-ii@1924-11-04,read,"retiring in 1927"
-st-19281103-p5-a090,term,george-duffin@1925-11-03,read,"retiring in 1928"
-st-19311031-p4-a097,term,george-duffin@1928-11-06,read,"retiring in 1931"
-st-19281103-p5-a090,term,john-campbell-i@1925-11-03,read,"retiring in 1928"
-st-19311031-p4-a097,term,john-campbell-i@1928-11-06,read,"retiring in 1931"
-st-19281103-p5-a090,term,laurence-cogle@1925-11-03,read,"retiring in 1928"
-st-19311031-p4-a097,term,laurence-cogle@1928-11-06,read,"retiring in 1931"
-st-19281103-p5-a090,term,magnus-manson@1925-11-03,read,"retiring in 1928"
-st-19311031-p4-a097,term,magnus-manson@1928-11-06,read,"retiring in 1931"
-st-19301101-p4-a070,term,james-laing@1927-11-01,read,"retiring in 1930"
-st-19301101-p4-a070,term,john-sinclair@1927-11-01,read,"retiring in 1930"
-st-19301101-p4-a070,term,robert-ollason@1927-11-01,read,"retiring in 1930"
-st-19301101-p4-a070,term,william-bruce-ii@1927-11-01,read,"retiring in 1930"
+st-19271029-p4-a073,term,john-sinclair@1924-11-04,read,retiring in 1927
+st-19271029-p4-a073,term,robert-ollason@1924-11-04,read,retiring in 1927
+st-19271029-p4-a073,term,william-bruce-ii@1924-11-04,read,retiring in 1927
+st-19281103-p5-a090,term,george-duffin@1925-11-03,read,retiring in 1928
+st-19311031-p4-a097,term,george-duffin@1928-11-06,read,retiring in 1931
+st-19281103-p5-a090,term,john-campbell-i@1925-11-03,read,retiring in 1928
+st-19311031-p4-a097,term,john-campbell-i@1928-11-06,read,retiring in 1931
+st-19281103-p5-a090,term,laurence-cogle@1925-11-03,read,retiring in 1928
+st-19311031-p4-a097,term,laurence-cogle@1928-11-06,read,retiring in 1931
+st-19281103-p5-a090,term,magnus-manson@1925-11-03,read,retiring in 1928
+st-19311031-p4-a097,term,magnus-manson@1928-11-06,read,retiring in 1931
+st-19301101-p4-a070,term,james-laing@1927-11-01,read,retiring in 1930
+st-19301101-p4-a070,term,john-sinclair@1927-11-01,read,retiring in 1930
+st-19301101-p4-a070,term,robert-ollason@1927-11-01,read,retiring in 1930
+st-19301101-p4-a070,term,william-bruce-ii@1927-11-01,read,retiring in 1930
 st-19560803-p4-a058,person,james-aitken:died_date,inferred,"""yesterday morning"" in the Fri 3 Aug 1956 issue"
 st-19560803-p4-a058,person,james-aitken:death_place,read,Gilbert Bain Hospital
 st-19560810-p6-a075,person,james-aitken:biography,read,"parents, illness, Pearl Assurance, Labour 1937, Provost 1946-50, Rechabite, sport, sister, burial"
@@ -3146,4 +3146,8 @@ st-19930226-p29-a258,election,1070,read,day fixed 8 April 1993
 st-19930319-p1-a002,election,1070,read,Simpson the only nomination
 st-19930326-p31-a459,election,1070,read,notice of no poll: day of election 8 April 1993
 st-19211029-p4-a092,election,78,read,William Pottinger of Commercial Street nominated; identified as Bayanne I28935 (children born on Commercial Street 1911 and 1916)
-sn-19211027-p4-a056,election,78,read,"William Pottinger, labourer, Labour nominee (Bayanne has stationer's shopman)"
+sn-19211027-p4-a056,election,78,read,"William Pottinger, labourer, Labour nominee (Bayanne has stationer's shopman); the six (J. Smith, Ramsay, J. T. J. Sinclair, Ollason, Goodlad, John Manson, draper) ""running together"" as the Moderate or Constitutional Party"
+st-19261030-p4-a068,election,84,read,"John Manson ""has contested one previous election"" (1921): same man"
+st-19630906-p4-a054,election,78,inferred,retired Lerwick draper John Manson (I104877) is the 1921 draper candidate
+st-19630906-p4-a054,election,84,inferred,retired Lerwick draper John Manson (I104877) is the 1926 candidate
+st-19630913-p4-a064,election,78,read,John Manson died 3 Sep 1963 aged 82; matches Bayanne I104877
