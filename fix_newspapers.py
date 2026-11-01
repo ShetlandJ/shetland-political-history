@@ -720,6 +720,16 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     Uyea, worked for R. D. Ganson and Peter Anderson, then his own shop (ST 6 Sep 1963 p4 a054);
     death notice ST 13 Sep 1963 p4 a064. The other John Manson tied to 57 Burgh Road (I124327, b.
     1856) was a labourer and seaman. Never sat, so no person row.
+
+96. Hidden-contests audit (research/bna/hidden-contests.md):
+    - Lerwick Sound SIC by-election, October 1976, was a poll, not unopposed, and was held on
+      Tuesday 5 October (not the 26th): Ian Byrne 183, James Gair 142, Gordon Harmer 66; 391
+      voted out of an electorate of 728, a 53.7 per cent poll (ST 8 Oct 1976 p1 a006). Byrne's
+      address: the election "to be held on 5th October, 1976" (ST 1 Oct 1976 p3 a209, day read
+      on the page image). 183 + 142 + 66 = 391, so no spoiled papers.
+    - Sandness County Council by-election, July 1902: Holbourn was appointed, unanimously, at the
+      statutory meeting "on Thursday at noon", Thursday 17 July 1902, not the 24th (ST 19 Jul
+      1902 p8 a148, a150).
 """
 
 import os
@@ -1323,6 +1333,9 @@ DUNROSSNESS_1977 = ('Dunrossness By-Election July 1977', '1977-07-25', '1977-07-
 DELTING_NORTH_1982 = ('Delting North By-Election August 1982', '1982-08-01', '1982-09-16', 'Roberta Clubb', (439, 47.0))
 WHALSAY_1993 = ('Whalsay and Skerries By-Election March 1993', '1993-03-19', '1993-04-08')
 TULLOCH_1982 = ('Shetland Islands Council Election May 1982', 'Robert Rae Tulloch', 'robert-tulloch')
+SOUND_1976 = ('Lerwick_Sound_By-Election_October_1976', '1976-10-26', '1976-10-05', ('Ian Byrne', 183),
+              [('James Gair', 142), ('Gordon Harmer', 66)], (728, 391, 53.7))
+SANDNESS_1902 = ('Sandness County Council By-Election July 1902', '1902-07-24', '1902-07-17')
 MANSON_BAYANNE = ('John Manson',
                   '[https://www.bayanne.info/Shetland/getperson.php?personID=I104877&tree=ID1 John Manson]',
                   ['Lerwick Town Council Election November 1921', 'Lerwick Town Council Election November 1926'])
@@ -2645,6 +2658,33 @@ def main():
         else:
             c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
             print(f"  candidacy {cand['id']} ({title}) -> Bayanne I104877")
+
+    print("=== 96. Hidden contests: Lerwick Sound 1976, Sandness 1902 ===")
+    title, wrong, right, (winner, winner_votes), losers, (electorate, turnout, pct) = SOUND_1976
+    eid = set_date(c, title, wrong, right)
+    w = one(c, "SELECT id, votes, votes_text FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, winner))
+    if (w['votes'], w['votes_text']) == (None, 'Unopposed'):
+        c.execute("UPDATE candidacies SET votes = ?, votes_text = NULL WHERE id = ?", (winner_votes, w['id']))
+        print(f"  candidacy {w['id']} ({winner}): Unopposed -> {winner_votes}")
+    elif (w['votes'], w['votes_text']) != (winner_votes, None):
+        raise SystemExit(f"candidacy {w['id']}: unexpected votes {w['votes']!r}/{w['votes_text']!r}")
+    for pos, (name, votes) in enumerate(losers, start=2):
+        c.execute("SELECT id FROM candidacies WHERE election_id = ? AND candidate_name = ?", (eid, name))
+        if c.fetchall():
+            print(f"  {name}: already added")
+        else:
+            c.execute("""INSERT INTO candidacies (election_id, candidate_name, votes, elected, position)
+                         VALUES (?, ?, ?, 0, ?)""", (eid, name, votes, pos))
+            print(f"  election {eid}: {name} added, {votes} votes")
+    row = one(c, "SELECT electorate, turnout, turnout_pct FROM elections WHERE id = ?", (eid,))
+    if (row['electorate'], row['turnout'], row['turnout_pct']) == (None, None, None):
+        c.execute("UPDATE elections SET electorate = ?, turnout = ?, turnout_pct = ? WHERE id = ?",
+                  (electorate, turnout, pct, eid))
+        print(f"  election {eid}: electorate {electorate}, turnout {turnout} ({pct}%)")
+    elif (row['electorate'], row['turnout'], row['turnout_pct']) != (electorate, turnout, pct):
+        raise SystemExit(f"election {eid}: unexpected turnout {row['electorate']}/{row['turnout']}/{row['turnout_pct']}")
+
+    set_date(c, *SANDNESS_1902)
 
     db.commit()
     db.close()

@@ -8,6 +8,22 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-11-01: The missing Sandwick SIC result, May 1982.** The DB has no Sandwick row for the
+  May 1982 general, though the ward was contested: Malcolm S. Bray against the sitting member
+  Peter R. Watts, poll 53.5 per cent (ST 16 Apr 1982 p2 a011; results ST 14 May 1982 p2 a026; the
+  figures run into the binding). The wiki page has the table (Bray elected, Watts not, votes
+  "coming soon", turnout 349 (55%)), but its heading is broken (`[[Sandwick (Constituency)|Sandwic]]k`)
+  and the parser dropped it. So Bray's 1982–86 seat is missing and Sandwick shows empty from May
+  1982. Options: (a) add the election from the wiki (Bray elected, Watts, no votes) with the
+  paper's 53.5% and no turnout figure; (b) the same with the wiki's 349 (55%); (c) look for the
+  figures elsewhere first (the Shetland News, or the 21 May 1982 issue). Evidence:
+  `hidden-contests.md`.
+- **2026-11-01: SIC May 2003, eight seats unopposed in the DB, not checkable in the BNA.** The
+  Shetland Times in the BNA ends with 2000, so Grains, T. Stove, Mitchell, Cluness, J. Irvine,
+  Robertson, J. G. Simpson and Nicolson's 2003 seats rest on the wiki alone. Options: (a) leave
+  them; (b) check the SIC's published results or the Shetland Times archive offline. Elections
+  1122, 1124, 1127, 1132, 1136, 1141, 1142, 1143. Evidence: `hidden-contests.md`.
+
 - **2026-10-12: Balfour Spence's 1823 seat after the Shetlopedia versions.** Shetlopedia's 2009/10
   list had one Spence (Balfour) among the ten members seen in 1823–24; in 2012 William Spence
   ("W. Spence", p29) was added and Balfour kept, making eleven. So the 1823 Balfour row looks like the

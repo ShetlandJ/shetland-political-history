@@ -627,7 +627,7 @@ st-18861016-p2-a035,election,37,,
 st-18861030-p2-a033,election,36,,
 st-18861030-p2-a033,election,37,,
 st-18861120-p2-a032,election,37,,
-st-18870319-p2-a054,election,38,,
+st-18870319-p2-a054,election,38,read,"co-option: Porteous proposed and seconded, ""unanimously elected""; co-option: Porteous proposed and seconded, ""unanimously elected"""
 st-18881006-p3-a068,election,40,,
 st-18881103-p2-a044,election,40,,
 st-18891026-p2-a014,election,41,,
@@ -658,7 +658,7 @@ st-19081107-p4-a149,election,62,,
 st-19091016-p1-a007,election,63,,
 st-19091106-p1-a006,election,63,,
 st-19091106-p4-a070,election,63,,
-st-19100108-p4-a071,election,64,,
+st-19100108-p4-a071,election,64,read,"co-option: ""unanimously agreed to appoint"" Loggie; co-option: ""unanimously agreed to appoint"" Loggie"
 st-19101015-p4-a078,election,65,,
 st-19101105-p4-a077,election,65,,
 st-19111014-p1-a004,election,66,,
@@ -675,7 +675,7 @@ st-19141024-p4-a063,election,69,,
 st-19141031-p4-a059,election,69,,
 st-19150807-p4-a093,election,71,,
 st-19160805-p5-a107,election,72,,
-st-19160909-p4-a075,election,73,,
+st-19160909-p4-a075,election,73,inferred,"co-option: Manson ""co-opted""; no other name or vote reported; co-option: Manson ""co-opted""; no other name or vote reported"
 st-19191018-p5-a082,election,75,,
 st-19191108-p4-a077,election,75,,
 st-19191108-p4-a089,election,75,,
@@ -696,30 +696,30 @@ st-19311031-p4-a097,election,89,,
 st-19341013-p4-a088,election,93,,
 st-19341103-p4-a045,election,93,,
 st-19360711-p4-a101,election,95,,
-st-19360711-p4-a106,election,95,,
+st-19360711-p4-a106,election,95,read,"co-option: ""no other nomination"", unanimously co-opted; co-option: ""no other nomination"", unanimously co-opted"
 st-19360808-p4-a068,election,96,,
-st-19360808-p4-a074,election,96,,
+st-19360808-p4-a074,election,96,read,"co-option: ""There was no amendment""; co-option: ""There was no amendment"""
 st-19361114-p4-a119,election,98,,
 st-19361114-p4-a127,election,97,,
-st-19361114-p4-a127,election,98,,
+st-19361114-p4-a127,election,98,read,"co-option: Clausen ""unanimously elected""; co-option: Clausen ""unanimously elected"""
 st-19371106-p4-a072,election,99,,
-st-19380205-p4-a077,election,100,,
+st-19380205-p4-a077,election,100,read,"co-option: ""This motion was unanimous""; co-option: ""This motion was unanimous"""
 st-19381105-p4-a093,election,101,,
 st-19400608-p5-a094,election,102,,
 st-19400706-p4-a059,election,102,,
-st-19400713-p2-a028,election,102,,
+st-19400713-p2-a028,election,102,read,"co-option: ""The motion was accepted unanimously""; co-option: ""The motion was accepted unanimously"""
 st-19410111-p5-a048,election,103,,
-st-19410111-p5-a054,election,103,,
-st-19410705-p2-a031,election,104,,
+st-19410111-p5-a054,election,103,read,co-option: a motion to defer found no seconder; no other name; co-option: a motion to defer found no seconder; no other name
+st-19410705-p2-a031,election,104,inferred,"co-option: Johnston ""co-opted to fill the vacancy""; no other name reported; co-option: Johnston ""co-opted to fill the vacancy""; no other name reported"
 st-19411011-p2-a030,election,105,,
 st-19411011-p2-a034,election,105,,
-st-19420404-p2-a041,election,106,,
-st-19430213-p2-a080,election,107,,
-st-19441110-p2-a042,election,108,,
-st-19450209-p2-a044,election,109,,
+st-19420404-p2-a041,election,106,inferred,co-option: Sinclair co-opted on a motion; no other name reported; co-option: Sinclair co-opted on a motion; no other name reported
+st-19430213-p2-a080,election,107,inferred,co-option: Anderson moved; no other name reported; co-option: Anderson moved; no other name reported
+st-19441110-p2-a042,election,108,read,"co-option: ""There were no other nominations""; co-option: ""There were no other nominations"""
+st-19450209-p2-a044,election,109,inferred,co-option: Morrison co-opted on a motion; no other name reported; co-option: Morrison co-opted on a motion; no other name reported
 st-19451102-p2-a034,election,110,,
 st-19451109-p2-a047,election,110,,
-st-19451214-p3-a076,election,111,,
+st-19451214-p3-a076,election,111,read,"co-option: ""no counter-motion forthcoming""; co-option: ""no counter-motion forthcoming"""
 st-19461004-p5-a071,election,113,,
 st-19461101-p4-a044,election,113,,
 st-19461108-p4-a059,election,113,,
@@ -729,7 +729,7 @@ st-19471010-p4-a083,election,114,,
 st-19490429-p4-a050,election,115,,
 st-19490429-p7-a100,election,695,,
 st-19490916-p3-a030,election,116,,
-st-19490916-p5-a055,election,116,,
+st-19490916-p5-a055,election,116,read,"co-option: ""There was no other nomination""; co-option: ""There was no other nomination"""
 st-19500721-p4-a051,election,719,,
 st-19500721-p4-a051,election,720,,
 st-19500721-p5-a058,election,720,,
@@ -755,18 +755,18 @@ st-19570419-p4-a052,election,126,,
 st-19580425-p4-a062,election,776,,
 st-19580509-p4-a051,election,776,,
 st-19580509-p4-a054,election,127,,
-st-19580516-p5-a061,election,776,,
+st-19580516-p5-a061,election,776,inferred,"unopposed: five contests, the five the DB has; unopposed: five contests, the five the DB has"
 st-19580606-p4-a050,election,128,,
-st-19580627-p4-a055,election,128,,
+st-19580627-p4-a055,election,128,read,"co-option: Johnson ""the only man nominated""; co-option: Johnson ""the only man nominated"""
 st-19590501-p8-a120,election,129,,
-st-19590911-p6-a073,election,130,,
+st-19590911-p6-a073,election,130,inferred,co-option: Gray co-opted; no other name or vote reported; co-option: Gray co-opted; no other name or vote reported
 st-19600415-p4-a060,election,131,,
 st-19610428-p4-a028,election,805,,
 st-19610512-p5-a065,election,805,,
 st-19610512-p7-a099,election,132,,
 st-19610512-p7-a099,election,133,,
-st-19610616-p3-a057,election,133,,
-st-19620810-p6-a090,election,135,,
+st-19610616-p3-a057,election,133,inferred,co-option: Strachan nominated by ex-Provost Conochie; no other name reported; co-option: Strachan nominated by ex-Provost Conochie; no other name reported
+st-19620810-p6-a090,election,135,read,"co-option: Shearer ""the unanimous choice""; co-option: Shearer ""the unanimous choice"""
 st-19630419-p5-a079,election,136,,
 st-19640417-p4-a054,election,137,,
 st-19640501-p4-a087,election,137,,
@@ -778,15 +778,15 @@ st-19660422-p4-a060,election,139,,
 st-19670414-p4-a059,election,140,,
 st-19670414-p4-a061,election,140,,
 st-19670414-p4-a061,election,141,,
-st-19670512-p3-a046,election,141,,
-st-19670811-p4-a067,election,142,,
+st-19670512-p3-a046,election,141,read,"co-option: ""the council unanimously decided to co-opt Miss Halcrow""; co-option: ""the council unanimously decided to co-opt Miss Halcrow"""
+st-19670811-p4-a067,election,142,inferred,co-option: Cumming co-opted; no other name or vote reported; co-option: Cumming co-opted; no other name or vote reported
 st-19670811-p5-a094,election,142,,
 st-19680419-p4-a059,election,143,,
 st-19680510-p4-a062,election,143,,
 st-19690509-p1-a149,election,144,,
 st-19700417-p1-a002,election,145,,
 st-19700417-p1-a003,election,146,,
-st-19700515-p11-a097,election,146,,
+st-19700515-p11-a097,election,146,inferred,co-option: council agreed to appoint the top unsuccessful candidate; co-option: council agreed to appoint the top unsuccessful candidate
 st-19720414-p1-a001,election,148,,
 st-19730413-p1-a002,election,149,,
 st-19210528-p5-a151,election,464,,
@@ -1273,7 +1273,7 @@ st-19020118-p4-a066,election,304,read,Williamson the only nomination; no poll
 st-19020208-p8-a155,election,302,read,"reported elected at the meeting of Thu 6 Feb 1902, so the DB's day is too late"
 st-19020208-p8-a155,election,303,read,"reported elected at the meeting of Thu 6 Feb 1902, so the DB's 8 Feb is too late"
 st-19020208-p8-a155,election,304,read,"reported elected at the meeting of Thu 6 Feb 1902, so the DB's 8 Feb is too late"
-st-19020809-p4-a062,election,305,inferred,"Holbourn the new member for Sandness by 2 Aug 1902; the appointment meeting not found, and the wiki's Thu 24 Jul fits the Thursday meetings"
+st-19020809-p4-a062,election,305,inferred,"Holbourn the new member for Sandness by 2 Aug 1902 (appointed Thu 17 Jul: ST 19 Jul 1902 p8 a150)"
 st-19030221-p4-a053,election,306,read,W. J. Adie resigned
 st-19030418-p5-a072,election,306,read,J. A. Adie appointed Thu 16 Apr 1903
 st-19030919-p5-a112,election,307,read,Haldane appointed Thu 17 Sep 1903
@@ -3151,3 +3151,155 @@ st-19261030-p4-a068,election,84,read,"John Manson ""has contested one previous e
 st-19630906-p4-a054,election,78,inferred,retired Lerwick draper John Manson (I104877) is the 1921 draper candidate
 st-19630906-p4-a054,election,84,inferred,retired Lerwick draper John Manson (I104877) is the 1926 candidate
 st-19630913-p4-a064,election,78,read,John Manson died 3 Sep 1963 aged 82; matches Bayanne I104877
+st-19071130-p4-a072,election,340,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,341,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,342,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,345,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,346,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,347,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,348,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,349,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,350,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,351,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,352,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,354,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,355,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,358,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,359,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,360,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,363,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19071130-p4-a072,election,364,inferred,"unopposed: ""five contests"" named (Delting North and South, Walls, Sandsting, Northmavine North)"
+st-19101126-p4-a090,election,370,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,371,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,372,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,373,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,374,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,375,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,377,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,379,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,381,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,383,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,384,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,385,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,388,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,390,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,391,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,392,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,393,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19101126-p4-a090,election,394,inferred,"unopposed: contests only in Nesting, Sandsting, Gulberwick and Lerwick North"
+st-19131122-p4-a087,election,402,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,405,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,406,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,407,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,408,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,409,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,410,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,411,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,412,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,413,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,414,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,415,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,416,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,417,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,419,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,420,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,422,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,423,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,424,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19131122-p4-a087,election,425,inferred,"unopposed: ""only five contests out of the twenty-seven"", the five the DB has"
+st-19191122-p5-a071,election,433,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,434,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,436,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,439,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,441,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,442,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,446,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,447,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,448,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,449,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,451,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,452,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,453,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,454,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,456,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,458,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19191122-p5-a071,election,459,inferred,"unopposed: ""EIGHT CONTESTS"", the eight the DB has"
+st-19740419-p1-a006,election,942,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,949,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,950,read,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,952,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,953,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,954,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,956,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,957,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,959,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,961,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19740419-p1-a006,election,962,inferred,"unopposed: eleven of 22 divisions contested, eleven unopposed as in the DB"
+st-19780414-p1-a010,election,966,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,968,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,969,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,971,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,972,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,975,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,977,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,980,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,986,read,unopposed: named among the eleven returned without a contest
+st-19780414-p1-a010,election,988,read,unopposed: named among the eleven returned without a contest
+st-19820416-p2-a011,election,992,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,994,read,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,995,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,996,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,998,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,999,read,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1000,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1002,read,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1004,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1005,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1006,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1008,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1009,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1011,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1013,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19820416-p2-a011,election,1014,inferred,"unopposed: the only nomination for the ward (""nine of the 25 seats"" contested, p1)"
+st-19860418-p1-a001,election,1019,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1021,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1026,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1028,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1030,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1032,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1036,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1038,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19860418-p1-a001,election,1040,inferred,"unopposed: ""nine councillors have been returned unopposed"", as in the DB"
+st-19900413-p3-a026,election,1043,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1044,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1046,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1047,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1048,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1050,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1055,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1058,read,unopposed: named among the fourteen unopposed
+st-19900413-p3-a026,election,1060,read,unopposed: named among the fourteen unopposed
+st-19940415-p1-a007,election,1072,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1073,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1074,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1079,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1083,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1084,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1085,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1088,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1089,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1094,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19940415-p1-a007,election,1095,inferred,"unopposed: ""only 10 of the 26 seats being contested"", sixteen unopposed as in the DB"
+st-19990423-p35-a380,election,1103,read,"notice of uncontested election: no poll (Yell, Delting West, Nesting Whiteness Girlsta and Gott)"
+st-19990423-p35-a380,election,1113,read,"notice of uncontested election: no poll (Yell, Delting West, Nesting Whiteness Girlsta and Gott)"
+st-19990423-p37-a408,election,1119,read,notice of uncontested election (continued): no poll
+st-19990423-p37-a408,election,1099,read,notice of uncontested election (continued): no poll
+st-19990423-p37-a408,election,1110,read,notice of uncontested election (continued): no poll
+st-19990423-p37-a408,election,1106,read,notice of uncontested election (continued): no poll
+st-19990423-p37-a408,election,1111,read,notice of uncontested election (continued): no poll
+st-19990423-p37-a408,election,1112,read,notice of uncontested election (continued): no poll
+st-19150807-p4-a096,election,71,read,"co-option: ""There was no other proposal"""
+st-19020719-p8-a150,election,305,read,"appointment: ""unanimously approved of""; at the meeting of Thu 17 Jul 1902 (fix_newspapers.py #96)"
+st-19020719-p8-a148,election,305,read,"meeting ""on Thursday at noon"", 17 Jul 1902 (fix_newspapers.py #96)"
+st-19761008-p1-a006,election,963,read,"a poll, not unopposed: Byrne 183, Gair 142, Harmer 66; 391 of 728 (fix_newspapers.py #96)"
+st-19761001-p3-a209,election,963,read,"election ""to be held on 5th October, 1976"" (fix_newspapers.py #96)"

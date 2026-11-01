@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-11-01: Hidden-contests audit (`research/bna/hidden-contests.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki / DB | Lerwick Sound SIC by-election: Ian Byrne unopposed, Tue 26 Oct 1976 | A three-way poll on Tue 5 Oct 1976: Byrne 183, James Gair 142, Gordon Harmer 66; 391 of 728 (53.7%) (ST 8 Oct 1976) | Fixed: #96. Wiki page still says unopposed |
+| 2 | wiki / DB | Sandness ZCC by-election: Holbourn appointed Thu 24 Jul 1902 | Appointed unanimously at the statutory meeting of Thu 17 Jul 1902 (ST 19 Jul 1902) | Fixed: #96 |
+| 3 | DB | SIC May 1982: no Sandwick result at all (24 rows for 25 seats; the wiki has it, but under a broken heading the parser dropped) | Sandwick was contested: Malcolm S. Bray beat the sitting member Peter R. Watts, poll 53.5% (ST 16 Apr and 14 May 1982; wiki); figures not legible | Open question |
+
 ## 2026-10-12: ZCC roll call (`research/bna/zcc-roll-call.md`)
 
 | # | Where | We had | Sources show | Status |
