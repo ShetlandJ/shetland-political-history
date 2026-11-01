@@ -3303,3 +3303,7 @@ st-19020719-p8-a150,election,305,read,"appointment: ""unanimously approved of"";
 st-19020719-p8-a148,election,305,read,"meeting ""on Thursday at noon"", 17 Jul 1902 (fix_newspapers.py #96)"
 st-19761008-p1-a006,election,963,read,"a poll, not unopposed: Byrne 183, Gair 142, Harmer 66; 391 of 728 (fix_newspapers.py #96)"
 st-19761001-p3-a209,election,963,read,"election ""to be held on 5th October, 1976"" (fix_newspapers.py #96)"
+st-19820521-p7-a060,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,"Bray 198, Watts 144 (fix_newspapers.py #97; figures checked on the page image)"
+st-19820514-p1-a009,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,Watts (sitting) defeated in Sandwick
+st-19820514-p2-a026,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,"Sandwick: Bray, Watts*, poll 53.5 per cent (figures not legible, in the binding)"
+st-19820416-p2-a011,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,"nominated: Malcolm S. Bray, Peter R. Watts* (sitting)"

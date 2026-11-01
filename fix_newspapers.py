@@ -730,6 +730,14 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     - Sandness County Council by-election, July 1902: Holbourn was appointed, unanimously, at the
       statutory meeting "on Thursday at noon", Thursday 17 July 1902, not the 24th (ST 19 Jul
       1902 p8 a148, a150).
+
+97. Sandwick, SIC general of May 1982, was missing: the wiki has the table under a broken heading
+    ("[[Sandwick (Constituency)|Sandwic]]k") that the parser dropped. Malcolm Bray 198, Peter
+    Watts (the sitting member) 144: "Here are the lost figures", the paper having left them out
+    of its results (ST 21 May 1982 p7 a060, figures checked on the page image). Poll 53.5 per
+    cent (ST 14 May 1982 p2 a026); Watts "defeated at the polls" (ST 14 May 1982 p1 a009). The
+    wiki's turnout of 349 (55%) is the 1986 Sandwick figure copied, so no turnout count is set.
+    The paper's candidate list: ST 16 Apr 1982 p2 a011.
 """
 
 import os
@@ -1336,6 +1344,8 @@ TULLOCH_1982 = ('Shetland Islands Council Election May 1982', 'Robert Rae Tulloc
 SOUND_1976 = ('Lerwick_Sound_By-Election_October_1976', '1976-10-26', '1976-10-05', ('Ian Byrne', 183),
               [('James Gair', 142), ('Gordon Harmer', 66)], (728, 391, 53.7))
 SANDNESS_1902 = ('Sandness County Council By-Election July 1902', '1902-07-24', '1902-07-17')
+SANDWICK_1982 = ('Shetland Islands Council Election May 1982', '1982-05-06', 'Sandwick', 53.5,
+                 [('malcolm-bray', 'Malcolm Bray', 198, 1), ('peter-watts', 'Peter Watts', 144, 0)])
 MANSON_BAYANNE = ('John Manson',
                   '[https://www.bayanne.info/Shetland/getperson.php?personID=I104877&tree=ID1 John Manson]',
                   ['Lerwick Town Council Election November 1921', 'Lerwick Town Council Election November 1926'])
@@ -2685,6 +2695,34 @@ def main():
         raise SystemExit(f"election {eid}: unexpected turnout {row['electorate']}/{row['turnout']}/{row['turnout_pct']}")
 
     set_date(c, *SANDNESS_1902)
+
+    print("=== 97. Sandwick, SIC May 1982 ===")
+    title, date, ward, pct, cands = SANDWICK_1982
+    sic = one(c, "SELECT id FROM councils WHERE name = 'Shetland Islands Council'", ())['id']
+    ward_id = one(c, """SELECT DISTINCT k.id FROM constituencies k JOIN elections e ON e.constituency_id = k.id
+                       WHERE k.name = ? AND e.council_id = ?""", (ward, sic))['id']
+    c.execute("SELECT id FROM elections WHERE wiki_page_title = ? AND constituency_id = ?", (title, ward_id))
+    row = c.fetchone()
+    if row:
+        eid = row['id']
+        print(f"  {title} / {ward}: exists (id {eid})")
+    else:
+        one(c, "SELECT DISTINCT election_date FROM elections WHERE wiki_page_title = ? AND election_date = ?",
+            (title, date))
+        c.execute("""INSERT INTO elections (council_id, constituency_id, election_date, election_type,
+                                           turnout_pct, wiki_page_title)
+                     VALUES (?, ?, ?, 'general', ?, ?)""", (sic, ward_id, date, pct, title))
+        eid = c.lastrowid
+        print(f"  {title} / {ward}: created (id {eid})")
+    c.execute("SELECT id FROM candidacies WHERE election_id = ?", (eid,))
+    if c.fetchall():
+        print("    candidacies exist")
+    else:
+        for pos, (slug, name, votes, elected) in enumerate(cands, start=1):
+            pid = one(c, "SELECT id FROM people WHERE slug = ?", (slug,))['id']
+            c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, votes, elected, position)
+                         VALUES (?, ?, ?, ?, ?, ?)""", (eid, pid, name, votes, elected, pos))
+            print(f"    {name} {votes}")
 
     db.commit()
     db.close()

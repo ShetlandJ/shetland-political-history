@@ -8,16 +8,6 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
-- **2026-11-01: The missing Sandwick SIC result, May 1982.** The DB has no Sandwick row for the
-  May 1982 general, though the ward was contested: Malcolm S. Bray against the sitting member
-  Peter R. Watts, poll 53.5 per cent (ST 16 Apr 1982 p2 a011; results ST 14 May 1982 p2 a026; the
-  figures run into the binding). The wiki page has the table (Bray elected, Watts not, votes
-  "coming soon", turnout 349 (55%)), but its heading is broken (`[[Sandwick (Constituency)|Sandwic]]k`)
-  and the parser dropped it. So Bray's 1982–86 seat is missing and Sandwick shows empty from May
-  1982. Options: (a) add the election from the wiki (Bray elected, Watts, no votes) with the
-  paper's 53.5% and no turnout figure; (b) the same with the wiki's 349 (55%); (c) look for the
-  figures elsewhere first (the Shetland News, or the 21 May 1982 issue). Evidence:
-  `hidden-contests.md`.
 - **2026-11-01: SIC May 2003, eight seats unopposed in the DB, not checkable in the BNA.** The
   Shetland Times in the BNA ends with 2000, so Grains, T. Stove, Mitchell, Cluness, J. Irvine,
   Robertson, J. G. Simpson and Nicolson's 2003 seats rest on the wiki alone. Options: (a) leave
@@ -43,6 +33,20 @@ Format: date raised, the question, the options, the evidence file, the row it af
 - **2026-09-29: Day of the Unst South by-election, 1936.** The Order (ST 11 Jan 1936 p4 a66): nominations by 21 Jan, withdrawals by 28 Jan, "in the event of polls being necessary" voting on Tue 11 Feb 1936. Manson withdrew and Clark was returned unopposed (ST 1 Feb 1936). The 1960s by-elections were dated to the fixed day even when unopposed. Options: (a) 11 Feb, the day fixed for the election; (b) 28 Jan, the close of withdrawals; (c) leave 1 Feb. Election 632. Evidence: `answers-2026-10-12.md`.
 
 ## Answered
+
+- **2026-11-01: The missing Sandwick SIC result, May 1982.** The DB has no Sandwick row for the
+  May 1982 general, though the ward was contested: Malcolm S. Bray against the sitting member
+  Peter R. Watts, poll 53.5 per cent (ST 16 Apr 1982 p2 a011; results ST 14 May 1982 p2 a026; the
+  figures run into the binding). The wiki page has the table (Bray elected, Watts not, votes
+  "coming soon", turnout 349 (55%)), but its heading is broken (`[[Sandwick (Constituency)|Sandwic]]k`)
+  and the parser dropped it. So Bray's 1982–86 seat is missing and Sandwick shows empty from May
+  1982. Options: (a) add the election from the wiki (Bray elected, Watts, no votes) with the
+  paper's 53.5% and no turnout figure; (b) the same with the wiki's 349 (55%); (c) look for the
+  figures elsewhere first (the Shetland News, or the 21 May 1982 issue). Evidence:
+  `hidden-contests.md`.
+  **Answered 2026-11-01 (James):** add it and find the figures. Bray 198, Watts 144 (ST 21 May
+  1982 p7 a060), `fix_newspapers.py` #97.
+
 
 - **2026-10-12: SIC labels where the paper and the wiki differ.** Answered 2026-10-13: trust the paper. Groat 1990 Labour and Ian Scott 1990 Anti-Poll Tax (`candidacy_labels.csv` overrides); John Graham 1982 and Bertie Black and Roy Whitehead 1999 have no label (`fix_newspapers.py` #86). Evidence: `party-labels-sic-1974-1999.md`.
 - **2026-10-12: Which Ogilvy was the 1823–26 councillor?** Answered 2026-10-12: (a) James Ogilvy, councillor since 1820 (p22) and present as "Jas Ogilvy" on 2 Sep 1823 (p27). Charles Ogilvy (i) was the Senior Bailie. Ledger source updated.

@@ -689,10 +689,14 @@ def load_citations(db):
         terms.setdefault(f"{slug or name}@{start}", []).append(tid)
     elections = {eid for (eid,) in db.execute("SELECT id FROM elections")}
     # Elections created by a correction script get their id at build time, so links to them use
-    # the title instead (it must name exactly one row).
+    # the title instead (it must name exactly one row). A general's ward rows share a title, so
+    # one of those is named "title @ constituency-slug".
     by_title = {}
-    for eid, title in db.execute("SELECT id, wiki_page_title FROM elections"):
+    for eid, title, ward in db.execute("""SELECT e.id, e.wiki_page_title, k.slug FROM elections e
+                                          LEFT JOIN constituencies k ON k.id = e.constituency_id"""):
         by_title.setdefault(title, []).append(eid)
+        if ward:
+            by_title.setdefault(f"{title} @ {ward}", []).append(eid)
     people = {slug: pid for pid, slug in db.execute("SELECT id, slug FROM people")}
     seen = set()
     for i, r in enumerate(read_csv('citation_links.csv'), start=2):

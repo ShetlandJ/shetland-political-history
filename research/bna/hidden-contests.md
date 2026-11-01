@@ -48,7 +48,7 @@ Leask May 1844 (an election to the office of Junior Bailie, not a seat).
 - **Not in the DB at all: the Sandwick SIC contest of May 1982** (Malcolm S. Bray v Peter R.
   Watts). The DB has 24 rows for the 25 seats; Sandwick is missing. The wiki has the table (Bray
   elected, votes "coming soon", turnout 349, 55%) under a broken heading the parser dropped.
-  Figures not legible in the paper: open question.
+  Added 2026-11-01 on James's say-so: Bray 198, Watts 144 (section 6, `fix_newspapers.py` #97).
 
 Basis note: the audit's drop rule asks for a `read` link. Seats unopposed by elimination (the
 paper lists the contests or gives their number, and this ward isn't one) are linked `inferred`,
@@ -162,3 +162,18 @@ Each was a Council co-option at a meeting, not a public poll; none had a rival o
   1948 p4 a078).
 - Dunrossness North, Feb 1952: petition of 109 for Henderson accepted (ST 22 Feb 1952 p7 a110).
 - Sandness, Jul 1902: section 2.
+
+### 6. Sandwick, SIC general May 1982 (added, #97)
+- **Shetland Times, Fri 21 May 1982, p7 (art. 060)**: "Here are the lost figures": the paper had
+  left Sandwick out of its results; "Malcolm Bray 198; Peter Watts 144" (read on the page image).
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19820521&page=0007&article=060
+- **Shetland Times, Fri 14 May 1982, p1 (art. 009)**: "SIC: five out of nine defeated": among them
+  "Mr Peter Watts in Sandwick".
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19820514&page=0001&article=009
+- Also found: Press and Journal, Sat 8 May 1982, p5 (art. 091), "Shocks in isles poll": Watts among
+  the sitting members defeated; Bray "a local Loganair pilot". Not added as a citation.
+- Edit (#97): election added (Sandwick, 6 May 1982), Bray 198 elected, Watts 144, poll 53.5%. The
+  wiki's turnout of 349 (55%) is the 1986 Sandwick figure, copied, so no turnout count is set.
+  Bray now sits 1982–87 and Watts 1978–82 (Sandwick had shown empty from May 1982).
+  `build.py` now accepts an election link target "title @ constituency-slug" for a ward row of a
+  general created by a correction script.
