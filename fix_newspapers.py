@@ -747,6 +747,22 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     daughter in 1937 (his son John Robert died in 1922, aged 14). Spence is I167525 (b. Eday 1889,
     d. 6 Jan 1951 at 78 Braewick Road, which Bayanne spells "Braewick Street"); the only David
     Spence of the right age Bayanne has dying in Lerwick. Neither sat, so no person row.
+
+99. Unsuccessful County and Town Council candidates linked to Bayanne (research/bna/candidate-bayanne-links.md):
+    - Robert Wilson, Unst South 1922: "Robert Wilson, Queen's Hotel, Baltasound" (ST 25 Nov 1922 p5
+      a096); Bayanne I504758 (b. Stirling 1865, d. there 1939), at the Queen's Hotel in the 1921 census.
+    - Christopher F. Irvine, Aithsting 1925: "Christopher F. Irvine, Unifirth" (ST 21 Nov 1925 p4
+      a077); Bayanne I37083, Christopher Fraser Irvine, b. Unifirth 1876.
+    - Thomas Hobbin, Sandsting 1925: "Thomas Hobbin, Bridge-of-Walls" (ST 12 Dec 1925 p5 a085);
+      Bayanne I69297 (1869-1932), whose wife died and son was born at Bridge of Walls.
+    - Laurence S. Reid, Walls 1925: "Laurence S. Reid, Walls" (same article); Bayanne I71249,
+      Laurence Smith Reid, b. Vadlure, Walls, 1888, the only Laurence Reid of Walls with that initial.
+    - George A. Kerr, Bressay by-election March 1960: he thanked the Bressay voters from "30 Braewick
+      Road, Lerwick" (ST 8 Apr 1960 p1 a144), the address of the George A. Kerr who stood for the
+      Town Council in 1958 (ST 25 Apr 1958 p1 a014), already linked to Bayanne I236889.
+    - James R. Gair, Town Council 1960 and 1964: the Labour candidate already linked to Bayanne
+      I52866 in 1953, 1954, 1955 and 1958; the name propagation missed these two.
+    None sat, so no person rows.
 """
 
 import os
@@ -1362,6 +1378,15 @@ LABOUR_1926_BAYANNE = ('Lerwick Town Council Election November 1926', [
     ('John Gray', '[https://www.bayanne.info/Shetland/getperson.php?personID=I18071&tree=ID1 John Gray]'),
     ('David Spence', '[https://www.bayanne.info/Shetland/getperson.php?personID=I167525&tree=ID1 David Spence]'),
 ])
+CANDIDATE_BAYANNE_99 = [  # (title, constituency slug or None, candidate name, Bayanne id)
+    ('County Council Election December 1922', 'unst-south', 'Robert Wilson', 'I504758'),
+    ('County Council Election December 1925', 'aithsting', 'Christopher F. Irvine', 'I37083'),
+    ('County Council Election December 1925', 'sandsting', 'Thomas Hobbin', 'I69297'),
+    ('County Council Election December 1925', 'walls', 'Laurence S Reid', 'I71249'),
+    ('Bressay County Council By-Election March 1960', 'bressay', 'George A. Kerr', 'I236889'),
+    ('Lerwick Town Council Election May 1960', None, 'James R. Gair', 'I52866'),
+    ('Lerwick Town Council Election May 1964', None, 'James R. Gair', 'I52866'),
+]
 POTTINGER_1921 = ('Lerwick Town Council Election November 1921', 'William Pottinger',
                   '[https://www.bayanne.info/Shetland/getperson.php?personID=I28935&tree=ID1 William Pottinger]')
 
@@ -2748,6 +2773,19 @@ def main():
         else:
             c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
             print(f"  candidacy {cand['id']} ({wrong}) -> Bayanne")
+
+    print("=== 99. Candidates linked to Bayanne ===")
+    for title, ward, name, bid in CANDIDATE_BAYANNE_99:
+        right = f'[https://www.bayanne.info/Shetland/getperson.php?personID={bid}&tree=ID1 {name}]'
+        cand = one(c, """SELECT c.id, c.candidate_name FROM candidacies c JOIN elections e ON e.id = c.election_id
+                        LEFT JOIN constituencies k ON k.id = e.constituency_id
+                        WHERE e.wiki_page_title = ? AND COALESCE(k.slug, '') = ? AND c.candidate_name IN (?, ?)
+                          AND c.person_id IS NULL""", (title, ward or '', name, right))
+        if cand['candidate_name'] == right:
+            print(f"  candidacy {cand['id']}: already linked to Bayanne")
+        else:
+            c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
+            print(f"  candidacy {cand['id']} ({name}, {title}) -> Bayanne {bid}")
 
     db.commit()
     db.close()

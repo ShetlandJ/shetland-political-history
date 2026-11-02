@@ -1551,7 +1551,7 @@ st-19221125-p5-a096,election,483,inferred,"only nomination, and not among the ei
 st-19221125-p5-a096,election,484,inferred,"only nomination, and not among the eight contests, so returned unopposed"
 st-19221125-p5-a096,election,485,inferred,"only nomination, and not among the eight contests, so returned unopposed"
 st-19221125-p5-a096,election,486,inferred,"only nomination, and not among the eight contests, so returned unopposed"
-st-19221125-p5-a096,election,487,read,candidates nominated; election on 5 Dec
+st-19221125-p5-a096,election,487,read,"candidates nominated; election on 5 Dec; Robert Wilson, Queen's Hotel, Baltasound: Bayanne I504758 (fix_newspapers.py #99)"
 st-19221216-p4-a087,election,487,read,"59 to 49, as in the DB"
 st-19221125-p5-a096,election,488,inferred,"only nomination, and not among the eight contests, so returned unopposed"
 st-19221125-p5-a096,election,489,inferred,"only nomination, and not among the eight contests, so returned unopposed"
@@ -1565,7 +1565,7 @@ st-19221216-p4-a087,election,1242,read,"110 to 89, as in the DB"
 st-19221125-p5-a096,election,1243,inferred,"only nomination, and not among the eight contests, so returned unopposed"
 st-19221230-p5-a084,election,1243,read,"R. A. Sutherland present at the new Council, so Sandsting was a separate ward (fix_parse_errors.py #8)"
 st-19251114-p4-a092,election,497,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
-st-19251121-p4-a077,election,497,read,"Clark withdrew, a contest between Leslie and C. F. Irvine; the result is not in the OCR"
+st-19251121-p4-a077,election,497,read,"Clark withdrew, a contest between Leslie and C. F. Irvine; the result is not in the OCR; Christopher F. Irvine, Unifirth: Bayanne I37083 (fix_newspapers.py #99)"
 st-19251114-p4-a092,election,498,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
 st-19251121-p4-a077,election,498,read,listed as unopposed
 st-19251114-p4-a092,election,499,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
@@ -1599,7 +1599,7 @@ st-19251121-p4-a077,election,512,read,listed as unopposed
 st-19251114-p4-a092,election,513,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
 st-19251121-p4-a077,election,513,read,listed as unopposed
 st-19251114-p4-a092,election,514,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
-st-19251212-p5-a085,election,514,read,"Bowie 145, Hobbin 67 as in the DB; Anderson 13 in the OCR (DB 18), not checked"
+st-19251212-p5-a085,election,514,read,"Bowie 145, Hobbin 67 as in the DB; Anderson 13 in the OCR (DB 18), not checked; Thomas Hobbin, Bridge-of-Walls: Bayanne I69297 (fix_newspapers.py #99)"
 st-19251114-p4-a092,election,515,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
 st-19251205-p4-a106,election,515,read,"115 to 64, as in the DB"
 st-19251114-p4-a092,election,516,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
@@ -1609,7 +1609,7 @@ st-19251121-p4-a077,election,517,read,listed as unopposed
 st-19251114-p4-a092,election,518,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
 st-19251121-p4-a077,election,518,read,listed as unopposed
 st-19251114-p4-a092,election,519,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
-st-19251212-p5-a085,election,519,read,"44, 37 and 36, as in the DB"
+st-19251212-p5-a085,election,519,read,"44, 37 and 36, as in the DB; Laurence S. Reid, Walls: Bayanne I71249 (fix_newspapers.py #99)"
 st-19251114-p4-a092,election,520,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
 st-19251121-p4-a077,election,520,read,listed as unopposed
 st-19251114-p4-a092,election,521,read,candidates nominated; election Tuesday 1 Dec (fix_newspapers.py #38)
@@ -3307,3 +3307,5 @@ st-19820521-p7-a060,election,Shetland Islands Council Election May 1982 @ sandwi
 st-19820514-p1-a009,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,Watts (sitting) defeated in Sandwick
 st-19820514-p2-a026,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,"Sandwick: Bray, Watts*, poll 53.5 per cent (figures not legible, in the binding)"
 st-19820416-p2-a011,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,"nominated: Malcolm S. Bray, Peter R. Watts* (sitting)"
+st-19600408-p1-a144,election,804,read,"George A. Kerr thanks the Bressay voters from 30 Braewick Road, Lerwick: Bayanne I236889 (fix_newspapers.py #99)"
+st-19580425-p1-a014,election,804,inferred,"George A. Kerr, 30 Braewick Road, Town Council candidate 1958: the same man as the 1960 Bressay candidate"
