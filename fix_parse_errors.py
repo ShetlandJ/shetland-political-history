@@ -730,7 +730,9 @@ def main():
     for title, name, wrong_votes, text in COUNCIL_APPOINTMENTS_1914_1919 + COUNCIL_APPOINTMENTS_1921_1937 + COUNCIL_APPOINTMENTS_1940_1942:
         cid, votes, votes_text = c.execute(
             """SELECT ca.id, ca.votes, ca.votes_text FROM candidacies ca JOIN elections e ON e.id = ca.election_id
-               WHERE e.wiki_page_title = ? AND ca.candidate_name = ?""", (title, name)).fetchone()
+               WHERE e.wiki_page_title = ?
+                 AND (ca.candidate_name = ? OR ca.candidate_name LIKE '[https://www.bayanne.info/%tree=ID1 ' || ? || ']')""",
+            (title, name, name)).fetchone()
         if (votes, votes_text) == (wrong_votes, None):
             c.execute("UPDATE candidacies SET votes = NULL, votes_text = ? WHERE id = ?", (text, cid))
             print(f"candidacy {cid} ({name}): {wrong_votes} votes -> {text!r}")

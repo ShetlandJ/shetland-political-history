@@ -770,6 +770,29 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     The wiki left Sandwick off the 1932 page, saying the ward had been absorbed into Cunningsburgh
     and Dunrossness; the paper contradicts that.
     Evidence: research/bna/zcc-1920-1939.md.
+
+101. More unsuccessful County Council candidates linked to Bayanne (the #99 sweep, finished once
+    Bayanne answered again). Addresses from the Shetland Times nominations reports:
+    - Rev. John MacKenzie, Nesting 1925: "Manse of Nesting" (ST 28 Nov 1925 p4 a106); Bayanne
+      I23961, Rev John Henderson MacKenzie (1871-1961), occupation "Minister of Nesting".
+    - Arthur Smith, Delting North 1913: "Islesburgh" (ST 22 Nov 1913 p4 a87); Bayanne I97229
+      (b. Islesburgh 1866), whose children were born there to 1907 and a daughter died there in 1919;
+      he died in New Zealand in 1931. His son Arthur was 16 in 1913. Inferred.
+    - William Leask, Yell South 1938 and 1940: "Vatster, Mid Yell" (ST 26 Nov 1938 p4 a111); Bayanne
+      I9854 (1877-1960), born and in every census at Vatster, buried at Mid Yell.
+    - Magnus Keith, Gulberwick 1945: "Magnus R. Keith, Upper Sound" (ST 23 Mar 1945 p3 a69); Bayanne
+      I23811, Magnus Robert Keith (1881-1968), died at 1 Baila, Sound. The other Magnus Robert Keith
+      died aged four. Inferred.
+    - Robert H. Tulloch, Yell South 1952: "Booth, West Yell" (ST 1 Aug 1952 p4 a51); Bayanne I177705,
+      Robert Henry Tulloch (1912-1999), b. Sound, West Yell, the only Robert H. Tulloch from Yell.
+      Inferred.
+    - Arthur Laurenson, Whalsay 1961: the Lerwick harbour clerk (ST 12 May 1961 p5 a65); Bayanne
+      I29976, Arthur Halcrow Laurenson (1905-1968), occupation "Harbour clerk".
+    - George R. Jamieson, Sandwick 1970: "George R. Jamieson, Central House, Sandwick", standing for
+      the Sandwick District Council the same day (ST 1 May 1970 p13 a94); Bayanne I163381, George
+      Robert Jamieson (1915-1990), born and died at Central House. The other George Robert Jamieson
+      of Sandwick (I103971) died in 1941. Inferred.
+    None sat, so no person rows. Evidence: research/bna/candidate-bayanne-links.md.
 """
 
 import os
@@ -1393,6 +1416,16 @@ CANDIDATE_BAYANNE_99 = [  # (title, constituency slug or None, candidate name, B
     ('Bressay County Council By-Election March 1960', 'bressay', 'George A. Kerr', 'I236889'),
     ('Lerwick Town Council Election May 1960', None, 'James R. Gair', 'I52866'),
     ('Lerwick Town Council Election May 1964', None, 'James R. Gair', 'I52866'),
+]
+CANDIDATE_BAYANNE_101 = [  # (title, constituency slug, candidate name, Bayanne id)
+    ('County Council Election December 1925', 'nesting', 'Rev. John MacKenzie', 'I23961'),
+    ('County_Council_Election_December_1913', 'delting-north', 'Arthur Smith', 'I97229'),
+    ('County Council Election December 1938', 'yell-south', 'William Leask', 'I9854'),
+    ('Yell South County Council By-Election December 1940', 'yell-south', 'William Leask', 'I9854'),
+    ('Gulberwick County Council By-Election March 1945', 'gulberwick', 'Magnus Keith', 'I23811'),
+    ('Yell South County Council By-Election July 1952', 'yell-south', 'Robert H. Tulloch', 'I177705'),
+    ('County Council Election May 1961', 'whalsay-and-skerries', 'Arthur Laurenson', 'I29976'),
+    ('County Council Election May 1970', 'sandwick', 'George R. Jamieson', 'I163381'),
 ]
 SANDWICK_1932 = ('County Council Election December 1932', 'Sandwick',
                  'There was no nomination for this ward, see Sandwick County Council By-Election February 1933.')
@@ -2811,6 +2844,19 @@ def main():
                                            wiki_page_title, notes)
                      VALUES (?, ?, ?, 'general', ?, ?)""", (zcc, ward_id, date, title, note))
         print(f"  election {c.lastrowid}: created ({ward}, {date})")
+
+    print("=== 101. More candidates linked to Bayanne ===")
+    for title, ward, name, bid in CANDIDATE_BAYANNE_101:
+        right = f'[https://www.bayanne.info/Shetland/getperson.php?personID={bid}&tree=ID1 {name}]'
+        cand = one(c, """SELECT c.id, c.candidate_name FROM candidacies c JOIN elections e ON e.id = c.election_id
+                        JOIN constituencies k ON k.id = e.constituency_id
+                        WHERE e.wiki_page_title = ? AND k.slug = ? AND c.candidate_name IN (?, ?)
+                          AND c.person_id IS NULL""", (title, ward, name, right))
+        if cand['candidate_name'] == right:
+            print(f"  candidacy {cand['id']}: already linked to Bayanne")
+        else:
+            c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
+            print(f"  candidacy {cand['id']} ({name}, {title}) -> Bayanne {bid}")
 
     db.commit()
     db.close()

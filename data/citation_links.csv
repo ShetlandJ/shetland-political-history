@@ -1440,7 +1440,7 @@ st-19131129-p4-a053,election,401,read,polled Tue 2 Dec 1913
 st-19131206-p4-a094,election,401,read,"Jamieson 36, Sinclair 26, as in the DB"
 st-19131115-p4-a068,election,402,inferred,"only nomination read, and not among the five contests, so returned unopposed"
 st-19131115-p4-a068,election,403,read,nominated
-st-19131122-p4-a087,election,403,read,contested
+st-19131122-p4-a087,election,403,read,"contested; Arthur Smith, Islesburgh: Bayanne I97229 (fix_newspapers.py #101)"
 st-19131129-p4-a053,election,403,read,polled Tue 2 Dec 1913
 st-19131206-p4-a094,election,403,read,figures lost in the OCR
 st-19131115-p4-a068,election,404,read,"White; McDougall also nominated, withdrew (he sat for Northmavine North)"
@@ -1799,7 +1799,7 @@ st-19381210-p4-a087,election,659,read,"153, majority 121: Hay 32, not 121 (fix_n
 st-19381126-p4-a111,election,660,inferred,"not among the six contests, so returned unopposed"
 st-19381126-p4-a111,election,661,read,contested
 st-19381210-p4-a087,election,661,read,"104 to 54 as in the DB; electorate 257 and 158 votes, not Yell South's figures (fix_newspapers.py #45)"
-st-19381126-p4-a111,election,662,read,contested
+st-19381126-p4-a111,election,662,read,"contested; William Leask, Vatster, Mid Yell: Bayanne I9854 (fix_newspapers.py #101)"
 st-19381210-p4-a087,election,662,read,"a contest: Manson 166, Leask 145 (fix_newspapers.py #45)"
 st-19381210-p1-a012,election,642,read,polled Tuesday 6 Dec 1938
 st-19200221-p4-a071,election,460,read,"Mouat appointed at the meeting ""on Thursday"", 19 Feb 1920 (fix_newspapers.py #46)"
@@ -2052,7 +2052,7 @@ st-19580516-p5-a061,election,799,read,results; all five contests agree
 st-19400420-p5-a081,election,663,inferred,"Council ballot on petitions; meeting day not in the OCR, so the wiki's Tuesday 16 Apr, the week of the 20 Apr paper"
 st-19401214-p5-a085,election,664,inferred,"reported 14 Dec, not 7 Dec, so the Tuesday meeting of 10 Dec 1940 (fix_newspapers.py #50)"
 st-19421226-p3-a080,election,665,inferred,"reported 26 Dec, so the Tuesday meeting of 22 Dec 1942, as the wiki"
-st-19450323-p3-a069,election,666,read,meeting on Tuesday (20 Mar 1945); a Council vote (fix_newspapers.py #52)
+st-19450323-p3-a069,election,666,read,"meeting on Tuesday (20 Mar 1945); a Council vote (fix_newspapers.py #52); Magnus R. Keith, Upper Sound: Bayanne I23811 (fix_newspapers.py #101)"
 st-19461220-p7-a105,election,691,inferred,"reported 20 Dec, so the Tuesday meeting of 17 Dec 1946, as the wiki"
 st-19480521-p4-a078,election,693,inferred,"reported 21 May, so the Tuesday meeting of 18 May 1948, as the wiki"
 st-19480521-p4-a078,election,694,inferred,"reported 21 May, so the Tuesday meeting of 18 May 1948, as the wiki"
@@ -2060,7 +2060,7 @@ st-19510223-p5-a063,election,721,read,"co-opted on Tuesday, 20 Feb 1951"
 st-19510511-p1-a006,election,722,read,poll on Tuesday 8 May 1951
 st-19510511-p4-a038,election,722,read,"Nicolson 98, Prophet Smith 49 (fix_newspapers.py #51)"
 st-19520222-p7-a110,election,723,inferred,"reported 22 Feb, so the Tuesday meeting of 19 Feb 1952, as the wiki"
-st-19520801-p4-a051,election,748,read,Johnson 131; poll day the wiki's Tuesday 29 Jul (results announced Thursday)
+st-19520801-p4-a051,election,748,read,"Johnson 131; poll day the wiki's Tuesday 29 Jul (results announced Thursday); Robert H. Tulloch, Booth, West Yell: Bayanne I177705 (fix_newspapers.py #101)"
 st-19550624-p4-a072,election,774,read,nominations
 st-19550715-p4-a074,election,774,read,polled Tuesday 12 Jul 1955; 133 to 15
 st-19550715-p4-a074,election,773,read,polled Tuesday 12 Jul 1955; majority 75
@@ -2110,7 +2110,7 @@ st-19610512-p5-a065,election,821,read,result; counted Wednesday 10 May 1961
 st-19610512-p5-a065,election,822,read,result; counted Wednesday 10 May 1961
 st-19610512-p5-a065,election,823,read,result; counted Wednesday 10 May 1961
 st-19610512-p5-a065,election,824,read,result; counted Wednesday 10 May 1961
-st-19610512-p5-a065,election,825,read,result; counted Wednesday 10 May 1961
+st-19610512-p5-a065,election,825,read,"result; counted Wednesday 10 May 1961; Arthur Laurenson, harbour clerk: Bayanne I29976 (fix_newspapers.py #101)"
 st-19610512-p5-a065,election,826,read,result; counted Wednesday 10 May 1961
 st-19610512-p5-a065,election,827,read,result; counted Wednesday 10 May 1961
 st-19610512-p5-a065,election,828,read,result; counted Wednesday 10 May 1961
@@ -3309,3 +3309,5 @@ st-19820514-p2-a026,election,Shetland Islands Council Election May 1982 @ sandwi
 st-19820416-p2-a011,election,Shetland Islands Council Election May 1982 @ sandwick-sic,read,"nominated: Malcolm S. Bray, Peter R. Watts* (sitting)"
 st-19600408-p1-a144,election,804,read,"George A. Kerr thanks the Bressay voters from 30 Braewick Road, Lerwick: Bayanne I236889 (fix_newspapers.py #99)"
 st-19580425-p1-a014,election,804,inferred,"George A. Kerr, 30 Braewick Road, Town Council candidate 1958: the same man as the 1960 Bressay candidate"
+st-19251128-p4-a106,election,510,read,"candidate Rev. John H. MacKenzie, Manse of Nesting: Bayanne I23961 (fix_newspapers.py #101)"
+st-19700501-p13-a094,election,901,inferred,George R. Jamieson of Central House stood for the Sandwick District Council the same day: Bayanne I163381 (fix_newspapers.py #101)
