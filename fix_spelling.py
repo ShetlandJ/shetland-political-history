@@ -61,7 +61,7 @@ FIXES = [
     ('people', 150, 'biography', 'remaining as the a Manager', 'remaining as the Manager'),
     ('people', 154, 'biography', 'his retirenemt in 1925', 'his retirement in 1925'),
     # The wiki has "'''George Leslie''', (b. ...)," so stripping the parenthetical left ",,".
-    ('people', 158, 'intro', 'George Leslie,, was', 'George Leslie, was'),
+    ('people', 158, 'intro', 'George Leslie,, was', 'George Leslie was'),
     ('people', 189, 'biography', 'with the form J & J Tod', 'with the firm J & J Tod'),
     ('people', 189, 'biography', 'one of the principle suppliers', 'one of the principal suppliers'),
     ('people', 207, 'biography', 'the British convoy was attached', 'the British convoy was attacked'),
