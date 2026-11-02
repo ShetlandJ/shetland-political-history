@@ -738,6 +738,15 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     cent (ST 14 May 1982 p2 a026); Watts "defeated at the polls" (ST 14 May 1982 p1 a009). The
     wiki's turnout of 349 (55%) is the 1986 Sandwick figure copied, so no turnout count is set.
     The paper's candidate list: ST 16 Apr 1982 p2 a011.
+
+98. John Gray and David Spence, Labour candidates at the Town Council election of November 1926,
+    linked to Bayanne. Nominated as "John Gray, 1 St Magnus Street" and "David Spence, 78 Braewick
+    Road"; Spence, standing for the first time, had been on Lerwick Parish Council "for some
+    years", and Gray had not sat on any public body (ST 30 Oct 1926 p4 a068). Gray is I18071 (b.
+    Stromness 1871, d. Lerwick 1957), a joiner, whose wife died at 1 St Magnus Street in 1932 and
+    daughter in 1937 (his son John Robert died in 1922, aged 14). Spence is I167525 (b. Eday 1889,
+    d. 6 Jan 1951 at 78 Braewick Road, which Bayanne spells "Braewick Street"); the only David
+    Spence of the right age Bayanne has dying in Lerwick. Neither sat, so no person row.
 """
 
 import os
@@ -1349,6 +1358,10 @@ SANDWICK_1982 = ('Shetland Islands Council Election May 1982', '1982-05-06', 'Sa
 MANSON_BAYANNE = ('John Manson',
                   '[https://www.bayanne.info/Shetland/getperson.php?personID=I104877&tree=ID1 John Manson]',
                   ['Lerwick Town Council Election November 1921', 'Lerwick Town Council Election November 1926'])
+LABOUR_1926_BAYANNE = ('Lerwick Town Council Election November 1926', [
+    ('John Gray', '[https://www.bayanne.info/Shetland/getperson.php?personID=I18071&tree=ID1 John Gray]'),
+    ('David Spence', '[https://www.bayanne.info/Shetland/getperson.php?personID=I167525&tree=ID1 David Spence]'),
+])
 POTTINGER_1921 = ('Lerwick Town Council Election November 1921', 'William Pottinger',
                   '[https://www.bayanne.info/Shetland/getperson.php?personID=I28935&tree=ID1 William Pottinger]')
 
@@ -2723,6 +2736,18 @@ def main():
             c.execute("""INSERT INTO candidacies (election_id, person_id, candidate_name, votes, elected, position)
                          VALUES (?, ?, ?, ?, ?, ?)""", (eid, pid, name, votes, elected, pos))
             print(f"    {name} {votes}")
+
+    print("=== 98. John Gray and David Spence, 1926 ===")
+    title, pairs = LABOUR_1926_BAYANNE
+    for wrong, right in pairs:
+        cand = one(c, """SELECT c.id, c.candidate_name FROM candidacies c JOIN elections e ON e.id = c.election_id
+                        WHERE e.wiki_page_title = ? AND c.candidate_name IN (?, ?) AND c.person_id IS NULL""",
+                   (title, wrong, right))
+        if cand['candidate_name'] == right:
+            print(f"  candidacy {cand['id']}: already linked to Bayanne")
+        else:
+            c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
+            print(f"  candidacy {cand['id']} ({wrong}) -> Bayanne")
 
     db.commit()
     db.close()
