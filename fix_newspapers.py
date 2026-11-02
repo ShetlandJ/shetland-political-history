@@ -763,6 +763,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     - James R. Gair, Town Council 1960 and 1964: the Labour candidate already linked to Bayanne
       I52866 in 1953, 1954, 1955 and 1958; the name propagation missed these two.
     None sat, so no person rows.
+
+100. Sandwick at the December 1932 County Council general: no nomination was lodged ("Sandwick
+    from which no nomination was lodged", Shetland Times, 19 Nov 1932), so the general gets an empty
+    Sandwick row pointing to the February 1933 by-election (#41), as for 1910, 1935, 1955 and 1967.
+    The wiki left Sandwick off the 1932 page, saying the ward had been absorbed into Cunningsburgh
+    and Dunrossness; the paper contradicts that.
+    Evidence: research/bna/zcc-1920-1939.md.
 """
 
 import os
@@ -1387,6 +1394,8 @@ CANDIDATE_BAYANNE_99 = [  # (title, constituency slug or None, candidate name, B
     ('Lerwick Town Council Election May 1960', None, 'James R. Gair', 'I52866'),
     ('Lerwick Town Council Election May 1964', None, 'James R. Gair', 'I52866'),
 ]
+SANDWICK_1932 = ('County Council Election December 1932', 'Sandwick',
+                 'There was no nomination for this ward, see Sandwick County Council By-Election February 1933.')
 POTTINGER_1921 = ('Lerwick Town Council Election November 1921', 'William Pottinger',
                   '[https://www.bayanne.info/Shetland/getperson.php?personID=I28935&tree=ID1 William Pottinger]')
 
@@ -2786,6 +2795,22 @@ def main():
         else:
             c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
             print(f"  candidacy {cand['id']} ({name}, {title}) -> Bayanne {bid}")
+
+    print("=== 100. Sandwick, December 1932: no nomination ===")
+    title, ward, note = SANDWICK_1932
+    zcc = one(c, "SELECT id FROM councils WHERE name = 'Zetland County Council'", ())['id']
+    ward_id = one(c, """SELECT DISTINCT k.id FROM constituencies k JOIN elections e ON e.constituency_id = k.id
+                       WHERE k.name = ? AND e.council_id = ?""", (ward, zcc))['id']
+    date = one(c, "SELECT DISTINCT election_date FROM elections WHERE wiki_page_title = ?", (title,))['election_date']
+    c.execute("SELECT id FROM elections WHERE wiki_page_title = ? AND constituency_id = ?", (title, ward_id))
+    row = c.fetchone()
+    if row:
+        print(f"  election {row['id']}: exists")
+    else:
+        c.execute("""INSERT INTO elections (council_id, constituency_id, election_date, election_type,
+                                           wiki_page_title, notes)
+                     VALUES (?, ?, ?, 'general', ?, ?)""", (zcc, ward_id, date, title, note))
+        print(f"  election {c.lastrowid}: created ({ward}, {date})")
 
     db.commit()
     db.close()
