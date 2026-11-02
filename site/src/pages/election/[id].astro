@@ -187,6 +187,9 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
         {candidacies.length > 0 && (() => {
           const hasVotes = candidacies.some(c => c.votes != null);
           const hasParty = candidacies.some(c => c.party);
+          // Vote share for parliamentary results (Westminster, Holyrood): share of valid votes cast for candidates.
+          const totalVotes = candidacies.reduce((sum, c) => sum + (c.votes ?? 0), 0);
+          const hasPct = hasVotes && totalVotes > 0 && [4, 5, 6].includes(election.council_id);
           return (
           <table>
             <thead>
@@ -194,6 +197,7 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
                 <th scope="col">Candidate</th>
                 {hasParty && <th scope="col">Party</th>}
                 {hasVotes && <th scope="col">Votes</th>}
+                {hasPct && <th scope="col">%</th>}
                 <th scope="col">Result</th>
               </tr>
             </thead>
@@ -217,6 +221,7 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
                   </td>
                   {hasParty && <td>{c.party || ''}</td>}
                   {hasVotes && <td>{c.votes?.toLocaleString() || ''}</td>}
+                  {hasPct && <td>{c.votes != null ? `${(c.votes / totalVotes * 100).toFixed(1)}%` : ''}</td>}
                   <td>
                     {c.elected
                       ? <span class="elected" set:html={c.votes_text && !c.votes ? c.votes_text : `Elected${c.role ? ` (${c.role})` : ''}`} />
