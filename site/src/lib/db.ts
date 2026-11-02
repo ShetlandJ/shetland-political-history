@@ -227,9 +227,11 @@ interface ElectionNavEntry {
   election_date: string;
   election_type: string;
   min_id: number;
+  places: string | null;  // ward(s) a by-election was for, as named at the time
 }
 
 interface ElectionNav {
+  current: ElectionNavEntry | null;
   prev: ElectionNavEntry | null;
   next: ElectionNavEntry | null;
   prevGeneral: ElectionNavEntry | null;
@@ -239,11 +241,13 @@ interface ElectionNav {
 export function getElectionNavigation(councilId: number, currentPageTitle: string, electionType: string): ElectionNav {
   // Get all elections for this council, ordered chronologically
   const allPages = db.prepare(`
-    SELECT wiki_page_title, MIN(election_date) as election_date, election_type, MIN(id) as min_id
-    FROM elections
-    WHERE council_id = ? AND hidden = 0
-    GROUP BY wiki_page_title
-    ORDER BY MIN(election_date)
+    SELECT e.wiki_page_title, MIN(e.election_date) as election_date, e.election_type, MIN(e.id) as min_id,
+           GROUP_CONCAT(DISTINCT COALESCE(e.constituency_display_name, k.name)) as places
+    FROM elections e
+    LEFT JOIN constituencies k ON k.id = e.constituency_id
+    WHERE e.council_id = ? AND e.hidden = 0
+    GROUP BY e.wiki_page_title
+    ORDER BY MIN(e.election_date)
   `).all(councilId) as ElectionNavEntry[];
 
   const idx = allPages.findIndex(p => p.wiki_page_title === currentPageTitle);
@@ -270,7 +274,7 @@ export function getElectionNavigation(councilId: number, currentPageTitle: strin
     }
   }
 
-  return { prev, next, prevGeneral, nextGeneral };
+  return { current: idx >= 0 ? allPages[idx] : null, prev, next, prevGeneral, nextGeneral };
 }
 
 export function getCouncilStats(): { name: string; slug: string; level: string; election_count: number; earliest: string | null; latest: string | null; person_count: number }[] {

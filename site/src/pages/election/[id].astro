@@ -46,6 +46,8 @@ const pageElections = getElectionsByPage(election.wiki_page_title);
 
 // Get prev/next election for navigation
 const nav = getElectionNavigation(election.council_id, election.wiki_page_title, election.election_type);
+// Ward(s) under a by-election's year in the nav: "Sandwick", or "Sandwick, Sandness" for a joint page
+const placeLabel = (places: string) => places.split(',').join(', ');
 
 // Build election page ID lookup for linkifying notes
 const allElectionsForLinks = getAllElections();
@@ -238,17 +240,18 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
     <div class="election-nav-row">
       <div class="election-nav-cell">
         {nav.prev ? (
-          <a href={`/election/${nav.prev.min_id}`}>&lt; {electionYear(nav.prev.election_date)}{nav.prev.election_type === 'by-election' ? ' (by)' : ''}</a>
+          <a href={`/election/${nav.prev.min_id}`}>&lt; {electionYear(nav.prev.election_date)}{nav.prev.election_type === 'by-election' ? ' (by)' : ''}{nav.prev.election_type === 'by-election' && nav.prev.places && <span class="election-nav-place">{placeLabel(nav.prev.places)}</span>}</a>
         ) : (
           <span class="muted">&mdash;</span>
         )}
       </div>
       <div class="election-nav-cell election-nav-current">
         <strong>{electionYear(election.election_date)}</strong>
+        {election.election_type === 'by-election' && nav.current?.places && <span class="election-nav-place">{placeLabel(nav.current.places)}</span>}
       </div>
       <div class="election-nav-cell">
         {nav.next ? (
-          <a href={`/election/${nav.next.min_id}`}>{electionYear(nav.next.election_date)}{nav.next.election_type === 'by-election' ? ' (by)' : ''} &gt;</a>
+          <a href={`/election/${nav.next.min_id}`}>{electionYear(nav.next.election_date)}{nav.next.election_type === 'by-election' ? ' (by)' : ''} &gt;{nav.next.election_type === 'by-election' && nav.next.places && <span class="election-nav-place">{placeLabel(nav.next.places)}</span>}</a>
         ) : (
           <span class="muted">&mdash;</span>
         )}
@@ -314,6 +317,16 @@ const electionDesc = `${electionTitle(election.wiki_page_title)} - ${election.co
     text-align: center;
     border-right: 1px solid var(--border-light);
     font-variant-numeric: tabular-nums;
+  }
+
+  .election-nav-place {
+    display: block;
+    font-size: 0.76rem;
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 0.15rem;
+    line-height: 1.3;
   }
 
   .election-nav-cell:last-child {
