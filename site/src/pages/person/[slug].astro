@@ -245,6 +245,7 @@ function renderLinkedText(text: string): string {
       </table>
     </div>
 
+    <div class="person-main">
     {person.intro && (
       <div class="bio-text">
         {person.intro.split('\n\n').map(para => (
@@ -263,7 +264,6 @@ function renderLinkedText(text: string): string {
         </div>
       </div>
     )}
-  </div>
 
   <h2>Political Career</h2>
   {candidacies.length > 0 ? (
@@ -307,6 +307,8 @@ function renderLinkedText(text: string): string {
   ) : (
     <p class="meta">No election records found for this person.</p>
   )}
+    </div>
+  </div>
 
   {tenures.length > 0 && (
     <>
@@ -485,13 +487,19 @@ function renderLinkedText(text: string): string {
 
 <style>
   .person-body {
-    overflow: hidden; /* contain the float */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    grid-template-areas: "main side";
+    gap: 0 1.75rem;
+    align-items: start;
   }
+  .person-main { grid-area: main; min-width: 0; }
+  .person-main > :first-child { margin-top: 0; }
 
   .infobox {
-    width: 260px;
-    float: right;
-    margin: 0 0 1rem 1.5rem;
+    grid-area: side;
+    position: sticky;
+    top: 5rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--bg-surface);
@@ -557,15 +565,13 @@ function renderLinkedText(text: string): string {
 
   @media (max-width: 600px) {
     .person-body {
-      display: flex;
-      flex-direction: column;
+      grid-template-columns: 1fr;
+      grid-template-areas: "side" "main";
     }
 
     .infobox {
-      float: none;
-      width: 100%;
+      position: static;
       margin: 0 0 1rem 0;
-      order: 1;
     }
 
     .bio-text:first-of-type {
