@@ -182,6 +182,17 @@ function renderLinkedText(text: string): string {
   ).replace(/&lt;strong&gt;/g, '<strong>')
    .replace(/&lt;\/strong&gt;/g, '</strong>');
 }
+
+// Career table: short council label (as in the site nav), shown only when
+// the election title doesn't already name the council (e.g. SIC by-elections)
+const COUNCIL_SHORT: Record<string, [string, string]> = {
+  'lerwick-town-council': ['Lerwick TC', 'town council'],
+  'zetland-county-council': ['Zetland CC', 'county council'],
+  'shetland-islands-council': ['SIC', 'islands council'],
+  'parliament-great-britain': ['Westminster', 'general election'],
+  'parliament-uk': ['Westminster', 'general election'],
+  'scottish-parliament': ['Holyrood', 'scottish parliament'],
+};
 ---
 <Base title={person.name} description={personDesc} ogType="profile" jsonLd={jsonLd}>
   <div class="breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/people">People</a> &rsaquo; {person.name}</div>
@@ -273,7 +284,6 @@ function renderLinkedText(text: string): string {
         <tr>
           <th scope="col">Year</th>
           <th scope="col">Election</th>
-          <th scope="col">Council</th>
           <th scope="col">Votes</th>
           <th scope="col">Result</th>
         </tr>
@@ -281,18 +291,22 @@ function renderLinkedText(text: string): string {
       <tbody>
         {candidacies.map(c => {
           const electionPageId = pageIdMap.get(c.wiki_page_title);
+          const title = c.wiki_page_title.replace(/_/g, ' ');
+          const showWard = c.constituency_name && !title.toLowerCase().includes(c.constituency_name.toLowerCase());
+          const [councilShort, councilInTitle] = COUNCIL_SHORT[c.council_slug] ?? [c.council_name, c.council_name.toLowerCase()];
+          const showCouncil = !title.toLowerCase().includes(councilInTitle);
           return (
             <tr>
               <td>{formatYear(c.election_date)}</td>
               <td>
                 {electionPageId
                   ? <a href={`/election/${electionPageId}`}>
-                      {c.wiki_page_title.replace(/_/g, ' ')}
-                      {c.constituency_name && <> ({c.constituency_name})</>}
+                      {title}
+                      {showWard && <> ({c.constituency_name})</>}
                     </a>
-                  : <>{c.wiki_page_title.replace(/_/g, ' ')}</>}
+                  : <>{title}</>}
+                {showCouncil && <a class="career-council" href={`/council/${c.council_slug}`}>{councilShort}</a>}
               </td>
-              <td><a href={`/council/${c.council_slug}`}>{c.council_name}</a></td>
               <td>{c.votes ? c.votes.toLocaleString() : ''}</td>
               <td>
                 {c.elected
@@ -516,6 +530,12 @@ function renderLinkedText(text: string): string {
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  .career-council {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
   }
 
   .sr-only {
