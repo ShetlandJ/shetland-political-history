@@ -564,22 +564,28 @@ function renderLinkedText(text: string): string {
   }
 
   @media (max-width: 600px) {
+    /* Stack as intro, infobox, then the rest */
     .person-body {
-      grid-template-columns: 1fr;
-      grid-template-areas: "side" "main";
+      display: flex;
+      flex-direction: column;
+    }
+
+    .person-main {
+      display: contents;
+    }
+
+    .person-main > * {
+      order: 2;
+    }
+
+    .person-main > .bio-text:first-child {
+      order: 0;
     }
 
     .infobox {
       position: static;
       margin: 0 0 1rem 0;
-    }
-
-    .bio-text:first-of-type {
-      order: 0;
-    }
-
-    .biography-section {
-      order: 2;
+      order: 1;
     }
   }
 
