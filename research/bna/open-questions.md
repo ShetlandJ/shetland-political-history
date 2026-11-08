@@ -34,7 +34,7 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Answered
 
-- **2026-11-08: Party labels for the wartime Town Council co-optees, 1941–45.** Answered 2026-11-08: (b) Prophet Smith only, Labour (inferred), as he was leading the re-formed Labour Party when co-opted (`candidacy_labels.csv`, election 108; ST 23 Jun 1944 p3 a065). Gear, Inkster, T. A. Sinclair, R. A. Anderson and Morrison stay unlabelled. Evidence: `ltc-1940-1945.md`.
+- **2026-11-08: Party labels for the wartime Town Council co-optees, 1941–45.** Answered 2026-11-08: (b) Prophet Smith only, Labour (inferred), as he was active in the re-formed Labour Party, chairing its June 1944 protest meeting (no source names him a party officer) (`candidacy_labels.csv`, election 108; ST 23 Jun 1944 p3 a065). Gear, Inkster, T. A. Sinclair, R. A. Anderson and Morrison stay unlabelled. Evidence: `ltc-1940-1945.md`.
 - **2026-11-01: The missing Sandwick SIC result, May 1982.** The DB has no Sandwick row for the
   May 1982 general, though the ward was contested: Malcolm S. Bray against the sitting member
   Peter R. Watts, poll 53.5 per cent (ST 16 Apr 1982 p2 a011; results ST 14 May 1982 p2 a026; the
