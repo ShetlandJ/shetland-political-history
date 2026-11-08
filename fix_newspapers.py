@@ -793,6 +793,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
       Robert Jamieson (1915-1990), born and died at Central House. The other George Robert Jamieson
       of Sandwick (I103971) died in 1941. Inferred.
     None sat, so no person rows. Evidence: research/bna/candidate-bayanne-links.md.
+
+102. Edward Adie was County Convener until December 1944, not 1943. At the County Council's
+    meeting of Tue 21 Dec 1943 he asked to stand down in favour of Ganson after 5½ years, was
+    urged to stay, and agreed to go on for another year (ST 24 Dec 1943 p3 a46). At the meeting
+    of Tue 19 Dec 1944 he stood down "after six and a half years" and R. J. H. Ganson was elected
+    unopposed (ST 22 Dec 1944 p3 a51). Ganson's row already starts in 1944.
+    Evidence: research/bna/zcc-1940-1959.md (Adie's convenership).
 """
 
 import os
@@ -2857,6 +2864,16 @@ def main():
         else:
             c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (right, cand['id']))
             print(f"  candidacy {cand['id']} ({name}, {title}) -> Bayanne {bid}")
+
+    print("=== 102. Adie Convener to 1944 ===")
+    role = one(c, """SELECT l.id, l.end_year FROM leadership_roles l JOIN people p ON p.id = l.person_id
+                    WHERE p.slug = 'edward-adie' AND l.role = 'Convener' AND l.start_year = '1938'
+                      AND l.end_year IN ('1943', '1944')""", ())
+    if role['end_year'] == '1944':
+        print(f"  leadership_roles {role['id']}: already 1944")
+    else:
+        c.execute("UPDATE leadership_roles SET end_year = '1944' WHERE id = ?", (role['id'],))
+        print(f"  leadership_roles {role['id']}: end 1943 -> 1944")
 
     db.commit()
     db.close()

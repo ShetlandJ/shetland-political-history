@@ -8,6 +8,21 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-11-08: Party labels for the wartime Town Council co-optees, 1941–45.** Mouat (Ind.),
+  J. A. Williamson and A. Johnson (Lab.) came off the 1938 poll and carry its labels. The six
+  co-opted from Oct 1941 have none, so /council-terms shows them as "no label". What the papers
+  say about each (book research, `~/Desktop/book/research/council-in-ww2-notes.md` V5–V6):
+  Charles Inkster (co-opted Oct 1941) was interim chairman of the re-formed Shetland Labour Party in
+  Nov 1943 (ST 19 Nov 1943 p2 a043); R. A. Anderson (Feb 1943) enrolled in it in Dec 1943 (ST 3 Dec
+  1943 p2 a048); Prophet Smith (Nov 1944) was its chairman when co-opted; T. A. Sinclair (Mar 1942)
+  stood as Labour before the war (wiki, unchecked); John Gear (Oct 1941) was proposed by a Labour
+  Bailie, party unknown; Alexander Morrison (Feb 1945) stood as Labour in Nov 1945. Prophet Smith
+  said in Nov 1943 that six councillors were "occupying Labour seats". None was co-opted under a
+  stated label, and Inkster's and Anderson's evidence comes 10–25 months after their co-option.
+  Options: (a) leave co-options unlabelled; (b) label Prophet Smith only; (c) Labour, basis inferred, for Smith, Inkster, Anderson and Sinclair; (d) as (c) plus Morrison.
+  Elections 105–109. Evidence: the book notes above (to be copied into `party-labels-ltc-1925-1938.md`
+  once decided).
+
 - **2026-11-01: SIC May 2003, eight seats unopposed in the DB, not checkable in the BNA.** The
   Shetland Times in the BNA ends with 2000, so Grains, T. Stove, Mitchell, Cluness, J. Irvine,
   Robertson, J. G. Simpson and Nicolson's 2003 seats rest on the wiki alone. Options: (a) leave

@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-11-08: County Convener, 1943–44 (book workspace; evidence in `research/bna/zcc-1940-1959.md` §7)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki / DB | Edward Adie County Convener 1938–1943 | Asked to stand down 21 Dec 1943 but agreed to another year (ST 24 Dec 1943 p3 a46); stood down 19 Dec 1944, Ganson elected unopposed (ST 22 Dec 1944 p3 a51) | Fixed: #102 (1938–1944). Wiki text not checked |
+
 ## 2026-11-01: Hidden-contests audit (`research/bna/hidden-contests.md`)
 
 | # | Where | We had | Sources show | Status |
