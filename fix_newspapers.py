@@ -800,6 +800,16 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     of Tue 19 Dec 1944 he stood down "after six and a half years" and R. J. H. Ganson was elected
     unopposed (ST 22 Dec 1944 p3 a51). Ganson's row already starts in 1944.
     Evidence: research/bna/zcc-1940-1959.md (Adie's convenership).
+
+103. Edward Adie's biography from his obituary, "FORMER CONVENER DIES" (ST 27 May 1977 p11 a119),
+    death notice (ST 20 May 1977 p16 a161) and SIC tribute (ST 3 Jun 1977 p16 a171). He died "At
+    Montfield Hospital, Lerwick, on 18th May, 1977" (he lived at Voe), not at Voe. The biography
+    gains his parents (the OCR's "William Jamieson Tait" is Adie), the 1830s founding of the
+    business by his grandfather Thomas M. Adie, his WWI commission, the Borders weaver, employment
+    in Voe and help to fishing crews, Deputy and vice-lieutenancy, the obituary's view of him as
+    chairman, his widow and his nephew James; "woolen" -> "woollen". The intro gains the
+    Convenership, 1938-1944 (#102; the tribute's "1938-45" isn't followed).
+    Evidence: research/bna/biographies-1950s-1980s.md (Edward Adie).
 """
 
 import os
@@ -1398,6 +1408,42 @@ LAING_BIO = ('james-laing', 'He became the first Labour Provost of Lerwick in 19
              'between 1906 and his retirement in 1945.')
 MACDOUGALL_INTRO =('until he resigned in April 1912', 'until he resigned in October 1912')
 POTTINGER_DEATH = ('james-pottinger-iii', '1961-04-12', '1961-04-18')
+ADIE_DEATH_PLACE = ('edward-adie', 'Voe, Delting', 'Montfield Hospital, Lerwick')
+ADIE_INTRO = ('edward-adie', 'and again between 1955 and 1967',
+              'and again between 1955 and 1967, and Convener of Zetland County Council from 1938 to 1944')
+ADIE_BIO_OLD = ('Edward was born into a large family', 'the businesses woolen trade')  # guards on the wiki text
+ADIE_BIO = (
+    "Edward was born into a large family, the seventh child of eleven who survived into adulthood. His parents "
+    "were [person:william-adie:William Jamieson Adie], County Councillor for Delting South from 1899 to 1903, and "
+    "Margaret Douglas Gray. His grandfather, Thomas M. Adie, had founded a general merchant's business in Voe in "
+    "the 1830s, which was still operating as Edward came of age to work. In the fishing days the firm worked in "
+    "the barter trade; it expanded into fish curing during the Faroese fishing boom, and exported salt fish to "
+    "Europe. The arrival of steamships and changing fortunes in the fishing trade saw the company turn to "
+    "manufacturing woollen goods.\n\n"
+    "Edward did not immediately join the family business. Instead, he and brother Douglas emigrated to Canada "
+    "where they bought land and began lumberjacking. At the outbreak of WWI, Edward was commissioned as a "
+    "Lieutenant in the Canadian Scottish Infantry, and he ended the war a Captain. His foot was severely wounded "
+    "in France and he received a Military Cross. He returned to Canada for four years after the war, before "
+    "coming back to Shetland to take over the family business on the retiral of his eldest brother, "
+    "[person:james-adie:James].\n\n"
+    "Edward grew the business's woollen trade considerably. A weaver from the Borders was engaged to teach local "
+    "people to weave, the company was among the first in Shetland to use knitting machines, and the firm's name "
+    "came to stand for quality in knitwear and tweed. The company's produce was used by adventurers in the 1953 "
+    "British Everest Expedition. Between the wars the firm was a useful source of employment in Voe, and after "
+    "WWII Edward helped several fishing-boat crews with money to start fishing again.\n\n"
+    "During WWII, Edward not only continued to run the business with a reduced number of staff, he was also "
+    "County Convener, from 1938 to 1944, and second in command to the Home Guard to "
+    "[person:arthur-nicolson-ii:Arthur Nicolson]. He was a Deputy Lieutenant of Shetland, and when "
+    "[person:basil-neven-spence:Sir Basil Neven-Spence] became Lord Lieutenant on Sir Arthur Nicolson's death, "
+    "Edward was his vice-lieutenant. Neven-Spence also held Edward's Delting South seat on the County Council "
+    "between 1952 and 1955.\n\n"
+    "His obituary called him \"a very reserved man\", but \"most positive in his approach to business and public "
+    "life\". Two former colleagues remembered him as \"the best chairman the County Council had in their "
+    "memory\": firm but \"extremely fair\", he said little from the chair, but when he spoke \"everybody "
+    "listened\".\n\n"
+    "He died at Montfield Hospital, Lerwick, on 18 May 1977, survived by his widow, Grace Dorothy Anderson. His "
+    "nephew James was then running the firm."
+)
 DUNROSSNESS_1977 = ('Dunrossness By-Election July 1977', '1977-07-25', '1977-07-12', ('Prophet Smith', 143),
                     [('Raymond Bentley', 123), ('Alan Whitfield', 93), ('Williamina Flaws', 55)], (414, 49.0))
 DELTING_NORTH_1982 = ('Delting North By-Election August 1982', '1982-08-01', '1982-09-16', 'Roberta Clubb', (439, 47.0))
@@ -2874,6 +2920,32 @@ def main():
     else:
         c.execute("UPDATE leadership_roles SET end_year = '1944' WHERE id = ?", (role['id'],))
         print(f"  leadership_roles {role['id']}: end 1943 -> 1944")
+
+    print("=== 103. Edward Adie from his obituary ===")
+    row = one(c, "SELECT id, intro, biography, death_place FROM people WHERE slug = 'edward-adie'", ())
+    slug, wrong, right = ADIE_DEATH_PLACE
+    if row['death_place'] == right:
+        print(f"  {slug} death_place: already {right}")
+    elif row['death_place'] == wrong:
+        c.execute("UPDATE people SET death_place = ? WHERE id = ?", (right, row['id']))
+        print(f"  {slug} death_place: {wrong} -> {right}")
+    else:
+        raise SystemExit(f"{slug} death_place: unexpected {row['death_place']!r}")
+    slug, old, new = ADIE_INTRO
+    if new in row['intro']:
+        print(f"  {slug} intro: already set")
+    elif old in row['intro']:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (row['intro'].replace(old, new), row['id']))
+        print(f"  {slug} intro: Convenership added")
+    else:
+        raise SystemExit(f"{slug} intro: expected text not found")
+    if row['biography'] == ADIE_BIO:
+        print(f"  {slug} biography: already set")
+    elif row['biography'].startswith(ADIE_BIO_OLD[0]) and ADIE_BIO_OLD[1] in row['biography']:
+        c.execute("UPDATE people SET biography = ? WHERE id = ?", (ADIE_BIO, row['id']))
+        print(f"  {slug} biography: rewritten")
+    else:
+        raise SystemExit(f"{slug} biography: not the text #103 expects")
 
     db.commit()
     db.close()

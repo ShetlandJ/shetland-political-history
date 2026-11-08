@@ -153,3 +153,25 @@ Findings:
 - **ST Fri 13 May 1960, p6 (art. 102)**: the 1960 statutory meeting (Paton's first) lists
   representatives to a dozen bodies but not the County Council.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19600513&page=0006&article=102
+
+## Edward Adie (2026-11-08, from the book session's reading)
+
+- **Shetland Times, Fri 20 May 1977, p16 (art. 161)**, death notice: "At Montfield Hospital,
+  Lerwick, on 18th May, 1977". → `death_place` Voe → Montfield Hospital, Lerwick (#103).
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19770520&page=0016&article=161
+- **Shetland Times, Fri 27 May 1977, p11 (art. 119)**, obituary "FORMER CONVENER DIES": "of Voe,
+  died in Montfield Hospital, Lerwick". Parents William Jamieson Adie (OCR "Tait") and Margaret
+  Douglas Gray; grandfather Thomas M. Adie founded the general merchant's business in Voe in the
+  1830s, barter trade in the fishing days, then manufacturing; WWI commission as Lieutenant,
+  Canadian Scottish Infantry, ended a Captain, M.C.; took over on the retirement of his oldest
+  brother James Arthur Adie; a Borders weaver engaged to train local weavers; a name for quality in
+  knitwear and tweed; employment in Voe between the wars; after WW2 helped fishing-boat crews
+  financially; Deputy Lieutenant, vice-lieutenant to Neven-Spence; "a very reserved man", "most
+  positive in his approach to business and public life"; "the best chairman the County Council had
+  in their memory", "extremely fair", "everybody listened"; survived by his widow; nephew James runs
+  the firm. → biography rewritten (#103).
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19770527&page=0011&article=119
+- **Shetland Times, Fri 3 Jun 1977, p16 (art. 171)**, SIC tribute: "convener … from 1938-45",
+  "33 years' service". Not followed for dates: Convener ended 19 Dec 1944 (ST 22 Dec 1944 p3 a51,
+  #102); terms as the DB has them.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19770603&page=0016&article=171

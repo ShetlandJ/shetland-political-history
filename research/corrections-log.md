@@ -13,6 +13,7 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
+| 2 | wiki / DB | Edward Adie died at Voe | Died at Montfield Hospital, Lerwick, 18 May 1977 (ST 20 May 1977 p16 a161; obituary ST 27 May 1977 p11 a119) | Fixed: #103 (biography also rewritten from the obituary) |
 | 1 | wiki / DB | Edward Adie County Convener 1938–1943 | Asked to stand down 21 Dec 1943 but agreed to another year (ST 24 Dec 1943 p3 a46); stood down 19 Dec 1944, Ganson elected unopposed (ST 22 Dec 1944 p3 a51) | Fixed: #102 (1938–1944). Wiki text not checked |
 
 ## 2026-11-01: Hidden-contests audit (`research/bna/hidden-contests.md`)
