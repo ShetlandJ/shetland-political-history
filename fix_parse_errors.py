@@ -198,6 +198,9 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    County Council ward get "-sic" (delting-north-sic). Only one page was built per slug, and it was
    the County Council's, so the SIC ward pages were missing and their links went to the wrong
    ward. The County Council URLs don't change.
+35. Magnus Shearer (i) (magnus-shearer-i): Find a Grave memorial 303430900, given by James on
+   2026-11-08 (https://www.findagrave.com/memorial/303430900/magnus-shearer; Lerwick New Cemetery,
+   added 26 Jul 2026, after the baseline's findagrave run).
 """
 
 import os
@@ -1001,6 +1004,16 @@ def main():
     dupes = c.execute("SELECT slug FROM constituencies GROUP BY slug HAVING count(*) > 1").fetchall()
     if dupes:
         raise SystemExit(f"constituency slugs still not unique: {dupes}")
+
+    print("=== 35. Magnus Shearer (i): Find a Grave memorial ===")
+    fg = c.execute("SELECT findagrave_id FROM people WHERE slug = 'magnus-shearer-i'").fetchone()
+    if fg is None:
+        raise SystemExit("magnus-shearer-i not found")
+    if fg[0] is None:
+        c.execute("UPDATE people SET findagrave_id = 303430900 WHERE slug = 'magnus-shearer-i'")
+        print("  set 303430900")
+    elif fg[0] != 303430900:
+        raise SystemExit(f"magnus-shearer-i findagrave_id is {fg[0]}, expected NULL")
     db.commit()
     db.close()
 
