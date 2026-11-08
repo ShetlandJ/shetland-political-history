@@ -154,4 +154,14 @@ C. Charleson ZCC 1952, Harry Gray 1959, Grace Halcrow and R. Cumming 1967, I. By
 | Lerwick Town Council Election November 1931 (89) | george-duffin | Constitutional | 1925-11, `st-19251107-p4-a080` |
 | Lerwick Town Council Election November 1931 (89) | magnus-manson | Labour | 1925-11, `st-19251031-p1-a193` |
 | Lerwick Town Council By-Election June 1932 (90) | james-morrison | Labour | 1925-11, `st-19251031-p1-a193` |
-| Lerwick Town Council By-Election February 1938 (100) | peter-dalziel | Ratepayers Association | 1937-11, `st-19371106-p4-a066` |
+| Lerwick Town Council By-Election February 1938 (100) | peter-dalziel | Ratepayers Association | (removed 2026-11-08, see below) 1937-11, `st-19371106-p4-a066` |
+
+## Dalziel's Feb 1938 co-option: label cleared (2026-11-08)
+
+The carried-forward "Ratepayers Association" row for election 100 is removed and the wiki's label
+cleared (`fix_parse_errors.py` #36), on James's answer. The co-option report gives no party
+(ST 5 Feb 1938 p4 a077: Halcrow moved, Bailie Laing seconded, unanimous). Searches of the ST for
+13 Nov 1937 to 22 Oct 1938 ("dalziel labour", "dalziel ratepayers") found nothing saying when he
+moved from the Ratepayers (Nov 1937) to Labour (Nov 1938). Pointer only: at the April 1938 meeting
+he spoke against "all this antagonism" to higher wages for council workmen (ST 9 Apr 1938 p5 a115).
+https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19380409&page=0005&article=115

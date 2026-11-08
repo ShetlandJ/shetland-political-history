@@ -201,6 +201,12 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
 35. Magnus Shearer (i) (magnus-shearer-i): Find a Grave memorial 303430900, given by James on
    2026-11-08 (https://www.findagrave.com/memorial/303430900/magnus-shearer; Lerwick New Cemetery,
    added 26 Jul 2026, after the baseline's findagrave run).
+36. Lerwick Town Council By-Election February 1938: the wiki gives Peter Dalziel "Ratepayers
+   Association". He was co-opted by the Council on Tue 1 Feb 1938, moved by Captain Halcrow and
+   seconded by Bailie Laing, with no party given (ST 5 Feb 1938 p4 a077). He stood as a Ratepayers'
+   nominee in Nov 1937 and as Labour in Nov 1938, and no report between says when he changed.
+   Cleared on James's answer (2026-11-08), as for the wartime co-optees.
+   Evidence: research/bna/party-labels-ltc-1925-1938.md.
 """
 
 import os
@@ -1014,6 +1020,22 @@ def main():
         print("  set 303430900")
     elif fg[0] != 303430900:
         raise SystemExit(f"magnus-shearer-i findagrave_id is {fg[0]}, expected NULL")
+
+    print("=== 36. LTC Feb 1938: no label for Dalziel's co-option ===")
+    rows = c.execute("""SELECT ca.id, ca.party FROM candidacies ca JOIN elections e ON e.id = ca.election_id
+                        JOIN people p ON p.id = ca.person_id
+                        WHERE e.wiki_page_title = 'Lerwick Town Council By-Election February 1938'
+                          AND p.slug = 'peter-dalziel'""").fetchall()
+    if len(rows) != 1:
+        raise SystemExit(f"Feb 1938: expected 1 Dalziel candidacy, found {len(rows)}")
+    cid, party = rows[0]
+    if party is None:
+        print("  already cleared")
+    elif party == 'Ratepayers Association':
+        c.execute("UPDATE candidacies SET party = NULL WHERE id = ?", (cid,))
+        print("  cleared")
+    else:
+        raise SystemExit(f"Feb 1938: Dalziel's party is {party!r}, expected 'Ratepayers Association'")
     db.commit()
     db.close()
 

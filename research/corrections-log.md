@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-11-08: Dalziel's 1938 co-option (`research/bna/party-labels-ltc-1925-1938.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Peter Dalziel, By-Election February 1938, "Ratepayers Association" | Co-opted 1 Feb 1938 with no party given (ST 5 Feb 1938 p4 a077); Ratepayers' nominee Nov 1937, Labour Nov 1938, change undated | Fixed: label cleared (#36), James's call |
+
 ## 2026-11-08: Magnus Shearer (i) (evidence in `research/bna/biographies-ltc-provosts.md`)
 
 | # | Where | We had | Sources show | Status |
