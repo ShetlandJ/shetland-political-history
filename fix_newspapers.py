@@ -810,6 +810,19 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     chairman, his widow and his nephew James; "woolen" -> "woollen". The intro gains the
     Convenership, 1938-1944 (#102; the tribute's "1938-45" isn't followed).
     Evidence: research/bna/biographies-1950s-1980s.md (Edward Adie).
+
+104. Magnus Shearer (i) from his obituary (ST 17 Mar 1961 p7 a086; the short notice ST 10 Mar
+    1961 p4 a036) and the re-constituted County Council's first meeting (ST 21 Dec 1929 p7 a156).
+    He died "at his home, Bayview, King Harald Street, Lerwick", not just "Lerwick". The intro had
+    him on the County Council "between 1947 and 1958"; he sat for Whalsay and Skerries until his
+    death (and the DB's terms already run to 1961). The intro gains the Convenership and the
+    Provostship. On Tue 17 Dec 1929 the new council elected him chairman, 17 to 15 over Bailie W.
+    Sinclair, to become Convener on 15 May 1930: his gravestone's "1929-35" counts from the
+    chairmanship, the obituary's "1930 to 1935" (and leadership_roles) from the Convenership.
+    The biography gains his parents, his uncle James as co-founder of the firm, the curing
+    stations and ice plant, his marriage (1922), the road classification, the Education
+    Committee, the 1938 Territorial command, the OBE (1937), the Order of Vasa (1946), the
+    Unionist chairmanship and his family. Evidence: research/bna/biographies-ltc-provosts.md.
 """
 
 import os
@@ -1411,6 +1424,62 @@ POTTINGER_DEATH = ('james-pottinger-iii', '1961-04-12', '1961-04-18')
 ADIE_DEATH_PLACE = ('edward-adie', 'Voe, Delting', 'Montfield Hospital, Lerwick')
 ADIE_INTRO = ('edward-adie', 'and again between 1955 and 1967',
               'and again between 1955 and 1967, and Convener of Zetland County Council from 1938 to 1944')
+SHEARER_DEATH_PLACE = ('magnus-shearer-i', 'Lerwick', 'Bayview, King Harald Street, Lerwick')
+SHEARER_INTRO_OLD = 'He represented Whalsay and Skerries again between 1947 and 1958'  # guards on the wiki text
+SHEARER_INTRO = (
+    "Magnus 'Magnie' Shearer was the managing director of J. & M. Shearer Ltd, County Councillor for "
+    "Whalsay and Skerries from 1924 until he joined Lerwick Town Council in 1936, and again from 1947 "
+    "until his death, Convener of Zetland County Council from 1930 to 1935, and Provost of Lerwick "
+    "from 1941 to 1946. He was the father of [person:magnus-shearer-ii:Magnus]."
+)
+SHEARER_BIO_OLD = ('After leaving school, he served as a cook', 'owing to illness.')  # guards on the wiki text
+SHEARER_BIO = (
+    "Magnus was born at Clate, Whalsay, in July 1890, the second son of Robert Shearer and Catherine "
+    "Hughson. He was educated on the island, and his first job was as cook on the Whalsay herring sail "
+    "boat 'Reindeer'. After a year at sea he began a cooper's apprenticeship under his father, and later "
+    "worked for A. Wood & Sons at Lerwick and Shields."
+    "\n\n"
+    "He had joined the Shetland Territorials of the Gordon Highlanders in 1912, and when war broke out in "
+    "1914 he was recalled from Shields to join the colours. He left Shetland with his unit in 1915, was "
+    "picked for officer training and commissioned in 1916, and served on the Western Front as a "
+    "Lieutenant in the 9th Gordon Highlanders. He volunteered for overseas active service and held the "
+    "Volunteer Medal."
+    "\n\n"
+    "After the war he thought of taking a post as a fishery officer in Nova Scotia, but stayed in "
+    "Shetland and, with his uncle James, set up a herring-curing business in the South End of Lerwick, "
+    "J. & M. Shearer. The firm ran curing stations in Whalsay, Cullivoe and Lerwick, and in East Anglia "
+    "in the season, and became a limited company with Magnus as managing director; it built the ice "
+    "plant at the West Dock. In 1922 he married Flora Stephen."
+    "\n\n"
+    "He was elected County Councillor for Whalsay and Skerries in 1924 and became a member of the "
+    "Education Authority. On the County Council he chaired the Mainland District Committee and the "
+    "Finance Committee and became Vice-Convener, and as the Council's delegate in the south he won a "
+    "better classification for a good part of Shetland's roads, which brought larger road grants. At "
+    "the first meeting of the re-constituted County Council, on 17 December 1929, he was elected "
+    "chairman by 17 votes to 15 over Bailie W. Sinclair, to become Convener when the new council took "
+    "office in May 1930. He was Convener until 1935, and was vice-chairman of the Education Committee "
+    "from 1933 to 1935 and its chairman until 1953."
+    "\n\n"
+    "He gave up his Whalsay seat when he was elected to Lerwick Town Council in 1936, and was Provost "
+    "from 1941 to 1946. He was made an OBE in 1937. When the local Territorial unit was re-formed in "
+    "1938 he took command as Major, and he left Shetland with it early in the war; in 1941 he was posted "
+    "back to Shetland as Military Control Officer, and served until the end of the war. He was then "
+    "awarded the Territorial Decoration and given the rank of Lieutenant-Colonel. In 1947 he left the "
+    "Town Council to represent Whalsay and Skerries on the County Council again, and he held the seat "
+    "until his death."
+    "\n\n"
+    "He became a Justice of the Peace in 1949, and was an honorary Sheriff-Substitute and vice-consul "
+    "for Sweden, whose king made him a Chevalier of the Order of Vasa, first class, in 1946. He held the "
+    "top offices of the Territorial Army Association and the British Legion, and was an elder of St "
+    "Columba's Church. Politically he was a Unionist and chaired the local Unionist Association. Early "
+    "in the 1950s he was adopted as prospective parliamentary candidate for Orkney and Shetland, but he "
+    "fell seriously ill, resigned in 1953 and never stood."
+    "\n\n"
+    "He died at his home, Bayview, King Harald Street, Lerwick, on 8 March 1961, and was buried in "
+    "Lerwick New Cemetery. He was survived by his wife; his son [person:magnus-shearer-ii:Magnus], who "
+    "worked with him in the business; two daughters, Noelle (Mrs Gordon) and Margaret; and three "
+    "brothers, William, Thomas and Arthur."
+)
 ADIE_BIO_OLD = ('Edward was born into a large family', 'the businesses woolen trade')  # guards on the wiki text
 ADIE_BIO = (
     "Edward was born into a large family, the seventh child of eleven who survived into adulthood. His parents "
@@ -2945,6 +3014,31 @@ def main():
         print(f"  {slug} biography: rewritten")
     else:
         raise SystemExit(f"{slug} biography: not the text #103 expects")
+
+    print("=== 104. Magnus Shearer (i) from his obituary ===")
+    slug, wrong, right = SHEARER_DEATH_PLACE
+    row = one(c, "SELECT id, intro, biography, death_place FROM people WHERE slug = ?", (slug,))
+    if row['death_place'] == right:
+        print(f"  {slug} death_place: already {right}")
+    elif row['death_place'] == wrong:
+        c.execute("UPDATE people SET death_place = ? WHERE id = ?", (right, row['id']))
+        print(f"  {slug} death_place: {wrong} -> {right}")
+    else:
+        raise SystemExit(f"{slug} death_place: unexpected {row['death_place']!r}")
+    if row['intro'] == SHEARER_INTRO:
+        print(f"  {slug} intro: already set")
+    elif SHEARER_INTRO_OLD in row['intro']:
+        c.execute("UPDATE people SET intro = ? WHERE id = ?", (SHEARER_INTRO, row['id']))
+        print(f"  {slug} intro: rewritten")
+    else:
+        raise SystemExit(f"{slug} intro: not the text #104 expects")
+    if row['biography'] == SHEARER_BIO:
+        print(f"  {slug} biography: already set")
+    elif row['biography'].startswith(SHEARER_BIO_OLD[0]) and row['biography'].endswith(SHEARER_BIO_OLD[1]):
+        c.execute("UPDATE people SET biography = ? WHERE id = ?", (SHEARER_BIO, row['id']))
+        print(f"  {slug} biography: rewritten")
+    else:
+        raise SystemExit(f"{slug} biography: not the text #104 expects")
 
     db.commit()
     db.close()

@@ -9,6 +9,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-11-08: Magnus Shearer (i) (evidence in `research/bna/biographies-ltc-provosts.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 2 | wiki | Intro: represented Whalsay and Skerries again "between 1947 and 1958" | Held the seat from 1947 "until his death" in March 1961 (obituary ST 17 Mar 1961 p7 a086; the DB's terms already ran to 1961) | Fixed: #104 (intro rewritten) |
+| 1 | gravestone | Convener of Zetland County Council "1929-35" (Find a Grave 303430900) | Elected chairman of the re-constituted council Tue 17 Dec 1929, 17–15, to become Convener 15 May 1930 (ST 21 Dec 1929 p7 a156); obituary "1930 to 1935" | DB keeps 1930–1935; both dates explained in the biography (#104) |
+
 ## 2026-11-08: County Convener, 1943–44 (book workspace; evidence in `research/bna/zcc-1940-1959.md` §7)
 
 | # | Where | We had | Sources show | Status |

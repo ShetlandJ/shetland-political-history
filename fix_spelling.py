@@ -103,7 +103,6 @@ FIXES = [
     ('people', 353, 'biography', 'he server in the anti-aircraft', 'he served in the anti-aircraft'),
     ('people', 360, 'intro', 'a distance relative', 'a distant relative'),
     ('people', 366, 'intro', 'a distance relation', 'a distant relation'),
-    ('people', 370, 'biography', 'he was against called for duty', 'he was again called for duty'),
     ('people', 381, 'biography', 'rejoin his Batallion', 'rejoin his Battalion'),
     ('people', 381, 'biography', 'completing his studied worked', 'completing his studies worked'),
     ('people', 381, 'biography', 'and as as adjutant', 'and as adjutant'),
