@@ -823,6 +823,15 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     stations and ice plant, his marriage (1922), the road classification, the Education
     Committee, the 1938 Territorial command, the OBE (1937), the Order of Vasa (1946), the
     Unionist chairmanship and his family. Evidence: research/bna/biographies-ltc-provosts.md.
+
+105. Andrew Mouat from his death notice (ST 10 Jul 1959 p2 a011) and the funeral paragraph (ST 3 Jul
+    1959 p3 a021). He died "At Gilbert Bain Hospital, Lerwick, on 24th June, 1959", the "elder son of
+    the late Marshall and Marjory Mouat, Mossbank". The wiki's one-line biography is replaced from
+    those, the 1947 taxi-stance allocation (ST 17 Jan 1947 p7 a104), his Life-Saving Apparatus long
+    service medal (ST 24 May 1946 p2 a034), his nominations and adverts 1937-51, the 1940 co-option
+    (ST 13 Jul 1940) and two letters (ST 1 Nov 1946 p6 a074, 16 Apr 1948 p3 a070). The paragraph's
+    "he was 71" doesn't fit his birth date (26 Jul 1888 makes 70); the birth date is kept.
+    Evidence: research/bna/biographies-1950s-1980s.md (Andrew Mouat).
 """
 
 import os
@@ -1479,6 +1488,35 @@ SHEARER_BIO = (
     "Lerwick New Cemetery. He was survived by his wife; his son [person:magnus-shearer-ii:Magnus], who "
     "worked with him in the business; two daughters, Noelle (Mrs Gordon) and Margaret; and three "
     "brothers, William, Thomas and Arthur."
+)
+MOUAT_A_DEATH_PLACE = ('andrew-mouat', 'Lerwick', 'Gilbert Bain Hospital, Lerwick')
+MOUAT_A_INTRO_OLD = 'Andrew Marshall Mouat was a car hirer and Lerwick Town Councillor.'  # the wiki text
+MOUAT_A_INTRO = (
+    "Andrew Marshall Mouat was a Lerwick car hirer and a Lerwick Town Councillor from 1940 to 1945."
+)
+MOUAT_A_BIO_OLD = 'Andrew was in the car hiring business.'  # the wiki text
+MOUAT_A_BIO = (
+    "Andrew was the elder son of Marshall and Marjory Mouat of Mossbank. He ran a car-hire business in "
+    "Lerwick, and in January 1947, when the Town Council shared out the Esplanade stances, he was given "
+    "one of the hackney and taxi stances at the Market Cross. He had retired from the business some years "
+    "before his death. He lived at 19 Burgh Road."
+    "\n\n"
+    "For about 21 years he was a member of the Lerwick Life-Saving Apparatus company, and in May 1946 he "
+    "was presented with the long service medal at Fort Charlotte."
+    "\n\n"
+    "He first stood for the Town Council in November 1937, the only candidate that year standing "
+    "independent of any party, and stood again as an Independent in 1938. When William Sinclair resigned "
+    "in 1940 the council followed its custom of co-opting the highest unsuccessful candidate at the last "
+    "election, and Andrew took the seat on 2 July 1940. He sat through the rest of the war and retired "
+    "with the other co-opted members at the November 1945 election, where he lost. He stood again in 1946, "
+    "1947, 1950 and 1951, without being returned."
+    "\n\n"
+    "He wrote to the Shetland Times on burgh matters: in 1946 asking for lights at the Central School "
+    "gates for polling day, and in 1948 urging the council to put two stevedores who "
+    "had pulled a man out of the water at Victoria Pier forward to the Carnegie Trust."
+    "\n\n"
+    "He died at the Gilbert Bain Hospital, Lerwick, on 24 June 1959. On the day of his funeral the Union "
+    "Jack flew at half-mast from the Town Hall tower."
 )
 ADIE_BIO_OLD = ('Edward was born into a large family', 'the businesses woolen trade')  # guards on the wiki text
 ADIE_BIO = (
@@ -3039,6 +3077,26 @@ def main():
         print(f"  {slug} biography: rewritten")
     else:
         raise SystemExit(f"{slug} biography: not the text #104 expects")
+
+    print("=== 105. Andrew Mouat from his death notice and the papers ===")
+    slug, wrong, right = MOUAT_A_DEATH_PLACE
+    row = one(c, "SELECT id, intro, biography, death_place FROM people WHERE slug = ?", (slug,))
+    if row['death_place'] == right:
+        print(f"  {slug} death_place: already {right}")
+    elif row['death_place'] == wrong:
+        c.execute("UPDATE people SET death_place = ? WHERE id = ?", (right, row['id']))
+        print(f"  {slug} death_place: {wrong} -> {right}")
+    else:
+        raise SystemExit(f"{slug} death_place: unexpected {row['death_place']!r}")
+    for field, old, new in (('intro', MOUAT_A_INTRO_OLD, MOUAT_A_INTRO),
+                            ('biography', MOUAT_A_BIO_OLD, MOUAT_A_BIO)):
+        if row[field] == new:
+            print(f"  {slug} {field}: already set")
+        elif row[field] == old:
+            c.execute(f"UPDATE people SET {field} = ? WHERE id = ?", (new, row['id']))
+            print(f"  {slug} {field}: rewritten")
+        else:
+            raise SystemExit(f"{slug} {field}: not the text #105 expects")
 
     db.commit()
     db.close()

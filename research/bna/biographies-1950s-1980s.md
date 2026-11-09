@@ -175,3 +175,41 @@ Findings:
   "33 years' service". Not followed for dates: Convener ended 19 Dec 1944 (ST 22 Dec 1944 p3 a51,
   #102); terms as the DB has them.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19770603&page=0016&article=171
+
+## Andrew Mouat (2026-11-09)
+
+- **ST Fri 10 Jul 1959, p2 (art. 011)**, death notice: "At Gilbert Bain Hospital, Lerwick, on 24th
+  June, 1959, Andrew Marshall, elder son of the late Marshall and Marjory Mouat, Mossbank".
+  → `death_place` Lerwick → Gilbert Bain Hospital, Lerwick; parents in the biography (#105).
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19590710&page=0002&article=011
+- **ST Fri 3 Jul 1959, p3 (art. 021)**: Union Jack at half-mast from the Town Hall tower on the
+  funeral day (Fri 26 Jun); "a well-known character in the town"; councillor "towards the end of the
+  second war"; retired from car hiring some years before; "he was 71". Born 26 Jul 1888 makes him 70:
+  birth date kept (Bayanne). → biography (#105).
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19590703&page=0003&article=021
+- **ST Sat 30 Oct 1937, p4 (art. 091)**, leader: "The only candidate standing independent of any
+  particular party", "making a first effort to secure a seat". → biography.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19371030&page=0004&article=091
+- **ST Fri 2 Nov 1945, p2 (art. 035)**, nominations: "Andrew M Mouat, 19 Burgh Road" (also 19 Burgh
+  Road in 1938, ST 29 Oct 1938 p4 a083, and 1950). → biography (address).
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19451102&page=0002&article=035
+- **ST Fri 24 May 1946, p2 (art. 034)**: Lerwick Life-Saving Apparatus crew at Fort Charlotte; long
+  service medals to "Mr Andrew Marshall Mouat and Mr Peter Paton", about 21 years' service each.
+  → biography.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19460524&page=0002&article=034
+- **ST Fri 1 Nov 1946, p6 (art. 074)**, letter "ELECTION LIGHTS" from Andrew M. Mouat, 19 Burgh
+  Road: lights at the Central School gates for the 5 Nov election, or storm lanterns. → biography.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19461101&page=0006&article=074
+- **ST Fri 17 Jan 1947, p7 (art. 104)**, "Esplanade Parking Arrangements": Market Cross (hackney
+  carriages, taxi service), one stance each to Robert Mouat, Andrew M. Mouat and others. → biography.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19470117&page=0007&article=104
+- **ST Fri 16 Apr 1948, p3 (art. 070)**, letter "RESCUE": asks the council to bring two stevedores'
+  rescue of a man at Victoria Pier "to the notice of the Carnegie Trust". → biography.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19480416&page=0003&article=070
+- **ST Fri 14 Apr 1950, p4 (art. 058)**, "...and Mouat Stands Again": "War-time member of the
+  Council, Mr A. M. Mouat, is again offering his services". → biography.
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19500414&page=0004&article=058
+- Not him: the Andrew M. Mouat of Levenwick (fishing-station adverts 1908; his son Andrew married
+  1930, ST 22 Feb 1930 p4 a050). Not used: ST 3 Nov 1950 p7 a099 (a witness names "Andrew Mouat"
+  among past car hirers; which area is unclear in the OCR) and ST 27 Jul 1956 p2 a019 (a Mouat in a
+  minor car case, identity unclear).
