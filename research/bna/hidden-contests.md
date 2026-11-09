@@ -177,3 +177,22 @@ Each was a Council co-option at a meeting, not a public poll; none had a rival o
   Bray now sits 1982–87 and Watts 1978–82 (Sandwick had shown empty from May 1982).
   `build.py` now accepts an election link target "title @ constituency-slug" for a ward row of a
   general created by a correction script.
+
+## Turnouts copied onto unopposed returns (2026-11-09)
+
+Found from Burra & Quarff 1952 (James). Nine one-candidate results had the electorate and turnout
+of the same ward's contest at the next or previous general, whose votes add up to it. Cleared
+(`fix_parse_errors.py` #37): Burra, Gulberwick, Sandsting 1952 (from 1955); Sandness 1925 (from
+1928); Yell North 1935 (from 1932); Fetlar, Northmavine South 1938 (from 1945); Bressay, Sandness &
+Walls 1982 (from 1986).
+
+- **Shetland Times, Fri 25 Apr 1952, p5 (art. 074)**, "COUNTY ELECTIONS" nominations: Burra &
+  Quarff, Pottinger alone; Gulberwick, Nicolson alone; Sandsting, Garriock and John Sutherland,
+  Bixter, who was also nominated for Aithsting and stood there (won, 126–113). The paper's
+  possible contests: Unst North, Walls, Dunrossness South, "and either Sandsting or Aithsting".
+  https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19520425&page=0005&article=074
+
+The other six 1925–82 rows weren't checked in the papers: clearing doesn't depend on whether they
+were contested, since the figures belong to another election. Three one-candidate rows with a
+turnout aren't copies and are left alone: Dunrossness South Dec 1922 (96), Sandsting Dec 1922
+(election 1243, 199) and the 1820 Westminster return (40/33).

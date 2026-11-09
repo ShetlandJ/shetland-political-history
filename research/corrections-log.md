@@ -9,6 +9,12 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-11-09: Turnouts on unopposed returns (`research/bna/hidden-contests.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Electorate and turnout on nine unopposed returns (e.g. Burra & Quarff 1952, 568 / 380) | Copied from the same ward's contest at the neighbouring general (Burra 1955: 215 + 165 = 380); 1952 nominations show Burra, Gulberwick and Sandsting unopposed (ST 25 Apr 1952 p5 a074) | Fixed: figures cleared (#37) |
+
 ## 2026-11-08: Dalziel's 1938 co-option (`research/bna/party-labels-ltc-1925-1938.md`)
 
 | # | Where | We had | Sources show | Status |

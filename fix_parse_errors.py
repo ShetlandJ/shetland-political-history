@@ -207,6 +207,14 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    nominee in Nov 1937 and as Labour in Nov 1938, and no report between says when he changed.
    Cleared on James's answer (2026-11-08), as for the wartime co-optees.
    Evidence: research/bna/party-labels-ltc-1925-1938.md.
+37. Turnouts copied onto unopposed returns. Nine single-candidate results carry the electorate and
+   turnout of the same ward's contest at the next or previous general, where the votes add up to
+   that turnout: Burra, Gulberwick and Sandsting May 1952 (from 1955: 215+165=380, 97+46=143,
+   168+45=213), Sandness Dec 1925 (from 1928), Yell North Dec 1935 (from 1932), Fetlar and
+   Northmavine South Dec 1938 (from 1945), Bressay and Sandness & Walls May 1982 (from 1986).
+   The ST 25 Apr 1952 p5 a074 nominations confirm the three 1952 ones were unopposed: one
+   nominee each in Burra (Pottinger) and Gulberwick (Nicolson), and in Sandsting John Sutherland,
+   Bixter, nominated in both Sandsting and Aithsting, stood in Aithsting. The figures are cleared.
 """
 
 import os
@@ -1036,6 +1044,28 @@ def main():
         print("  cleared")
     else:
         raise SystemExit(f"Feb 1938: Dalziel's party is {party!r}, expected 'Ratepayers Association'")
+
+    print("=== 37. Turnouts copied onto unopposed returns ===")
+    # (election id, copied from election id, turnout)
+    copied = [(726, 751, 380), (733, 758, 143), (738, 763, 213), (513, 542, 87), (630, 603, 137),
+              (647, 675, 86), (651, 679, 103), (992, 1018, 195), (1008, 1034, 421)]
+    cleared = 0
+    for eid, src, turnout in copied:
+        sql = "SELECT turnout, electorate, constituency_id FROM elections WHERE id = ?"
+        row, s = c.execute(sql, (eid,)).fetchone(), c.execute(sql, (src,)).fetchone()
+        if row is None or s is None:
+            raise SystemExit(f"election {eid} or {src} not found")
+        votes = c.execute("SELECT count(*) FROM candidacies WHERE election_id = ? AND votes IS NOT NULL",
+                          (eid,)).fetchone()[0]
+        if votes:
+            raise SystemExit(f"election {eid}: has votes, not an unopposed return")
+        if row[0] is None:
+            continue
+        if row != (turnout, s[1], s[2]) or s[0] != turnout:
+            raise SystemExit(f"election {eid}: turnout {row[0]} isn't the copy of {src} that #37 expects")
+        c.execute("UPDATE elections SET electorate = NULL, turnout = NULL, turnout_pct = NULL WHERE id = ?", (eid,))
+        cleared += 1
+    print(f"  cleared {cleared}")
     db.commit()
     db.close()
 
