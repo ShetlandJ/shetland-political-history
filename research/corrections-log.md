@@ -9,6 +9,14 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-11-09: Prophet Smith's biography (no new research; from the files named in #106)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 3 | wiki | "County convener for four years" | His own succession box (and `leadership_roles`) has 1955–1960, about five; no source read for the dates | Length left out of the biography; open |
+| 2 | wiki | Lost "the same seat" (Dunrossness) in 1978 | Dunrossness was abolished; he lost the new Dunrossness North ward to William Tait, 166–93 | Fixed: #106 |
+| 1 | wiki | Grimond's first attempt at the seat placed just before the County Council paragraph, reading as if Grimond had been on the council | Grimond was the Liberal runner-up in 1945 (5,975), never a County Councillor | Fixed: #106 (biography rewritten in order) |
+
 ## 2026-11-09: Turnouts on unopposed returns (`research/bna/hidden-contests.md`)
 
 | # | Where | We had | Sources show | Status |

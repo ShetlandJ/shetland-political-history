@@ -832,6 +832,19 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     (ST 13 Jul 1940) and two letters (ST 1 Nov 1946 p6 a074, 16 Apr 1948 p3 a070). The paragraph's
     "he was 71" doesn't fit his birth date (26 Jul 1888 makes 70); the birth date is kept.
     Evidence: research/bna/biographies-1950s-1980s.md (Andrew Mouat).
+
+106. Prophet Smith's biography put in order. The wiki's text jumped between careers and councils,
+    and its sentence on Jo Grimond's first attempt at the seat, placed just before the County
+    Council paragraph, read as though Grimond had been on the council. The rewrite follows his life
+    in order and adds what the evidence files already hold: the Nov 1944 co-option for Charles
+    Inkster with no other nominations (ST 10 Nov 1944 p2 a042), his chairing of the Labour Party's
+    June 1944 protest meeting (ST 23 Jun 1944 p3 a065), the resignation of 2 Jan 1945 on leaving for
+    Greenock (ST 12 Jan 1945 p3 a048), the 1945 figures (ST 27 Jul 1945 p2 a036), the Gulberwick
+    by-election of May 1951 (ST 11 May 1951 p4 a038) and the four-cornered Dunrossness by-election
+    of Jul 1977 (ST 15 Jul 1977). The wiki's "County convener for four years" doesn't fit its own
+    succession box (1955-1960), so the length is left out. 1978 was a new ward, Dunrossness North,
+    not "the same seat". Evidence: research/bna/ltc-1940-1945.md, westminster-1873-1974.md,
+    party-labels-zcc-1930-1975.md, party-labels-sic-1974-1999.md.
 """
 
 import os
@@ -1489,6 +1502,44 @@ SHEARER_BIO = (
     "worked with him in the business; two daughters, Noelle (Mrs Gordon) and Margaret; and three "
     "brothers, William, Thomas and Arthur."
 )
+PSMITH_BIO_OLD = ('Prophet became a seaman at an early age.', 'Bressay from 1949 to 1955.')  # guards on the wiki text
+PSMITH_BIO = (
+    "Prophet went to sea at an early age. There is a vivid anonymous account by him of his seagoing "
+    "career in Peter Jamieson's Letters from Shetland (1949)."
+    "\n\n"
+    "He became an organiser for the National Union of Seamen in Lerwick, and was active in the re-formed "
+    "Shetland Labour Party, chairing its public protest meeting in June 1944. In November 1944 the Town "
+    "Council co-opted him to the seat left by [person:charles-inkster:Charles Inkster]; there were no other "
+    "nominations. He sat for only two months: his letter of resignation, dated 2 January 1945, said he was "
+    "leaving for an appointment in Greenock, and it was read at the council's meeting of 9 January."
+    "\n\n"
+    "At the general election of July 1945 he was the first Labour candidate in Orkney and Shetland. "
+    "He came third of three, with 5,208 votes (30 per cent), just under 1,100 behind the sitting member, "
+    "[person:basil-neven-spence:Basil Neven-Spence], who held the seat with 6,304. The Liberal, "
+    "[person:jo-grimond:Jo Grimond], making his first attempt at the seat, was second with 5,975."
+    "\n\n"
+    "He came back to Shetland as area organiser for the Scottish Agricultural Organisation Society. He "
+    "first stood for the County Council in Nesting in May 1949, losing to "
+    "[person:john-pearson-ii:John Pearson] by 131 votes to 100, and in May 1951 lost a by-election at "
+    "Gulberwick to [person:james-nicolson-i:James J. Nicolson] by 98 votes to 49, the Shetland Times "
+    "calling him Nicolson's \"Socialist opponent\". He was returned unopposed for Nesting in 1952, and for "
+    "Bressay in 1955 and 1958. He was Convener of the County Council, succeeding "
+    "[person:william-thomson-i:William Thomson]. He left the council in 1960, and his Bressay seat was "
+    "filled at a by-election that March."
+    "\n\n"
+    "When the Highlands and Islands Development Board was formed in 1965 he became one of its full-time "
+    "members, responsible for its fisheries expansion programme, and served for 11 years until his retiral."
+    "\n\n"
+    "In retirement he stood for the Shetland Islands Council at a by-election in Dunrossness in July 1977, "
+    "for [person:james-leask:James Leask]'s seat. It was a four-cornered contest, and he won with 143 votes "
+    "to Raymond Bentley's 123, Alan Whitfield's 93 and Williamina Flaws's 55. The ward was abolished at "
+    "the May 1978 election; he stood for the new Dunrossness North ward and lost to "
+    "[person:william-tait:William Tait] by 166 votes to 93."
+    "\n\n"
+    "His brother, [person:james-smith-ii:James], was a County Councillor for Bressay from 1949 to 1955, "
+    "and Prophet succeeded him in the seat."
+)
+
 MOUAT_A_DEATH_PLACE = ('andrew-mouat', 'Lerwick', 'Gilbert Bain Hospital, Lerwick')
 MOUAT_A_INTRO_OLD = 'Andrew Marshall Mouat was a car hirer and Lerwick Town Councillor.'  # the wiki text
 MOUAT_A_INTRO = (
@@ -3097,6 +3148,16 @@ def main():
             print(f"  {slug} {field}: rewritten")
         else:
             raise SystemExit(f"{slug} {field}: not the text #105 expects")
+
+    print("=== 106. Prophet Smith's biography put in order ===")
+    row = one(c, "SELECT id, biography FROM people WHERE slug = ?", ('prophet-smith',))
+    if row['biography'] == PSMITH_BIO:
+        print("  prophet-smith biography: already set")
+    elif row['biography'].startswith(PSMITH_BIO_OLD[0]) and row['biography'].endswith(PSMITH_BIO_OLD[1]):
+        c.execute("UPDATE people SET biography = ? WHERE id = ?", (PSMITH_BIO, row['id']))
+        print("  prophet-smith biography: rewritten")
+    else:
+        raise SystemExit("prophet-smith biography: not the text #106 expects")
 
     db.commit()
     db.close()
