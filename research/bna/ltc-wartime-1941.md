@@ -36,6 +36,11 @@ The Oct 1945 retiring list had already shown he was gone (`ltc-1945-1953.md`).
   resignations of Messrs J. L. Linklater and Thomas Irvine": John Gear (proposed by Bailie Smith)
   and Charles Inkster (proposed by Williamson).
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19411011&page=0002&article=034
+- Which seat each took (checked 2026-11-09): not stated. The report names the vacancies "Linklater
+  and Thomas Irvine", then Gear first and Inkster "For the second vacancy", which pairs Gear with
+  Linklater and Inkster with Irvine only by the order they're listed. It makes no difference to the
+  ledger: every wartime co-optee retired together at the Nov 1945 general. The DB keeps both on
+  one by-election (id 105, Irvine, "Also replaced: Joseph Linklater").
 - Edits: the by-election's date 1941-10-09 → **1941-10-07** (`fix_newspapers.py` #10), and Gear's
   and Inkster's start dates with it (left unconfirmed: their end dates weren't checked).
 
