@@ -845,6 +845,23 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     succession box (1955-1960), so the length is left out. 1978 was a new ward, Dunrossness North,
     not "the same seat". Evidence: research/bna/ltc-1940-1945.md, westminster-1873-1974.md,
     party-labels-zcc-1930-1975.md, party-labels-sic-1974-1999.md.
+
+107. Town Council turnouts and Rev. W. C. Robb's name, from the book session's checks.
+    - May 1951: 740 of 4,013 voted, "a percentage of only 18.4" (ST 4 May 1951 p4 a039); the wiki
+      had 18.8. (ST 5 May 1961 p5 a066, looking back, says 18.2; the 1951 report and the
+      arithmetic both give 18.4.)
+    - May 1968: the turnout was 1280 (38 postal), 32.2 per cent, against 1593 (55 postal), 39.3,
+      the year before (ST 10 May 1968 p4 a061; ST 9 May 1969 p1 a002, "last year's 32.2"). The
+      wiki's 1968 electorate (4048) and turnout (1593) are 1967's, copied. The 1968 electorate
+      isn't given, so it's cleared. 1967 gets its 39.3.
+    - May 1961: "The final percentage was 48.5"; 1863 voted including 28 postal (ST 5 May 1961 p5
+      a066). The electorate isn't given.
+    - Rev. William Clement Robb (Delting South 1970-75) was nominated as "William C. Robb" in 1970,
+      1973 and 1974 (ST 24 Apr 1970 p8 a068, 20 Apr 1973 p8 a080, 19 Apr 1974 p1 a014). The wiki
+      gave him "Clem Robb" in 1973, his everyday name ("Rev. Clem Robb", ST 7 Jun 1968 p1 a010),
+      and "William Robb" in 1970 and 1974. All three candidacies now read "William C. Robb"; they
+      were already linked to the one person, william-robb.
+    Evidence: research/bna/book-checks-2026-11.md.
 """
 
 import os
@@ -1834,6 +1851,24 @@ AITHSTING_1932 = ('Aithsting County Council By-Election May 1932', [
      'Petition of 99; 9 Council votes, then 9'),
     ('John Leslie', 82, 'Petition of 82; 3 Council votes'),
 ])
+
+
+# (election title, column, baseline value, value from the paper); #107
+LTC_TURNOUTS_107 = [
+    ('Lerwick Town Council Election May 1951', 'turnout_pct', 18.8, 18.4),
+    ('Lerwick Town Council Election May 1961', 'turnout_pct', None, 48.5),
+    ('Lerwick Town Council Election May 1967', 'turnout_pct', None, 39.3),
+    ('Lerwick Town Council Election May 1968', 'electorate', 4048, None),
+    ('Lerwick Town Council Election May 1968', 'turnout', 1593, 1280),
+    ('Lerwick Town Council Election May 1968', 'turnout_pct', None, 32.2),
+]
+# (election title, candidate name in the baseline); #107
+ROBB_NAMES_107 = [
+    ('County Council Election May 1970', 'William Robb'),
+    ('County Council Election May 1973', 'Clem Robb'),
+    ('Shetland Islands Council Election May 1974', 'William Robb'),
+]
+ROBB_NAME_107 = 'William C. Robb'
 
 
 def one(c, sql, args):
@@ -3158,6 +3193,32 @@ def main():
         print("  prophet-smith biography: rewritten")
     else:
         raise SystemExit("prophet-smith biography: not the text #106 expects")
+
+    print("=== 107. Town Council turnouts and Rev. W. C. Robb's name ===")
+    for title, col, wrong, right in LTC_TURNOUTS_107:
+        row = one(c, f"SELECT id, {col} AS v FROM elections WHERE wiki_page_title = ?", (title,))
+        if row['v'] == right:
+            print(f"  {title} {col}: already {right}")
+        elif row['v'] == wrong:
+            c.execute(f"UPDATE elections SET {col} = ? WHERE id = ?", (right, row['id']))
+            print(f"  {title} {col}: {wrong} -> {right}")
+        else:
+            raise SystemExit(f"{title} {col}: unexpected {row['v']!r}")
+    robb = one(c, "SELECT id FROM people WHERE slug = ?", ('william-robb',))['id']
+    for title, wrong in ROBB_NAMES_107:
+        c.execute("SELECT c.id, c.candidate_name FROM candidacies c JOIN elections e ON e.id = c.election_id "
+                  "WHERE e.wiki_page_title = ? AND c.person_id = ?", (title, robb))
+        rows = c.fetchall()
+        if len(rows) != 1:
+            raise SystemExit(f"{title}: expected one william-robb candidacy, found {len(rows)}")
+        cid, name = rows[0]['id'], rows[0]['candidate_name']
+        if name == ROBB_NAME_107:
+            print(f"  {title}: already {ROBB_NAME_107}")
+        elif name == wrong:
+            c.execute("UPDATE candidacies SET candidate_name = ? WHERE id = ?", (ROBB_NAME_107, cid))
+            print(f"  {title}: {wrong} -> {ROBB_NAME_107}")
+        else:
+            raise SystemExit(f"{title}: unexpected candidate name {name!r}")
 
     db.commit()
     db.close()

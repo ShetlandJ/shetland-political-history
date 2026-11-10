@@ -11,7 +11,8 @@ the day Peter Dalziel was co-opted in his place. Follows on from `ltc-1945-1953.
 ### Shearer goes to the County Council, May 1947
 - **ST Fri 23 May 1947, p7 (art. 145)**: Zetland County Council meeting on Tuesday (20 May).
   After Mr Jamieson's resignation was accepted, "the petition for the election of Lt. Col.
-  Shearer to the vacancy was signed by 207 persons", and he was appointed. This is the Whalsay
+  Shearer to the vacancy was signed by 307 persons" (OCR 207; the page image shows 307, read
+  2026-11-10, book-checks-2026-11.md), and he was appointed. This is the Whalsay
   and Skerries seat (election 692, dated 1947-05-01 in the DB). Probably why he left the town
   council the next month, though no article says so.
   https://www.britishnewspaperarchive.com/image-viewer?issue=BL%2F0000666%2F19470523&page=0007&article=145

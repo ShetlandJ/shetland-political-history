@@ -571,3 +571,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | # | Where | We had | Sources show | Status |
 |---|---|---|---|---|
 | 1 | wiki biography (site text) | "served on the Town Council between 1906 and his retirement in 1945" | Defeated 7 Nov 1933 (544, seventh of eight; ST 11 Nov 1933 p4 a061, a065); not a candidate 1934–36; topped the poll 2 Nov 1937. Sat 1906–33 and 1937–45 | Ledger already right; biography text not yet fixed |
+
+## 2026-11-10: book-session checks, Town Council turnouts and Rev. W. C. Robb (evidence in `research/bna/book-checks-2026-11.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki / DB | Town Council May 1951 turnout 18.8% | 740 of 4,013, "a percentage of only 18.4" (ST 4 May 1951 p4 a039). ST 5 May 1961 looks back and says 18.2 | Fixed: #107 |
+| 2 | wiki / DB | Town Council May 1968 electorate 4048, turnout 1593 | Those are 1967's figures. 1968: turnout 1280 (38 postal), 32.2%; 1967 was 39.3% (ST 10 May 1968 p4 a061). 1968 electorate not printed | Fixed: #107 (electorate cleared) |
+| 3 | our evidence files | Shearer's 1947 County petition "signed by 207" (OCR) | Page image shows 307, as the wiki has it | Citation text fixed; DB unchanged |
+| 4 | wiki | "Clem Robb" (1973), "William Robb" (1970, 1974) | Nominated as William C. Robb each time; "Rev. Clem Robb" was his everyday name (ST 7 Jun 1968) | Fixed: #107, all three "William C. Robb" |
+| 5 | DB (not changed) | 1947 44.0%, 1955 35.8%, 1959 33.0% | ST 5 May 1961's look back gives 47, 38.5 and 33.2 | Not changed; each needs that year's own report |
