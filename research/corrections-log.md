@@ -565,3 +565,9 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 1 | wiki / DB | Dunrossness by-election Jul 1977: Prophet Smith unopposed, Mon 25 Jul | A four-cornered contest on Tue 12 Jul 1977: Smith 143, Raymond Bentley 123, Alan Whitfield 93, Williamina Flaws 55; 49% turnout (ST 15 Jul 1977) | Fixed: #92 |
 | 2 | wiki / DB | Delting North by-election Sun 1 Aug 1982, turnout 439 (47%) | Clubb the only nomination; by-election day Thu 16 Sep 1982. The 439 is the Nov 1983 poll copied | Fixed: #92 (turnout cleared). Page title still says "August 1982" |
 | 3 | wiki / DB | Whalsay and Skerries by-election Fri 19 Mar 1993 | Day of election Thu 8 Apr 1993 (no poll; Simpson declared that day) | Fixed: #92. Page title still says "March 1993" |
+
+## 2026-11-10: James Laing's Town Council service (evidence in `research/bna/james-laing-service.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki biography (site text) | "served on the Town Council between 1906 and his retirement in 1945" | Defeated 7 Nov 1933 (544, seventh of eight; ST 11 Nov 1933 p4 a061, a065); not a candidate 1934–36; topped the poll 2 Nov 1937. Sat 1906–33 and 1937–45 | Ledger already right; biography text not yet fixed |
