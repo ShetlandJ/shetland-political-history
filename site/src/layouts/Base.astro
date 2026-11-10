@@ -235,8 +235,30 @@ const fullTitle = `${title} | Shetland Political History`;
       line-height: 1;
     }
 
+    .nav-search-icon {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.4rem 0.5rem;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .nav-search-icon:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
     @media (max-width: 740px) {
       .nav-toggle { display: block; }
+
+      .nav-search-icon {
+        display: flex;
+        margin-left: auto;
+        margin-right: -0.5rem;
+      }
 
       header .nav-links {
         display: none;
@@ -272,6 +294,12 @@ const fullTitle = `${title} | Shetland Political History`;
       header .header-inner {
         flex-wrap: wrap;
       }
+    }
+
+    @media (max-width: 360px) {
+      header .site-title { font-size: 0.85rem; }
+      header .header-inner { gap: 0.5rem; }
+      .nav-search-icon { margin-right: 0; }
     }
 
     /* ---- Main ---- */
@@ -584,6 +612,9 @@ const fullTitle = `${title} | Shetland Political History`;
     <div class="container">
       <div class="header-inner">
         <a href="/" class="site-title">Shetland Political History</a>
+        <a href="/search" class="nav-search-icon" aria-label="Search" title="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+        </a>
         <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
         <nav class="nav-links" aria-label="Main navigation">
           <a href="/council/lerwick-town-council">Lerwick TC</a>
