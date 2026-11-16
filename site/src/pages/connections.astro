@@ -156,7 +156,7 @@ const describe = (f: Family) => {
 </Base>
 
 <script>
-  import { shortestPath, role, type KinLink } from '../lib/kin';
+  import { shortestPath, role, kinTerm, type KinLink } from '../lib/kin';
 
   interface KNode {
     id: string; name: string; span: string; sex: 'm' | 'f'; c: boolean; f: number; svc: { c: string; t: string }[];
@@ -385,7 +385,10 @@ const describe = (f: Family) => {
     const marriage = steps.some(s => s.link.kind === 'spouse');
     summary.innerHTML = '';
     const strong = document.createElement('strong');
-    strong.textContent = `Related by ${marriage ? 'marriage' : 'blood'}`;
+    const term = kinTerm(steps, id => byId.get(id)!.sex);
+    strong.textContent = term
+      ? `${byId.get(b)!.name} is ${byId.get(a)!.name}’s ${term}`
+      : `Related by ${marriage ? 'marriage' : 'blood'}`;
     summary.append(strong, ` · ${steps.length} link${steps.length > 1 ? 's' : ''}` +
       (unchecked ? ` · ${unchecked} not yet checked` : ' · all checked on Bayanne'));
     chainHL = { family: byId.get(a)!.f, nodes: new Set([a, ...steps.map(s => s.to)]), links: new Set(steps.map(s => s.link.id)) };

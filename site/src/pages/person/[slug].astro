@@ -471,7 +471,7 @@ const COUNCIL_SHORT: Record<string, [string, string]> = {
       <ul>
         {connections.map(c => (
           <li>
-            <a href={`/person/${c.slug}`}>{c.name}</a>
+            <a href={`/person/${c.slug}`}>{c.name}</a><span class="family-term">, {c.term ?? 'by marriage'}</span>
             <span class="family-steps">
               {c.steps.map((s, i) => (
                 <>{i > 0 && <span class="related-sep"> › </span>}{`${s.role} `}{s.slug ? <a href={`/person/${s.slug}`}>{s.name}</a> : s.name}</>
@@ -784,6 +784,10 @@ const COUNCIL_SHORT: Record<string, [string, string]> = {
     margin: 0;
     display: grid;
     gap: 0.6rem;
+  }
+
+  .family-term {
+    color: var(--text-secondary);
   }
 
   .family-steps {

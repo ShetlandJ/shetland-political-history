@@ -6,7 +6,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import ELK from 'elkjs/lib/elk.bundled.js';
-import { shortestPath, role } from './kin';
+import { shortestPath, role, kinTerm } from './kin';
 
 const db = new Database(path.join(process.cwd(), '..', 'shetland.db'), { readonly: true });
 
@@ -143,6 +143,7 @@ export function getFamilies(): Family[] {
 export interface Connection {
   slug: string;
   name: string;
+  term: string | null;  // what they are to this councillor: "3x great-uncle"
   steps: { role: string; name: string; slug: string | null }[];  // role of the person before, then who
   unchecked: number;
 }
@@ -159,9 +160,12 @@ export function getConnectionsForPerson(slug: string, max = 6): Connection[] {
     out.push({
       slug: other.id,
       name: other.name,
+      term: kinTerm(path, id => byId.get(id)!.sex),
       steps: path.map(s => {
         const to = byId.get(s.to)!;
-        return { role: role(s.from, byId.get(s.from)!.sex, s.link), name: to.name, slug: to.councillor ? to.id : null };
+        // Relatives often share a councillor's name: the birth year tells them apart.
+        const year = !to.councillor && to.born ? ` (b. ${to.born.slice(0, 4)})` : '';
+        return { role: role(s.from, byId.get(s.from)!.sex, s.link), name: to.name + year, slug: to.councillor ? to.id : null };
       }),
       unchecked: path.filter(s => !s.link.bayanne).length,
     });
