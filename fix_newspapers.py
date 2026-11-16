@@ -868,6 +868,13 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
     turnouts were the sum of the candidates' votes (1-5 short of the paper's, presumably spoilt
     papers), except Bressay, where it had 108 (Northmavine South's figure) for 126. Electorate,
     turnout and turnout_pct now from the paper. Evidence: research/bna/zcc-1940-1959.md.
+109. County Council by-election electorates, from reports already cited for the votes.
+    - Jul 1955 (ST 15 Jul 1955 p4 a074, page image): Sandwick 653 on the roll, 152 voted, 23.3 per
+      cent (4 spoiled); Delting South "Of the 383 electors, 157 recorded a vote — 41 per cent";
+      Unst North 499 on the roll, 95 votes. The wiki had votes only.
+    - Gulberwick May 1951 (ST 11 May 1951 p4 a038): "About 70 per cent. of the voters (213 on the
+      roll)". Electorate only: the number who voted isn't given (the votes add up to 147, 69.0%).
+    Evidence: research/bna/zcc-1940-1959.md.
 """
 
 import os
@@ -1884,6 +1891,13 @@ ZCC_1945_TURNOUTS_108 = [
     (688, 'Whiteness And Weisdale', 224, 225, 308),
     (683, 'Tingwall', 377, 380, 734),
     (668, 'Bressay', 108, 126, 268),
+]
+# (election id, ward, {column: value from the paper}); the baseline has NULL in each; #109
+ZCC_BY_ELECTORATES_109 = [
+    (774, 'Sandwick', {'electorate': 653, 'turnout': 152, 'turnout_pct': 23.3}),
+    (773, 'Delting South', {'electorate': 383, 'turnout': 157, 'turnout_pct': 41.0}),
+    (775, 'Unst North', {'electorate': 499, 'turnout': 95, 'turnout_pct': 19.0}),
+    (722, 'Gulberwick', {'electorate': 213}),
 ]
 
 
@@ -3252,6 +3266,22 @@ def main():
             print(f"  {ward}: turnout {wrong} -> {voted} of {register} ({pct}%)")
         else:
             raise SystemExit(f"{ward} 1945: unexpected {tuple(row)!r}")
+
+    print("=== 109. County Council by-election electorates ===")
+    for eid, ward, vals in ZCC_BY_ELECTORATES_109:
+        row = one(c, "SELECT e.electorate, e.turnout, e.turnout_pct, co.name AS ward FROM elections e "
+                     "JOIN constituencies co ON co.id = e.constituency_id "
+                     "WHERE e.id = ? AND e.election_type = 'by-election'", (eid,))
+        if row['ward'] != ward:
+            raise SystemExit(f"election {eid}: ward {row['ward']!r}, expected {ward!r}")
+        for col, right in vals.items():
+            if row[col] == right:
+                print(f"  {ward} {col}: already {right}")
+            elif row[col] is None:
+                c.execute(f"UPDATE elections SET {col} = ? WHERE id = ?", (right, eid))
+                print(f"  {ward} {col}: -> {right}")
+            else:
+                raise SystemExit(f"{ward} ({eid}) {col}: unexpected {row[col]!r}")
 
     db.commit()
     db.close()

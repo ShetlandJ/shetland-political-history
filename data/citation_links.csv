@@ -2065,13 +2065,13 @@ st-19480521-p4-a078,election,693,inferred,"reported 21 May, so the Tuesday meeti
 st-19480521-p4-a078,election,694,inferred,"reported 21 May, so the Tuesday meeting of 18 May 1948, as the wiki"
 st-19510223-p5-a063,election,721,read,"co-opted on Tuesday, 20 Feb 1951"
 st-19510511-p1-a006,election,722,read,poll on Tuesday 8 May 1951
-st-19510511-p4-a038,election,722,read,"Nicolson 98, Prophet Smith 49 (fix_newspapers.py #51)"
+st-19510511-p4-a038,election,722,read,"Nicolson 98, Prophet Smith 49 (fix_newspapers.py #51); 213 on the roll, about 70 per cent voted (#109)"
 st-19520222-p7-a110,election,723,inferred,"reported 22 Feb, so the Tuesday meeting of 19 Feb 1952, as the wiki"
 st-19520801-p4-a051,election,748,read,"Johnson 131; poll day the wiki's Tuesday 29 Jul (results announced Thursday); Robert H. Tulloch, Booth, West Yell: Bayanne I177705 (fix_newspapers.py #101)"
 st-19550624-p4-a072,election,774,read,nominations
-st-19550715-p4-a074,election,774,read,polled Tuesday 12 Jul 1955; 133 to 15
-st-19550715-p4-a074,election,773,read,polled Tuesday 12 Jul 1955; majority 75
-st-19550715-p4-a074,election,775,read,polled Tuesday 12 Jul 1955; 95 votes
+st-19550715-p4-a074,election,774,read,"polled Tuesday 12 Jul 1955; 133 to 15; 653 on the roll, 152 voted, 23.3% (#109)"
+st-19550715-p4-a074,election,773,read,"polled Tuesday 12 Jul 1955; majority 75; 383 electors, 157 voted, 41% (#109)"
+st-19550715-p4-a074,election,775,read,"polled Tuesday 12 Jul 1955; 95 votes; 499 on the roll (#109)"
 st-19581024-p4-a064,election,800,read,"co-opted on Tuesday, 21 Oct 1958"
 st-19590206-p4-a052,election,801,read,poll on Tuesday 3 Feb 1959; 164 to 98
 st-19610421-p5-a062,election,805,read,nominations; five contests

@@ -8,6 +8,13 @@ Format: date raised, the question, the options, the evidence file, the row it af
 
 ## Open
 
+- **2026-11-16: Yell South by-election, Jul 1952: electorate 724 or smaller?** The wiki has 724
+  on the roll. The paper (ST 1 Aug 1952 p4 a051) gives Johnson 131, Tulloch 84, "two spoilt
+  papers and over a third of electors voted": 217 voted, which is 30.0% of 724. For "over a
+  third", the roll would be under 651. Options: (a) keep 724 and leave turnout empty; (b) set
+  turnout 217 and keep 724 (30.0%, against the paper's words); (c) clear 724 as unconfirmed.
+  Election 748. Evidence: `zcc-1940-1959.md` (Yell South, Jul 1952).
+
 - **2026-11-01: SIC May 2003, eight seats unopposed in the DB, not checkable in the BNA.** The
   Shetland Times in the BNA ends with 2000, so Grains, T. Stove, Mitchell, Cluness, J. Irvine,
   Robertson, J. G. Simpson and Nicolson's 2003 seats rest on the wiki alone. Options: (a) leave
