@@ -1061,7 +1061,13 @@ def main():
             raise SystemExit(f"election {eid}: has votes, not an unopposed return")
         if row[0] is None:
             continue
-        if row != (turnout, s[1], s[2]) or s[0] != turnout:
+        # fix_newspapers.py #108 replaced 675's and 679's figures from the paper (Dec 1945), so
+        # for those the copy is checked against the baseline value and the ward only.
+        if src in (675, 679):
+            mismatch = row[0] != turnout or row[2] != s[2]
+        else:
+            mismatch = row != (turnout, s[1], s[2]) or s[0] != turnout
+        if mismatch:
             raise SystemExit(f"election {eid}: turnout {row[0]} isn't the copy of {src} that #37 expects")
         c.execute("UPDATE elections SET electorate = NULL, turnout = NULL, turnout_pct = NULL WHERE id = ?", (eid,))
         cleared += 1

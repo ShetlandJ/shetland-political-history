@@ -9,6 +9,13 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 - **notes**: research notes (CLAUDE.md, earlier findings)
 - **draft**: the ledger's `confirmed=0` rows, drafted by the generator
 
+## 2026-11-16: County Council Dec 1945 turnouts (`research/bna/zcc-1940-1959.md`)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 2 | wiki | Bressay 1945 turnout 108 | 126 voted of 268 (47.0%); 108 was Northmavine South's figure (ST 7 Dec 1945 p2 a051) | Fixed: #108 |
+| 1 | wiki | No electorates for the seven 1945 contests; turnouts = candidates' votes summed | Register and number who voted for each, 53.4% overall (Northmavine South 26%, Whiteness & Weisdale 73%) | Fixed: #108 |
+
 ## 2026-11-09: Prophet Smith's biography (no new research; from the files named in #106)
 
 | # | Where | We had | Sources show | Status |

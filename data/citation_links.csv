@@ -1905,6 +1905,13 @@ st-19451207-p2-a049,election,689,read,"results; polled Tuesday, so 4 Dec 1945 (f
 st-19451123-p2-a034,election,689,read,contests
 st-19451116-p2-a048,election,690,read,nominations
 st-19451207-p2-a049,election,690,read,"results; polled Tuesday, so 4 Dec 1945 (fix_newspapers.py #49)"
+st-19451207-p2-a051,election,667,read,"electorate and number who voted (fix_newspapers.py #108)"
+st-19451207-p2-a051,election,668,read,"electorate and number who voted (fix_newspapers.py #108)"
+st-19451207-p2-a051,election,675,read,"electorate and number who voted (fix_newspapers.py #108)"
+st-19451207-p2-a051,election,678,read,"electorate and number who voted (fix_newspapers.py #108)"
+st-19451207-p2-a051,election,679,read,"electorate and number who voted (fix_newspapers.py #108)"
+st-19451207-p2-a051,election,683,read,"electorate and number who voted (fix_newspapers.py #108)"
+st-19451207-p2-a051,election,688,read,"electorate and number who voted (fix_newspapers.py #108)"
 st-19451123-p2-a034,election,690,read,contests
 st-19490513-p4-a076,election,695,read,results; votes largely unreadable in the OCR
 st-19490513-p5-a079,election,695,read,"results, continued"

@@ -862,6 +862,12 @@ Evidence for 5 and 6 with BNA links: research/bna/ltc-1955-1965.md.
       and "William Robb" in 1970 and 1974. All three candidacies now read "William C. Robb"; they
       were already linked to the one person, william-robb.
     Evidence: research/bna/book-checks-2026-11.md.
+108. County Council Dec 1945 electorates and turnouts. The Shetland Times "Voting Statistics"
+    (ST 7 Dec 1945 p2 a051, read from the page image; the table's OCR is garbled) gives "No. who
+    voted" and "No. on register" for the seven contests. The wiki had no electorates, and its
+    turnouts were the sum of the candidates' votes (1-5 short of the paper's, presumably spoilt
+    papers), except Bressay, where it had 108 (Northmavine South's figure) for 126. Electorate,
+    turnout and turnout_pct now from the paper. Evidence: research/bna/zcc-1940-1959.md.
 """
 
 import os
@@ -1869,6 +1875,16 @@ ROBB_NAMES_107 = [
     ('Shetland Islands Council Election May 1974', 'William Robb'),
 ]
 ROBB_NAME_107 = 'William C. Robb'
+# (election id, ward, baseline turnout, paper's voted, paper's register); #108
+ZCC_1945_TURNOUTS_108 = [
+    (675, 'Fetlar', 86, 87, 130),
+    (678, 'Northmavine North', 181, 181, 360),
+    (679, 'Northmavine South', 103, 108, 416),
+    (667, 'Aithsting', 304, 307, 433),
+    (688, 'Whiteness And Weisdale', 224, 225, 308),
+    (683, 'Tingwall', 377, 380, 734),
+    (668, 'Bressay', 108, 126, 268),
+]
 
 
 def one(c, sql, args):
@@ -3219,6 +3235,23 @@ def main():
             print(f"  {title}: {wrong} -> {ROBB_NAME_107}")
         else:
             raise SystemExit(f"{title}: unexpected candidate name {name!r}")
+
+    print("=== 108. County Council Dec 1945 electorates and turnouts ===")
+    for eid, ward, wrong, voted, register in ZCC_1945_TURNOUTS_108:
+        row = one(c, "SELECT e.electorate, e.turnout, e.turnout_pct, co.name AS ward FROM elections e "
+                     "JOIN constituencies co ON co.id = e.constituency_id "
+                     "WHERE e.id = ? AND e.wiki_page_title = 'County Council Election December 1945'", (eid,))
+        if row['ward'] != ward:
+            raise SystemExit(f"election {eid}: ward {row['ward']!r}, expected {ward!r}")
+        pct = round(100 * voted / register, 1)
+        if (row['electorate'], row['turnout'], row['turnout_pct']) == (register, voted, pct):
+            print(f"  {ward}: already {voted} of {register}")
+        elif (row['electorate'], row['turnout'], row['turnout_pct']) == (None, wrong, None):
+            c.execute("UPDATE elections SET electorate = ?, turnout = ?, turnout_pct = ? WHERE id = ?",
+                      (register, voted, pct, eid))
+            print(f"  {ward}: turnout {wrong} -> {voted} of {register} ({pct}%)")
+        else:
+            raise SystemExit(f"{ward} 1945: unexpected {tuple(row)!r}")
 
     db.commit()
     db.close()
