@@ -244,7 +244,8 @@ DB_PATH = os.environ.get('SHETLAND_DB', '/Users/james/projects/shetland_history/
 
 # 39. Arthur Edmondston
 EDMONDSTON_INTRO = (
-    "Arthur Edmondston was a doctor, an author and the first Senior Bailie of Lerwick Town Council. "
+    "Arthur Edmondston was a doctor, an author and the first leader of Lerwick Town Council, as its "
+    "Senior Bailie (Chief Magistrate) from 1818 to 1823. "
     "The eldest son of Laurence Edmondston of Hascosay, a doctor, and Mary Sanderson of Buness House, "
     "Unst, he studied medicine at Edinburgh, became a Fellow of the Royal College of Surgeons and served "
     "as an army surgeon in Egypt under Sir Ralph Abercromby before settling in Lerwick."
