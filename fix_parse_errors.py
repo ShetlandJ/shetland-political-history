@@ -224,6 +224,14 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    3rd Indian Corps, service no. 1071729, b. 15 Feb 1913, Meerut, India; mother Anne Dainty).
    The index confirms the wiki's death date, 2 Jan 2009; the tree's "1 Feb 2009" is a misreading
    of it. Death place left empty: the index gives his last residence, not where he died.
+39. Arthur Edmondston's intro rewritten (James, 2026-11-17: "the opening sentence isn't even good
+   grammar"). The wiki's intro opened with a fragment and ran his whole life together. No new
+   claims: the facts are the wiki's, the minute book's (Senior Bailie 2 Apr 1818 and 7 Sep 1820,
+   pp13, 22) and James's book chapter "A Divisive Leader" (father Laurence Edmondston of
+   Hascosay, a doctor, where the wiki had "merchant in Fetlar"; the ophthalmia treatises of 1802
+   and 1806; his case for Shetland's parliamentary representation in the 1809 View). His council
+   service now opens the biography, ahead of #72's Greig v Edmondston paragraphs, which are
+   unchanged. The later years are left for the book.
 """
 
 import os
@@ -231,6 +239,28 @@ import re
 import sqlite3
 
 DB_PATH = os.environ.get('SHETLAND_DB', '/Users/james/projects/shetland_history/new-site/shetland.db')
+
+# 39. Arthur Edmondston
+EDMONDSTON_INTRO = (
+    "Arthur Edmondston was a doctor, an author and the first Senior Bailie of Lerwick Town Council. "
+    "The eldest son of Laurence Edmondston of Hascosay, a doctor, and Mary Sanderson of Buness House, "
+    "Unst, he studied medicine at Edinburgh, became a Fellow of the Royal College of Surgeons and served "
+    "as an army surgeon in Egypt under Sir Ralph Abercromby before settling in Lerwick."
+    "\n\n"
+    "He is best known for A View of the Ancient and Present State of the Zetland Islands (2 vols., "
+    "1809), which among much else made the case for Shetland's share in parliamentary representation. "
+    "He also wrote two treatises on ophthalmia (1802 and 1806) and Observations on the nature and extent "
+    "of the cod fishery carried on off the coasts of the Zetland and Orkney Islands (Edinburgh, 1820)."
+    "\n\n"
+    "He was the uncle of Thomas Edmondston and Jessie M. E. Saxby. His brother Laurence's "
+    "great-grandson, also [person:laurence-edmondston:Laurence], represented Unst on the Zetland County "
+    "Council."
+)
+EDMONDSTON_COUNCIL = (
+    "When Lerwick became a burgh of barony in 1818, Edmondston topped the poll at the first election, "
+    "on 2 April, and was chosen Senior Bailie. He was re-elected Senior Bailie in September 1820 and "
+    "left the council at the 1823 election."
+)
 
 CATEGORY_TRAILER = re.compile(r'\s*(?:\}\}\s*)?Category:.*\Z', re.S)
 
@@ -1095,6 +1125,26 @@ def main():
         print("  born 1913-02-15, Meerut, India")
     else:
         raise SystemExit(f"frederick-dainty birth is {row[0]}, {row[1]}, expected empty")
+
+    print("=== 39. Arthur Edmondston's intro ===")
+    row = c.execute("SELECT intro, biography FROM people WHERE slug = 'arthur-edmondston'").fetchone()
+    if row is None:
+        raise SystemExit("arthur-edmondston not found")
+    if row[0] == EDMONDSTON_INTRO:
+        print("  intro already rewritten")
+    elif row[0].startswith('Arthur Edmondston, doctor, Lerwick Town Councillor and author of'):
+        c.execute("UPDATE people SET intro = ? WHERE slug = 'arthur-edmondston'", (EDMONDSTON_INTRO,))
+        print("  intro rewritten")
+    else:
+        raise SystemExit("arthur-edmondston intro is not the wiki's text")
+    if row[1].startswith(EDMONDSTON_COUNCIL):
+        print("  biography already has his council service")
+    elif row[1].startswith('Edmondston and [person:james-greig:James Greig]'):
+        c.execute("UPDATE people SET biography = ? WHERE slug = 'arthur-edmondston'",
+                  (EDMONDSTON_COUNCIL + '\n\n' + row[1],))
+        print("  council service added to biography")
+    else:
+        raise SystemExit("arthur-edmondston biography is not #72's text")
     db.commit()
     db.close()
 

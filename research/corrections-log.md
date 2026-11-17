@@ -595,3 +595,9 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 |---|---|---|---|---|
 | 1 | wiki | Frederick Dainty "b. ~1917" | **b. 15 Feb 1913, Meerut, India**: England and Wales Death Index 2007-2013 (birth date) and the Japanese POW index card (date and place; Warrant Officer Conductor, I.A.O.C., service no. 1071729), both attached to Ancestry tree 67963713 | Fixed: #38 |
 | 2 | Ancestry tree (not ours) | Death 1 Feb 2009 | The death index it cites says **2 Jan 2009**, as the wiki has it; last residence Wellington, Somerset | DB unchanged (2009-01-02); death place left empty |
+
+## 2026-11-17: Arthur Edmondston's intro (`fix_parse_errors.py` #39)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Father "Laurence Edmondston, merchant in Fetlar" | Laurence Edmondston of Hascosay, a doctor (James's chapter "A Divisive Leader") | Fixed: #39 |
