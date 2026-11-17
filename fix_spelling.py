@@ -172,6 +172,12 @@ FIXES = [
     ('people', 198, 'biography', 'employment out with the Church', 'employment outwith the Church'),
     # No 31 April; James's call (2026-10-08) that it was the 30th.
     ('people', 198, 'biography', 'the Church 31 April 1969', 'the Church 30 April 1969'),
+    # George Morrison: a run-on sentence ("agriculture, who bred sheep"), no closing bracket
+    # after the death place, and no full stop at the end of the biography.
+    ('people', 161, 'intro', '30 January 1989, Lerwick was', '30 January 1989, Lerwick) was'),
+    ('people', 161, 'biography',
+     'agriculture, who bred sheep, supported the Shetland flock book supported the Shetland Wool Growers Cooperative. He was involved in the Shetland branch of the National Farmers Union from its early days in the 1960s. He was an auctioneer who specialised in sheep sales',
+     'agriculture. He bred sheep and supported the Shetland flock book and the Shetland Wool Growers Cooperative. He was involved in the Shetland branch of the National Farmers Union from its early days in the 1960s. He was an auctioneer who specialised in sheep sales.'),
     ('elections', 21, 'notes', 'interpretation of the the procedures', 'interpretation of the procedures'),
     ('elections', 22, 'notes', 'interpretation of the the procedures', 'interpretation of the procedures'),
     ('elections', 22, 'notes', '2st Council Group', '2nd Council Group'),

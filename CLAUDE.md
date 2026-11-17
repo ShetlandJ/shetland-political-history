@@ -34,6 +34,7 @@ new-site/
 ├── fix_sic_by_elections.py  # Correction script: who the modern SIC by-elections replaced (run by build.py)
 ├── fix_spelling.py     # Correction script: typos in biographies and election notes (run by build.py)
 ├── fix_parse_errors.py # Correction script: wiki markup / parse slips left in the baseline (run by build.py)
+├── fix_grammar.py      # Correction script: grammar/spelling sweep of every intro and biography (runs last)
 ├── tools/generate_ltc_terms.py  # Drafting aid: cohort model → CSV draft of LTC terms (not part of the build)
 ├── parse_wiki.py, add_*.py, populate_*.py, ...  # Provenance: produced data/baseline.sql. Do not re-run.
 ├── copy_images.py      # Copies person photos + headshots from MW images dir to site
