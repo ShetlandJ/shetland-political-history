@@ -230,8 +230,10 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    pp13, 22) and James's book chapter "A Divisive Leader" (father Laurence Edmondston of
    Hascosay, a doctor, where the wiki had "merchant in Fetlar"; the ophthalmia treatises of 1802
    and 1806; his case for Shetland's parliamentary representation in the 1809 View). His council
-   service now opens the biography, ahead of #72's Greig v Edmondston paragraphs, which are
-   unchanged. The later years are left for the book.
+   service now opens the biography. #72's two paragraphs on Greig v Edmondston are replaced by a
+   general one (James: "too random and specific"): litigious, the Greig libel verdict of 1826
+   (ltc-pre-1872-press.md), and lawsuits that cost him his wealth and standing (the book chapter).
+   The detail of the case stays on James Greig's page. The later years are left for the book.
 """
 
 import os
@@ -260,6 +262,11 @@ EDMONDSTON_COUNCIL = (
     "When Lerwick became a burgh of barony in 1818, Edmondston topped the poll at the first election, "
     "on 2 April, and was chosen Senior Bailie. He was re-elected Senior Bailie in September 1820 and "
     "left the council at the 1823 election."
+    "\n\n"
+    "He was a quarrelsome figure and often at law, and several of his cases went against him. In 1826 "
+    "[person:james-greig:James Greig], the Procurator Fiscal and a fellow member of the first council, "
+    "won £300 damages from him for libel. The cost of his lawsuits left him much reduced in wealth and "
+    "standing in his later years."
 )
 
 CATEGORY_TRAILER = re.compile(r'\s*(?:\}\}\s*)?Category:.*\Z', re.S)
@@ -1137,12 +1144,11 @@ def main():
         print("  intro rewritten")
     else:
         raise SystemExit("arthur-edmondston intro is not the wiki's text")
-    if row[1].startswith(EDMONDSTON_COUNCIL):
-        print("  biography already has his council service")
+    if row[1] == EDMONDSTON_COUNCIL:
+        print("  biography already rewritten")
     elif row[1].startswith('Edmondston and [person:james-greig:James Greig]'):
-        c.execute("UPDATE people SET biography = ? WHERE slug = 'arthur-edmondston'",
-                  (EDMONDSTON_COUNCIL + '\n\n' + row[1],))
-        print("  council service added to biography")
+        c.execute("UPDATE people SET biography = ? WHERE slug = 'arthur-edmondston'", (EDMONDSTON_COUNCIL,))
+        print("  biography rewritten")
     else:
         raise SystemExit("arthur-edmondston biography is not #72's text")
     db.commit()
