@@ -588,3 +588,10 @@ first. Evidence links are in the `research/bna/` file named in each entry.
 | 3 | our evidence files | Shearer's 1947 County petition "signed by 207" (OCR) | Page image shows 307, as the wiki has it | Citation text fixed; DB unchanged |
 | 4 | wiki | "Clem Robb" (1973), "William Robb" (1970, 1974) | Nominated as William C. Robb each time; "Rev. Clem Robb" was his everyday name (ST 7 Jun 1968) | Fixed: #107, all three "William C. Robb" |
 | 5 | DB (not changed) | 1947 44.0%, 1955 35.8%, 1959 33.0% | ST 5 May 1961's look back gives 47, 38.5 and 33.2 | Not changed; each needs that year's own report |
+
+## 2026-11-17: Frederick Dainty's birth (`fix_parse_errors.py` #38)
+
+| # | Where | We had | Sources show | Status |
+|---|---|---|---|---|
+| 1 | wiki | Frederick Dainty "b. ~1917" | **b. 15 Feb 1913, Meerut, India**: England and Wales Death Index 2007-2013 (birth date) and the Japanese POW index card (date and place; Warrant Officer Conductor, I.A.O.C., service no. 1071729), both attached to Ancestry tree 67963713 | Fixed: #38 |
+| 2 | Ancestry tree (not ours) | Death 1 Feb 2009 | The death index it cites says **2 Jan 2009**, as the wiki has it; last residence Wellington, Somerset | DB unchanged (2009-01-02); death place left empty |

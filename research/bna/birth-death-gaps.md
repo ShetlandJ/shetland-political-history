@@ -60,7 +60,7 @@ https://www.bayanne.info/Shetland/getperson.php?personID=I131893&tree=ID1
 - **ST 20 Apr 1973, p8 (a080).** "Frederick L Dainty, retired army officer, Garderhouse, Isbister, Symbister".
 - ST 18 Nov 1977, p1 (a007): "Lt. Col. Fred Dainty". The wiki calls him "Colonel" and "a seaman".
 
-Birth not found (wiki ~1917).
+Birth not found in the paper (wiki ~1917). **Found 2026-11-17** (James, Ancestry tree 67963713, person 352695564681): b. 15 Feb 1913, Meerut, India, from the attached England and Wales Death Index 2007-2013 (b. 15 Feb 1913; d. 2 Jan 2009; last residence Wellington, Somerset, TA21) and Japanese POW index card (Warrant Officer Conductor, I.A.O.C., 3rd Indian Corps, no. 1071729, b. Meerut; mother Anne Dainty). The tree's own death date, 1 Feb 2009, disagrees with the index it cites. `fix_parse_errors.py` #38.
 
 ## Searches that found nothing
 

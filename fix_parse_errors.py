@@ -215,6 +215,15 @@ Repair things parse_wiki.py got wrong when it read the wiki text. Checked agains
    The ST 25 Apr 1952 p5 a074 nominations confirm the three 1952 ones were unopposed: one
    nominee each in Burra (Pottinger) and Gulberwick (Nicolson), and in Sandsting John Sutherland,
    Bixter, nominated in both Sandsting and Aithsting, stood in Aithsting. The figures are cleared.
+38. Frederick Dainty's birth: 15 Feb 1913, Meerut, India. The wiki had "b. ~1917", which #32 left
+   out as approximate. Found by James on 2026-11-17 in an Ancestry member tree (tree 67963713,
+   person 352695564681), checked against the two records attached to it: the England and Wales
+   Death Index 2007-2013 ("Mr Frederick Leonard Dainty", birth date 15 Feb 1913, last residence
+   Wellington, Somerset, postcode district TA21, death date 2 Jan 2009) and the Japanese index card
+   of Allied prisoners of war ("Frederick Leonard Dainty", Warrant Officer Conductor, I.A.O.C.,
+   3rd Indian Corps, service no. 1071729, b. 15 Feb 1913, Meerut, India; mother Anne Dainty).
+   The index confirms the wiki's death date, 2 Jan 2009; the tree's "1 Feb 2009" is a misreading
+   of it. Death place left empty: the index gives his last residence, not where he died.
 """
 
 import os
@@ -1072,6 +1081,20 @@ def main():
         c.execute("UPDATE elections SET electorate = NULL, turnout = NULL, turnout_pct = NULL WHERE id = ?", (eid,))
         cleared += 1
     print(f"  cleared {cleared}")
+
+    print("=== 38. Frederick Dainty's birth ===")
+    row = c.execute("SELECT born_date, birth_place, died_date FROM people WHERE slug = 'frederick-dainty'").fetchone()
+    if row is None:
+        raise SystemExit("frederick-dainty not found")
+    if row[2] != '2009-01-02':
+        raise SystemExit(f"frederick-dainty died_date is {row[2]}, expected 2009-01-02 (death index)")
+    if tuple(row[:2]) == ('1913-02-15', 'Meerut, India'):
+        print("  already set")
+    elif not row[0] and not row[1]:
+        c.execute("UPDATE people SET born_date = '1913-02-15', birth_place = 'Meerut, India' WHERE slug = 'frederick-dainty'")
+        print("  born 1913-02-15, Meerut, India")
+    else:
+        raise SystemExit(f"frederick-dainty birth is {row[0]}, {row[1]}, expected empty")
     db.commit()
     db.close()
 
